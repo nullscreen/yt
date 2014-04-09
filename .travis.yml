@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+- 2.1.1
+notifications:
+  email: false
+env:
+  global:
+    secure: FC19i/qIjqV7dzd8bZS+yc5HC3XbssU/lBn7+pNsfhsXZp2FpZ4u3v2HPCRZPZ7IsCpsLtUraq6rub290dXecEr1gzSwmaMdfvJz8f2lr1YR58BF9xnTwBUinZOcv9auhWHwCzYRQMHyILUa2NvmVqq0QzYbWVa9X1gwejqyoaQ=
+  matrix:
+    secure: EX0FinqK+va3hTUWNVk7HeFIZqwC0OFlmvW7GX+vJ//vs1Bvsqxqbo1bdqwieMVYxcRwt9cOZU8QapPPc4+v7Awo7ASCgNUo4Y7yrIkjfQdY6b2UyPo6yJw7+Mcyj9gej5hD0mBm+E/KCvvirVfDXfWedPy3Z1FovK1sVW9RqPs=
