@@ -3,10 +3,11 @@ Googol
 
 Googol lets you interact with many resources provided by Google API V3.
 
-[![Build Status](https://travis-ci.org/fullscreeninc/googol.png?branch=master)](https://travis-ci.org/fullscreeninc/googol)
-[![Code Climate](https://codeclimate.com/github/fullscreeninc/googol.png)](https://codeclimate.com/github/fullscreeninc/googol)
-[![Coverage Status](https://coveralls.io/repos/fullscreeninc/googol/badge.png)](https://coveralls.io/r/fullscreeninc/googol)
+[![Gem Version](https://badge.fury.io/rb/googol.svg)](http://badge.fury.io/rb/googol)
 [![Dependency Status](https://gemnasium.com/fullscreeninc/googol.png)](https://gemnasium.com/fullscreeninc/googol)
+[![Build Status](https://travis-ci.org/fullscreeninc/googol.png?branch=master)](https://travis-ci.org/fullscreeninc/googol)
+[![Coverage Status](https://coveralls.io/repos/fullscreeninc/googol/badge.png)](https://coveralls.io/r/fullscreeninc/googol)
+[![Code Climate](https://codeclimate.com/github/fullscreeninc/googol.png)](https://codeclimate.com/github/fullscreeninc/googol)
 
 
 ```ruby
@@ -144,6 +145,17 @@ Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
 guarantees that your project won’t occur in any error when you `bundle update`
 and a new version of Googol is released.
+
+Remember that you need to set up a Google app and include its credentials
+in order for the gem to work (see above). In a Rails project, for instance,
+you can do so by writing the following code in `config/initializer/googol.rb`:
+
+    Googol::ClientTokens.client_id = '…'
+    Googol::ClientTokens.client_secret = '…'
+    Googol::ServerTokens.server_key = '…'
+
+replacing the ellipses with your app values from the Google Developers Console.
+
 
 Why you should use Googol…
 --------------------------

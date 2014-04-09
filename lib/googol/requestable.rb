@@ -12,6 +12,8 @@ module Googol
     # Executes an HTTP request against the Google V3 API and returns the
     # parsed result or raise an error in case of failure
     #
+    # @note Not the best code quality, feel free to refactor!
+    #
     def request!(params = {})
       url = URI.parse params[:host]
       http = Net::HTTP.new url.host, url.port
