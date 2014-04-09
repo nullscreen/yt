@@ -42,9 +42,9 @@ module Googol
     #     - :description [String] The channel's description.
     #     - :publishedAt [String] The date and time that the channel was created. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format.
     #     - :thumbnails [Hash]
-    #       + :default [Hash] Default thumbnail URL (88px x 88px)
-    #       + :medium [Hash] Medium thumbnail URL (88px x 88px)
-    #       + :high [Hash] High thumbnail URL (88px x 88px)
+    #       + :default [Hash] Default thumbnail URL (channel: 88px x 88px, video: 120px x 90px)
+    #       + :medium [Hash] Medium thumbnail URL (channel: 240px x 240px, video: 320px x 180px)
+    #       + :high [Hash] High thumbnail URL (channel: 800px x 800px, video: 480px x 360px)
     def info
       @info ||= request! method: :get,
         host: 'https://www.googleapis.com',

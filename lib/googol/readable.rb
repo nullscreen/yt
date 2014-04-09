@@ -17,9 +17,17 @@ module Googol
       info[:snippet][:description]
     end
 
-    # Return the URL of the Youtube object thumbnail
-    def thumbnail_url
-      info[:snippet][:thumbnails][:default][:url]
+    # Return the URL of the thumbnail image of the Youtube channel/videp.
+    #
+    # @option size [Symbol] :default The size of the thumbnail. Valid values are:
+    #                       :default (channel: 88px x 88px, video: 120px x 90px)
+    #                       :medium (channel: 240px x 240px, video: 320px x 180px)
+    #                       :high (channel: 800px x 800px, video: 480px x 360px)
+    #
+    # @return [String] The thumbnail URL
+    def thumbnail_url(size = :default)
+      size = :default unless [:medium, :high].include? size
+      info[:snippet][:thumbnails][size][:url]
     end
 
     # Return the kind of the Youtube object (either 'channel' or 'video')
