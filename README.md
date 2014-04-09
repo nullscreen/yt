@@ -46,10 +46,10 @@ Google accounts
 ---------------
 
 Use `Googol::GoogleAccount` to send and retrieve data to Google,
-impersonating an existing Google account. Available methods:
+impersonating an existing Google account.
 
-* `email`: returns the email of a Google account
-* `name`: returns the name of a Google account
+Available instance methods are `id`, `email`, `verified_email`, `name`,
+`given_name`, `family_name`, `link`, `picture`, `gender`, `locale`, and `hd`.
 
 These methods require user authentication (see below).
 
@@ -57,9 +57,12 @@ Youtube accounts
 ----------------
 
 Use `Googol::YoutubeAccount` to send and retrieve data to Youtube,
-impersonating an existing Youtube account. Available methods:
+impersonating an existing Youtube account.
 
-* `perform!`: executes promotion actions such as: liking a video, subscribing to a channel
+Available instance methods are `id`, `title`, `description`, and `thumbnail_url`.
+
+Additionally, the `perform!` method lets you executes promotional actions as
+a Youtube account, such as liking a video or subscribing to a channel.
 
 These methods require user authentication (see below).
 
@@ -67,12 +70,9 @@ Youtube resources
 -----------------
 
 Use `Googol::YoutubeResource` to retrieve read-only information about
-public Youtube channels and videos. Available methods:
+public Youtube channels and videos.
 
-* `id`: returns the unique identifier of a Youtube channel/video
-* `title`: returns the title of a Youtube channel/video
-* `description`: returns the description of a Youtube channel/video
-* `thubmnail_url`: returns the URL of the thumbnail of a Youtube channel/video
+Available instance methods are `id`, `title`, `description`, and `thumbnail_url`.
 
 These methods require do not require user authentication.
 
@@ -89,7 +89,9 @@ Run the following command to make these tokens available to Googol:
 
 ```ruby
 require 'googol'
-Googol.authenticate_with client_id: '...', client_secret: '...', server_key: '...'
+Googol::ClientTokens.client_id = '…'
+Googol::ClientTokens.client_secret = '…'
+Googol::ServerTokens.server_key = '…'
 ```
 
 replacing the ellipses with the values from the Google Developers Console.
@@ -100,8 +102,8 @@ obtain authorization from the owner of the account you wish to impersonate:
 1. In your web site, add a link to the Google's OAuth login page. The URL is:
 
     ```ruby
-    Googol::GoogleAccount.oauth_url(url) # to impersonate a Google Account
-    Googol::YoutubeAccount.oauth_url(url) # to impersonate a Youtube Account
+    Googol::GoogleAccount.oauth_url(redirect_url) # to impersonate a Google Account
+    Googol::YoutubeAccount.oauth_url(redirect_url) # to impersonate a Youtube Account
     ```
 
 1. Upon authorization, the user is redirected to the URL passed as an argument, with an extra 'code' query parameter which can be used to impersonate the account:
@@ -124,29 +126,24 @@ obtain authorization from the owner of the account you wish to impersonate:
     account = Googol::YoutubeAccount.new(refresh_token: refresh_token) # to impersonate a Youtube Account
     ```
 
-Remember that the redirect URL you use in the app must also be registered in
-the Google Developers Console.
-Also, remember to set a Product name for your app in the Google Developers
-Console, under API & Auth > Consent screen.
+Remember to add every redirect URL that you plan to use in the Google Developers
+Console, and to set a *Product name* in Consent screen (under API & Auth).
 
 How to install
 ==============
 
 To install on your system, run
 
-  gem install googol
+    gem install googol
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-  gem 'googol', '~> 0.1.0'
+    gem 'googol', '~> 0.1.0'
 
-The googol gem follows [Semantic Versioning](http://semver.org).
-Any new release that is fully backward-compatible bumps the *patch* version (0.0.x).
-Any new version that breaks compatibility bumps the *minor* version (0.x.0)
-
-Indicating the full version in your Gemfile (*major*.*minor*.*patch*) guarantees
-that your project won’t occur in any error when you `bundle update` and a new
-version of Googol is released.
+Since the gem follows [Semantic Versioning](http://semver.org),
+indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
+guarantees that your project won’t occur in any error when you `bundle update`
+and a new version of Googol is released.
 
 Why you should use Googol…
 --------------------------
@@ -206,6 +203,20 @@ Google and Youtube accounts. They are free, so feel free to create a fake one.
 How to contribute
 =================
 
-Don’t hesitate to send code comments, issues or pull requests through GitHub!
+Before you submit a pull request, make sure all the tests are passing and the
+code is fully test-covered.
 
+To release an updated version of the gem to Rubygems, run:
+
+    rake release
+
+Remember to *bump the version* before running the command, and to document
+your changes in HISTORY.md and README.md if required.
+
+The googol gem follows [Semantic Versioning](http://semver.org).
+Any new release that is fully backward-compatible should bump the *patch* version (0.0.x).
+Any new version that breaks compatibility should bump the *minor* version (0.x.0)
+
+
+Don’t hesitate to send code comments, issues or pull requests through GitHub!
 All feedback is appreciated. A [googol](http://en.wikipedia.org/wiki/Googol) of thanks! :)
