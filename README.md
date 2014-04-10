@@ -11,10 +11,10 @@ Googol lets you interact with many resources provided by Google API V3.
 
 
 ```ruby
-channel = Googol::YoutubeResource.new url: 'youtube.com/remhq'
-channel.id #=> 'UC7eaRqtonpyiYw0Pns0Au_g'
-channel.title #=> "remhq"
-channel.description #=> "R.E.M.'s Official YouTube Channel"
+channel = Googol::YoutubeResource.new url: 'youtube.com/fullscreen'
+channel.id #=> 'UCxO1tY8h1AhOz0T4ENwmpow'
+channel.title #=> "Fullscreen"
+channel.description #=> "The first media company for the connected generation."
 ```
 
 ```ruby
@@ -35,8 +35,8 @@ account = Googol::YoutubeAccount.new auth_params
 # like the video 'Tongue'  by R.E.M.
 account.like! video_id: 'Kd5M17e7Wek'
 
-# subscribes to R.E.M.’s channel
-account.subscribe_to! channel_id: 'UC7eaRqtonpyiYw0Pns0Au_g' # => subscribes to R.E.M.’s channel
+# subscribes to Fullscreen’s channel
+account.subscribe_to! channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow' # => subscribes to Fullscreen’s channel
 
 # add the video 'Tongue' to your 'Favorite Music Videos' playlist
 playlist_id = account.find_or_create_playlist_by title: 'Favorite Music Videos'

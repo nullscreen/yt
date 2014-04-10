@@ -33,8 +33,8 @@ describe Googol::YoutubeAccount do
       expect(@account.like! video).to be
     end
 
-    it 'allows to subscribe to the R.E.M. channel for that account' do
-      channel = {channel_id: 'UC7eaRqtonpyiYw0Pns0Au_g'}
+    it 'allows to subscribe to the Fullscreen channel for that account' do
+      channel = {channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'}
       expect{@account.subscribe_to! channel}.to be_or_be_already_subscribed
     end
 
