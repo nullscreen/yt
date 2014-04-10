@@ -31,27 +31,16 @@ account.email #=> 'user@google.com'
 
 ```ruby
 account = Googol::YoutubeAccount.new auth_params
-account.like! video_id: 'Kd5M17e7Wek' # => adds 'Tongue' to your 'Liked videos'
+
+# like the video 'Tongue'  by R.E.M.
+account.like! video_id: 'Kd5M17e7Wek'
+
+# subscribes to R.E.M.’s channel
 account.subscribe_to! channel_id: 'UC7eaRqtonpyiYw0Pns0Au_g' # => subscribes to R.E.M.’s channel
+
+# add the video 'Tongue' to your 'Favorite Music Videos' playlist
 playlist_id = account.find_or_create_playlist_by title: 'Favorite Music Videos'
 account.add_to! playlist_id: playlist_id, video_id: 'Kd5M17e7Wek' # => adds 'Tongue' to your 'Favorite Music Videos' playlist
-
-# Adds a video to a playlist as a Youtube account
-#
-# @param [Hash] target The target of the 'add_to' activity
-# @option target [String] :video_id The ID of the video to add
-# @option target [String] :playlist_id The ID of the playlist to add to
-#
-# @see https://developers.google.com/youtube/v3/docs/playlistItems/insert
-#
-def add_to!(target = {})
-  video_id, playlist_id = fetch! target, :video_id, :playlist_id
-  resource = {videoId: video_id, kind: 'youtube#video'}
-  youtube_request! path: '/playlistItems?part=snippet', json: true,
-    method: :post, snippet: {playlistId: playlist_id, resourceId: resource}
-end
-
-
 ```
 
 The full documentation is available at [rubydoc.info](http://rubydoc.info/github/fullscreeninc/googol/master/frames).
