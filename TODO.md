@@ -1,0 +1,3 @@
+- [ ] Add multiple videos to a playlist
+- [ ] Edit an existing playlist (set the title or description)
+- [ ] Wait between call and call to Youtube
