@@ -1,3 +1,9 @@
+v0.2.1 - 2014/04/10
+--------------------
+
+* `account.subscribe_to!` does not raise error in case of duplicate subscription
+* Accountable objects can be initialized with the OAuth access token if there's no need to get a fresh one with a refresh token
+
 v0.2.0 - 2014/04/09
 --------------------
 
