@@ -33,9 +33,9 @@ describe Googol::YoutubeAccount do
       expect(@account.like! video).to be
     end
 
-    it 'allows to subscribe to the R.E.M. channel for that account' do
-      channel = {channel_id: 'UC7eaRqtonpyiYw0Pns0Au_g'}
-      expect{@account.subscribe_to! channel}.to be_or_be_already_subscribed
+    it 'allows to subscribe to the Fullscreen channel for that account' do
+      channel = {channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'}
+      expect{@account.subscribe_to! channel}.not_to raise_error
     end
 
     it 'does not allow to subscribe to a video (unrecognized activity)' do
@@ -75,5 +75,11 @@ describe Googol::YoutubeAccount do
     let(:account) { Googol::YoutubeAccount.new refresh_token: 'invalid' }
 
     it {expect{account.id}.to raise_error Googol::RequestError}
+  end
+
+  context 'given an auth token and not a refresh token' do
+    let(:account) { Googol::YoutubeAccount.new access_token: 'qwerty' }
+
+    it {expect(account.credentials[:access_token]).to eq 'qwerty'}
   end
 end

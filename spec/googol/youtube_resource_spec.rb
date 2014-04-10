@@ -23,9 +23,9 @@ describe Googol::YoutubeResource do
     it {expect(@channel.id).to be}
   end
 
-  context 'given the full URL for the R.E.M. channel' do
+  context 'given the full URL for the Fullscreen channel' do
     before :all do
-      url = 'https://www.youtube.com/channel/UC7eaRqtonpyiYw0Pns0Au_g'
+      url = 'https://www.youtube.com/channel/UCxO1tY8h1AhOz0T4ENwmpow'
       @channel = Googol::YoutubeResource.new url: url
     end
 
