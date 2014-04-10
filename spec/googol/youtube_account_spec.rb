@@ -35,7 +35,7 @@ describe Googol::YoutubeAccount do
 
     it 'allows to subscribe to the Fullscreen channel for that account' do
       channel = {channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'}
-      expect{@account.subscribe_to! channel}.to be_or_be_already_subscribed
+      expect{@account.subscribe_to! channel}.not_to raise_error
     end
 
     it 'does not allow to subscribe to a video (unrecognized activity)' do

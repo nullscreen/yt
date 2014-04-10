@@ -66,6 +66,8 @@ module Googol
       channel_id = fetch! target, :channel_id
       youtube_request! path: '/subscriptions?part=snippet', json: true,
         method: :post, body: {snippet: {resourceId: {channelId: channel_id}}}
+    rescue Googol::RequestError => e
+      raise e unless e.to_s =~ /subscriptionDuplicate/
     end
 
     # Return the first playlist of the Youtube account matching the attributes.

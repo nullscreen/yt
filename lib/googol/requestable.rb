@@ -1,5 +1,6 @@
 require 'uri'
 require 'json'
+require 'net/http'
 
 module Googol
   # A custom class to rescue errors from interacting with Google V3 API
