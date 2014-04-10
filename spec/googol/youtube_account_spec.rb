@@ -76,4 +76,10 @@ describe Googol::YoutubeAccount do
 
     it {expect{account.id}.to raise_error Googol::RequestError}
   end
+
+  context 'given an auth token and not a refresh token' do
+    let(:account) { Googol::YoutubeAccount.new access_token: 'qwerty' }
+
+    it {expect(account.credentials[:access_token]).to eq 'qwerty'}
+  end
 end

@@ -16,10 +16,16 @@ module Googol
     # @param [Hash] attrs Authentication credentials to access the account
     # @option attrs [String] :code The OAuth2 authorization code
     # @option attrs [String] :redirect_url The page to redirect after the OAuth2 page
+    # @option attrs [String] :access_token The authorization token for immediate access
     # @option attrs [String] :refresh_token The refresh token for offline access
+    #
+    # @note The refresh token never expires but the access token expires after 1 hour.
+    #       If the access token has expired, initialize the object again with the
+    #       refresh token.
     def initialize(attrs = {})
       @code = attrs[:code]
       @refresh_token = attrs[:refresh_token]
+      @credentials = {access_token: attrs[:access_token]} if attrs[:access_token]
       @redirect_url = attrs.fetch :redirect_url, 'http://example.com/'
     end
 
