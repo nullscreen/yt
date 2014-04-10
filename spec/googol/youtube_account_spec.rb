@@ -29,18 +29,33 @@ describe Googol::YoutubeAccount do
     end
 
     it 'allows to like the video "Tongue" by R.E.M. for that account' do
-      params = [:like, :video, 'Kd5M17e7Wek']
-      expect(@account.perform! *params).to be
+      video = {video_id: 'Kd5M17e7Wek'}
+      expect(@account.like! video).to be
     end
 
     it 'allows to subscribe to the R.E.M. channel for that account' do
-      params = [:subscribe_to, :channel, 'UC7eaRqtonpyiYw0Pns0Au_g']
-      expect{@account.perform! *params}.to be_or_be_already_subscribed
+      channel = {channel_id: 'UC7eaRqtonpyiYw0Pns0Au_g'}
+      expect{@account.subscribe_to! channel}.to be_or_be_already_subscribed
     end
 
-    it 'raises an error for unrecognized activities' do
-      params = [:kiss, :video, 'Kd5M17e7Wek']
-      expect{@account.perform! *params}.to raise_error Googol::RequestError
+    it 'does not allow to subscribe to a video (unrecognized activity)' do
+      video = {video_id: 'Kd5M17e7Wek'}
+      expect{@account.subscribe_to! video}.to raise_error Googol::RequestError
+    end
+
+    it 'allows to add the video "Tongue" to a new playlist' do
+      filters = {title: "Googol #{rand}", description: "Test", max: 1}
+      playlist_id = @account.find_or_create_playlist_by filters do |playlist|
+        expect(playlist).to be
+      end
+      params = {video_id: 'Kd5M17e7Wek', playlist_id: playlist_id}
+      expect(@account.add_to! params).to be
+    end
+
+    it 'allows to add the video "Tongue" to an existing playlist' do
+      playlist_id = @account.find_or_create_playlist_by title: //, max: 1
+      params = {video_id: 'Kd5M17e7Wek', playlist_id: playlist_id}
+      expect(@account.add_to! params).to be
     end
   end
 

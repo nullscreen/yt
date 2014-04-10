@@ -31,8 +31,27 @@ account.email #=> 'user@google.com'
 
 ```ruby
 account = Googol::YoutubeAccount.new auth_params
-account.perform! :like, :video, 'Kd5M17e7Wek' # => adds 'Tongue' to your 'Liked videos'
-account.perform! :subscribe_to, :channel, 'UC7eaRqtonpyiYw0Pns0Au_g' # => subscribes to R.E.M.’s channel
+account.like! video_id: 'Kd5M17e7Wek' # => adds 'Tongue' to your 'Liked videos'
+account.subscribe_to! channel_id: 'UC7eaRqtonpyiYw0Pns0Au_g' # => subscribes to R.E.M.’s channel
+playlist_id = account.find_or_create_playlist_by title: 'Favorite Music Videos'
+account.add_to! playlist_id: playlist_id, video_id: 'Kd5M17e7Wek' # => adds 'Tongue' to your 'Favorite Music Videos' playlist
+
+# Adds a video to a playlist as a Youtube account
+#
+# @param [Hash] target The target of the 'add_to' activity
+# @option target [String] :video_id The ID of the video to add
+# @option target [String] :playlist_id The ID of the playlist to add to
+#
+# @see https://developers.google.com/youtube/v3/docs/playlistItems/insert
+#
+def add_to!(target = {})
+  video_id, playlist_id = fetch! target, :video_id, :playlist_id
+  resource = {videoId: video_id, kind: 'youtube#video'}
+  youtube_request! path: '/playlistItems?part=snippet', json: true,
+    method: :post, snippet: {playlistId: playlist_id, resourceId: resource}
+end
+
+
 ```
 
 The full documentation is available at [rubydoc.info](http://rubydoc.info/github/fullscreeninc/googol/master/frames).
@@ -60,10 +79,8 @@ Youtube accounts
 Use `Googol::YoutubeAccount` to send and retrieve data to Youtube,
 impersonating an existing Youtube account.
 
-Available instance methods are `id`, `title`, `description`, and `thumbnail_url`.
-
-Additionally, the `perform!` method lets you executes promotional actions as
-a Youtube account, such as liking a video or subscribing to a channel.
+Available instance methods are `id`, `title`, `description`, `thumbnail_url`,
+`like!`, `subscribe_to!`, `find_or_create_playlist_by`, and `add_to!`.
 
 These methods require user authentication (see below).
 
@@ -139,7 +156,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'googol', '~> 0.1.0'
+    gem 'googol', '~> 0.2.0'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

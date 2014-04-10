@@ -35,11 +35,8 @@ module Googol
     #   * :locale [String] The account’s preferred locale.
     #   * :hd [String] The hosted domain name for the accounts’s Google Apps.
     def info
-      @info ||= request! method: :get,
-        auth: credentials[:access_token],
-        host: 'https://www.googleapis.com',
-        path: '/oauth2/v2/userinfo',
-        valid_if: -> response, body {response.code == '200'}
+      @info ||= request! auth: credentials[:access_token],
+        host: 'https://www.googleapis.com', path: '/oauth2/v2/userinfo'
     end
 
     # Define a method to return each attribute of the profile separately.

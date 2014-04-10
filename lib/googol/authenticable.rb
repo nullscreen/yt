@@ -33,10 +33,8 @@ module Googol
     #   * ...
     def credentials
       @credentials ||= request! method: :post,
-        host: 'https://accounts.google.com',
-        path: '/o/oauth2/token',
-        body: credentials_params,
-        valid_if: -> response, body {response.code == '200'}
+        host: 'https://accounts.google.com', path: '/o/oauth2/token',
+        body: credentials_params
     end
 
   private

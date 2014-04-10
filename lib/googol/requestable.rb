@@ -19,13 +19,13 @@ module Googol
       http = Net::HTTP.new url.host, url.port
       http.use_ssl = true
       request = case params[:method]
-        when :get then Net::HTTP::Get.new params[:path]
         when :post then
           if params[:json]
             Net::HTTP::Post.new params[:path], initheader = {'Content-Type' =>'application/json'}
           else
             Net::HTTP::Post.new params[:path]
           end
+        else Net::HTTP::Get.new params[:path]
       end
       if params[:json]
         request.body = params[:body].to_json
@@ -34,12 +34,12 @@ module Googol
       end if params[:body]
 
       request['Authorization'] = 'Bearer ' + params[:auth] if params[:auth]
+
       response = http.request(request)
 
       body = JSON.parse response.body if response.body
 
-      if params[:valid_if] ? params[:valid_if].call(response, body) : true
-        body = params[:extract].call body if params[:extract]
+      if response.code == params.fetch(:code, 200).to_s
         body ? deep_symbolize_keys(body) : true
       else
         raise RequestError, body
@@ -49,10 +49,18 @@ module Googol
   private
 
     def deep_symbolize_keys(hash)
+      def symbolize(value)
+        case value
+          when Hash then deep_symbolize_keys value
+          when Array then value.map{|item| symbolize item}
+          else value
+        end
+      end
+
       {}.tap do |result|
         hash.each do |k, v|
           key = k.to_sym rescue k
-          result[key] = v.is_a?(Hash) ? deep_symbolize_keys(v) : v
+          result[key] = symbolize v
         end
       end
     end

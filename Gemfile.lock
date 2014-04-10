@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    googol (0.1.1)
+    googol (0.2.0)
 
 GEM
   remote: https://rubygems.org/

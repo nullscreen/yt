@@ -46,11 +46,12 @@ module Googol
     #       + :medium [Hash] Medium thumbnail URL (channel: 240px x 240px, video: 320px x 180px)
     #       + :high [Hash] High thumbnail URL (channel: 800px x 800px, video: 480px x 360px)
     def info
-      @info ||= request! method: :get,
-        host: 'https://www.googleapis.com',
-        path: "/youtube/v3/#{info_path}",
-        valid_if: -> resp, body {resp.code == '200' && body['items'].any?},
-        extract: -> body {body['items'].first}
+      @info_response ||= request! host: 'https://www.googleapis.com', path: "/youtube/v3/#{info_path}"
+      if @info_response[:items].any?
+        @info_response[:items].first
+      else
+        raise RequestError, "Youtube resource not found at #{@url}"
+      end
     end
 
   private
