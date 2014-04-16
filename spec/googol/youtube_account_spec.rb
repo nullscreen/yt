@@ -33,16 +33,6 @@ describe Googol::YoutubeAccount do
       expect(@account.like! video).to be
     end
 
-    it 'allows to subscribe to the Fullscreen channel for that account' do
-      channel = {channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'}
-      expect{@account.subscribe_to! channel}.not_to raise_error
-    end
-
-    it 'does not allow to subscribe to a video (unrecognized activity)' do
-      video = {video_id: 'Kd5M17e7Wek'}
-      expect{@account.subscribe_to! video}.to raise_error Googol::RequestError
-    end
-
     it 'allows to delete a playlist' do
       filters = {title: "Googol #{rand}", description: "Test", max: 1}
       playlist_id = @account.find_or_create_playlist_by filters do |playlist|
