@@ -101,6 +101,17 @@ module Googol
         body: {snippet: {playlistId: playlist_id, resourceId: resource}}
     end
 
+    # Deletes a playlist of a Youtube account.
+    #
+    # @param [String] playlist_id The ID of the playlist to delete
+    #
+    # @see https://developers.google.com/youtube/v3/docs/playlists/delete
+    #
+    def delete_playlist!(playlist_id)
+      youtube_request! method: :delete, code: 204,
+        path: "/playlists?id=#{playlist_id}"
+    end
+
   private
 
     # Creates a playlist for a Youtube account and yield it to the block

@@ -43,6 +43,14 @@ describe Googol::YoutubeAccount do
       expect{@account.subscribe_to! video}.to raise_error Googol::RequestError
     end
 
+    it 'allows to delete a playlist' do
+      filters = {title: "Googol #{rand}", description: "Test", max: 1}
+      playlist_id = @account.find_or_create_playlist_by filters do |playlist|
+        expect(playlist).to be
+      end
+      expect(@account.delete_playlist! playlist_id).to be
+    end
+
     it 'allows to add the video "Tongue" to a new playlist' do
       filters = {title: "Googol #{rand}", description: "Test", max: 1}
       playlist_id = @account.find_or_create_playlist_by filters do |playlist|

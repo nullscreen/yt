@@ -26,6 +26,8 @@ module Googol
           else
             Net::HTTP::Post.new params[:path]
           end
+        when :delete then
+          Net::HTTP::Delete.new params[:path]
         else Net::HTTP::Get.new params[:path]
       end
       if params[:json]
