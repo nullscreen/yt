@@ -1,6 +1,7 @@
 require 'googol/authenticable'
 require 'googol/readable'
 require 'googol/youtube_account/playlists'
+require 'googol/youtube_account/subscriptions'
 
 module Googol
   # Provides read & write access to a Youtube account (also known as Channel).
@@ -21,6 +22,7 @@ module Googol
     include Authenticable
     include Readable
     include Playlists
+    include Subscriptions
     # Return the profile info of a Youtube account/channel.
     #
     # @see https://developers.google.com/youtube/v3/docs/channels#resource
@@ -55,21 +57,6 @@ module Googol
       video_id = fetch! target, :video_id
       path = "/videos/rate?rating=like&id=#{video_id}"
       youtube_request! path: path, method: :post, code: 204
-    end
-
-    # Subscribe a Youtube account to a channel
-    #
-    # @param [Hash] target The target of the 'subscribe' activity
-    # @option target [String] :channel_id The ID of the channel to subscribe to
-    #
-    # @see https://developers.google.com/youtube/v3/docs/subscriptions/insert
-    #
-    def subscribe_to!(target = {})
-      channel_id = fetch! target, :channel_id
-      youtube_request! path: '/subscriptions?part=snippet', json: true,
-        method: :post, body: {snippet: {resourceId: {channelId: channel_id}}}
-    rescue Googol::RequestError => e
-      raise e unless e.to_s =~ /subscriptionDuplicate/
     end
 
   private
