@@ -1,6 +1,7 @@
 require 'googol/authenticable'
 require 'googol/readable'
 require 'googol/youtube_account/playlists'
+require 'googol/youtube_account/playlist_items'
 require 'googol/youtube_account/subscriptions'
 
 module Googol
@@ -22,6 +23,7 @@ module Googol
     include Authenticable
     include Readable
     include Playlists
+    include PlaylistItems
     include Subscriptions
     # Return the profile info of a Youtube account/channel.
     #

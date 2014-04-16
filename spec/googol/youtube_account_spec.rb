@@ -32,29 +32,6 @@ describe Googol::YoutubeAccount do
       video = {video_id: 'Kd5M17e7Wek'}
       expect(@account.like! video).to be
     end
-
-    it 'allows to delete a playlist' do
-      filters = {title: "Googol #{rand}", description: "Test", max: 1}
-      playlist_id = @account.find_or_create_playlist_by filters do |playlist|
-        expect(playlist).to be
-      end
-      expect(@account.delete_playlist! playlist_id).to be
-    end
-
-    it 'allows to add the video "Tongue" to a new playlist' do
-      filters = {title: "Googol #{rand}", description: "Test", max: 1}
-      playlist_id = @account.find_or_create_playlist_by filters do |playlist|
-        expect(playlist).to be
-      end
-      params = {video_id: 'Kd5M17e7Wek', playlist_id: playlist_id}
-      expect(@account.add_to! params).to be
-    end
-
-    it 'allows to add the video "Tongue" to an existing playlist' do
-      playlist_id = @account.find_or_create_playlist_by title: //, max: 1
-      params = {video_id: 'Kd5M17e7Wek', playlist_id: playlist_id}
-      expect(@account.add_to! params).to be
-    end
   end
 
   context 'given a missing account authentication' do

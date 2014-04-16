@@ -106,7 +106,7 @@ module Googol
       if subscription = items.find{|s| subscription_belongs_to? s, filters}
         subscription[:id]
       elsif page < 10 && token = response[:nextPageToken]
-        find_subscription_by filters.merge page: page, token: token
+        find_subscription_by filters.merge page: page + 1, token: token
       elsif filters.fetch(:retries, 0) > 0
         sleep 5 * filters[:retries]
         find_subscription_by filters.merge retries: filters[:retries] - 1
