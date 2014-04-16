@@ -22,7 +22,6 @@ describe Googol::GoogleAccount do
     it {expect(@account.picture).to be}
     it {expect(@account.gender).to be}
     it {expect(@account.locale).to be}
-    it {expect(@account.hd).to be}
   end
 
   context 'given a missing account authentication' do

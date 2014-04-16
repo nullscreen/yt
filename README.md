@@ -58,7 +58,7 @@ Use `Googol::GoogleAccount` to send and retrieve data to Google,
 impersonating an existing Google account.
 
 Available instance methods are `id`, `email`, `verified_email`, `name`,
-`given_name`, `family_name`, `link`, `picture`, `gender`, `locale`, and `hd`.
+`given_name`, `family_name`, `link`, `picture`, `gender`, and `locale`.
 
 These methods require user authentication (see below).
 

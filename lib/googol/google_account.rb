@@ -33,7 +33,6 @@ module Googol
     #   * :picture [String] The URL of the account’s profile picture.
     #   * :gender [String] The account’s gender
     #   * :locale [String] The account’s preferred locale.
-    #   * :hd [String] The hosted domain name for the accounts’s Google Apps.
     def info
       @info ||= request! auth: credentials[:access_token],
         host: 'https://www.googleapis.com', path: '/oauth2/v2/userinfo'
@@ -59,7 +58,6 @@ module Googol
     attribute :picture
     attribute :gender
     attribute :locale
-    attribute :hd
 
     # Set the scopes to grant access to Google user profile and email
     #
