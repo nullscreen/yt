@@ -35,12 +35,32 @@ account = Googol::YoutubeAccount.new auth_params
 # like the video 'Tongue'  by R.E.M.
 account.like! video_id: 'Kd5M17e7Wek'
 
-# subscribes to Fullscreen’s channel
-account.subscribe_to! channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow' # => subscribes to Fullscreen’s channel
+# subscribe to Fullscreen’s channel
+account.subscribe_to! channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 
-# add the video 'Tongue' to your 'Favorite Music Videos' playlist
-playlist_id = account.find_or_create_playlist_by title: 'Favorite Music Videos'
-account.add_to! playlist_id: playlist_id, video_id: 'Kd5M17e7Wek' # => adds 'Tongue' to your 'Favorite Music Videos' playlist
+# unsubscribe from Fullscreen’s channel
+account.unsubscribe_from! channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'
+
+# create a playlist called "Fullscreen"
+account.create_playlist! title: "Fullscreen"
+
+# find the first playlist with "Fullscreen" in the title
+account.find_playlist_by title: /Fullscreen/i
+
+# delete all playlists with "Fullscreen" in the description
+account.delete_playlists! description: /Fullscreen/i
+
+# add the video 'Tongue' by R.E.M. to your 'Fullscreen' playlist
+playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
+account.add_item_to! playlist_id, video_id: 'Kd5M17e7Wek'
+
+# add a list of 3 videos by R.E.M. to your 'Fullscreen' playlist
+playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
+account.add_item_to! playlist_id, ['Kd5M17e7Wek', '3D1zWC1hs0', 'G2BCrByfZ74']
+
+# remove all the items from your 'Fullscreen' playlist
+playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
+account.remove_all_items_from! playlist_id
 ```
 
 The full documentation is available at [rubydoc.info](http://rubydoc.info/github/fullscreeninc/googol/master/frames).
@@ -145,7 +165,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'googol', '~> 0.2.1'
+    gem 'googol', '~> 0.3.0'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

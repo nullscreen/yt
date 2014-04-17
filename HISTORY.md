@@ -1,3 +1,10 @@
+v0.3.0 - 2014/04/16
+--------------------
+
+* New and improved methods to handle subscriptions, playlists, playlist items
+* `find_or_create_playlist_by` does not yield a block anymore
+* `account.subscribe_to!` does not raise error in case of duplicate subscription
+
 v0.2.1 - 2014/04/10
 --------------------
 
