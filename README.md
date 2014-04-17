@@ -56,7 +56,7 @@ account.add_item_to! playlist_id, video_id: 'Kd5M17e7Wek'
 
 # add a list of 3 videos by R.E.M. to your 'Fullscreen' playlist
 playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
-account.add_item_to! playlist_id, ['Kd5M17e7Wek', '3D1zWC1hs0', 'G2BCrByfZ74']
+account.add_videos_to! playlist_id, ['Kd5M17e7Wek', '3D1zWC1hs0', 'G2BCrByfZ74']
 
 # remove all the items from your 'Fullscreen' playlist
 playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
@@ -89,7 +89,9 @@ Use `Googol::YoutubeAccount` to send and retrieve data to Youtube,
 impersonating an existing Youtube account.
 
 Available instance methods are `id`, `title`, `description`, `thumbnail_url`,
-`like!`, `subscribe_to!`, `find_or_create_playlist_by`, and `add_to!`.
+`like!`, `subscribe_to!`, `create_playlist!`, `find_playlist_by`,
+`find_or_create_playlist_by`, `update_playlist!`, `delete_playlists!`,
+`add_item_to!`, `remove_all_items_from`, and `add_videos_to!`.
 
 These methods require user authentication (see below).
 
