@@ -20,15 +20,20 @@ module Googol
       http = Net::HTTP.new url.host, url.port
       http.use_ssl = true
       request = case params[:method]
-        when :post then
-          if params[:json]
-            Net::HTTP::Post.new params[:path], initheader = {'Content-Type' =>'application/json'}
-          else
-            Net::HTTP::Post.new params[:path]
-          end
-        when :delete then
-          Net::HTTP::Delete.new params[:path]
-        else Net::HTTP::Get.new params[:path]
+      when :post
+        if params[:json]
+          Net::HTTP::Post.new params[:path], initheader = {'Content-Type' =>'application/json'}
+        else
+          Net::HTTP::Post.new params[:path]
+        end
+      when :delete
+        Net::HTTP::Delete.new params[:path]
+      when :put
+        if params[:json]
+          Net::HTTP::Put.new params[:path], initheader = {'Content-Type' =>'application/json'}
+        end
+      else
+        Net::HTTP::Get.new params[:path]
       end
       if params[:json]
         request.body = params[:body].to_json

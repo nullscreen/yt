@@ -68,6 +68,47 @@ module Googol
       find_playlist_by(filters) || create_playlist!(filters)
     end
 
+    # Updates a playlist for a Youtube account
+    #
+    # @param [String] playlist_id The ID of the playlist to update
+    # @param [Hash] attributes The attributes to update in the playlist
+    # @option attributes [String] :title Title of the playlist
+    # @option attributes [String] :description Description of the playlist
+    # @option attributes [Boolean] :public Should the playlist be public
+    #
+    # @note For some unknown reason, Google API *requires* to pass the new
+    #       title, even if it does not change. Therefore the attrs[:title]
+    #       *is required*, otherwise Google API fails (sigh)
+
+    # @return [String] The ID of the playlist
+    #
+    # @see https://developers.google.com/youtube/v3/docs/playlists/update
+    #
+    def update_playlist!(playlist_id, attrs = {})
+      body = {id: playlist_id}
+      parts = []
+
+      if attrs.key? :title
+        body[:snippet] = {title: attrs[:title]}
+        parts << 'snippet'
+      else
+        raise RequestError, "Cannot update a playlist without a title"
+      end
+
+      if attrs.key? :description
+        body[:snippet][:description] = attrs[:description]
+      end
+
+      if attrs.key? :public
+        body[:status] = {privacyStatus: attrs[:public] ? 'public' : 'private'}
+        parts << 'status'
+      end
+
+      playlist = youtube_request! json: true, method: :put,
+        path: "/playlists?part=#{parts.join ','}", body: body
+      playlist[:id]
+    end
+
     # Delete all the playlists of the Youtube account matching the filters.
     #
     # @param [Hash] filters The filter to query the list of playlists with.
