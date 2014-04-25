@@ -91,7 +91,7 @@ impersonating an existing Youtube account.
 Available instance methods are `id`, `title`, `description`, `thumbnail_url`,
 `like!`, `subscribe_to!`, `create_playlist!`, `find_playlist_by`,
 `find_or_create_playlist_by`, `update_playlist!`, `delete_playlists!`,
-`add_item_to!`, `remove_all_items_from`, and `add_videos_to!`.
+`add_item_to!`, `remove_all_items_from!`, and `add_videos_to!`.
 
 These methods require user authentication (see below).
 
