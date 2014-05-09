@@ -14,12 +14,12 @@ module Yt
           item.delete
         end.tap { @items = [] }
       end
-      
+
       def where(params = {})
         list.find_all do |item|
           params.all? do |method, value|
             # TODO: could be symbol etc...
-            item.respond_to?(method) && item.send(method) == value
+            item.respond_to?(method) && item.send(method) =~ value
           end
         end
       end
