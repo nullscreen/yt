@@ -37,7 +37,8 @@ module Yt
       # wait some time before requesting it again.
       #
       def throttle(seconds = 9)
-        wait = [(@last_changed_at ||= Time.now) - Time.now + seconds, 0].max
+        @last_changed_at ||= Time.now - seconds
+        wait = [@last_changed_at - Time.now + seconds, 0].max
         sleep wait
         @last_changed_at = Time.now
       end
