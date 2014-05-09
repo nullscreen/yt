@@ -1,192 +1,290 @@
-Googol
-======
+Yt
+==
 
-Googol lets you interact with many resources provided by Google API V3.
+Yt helps you write apps that need to interact with the YouTube API V3.
 
-[![Gem Version](https://badge.fury.io/rb/googol.svg)](http://badge.fury.io/rb/googol)
-[![Dependency Status](https://gemnasium.com/fullscreeninc/googol.png)](https://gemnasium.com/fullscreeninc/googol)
-[![Build Status](https://travis-ci.org/fullscreeninc/googol.png?branch=master)](https://travis-ci.org/fullscreeninc/googol)
-[![Coverage Status](https://coveralls.io/repos/fullscreeninc/googol/badge.png)](https://coveralls.io/r/fullscreeninc/googol)
-[![Code Climate](https://codeclimate.com/github/fullscreeninc/googol.png)](https://codeclimate.com/github/fullscreeninc/googol)
+[![Gem Version](https://badge.fury.io/rb/yt.svg)](http://badge.fury.io/rb/yt)
+[![Dependency Status](https://gemnasium.com/fullscreeninc/yt.png)](https://gemnasium.com/fullscreeninc/yt)
+[![Build Status](https://travis-ci.org/fullscreeninc/yt.png?branch=master)](https://travis-ci.org/fullscreeninc/yt)
+[![Coverage Status](https://coveralls.io/repos/fullscreeninc/yt/badge.png)](https://coveralls.io/r/fullscreeninc/yt)
+[![Code Climate](https://codeclimate.com/github/fullscreeninc/yt.png)](https://codeclimate.com/github/fullscreeninc/yt)
 
+After [registering your app], you can run commands like:
 
 ```ruby
-channel = Googol::YoutubeResource.new url: 'youtube.com/fullscreen'
-channel.id #=> 'UCxO1tY8h1AhOz0T4ENwmpow'
+channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 channel.title #=> "Fullscreen"
 channel.description #=> "The first media company for the connected generation."
+channel.videos.count #=> 12
 ```
 
 ```ruby
-video = Googol::YoutubeResource.new url: 'youtu.be/Kd5M17e7Wek'
-video.id #=> 'Kd5M17e7Wek'
-video.title #=> "R.E.M. - Tongue (Video)"
-video.description #=> "© 2006 WMG\nTongue (Video)"
+video = Yt::Video.new id: 'MESycYJytkU'
+video.title #=> "Fullscreen Creator Platform"
+video.duration #=> 86
+video.annotations.count #=> 1
 ```
+
+The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/fullscreeninc/yt/master/frames).
+
+Available resources
+===================
+
+Yt::Account
+-----------
+
+Use [Yt::Account](link to doc) to:
+
+* authenticate as a YouTube account
+* read attributes of the account
+* access the YouTube channel of the account
 
 ```ruby
-account = Googol::GoogleAccount.new auth_params
-account.email #=> 'user@google.com'
+account = Yt::Account.new
+
+# An OAuth2 prompt will appear before the following commands
+account.email #=> .. your e-mail address..
+account.channel #=> #<Yt::Channel @id=...>
 ```
+
+*All the above methods require authentication (see below).*
+
+Yt::Channel
+-----------
+
+Use [Yt::Channel](link to doc) to:
+
+* read attributes of a channel
+* access the videos of a channel
+* access the playlists of a channel
+* subscribe to and unsubscribe from a channel
+* create and delete playlists from a channel
 
 ```ruby
-account = Googol::YoutubeAccount.new auth_params
+channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
+channel.title #=> "Fullscreen"
+channel.description.has_link_to_playlist? #=> false
 
-# like the video 'Tongue'  by R.E.M.
-account.like! video_id: 'Kd5M17e7Wek'
+channel.videos.count #=> 12
+channel.videos.first #=> #<Yt::Video @id=...>
 
-# subscribe to Fullscreen’s channel
-account.subscribe_to! channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'
+channel.playlists.count #=> 2
+channel.playlists.first #=> #<Yt::Playlist @id=...>
 
-# unsubscribe from Fullscreen’s channel
-account.unsubscribe_from! channel_id: 'UCxO1tY8h1AhOz0T4ENwmpow'
+# An OAuth2 prompt will appear before the following commands
+channel.subscribed? #=> false
+channel.subscribe #=> true
 
-# create a playlist called "Fullscreen"
-account.create_playlist! title: "Fullscreen"
+channel.create_playlist title: 'New playlist' #=> true
+channel.delete_playlists title: 'New playlist' #=> [true]
 
-# find the first playlist with "Fullscreen" in the title
-account.find_playlist_by title: /Fullscreen/i
-
-# delete all playlists with "Fullscreen" in the description
-account.delete_playlists! description: /Fullscreen/i
-
-# add the video 'Tongue' by R.E.M. to your 'Fullscreen' playlist
-playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
-account.add_item_to! playlist_id, video_id: 'Kd5M17e7Wek'
-
-# add a list of 3 videos by R.E.M. to your 'Fullscreen' playlist
-playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
-account.add_videos_to! playlist_id, ['Kd5M17e7Wek', '3D1zWC1hs0', 'G2BCrByfZ74']
-
-# remove all the items from your 'Fullscreen' playlist
-playlist_id = account.find_or_create_playlist_by title: 'Fullscreen'
-account.remove_all_items_from! playlist_id
 ```
 
-The full documentation is available at [rubydoc.info](http://rubydoc.info/github/fullscreeninc/googol/master/frames).
+*Subscribing to and unsubscribing from a channel requires authentication (see below).*
 
-Available classes
-=================
+Yt::Video
+-----------
 
-Googol exposes three different resources provided by Google API V3:
-Google Accounts, Youtube Accounts and Youtube Resources.
+Use [Yt::Video](link to doc) to:
 
-Google accounts
----------------
-
-Use `Googol::GoogleAccount` to send and retrieve data to Google,
-impersonating an existing Google account.
-
-Available instance methods are `id`, `email`, `verified_email`, `name`,
-`given_name`, `family_name`, `link`, `picture`, `gender`, and `locale`.
-
-These methods require user authentication (see below).
-
-Youtube accounts
-----------------
-
-Use `Googol::YoutubeAccount` to send and retrieve data to Youtube,
-impersonating an existing Youtube account.
-
-Available instance methods are `id`, `title`, `description`, `thumbnail_url`,
-`like!`, `subscribe_to!`, `create_playlist!`, `find_playlist_by`,
-`find_or_create_playlist_by`, `update_playlist!`, `delete_playlists!`,
-`add_item_to!`, `remove_all_items_from!`, and `add_videos_to!`.
-
-These methods require user authentication (see below).
-
-Youtube resources
------------------
-
-Use `Googol::YoutubeResource` to retrieve read-only information about
-public Youtube channels and videos.
-
-Available instance methods are `id`, `title`, `description`, and `thumbnail_url`.
-
-These methods require do not require user authentication.
-
-Authentication
-==============
-
-In order to use Googol you must register your app in the [Google Developers Console](https://console.developers.google.com):
-
-1. Create a new app and enable access to Google+ API and YouTube Data API V3
-1. Generate a new OAuth client ID (web application) and write down the `client ID` and `client secret`
-1. Generate a new Public API access key (for server application) and write down the `server key`
-
-Run the following command to make these tokens available to Googol:
+* read attributes of a video
+* access the annotations of a video
+* like and dislike a video
 
 ```ruby
-require 'googol'
-Googol::ClientTokens.client_id = '…'
-Googol::ClientTokens.client_secret = '…'
-Googol::ServerTokens.server_key = '…'
+video = Yt::Video.new id: 'MESycYJytkU'
+video.title #=> "Fullscreen Creator Platform"
+video.duration #=> 63
+video.description.has_link_to_subscribe? #=> false
+
+video.annotations.count #=> 1
+video.annotations.first #=> #<Yt::Annotation @id=...>
+
+# An OAuth2 prompt will appear before the following commands
+video.liked? #=> false
+video.like #=> true
 ```
 
-replacing the ellipses with the values from the Google Developers Console.
+*Liking and disliking a video requires authentication (see below).*
 
-For actions that impersonate a Google or Youtube account, you also need to
-obtain authorization from the owner of the account you wish to impersonate:
+Yt::Playlist
+------------
 
-1. In your web site, add a link to the Google's OAuth login page. The URL is:
+Use [Yt::Playlist](link to doc) to:
 
-    ```ruby
-    Googol::GoogleAccount.oauth_url(redirect_url) # to impersonate a Google Account
-    Googol::YoutubeAccount.oauth_url(redirect_url) # to impersonate a Youtube Account
-    ```
+* read attributes of a playlist
+* access the items of a playlist
+* add one or multiple videos to a playlist
+* delete items from a playlist
 
-1. Upon authorization, the user is redirected to the URL passed as an argument, with an extra 'code' query parameter which can be used to impersonate the account:
+```ruby
+playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
+playlist.title #=> "Fullscreen Features"
+playlist.public? #=> true
 
-    ```ruby
-    account = Googol::GoogleAccount.new(code: code, redirect_uri: url) # to impersonate a Google Account
-    account = Googol::YoutubeAccount.new(code: code, redirect_uri: url) # to impersonate a Youtube Account
-    ```
+playlist.playlist_items.count #=> 1
+playlist.playlist_items.first #=> #<Yt::PlaylistItem @id=...>
+playlist.playlist_items.first.position #=> 0
+playlist.playlist_items.first.video.title #=> "Fullscreen Creator Platform"
+playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 
-1. To prevent the user from having to authorize the app every time, store the account’s refresh_token in your database:
+# An OAuth2 prompt will appear before the following commands
+playlist.add_video 'MESycYJytkU'
+playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
+```
 
-    ```ruby
-    refresh_token = account.credentials[:refresh_token] # Store to your DB
-    ```
+*Adding videos requires authentication (see below).*
 
-1. To impersonate an account that has already authorized your app, just use the refresh_token:
 
-    ```ruby
-    account = Googol::GoogleAccount.new(refresh_token: refresh_token) # to impersonate a Google Account
-    account = Googol::YoutubeAccount.new(refresh_token: refresh_token) # to impersonate a Youtube Account
-    ```
+Yt::Annotation
+--------------
 
-Remember to add every redirect URL that you plan to use in the Google Developers
-Console, and to set a *Product name* in Consent screen (under API & Auth).
+Use [Yt::Annotation](link to doc) to:
+
+* read attributes of an annotation
+
+```ruby
+video = Yt::Video.new id: 'MESycYJytkU'
+annotation = video.annotations.first
+
+annotation.below? 70 #=> false
+annotation.has_link_to_subscribe? #=> false
+annotation.has_link_to_playlist? #=> true
+```
+
+*Annotations do not require authentication.*
+
+Registering your app
+====================
+
+In order to use Yt you must register your app in the [Google Developers Console](https://console.developers.google.com).
+Depending on the nature of your app, you should pick one of the following strategies.
+
+Apps that do not require user interactions
+------------------------------------------
+
+If you are building a read-only app that fetches public data from YouTube, then
+generate a **Public API access** key in the Google Console, then add the following
+snippet of code to the initializer of your app:
+
+```ruby
+Yt.configure do |config|
+  config.scenario = :server_app
+  config.api_key = '123456789012345678901234567890'
+end
+```
+
+replacing the value above with your own key for server application.
+
+Remember: this kind of app is not allowed to perform any destructive operation,
+so you won’t be able to like a video, subscribe to a channel or delete a
+playlist from a specific account. You will only be able to retrieve read-only
+data.
+
+Web apps that do require user interactions
+------------------------------------------
+
+If you are building a web app that manages YouTube accounts, you need the
+owner of each account to authorize your app. There are three scenarios:
+
+Scenario 1. If you already have the account’s **access token**, then you are ready to go.
+Just pass that access token to the account initializer, such as:
+
+```ruby
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
+account.email #=> (retrieves the account’s e-mail address)
+account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
+```
+
+Scenario 2. If you don’t have the account’s access token, but you have the
+**refresh token**, then it’s almost as easy.
+Open the [Google Developers Console](https://console.developers.google.com),
+find the client ID and client secret of the **web application** that you used to obtain the
+refresh token, then add the following snippet of code to the initializer of your app:
+
+```ruby
+Yt.configure do |config|
+  config.client_id = '1234567890.apps.googleusercontent.com
+  config.client_secret = '1234567890'
+end
+```
+
+replacing the values above with the client ID and secret for web application.
+Then you can manage a YouTube account by passing the refresh token to the
+account initializer, such as:
+
+```ruby
+account = Yt::Account.new refresh_token: '1/1234567890'
+account.email #=> (retrieves the account’s e-mail address)
+account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
+```
+
+Scenario 3. If you don’t have the account’s refresh token, then [..TODO..]
+
+
+Device apps that do require user interactions
+---------------------------------------------
+
+These apps are equivalent to web apps. The only difference is the interface
+that Google uses to ask people to authenticate.
+
+
+Scenario 1. If you already have the account’s **access token**, then you are ready to go.
+Just pass that access token to the account initializer, such as:
+
+```ruby
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
+account.email #=> (retrieves the account’s e-mail address)
+account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
+```
+
+Scenario 2. If you don’t have the account’s access token, but you have the
+**refresh token**, then it’s almost as easy.
+Open the [Google Developers Console](https://console.developers.google.com),
+find the client ID and client secret of the **native application** that you used to obtain the
+refresh token, then add the following snippet of code to the initializer of your app:
+
+```ruby
+Yt.configure do |config|
+  config.scenario = :device_app
+  config.client_id = '1234567890.apps.googleusercontent.com
+  config.client_secret = '1234567890'
+end
+```
+
+replacing the values above with the client ID and secret for web application.
+Then you can manage a YouTube account by passing the refresh token to the
+account initializer, such as:
+
+```ruby
+account = Yt::Account.new refresh_token: '1/1234567890'
+account.email #=> (retrieves the account’s e-mail address)
+account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
+```
+
+Scenario 3. If you don’t have the account’s refresh token, then [..TODO..]
+
+
+
 
 How to install
 ==============
 
 To install on your system, run
 
-    gem install googol
+    gem install yt
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'googol', '~> 0.3.0'
+    gem 'yt', '~> 0.4.3'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
 guarantees that your project won’t occur in any error when you `bundle update`
-and a new version of Googol is released.
+and a new version of Yt is released.
 
-Remember that you need to set up a Google app and include its credentials
-in order for the gem to work (see above). In a Rails project, for instance,
-you can do so by writing the following code in `config/initializer/googol.rb`:
-
-    Googol::ClientTokens.client_id = '…'
-    Googol::ClientTokens.client_secret = '…'
-    Googol::ServerTokens.server_key = '…'
-
-replacing the ellipses with your app values from the Google Developers Console.
-
-
-Why you should use Googol…
---------------------------
+Why you should use Yt…
+-----------------------
 
 … and not [youtube_it](https://github.com/kylejginavan/youtube_it)?
 Because youtube_it does not support Google API V3 and the previous version
@@ -196,49 +294,15 @@ has already been deprecated by Google and will soon be dropped.
 Because Google Api Client is poorly coded, poorly documented and adds many
 dependencies, bloating the size of your project.
 
-… and not your own code? Because Googol is fully tested, well documented,
+… and not your own code? Because Yt is fully tested, well documented,
 has few dependencies and helps you forget about the burden of dealing with
 Google API!
 
 How to test
 ===========
 
-To run the tests, you must give the test app permissions to access your
-Google and Youtube accounts. They are free, so feel free to create a fake one.
+[ TO DO ]
 
-1. Run the following commands in a ruby session:
-
-    ```ruby
-    require 'googol'
-    Googol::GoogleAccount.oauth_url  # => "https://accounts.google.com/o..."
-    ```
-
-1. Copy the last URL in a browser, and accept the terms. You will be redirected to a URL like http://example.com/?code=ABCDE
-
-1. Copy the `code` parameter (ABCDE in the example above) and run:
-
-    ```ruby
-    account = Googol::GoogleAccount.new code: 'ABCDE'
-    account.credentials[:refresh_token]
-    ```
-
-1. Copy the token returned by the last command (something like 1AUJZh2x1...) and store it in an environment variable before running the test suite:
-
-    ```ruby
-    export GOOGOL_TEST_GOOGLE_REFRESH_TOKEN="1AUJZh2x1..."
-    ```
-
-1. Repeat all the steps above replacing GoogleAccount with YoutubeAccount to authorize access to your Youtube account:
-
-    ```ruby
-    export GOOGOL_TEST_YOUTUBE_REFRESH_TOKEN="2B6T5x23..."
-    ```
-
-1. Finally run the tests running `rspec` or `rake`. If you prefer not to set environment variables, pass the refresh token in the same line:
-
-    ```ruby
-    GOOGOL_TEST_GOOGLE_REFRESH_TOKEN="1AUJZh2x1..." GOOGOL_TEST_YOUTUBE_REFRESH_TOKEN="2B6T5x23..." rspec
-    ```
 
 How to contribute
 =================
@@ -253,10 +317,9 @@ To release an updated version of the gem to Rubygems, run:
 Remember to *bump the version* before running the command, and to document
 your changes in HISTORY.md and README.md if required.
 
-The googol gem follows [Semantic Versioning](http://semver.org).
+The yt gem follows [Semantic Versioning](http://semver.org).
 Any new release that is fully backward-compatible should bump the *patch* version (0.0.x).
 Any new version that breaks compatibility should bump the *minor* version (0.x.0)
-
 
 Don’t hesitate to send code comments, issues or pull requests through GitHub!
 All feedback is appreciated. A [googol](http://en.wikipedia.org/wiki/Googol) of thanks! :)
