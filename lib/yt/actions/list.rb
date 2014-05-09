@@ -4,7 +4,7 @@ module Yt
   module Actions
     module List
 
-      delegate :count, :first, :any?, :each, :map, to: :list
+      delegate :count, :first, :any?, :each, :map, :find, to: :list
       alias size count
 
     private
