@@ -1,3 +1,11 @@
-- [ ] Add multiple videos to a playlist
-- [ ] Edit an existing playlist (set the title or description)
-- [ ] Wait between call and call to Youtube
+* find by url (either video or channel or.. playlist)
+* Google accounts?
+* ENV support
+
+* add has_one :status to video
+
+* operations like subscribe that require authentication should not fail if
+called on Yt::Channel without auth but, similarly to account, show the prompt
+or ask for the device code
+
+* scope

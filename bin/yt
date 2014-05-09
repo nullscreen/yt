@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'yt'
+rescue LoadError
+  require 'rubygems'
+  require 'yt'
+end
+
+############################
+
+Yt.configure do |config|
+  config.scenario = :server_app
+  config.api_key = ENV['YT_TEST_APP_SERVER_API_KEY']
+end
+
+############################
+
+channel = Yt::Channel.new id: ARGV[0] || 'UCxO1tY8h1AhOz0T4ENwmpow'
+
+puts "Title: #{channel.title}"
+puts "Description: #{channel.description}"
+puts "Thumbnail: #{channel.thumbnail_url}"
+puts "Videos: "
+channel.videos.each do |video|
+  puts "  Annotations: #{video.annotations.count}"
+  puts "  Duration: #{video.duration}s"
+  puts "  Title: #{video.title}"
+  puts "  Description: #{video.description}"
+  puts "  Thumbnail: #{video.thumbnail_url}"
+end
