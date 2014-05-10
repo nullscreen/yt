@@ -6,7 +6,7 @@ Yt helps you write apps that need to interact with the YouTube API V3.
 [![Gem Version](https://badge.fury.io/rb/yt.svg)](http://badge.fury.io/rb/yt)
 [![Dependency Status](https://gemnasium.com/fullscreeninc/yt.png)](https://gemnasium.com/fullscreeninc/yt)
 [![Build Status](https://travis-ci.org/fullscreeninc/yt.png?branch=master)](https://travis-ci.org/fullscreeninc/yt)
-[![Coverage Status](https://coveralls.io/repos/fullscreeninc/yt/badge.png)](https://coveralls.io/r/fullscreeninc/yt)
+[![Coverage Status](https://coveralls.io/repos/fullscreeninc/yt/badge.png?)](https://coveralls.io/r/fullscreeninc/yt)
 [![Code Climate](https://codeclimate.com/github/fullscreeninc/yt.png)](https://codeclimate.com/github/fullscreeninc/yt)
 
 After [registering your app](#registering-your-app), you can run commands like:
