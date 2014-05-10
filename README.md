@@ -9,7 +9,7 @@ Yt helps you write apps that need to interact with the YouTube API V3.
 [![Coverage Status](https://coveralls.io/repos/fullscreeninc/yt/badge.png)](https://coveralls.io/r/fullscreeninc/yt)
 [![Code Climate](https://codeclimate.com/github/fullscreeninc/yt.png)](https://codeclimate.com/github/fullscreeninc/yt)
 
-After [registering your app], you can run commands like:
+After [registering your app](#registering-your-app), you can run commands like:
 
 ```ruby
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
@@ -126,14 +126,14 @@ playlist.playlist_items.count #=> 1
 playlist.playlist_items.first #=> #<Yt::PlaylistItem @id=...>
 playlist.playlist_items.first.position #=> 0
 playlist.playlist_items.first.video.title #=> "Fullscreen Creator Platform"
-playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 
 # An OAuth2 prompt will appear before the following commands
 playlist.add_video 'MESycYJytkU'
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
+playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 ```
 
-*Adding videos requires authentication (see below).*
+*Adding and removing videos/items requires authentication (see below).*
 
 
 Yt::Annotation
@@ -204,7 +204,7 @@ refresh token, then add the following snippet of code to the initializer of your
 
 ```ruby
 Yt.configure do |config|
-  config.client_id = '1234567890.apps.googleusercontent.com
+  config.client_id = '1234567890.apps.googleusercontent.com'
   config.client_secret = '1234567890'
 end
 ```
@@ -247,7 +247,7 @@ refresh token, then add the following snippet of code to the initializer of your
 ```ruby
 Yt.configure do |config|
   config.scenario = :device_app
-  config.client_id = '1234567890.apps.googleusercontent.com
+  config.client_id = '1234567890.apps.googleusercontent.com'
   config.client_secret = '1234567890'
 end
 ```
@@ -322,4 +322,4 @@ Any new release that is fully backward-compatible should bump the *patch* versio
 Any new version that breaks compatibility should bump the *minor* version (0.x.0)
 
 Don’t hesitate to send code comments, issues or pull requests through GitHub!
-All feedback is appreciated. A [yt](http://en.wikipedia.org/wiki/Googol) of thanks! :)
+All feedback is appreciated. A [googol](http://en.wikipedia.org/wiki/Googol) of thanks! :)
