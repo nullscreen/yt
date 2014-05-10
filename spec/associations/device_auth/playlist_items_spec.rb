@@ -36,7 +36,7 @@ describe Yt::Associations::PlaylistItems, scenario: :device_app do
     let(:video_id) { 'MESycYJytkU' }
     before { @playlist.add_video video_id }
 
-    it { expect(@playlist.delete_playlist_items.compact).to eq [true] }
+    it { expect(@playlist.delete_playlist_items.uniq).to eq [true] }
     it { expect{@playlist.delete_playlist_items}.to change{@playlist.playlist_items.count} }
   end
 end

@@ -25,6 +25,7 @@ describe Yt::Associations::Playlists, scenario: :device_app do
     let(:params) { {title: "Yt Test Delete Playlist #{rand}" } }
     before { account.create_playlist params }
 
+    it { expect(account.delete_playlists title: %r{#{params[:title]}}).to eq [true] }
     it { expect(account.delete_playlists params).to eq [true] }
     it { expect{account.delete_playlists params}.to change{account.playlists.count}.by(-1) }
   end
