@@ -4,10 +4,10 @@ Yt
 Yt helps you write apps that need to interact with the YouTube API V3.
 
 [![Gem Version](https://badge.fury.io/rb/yt.svg)](http://badge.fury.io/rb/yt)
-[![Dependency Status](https://gemnasium.com/fullscreeninc/googol.png)](https://gemnasium.com/fullscreeninc/googol)
-[![Build Status](https://travis-ci.org/fullscreeninc/googol.png?branch=master)](https://travis-ci.org/fullscreeninc/googol)
-[![Coverage Status](https://coveralls.io/repos/fullscreeninc/googol/badge.png)](https://coveralls.io/r/fullscreeninc/googol)
-[![Code Climate](https://codeclimate.com/github/fullscreeninc/googol.png)](https://codeclimate.com/github/fullscreeninc/googol)
+[![Dependency Status](https://gemnasium.com/fullscreeninc/yt.png)](https://gemnasium.com/fullscreeninc/yt)
+[![Build Status](https://travis-ci.org/fullscreeninc/yt.png?branch=master)](https://travis-ci.org/fullscreeninc/yt)
+[![Coverage Status](https://coveralls.io/repos/fullscreeninc/yt/badge.png)](https://coveralls.io/r/fullscreeninc/yt)
+[![Code Climate](https://codeclimate.com/github/fullscreeninc/yt.png)](https://codeclimate.com/github/fullscreeninc/yt)
 
 After [registering your app], you can run commands like:
 
@@ -322,4 +322,4 @@ Any new release that is fully backward-compatible should bump the *patch* versio
 Any new version that breaks compatibility should bump the *minor* version (0.x.0)
 
 Don’t hesitate to send code comments, issues or pull requests through GitHub!
-All feedback is appreciated. A [googol](http://en.wikipedia.org/wiki/Googol) of thanks! :)
+All feedback is appreciated. A [yt](http://en.wikipedia.org/wiki/Googol) of thanks! :)
