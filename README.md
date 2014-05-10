@@ -33,7 +33,7 @@ Available resources
 Yt::Account
 -----------
 
-Use [Yt::Account](link to doc) to:
+Use [Yt::Account](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Account) to:
 
 * authenticate as a YouTube account
 * read attributes of the account
@@ -52,7 +52,7 @@ account.channel #=> #<Yt::Channel @id=...>
 Yt::Channel
 -----------
 
-Use [Yt::Channel](link to doc) to:
+Use [Yt::Channel](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Channel) to:
 
 * read attributes of a channel
 * access the videos of a channel
@@ -85,7 +85,7 @@ channel.delete_playlists title: 'New playlist' #=> [true]
 Yt::Video
 -----------
 
-Use [Yt::Video](link to doc) to:
+Use [Yt::Video](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Video) to:
 
 * read attributes of a video
 * access the annotations of a video
@@ -110,7 +110,7 @@ video.like #=> true
 Yt::Playlist
 ------------
 
-Use [Yt::Playlist](link to doc) to:
+Use [Yt::Playlist](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Playlist) to:
 
 * read attributes of a playlist
 * access the items of a playlist
@@ -139,7 +139,7 @@ playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 Yt::Annotation
 --------------
 
-Use [Yt::Annotation](link to doc) to:
+Use [Yt::Annotation](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Annotation) to:
 
 * read attributes of an annotation
 
