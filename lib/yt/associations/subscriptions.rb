@@ -16,22 +16,18 @@ module Yt
 
       def subscribe
         subscriptions.insert ignore_duplicates: true
-        subscribed?
       end
 
       def subscribe!
         subscriptions.insert
-        subscribed?
       end
 
       def unsubscribe
         subscriptions.delete_all({}, ignore_not_found: true)
-        !subscribed?
       end
 
       def unsubscribe!
         subscriptions.delete_all
-        !subscribed?
       end
     end
   end
