@@ -13,7 +13,8 @@ module Yt
       end
 
       def delete_all(params = {}, options = {})
-        do_delete_all(params) {throttle}
+        throttle
+        do_delete_all params
       end
 
     private
@@ -27,7 +28,7 @@ module Yt
       # To overcome this, if we have just updated the subscription, we must
       # wait some time before requesting it again.
       #
-      def throttle(seconds = 10)
+      def throttle(seconds = 9)
         @last_changed_at ||= Time.now - seconds
         wait = [@last_changed_at - Time.now + seconds, 0].max
         sleep wait

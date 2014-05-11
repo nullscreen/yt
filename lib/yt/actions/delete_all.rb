@@ -10,7 +10,6 @@ module Yt
 
       def do_delete_all(params = {})
         where(params).map do |item|
-          yield item if block_given?
           item.delete
         end.tap { @items = [] }
       end

@@ -1,7 +1,7 @@
 require 'net/http' # for Net::HTTP.start
 require 'uri' # for URI.json
 require 'json' # for JSON.parse
-require 'active_support/core_ext/hash/conversions' # for Hash.from_xml
+require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
 
 require 'yt/actions/request_error'
 require 'yt/config'
@@ -24,10 +24,8 @@ module Yt
       add_authorization_to_request!
       fetch_response.tap do |response|
         response.body = parse_format response.body if response.body
-        unless response.is_a? Net::HTTPSuccess
-          # puts "You can try again running #{to_curl}"
-          raise RequestError, response.body
-        end
+        # puts "You can try again running #{to_curl}"
+        raise RequestError, response.body unless response.is_a? Net::HTTPSuccess
       end
     end
 
@@ -55,19 +53,18 @@ module Yt
     def fetch_response
       Net::HTTP.start(@uri.host, @uri.port, use_ssl: true) do |http|
         klass = "Net::HTTP::#{@method.capitalize}".constantize
-        request = if @body_type == :json
-          klass.new @uri, initheader = {'Content-Type' =>'application/json'}
-        else
-          klass.new @uri
+        request = klass.new @uri.request_uri
+        case @body_type
+        when :json
+          request.initialize_http_header 'Content-Type' => 'application/json'
+          request.initialize_http_header 'Content-length' => '0' unless @body
+          request.body = @body.to_json if @body
+        when :form
+          request.set_form_data @body if @body
         end
         @headers.each{|k,v| request.add_field k, v}
-        case @body_type
-          when :json then request.body = @body.to_json
-          when :form then request.set_form_data @body
-        end if @body
 
         http.request request
-        # NOTE! Here refresh the token if the access is expired
       end
     end
 
