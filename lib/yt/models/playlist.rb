@@ -1,18 +1,8 @@
-require 'yt/models/base'
+require 'yt/models/resource'
 
 module Yt
-  class Playlist < Base
-    attr_reader :id, :auth
-    has_one :snippet, delegate: [:title, :description, :tags, :thumbnail_url, :published_at]
-    has_one :status, delegate: [:privacy_status, :public?, :private?, :unlisted?]
+  class Playlist < Resource
     has_many :playlist_items
-
-    def initialize(options = {})
-      @id = options[:id]
-      @snippet = Snippet.new(data: options[:snippet]) if options[:snippet]
-      @status = Status.new(data: options[:status]) if options[:status]
-      @auth = options[:auth]
-    end
 
     def delete
       do_delete {@id = nil}

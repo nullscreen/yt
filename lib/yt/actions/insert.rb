@@ -1,4 +1,4 @@
-require 'yt/utils/request'
+require 'yt/actions/request'
 
 module Yt
   module Actions
@@ -15,12 +15,8 @@ module Yt
       end
 
       def insert_params
-        {}.tap do |params|
+        Request.default_params.tap do |params|
           params[:method] = :post
-          params[:format] = :json
-          params[:host] = 'www.googleapis.com'
-          params[:body_type] = :json
-          params[:scope] = 'https://www.googleapis.com/auth/youtube'
           params[:auth] = @auth
         end
       end

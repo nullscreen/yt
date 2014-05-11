@@ -13,7 +13,7 @@ module Yt
     private
 
       def user_infos
-        @user_infos ||= Collections::UserInfos.by_account self
+        @user_infos ||= Collections::UserInfos.of self
       end
     end
   end

@@ -3,7 +3,7 @@ require 'yt/models/playlist'
 require 'yt/collections/playlist_items'
 
 describe Yt::Collections::PlaylistItems do
-  subject(:collection) { Yt::Collections::PlaylistItems.new playlist: playlist }
+  subject(:collection) { Yt::Collections::PlaylistItems.new parent: playlist }
   let(:playlist) { Yt::Playlist.new }
 
   describe '#insert' do

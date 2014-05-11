@@ -1,21 +1,12 @@
-require 'yt/config'
-
-require 'uri' # for URI.json
 require 'net/http' # for Net::HTTP.start
+require 'uri' # for URI.json
 require 'json' # for JSON.parse
 require 'active_support/core_ext/hash/conversions' # for Hash.from_xml
 
+require 'yt/actions/request_error'
+require 'yt/config'
+
 module Yt
-  class RequestError < StandardError
-    def reasons
-      error.fetch('errors', []).map{|e| e['reason']}
-    end
-
-    def error
-      eval(message)['error'] rescue {}
-    end
-  end
-
   class Request
     def initialize(options = {})
       options[:query] ||= options[:params].to_param
@@ -37,6 +28,15 @@ module Yt
           # puts "You can try again running #{to_curl}"
           raise RequestError, response.body
         end
+      end
+    end
+
+    def self.default_params
+      {}.tap do |params|
+        params[:format] = :json
+        params[:host] = 'www.googleapis.com'
+        params[:scope] = 'https://www.googleapis.com/auth/youtube'
+        params[:body_type] = :json
       end
     end
 

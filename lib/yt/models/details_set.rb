@@ -1,3 +1,5 @@
+require 'yt/models/base'
+
 module Yt
   class DetailsSet < Base
 

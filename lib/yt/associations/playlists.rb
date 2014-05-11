@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with playlist are: channels.
     module Playlists
       def playlists
-        @playlists ||= Collections::Playlists.by_channel self
+        @playlists ||= Collections::Playlists.of self
       end
 
       def create_playlist(params = {})

@@ -1,18 +1,9 @@
-require 'yt/collections/base'
+require 'yt/collections/resources'
 require 'yt/models/channel'
 
 module Yt
   module Collections
-    class Channels < Base
-
-      def initialize(options = {})
-        @account = options[:account]
-        @auth = options[:auth]
-      end
-
-      def self.by_account(account)
-        new account: account, auth: account.auth
-      end
+    class Channels < Resources
 
     private
 

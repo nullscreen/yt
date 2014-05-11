@@ -1,24 +1,15 @@
-require 'yt/collections/base'
+require 'yt/collections/resources'
 require 'yt/models/playlist_item'
 
 module Yt
   module Collections
-    class PlaylistItems < Base
-
-      def initialize(options = {})
-        @playlist = options[:playlist]
-        @auth = options[:auth]
-      end
-
-      def self.by_playlist(playlist)
-        new playlist: playlist, auth: playlist.auth
-      end
+    class PlaylistItems < Resources
 
       # options are id and kind
       def insert(options = {}) #
         resource = {kind: "youtube##{options[:kind]}"}
         resource["#{options[:kind]}Id"] = options[:id]
-        snippet = {playlistId: @playlist.id, resourceId: resource}
+        snippet = {playlistId: @parent.id, resourceId: resource}
         do_insert body: {snippet: snippet}, params: {part: 'snippet,status'}
       end
 
@@ -34,7 +25,7 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:params] = {maxResults: 50, part: 'snippet,status', playlistId: @playlist.id}
+          params[:params] = {maxResults: 50, part: 'snippet,status', playlistId: @parent.id}
           params[:scope] = 'https://www.googleapis.com/auth/youtube.readonly'
           params[:path] = '/youtube/v3/playlistItems'
         end

@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with subscription are: channels.
     module Subscriptions
       def subscriptions
-        @subscriptions ||= Collections::Subscriptions.by_channel self
+        @subscriptions ||= Collections::Subscriptions.of self
       end
 
       def subscribed?
