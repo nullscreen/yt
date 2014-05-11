@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with playlist items are: playlists.
     module PlaylistItems
       def playlist_items
-        @playlist_items ||= Collections::PlaylistItems.by_playlist self
+        @playlist_items ||= Collections::PlaylistItems.of self
       end
 
       def add_video(video_id)

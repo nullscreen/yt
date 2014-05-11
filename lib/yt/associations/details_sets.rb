@@ -13,7 +13,7 @@ module Yt
     private
 
       def details_sets
-        @details_sets ||= Collections::DetailsSets.by_video self
+        @details_sets ||= Collections::DetailsSets.of self
       end
     end
   end

@@ -1,18 +1,9 @@
-require 'yt/collections/base'
+require 'yt/collections/resources'
 require 'yt/models/video'
 
 module Yt
   module Collections
-    class Videos < Base
-
-      def initialize(options = {})
-        @channel = options[:channel]
-        @auth = options[:auth]
-      end
-
-      def self.by_channel(channel)
-        new channel: channel, auth: channel.auth
-      end
+    class Videos < Resources
 
     private
 
@@ -22,8 +13,8 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:params] = {channelId: @channel.id, type: :video, maxResults: 50, part: 'snippet'}
-          params[:scope] = 'https://www.googleapis.com/auth/youtube'
+          params[:params] = {channelId: @parent.id, type: :video, maxResults: 50, part: 'snippet'}
+          params[:scope] = 'https://www.googleapis.com/auth/youtube.readonly'
           params[:path] = '/youtube/v3/search'
         end
       end

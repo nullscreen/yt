@@ -13,7 +13,7 @@ module Yt
     private
 
       def channels
-        @channels ||= Collections::Channels.by_account self
+        @channels ||= Collections::Channels.of self
       end
     end
   end

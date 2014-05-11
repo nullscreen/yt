@@ -13,7 +13,7 @@ module Yt
     private
 
       def snippets
-        @snippets ||= Collections::Snippets.by_resource self
+        @snippets ||= Collections::Snippets.of self
       end
     end
   end

@@ -3,16 +3,7 @@ require 'yt/models/subscription'
 
 module Yt
   module Collections
-    class Subscriptions < Base
-
-      def initialize(options = {})
-        @channel = options[:channel]
-        @auth = options[:auth]
-      end
-
-      def self.by_channel(channel)
-        new channel: channel, auth: channel.auth
-      end
+    class Subscriptions < Resources
 
       def insert(options = {})
         throttle
@@ -50,7 +41,7 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:params] = {maxResults: 50, forChannelId: @channel.id, mine: true, part: 'snippet'}
+          params[:params] = {maxResults: 50, forChannelId: @parent.id, mine: true, part: 'snippet'}
           params[:scope] = 'https://www.googleapis.com/auth/youtube'
           params[:path] = '/youtube/v3/subscriptions'
         end
@@ -60,7 +51,7 @@ module Yt
         super.tap do |params|
           params[:path] = '/youtube/v3/subscriptions'
           params[:params] = {part: 'snippet'}
-          params[:body] = {snippet: {resourceId: {channelId: @channel.id}}}
+          params[:body] = {snippet: {resourceId: {channelId: @parent.id}}}
         end
       end
     end

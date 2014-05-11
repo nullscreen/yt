@@ -1,18 +1,9 @@
-require 'yt/collections/base'
+require 'yt/collections/resources'
 require 'yt/models/user_info'
 
 module Yt
   module Collections
-    class UserInfos < Base
-
-      def initialize(options = {})
-        @account = options[:account]
-        @auth = options[:auth]
-      end
-
-      def self.by_account(account)
-        new account: account, auth: account.auth
-      end
+    class UserInfos < Resources
 
     private
 

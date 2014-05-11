@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with videos are: channels.
     module Videos
       def videos
-        @videos ||= Collections::Videos.by_channel self
+        @videos ||= Collections::Videos.of self
       end
     end
   end

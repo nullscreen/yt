@@ -1,4 +1,4 @@
-require 'yt/utils/request'
+require 'yt/actions/request'
 
 module Yt
   module Actions
@@ -53,10 +53,8 @@ module Yt
       end
 
       def list_params
-        {}.tap do |params|
+        Request.default_params.tap do |params|
           params[:method] = :get
-          params[:format] = :json
-          params[:host] = 'www.googleapis.com'
           params[:auth] = @auth
         end
       end

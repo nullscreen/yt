@@ -1,18 +1,9 @@
-require 'yt/collections/base'
+require 'yt/collections/resources'
 require 'yt/models/annotation'
 
 module Yt
   module Collections
-    class Annotations < Base
-
-      def initialize(options = {})
-        @video = options[:video]
-        @auth = options[:auth]
-      end
-
-      def self.by_video(video)
-        new video: video, auth: video.auth
-      end
+    class Annotations < Resources
 
     private
 
@@ -25,7 +16,7 @@ module Yt
           params[:format] = :xml
           params[:host] = 'www.youtube.com'
           params[:path] = '/annotations_invideo'
-          params[:params] = {video_id: @video.id}
+          params[:params] = {video_id: @parent.id}
         end
       end
 

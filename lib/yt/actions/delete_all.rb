@@ -1,5 +1,5 @@
 require 'yt/actions/list'
-require 'yt/utils/request'
+require 'yt/actions/request'
 
 module Yt
   module Actions

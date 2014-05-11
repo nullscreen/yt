@@ -32,7 +32,7 @@ module Yt
     private
 
       def ratings
-        @ratings ||= Collections::Ratings.by_video self
+        @ratings ||= Collections::Ratings.of self
       end
     end
   end

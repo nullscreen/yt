@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with annotations are: videos.
     module Annotations
       def annotations
-        @annotations ||= Collections::Annotations.by_video self
+        @annotations ||= Collections::Annotations.of self
       end
     end
   end
