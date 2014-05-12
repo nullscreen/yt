@@ -118,7 +118,12 @@ module Yt
 
     def timestamps
       @timestamps ||= positions.map do |pos|
-        Time.parse(pos['t']) - Time.parse('0:00')
+        regex = %r{(?:|(?<hours>\d*):)(?:|(?<min>\d*):)(?<sec>\d*)\.(?<ms>\d*)}
+        match = pos['t'].match regex
+        hours = (match[:hours] || '0').to_i
+        minutes = (match[:min] || '0').to_i
+        seconds = (match[:sec]).to_i
+        (hours * 60 + minutes) * 60 + seconds
       end
     end
 

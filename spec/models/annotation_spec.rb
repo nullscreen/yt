@@ -107,19 +107,19 @@ describe Yt::Annotation do
   end
 
   describe '#starts_after and #starts_before' do
-    context 'given an annotation with the first timestamp equal to 240 seconds' do
+    context 'given an annotation with the first timestamp equal to 1 hour' do
       let(:xml) { %Q{
         <segment>
         <movingRegion type="rect">
-        <rectRegion d="0" h="17.7779998779" t="0:04.000" w="25.0" x="7.117000103" y="5.07000017166"/>
-        <rectRegion d="0" h="17.7779998779" t="0:05.000" w="25.0" x="7.117000103" y="5.07000017166"/>
+        <rectRegion d="0" h="17.7779998779" t="01:00:01.000" w="25.0" x="7.117000103" y="5.07000017166"/>
+        <rectRegion d="0" h="17.7779998779" t="01:05:56.066" w="25.0" x="7.117000103" y="5.07000017166"/>
         </movingRegion>
         </segment>
       } }
-      it { expect(annotation.starts_after? 230).to be_true }
-      it { expect(annotation.starts_after? 250).to be_false }
-      it { expect(annotation.starts_before? 230).to be_false }
-      it { expect(annotation.starts_before? 250).to be_true }
+      it { expect(annotation.starts_after? 3600).to be_true }
+      it { expect(annotation.starts_after? 3610).to be_false }
+      it { expect(annotation.starts_before? 3600).to be_false }
+      it { expect(annotation.starts_before? 3610).to be_true }
     end
 
     context 'given an annotation without timestamps' do
