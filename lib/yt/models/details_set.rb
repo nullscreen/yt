@@ -24,10 +24,11 @@ module Yt
     # of minutes (or seconds) of the video. For example, a value of PT15M51S indicates
     # that the video is 15 minutes and 51 seconds long.
     def to_seconds(iso8601_duration)
-      match = iso8601_duration.match %r{^PT(?:|(?<min>\d*?)M)(?:|(?<sec>\d*?)S)$}
+      match = iso8601_duration.match %r{^PT(?:|(?<hours>\d*?)H)(?:|(?<min>\d*?)M)(?:|(?<sec>\d*?)S)$}
+      hours = (match[:hours] || '0').to_i
       minutes = (match[:min] || '0').to_i
       seconds = (match[:sec]).to_i
-      minutes * 60 + seconds
+      (hours * 60 + minutes) * 60 + seconds
     end
   end
 end
