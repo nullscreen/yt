@@ -3,6 +3,7 @@ v0.4.0 - 2014/05/09
 
 * Complete rewrite, using ActiveSupport and separating models and collections
 * New methods to handle annotations, details sets
+* Supports also ActiveSupport 3 and Ruby 1.9.3 (not just AS4 + Ruby 2)
 
 v0.3.0 - 2014/04/16
 --------------------
