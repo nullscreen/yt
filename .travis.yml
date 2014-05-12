@@ -1,11 +1,18 @@
 language: ruby
-rvm:
-- 2.0.0
 notifications:
   email: false
+matrix:
+  include:
+  - rvm: 1.9.3
+    gemfile: gemfiles/Gemfile.activesupport-3.x
+    env:
+    - secure: DAvQ18qN71nRGkM+kOklTi6InE3dM98BgQAagve2S8/D76VXc+Hyl1It+/v73CrCuDdKTJpVl2a7pc+W5x+JG+PDo4X4ZXFURyvv417nywJulsda4y/TcTe59WHFGTQ/maj3l5PLPmENpROBU8/2HBGOSny0aNNkbnRXrTx3dU4=
+  - rvm: 2.0.0
+    gemfile: gemfiles/Gemfile.activesupport-4.x
+    env:
+    - secure: D57A44s/W77P3JLarTwELEjIeFtOKVcUtM2M7fKot6qfiDGF3azsWUoW0rrQG6hCUSop32UUeYQdnUmdhqWc89k0jtVKpW1I3UyV36iacKXevsfe/w6Q4CCHCi3udPVsEvt36ZQ2LtGMs0seUxujDaI1sqrfn3zMSXyVcSTjceg=
 env:
   global:
-  - secure: UPTXrTnEtwOW3MZLjGmKmllUflKEQ9ICjELS5j3ucScIyW+q8idf7EEuj03n2FKN/zGNo1BDxLbMxzh+1jBhugGxIF0gmSXQ4tborLMkYtQ07rAWemHGCx3RicDlAWSuqz9tDkMILsasK74LgbfaEeJYI6xfAvOm+em/7jxUk5w=
-  - secure: Gkg2vV9NFxvA6TUpl4d10HZNtYB2j1qP5nwlIWuDwV79Wbst2u+sgUX6nCTcQA1L4EgHQqfXXM6NHUrLevT45kj6DuG2C/sJUudttqfB5VmfK7nNT617BlqgiZuNjNWCnD9CK5zAdHUo2ukxiXKyl/WhYIhBA59fsGbFynbUISM=
-  - secure: RLWA00fvwiyk2JooX+ePrwPfUCWE1aunuA9STogRiwwUYO237lU35hDkuE7+0GMJAtfWDkuG5f4+8oWsOf0sBytebgxhJ25Uxi6uWlsukuXRM028Z8yjMzgLzmke5InICIVKzPWyvjlphB14nP4PoSrPl9RlHgs4LuJ4l/OkbEQ=
-  - secure: RuYxzoTiam6GLIoP3xkhU9eaW3kjyxnOLYqBjjezhEHXrExDQinO5/k2NsHy2Y8iZSlKxMAG+DJJ45WAObNpg3fAPC/ExrzGyNX1u3qCQU481HbVZTJa8vg9IrJsSxCYyawdcbd7tgULiuRZacMmamsXLSJymLofF7LE0jA2KPA=
+  - secure: KFozlRmcSFzZIl8nXPZ5HIf+MAvgK4I7FYsTYyAMW7LsRJJ4NAJJCHAbWZUfmbqygUN188zj2y0TbQUu47lEf7v2XvJu6DFCYw+e4sk6lSW8V5jRzWl1f6DOKb1z+FBpUgJHj9OKykqjdtm3zVLWr56xm3fhB+ULDj8XVOVxyLk=
+  - secure: e/p7BLWhc8BBiXkxM3zXPj3x/8PqUT0ERRfUFYXAnZRZ0gmACtig590nZY7FLeNhBQMORuHt/ZE5DCuNZRaOIdauQqV4rP46U5CJBWe2RNzDi1L+nctUCSKDwVDIVl/r5yEP22om4g5s1xhWfc8wlJF2VEnfLcq80ca1vK+e1ds=
+  - secure: VpOIZVcckArwpoVs/fppUFEJEOI3e6zv2L5rP/vj0Uxl1hOHgg1emedjzM7x2wxKMi/L2g5ot9Oz6H9N1Y0FXzB1L49Hy3hla2nKBcecgvqk1z5InTpx6eiBDQqJAoZurCCmkdfKjVtWfb0CAdOX9Euio5DxqcnIcIVIiWpD5BE=
