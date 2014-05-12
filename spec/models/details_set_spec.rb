@@ -5,6 +5,11 @@ describe Yt::DetailsSet do
   subject(:details_set) { Yt::DetailsSet.new data: data }
 
   describe '#duration' do
+    context 'given a details_set with duration in hours, minutes, seconds' do
+      let(:data) { {"duration"=>"PT1H18M52S"} }
+      it { expect(details_set.duration).to eq 4732 }
+    end
+
     context 'given a details_set with duration in minutes and seconds' do
       let(:data) { {"duration"=>"PT2M51S"} }
       it { expect(details_set.duration).to eq 171 }
