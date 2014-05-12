@@ -3,7 +3,7 @@ require 'yt/models/base'
 module Yt
   class Resource < Base
     attr_reader :id, :auth
-    has_one :snippet, delegate: [:title, :description, :thumbnail_url, :published_at]
+    has_one :snippet, delegate: [:title, :description, :thumbnail_url, :published_at, :tags]
     has_one :status, delegate: [:privacy_status, :public?, :private?, :unlisted?]
 
     def initialize(options = {})
