@@ -4,10 +4,10 @@ Yt
 Yt helps you write apps that need to interact with the YouTube API V3.
 
 [![Gem Version](https://badge.fury.io/rb/yt.svg)](http://badge.fury.io/rb/yt)
-[![Dependency Status](https://gemnasium.com/fullscreeninc/yt.png)](https://gemnasium.com/fullscreeninc/yt)
-[![Build Status](https://travis-ci.org/fullscreeninc/yt.png?branch=master)](https://travis-ci.org/fullscreeninc/yt)
-[![Coverage Status](https://coveralls.io/repos/fullscreeninc/yt/badge.png?)](https://coveralls.io/r/fullscreeninc/yt)
-[![Code Climate](https://codeclimate.com/github/fullscreeninc/yt.png)](https://codeclimate.com/github/fullscreeninc/yt)
+[![Dependency Status](https://gemnasium.com/Fullscreen/yt.png)](https://gemnasium.com/Fullscreen/yt)
+[![Build Status](https://travis-ci.org/Fullscreen/yt.png?branch=master)](https://travis-ci.org/Fullscreen/yt)
+[![Coverage Status](https://coveralls.io/repos/Fullscreen/yt/badge.png?)](https://coveralls.io/r/Fullscreen/yt)
+[![Code Climate](https://codeclimate.com/github/Fullscreen/yt.png)](https://codeclimate.com/github/Fullscreen/yt)
 
 After [registering your app](#registering-your-app), you can run commands like:
 
@@ -25,7 +25,7 @@ video.duration #=> 86
 video.annotations.count #=> 1
 ```
 
-The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/fullscreeninc/yt/master/frames).
+The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
 
 Available resources
 ===================
@@ -33,7 +33,7 @@ Available resources
 Yt::Account
 -----------
 
-Use [Yt::Account](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Account) to:
+Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Account) to:
 
 * authenticate as a YouTube account
 * read attributes of the account
@@ -52,7 +52,7 @@ account.channel #=> #<Yt::Channel @id=...>
 Yt::Channel
 -----------
 
-Use [Yt::Channel](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Channel) to:
+Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Channel) to:
 
 * read attributes of a channel
 * access the videos of a channel
@@ -85,7 +85,7 @@ channel.delete_playlists title: 'New playlist' #=> [true]
 Yt::Video
 -----------
 
-Use [Yt::Video](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Video) to:
+Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Video) to:
 
 * read attributes of a video
 * access the annotations of a video
@@ -110,7 +110,7 @@ video.like #=> true
 Yt::Playlist
 ------------
 
-Use [Yt::Playlist](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Playlist) to:
+Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Playlist) to:
 
 * read attributes of a playlist
 * access the items of a playlist
@@ -139,7 +139,7 @@ playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 Yt::Annotation
 --------------
 
-Use [Yt::Annotation](http://rubydoc.info/github/fullscreeninc/yt/master/Yt/Annotation) to:
+Use [Yt::Annotation](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Annotation) to:
 
 * read attributes of an annotation
 
