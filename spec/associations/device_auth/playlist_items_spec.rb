@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'yt/associations/playlist_items'
 
+# TODO: Delete playlist item after tests that create them
+
 describe Yt::Associations::PlaylistItems, scenario: :device_app do
   before :all do
     account = Yt.configuration.account
@@ -11,26 +13,51 @@ describe Yt::Associations::PlaylistItems, scenario: :device_app do
   describe '#playlist_items' do
     let(:video_id) { 'MESycYJytkU' }
     before { @playlist.add_video video_id }
-    # TODO: after, delete playlist item
 
     it { expect(@playlist.playlist_items.count).to be > 0 }
     it { expect(@playlist.playlist_items.first).to be_a Yt::PlaylistItem }
   end
 
   describe '#add_video' do
-    let(:video_id) { 'MESycYJytkU' }
-    # TODO: after, delete playlist item
-    it { expect(@playlist.add_video video_id).to be_a Yt::PlaylistItem }
-    it { expect{@playlist.add_video video_id}.to change{@playlist.playlist_items.count}.by(1) }
+    context 'given an existing video' do
+      let(:video_id) { 'MESycYJytkU' }
+      it { expect(@playlist.add_video video_id).to be_a Yt::PlaylistItem }
+      it { expect{@playlist.add_video video_id}.to change{@playlist.playlist_items.count}.by(1) }
+    end
+
+    context 'given an unknown video' do
+      let(:video_id) { 'not-a-video' }
+      it { expect(@playlist.add_video video_id).to be_nil }
+      it { expect{@playlist.add_video video_id}.not_to change{@playlist.playlist_items.count} }
+    end
+  end
+
+  describe '#add_video!' do
+    context 'given an existing video' do
+      let(:video_id) { 'MESycYJytkU' }
+      it { expect(@playlist.add_video video_id).to be_a Yt::PlaylistItem }
+    end
+
+    context 'given an unknown video' do
+      let(:video_id) { 'not-a-video' }
+      it { expect{@playlist.add_video! video_id}.to raise_error Yt::RequestError }
+    end
   end
 
   describe '#add_videos' do
-    let(:video_ids) { ['MESycYJytkU'] * 2 }
-    # TODO: after, delete playlist items
-    it { expect(@playlist.add_videos video_ids).to have(2).items }
-    it { expect{@playlist.add_videos video_ids}.to change{@playlist.playlist_items.count}.by(2) }
+    context 'given one existing and one unknown video' do
+      let(:video_ids) { ['MESycYJytkU', 'not-a-video'] }
+      it { expect(@playlist.add_videos video_ids).to have(2).items }
+      it { expect{@playlist.add_videos video_ids}.to change{@playlist.playlist_items.count}.by(1) }
+    end
   end
 
+  describe '#add_videos!' do
+    context 'given one existing and one unknown video' do
+      let(:video_ids) { ['MESycYJytkU', 'not-a-video'] }
+      it { expect{@playlist.add_videos! video_ids}.to raise_error Yt::RequestError }
+    end
+  end
 
   describe '#delete_playlist_items' do
     let(:video_id) { 'MESycYJytkU' }

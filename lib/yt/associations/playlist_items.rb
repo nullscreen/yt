@@ -11,11 +11,19 @@ module Yt
       end
 
       def add_video(video_id)
+        playlist_items.insert({id: video_id, kind: :video}, ignore_not_found: true)
+      end
+
+      def add_video!(video_id)
         playlist_items.insert id: video_id, kind: :video
       end
 
       def add_videos(video_ids = [])
         video_ids.map{|video_id| add_video video_id}
+      end
+
+      def add_videos!(video_ids = [])
+        video_ids.map{|video_id| add_video! video_id}
       end
 
       def delete_playlist_items(attrs = {})
