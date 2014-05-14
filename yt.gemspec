@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Youtube V3 API client.}
   spec.summary       = %q{Yt makes it easy to interact with Youtube V3 API by
     providing a modular, intuitive and tested Ruby-style API.}
-  spec.homepage      = "http://github.com/fullscreeninc/yt"
+  spec.homepage      = "http://github.com/Fullscreen/yt"
   spec.license       = "MIT"
 
   spec.required_ruby_version = '>= 1.9.3'

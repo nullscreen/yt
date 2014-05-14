@@ -5,12 +5,14 @@ module Yt
   module Collections
     class PlaylistItems < Resources
 
-      # options are id and kind
-      def insert(options = {}) #
-        resource = {kind: "youtube##{options[:kind]}"}
-        resource["#{options[:kind]}Id"] = options[:id]
+      # attrs are id and kind
+      def insert(attrs = {}, options = {}) #
+        resource = {kind: "youtube##{attrs[:kind]}"}
+        resource["#{attrs[:kind]}Id"] = attrs[:id]
         snippet = {playlistId: @parent.id, resourceId: resource}
         do_insert body: {snippet: snippet}, params: {part: 'snippet,status'}
+      rescue Yt::RequestError => error
+        raise error unless options[:ignore_not_found] && error.reasons.include?('videoNotFound')
       end
 
       def delete_all(params = {})
