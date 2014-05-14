@@ -154,7 +154,7 @@ annotation.has_link_to_playlist? #=> true
 
 *Annotations do not require authentication.*
 
-Registering your app
+Configuring your app
 ====================
 
 In order to use Yt you must register your app in the [Google Developers Console](https://console.developers.google.com).
@@ -164,8 +164,8 @@ Apps that do not require user interactions
 ------------------------------------------
 
 If you are building a read-only app that fetches public data from YouTube, then
-generate a **Public API access** key in the Google Console, then add the following
-snippet of code to the initializer of your app:
+generate a **Public API access** key in the Google Console.
+Next, add the following snippet of code to the initializer of your app:
 
 ```ruby
 Yt.configure do |config|
@@ -265,6 +265,32 @@ account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account�
 Scenario 3. If you don’t have the account’s refresh token, then [..TODO..]
 
 
+Configuring your app through environment variables
+==================================================
+
+As an alternative to the approach above, you can configure Yt using environment
+variables. Setting the following environment variables:
+
+```bash
+export YT_CLIENT_SCENARIO="device_app"
+export YT_CLIENT_ID="1234567890.apps.googleusercontent.com"
+export YT_CLIENT_SECRET="1234567890"
+export YT_API_KEY="123456789012345678901234567890"
+```
+
+is equivalent to configuration your app with the initializer:
+
+```ruby
+Yt.configure do |config|
+  config.scenario = :device_app
+  config.client_id = '1234567890.apps.googleusercontent.com'
+  config.client_secret = '1234567890'
+  config.api_key = '123456789012345678901234567890'
+end
+```
+
+so use the approach that you prefer.
+If a variable is set in both places, then `Yt.configure` takes precedence.
 
 
 How to install
@@ -276,7 +302,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.4.7'
+    gem 'yt', '~> 0.4.8'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -301,7 +327,70 @@ Google API!
 How to test
 ===========
 
-[ TO DO ]
+Yt comes with two different sets of tests:
+
+1. tests in `spec/models` and `spec/collections` **do not hit** the YouTube API
+1. tests in `spec/associations` **hit** the YouTube API and require authentication
+
+To run all the tests, type:
+
+```bash
+rspec
+```
+
+The reason why some tests actually hit the YouTube API is because they are
+meant to really integrate Yt with YouTube. YouTube API is not exactly
+*the most reliable* API out there, so we need to make sure that the responses
+match the documentation.
+
+You don’t have to run all the tests every time you change code.
+Travis CI is already set up to do this for when whenever you push a branch
+or create a pull request for this project.
+
+Testing models and collections
+------------------------------
+
+To only run tests against models and collections (which do not hit the API), type:
+
+```bash
+rspec spec/models spec/collections
+```
+
+Testing associations
+--------------------
+
+To only run tests against associations (which hit the API), type:
+
+```bash
+rspec spec/associations
+```
+
+This test will fail at first. As documented by the error message, you will need
+an app registered in the [Google Developers Console](https://console.developers.google.com)
+to proceed.
+
+Browse to the Console, then create a new app that you will only use for testing.
+
+Under the "APIs" tab of this app, enable 'Google+ API', 'Youtube Analytics
+API' and 'YouTube Data API v3'.
+
+Under the "Credentials" tab of this app, create a new 'Key for server
+application' and a new 'Client ID' and 'Client Secret' for **native** application.
+
+It’s important that you pick 'native application' instead of 'web application',
+otherwise running your tests will require you to open a browser and launch a
+local webserver… and you don’t need to do any of that.
+
+Finally, copy the given values and set the following environment variables:
+
+```bash
+export YT_TEST_DEVICE_CLIENT_ID="1234567890.apps.googleusercontent.com"
+export YT_TEST_DEVICE_CLIENT_SECRET="1234567890"
+export YT_TEST_SERVER_API_KEY="123456789012345678901234567890"
+```
+
+[ TODO: Complete this section. Explain how get and store the refresh token,
+  making sure all the required scopes are authorized. ]
 
 
 How to contribute

@@ -7,6 +7,7 @@ v0.4 - 2014/05/09
 * Fix parsing annotation and timestamps longer than 1 hour
 * Fix delegating tags from resources to snippets
 * Two options to add videos to a playlist: fail or not if a video is missing
+* Allow to configure Yt credentials through environment variables
 
 v0.3.0 - 2014/04/16
 --------------------
