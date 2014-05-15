@@ -53,9 +53,12 @@ module Yt
       end
 
       def list_params
+        path = "/youtube/v3/#{self.class.to_s.demodulize.camelize :lower}"
+
         Request.default_params.tap do |params|
           params[:method] = :get
           params[:auth] = @auth
+          params[:path] = path
         end
       end
     end

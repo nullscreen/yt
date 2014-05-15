@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/snippet'
 
 module Yt
   module Collections
-    class Snippets < Resources
+    class Snippets < Base
 
     private
 

@@ -21,7 +21,6 @@ module Yt
         params[:method] = :post
         params[:path] = '/youtube/v3/videos/rate'
         params[:params] = {id: @video_id}
-        params[:scope] = 'https://www.googleapis.com/auth/youtube'
       end
     end
   end
