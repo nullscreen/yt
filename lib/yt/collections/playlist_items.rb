@@ -12,7 +12,7 @@ module Yt
         snippet = {playlistId: @parent.id, resourceId: resource}
         do_insert body: {snippet: snippet}, params: {part: 'snippet,status'}
       rescue Yt::RequestError => error
-        raise error unless options[:ignore_not_found] && error.reasons.include?('videoNotFound')
+        raise error unless options[:ignore_errors] && (error.reasons.include?('videoNotFound') || error.reasons.include?('forbidden'))
       end
 
       def delete_all(params = {})

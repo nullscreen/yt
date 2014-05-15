@@ -11,7 +11,7 @@ module Yt
       end
 
       def add_video(video_id)
-        playlist_items.insert({id: video_id, kind: :video}, ignore_not_found: true)
+        playlist_items.insert({id: video_id, kind: :video}, ignore_errors: true)
       end
 
       def add_video!(video_id)
