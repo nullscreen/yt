@@ -31,8 +31,7 @@ describe Yt::Playlist do
   end
 
   describe '#update' do
-    # TODO: separate stubs to show options translate into do_insert params
-    let(:attrs) { {id: 'PLSWYkYzOr', snippet: {'title'=>'old'}} }
+    let(:attrs) { {id: 'PLSWYkYzOr', snippet: {'title'=>'old'}, status: {"privacyStatus"=>"public"}} }
     before { playlist.stub(:do_update).and_yield 'snippet'=>{'title'=>'new'} }
 
     it { expect(playlist.update title: 'new').to be_true }

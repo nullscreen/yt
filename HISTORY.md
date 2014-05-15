@@ -8,6 +8,7 @@ v0.4 - 2014/05/09
 * Fix delegating tags from resources to snippets
 * Two options to add videos to a playlist: fail or not if a video is missing or its account terminated
 * Allow to configure Yt credentials through environment variables
+* When updating a playlist, only changes the specified attributes
 
 v0.3.0 - 2014/04/16
 --------------------
