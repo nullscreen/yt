@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/channel'
 
 module Yt
   module Collections
-    class Channels < Resources
+    class Channels < Base
 
     private
 
@@ -14,8 +14,6 @@ module Yt
       def list_params
         super.tap do |params|
           params[:params] = {maxResults: 50, part: 'snippet', mine: true}
-          params[:scope] = 'https://www.googleapis.com/auth/youtube'
-          params[:path] = '/youtube/v3/channels'
         end
       end
     end

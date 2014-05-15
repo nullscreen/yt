@@ -3,7 +3,7 @@ require 'yt/models/subscription'
 
 module Yt
   module Collections
-    class Subscriptions < Resources
+    class Subscriptions < Base
 
       def insert(options = {})
         throttle
@@ -43,8 +43,6 @@ module Yt
       def list_params
         super.tap do |params|
           params[:params] = {maxResults: 50, forChannelId: @parent.id, mine: true, part: 'snippet'}
-          params[:scope] = 'https://www.googleapis.com/auth/youtube'
-          params[:path] = '/youtube/v3/subscriptions'
         end
       end
 

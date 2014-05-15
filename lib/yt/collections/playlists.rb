@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/playlist'
 
 module Yt
   module Collections
-    class Playlists < Resources
+    class Playlists < Base
 
       # Valid body (no defaults) are: title (string), description (string), privacy_status (string),
       # tags (array of strings)
@@ -33,7 +33,6 @@ module Yt
         super.tap do |params|
           params[:params] = {maxResults: 50, part: 'snippet,status', channelId: @parent.id}
           params[:scope] = 'https://www.googleapis.com/auth/youtube.readonly'
-          params[:path] = '/youtube/v3/playlists'
         end
       end
 

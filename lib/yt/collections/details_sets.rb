@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/details_set'
 
 module Yt
   module Collections
-    class DetailsSets < Resources
+    class DetailsSets < Base
 
     private
 

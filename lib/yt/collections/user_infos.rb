@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/user_info'
 
 module Yt
   module Collections
-    class UserInfos < Resources
+    class UserInfos < Base
 
     private
 

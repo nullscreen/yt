@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/annotation'
 
 module Yt
   module Collections
-    class Annotations < Resources
+    class Annotations < Base
 
     private
 

@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/rating'
 
 module Yt
   module Collections
-    class Ratings < Resources
+    class Ratings < Base
 
     private
 
@@ -15,7 +15,6 @@ module Yt
         super.tap do |params|
           params[:path] = '/youtube/v3/videos/getRating'
           params[:params] = {id: @parent.id}
-          params[:scope] = 'https://www.googleapis.com/auth/youtube'
         end
       end
     end

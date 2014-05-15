@@ -1,9 +1,9 @@
-require 'yt/collections/resources'
+require 'yt/collections/base'
 require 'yt/models/video'
 
 module Yt
   module Collections
-    class Videos < Resources
+    class Videos < Base
 
     private
 
