@@ -4,7 +4,8 @@ describe Yt::Configuration do
   subject(:config) { Yt::Configuration.new }
 
   describe '#scenario' do
-    context 'by default' do
+    context 'without an environment variable YT_CLIENT_SCENARIO' do
+      before { ENV['YT_CLIENT_SCENARIO'] = nil }
       it {expect(config.scenario).to be :web_app }
     end
 
@@ -20,7 +21,8 @@ describe Yt::Configuration do
   end
 
   describe '#client_id' do
-    context 'by default' do
+    context 'without an environment variable YT_CLIENT_ID' do
+      before { ENV['YT_CLIENT_ID'] = nil }
       it {expect(config.client_id).to be_nil }
     end
 
@@ -32,7 +34,8 @@ describe Yt::Configuration do
   end
 
   describe '#client_secret' do
-    context 'by default' do
+    context 'without an environment variable YT_CLIENT_SECRET' do
+      before { ENV['YT_CLIENT_SECRET'] = nil }
       it {expect(config.client_secret).to be_nil }
     end
 
@@ -44,7 +47,8 @@ describe Yt::Configuration do
   end
 
   describe '#api_key' do
-    context 'by default' do
+    context 'without an environment variable YT_API_KEY' do
+      before { ENV['YT_API_KEY'] = nil }
       it {expect(config.api_key).to be_nil }
     end
 
