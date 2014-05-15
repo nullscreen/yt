@@ -6,7 +6,7 @@ v0.4 - 2014/05/09
 * Supports also ActiveSupport 3 and Ruby 1.9.3 (not just AS4 + Ruby 2)
 * Fix parsing annotation and timestamps longer than 1 hour
 * Fix delegating tags from resources to snippets
-* Two options to add videos to a playlist: fail or not if a video is missing
+* Two options to add videos to a playlist: fail or not if a video is missing or its account terminated
 * Allow to configure Yt credentials through environment variables
 
 v0.3.0 - 2014/04/16

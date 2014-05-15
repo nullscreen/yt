@@ -30,6 +30,12 @@ describe Yt::Associations::PlaylistItems, scenario: :device_app do
       it { expect(@playlist.add_video video_id).to be_nil }
       it { expect{@playlist.add_video video_id}.not_to change{@playlist.playlist_items.count} }
     end
+
+    context 'given a video of a terminated account' do
+      let(:video_id) { 'kDCpdKeTe5g' }
+      it { expect(@playlist.add_video video_id).to be_nil }
+      it { expect{@playlist.add_video video_id}.not_to change{@playlist.playlist_items.count} }
+    end
   end
 
   describe '#add_video!' do
@@ -40,6 +46,11 @@ describe Yt::Associations::PlaylistItems, scenario: :device_app do
 
     context 'given an unknown video' do
       let(:video_id) { 'not-a-video' }
+      it { expect{@playlist.add_video! video_id}.to raise_error Yt::RequestError }
+    end
+
+    context 'given a video of a terminated account' do
+      let(:video_id) { 'kDCpdKeTe5g' }
       it { expect{@playlist.add_video! video_id}.to raise_error Yt::RequestError }
     end
   end
