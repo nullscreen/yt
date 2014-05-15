@@ -3,9 +3,13 @@ require 'yt/associations/playlists'
 
 describe Yt::Associations::Playlists, scenario: :device_app do
   let(:account) { Yt.configuration.account }
+  let(:title) { 'Yt Test title' }
+  let(:description) { 'Yt Test description' }
+  let(:tags) { ['Yt Test Tag 1', 'Yt Test Tag 2'] }
+  let(:privacy_status) { 'unlisted' }
+  let(:params) { {title: title, description: description, tags: tags, privacy_status: privacy_status} }
 
-  describe '#playlists' do
-    let(:params) { {title: "Yt Test Playlists" } }
+  describe 'playlists' do
     before { account.create_playlist params }
     after { account.delete_playlists params }
 
@@ -13,16 +17,22 @@ describe Yt::Associations::Playlists, scenario: :device_app do
     it { expect(account.playlists.first).to be_a Yt::Playlist }
   end
 
-  describe '#create_playlist' do
-    let(:params) { {title: "Yt Test Create Playlist" } }
+  describe 'create a playlist' do
     after { account.delete_playlists params }
 
     it { expect(account.create_playlist params).to be_a Yt::Playlist }
     it { expect{account.create_playlist params}.to change{account.playlists.count}.by(1) }
   end
 
-  describe '#delete_playlists' do
-    let(:params) { {title: "Yt Test Delete Playlist #{rand}" } }
+  describe 'delete a playlist' do
+    let(:title) { "Yt Test Delete Playlist #{rand}" }
+    before { @playlist = account.create_playlist params }
+
+    it { expect(@playlist.delete).to be true }
+  end
+
+  describe 'delete a set of playlists' do
+    let(:title) { "Yt Test Delete All Playlists #{rand}" }
     before { account.create_playlist params }
 
     it { expect(account.delete_playlists title: %r{#{params[:title]}}).to eq [true] }
@@ -31,13 +41,22 @@ describe Yt::Associations::Playlists, scenario: :device_app do
   end
 
   describe 'update a playlist' do
-    let(:old_title) { "Yt Test Before Update Playlist" }
-    let(:new_title) { "Yt Test After Update Playlist" }
-    before { @playlist = account.create_playlist title: old_title }
+    before { @playlist = account.create_playlist params }
     after { @playlist.delete }
 
-    it { expect(@playlist.update title: new_title).to eq true }
-    it { expect{@playlist.update title: new_title}.to change{@playlist.title} }
-    it { expect{@playlist.update privacy_status: 'unlisted'}.to change{@playlist.privacy_status} }
+    context 'changes the attributes that are specified to be updated' do
+      let(:new_attrs) { {title: "Yt Test Update Playlist #{rand}"} }
+      it { expect(@playlist.update new_attrs).to eq true }
+      it { expect{@playlist.update new_attrs}.to change{@playlist.title} }
+    end
+
+    context 'does not changes the attributes that are not specified to be updated' do
+      let(:new_attrs) { {} }
+      it { expect(@playlist.update new_attrs).to eq true }
+      it { expect{@playlist.update new_attrs}.not_to change{@playlist.title} }
+      it { expect{@playlist.update new_attrs}.not_to change{@playlist.description} }
+      it { expect{@playlist.update new_attrs}.not_to change{@playlist.tags} }
+      it { expect{@playlist.update new_attrs}.not_to change{@playlist.privacy_status} }
+    end
   end
 end

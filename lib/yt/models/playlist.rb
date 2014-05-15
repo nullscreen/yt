@@ -9,21 +9,17 @@ module Yt
       !exists?
     end
 
-    # Valid body (no defaults) are: title (string), description (string), privacy_status (string),
-    # tags (array of strings) - since title is required, we set it again if it's not passed
     def update(options = {})
-      parts, body = [], {id: @id}
-
       options[:title] ||= title
-      parts << :snippet
-      body[:snippet] = options.slice :title, :description, :tags
+      options[:description] ||= description
+      options[:tags] ||= tags
+      options[:privacy_status] ||= privacy_status
 
-      if status = options[:privacy_status]
-        parts << :status
-        body[:status] = {privacyStatus: status}
-      end
+      snippet = options.slice :title, :description, :tags
+      status = {privacyStatus: privacy_status}
+      body = {id: @id, snippet: snippet, status: status}
+      params = {params: {part: 'snippet,status'}, body: body}
 
-      params = {params: {part: parts.join(',')}, body: body}
       do_update(params, expect: Net::HTTPOK) do |data|
         @id = data['id']
         @snippet = Snippet.new data: data['snippet'] if data['snippet']
