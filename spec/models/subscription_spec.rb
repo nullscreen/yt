@@ -30,7 +30,7 @@ describe Yt::Subscription do
 
     context 'given an unknown subscription' do
       let(:reason) { 'subscriptionNotFound' }
-      before { subscription.stub(:do_delete).and_raise Yt::Error, msg }
+      before { subscription.stub(:do_delete).and_raise Yt::Errors::Failed, msg }
 
       it { expect{subscription.delete}.to fail.with 'subscriptionNotFound' }
       it { expect{subscription.delete ignore_errors: true}.not_to fail }

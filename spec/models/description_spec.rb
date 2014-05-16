@@ -21,7 +21,7 @@ describe Yt::Description do
     end
 
     context 'with a video long URL' do
-      let(:text) { 'Link to video: youtube.com/watch?v=MESycYJytkU' }
+      let(:text) { 'example.com and Link to video: youtube.com/watch?v=MESycYJytkU' }
       it { expect(description).to have_link_to_video }
     end
 
@@ -33,7 +33,7 @@ describe Yt::Description do
 
   describe '#has_link_to_channel?' do
     context 'without a channel URL' do
-      let(:text) { 'Link to video: youtu.be/MESycYJytkU' }
+      let(:text) { 'youtu.be/MESycYJytkU is a video link' }
       it { expect(description).not_to have_link_to_channel }
     end
 

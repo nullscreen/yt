@@ -13,6 +13,7 @@ module Yt
     autoload :Annotations
     autoload :Channels
     autoload :DetailsSets
+    autoload :Ids
     autoload :PlaylistItems
     autoload :Playlists
     autoload :Ratings

@@ -3,6 +3,8 @@ v0.5 - 2014/05/16
 
 * More complete custom exception Yt::Error, with code, body and curl
 * Replace `:ignore_not_found` and `:ignore_duplicates` with `:ignore_errors`
+* Allow resources to be initialized with a url, such as Yt::Resource.new url: 'youtube.com/fullscreen'
+* Add `has_one :id` to resources, to retrieve the ID of resources initialized by URL
 
 v0.4 - 2014/05/09
 --------------------
