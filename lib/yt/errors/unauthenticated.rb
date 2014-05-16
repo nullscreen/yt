@@ -5,7 +5,7 @@ module Yt
     class Unauthenticated < Base
       def message
         <<-MSG.gsub(/^ {6}/, '')
-        A request to YouTube API V3 was sent without the proper authentication:
+        A request to YouTube API V3 was sent without the required authentication:
 
         #{request_curl}
 

@@ -12,7 +12,7 @@ describe Yt::Associations::Snippets, scenario: :server_app do
 
     context 'given an unknown video resource' do
       let(:video) { Yt::Video.new id: 'not-a-video-id' }
-      it { expect(video.snippet).to be_nil }
+      it { expect{video.snippet}.to raise_error Yt::Errors::NoItems }
     end
 
     context 'given an existing channel resource' do
@@ -22,7 +22,7 @@ describe Yt::Associations::Snippets, scenario: :server_app do
 
     context 'given an unknown channel resource' do
       let(:channel) { Yt::Channel.new id: 'not-a-channel-id' }
-      it { expect(channel.snippet).to be_nil }
+      it { expect{channel.snippet}.to raise_error Yt::Errors::NoItems }
     end
   end
 end

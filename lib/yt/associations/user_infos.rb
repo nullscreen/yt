@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with user infos are: accounts.
     module UserInfos
       def user_info
-        @user_info ||= user_infos.first
+        @user_info ||= user_infos.first!
       end
 
     private

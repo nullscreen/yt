@@ -5,6 +5,7 @@ v0.5 - 2014/05/16
 * Replace `:ignore_not_found` and `:ignore_duplicates` with `:ignore_errors`
 * Allow resources to be initialized with a url, such as Yt::Resource.new url: 'youtube.com/fullscreen'
 * Add `has_one :id` to resources, to retrieve the ID of resources initialized by URL
+* Raise an error if some `has_one` associations are not found (id, snippet, details set, user info)
 
 v0.4 - 2014/05/09
 --------------------

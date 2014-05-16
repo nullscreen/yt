@@ -12,7 +12,7 @@ describe Yt::Associations::DetailsSets, scenario: :server_app do
 
     context 'given an unknown video' do
       let(:video_id) { 'not-a-video-id' }
-      it { expect(video.details_set).to be_nil }
+      it { expect{video.details_set}.to raise_error Yt::Errors::NoItems }
     end
   end
 end
