@@ -15,7 +15,6 @@ module Yt
         parents_path = @parent.class.to_s.demodulize.underscore.pluralize
         super.tap do |params|
           params[:params] = {id: @parent.id, part: 'snippet'}
-          params[:scope] = 'https://www.googleapis.com/auth/youtube.readonly'
           params[:path] = "/youtube/v3/#{parents_path}"
         end
       end
