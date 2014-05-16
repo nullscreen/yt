@@ -14,7 +14,6 @@ module Yt
       @uri = URI::HTTPS.build options.slice(:host, :path, :query)
       @method = options.fetch :method, :get
       @format = options[:format]
-      @scope = options[:scope]
       @body = options[:body]
       @body_type = options[:body_type]
       @auth = options[:auth]
@@ -36,7 +35,6 @@ module Yt
       {}.tap do |params|
         params[:format] = :json
         params[:host] = 'www.googleapis.com'
-        params[:scope] = 'https://www.googleapis.com/auth/youtube'
         params[:body_type] = :json
       end
     end
@@ -44,8 +42,8 @@ module Yt
   private
 
     def add_authorization_to_request!
-      if @auth.respond_to? :access_token_for
-        @headers['Authorization'] = "Bearer #{@auth.access_token_for @scope}"
+      if @auth.respond_to? :access_token
+        @headers['Authorization'] = "Bearer #{@auth.access_token}"
       elsif Yt.configuration.api_key
         params = URI.decode_www_form @uri.query || ''
         params << [:key, Yt.configuration.api_key]

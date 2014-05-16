@@ -10,28 +10,12 @@ module Yt
       :name, :given_name, :family_name, :profile_url, :avatar_url, :locale, :hd]
 
     def initialize(options = {})
-      # By default is someone passes a refresh_token but not a scope, we can assume it's a youtube one
-      @scope = options.fetch :scope, 'https://www.googleapis.com/auth/youtube'
       @access_token = options[:access_token]
       @refresh_token = options[:refresh_token]
       @redirect_url = options[:redirect_url]
     end
 
-    def access_token_for(scope)
-      # TODO incremental scope
-
-      # HERE manage the fact that we must change some scope on device,
-      # like 'https://www.googleapis.com/auth/youtube.readonly' is not accepted
-      if Yt.configuration.scenario == :device_app && scope == 'https://www.googleapis.com/auth/youtube.readonly'
-        scope = 'https://www.googleapis.com/auth/youtube'
-      end
-
-      # TODO !! include? is not enough, because (for instance) 'youtube' also includes 'youtube.readonly'
-
-      # unless (@scope == scope) || (scope == 'https://www.googleapis.com/auth/youtube.readonly' && @scope =='https://www.googleapis.com/auth/youtube')
-      #   @scope = scope
-      #   @access_token = @refresh_token = nil
-      # end
+    def access_token
       @access_token ||= refresh_access_token || get_access_token
     end
 

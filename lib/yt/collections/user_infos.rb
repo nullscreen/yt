@@ -14,8 +14,6 @@ module Yt
       def list_params
         super.tap do |params|
           params[:path] = '/oauth2/v2/userinfo'
-          # TODO: Remove youtube from here, implement incremental scopes
-          params[:scope] = 'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
         end
       end
 

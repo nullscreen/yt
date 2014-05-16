@@ -29,7 +29,6 @@ module Yt
       def list_params
         super.tap do |params|
           params[:params] = {maxResults: 50, part: 'snippet,status', playlistId: @parent.id}
-          params[:scope] = 'https://www.googleapis.com/auth/youtube.readonly'
         end
       end
 
