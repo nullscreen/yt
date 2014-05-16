@@ -17,7 +17,7 @@ describe Yt::Collections::Subscriptions do
 
     context 'given a duplicate subscription' do
       let(:reason) { 'subscriptionDuplicate' }
-      before { collection.stub(:do_insert).and_raise Yt::Error, msg }
+      before { collection.stub(:do_insert).and_raise Yt::Errors::Failed, msg }
 
       it { expect{collection.insert}.to fail.with 'subscriptionDuplicate' }
       it { expect{collection.insert ignore_errors: true}.not_to fail }
