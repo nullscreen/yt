@@ -28,7 +28,7 @@ module Yt
       # To overcome this, if we have just updated the subscription, we must
       # wait some time before requesting it again.
       #
-      def throttle(seconds = 9)
+      def throttle(seconds = 10)
         @last_changed_at ||= Time.now - seconds
         wait = [@last_changed_at - Time.now + seconds, 0].max
         sleep wait
