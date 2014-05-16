@@ -4,8 +4,7 @@ RSpec::Matchers.define :fail do
       block.call
       false
     rescue Yt::Errors::Base => error
-      with_reason = @reason ? error.reasons.include?(@reason) : true
-      with_reason && error.message =~ /failed/
+      @reason ? error.reasons.include?(@reason) : true
     end
   end
 

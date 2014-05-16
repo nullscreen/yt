@@ -1,11 +1,17 @@
 require 'yt/models/request'
+require 'yt/errors/no_items'
 
 module Yt
   module Actions
     module List
-
       delegate :count, :first, :any?, :each, :map, :find, to: :list
       alias size count
+
+      def first!
+        first.tap do |item|
+          raise Errors::NoItems unless item
+        end
+      end
 
     private
 

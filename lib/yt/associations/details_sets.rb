@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with content details are: videos.
     module DetailsSets
       def details_set
-        @detail_set ||= details_sets.first
+        @detail_set ||= details_sets.first!
       end
 
     private

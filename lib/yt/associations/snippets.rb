@@ -7,7 +7,7 @@ module Yt
     # YouTube resources with content details are: videos and channels.
     module Snippets
       def snippet
-        @snippet ||= snippets.first
+        @snippet ||= snippets.first!
       end
 
     private
