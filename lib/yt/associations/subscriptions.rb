@@ -15,7 +15,7 @@ module Yt
       end
 
       def subscribe
-        subscriptions.insert ignore_duplicates: true
+        subscriptions.insert ignore_errors: true
       end
 
       def subscribe!
@@ -23,7 +23,7 @@ module Yt
       end
 
       def unsubscribe
-        subscriptions.delete_all({}, ignore_not_found: true)
+        subscriptions.delete_all({}, ignore_errors: true)
       end
 
       def unsubscribe!

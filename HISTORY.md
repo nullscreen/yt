@@ -1,3 +1,9 @@
+v0.5 - 2014/05/16
+-----------------
+
+* More complete custom exception Yt::Error, with code, body and curl
+* Replace `:ignore_not_found` and `:ignore_duplicates` with `:ignore_errors`
+
 v0.4 - 2014/05/09
 --------------------
 

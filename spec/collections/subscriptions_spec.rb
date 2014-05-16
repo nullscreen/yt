@@ -4,6 +4,8 @@ require 'yt/collections/subscriptions'
 describe Yt::Collections::Subscriptions do
   subject(:collection) { Yt::Collections::Subscriptions.new }
   before { collection.stub :throttle }
+  let(:response_body) { %Q{{"error":{"errors":[{"reason":"#{reason}"}]}}} }
+  let(:msg) { {response: {body: response_body}}.to_json }
 
   describe '#insert' do
     context 'given a new subscription' do
@@ -14,11 +16,11 @@ describe Yt::Collections::Subscriptions do
     end
 
     context 'given a duplicate subscription' do
-      let(:msg) { '{"error"=>{"errors"=>[{"reason"=>"subscriptionDuplicate"}]}}' }
-      before { collection.stub(:do_insert).and_raise Yt::RequestError, msg }
+      let(:reason) { 'subscriptionDuplicate' }
+      before { collection.stub(:do_insert).and_raise Yt::Error, msg }
 
-      it { expect{collection.insert}.to raise_error Yt::RequestError, msg }
-      it { expect{collection.insert ignore_duplicates: true}.not_to raise_error }
+      it { expect{collection.insert}.to fail.with 'subscriptionDuplicate' }
+      it { expect{collection.insert ignore_errors: true}.not_to fail }
     end
   end
 

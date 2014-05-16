@@ -11,8 +11,9 @@ module Yt
         resource["#{attrs[:kind]}Id"] = attrs[:id]
         snippet = {playlistId: @parent.id, resourceId: resource}
         do_insert body: {snippet: snippet}, params: {part: 'snippet,status'}
-      rescue Yt::RequestError => error
-        raise error unless options[:ignore_errors] && (error.reasons.include?('videoNotFound') || error.reasons.include?('forbidden'))
+      rescue Errors::Base => error
+        ignorable_errors = error.reasons & ['videoNotFound', 'forbidden']
+        raise error unless options[:ignore_errors] && ignorable_errors.any?
       end
 
       def delete_all(params = {})

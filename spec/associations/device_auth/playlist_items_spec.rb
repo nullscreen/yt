@@ -46,12 +46,12 @@ describe Yt::Associations::PlaylistItems, scenario: :device_app do
 
     context 'given an unknown video' do
       let(:video_id) { 'not-a-video' }
-      it { expect{@playlist.add_video! video_id}.to raise_error Yt::RequestError }
+      it { expect{@playlist.add_video! video_id}.to fail.with 'videoNotFound' }
     end
 
     context 'given a video of a terminated account' do
       let(:video_id) { 'kDCpdKeTe5g' }
-      it { expect{@playlist.add_video! video_id}.to raise_error Yt::RequestError }
+      it { expect{@playlist.add_video! video_id}.to fail.with 'forbidden' }
     end
   end
 
@@ -66,7 +66,7 @@ describe Yt::Associations::PlaylistItems, scenario: :device_app do
   describe '#add_videos!' do
     context 'given one existing and one unknown video' do
       let(:video_ids) { ['MESycYJytkU', 'not-a-video'] }
-      it { expect{@playlist.add_videos! video_ids}.to raise_error Yt::RequestError }
+      it { expect{@playlist.add_videos! video_ids}.to fail.with 'videoNotFound'}
     end
   end
 

@@ -13,8 +13,9 @@ module Yt
     def delete(options = {})
       begin
         do_delete {@id = nil}
-      rescue Yt::RequestError => error
-        raise error unless options[:ignore_not_found] && error.reasons.include?('subscriptionNotFound')
+      rescue Errors::Base => error
+        ignorable_errors = error.reasons & ['subscriptionNotFound']
+        raise error unless options[:ignore_errors] && ignorable_errors.any?
       end
       !exists?
     end
