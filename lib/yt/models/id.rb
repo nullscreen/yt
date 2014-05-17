@@ -1,4 +1,6 @@
 module Yt
-  class Id < String
+  module Models
+    class Id < String
+    end
   end
 end

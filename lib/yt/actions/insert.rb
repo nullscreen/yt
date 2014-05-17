@@ -7,7 +7,7 @@ module Yt
     private
 
       def do_insert(extra_insert_params = {})
-        request = Request.new insert_params.merge(extra_insert_params)
+        request = Yt::Request.new insert_params.merge(extra_insert_params)
         response = request.run
         raise unless response.is_a? Net::HTTPOK
         @items = []
@@ -15,7 +15,7 @@ module Yt
       end
 
       def insert_params
-        Request.default_params.tap do |params|
+        Yt::Request.default_params.tap do |params|
           params[:method] = :post
           params[:auth] = @auth
         end

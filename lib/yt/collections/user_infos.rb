@@ -18,7 +18,7 @@ module Yt
       end
 
       def next_page
-        request = Request.new list_params
+        request = Yt::Request.new list_params
         response = request.run
         raise unless response.is_a? Net::HTTPOK
         @page_token = nil

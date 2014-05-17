@@ -50,7 +50,7 @@ module Yt
       end
 
       def fetch_page(params = {})
-        request = Request.new params
+        request = Yt::Request.new params
         response = request.run
         raise unless response.is_a? Net::HTTPOK
         token = response.body['nextPageToken']
@@ -61,7 +61,7 @@ module Yt
       def list_params
         path = "/youtube/v3/#{self.class.to_s.demodulize.camelize :lower}"
 
-        Request.default_params.tap do |params|
+        Yt::Request.default_params.tap do |params|
           params[:method] = :get
           params[:auth] = @auth
           params[:path] = path
