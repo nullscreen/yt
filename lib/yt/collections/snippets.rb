@@ -12,10 +12,9 @@ module Yt
       end
 
       def list_params
-        parents_path = @parent.class.to_s.demodulize.underscore.pluralize
         super.tap do |params|
           params[:params] = {id: @parent.id, part: 'snippet'}
-          params[:path] = "/youtube/v3/#{parents_path}"
+          params[:path] = "/youtube/v3/#{@parent.kind.pluralize}"
         end
       end
     end
