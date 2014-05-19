@@ -13,6 +13,13 @@ module Yt
         @authentication ||= new_authentication || refreshed_authentication!
       end
 
+      def authentication_url
+        host = 'accounts.google.com'
+        path = '/o/oauth2/auth'
+        query = authentication_url_params.to_param
+        URI::HTTPS.build(host: host, path: path, query: query).to_s
+      end
+
     private
 
       def current_authentication
@@ -56,6 +63,23 @@ module Yt
         @refreshed_authentications ||= Collections::Authentications.of(self).tap do |auth|
           auth.auth_params = refreshed_authentication_params
         end
+      end
+
+      def authentication_url_params
+        {}.tap do |params|
+          params[:client_id] = client_id
+          params[:scope] = authentication_scope
+          params[:redirect_uri] = @redirect_uri
+          params[:response_type] = :code
+          params[:access_type] = :offline
+          # params[:include_granted_scopes] = true
+        end
+      end
+
+      def authentication_scope
+        @scopes.map do |scope|
+          "https://www.googleapis.com/auth/#{scope}"
+        end.join(' ') if @scopes.is_a?(Array)
       end
 
       def new_authentication_params

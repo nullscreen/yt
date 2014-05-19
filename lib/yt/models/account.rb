@@ -14,6 +14,7 @@ module Yt
         @expires_at = options[:expires_at]
         @authorization_code = options[:authorization_code]
         @redirect_uri = options[:redirect_uri]
+        @scopes = options[:scopes]
       end
 
       def auth

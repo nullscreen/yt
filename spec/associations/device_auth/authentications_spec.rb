@@ -20,7 +20,7 @@ describe Yt::Associations::Authentications, scenario: :device_app do
     end
 
     context 'given a redirect URI and an authorization code' do
-      let(:attrs) { {authorization_code: authorization_code, redirect_uri: 'http://example.com/'} }
+      let(:attrs) { {authorization_code: authorization_code, redirect_uri: 'http://localhost/'} }
 
       context 'that is valid' do
         # cannot be tested "live"
@@ -66,6 +66,13 @@ describe Yt::Associations::Authentications, scenario: :device_app do
     context 'given no token or code' do
       let(:attrs) { {} }
       it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+    end
+  end
+
+  describe '#authentication_url' do
+    context 'given a redirect URI and scopes' do
+      let(:attrs) { {redirect_uri: 'http://localhost/', scopes: ['userinfo.email', 'userinfo.profile']} }
+      it { expect(account.authentication_url).to match 'access_type=offline' }
     end
   end
 end
