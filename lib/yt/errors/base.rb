@@ -7,8 +7,11 @@ module Yt
       end
 
       def reasons
-        errors = response_body.fetch('error', {}).fetch 'errors', []
-        errors.map{|e| e['reason']}
+        kind.fetch('errors', []).map{|e| e['reason']}
+      end
+
+      def kind
+        response_body.fetch 'error', {}
       end
 
     private

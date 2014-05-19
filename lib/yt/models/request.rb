@@ -26,6 +26,8 @@ module Yt
         fetch_response.tap do |response|
           if response.is_a? Net::HTTPSuccess
             response.body = parse_format response.body
+          elsif response.is_a? Net::HTTPUnauthorized
+            raise Errors::MissingAuth, to_error(response)
           else
             raise Errors::Failed, to_error(response)
           end
