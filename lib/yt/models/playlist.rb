@@ -16,7 +16,7 @@ module Yt
       options[:privacy_status] ||= privacy_status
 
       snippet = options.slice :title, :description, :tags
-      status = {privacyStatus: privacy_status}
+      status = {privacyStatus: options[:privacy_status]}
       body = {id: @id, snippet: snippet, status: status}
       params = {params: {part: 'snippet,status'}, body: body}
 
