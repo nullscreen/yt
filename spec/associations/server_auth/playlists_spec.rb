@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'yt/models/channel'
 require 'yt/models/playlist'
 
-describe Yt::Associations::Playlists, scenario: :server_app do
+describe Yt::Associations::Playlists, :server_app do
   describe '#playlists' do
     subject(:playlists) { channel.playlists }
 

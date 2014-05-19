@@ -9,7 +9,6 @@ module Yt
     # @example A server-to-server YouTube client app
     #
     #   Yt.configure do |config|
-    #     config.scenario = :server_app
     #     config.api_key = 'ABCDEFGHIJ1234567890'
     #   end
     #
@@ -21,21 +20,12 @@ module Yt
     #   end
     #
     class Configuration
-      attr_accessor :scenario, :api_key, :client_id, :client_secret, :account
+      attr_accessor :api_key, :client_id, :client_secret
 
       def initialize
-        @scenario = set_scenario ENV['YT_CLIENT_SCENARIO']
         @client_id = ENV['YT_CLIENT_ID']
         @client_secret = ENV['YT_CLIENT_SECRET']
         @api_key = ENV['YT_API_KEY']
-      end
-
-    private
-
-      def set_scenario(value)
-        valid_scenarios = [:web_app, :device_app, :server_app]
-        scenario = valid_scenarios.find{|scenario| scenario.to_s == value}
-        scenario || :web_app
       end
     end
   end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/associations/details_sets'
 
-describe Yt::Associations::DetailsSets, scenario: :server_app do
+describe Yt::Associations::DetailsSets, :server_app do
   subject(:video) { Yt::Video.new id: video_id }
 
   describe '#details_set' do

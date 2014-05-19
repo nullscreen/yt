@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/associations/authentications'
 
-describe Yt::Associations::Authentications, scenario: :device_app do
+describe Yt::Associations::Authentications, :device_app do
   subject(:account) { Yt::Account.new attrs }
 
   describe '#authentication' do
@@ -36,7 +36,7 @@ describe Yt::Associations::Authentications, scenario: :device_app do
       let(:attrs) { {access_token: access_token, expires_at: expires_at} }
 
       context 'that is valid' do
-        let(:access_token) { Yt.configuration.account.access_token }
+        let(:access_token) { $account.access_token }
 
         context 'that does not have an expiration date' do
           let(:expires_at) { nil }

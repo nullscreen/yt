@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/associations/ids'
 
-describe Yt::Associations::Ids, scenario: :server_app do
+describe Yt::Associations::Ids, :server_app do
   subject(:resource) { Yt::Resource.new url: url }
 
   describe '#id' do

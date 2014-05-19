@@ -170,7 +170,6 @@ Next, add the following snippet of code to the initializer of your app:
 
 ```ruby
 Yt.configure do |config|
-  config.scenario = :server_app
   config.api_key = '123456789012345678901234567890'
 end
 ```
@@ -247,7 +246,6 @@ refresh token, then add the following snippet of code to the initializer of your
 
 ```ruby
 Yt.configure do |config|
-  config.scenario = :device_app
   config.client_id = '1234567890.apps.googleusercontent.com'
   config.client_secret = '1234567890'
 end
@@ -283,7 +281,6 @@ is equivalent to configuration your app with the initializer:
 
 ```ruby
 Yt.configure do |config|
-  config.scenario = :device_app
   config.client_id = '1234567890.apps.googleusercontent.com'
   config.client_secret = '1234567890'
   config.api_key = '123456789012345678901234567890'

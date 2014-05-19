@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/associations/videos'
 
-describe Yt::Associations::Videos, scenario: :server_app do
+describe Yt::Associations::Videos, :server_app do
   describe '#videos' do
     context 'given a channel with videos' do
       let(:channel) { Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow' }

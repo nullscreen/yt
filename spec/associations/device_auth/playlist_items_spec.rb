@@ -3,10 +3,9 @@ require 'yt/associations/playlist_items'
 
 # TODO: Delete playlist item after tests that create them
 
-describe Yt::Associations::PlaylistItems, scenario: :device_app do
-  before :all do
-    account = Yt.configuration.account
-    @playlist = account.create_playlist title: "Yt Test Playlist Items"
+describe Yt::Associations::PlaylistItems, :device_app do
+  before:all do
+    @playlist = $account.create_playlist title: "Yt Test Playlist Items"
    end
   after(:all) { @playlist.delete }
 

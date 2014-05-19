@@ -1,9 +1,8 @@
 require 'spec_helper'
 require 'yt/associations/ids'
 
-describe Yt::Associations::Ids, scenario: :device_app do
-  let(:account) { Yt.configuration.account }
-  subject(:resource) { Yt::Resource.new url: url, auth: account.auth }
+describe Yt::Associations::Ids, :device_app do
+  subject(:resource) { Yt::Resource.new url: url, auth: $account }
 
   describe '#id' do
     context 'given a URL containing an existing username' do
