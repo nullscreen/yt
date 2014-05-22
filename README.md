@@ -8,6 +8,7 @@ Yt helps you write apps that need to interact with the YouTube API V3.
 [![Build Status](https://travis-ci.org/Fullscreen/yt.png?branch=master)](https://travis-ci.org/Fullscreen/yt)
 [![Coverage Status](https://coveralls.io/repos/Fullscreen/yt/badge.png?)](https://coveralls.io/r/Fullscreen/yt)
 [![Code Climate](https://codeclimate.com/github/Fullscreen/yt.png)](https://codeclimate.com/github/Fullscreen/yt)
+[![Inline docs](http://inch-pages.github.io/github/Fullscreen/yt.png)](http://inch-pages.github.io/github/Fullscreen/yt)
 
 After [registering your app](#registering-your-app), you can run commands like:
 
