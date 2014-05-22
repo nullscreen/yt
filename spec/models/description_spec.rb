@@ -29,6 +29,11 @@ describe Yt::Description do
       let(:text) { 'Link to video: youtu.be/MESycYJytkU' }
       it { expect(description).to have_link_to_video }
     end
+
+    context 'with a playlist-embedded video URL' do
+      let(:text) { 'Link to video in playlist: youtube.com/watch?v=MESycYJytkU&index=619&list=LLxO1tY8h1AhOz0T4ENwmpow' }
+      it { expect(description).to have_link_to_video }
+    end
   end
 
   describe '#has_link_to_channel?' do
@@ -83,11 +88,6 @@ describe Yt::Description do
 
     context 'with a playlist long URL' do
       let(:text) { 'Link to playlist: youtube.com/playlist?list=LLxO1tY8h1AhOz0T4ENwmpow' }
-      it { expect(description).to have_link_to_playlist }
-    end
-
-    context 'with a playlist embed URL' do
-      let(:text) { 'Link to video in playlist: youtube.com/watch?v=MESycYJytkU&index=619&list=LLxO1tY8h1AhOz0T4ENwmpow' }
       it { expect(description).to have_link_to_playlist }
     end
   end

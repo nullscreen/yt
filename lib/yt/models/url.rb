@@ -29,15 +29,15 @@ module Yt
       end
 
       def patterns
-        # @note: :video *must* be the last since one of its regex eats the
+        # @note: :channel *must* be the last since one of its regex eats the
         # remaining patterns. In short, don't change the following order
 
-        @patterns ||= patterns_for :playlist, :subscription, :channel, :video
+        @patterns ||= patterns_for :playlist, :subscription, :video, :channel
       end
 
       def patterns_for(*kinds)
         prefix = '^(?:https?://)?(?:www\.)?'
-        suffix = '(?:|/)$'
+        suffix = '(?:|/)'
         kinds.map do |kind|
           patterns = send "#{kind}_patterns" # meta programming :/
           patterns.map do |pattern|
@@ -58,11 +58,9 @@ module Yt
 
       def playlist_patterns
         playlist_id = '(?<id>[a-zA-Z0-9_-]+)'
-        video_id = '(?:[a-zA-Z0-9&_=-]*)'
 
         %W{
           playlist\\?list=#{playlist_id}
-          watch\\?v=#{video_id}&list=#{playlist_id}
         }.map{|path| "youtube\\.com/#{path}"}
       end
 
