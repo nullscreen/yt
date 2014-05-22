@@ -24,21 +24,64 @@ module Yt
       end
 
       def run
-        add_authorization_to_request! if requires_authorization?
-        fetch_response.tap do |response|
-          if response.is_a? @expected_response
-            response.body = parse_format response.body
-          elsif response.is_a? Net::HTTPUnauthorized
-            raise Errors::MissingAuth, to_error(response)
-          else
-            raise Errors::Failed, to_error(response)
-          end
+        case response
+        when @expected_response
+          response.tap{|response| response.body = parse_format response.body}
+        when Net::HTTPUnauthorized
+          raise Errors::MissingAuth, to_error(response)
+        else
+          raise Errors::Failed, to_error(response)
         end
       end
 
     private
 
-      def add_authorization_to_request!
+      def response
+        @response ||= Net::HTTP.start(*net_http_options) do |http|
+          http.request http_request
+        end
+      end
+
+      def http_request
+        net_http_class.new(uri.request_uri).tap do |request|
+          set_headers! request
+          set_body! request
+        end
+      end
+
+      def set_headers!(request)
+        if @body_type == :json
+          request.initialize_http_header 'Content-Type' => 'application/json'
+          request.initialize_http_header 'Content-length' => '0' unless @body
+        end
+        @headers.each{|name, value| request.add_field name, value}
+      end
+
+      def set_body!(request)
+        case @body_type
+          when :json then request.body = @body.to_json
+          when :form then request.set_form_data @body
+        end if @body
+      end
+
+      def net_http_options
+        [uri.host, uri.port, use_ssl: true]
+      end
+
+      def net_http_class
+        "Net::HTTP::#{@method.capitalize}".constantize
+      end
+
+      def uri
+        @uri ||= build_uri
+      end
+
+      def build_uri
+        add_authorization! if @host == google_api_host
+        URI::HTTPS.build host: @host, path: @path, query: @query
+      end
+
+      def add_authorization!
         if @auth.respond_to? :access_token
           @headers['Authorization'] = "Bearer #{@auth.access_token}"
         elsif Yt.configuration.api_key
@@ -50,34 +93,8 @@ module Yt
         end
       end
 
-      def requires_authorization?
-        @host == google_api_host
-      end
-
       def google_api_host
         'www.googleapis.com'
-      end
-
-      def uri
-        @uri ||= URI::HTTPS.build host: @host, path: @path, query: @query
-      end
-
-      def fetch_response
-        klass = "Net::HTTP::#{@method.capitalize}".constantize
-        request = klass.new uri.request_uri
-        case @body_type
-        when :json
-          request.initialize_http_header 'Content-Type' => 'application/json'
-          request.initialize_http_header 'Content-length' => '0' unless @body
-          request.body = @body.to_json if @body
-        when :form
-          request.set_form_data @body if @body
-        end
-        @headers.each{|k,v| request.add_field k, v}
-
-        Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-          http.request request
-        end
       end
 
       def parse_format(body)
@@ -91,7 +108,7 @@ module Yt
         request_msg = {}.tap do |msg|
           msg[:method] = @method
           msg[:headers] = @headers
-          msg[:url] = uri.to_s
+          msg[:url] = @uri.to_s
           msg[:body] = @body
         end
 
