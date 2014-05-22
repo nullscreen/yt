@@ -14,7 +14,7 @@ module Yt
       end
 
       def insert_params
-        Yt::Request.default_params.tap do |params|
+        {}.tap do |params|
           params[:method] = :post
           params[:auth] = @auth
           params[:expected_response] = Net::HTTPOK

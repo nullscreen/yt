@@ -3,12 +3,11 @@ require 'yt/models/request'
 
 describe Yt::Request do
   subject(:request) { Yt::Request.new attrs }
-  let(:attrs) { {} }
+  let(:attrs) { {host: 'example.com'} }
 
   describe '#run' do
     context 'given a request to YouTube V3 API without authentication' do
       let(:attrs) { {host: 'www.googleapis.com'} }
-      before{ Yt.configuration.api_key = nil }
       it { expect{request.run}.to raise_error Yt::Errors::Unauthenticated }
     end
 

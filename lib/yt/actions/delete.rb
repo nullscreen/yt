@@ -13,7 +13,7 @@ module Yt
       end
 
       def delete_params
-        Yt::Request.default_params.tap do |params|
+        {}.tap do |params|
           params[:method] = :delete
           params[:auth] = @auth
           params[:expected_response] = Net::HTTPNoContent

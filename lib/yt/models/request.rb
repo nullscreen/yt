@@ -12,11 +12,12 @@ module Yt
     class Request
       def initialize(options = {})
         options[:query] ||= options[:params].to_param
+        options[:host] ||= 'www.googleapis.com'
         @uri = URI::HTTPS.build options.slice(:host, :path, :query)
         @method = options.fetch :method, :get
-        @format = options[:format]
+        @format = options.fetch :format, :json
         @body = options[:body]
-        @body_type = options[:body_type]
+        @body_type = options.fetch :body_type, :json
         @auth = options[:auth]
         @expected_response = options.fetch :expected_response, Net::HTTPSuccess
         @headers = {}
@@ -35,14 +36,6 @@ module Yt
         end
       end
 
-      def self.default_params
-        {}.tap do |params|
-          params[:format] = :json
-          params[:host] = 'www.googleapis.com'
-          params[:body_type] = :json
-        end
-      end
-
     private
 
       def add_authorization_to_request!
@@ -58,7 +51,7 @@ module Yt
       end
 
       def requires_authorization?
-        @uri.host == Request.default_params[:host]
+        @uri.host == 'www.googleapis.com'
       end
 
       def fetch_response
