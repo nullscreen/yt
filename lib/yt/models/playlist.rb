@@ -19,9 +19,8 @@ module Yt
         snippet = options.slice :title, :description, :tags
         status = {privacyStatus: options[:privacy_status]}
         body = {id: @id, snippet: snippet, status: status}
-        params = {params: {part: 'snippet,status'}, body: body}
 
-        do_update(params, expect: Net::HTTPOK) do |data|
+        do_update(params: {part: 'snippet,status'}, body: body) do |data|
           @id = data['id']
           @snippet = Snippet.new data: data['snippet'] if data['snippet']
           @status = Status.new data: data['status'] if data['status']
@@ -46,6 +45,7 @@ module Yt
         super.tap do |params|
           params[:path] = '/youtube/v3/playlists'
           params[:body_type] = :json
+          params[:expected_response] = Net::HTTPOK
         end
       end
     end

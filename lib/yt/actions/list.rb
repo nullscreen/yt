@@ -52,7 +52,6 @@ module Yt
       def fetch_page(params = {})
         request = Yt::Request.new params
         response = request.run
-        raise unless response.is_a? Net::HTTPOK
         token = response.body['nextPageToken']
         items = response.body.fetch 'items', []
         {items: items, token: token}
@@ -65,6 +64,7 @@ module Yt
           params[:method] = :get
           params[:auth] = @auth
           params[:path] = path
+          params[:exptected_response] = Net::HTTPOK
         end
       end
     end

@@ -17,13 +17,13 @@ module Yt
           params[:host] = 'www.youtube.com'
           params[:path] = '/annotations_invideo'
           params[:params] = {video_id: @parent.id}
+          params[:expected_response] = Net::HTTPOK
         end
       end
 
       def next_page
         request = Yt::Request.new list_params
         response = request.run
-        raise unless response.is_a? Net::HTTPOK
         @page_token = nil
 
         document = response.body.fetch('document', {})['annotations'] || {}

@@ -18,13 +18,14 @@ module Yt
         @body = options[:body]
         @body_type = options[:body_type]
         @auth = options[:auth]
+        @expected_response = options.fetch :expected_response, Net::HTTPSuccess
         @headers = {}
       end
 
       def run
         add_authorization_to_request! if requires_authorization?
         fetch_response.tap do |response|
-          if response.is_a? Net::HTTPSuccess
+          if response.is_a? @expected_response
             response.body = parse_format response.body
           elsif response.is_a? Net::HTTPUnauthorized
             raise Errors::MissingAuth, to_error(response)

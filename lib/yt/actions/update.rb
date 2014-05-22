@@ -3,11 +3,12 @@ require 'yt/models/request'
 module Yt
   module Actions
     module Update
-      def do_update(extra_update_params = {}, options = {})
+
+    private
+
+      def do_update(extra_update_params = {})
         request = Yt::Request.new update_params.deep_merge(extra_update_params)
         response = request.run
-        expected_response = options.fetch :expect, Net::HTTPNoContent
-        raise unless response.is_a? expected_response
         yield response.body
       end
 
@@ -15,6 +16,7 @@ module Yt
         Yt::Request.default_params.tap do |params|
           params[:method] = :put
           params[:auth] = @auth
+          params[:expected_response] = Net::HTTPNoContent
         end
       end
     end
