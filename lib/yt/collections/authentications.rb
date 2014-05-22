@@ -1,6 +1,5 @@
 require 'yt/collections/base'
 require 'yt/models/authentication'
-require 'yt/errors/failed'
 
 module Yt
   module Collections
@@ -31,7 +30,7 @@ module Yt
       def next_page
         request = Yt::Request.new list_params
         Array.wrap request.run.body
-      rescue Yt::Errors::Failed => error
+      rescue Yt::Error => error
         expected?(error) ? [] : raise(error)
       end
 

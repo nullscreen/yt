@@ -4,8 +4,8 @@ require 'json' # for JSON.parse
 require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
 
 require 'yt/config'
-require 'yt/errors/failed'
-require 'yt/errors/unauthenticated'
+require 'yt/errors/missing_auth'
+require 'yt/errors/request_error'
 
 module Yt
   module Models
@@ -28,9 +28,9 @@ module Yt
         when @expected_response
           response.tap{|response| response.body = parse_format response.body}
         when Net::HTTPUnauthorized
-          raise Errors::MissingAuth, to_error(response)
+          raise Errors::MissingAuth, request_error_message
         else
-          raise Errors::Failed, to_error(response)
+          raise Yt::Error, request_error_message
         end
       end
 
@@ -43,7 +43,7 @@ module Yt
       end
 
       def http_request
-        net_http_class.new(uri.request_uri).tap do |request|
+        @http_request ||= net_http_class.new(uri.request_uri).tap do |request|
           set_headers! request
           set_body! request
         end
@@ -88,8 +88,6 @@ module Yt
           params = URI.decode_www_form @query || ''
           params << [:key, Yt.configuration.api_key]
           @query = URI.encode_www_form params
-        else
-          raise Errors::Unauthenticated, to_error
         end
       end
 
@@ -104,21 +102,22 @@ module Yt
         end if body
       end
 
-      def to_error(response = nil)
-        request_msg = {}.tap do |msg|
-          msg[:method] = @method
-          msg[:headers] = @headers
-          msg[:url] = @uri.to_s
-          msg[:body] = @body
+      def request_error_message
+        {}.tap do |message|
+          message[:request_curl] = as_curl
+          message[:response_body] = JSON(response.body) rescue response.body
+        end.to_json
+      end
+
+      def as_curl
+        'curl'.tap do |curl|
+          curl <<  " -X #{http_request.method}"
+          http_request.each_header do |name, value|
+            curl << %Q{ -H "#{name}: #{value}"}
+          end
+          curl << %Q{ -d '#{http_request.body}'} if http_request.body
+          curl << %Q{ "#{@uri.to_s}"}
         end
-
-        response_msg = {}.tap do |msg|
-          msg[:code] = response.code
-          msg[:headers] = {}.tap{|h| response.each_header{|k,v| h[k] = v }}
-          msg[:body] = response.body
-        end if response
-
-        {request: request_msg, response: response_msg}.to_json
       end
     end
   end

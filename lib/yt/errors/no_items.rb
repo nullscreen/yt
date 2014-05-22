@@ -1,16 +1,12 @@
-require 'yt/errors/base'
+require 'yt/errors/request_error'
 
 module Yt
   module Errors
-    class NoItems < Base
-      def message
-        <<-MSG.gsub(/^ {6}/, '')
-        A request to YouTube API V3 returned no items (but some were expected):
-        #{response_body}
+    class NoItems < RequestError
+      private
 
-        You can retry the same request manually by running:
-        #{request_curl}
-        MSG
+      def explanation
+        'A request to YouTube API returned no items but some were expected'
       end
     end
   end

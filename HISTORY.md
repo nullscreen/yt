@@ -9,6 +9,7 @@ v0.5 - 2014/05/16
 * Don't check for the right :scope if Account is initialized with credentials
 * Move models in Yt::Models but still auto-include them in the main namespace
 * New Authentication model to separate `access_token` and `refresh_token` from Account
+* New types of Errors that render more verbose errors and the failing request in cURL syntax
 
 v0.4 - 2014/05/09
 --------------------

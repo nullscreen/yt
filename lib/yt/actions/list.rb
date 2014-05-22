@@ -8,9 +8,7 @@ module Yt
       alias size count
 
       def first!
-        first.tap do |item|
-          raise Errors::NoItems unless item
-        end
+        first.tap{|item| raise Errors::NoItems unless item}
       end
 
     private

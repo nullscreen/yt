@@ -6,11 +6,6 @@ describe Yt::Request do
   let(:attrs) { {host: 'example.com'} }
 
   describe '#run' do
-    context 'given a request to YouTube V3 API without authentication' do
-      let(:attrs) { {host: 'www.googleapis.com'} }
-      it { expect{request.run}.to raise_error Yt::Errors::Unauthenticated }
-    end
-
     context 'given a request that returns a non-2XX code' do
       let(:not_found) { Net::HTTPNotFound.new nil, nil, nil }
       before { Net::HTTP.stub(:start).and_return not_found }

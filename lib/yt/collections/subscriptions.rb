@@ -8,7 +8,7 @@ module Yt
       def insert(options = {})
         throttle
         do_insert
-      rescue Errors::Base => error
+      rescue Yt::Error => error
         ignorable_errors = error.reasons & ['subscriptionDuplicate']
         raise error unless options[:ignore_errors] && ignorable_errors.any?
       end
