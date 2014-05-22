@@ -11,16 +11,16 @@ module Yt
   module Models
     class Request
       def initialize(options = {})
-        options[:query] ||= options[:params].to_param
-        options[:host] ||= 'www.googleapis.com'
-        @uri = URI::HTTPS.build options.slice(:host, :path, :query)
-        @method = options.fetch :method, :get
-        @format = options.fetch :format, :json
+        @auth = options[:auth]
         @body = options[:body]
         @body_type = options.fetch :body_type, :json
-        @auth = options[:auth]
         @expected_response = options.fetch :expected_response, Net::HTTPSuccess
-        @headers = {}
+        @format = options.fetch :format, :json
+        @headers = options.fetch :headers, {}
+        @host = options.fetch :host, google_api_host
+        @method = options.fetch :method, :get
+        @path = options[:path]
+        @query = options.fetch(:params, {}).to_param
       end
 
       def run
@@ -42,21 +42,29 @@ module Yt
         if @auth.respond_to? :access_token
           @headers['Authorization'] = "Bearer #{@auth.access_token}"
         elsif Yt.configuration.api_key
-          params = URI.decode_www_form @uri.query || ''
+          params = URI.decode_www_form @query || ''
           params << [:key, Yt.configuration.api_key]
-          @uri.query = URI.encode_www_form params
+          @query = URI.encode_www_form params
         else
           raise Errors::Unauthenticated, to_error
         end
       end
 
       def requires_authorization?
-        @uri.host == 'www.googleapis.com'
+        @host == google_api_host
+      end
+
+      def google_api_host
+        'www.googleapis.com'
+      end
+
+      def uri
+        @uri ||= URI::HTTPS.build host: @host, path: @path, query: @query
       end
 
       def fetch_response
         klass = "Net::HTTP::#{@method.capitalize}".constantize
-        request = klass.new @uri.request_uri
+        request = klass.new uri.request_uri
         case @body_type
         when :json
           request.initialize_http_header 'Content-Type' => 'application/json'
@@ -67,7 +75,7 @@ module Yt
         end
         @headers.each{|k,v| request.add_field k, v}
 
-        Net::HTTP.start(@uri.host, @uri.port, use_ssl: true) do |http|
+        Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
           http.request request
         end
       end
@@ -83,7 +91,7 @@ module Yt
         request_msg = {}.tap do |msg|
           msg[:method] = @method
           msg[:headers] = @headers
-          msg[:url] = @uri.to_s
+          msg[:url] = uri.to_s
           msg[:body] = @body
         end
 
