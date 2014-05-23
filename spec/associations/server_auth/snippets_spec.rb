@@ -3,7 +3,7 @@ require 'yt/associations/snippets'
 require 'yt/models/channel'
 require 'yt/models/video'
 
-describe Yt::Associations::Snippets, scenario: :server_app do
+describe Yt::Associations::Snippets, :server_app do
   describe '#snippet' do
     context 'given an existing video resource' do
       let(:video) { Yt::Video.new id: 'MESycYJytkU' }

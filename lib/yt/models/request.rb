@@ -4,99 +4,121 @@ require 'json' # for JSON.parse
 require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
 
 require 'yt/config'
-require 'yt/errors/failed'
-require 'yt/errors/unauthenticated'
+require 'yt/errors/missing_auth'
+require 'yt/errors/request_error'
 
 module Yt
-  class Request
-    def initialize(options = {})
-      options[:query] ||= options[:params].to_param
-      @uri = URI::HTTPS.build options.slice(:host, :path, :query)
-      @method = options.fetch :method, :get
-      @format = options[:format]
-      @body = options[:body]
-      @body_type = options[:body_type]
-      @auth = options[:auth]
-      @headers = {}
-    end
+  module Models
+    class Request
+      def initialize(options = {})
+        @auth = options[:auth]
+        @body = options[:body]
+        @body_type = options.fetch :body_type, :json
+        @expected_response = options.fetch :expected_response, Net::HTTPSuccess
+        @format = options.fetch :format, :json
+        @headers = options.fetch :headers, {}
+        @host = options.fetch :host, google_api_host
+        @method = options.fetch :method, :get
+        @path = options[:path]
+        @query = options.fetch(:params, {}).to_param
+      end
 
-    def run
-      add_authorization_to_request! if requires_authorization?
-      fetch_response.tap do |response|
-        if response.is_a? Net::HTTPSuccess
-          response.body = parse_format response.body
+      def run
+        case response
+        when @expected_response
+          response.tap{|response| response.body = parse_format response.body}
+        when Net::HTTPUnauthorized
+          raise Errors::MissingAuth, request_error_message
         else
-          raise Errors::Failed, to_error(response)
+          raise Yt::Error, request_error_message
         end
       end
-    end
 
-    def self.default_params
-      {}.tap do |params|
-        params[:format] = :json
-        params[:host] = 'www.googleapis.com'
-        params[:body_type] = :json
-      end
-    end
+    private
 
-  private
-
-    def add_authorization_to_request!
-      if @auth.respond_to? :access_token
-        @headers['Authorization'] = "Bearer #{@auth.access_token}"
-      elsif Yt.configuration.api_key
-        params = URI.decode_www_form @uri.query || ''
-        params << [:key, Yt.configuration.api_key]
-        @uri.query = URI.encode_www_form params
-      else
-        raise Errors::Unauthenticated, to_error
-      end
-    end
-
-    def requires_authorization?
-      @uri.host == Request.default_params[:host]
-    end
-
-    def fetch_response
-      klass = "Net::HTTP::#{@method.capitalize}".constantize
-      request = klass.new @uri.request_uri
-      case @body_type
-      when :json
-        request.initialize_http_header 'Content-Type' => 'application/json'
-        request.initialize_http_header 'Content-length' => '0' unless @body
-        request.body = @body.to_json if @body
-      when :form
-        request.set_form_data @body if @body
-      end
-      @headers.each{|k,v| request.add_field k, v}
-
-      Net::HTTP.start(@uri.host, @uri.port, use_ssl: true) do |http|
-        http.request request
-      end
-    end
-
-    def parse_format(body)
-      case @format
-        when :xml then Hash.from_xml body
-        when :json then JSON body
-      end if body
-    end
-
-    def to_error(response = nil)
-      request_msg = {}.tap do |msg|
-        msg[:method] = @method
-        msg[:headers] = @headers
-        msg[:url] = @uri.to_s
-        msg[:body] = @body
+      def response
+        @response ||= Net::HTTP.start(*net_http_options) do |http|
+          http.request http_request
+        end
       end
 
-      response_msg = {}.tap do |msg|
-        msg[:code] = response.code
-        msg[:headers] = {}.tap{|h| response.each_header{|k,v| h[k] = v }}
-        msg[:body] = response.body
-      end if response
+      def http_request
+        @http_request ||= net_http_class.new(uri.request_uri).tap do |request|
+          set_headers! request
+          set_body! request
+        end
+      end
 
-      {request: request_msg, response: response_msg}.to_json
+      def set_headers!(request)
+        if @body_type == :json
+          request.initialize_http_header 'Content-Type' => 'application/json'
+          request.initialize_http_header 'Content-length' => '0' unless @body
+        end
+        @headers.each{|name, value| request.add_field name, value}
+      end
+
+      def set_body!(request)
+        case @body_type
+          when :json then request.body = @body.to_json
+          when :form then request.set_form_data @body
+        end if @body
+      end
+
+      def net_http_options
+        [uri.host, uri.port, use_ssl: true]
+      end
+
+      def net_http_class
+        "Net::HTTP::#{@method.capitalize}".constantize
+      end
+
+      def uri
+        @uri ||= build_uri
+      end
+
+      def build_uri
+        add_authorization! if @host == google_api_host
+        URI::HTTPS.build host: @host, path: @path, query: @query
+      end
+
+      def add_authorization!
+        if @auth.respond_to? :access_token
+          @headers['Authorization'] = "Bearer #{@auth.access_token}"
+        elsif Yt.configuration.api_key
+          params = URI.decode_www_form @query || ''
+          params << [:key, Yt.configuration.api_key]
+          @query = URI.encode_www_form params
+        end
+      end
+
+      def google_api_host
+        'www.googleapis.com'
+      end
+
+      def parse_format(body)
+        case @format
+          when :xml then Hash.from_xml body
+          when :json then JSON body
+        end if body
+      end
+
+      def request_error_message
+        {}.tap do |message|
+          message[:request_curl] = as_curl
+          message[:response_body] = JSON(response.body) rescue response.body
+        end.to_json
+      end
+
+      def as_curl
+        'curl'.tap do |curl|
+          curl <<  " -X #{http_request.method}"
+          http_request.each_header do |name, value|
+            curl << %Q{ -H "#{name}: #{value}"}
+          end
+          curl << %Q{ -d '#{http_request.body}'} if http_request.body
+          curl << %Q{ "#{@uri.to_s}"}
+        end
+      end
     end
   end
 end

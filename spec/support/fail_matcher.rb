@@ -3,7 +3,7 @@ RSpec::Matchers.define :fail do
     begin
       block.call
       false
-    rescue Yt::Errors::Base => error
+    rescue Yt::Error => error
       @reason ? error.reasons.include?(@reason) : true
     end
   end

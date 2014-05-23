@@ -11,6 +11,7 @@ module Yt
     extend ActiveSupport::Autoload
 
     autoload :Annotations
+    autoload :Authentications
     autoload :Channels
     autoload :DetailsSets
     autoload :Ids

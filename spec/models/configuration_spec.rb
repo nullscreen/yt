@@ -3,23 +3,6 @@ require 'spec_helper'
 describe Yt::Configuration do
   subject(:config) { Yt::Configuration.new }
 
-  describe '#scenario' do
-    context 'without an environment variable YT_CLIENT_SCENARIO' do
-      before { ENV['YT_CLIENT_SCENARIO'] = nil }
-      it {expect(config.scenario).to be :web_app }
-    end
-
-    context 'given an invalid environment variable YT_CLIENT_SCENARIO' do
-      before { ENV['YT_CLIENT_SCENARIO'] = 'not-a-scenario'}
-      it {expect(config.scenario).to be :web_app }
-    end
-
-    context 'given a valid environment variable YT_CLIENT_SCENARIO' do
-      before { ENV['YT_CLIENT_SCENARIO'] = 'device_app'}
-      it {expect(config.scenario).to be :device_app }
-    end
-  end
-
   describe '#client_id' do
     context 'without an environment variable YT_CLIENT_ID' do
       before { ENV['YT_CLIENT_ID'] = nil }

@@ -6,8 +6,7 @@ describe Yt::Collections::PlaylistItems do
   subject(:collection) { Yt::Collections::PlaylistItems.new parent: playlist }
   let(:playlist) { Yt::Playlist.new id: 'LLxO1tY8h1AhOz0T4ENwmpow' }
   let(:attrs) { {id: 'MESycYJytkU', kind: :video} }
-  let(:response_body) { %Q{{"error":{"errors":[{"reason":"#{reason}"}]}}} }
-  let(:msg) { {response: {body: response_body}}.to_json }
+  let(:msg) { {response_body: {error: {errors: [{reason: reason}]}}}.to_json }
 
   describe '#insert' do
     let(:playlist_item) { Yt::PlaylistItem.new }
@@ -20,7 +19,7 @@ describe Yt::Collections::PlaylistItems do
 
     context 'given an unknown video' do
       let(:reason) { 'videoNotFound' }
-      before { collection.stub(:do_insert).and_raise Yt::Errors::Failed, msg }
+      before { collection.stub(:do_insert).and_raise Yt::Error, msg }
 
       it { expect{collection.insert attrs}.to fail.with 'videoNotFound' }
       it { expect{collection.insert attrs, ignore_errors: true}.not_to fail }
@@ -28,7 +27,7 @@ describe Yt::Collections::PlaylistItems do
 
     context 'given a forbidden video' do
       let(:reason) { 'forbidden' }
-      before { collection.stub(:do_insert).and_raise Yt::Errors::Failed, msg }
+      before { collection.stub(:do_insert).and_raise Yt::Error, msg }
 
       it { expect{collection.insert attrs}.to fail.with 'forbidden' }
       it { expect{collection.insert attrs, ignore_errors: true}.not_to fail }

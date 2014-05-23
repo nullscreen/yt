@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'yt/models/playlist'
 require 'yt/models/playlist_item'
 
-describe Yt::Associations::PlaylistItems, scenario: :server_app do
+describe Yt::Associations::PlaylistItems, :server_app do
   describe '#playlist_items' do
     subject(:playlist_items) { playlist.playlist_items }
 

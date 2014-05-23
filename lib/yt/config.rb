@@ -13,7 +13,6 @@ module Yt
   # @example A server-to-server YouTube client app
   #
   #   Yt.configure do |config|
-  #     config.scenario = :server_app
   #     config.api_key = 'ABCDEFGHIJ1234567890'
   #   end
   #
@@ -30,7 +29,6 @@ module Yt
     #
     # @example
     #   Yt.configure do |config|
-    #     config.scenario = :server_app
     #     config.api_key = 'ABCDEFGHIJ1234567890'
     #   end
     # @see Yt::Configuration

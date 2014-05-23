@@ -1,88 +1,88 @@
 module Yt
-  class URL
-    attr_reader :kind
+  module Models
+    class URL
+      attr_reader :kind
 
-    def initialize(url)
-      @url = url
-      @kind ||= parse url
-      @match_data ||= {}
-    end
-
-    def id
-      @match_data[:id]
-    rescue IndexError
-    end
-
-    def username
-      @match_data[:username]
-    rescue IndexError
-    end
-
-  private
-
-    def parse(url)
-      matching_pattern = patterns.find do |pattern|
-        @match_data = url.match pattern[:regex]
+      def initialize(url)
+        @url = url
+        @kind ||= parse url
+        @match_data ||= {}
       end
-      matching_pattern[:kind] if matching_pattern
-    end
 
-    def patterns
-      # @note: :video *must* be the last since one of its regex eats the
-      # remaining patterns. In short, don't change the following order
+      def id
+        @match_data[:id]
+      rescue IndexError
+      end
 
-      @patterns ||= patterns_for :playlist, :subscription, :channel, :video
-    end
+      def username
+        @match_data[:username]
+      rescue IndexError
+      end
 
-    def patterns_for(*kinds)
-      prefix = '^(?:https?://)?(?:www\.)?'
-      suffix = '(?:|/)$'
-      kinds.map do |kind|
-        patterns = send "#{kind}_patterns" # meta programming :/
-        patterns.map do |pattern|
-          {kind: kind, regex: %r{#{prefix}#{pattern}#{suffix}}}
+    private
+
+      def parse(url)
+        matching_pattern = patterns.find do |pattern|
+          @match_data = url.match pattern[:regex]
         end
-      end.flatten
-    end
+        matching_pattern[:kind] if matching_pattern
+      end
 
-    def subscription_patterns
-      name = '(?:[a-zA-Z0-9&_=-]*)'
+      def patterns
+        # @note: :channel *must* be the last since one of its regex eats the
+        # remaining patterns. In short, don't change the following order
 
-      %W{
-        subscription_center\\?add_user=#{name}
-        subscribe_widget\\?p=#{name}
-        channel/#{name}\\?sub_confirmation=1
-      }.map{|path| "youtube\\.com/#{path}"}
-    end
+        @patterns ||= patterns_for :playlist, :subscription, :video, :channel
+      end
 
-    def playlist_patterns
-      playlist_id = '(?<id>[a-zA-Z0-9_-]+)'
-      video_id = '(?:[a-zA-Z0-9&_=-]*)'
+      def patterns_for(*kinds)
+        prefix = '^(?:https?://)?(?:www\.)?'
+        suffix = '(?:|/)'
+        kinds.map do |kind|
+          patterns = send "#{kind}_patterns" # meta programming :/
+          patterns.map do |pattern|
+            {kind: kind, regex: %r{#{prefix}#{pattern}#{suffix}}}
+          end
+        end.flatten
+      end
 
-      %W{
-        playlist\\?list=#{playlist_id}
-        watch\\?v=#{video_id}&list=#{playlist_id}
-      }.map{|path| "youtube\\.com/#{path}"}
-    end
+      def subscription_patterns
+        name = '(?:[a-zA-Z0-9&_=-]*)'
 
-    def video_patterns
-      video_id = '(?<id>[a-zA-Z0-9_-]+)'
+        %W{
+          subscription_center\\?add_user=#{name}
+          subscribe_widget\\?p=#{name}
+          channel/#{name}\\?sub_confirmation=1
+        }.map{|path| "youtube\\.com/#{path}"}
+      end
 
-      %W{
-        youtube\\.com/watch\\?v=#{video_id}
-        youtu\\.be/#{video_id}
-      }
-    end
+      def playlist_patterns
+        playlist_id = '(?<id>[a-zA-Z0-9_-]+)'
 
-    def channel_patterns
-      channel_id = '(?<id>[a-zA-Z0-9_-]+)'
-      username = '(?<username>[a-zA-Z0-9_-]+)'
+        %W{
+          playlist\\?list=#{playlist_id}
+        }.map{|path| "youtube\\.com/#{path}"}
+      end
 
-      %W{
-        channel/#{channel_id}
-        user/#{username}
-        #{username}
-      }.map{|path| "youtube\\.com/#{path}"}
+      def video_patterns
+        video_id = '(?<id>[a-zA-Z0-9_-]+)'
+
+        %W{
+          youtube\\.com/watch\\?v=#{video_id}
+          youtu\\.be/#{video_id}
+        }
+      end
+
+      def channel_patterns
+        channel_id = '(?<id>[a-zA-Z0-9_-]+)'
+        username = '(?<username>[a-zA-Z0-9_-]+)'
+
+        %W{
+          channel/#{channel_id}
+          user/#{username}
+          #{username}
+        }.map{|path| "youtube\\.com/#{path}"}
+      end
     end
   end
 end

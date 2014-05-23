@@ -170,7 +170,6 @@ Next, add the following snippet of code to the initializer of your app:
 
 ```ruby
 Yt.configure do |config|
-  config.scenario = :server_app
   config.api_key = '123456789012345678901234567890'
 end
 ```
@@ -247,7 +246,6 @@ refresh token, then add the following snippet of code to the initializer of your
 
 ```ruby
 Yt.configure do |config|
-  config.scenario = :device_app
   config.client_id = '1234567890.apps.googleusercontent.com'
   config.client_secret = '1234567890'
 end
@@ -283,7 +281,6 @@ is equivalent to configuration your app with the initializer:
 
 ```ruby
 Yt.configure do |config|
-  config.scenario = :device_app
   config.client_id = '1234567890.apps.googleusercontent.com'
   config.client_secret = '1234567890'
   config.api_key = '123456789012345678901234567890'
@@ -303,7 +300,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.5.4'
+    gem 'yt', '~> 0.5.5'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

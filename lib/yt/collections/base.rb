@@ -1,7 +1,7 @@
 require 'yt/actions/delete_all'
 require 'yt/actions/insert'
 require 'yt/actions/list'
-require 'yt/errors/error'
+require 'yt/errors/request_error'
 
 module Yt
   module Collections

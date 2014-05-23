@@ -1,12 +1,10 @@
 require 'spec_helper'
 require 'yt/models/video'
 
-describe Yt::Associations::Ratings, scenario: :device_app do
-  let(:account) { Yt.configuration.account }
-
+describe Yt::Associations::Ratings, :device_app do
   describe '#rating' do
     context 'given an existing video' do
-      let(:video) { Yt::Video.new id: 'MESycYJytkU', auth: account }
+      let(:video) { Yt::Video.new id: 'MESycYJytkU', auth: $account }
 
       context 'that I like' do
         before { video.like }
