@@ -219,8 +219,28 @@ account.email #=> (retrieves the account’s e-mail address)
 account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
 ```
 
-Scenario 3. If you don’t have the account’s refresh token, then [..TODO..]
+Scenario 3. If you don’t have any account’s token, then you can get one by
+having the user authorize your app through the Google OAuth page. First,
+build the the Google OAuth page URL with the following code:
 
+```ruby
+Yt::Account.new(scopes: scopes, redirect_uri: redirect_uri).authentication_url
+```
+
+where `scopes` is the list of scopes you want the user to authorize, and
+`redirect_uri` is the page of your web app the user should come back after
+authorizing (remember, this must be added to the Google Console as well).
+Sample scopes are: `youtube`, `youtube.readonly` `userinfo.email`.
+
+After authorizing your app, the user will be redirected to `redirect_uri`
+with an extra `code` parameter that looks something like `4/Ja60jJ7_Kw0`.
+Just pass the code to the following method to authenticate and initialize the account:
+
+```ruby
+account = Yt::Account.new authorization_code: '4/Ja60jJ7_Kw0'
+account.email #=> (retrieves the account’s e-mail address)
+account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
+```
 
 Device apps that do require user interactions
 ---------------------------------------------
