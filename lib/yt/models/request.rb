@@ -4,7 +4,7 @@ require 'json' # for JSON.parse
 require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
 
 require 'yt/config'
-require 'yt/errors/missing_auth'
+require 'yt/errors/unauthorized'
 require 'yt/errors/request_error'
 require 'yt/errors/server_error'
 
@@ -31,7 +31,7 @@ module Yt
         when Net::HTTPServerError
           raise Errors::ServerError, request_error_message
         when Net::HTTPUnauthorized
-          raise Errors::MissingAuth, request_error_message
+          raise Errors::Unauthorized, request_error_message
         else
           raise Errors::RequestError, request_error_message
         end

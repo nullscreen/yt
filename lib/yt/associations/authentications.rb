@@ -1,7 +1,7 @@
 require 'yt/collections/authentications'
 require 'yt/config'
 require 'yt/errors/no_items'
-require 'yt/errors/missing_auth'
+require 'yt/errors/unauthorized'
 
 module Yt
   module Associations
@@ -51,7 +51,7 @@ module Yt
       def refreshed_authentication!
         refreshed_authentications.first!
       rescue Errors::NoItems => error
-        raise Errors::MissingAuth, error.to_param
+        raise Errors::Unauthorized, error.to_param
       end
 
       def new_authentications
