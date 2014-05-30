@@ -6,6 +6,7 @@ module Yt
       has_many :subscriptions
       has_many :videos
       has_many :playlists
+      has_many :earnings # requires auth with an account with 'yt-analytics-monetary.readonly'
     end
   end
 end

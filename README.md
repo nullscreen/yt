@@ -41,9 +41,9 @@ Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Account) to
 * access the YouTube channel of the account
 
 ```ruby
-account = Yt::Account.new
+# An account can be initialized with access token, refresh token or an authorization code
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
 
-# An OAuth2 prompt will appear before the following commands
 account.email #=> .. your e-mail address..
 account.channel #=> #<Yt::Channel @id=...>
 ```
@@ -60,6 +60,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Channel) to
 * access the playlists of a channel
 * subscribe to and unsubscribe from a channel
 * create and delete playlists from a channel
+* retrieve the estimated daily earnings of a channel
 
 ```ruby
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
@@ -71,8 +72,14 @@ channel.videos.first #=> #<Yt::Video @id=...>
 
 channel.playlists.count #=> 2
 channel.playlists.first #=> #<Yt::Playlist @id=...>
+```
 
-# An OAuth2 prompt will appear before the following commands
+*The methods above do not require authentication.*
+
+```ruby
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
+channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: account
+
 channel.subscribed? #=> false
 channel.subscribe #=> true
 
@@ -81,7 +88,18 @@ channel.delete_playlists title: 'New playlist' #=> [true]
 
 ```
 
-*Subscribing to and unsubscribing from a channel requires authentication (see below).*
+*The methods above require to be authenticated as a YouTube account (see below).*
+
+```ruby
+content_owner = Yt::Account.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: content_owner
+
+channel.earning 5.days.ago #=> 12.23
+channel.earnings since: 3.days.ago, until: 2.days.ago #=> {Wed, 28 May 2014 => 1.34, Thu, 29 May 2014 => 0.47}
+```
+
+*The methods above require to be authenticated as the channel’s content owner (see below).*
+
 
 Yt::Video
 -----------
@@ -100,13 +118,19 @@ video.description.has_link_to_subscribe? #=> false
 
 video.annotations.count #=> 1
 video.annotations.first #=> #<Yt::Annotation @id=...>
+```
 
-# An OAuth2 prompt will appear before the following commands
+*The methods above do not require authentication.*
+
+```ruby
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
+video = Yt::Video.new id: 'MESycYJytkU', auth: account
+
 video.liked? #=> false
 video.like #=> true
 ```
 
-*Liking and disliking a video requires authentication (see below).*
+*The methods above require to be authenticated as a YouTube account (see below).*
 
 Yt::Playlist
 ------------
@@ -127,14 +151,17 @@ playlist.playlist_items.count #=> 1
 playlist.playlist_items.first #=> #<Yt::PlaylistItem @id=...>
 playlist.playlist_items.first.position #=> 0
 playlist.playlist_items.first.video.title #=> "Fullscreen Creator Platform"
+```
 
-# An OAuth2 prompt will appear before the following commands
+*The methods above do not require authentication.*
+
+```ruby
 playlist.add_video 'MESycYJytkU'
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 ```
 
-*Adding and removing videos/items requires authentication (see below).*
+*The methods above require to be authenticated as the playlist’s owner (see below).*
 
 
 Yt::Annotation
@@ -320,7 +347,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.5.6'
+    gem 'yt', '~> 0.5.7'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

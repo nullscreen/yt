@@ -30,4 +30,17 @@ RSpec.configure do |config|
       config.api_key = ENV['YT_TEST_SERVER_API_KEY']
     end
   end
+
+  config.before :all, partner: true do
+    Yt.configure do |config|
+      config.client_id = ENV['YT_TEST_PARTNER_CLIENT_ID']
+      config.client_secret = ENV['YT_TEST_PARTNER_CLIENT_SECRET']
+    end
+    # Create one Youtube Partner channel, authenticated as the content owner
+    attrs = {refresh_token: ENV['YT_TEST_CONTENT_OWNER_REFRESH_TOKEN']}
+    attrs[:owner_name] = ENV['YT_TEST_CONTENT_OWNER_NAME']
+    content_owner = Yt::Account.new attrs
+    attrs = {id: ENV['YT_TEST_PARTNER_CHANNEL_ID'], auth: content_owner}
+    $partner_channel = Yt::Channel.new attrs
+  end
 end
