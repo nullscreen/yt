@@ -15,7 +15,7 @@ describe Yt::Associations::Authentications, :device_app do
 
       context 'that is invalid' do
         let(:refresh_token) { '--not-a-valid-refresh-token--' }
-        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+        it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
       end
     end
 
@@ -28,7 +28,7 @@ describe Yt::Associations::Authentications, :device_app do
 
       context 'that is invalid' do
         let(:authorization_code) { '--not-a-valid-authorization-code--' }
-        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+        it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
       end
     end
 
@@ -50,7 +50,7 @@ describe Yt::Associations::Authentications, :device_app do
 
         context 'that has expired' do
           let(:expires_at) { 1.day.ago.to_s }
-          it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+          it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
         end
       end
 
@@ -58,14 +58,14 @@ describe Yt::Associations::Authentications, :device_app do
         let(:access_token) { '--not-a-valid-access-token--' }
         let(:expires_at) { 1.day.from_now }
         it { expect(account.authentication).to be_a Yt::Authentication }
-        it { expect{account.channel}.to raise_error Yt::Errors::MissingAuth }
+        it { expect{account.channel}.to raise_error Yt::Errors::Unauthorized }
       end
 
     end
 
     context 'given no token or code' do
       let(:attrs) { {} }
-      it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+      it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
     end
   end
 

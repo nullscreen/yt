@@ -39,8 +39,6 @@ RSpec.configure do |config|
     # Create one Youtube Partner channel, authenticated as the content owner
     attrs = {refresh_token: ENV['YT_TEST_CONTENT_OWNER_REFRESH_TOKEN']}
     attrs[:owner_name] = ENV['YT_TEST_CONTENT_OWNER_NAME']
-    content_owner = Yt::Account.new attrs
-    attrs = {id: ENV['YT_TEST_PARTNER_CHANNEL_ID'], auth: content_owner}
-    $partner_channel = Yt::Channel.new attrs
+    $content_owner = Yt::Account.new attrs
   end
 end

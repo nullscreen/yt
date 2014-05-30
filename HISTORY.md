@@ -12,6 +12,8 @@ v0.5 - 2014/05/16
 * New types of Errors that render more verbose errors and the failing request in cURL syntax
 * Separate Error class for 500 error, so they can be easily found in app logs
 * New Earning collection to retrieve estimated earning for YouTube-partnered channels
+* Rename error classes so they match the corresponding Net::HTTP errors (e.g. Unauthorized)
+* Separate Error class for 403 Error
 
 v0.4 - 2014/05/09
 --------------------

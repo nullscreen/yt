@@ -3,7 +3,7 @@ require 'yt/config'
 
 module Yt
   module Errors
-    class MissingAuth < RequestError
+    class Unauthorized < RequestError
       private
 
       def explanation
