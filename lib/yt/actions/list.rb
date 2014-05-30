@@ -4,7 +4,7 @@ require 'yt/errors/no_items'
 module Yt
   module Actions
     module List
-      delegate :count, :first, :any?, :each, :map, :find, to: :list
+      delegate :count, :first, :any?, :each, :map, :flat_map, :find, to: :list
       alias size count
 
       def first!
@@ -51,7 +51,7 @@ module Yt
         request = Yt::Request.new params
         response = request.run
         token = response.body['nextPageToken']
-        items = response.body.fetch 'items', []
+        items = response.body.fetch items_key, []
         {items: items, token: token}
       end
 
@@ -64,6 +64,10 @@ module Yt
           params[:path] = path
           params[:exptected_response] = Net::HTTPOK
         end
+      end
+
+      def items_key
+        'items'
       end
     end
   end

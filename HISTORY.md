@@ -11,6 +11,7 @@ v0.5 - 2014/05/16
 * New Authentication model to separate `access_token` and `refresh_token` from Account
 * New types of Errors that render more verbose errors and the failing request in cURL syntax
 * Separate Error class for 500 error, so they can be easily found in app logs
+* New Earning collection to retrieve estimated earning for YouTube-partnered channels
 
 v0.4 - 2014/05/09
 --------------------

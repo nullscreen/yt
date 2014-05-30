@@ -14,6 +14,7 @@ module Yt
     autoload :Authentications
     autoload :Channels
     autoload :DetailsSets
+    autoload :Earnings
     autoload :Ids
     autoload :PlaylistItems
     autoload :Playlists
