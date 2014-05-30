@@ -7,6 +7,7 @@ require 'yt/config'
 require 'yt/errors/unauthorized'
 require 'yt/errors/request_error'
 require 'yt/errors/server_error'
+require 'yt/errors/forbidden'
 
 module Yt
   module Models
@@ -25,15 +26,10 @@ module Yt
       end
 
       def run
-        case response
-        when @expected_response
+        if response.is_a? @expected_response
           response.tap{|response| response.body = parse_format response.body}
-        when Net::HTTPServerError
-          raise Errors::ServerError, request_error_message
-        when Net::HTTPUnauthorized
-          raise Errors::Unauthorized, request_error_message
         else
-          raise Errors::RequestError, request_error_message
+          raise error_for(response), request_error_message
         end
       end
 
@@ -103,6 +99,15 @@ module Yt
           when :xml then Hash.from_xml body
           when :json then JSON body
         end if body
+      end
+
+      def error_for(response)
+        case response
+          when Net::HTTPServerError then Errors::ServerError
+          when Net::HTTPUnauthorized then Errors::Unauthorized
+          when Net::HTTPForbidden then Errors::Forbidden
+          else Errors::RequestError
+        end
       end
 
       def request_error_message
