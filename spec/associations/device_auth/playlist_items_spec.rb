@@ -57,7 +57,7 @@ describe Yt::Associations::PlaylistItems, :device_app do
   describe '#add_videos' do
     context 'given one existing and one unknown video' do
       let(:video_ids) { ['MESycYJytkU', 'not-a-video'] }
-      it { expect(@playlist.add_videos video_ids).to have(2).items }
+      it { expect(@playlist.add_videos(video_ids).length).to eq 2 }
       it { expect{@playlist.add_videos video_ids}.to change{@playlist.playlist_items.count}.by(1) }
     end
   end

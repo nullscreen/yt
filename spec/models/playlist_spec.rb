@@ -32,9 +32,9 @@ describe Yt::Playlist do
 
   describe '#update' do
     let(:attrs) { {id: 'PLSWYkYzOr', snippet: {'title'=>'old'}, status: {"privacyStatus"=>"public"}} }
-    before { playlist.stub(:do_update).and_yield 'snippet'=>{'title'=>'new'} }
+    before { expect(playlist).to receive(:do_update).and_yield 'snippet'=>{'title'=>'new'} }
 
-    it { expect(playlist.update title: 'new').to be_true }
+    it { expect(playlist.update title: 'new').to be true }
     it { expect{playlist.update title: 'new'}.to change{playlist.title} }
   end
 
@@ -42,9 +42,9 @@ describe Yt::Playlist do
     let(:attrs) { {id: 'PLSWYkYzOr'} }
 
     context 'given an existing playlist' do
-      before { playlist.stub(:do_delete).and_yield }
+      before { expect(playlist).to receive(:do_delete).and_yield }
 
-      it { expect(playlist.delete).to be_true }
+      it { expect(playlist.delete).to be true }
       it { expect{playlist.delete}.to change{playlist.exists?} }
     end
   end

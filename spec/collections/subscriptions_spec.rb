@@ -3,20 +3,21 @@ require 'yt/collections/subscriptions'
 
 describe Yt::Collections::Subscriptions do
   subject(:collection) { Yt::Collections::Subscriptions.new }
-  before { collection.stub :throttle }
   let(:msg) { {response_body: {error: {errors: [{reason: reason}]}}}.to_json }
+  before { expect(collection).to receive :throttle }
+  before { expect(collection).to behave }
 
   describe '#insert' do
     context 'given a new subscription' do
       let(:subscription) { Yt::Subscription.new }
-      before { collection.stub(:do_insert).and_return subscription }
+      let(:behave) { receive(:do_insert).and_return subscription }
 
       it { expect(collection.insert).to eq subscription }
     end
 
     context 'given a duplicate subscription' do
       let(:reason) { 'subscriptionDuplicate' }
-      before { collection.stub(:do_insert).and_raise Yt::Error, msg }
+      let(:behave) { receive(:do_insert).and_raise Yt::Error, msg }
 
       it { expect{collection.insert}.to fail.with 'subscriptionDuplicate' }
       it { expect{collection.insert ignore_errors: true}.not_to fail }
@@ -24,7 +25,7 @@ describe Yt::Collections::Subscriptions do
   end
 
   describe '#delete_all' do
-    before { collection.stub(:do_delete_all).and_return [true] }
+    let(:behave) { receive(:do_delete_all).and_return [true] }
 
     it { expect(collection.delete_all).to eq [true] }
   end

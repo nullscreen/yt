@@ -11,14 +11,14 @@ describe Yt::Associations::Subscriptions, :device_app do
 
       context 'that I am not subscribed to' do
         before { channel.unsubscribe }
-        it { expect(channel.subscribed?).to be_false }
-        it { expect(channel.subscribe!).to be_true }
+        it { expect(channel.subscribed?).to be false }
+        it { expect(channel.subscribe!).to be_truthy }
       end
 
       context 'that I am subscribed to' do
         before { channel.subscribe }
-        it { expect(channel.subscribed?).to be_true }
-        it { expect(channel.unsubscribe!).to be_true }
+        it { expect(channel.subscribed?).to be true }
+        it { expect(channel.unsubscribe!).to be_truthy }
       end
     end
 
