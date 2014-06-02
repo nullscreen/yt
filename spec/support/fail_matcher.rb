@@ -1,4 +1,5 @@
 RSpec::Matchers.define :fail do
+  supports_block_expectations
   match do |block|
     begin
       block.call

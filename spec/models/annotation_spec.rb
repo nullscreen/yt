@@ -15,19 +15,19 @@ describe Yt::Annotation do
     } }
 
     context 'given an annotation located above N% of the video height' do
-      it { expect(annotation.above? 50).to be_true }
-      it { expect(annotation.below? 50).to be_false }
+      it { expect(annotation.above? 50).to be true }
+      it { expect(annotation.below? 50).to be_falsey }
     end
 
     context 'given an annotation located below N% of the video height' do
-      it { expect(annotation.above? 5).to be_false }
-      it { expect(annotation.below? 5).to be_true }
+      it { expect(annotation.above? 5).to be_falsey }
+      it { expect(annotation.below? 5).to be true }
     end
 
     context 'given an annotation without explicit location' do
       let(:xml) { '<segment></segment>' }
-      it { expect(annotation.above? 50).to be_false }
-      it { expect(annotation.below? 50).to be_false }
+      it { expect(annotation.above? 50).to be_falsey }
+      it { expect(annotation.below? 50).to be_falsey }
     end
   end
 
@@ -116,10 +116,10 @@ describe Yt::Annotation do
         </movingRegion>
         </segment>
       } }
-      it { expect(annotation.starts_after? 3600).to be_true }
-      it { expect(annotation.starts_after? 3610).to be_false }
-      it { expect(annotation.starts_before? 3600).to be_false }
-      it { expect(annotation.starts_before? 3610).to be_true }
+      it { expect(annotation.starts_after? 3600).to be true }
+      it { expect(annotation.starts_after? 3610).to be_falsey }
+      it { expect(annotation.starts_before? 3600).to be_falsey }
+      it { expect(annotation.starts_before? 3610).to be true }
     end
 
     context 'given an annotation without timestamps' do

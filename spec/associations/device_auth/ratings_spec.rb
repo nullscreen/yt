@@ -9,19 +9,19 @@ describe Yt::Associations::Ratings, :device_app do
       context 'that I like' do
         before { video.like }
         it { expect(video).to be_liked }
-        it { expect(video.dislike).to be_true }
+        it { expect(video.dislike).to be true }
       end
 
       context 'that I dislike' do
         before { video.dislike }
         it { expect(video).not_to be_liked }
-        it { expect(video.like).to be_true }
+        it { expect(video.like).to be true }
       end
 
       context 'that I am indifferent to' do
         before { video.unlike }
         it { expect(video).not_to be_liked }
-        it { expect(video.like).to be_true }
+        it { expect(video.like).to be true }
       end
     end
   end

@@ -8,12 +8,25 @@ describe Yt::Associations::Earnings, :partner do
       let(:channel_id) { ENV['YT_TEST_PARTNER_CHANNEL_ID'] }
 
       describe '#earning' do
-        context 'given a date for which YouTube estimated earnings' do
+        context 'and a date in which the channel made any money' do
           let(:earning) { channel.earning 5.days.ago}
           it { expect(earning).to be_a Float }
         end
 
-        context 'given a date for which YouTube did not estimate earnings' do
+        # NOTE: This test sounds redundant, but it’s actually a reflection of
+        # another irrational behavior of YouTube API. In short, if you ask for
+        # the "earnings" metric of a day in which a channel made 0 USD, then
+        # the API returns "nil". But if you also for the "earnings" metric AND
+        # the "estimatedMinutesWatched" metric, then the API returns the
+        # correct value of "0", while still returning nil for those days in
+        # which the earnings have not been estimated yet.
+        context 'and a date in which the channel did not make any money' do
+          let(:zero_date) { ENV['YT_TEST_PARTNER_CHANNEL_NO_EARNINGS_DATE'] }
+          let(:earning) { channel.earning zero_date}
+          it { expect(earning).to eq 0 }
+        end
+
+        context 'and a date for which earnings have not yet been estimated' do
           let(:earning) { channel.earning 5.days.from_now}
           it { expect(earning).to be_nil }
         end

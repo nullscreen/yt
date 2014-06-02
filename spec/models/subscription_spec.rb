@@ -19,17 +19,18 @@ describe Yt::Subscription do
 
   describe '#delete' do
     let(:id) { 'CBl6OoF0BpiV' }
+    before { expect(subscription).to behave }
 
     context 'given an existing subscription' do
-      before { subscription.stub(:do_delete).and_yield }
+      let(:behave) { receive(:do_delete).and_yield }
 
-      it { expect(subscription.delete).to be_true }
+      it { expect(subscription.delete).to be true }
       it { expect{subscription.delete}.to change{subscription.exists?} }
     end
 
     context 'given an unknown subscription' do
       let(:reason) { 'subscriptionNotFound' }
-      before { subscription.stub(:do_delete).and_raise Yt::Error, msg }
+      let(:behave) { receive(:do_delete).and_raise Yt::Error, msg }
 
       it { expect{subscription.delete}.to fail.with 'subscriptionNotFound' }
       it { expect{subscription.delete ignore_errors: true}.not_to fail }

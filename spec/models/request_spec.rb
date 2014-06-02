@@ -4,8 +4,8 @@ require 'yt/models/request'
 describe Yt::Request do
   subject(:request) { Yt::Request.new attrs }
   let(:attrs) { {host: 'example.com'} }
-  before { Net::HTTP.stub(:start).and_return response }
-  before { response.stub(:body) }
+  before { expect(Net::HTTP).to receive(:start).and_return response }
+  before { allow(response).to receive(:body) }
 
   describe '#run' do
     context 'given a request that returns a 500 code' do

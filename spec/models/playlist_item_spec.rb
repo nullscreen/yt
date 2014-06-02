@@ -23,9 +23,9 @@ describe Yt::PlaylistItem do
     let(:attrs) { {id: 'playlist-item-id'} }
 
     context 'given an existing playlist item' do
-      before { playlist_item.stub(:do_delete).and_yield }
+      before { expect(playlist_item).to receive(:do_delete).and_yield }
 
-      it { expect(playlist_item.delete).to be_true }
+      it { expect(playlist_item.delete).to be true }
       it { expect{playlist_item.delete}.to change{playlist_item.exists?} }
     end
   end
