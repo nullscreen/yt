@@ -25,7 +25,7 @@ describe Yt::Associations::Subscriptions, :device_app do
     # NOTE: This test is just a reflection of YouTube irrational behavior of
     # raising a 500 error when you try to subscribe to your own channel, rather
     # than a more logical 4xx error. Hopefully this will get fixed and this
-    # test removed.
+    # code (and test) removed.
     context 'given my own channel' do
       let(:channel) { Yt::Channel.new id: $account.channel.id, auth: $account }
 
