@@ -28,24 +28,12 @@ module Yt
       def run
         if response.is_a? @expected_response
           response.tap{|response| response.body = parse_format response.body}
-        elsif run_again_with_refreshed_authentication?
-          run
         else
-          raise error_for(response), request_error_message
+          run_again? ? run : raise(error_for(response), request_error_message)
         end
       end
 
     private
-
-      # If a request authorized with an access token returns 401, then the
-      # access token might have expired. If a refresh token is also present,
-      # try to run the request one more time with a refreshed access token.
-      def run_again_with_refreshed_authentication?
-        if response.is_a? Net::HTTPUnauthorized
-          @response = @http_request = @uri = nil
-          @auth.refresh
-        end if @auth.respond_to? :refresh
-      end
 
       def response
         @response ||= Net::HTTP.start(*net_http_options) do |http|
@@ -111,6 +99,45 @@ module Yt
           when :xml then Hash.from_xml body
           when :json then JSON body
         end if body
+      end
+
+      # There are two cases to run a request again: YouTube responds with a
+      # random error that can be fixed by waiting for some seconds and running
+      # the exact same query, or the access token needs to be refreshed.
+      def run_again?
+        run_again_with_refreshed_authentication? || run_again_after_a_while?
+      end
+
+      # Once in a while, YouTube responds with 500, or 503, or 400 Error and
+      # the text "Invalid query. Query did not conform to the expectations.".
+      # In all these cases, running the same query after some seconds fixes
+      # the issue. This it not documented by YouTube and hardly testable, but
+      # trying again is a workaround that works and hardly causes any damage.
+      def run_again_after_a_while?(max_retries = 1)
+        @retries_so_far ||= -1
+        @retries_so_far += 1
+        if (@retries_so_far < max_retries) && worth_another_try?
+          @response = @http_request = @uri = nil
+          sleep 3
+        end
+      end
+
+      def worth_another_try?
+        case response
+          when Net::HTTPServerError then true
+          when Net::HTTPBadRequest then response.body =~ /did not conform/
+          else false
+        end
+      end
+
+      # If a request authorized with an access token returns 401, then the
+      # access token might have expired. If a refresh token is also present,
+      # try to run the request one more time with a refreshed access token.
+      def run_again_with_refreshed_authentication?
+        if response.is_a? Net::HTTPUnauthorized
+          @response = @http_request = @uri = nil
+          @auth.refresh
+        end if @auth.respond_to? :refresh
       end
 
       def error_for(response)
