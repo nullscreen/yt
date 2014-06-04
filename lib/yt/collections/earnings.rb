@@ -12,6 +12,7 @@ module Yt
       # case running the same query after one second fixes the issue. This is
       # not documented by YouTube and hardly testable, but trying again the
       # same query is a workaround that works and can hardly cause any damage.
+      # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
         try_again && rescue?(e) ? sleep(3) && within(days_range, false) : raise
       end
@@ -42,7 +43,15 @@ module Yt
       end
 
       def rescue?(error)
+        bad_request?(error) || backend_error?(error)
+      end
+
+      def bad_request?(error)
         'badRequest'.in?(error.reasons) && error.message =~ /did not conform/
+      end
+
+      def backend_error?(error)
+        'backendError'.in?(error.reasons)
       end
     end
   end

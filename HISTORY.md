@@ -18,6 +18,7 @@ v0.5 - 2014/05/16
 * Update RSpec to 3.0 (only required in development/testing)
 * New ContentOwner subclass of Account with access to partnered channels
 * Automatically refresh the access token when it expires or becomes invalid
+* Retry once YouTube earning queries that return error 503
 
 v0.4 - 2014/05/09
 --------------------
