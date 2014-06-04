@@ -56,7 +56,7 @@ module Yt
       end
 
       def list_params
-        path = "/youtube/v3/#{self.class.to_s.demodulize.camelize :lower}"
+        path = "/youtube/v3/#{list_resources.to_s.demodulize.camelize :lower}"
 
         {}.tap do |params|
           params[:method] = :get
@@ -68,6 +68,10 @@ module Yt
 
       def items_key
         'items'
+      end
+
+      def list_resources
+        self.class
       end
     end
   end
