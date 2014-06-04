@@ -13,6 +13,10 @@ module Yt
         @expires_at && @expires_at.past?
       end
 
+      def expire
+        @expires_at = 10.years.ago
+      end
+
     private
 
       def expiration_date(options = {})
