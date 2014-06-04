@@ -34,7 +34,7 @@ Available resources
 Yt::Account
 -----------
 
-Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Account) to:
+Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Account) to:
 
 * authenticate as a YouTube account
 * read attributes of the account
@@ -50,10 +50,28 @@ account.channel #=> #<Yt::Channel @id=...>
 
 *All the above methods require authentication (see below).*
 
+Yt::ContentOwner
+----------------
+
+Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/ContentOwner) to:
+
+* authenticate as a YouTube content owner
+* list the channels partnered with a YouTube content owner
+
+```ruby
+# A content owner is an account, therefore can be initialized with access token, refresh token or an authorization code
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+
+content_owner.partnered_channels.count #=> 12
+content_owner.partnered_channels.first #=> #<Yt::Channel @id=...>
+```
+
+*All the above methods require authentication (see below).*
+
 Yt::Channel
 -----------
 
-Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Channel) to:
+Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Channel) to:
 
 * read attributes of a channel
 * access the videos of a channel
@@ -91,7 +109,7 @@ channel.delete_playlists title: 'New playlist' #=> [true]
 *The methods above require to be authenticated as a YouTube account (see below).*
 
 ```ruby
-content_owner = Yt::Account.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: content_owner
 
 channel.earning 5.days.ago #=> 12.23
@@ -104,7 +122,7 @@ channel.earnings since: 3.days.ago, until: 2.days.ago #=> {Wed, 28 May 2014 => 1
 Yt::Video
 -----------
 
-Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Video) to:
+Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video) to:
 
 * read attributes of a video
 * access the annotations of a video
@@ -135,7 +153,7 @@ video.like #=> true
 Yt::Playlist
 ------------
 
-Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Playlist) to:
+Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Playlist) to:
 
 * read attributes of a playlist
 * access the items of a playlist
@@ -167,7 +185,7 @@ playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 Yt::Annotation
 --------------
 
-Use [Yt::Annotation](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Annotation) to:
+Use [Yt::Annotation](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Annotation) to:
 
 * read attributes of an annotation
 
