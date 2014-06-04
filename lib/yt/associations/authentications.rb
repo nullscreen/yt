@@ -21,6 +21,15 @@ module Yt
         URI::HTTPS.build(host: host, path: path, query: query).to_s
       end
 
+      # Obtains a new access token.
+      # Returns true if the new access token is different from the previous one
+      def refresh
+        old_access_token = authentication.access_token
+        authentication.expire
+        new_access_token = authentication.access_token
+        old_access_token != new_access_token
+      end
+
     private
 
       def current_authentication

@@ -28,12 +28,24 @@ module Yt
       def run
         if response.is_a? @expected_response
           response.tap{|response| response.body = parse_format response.body}
+        elsif run_again_with_refreshed_authentication?
+          run
         else
           raise error_for(response), request_error_message
         end
       end
 
     private
+
+      # If a request authorized with an access token returns 401, then the
+      # access token might have expired. If a refresh token is also present,
+      # try to run the request one more time with a refreshed access token.
+      def run_again_with_refreshed_authentication?
+        if response.is_a? Net::HTTPUnauthorized
+          @response = @http_request = @uri = nil
+          @auth.refresh
+        end if @auth.respond_to? :refresh
+      end
 
       def response
         @response ||= Net::HTTP.start(*net_http_options) do |http|

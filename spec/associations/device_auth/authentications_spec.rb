@@ -50,17 +50,31 @@ describe Yt::Associations::Authentications, :device_app do
 
         context 'that has expired' do
           let(:expires_at) { 1.day.ago.to_s }
-          it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
+
+          context 'and no valid refresh token' do
+            it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
+          end
+
+          context 'and a valid refresh token' do
+            before { attrs[:refresh_token] = ENV['YT_TEST_DEVICE_REFRESH_TOKEN'] }
+            it { expect(account.authentication).to be_a Yt::Authentication }
+          end
         end
       end
 
       context 'that is invalid' do
         let(:access_token) { '--not-a-valid-access-token--' }
         let(:expires_at) { 1.day.from_now }
-        it { expect(account.authentication).to be_a Yt::Authentication }
-        it { expect{account.channel}.to raise_error Yt::Errors::Unauthorized }
-      end
 
+        context 'and no valid refresh token' do
+          it { expect{account.channel}.to raise_error Yt::Errors::Unauthorized }
+        end
+
+        context 'and a valid refresh token' do
+          before { attrs[:refresh_token] = ENV['YT_TEST_DEVICE_REFRESH_TOKEN'] }
+          it { expect{account.channel}.not_to raise_error }
+        end
+      end
     end
 
     context 'given no token or code' do
