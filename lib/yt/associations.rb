@@ -16,6 +16,7 @@ module Yt
     autoload :DetailsSets
     autoload :Earnings
     autoload :Ids
+    autoload :PartneredChannels
     autoload :PlaylistItems
     autoload :Playlists
     autoload :Ratings

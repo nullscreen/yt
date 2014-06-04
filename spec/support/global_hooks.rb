@@ -1,5 +1,6 @@
 require 'yt/config'
 require 'yt/models/account'
+require 'yt/models/content_owner'
 
 RSpec.configure do |config|
   # Create one global test account to avoid having to refresh the access token
@@ -39,6 +40,6 @@ RSpec.configure do |config|
     # Create one Youtube Partner channel, authenticated as the content owner
     attrs = {refresh_token: ENV['YT_TEST_CONTENT_OWNER_REFRESH_TOKEN']}
     attrs[:owner_name] = ENV['YT_TEST_CONTENT_OWNER_NAME']
-    $content_owner = Yt::Account.new attrs
+    $content_owner = Yt::ContentOwner.new attrs
   end
 end
