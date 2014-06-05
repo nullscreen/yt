@@ -10,7 +10,7 @@ Yt helps you write apps that need to interact with the YouTube API V3.
 [![Code Climate](https://codeclimate.com/github/Fullscreen/yt.png)](https://codeclimate.com/github/Fullscreen/yt)
 [![Inline docs](http://inch-pages.github.io/github/Fullscreen/yt.png)](http://inch-pages.github.io/github/Fullscreen/yt)
 
-After [registering your app](#registering-your-app), you can run commands like:
+After [registering your app](#configuring-your-app), you can run commands like:
 
 ```ruby
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
@@ -226,8 +226,8 @@ so you won’t be able to like a video, subscribe to a channel or delete a
 playlist from a specific account. You will only be able to retrieve read-only
 data.
 
-Web apps that do require user interactions
-------------------------------------------
+Web apps that require user interactions
+---------------------------------------
 
 If you are building a web app that manages YouTube accounts, you need the
 owner of each account to authorize your app. There are three scenarios:
@@ -287,52 +287,10 @@ account.email #=> (retrieves the account’s e-mail address)
 account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
 ```
 
-Device apps that do require user interactions
----------------------------------------------
+Configuring with environment variables
+--------------------------------------
 
-These apps are equivalent to web apps. The only difference is the interface
-that Google uses to ask people to authenticate.
-
-
-Scenario 1. If you already have the account’s **access token**, then you are ready to go.
-Just pass that access token to the account initializer, such as:
-
-```ruby
-account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
-account.email #=> (retrieves the account’s e-mail address)
-account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
-```
-
-Scenario 2. If you don’t have the account’s access token, but you have the
-**refresh token**, then it’s almost as easy.
-Open the [Google Developers Console](https://console.developers.google.com),
-find the client ID and client secret of the **native application** that you used to obtain the
-refresh token, then add the following snippet of code to the initializer of your app:
-
-```ruby
-Yt.configure do |config|
-  config.client_id = '1234567890.apps.googleusercontent.com'
-  config.client_secret = '1234567890'
-end
-```
-
-replacing the values above with the client ID and secret for web application.
-Then you can manage a YouTube account by passing the refresh token to the
-account initializer, such as:
-
-```ruby
-account = Yt::Account.new refresh_token: '1/1234567890'
-account.email #=> (retrieves the account’s e-mail address)
-account.playlists.first.add_video 'MESycYJytkU' #=> (adds a video to an account’s playlist)
-```
-
-Scenario 3. If you don’t have the account’s refresh token, then [..TODO..]
-
-
-Configuring your app through environment variables
-==================================================
-
-As an alternative to the approach above, you can configure Yt using environment
+As an alternative to the approach above, you can configure your app with
 variables. Setting the following environment variables:
 
 ```bash
@@ -342,7 +300,7 @@ export YT_CLIENT_SECRET="1234567890"
 export YT_API_KEY="123456789012345678901234567890"
 ```
 
-is equivalent to configuration your app with the initializer:
+is equivalent to configuring your app with the initializer:
 
 ```ruby
 Yt.configure do |config|
