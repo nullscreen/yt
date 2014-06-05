@@ -114,6 +114,9 @@ channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: content_owner
 
 channel.earning 5.days.ago #=> 12.23
 channel.earnings since: 3.days.ago, until: 2.days.ago #=> {Wed, 28 May 2014 => 1.34, Thu, 29 May 2014 => 0.47}
+
+channel.views_on 5.days.ago #=> 44
+channel.views since: 3.days.ago, until: 2.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3}
 ```
 
 *The methods above require to be authenticated as the channel’s content owner (see below).*

@@ -20,6 +20,7 @@ v0.5 - 2014/05/16
 * Automatically refresh the access token when it expires or becomes invalid
 * Retry once YouTube earning queries that return error 503
 * Wait 3 seconds and retry *every* request that returns 500, 503 or 400 with "Invalid query"
+* New Views collection to retrieve view count for YouTube-partnered channels
 
 v0.4 - 2014/05/09
 --------------------
