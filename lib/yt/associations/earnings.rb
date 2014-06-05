@@ -6,17 +6,17 @@ module Yt
     # allows to invoke earning-related methods, such as .earnings.
     # YouTube resources with earning are: channels.
     module Earnings
-      # Return the estimated earning for one specific day.
+      # Return the estimated earnings for one specific day.
       #
       # @param [Date or Time or DateTime or String] date The date to obtain
       # the estimated earnings for. If String, must be Date-parseable.
       #
       # @return [Float] The estimated earnings in USD.
-      def earning(date)
+      def earnings_on(date)
         earnings(from: date, to: date).values.first
       end
 
-      # Return the estimated earning for a range of days.
+      # Return the estimated earnings for a range of days.
       #
       # @param [Hash] options the range of days to get the earnings for.
       # @option options [Date or Time or DateTime or String] :since The start
@@ -29,8 +29,8 @@ module Yt
       # @return [Hash] The estimated earnings by day. Each :key is a Date
       # and each :value is a Float, representing estimated earnings in USD.
       def earnings(options = {})
-        from = options[:since] || options[:from] || 1.week.ago
-        to = options[:until] || options[:to] || 1.day.ago
+        from = options[:since] || options[:from] || 6.days.ago
+        to = options[:until] || options[:to] || 2.days.ago
         range = Range.new *[from, to].map(&:to_date)
 
         Hash[*range.flat_map do |date|

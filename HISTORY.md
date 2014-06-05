@@ -1,3 +1,8 @@
+v0.6 - 2014/06/05
+-----------------
+
+* [breaking change] Rename Channel#earning to Channel#earnings_on
+
 v0.5 - 2014/05/16
 -----------------
 

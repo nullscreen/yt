@@ -7,10 +7,10 @@ describe Yt::Associations::Earnings, :partner do
     context 'managed by the authenticated Content Owner' do
       let(:channel_id) { ENV['YT_TEST_PARTNER_CHANNEL_ID'] }
 
-      describe '#earning' do
+      describe '#earnings_on' do
         context 'and a date in which the channel made any money' do
-          let(:earning) { channel.earning 5.days.ago}
-          it { expect(earning).to be_a Float }
+          let(:earnings) { channel.earnings_on 5.days.ago}
+          it { expect(earnings).to be_a Float }
         end
 
         # NOTE: This test sounds redundant, but it’s actually a reflection of
@@ -22,17 +22,17 @@ describe Yt::Associations::Earnings, :partner do
         # which the earnings have not been estimated yet.
         context 'and a date in which the channel did not make any money' do
           let(:zero_date) { ENV['YT_TEST_PARTNER_CHANNEL_NO_EARNINGS_DATE'] }
-          let(:earning) { channel.earning zero_date}
-          it { expect(earning).to eq 0 }
+          let(:earnings) { channel.earnings_on zero_date}
+          it { expect(earnings).to eq 0 }
         end
 
         context 'and a date for which earnings have not yet been estimated' do
-          let(:earning) { channel.earning 5.days.from_now}
-          it { expect(earning).to be_nil }
+          let(:earnings) { channel.earnings_on 5.days.from_now}
+          it { expect(earnings).to be_nil }
         end
       end
 
-      describe '#earning' do
+      describe '#earnings' do
         let(:date) { 4.days.ago }
 
         context 'given a :since option' do
@@ -59,7 +59,7 @@ describe Yt::Associations::Earnings, :partner do
 
     context 'not managed by the authenticated Content Owner' do
       let(:channel_id) { 'UCBR8-60-B28hp2BmDPdntcQ' }
-      it { expect{channel.earning 5.days.ago}.to raise_error Yt::Errors::Forbidden }
+      it { expect{channel.earnings}.to raise_error Yt::Errors::Forbidden }
     end
   end
 end
