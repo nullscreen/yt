@@ -25,6 +25,7 @@ module Yt
     autoload :Subscriptions
     autoload :UserInfos
     autoload :Videos
+    autoload :Views
 
     def has_many(attributes, options = {})
       mod = attributes.to_s.sub(/.*\./, '').camelize

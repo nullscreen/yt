@@ -112,8 +112,11 @@ channel.delete_playlists title: 'New playlist' #=> [true]
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: content_owner
 
-channel.earning 5.days.ago #=> 12.23
+channel.earnings_on 5.days.ago #=> 12.23
 channel.earnings since: 3.days.ago, until: 2.days.ago #=> {Wed, 28 May 2014 => 1.34, Thu, 29 May 2014 => 0.47}
+
+channel.views_on 5.days.ago #=> 44
+channel.views since: 3.days.ago, until: 2.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3}
 ```
 
 *The methods above require to be authenticated as the channel’s content owner (see below).*
@@ -323,7 +326,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.5.14'
+    gem 'yt', '~> 0.6.0'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
