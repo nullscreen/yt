@@ -11,6 +11,7 @@ describe Yt::Associations::Authentications, :device_app do
       context 'that is valid' do
         let(:refresh_token) { ENV['YT_TEST_DEVICE_REFRESH_TOKEN'] }
         it { expect(account.authentication).to be_a Yt::Authentication }
+        it { expect(account.refresh_token).to eq refresh_token }
       end
 
       context 'that is invalid' do
