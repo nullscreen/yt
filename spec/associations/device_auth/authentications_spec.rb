@@ -4,6 +4,19 @@ require 'yt/associations/authentications'
 describe Yt::Associations::Authentications, :device_app do
   subject(:account) { Yt::Account.new attrs }
 
+  describe '#refresh' do
+    context 'given a valid refresh token' do
+      let(:attrs) { {refresh_token: ENV['YT_TEST_DEVICE_REFRESH_TOKEN']} }
+
+      # NOTE: When the token is refreshed, YouTube *might* actually return
+      # the *same* access token if it is still valid. Typically, within the
+      # same second, refreshing the token returns the same token. Still,
+      # testing that *expires_at* changes is a guarantee that we attempted
+      # to get a new token, which is what refresh is meant to do.
+      it { expect{account.refresh}.to change{account.expires_at} }
+    end
+  end
+
   describe '#authentication' do
     context 'given a refresh token' do
       let(:attrs) { {refresh_token: refresh_token} }
