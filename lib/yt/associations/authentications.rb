@@ -5,10 +5,25 @@ require 'yt/errors/unauthorized'
 
 module Yt
   module Associations
-    # Provides the `has_one :access_token` method to YouTube resources, which
+    # Provides authentication methods to YouTube resources, which
     # allows to access to content detail set-specific methods like `access_token`.
-    # YouTube resources with access tokens are: accounts.
+    # YouTube resources with authentication are: accounts.
     module Authentications
+      delegate :access_token, :refresh_token, :expires_at, to: :authentication
+
+      def initialize(options = {})
+        @access_token = options[:access_token]
+        @refresh_token = options[:refresh_token]
+        @expires_at = options[:expires_at]
+        @authorization_code = options[:authorization_code]
+        @redirect_uri = options[:redirect_uri]
+        @scopes = options[:scopes]
+      end
+
+      def auth
+        self
+      end
+
       def authentication
         @authentication = current_authentication
         @authentication ||= new_authentication || refreshed_authentication!
