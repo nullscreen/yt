@@ -1,4 +1,4 @@
-require 'yt/models/status'
+require 'yt/collections/statuses'
 
 module Yt
   module Associations
@@ -7,7 +7,13 @@ module Yt
     # YouTube resources with status are: playlists.
     module Statuses
       def status
-        @status
+        @status ||= statuses.first!
+      end
+
+    private
+
+      def statuses
+        @statuses ||= Collections::Statuses.of self
       end
     end
   end

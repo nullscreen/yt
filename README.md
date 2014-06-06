@@ -16,12 +16,14 @@ After [registering your app](#configuring-your-app), you can run commands like:
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 channel.title #=> "Fullscreen"
 channel.description #=> "The first media company for the connected generation."
+channel.public? #=> true
 channel.videos.count #=> 12
 ```
 
 ```ruby
 video = Yt::Video.new id: 'MESycYJytkU'
 video.title #=> "Fullscreen Creator Platform"
+video.public? #=> true
 video.duration #=> 86
 video.annotations.count #=> 1
 ```
@@ -84,6 +86,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 channel.title #=> "Fullscreen"
 channel.description.has_link_to_playlist? #=> false
+channel.public? #=> true
 
 channel.videos.count #=> 12
 channel.videos.first #=> #<Yt::Video @id=...>
@@ -136,6 +139,7 @@ video = Yt::Video.new id: 'MESycYJytkU'
 video.title #=> "Fullscreen Creator Platform"
 video.duration #=> 63
 video.description.has_link_to_subscribe? #=> false
+video.public? #=> true
 
 video.annotations.count #=> 1
 video.annotations.first #=> #<Yt::Annotation @id=...>

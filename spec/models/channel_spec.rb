@@ -10,4 +10,11 @@ describe Yt::Channel do
       it { expect(channel.snippet).to be_a Yt::Snippet }
     end
   end
+
+  describe '#status' do
+    context 'given fetching a channel returns a status' do
+      let(:attrs) { {status: {"privacyStatus"=>"public"}} }
+      it { expect(channel.status).to be_a Yt::Status }
+    end
+  end
 end
