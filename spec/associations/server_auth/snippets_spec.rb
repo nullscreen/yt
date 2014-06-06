@@ -2,6 +2,7 @@ require 'spec_helper'
 require 'yt/associations/snippets'
 require 'yt/models/channel'
 require 'yt/models/video'
+require 'yt/models/playlist'
 
 describe Yt::Associations::Snippets, :server_app do
   describe '#snippet' do
@@ -23,6 +24,16 @@ describe Yt::Associations::Snippets, :server_app do
     context 'given an unknown channel resource' do
       let(:channel) { Yt::Channel.new id: 'not-a-channel-id' }
       it { expect{channel.snippet}.to raise_error Yt::Errors::NoItems }
+    end
+
+    context 'given an existing playlist resource' do
+      let(:playlist) { Yt::Playlist.new id: 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+      it { expect(playlist.snippet).to be_a Yt::Snippet }
+    end
+
+    context 'given an unknown playlist resource' do
+      let(:playlist) { Yt::Playlist.new id: 'not-a-playlist-id' }
+      it { expect{playlist.snippet}.to raise_error Yt::Errors::NoItems }
     end
   end
 end
