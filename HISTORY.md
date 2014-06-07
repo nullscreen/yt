@@ -2,6 +2,7 @@ v0.6 - 2014/06/05
 -----------------
 
 * [breaking change] Rename Channel#earning to Channel#earnings_on
+* Add the .status association to *every* type of resource (Channel, Video, Playlist)
 
 v0.5 - 2014/05/16
 -----------------

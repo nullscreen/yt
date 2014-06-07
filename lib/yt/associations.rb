@@ -33,6 +33,24 @@ module Yt
       delegate *options[:delegate], to: attributes if options[:delegate]
     end
 
-    alias has_one has_many
+
+    def has_one(attribute, options = {})
+      delegate *options[:delegate], to: attribute if options[:delegate]
+
+      attributes = attribute.to_s.pluralize
+      require "yt/collections/#{attributes}"
+      mod = attributes.sub(/.*\./, '').camelize
+      collection = "Yt::Collections::#{mod.pluralize}".constantize
+
+      define_method attribute do
+        ivar = instance_variable_get "@#{attribute}"
+        instance_variable_set "@#{attribute}", ivar || send(attributes).first!
+      end
+
+      define_method attributes do
+        ivar = instance_variable_get "@#{attributes}"
+        instance_variable_set "@#{attributes}", ivar || collection.of(self)
+      end
+    end
   end
 end
