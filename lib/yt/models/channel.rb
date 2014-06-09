@@ -1,4 +1,6 @@
 require 'yt/models/resource'
+require 'yt/associations/earnings'
+require 'yt/associations/views'
 
 module Yt
   module Models
