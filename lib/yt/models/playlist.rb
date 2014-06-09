@@ -32,6 +32,26 @@ module Yt
         !@id.nil?
       end
 
+      def add_video(video_id)
+        playlist_items.insert video_params(video_id), ignore_errors: true
+      end
+
+      def add_video!(video_id)
+        playlist_items.insert video_params(video_id)
+      end
+
+      def add_videos(video_ids = [])
+        video_ids.map{|video_id| add_video video_id}
+      end
+
+      def add_videos!(video_ids = [])
+        video_ids.map{|video_id| add_video! video_id}
+      end
+
+      def delete_playlist_items(attrs = {})
+        playlist_items.delete_all attrs
+      end
+
     private
 
       def delete_params
@@ -47,6 +67,10 @@ module Yt
           params[:body_type] = :json
           params[:expected_response] = Net::HTTPOK
         end
+      end
+
+      def video_params(video_id)
+        {id: video_id, kind: :video}
       end
     end
   end
