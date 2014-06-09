@@ -9,26 +9,6 @@ module Yt
       def subscriptions
         @subscriptions ||= Collections::Subscriptions.of self
       end
-
-      def subscribed?
-        subscriptions.any?{|s| s.exists?}
-      end
-
-      def subscribe
-        subscriptions.insert ignore_errors: true
-      end
-
-      def subscribe!
-        subscriptions.insert
-      end
-
-      def unsubscribe
-        subscriptions.delete_all({}, ignore_errors: true)
-      end
-
-      def unsubscribe!
-        subscriptions.delete_all
-      end
     end
   end
 end
