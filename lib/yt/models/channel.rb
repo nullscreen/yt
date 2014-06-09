@@ -3,11 +3,12 @@ require 'yt/models/resource'
 module Yt
   module Models
     class Channel < Resource
+      include Associations::Earnings
+      include Associations::Views
+
       has_many :subscriptions
       has_many :videos
       has_many :playlists
-      has_many :earnings
-      has_many :views
 
       def subscribed?
         subscriptions.any?{|s| s.exists?}
