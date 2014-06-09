@@ -28,6 +28,14 @@ module Yt
       def unsubscribe!
         subscriptions.delete_all
       end
+
+      def create_playlist(params = {})
+        playlists.insert params
+      end
+
+      def delete_playlists(attrs = {})
+        playlists.delete_all attrs
+      end
     end
   end
 end

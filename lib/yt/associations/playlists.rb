@@ -9,14 +9,6 @@ module Yt
       def playlists
         @playlists ||= Collections::Playlists.of self
       end
-
-      def create_playlist(params = {})
-        playlists.insert params
-      end
-
-      def delete_playlists(attrs = {})
-        playlists.delete_all attrs
-      end
     end
   end
 end

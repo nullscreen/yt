@@ -58,4 +58,41 @@ describe Yt::Channel, :device_app do
     # code (and test) removed.
     it { expect{channel.subscribe}.to raise_error Yt::Errors::ServerError }
   end
+
+  describe '.playlists of my own channel' do
+    let(:id) { $account.channel.id }
+    let(:title) { 'Yt Test title' }
+    let(:description) { 'Yt Test description' }
+    let(:tags) { ['Yt Test Tag 1', 'Yt Test Tag 2'] }
+    let(:privacy_status) { 'unlisted' }
+    let(:params) { {title: title, description: description, tags: tags, privacy_status: privacy_status} }
+
+    it { expect(channel.playlists).to be_a Yt::Collections::Playlists }
+
+    describe 'can be created' do
+      after { channel.delete_playlists params }
+      it { expect(channel.create_playlist params).to be_a Yt::Playlist }
+      it { expect{channel.create_playlist params}.to change{channel.playlists.count}.by(1) }
+    end
+
+    describe 'can be deleted' do
+      let(:title) { "Yt Test Delete All Playlists #{rand}" }
+      before { channel.create_playlist params }
+
+      it { expect(channel.delete_playlists title: %r{#{params[:title]}}).to eq [true] }
+      it { expect(channel.delete_playlists params).to eq [true] }
+      it { expect{channel.delete_playlists params}.to change{channel.playlists.count}.by(-1) }
+    end
+  end
+
+  describe '.playlists of someone else’s channel' do
+    let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
+
+    it { expect(channel.playlists).to be_a Yt::Collections::Playlists }
+
+    describe 'cannot be created or destroyed' do
+      it { expect{channel.create_playlist}.to raise_error Yt::Errors::RequestError }
+      it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
+    end
+  end
 end

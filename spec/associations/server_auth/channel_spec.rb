@@ -17,4 +17,11 @@ describe Yt::Channel, :server_app do
     it { expect{channel.snippet}.to raise_error Yt::Errors::NoItems }
     it { expect{channel.status}.to raise_error Yt::Errors::NoItems }
   end
+
+  describe '.playlists of someone else’s channel' do
+    let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
+
+    it { expect(channel.playlists).to be_a Yt::Collections::Playlists }
+    it { expect(channel.playlists.first).to be_a Yt::Playlist }
+  end
 end

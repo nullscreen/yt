@@ -8,35 +8,11 @@ describe Yt::Associations::Playlists, :device_app do
   let(:privacy_status) { 'unlisted' }
   let(:params) { {title: title, description: description, tags: tags, privacy_status: privacy_status} }
 
-  describe 'playlists' do
-    before { $account.create_playlist params }
-    after { $account.delete_playlists params }
-
-    it { expect($account.playlists.count).to be > 0 }
-    it { expect($account.playlists.first).to be_a Yt::Playlist }
-  end
-
-  describe 'create a playlist' do
-    after { $account.delete_playlists params }
-
-    it { expect($account.create_playlist params).to be_a Yt::Playlist }
-    it { expect{$account.create_playlist params}.to change{$account.playlists.count}.by(1) }
-  end
-
   describe 'delete a playlist' do
     let(:title) { "Yt Test Delete Playlist #{rand}" }
     before { @playlist = $account.create_playlist params }
 
     it { expect(@playlist.delete).to be true }
-  end
-
-  describe 'delete a set of playlists' do
-    let(:title) { "Yt Test Delete All Playlists #{rand}" }
-    before { $account.create_playlist params }
-
-    it { expect($account.delete_playlists title: %r{#{params[:title]}}).to eq [true] }
-    it { expect($account.delete_playlists params).to eq [true] }
-    it { expect{$account.delete_playlists params}.to change{$account.playlists.count}.by(-1) }
   end
 
   describe 'update a playlist' do
