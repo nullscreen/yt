@@ -18,9 +18,9 @@ module Yt
         mod = attributes.sub(/.*\./, '').camelize
         collection = "Yt::Collections::#{mod.pluralize}".constantize
 
-        define_method attributes do
+        define_method attributes do |options = {}|
           ivar = instance_variable_get "@#{attributes}"
-          instance_variable_set "@#{attributes}", ivar || collection.of(self)
+          instance_variable_set "@#{attributes}", ivar || collection.of(self, options)
         end
       end
 

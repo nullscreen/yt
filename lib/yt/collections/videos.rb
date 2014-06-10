@@ -5,6 +5,11 @@ module Yt
   module Collections
     class Videos < Base
 
+      def initialize(options)
+        @q = options[:q]
+        super
+      end
+
     private
 
       def new_item(data)
@@ -13,7 +18,14 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:params] = {channelId: @parent.id, type: :video, maxResults: 50, part: 'snippet'}
+          params[:params] = {type: :video, maxResults: 50, part: 'snippet'}
+
+          if @parent.auth == @auth
+            params[:params].merge! forMine: true, q: @q
+          else
+            params[:params].merge! channelId: @parent.id
+          end
+
           params[:path] = '/youtube/v3/search'
         end
       end

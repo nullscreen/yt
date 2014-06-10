@@ -15,8 +15,8 @@ module Yt
         @auth = options[:auth]
       end
 
-      def self.of(parent)
-        new parent: parent, auth: parent.auth
+      def self.of(parent, options = {})
+        new options.merge parent: parent, auth: parent.auth
       end
     end
   end
