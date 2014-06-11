@@ -2,8 +2,10 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # Provides methods to interact with YouTube subscriptions.
+    # @see https://developers.google.com/youtube/v3/docs/subscriptions
     class Subscription < Base
-
+      # @return [String] the ID that uniquely identify a YouTube subscription.
       attr_reader :id
 
       def initialize(options = {})

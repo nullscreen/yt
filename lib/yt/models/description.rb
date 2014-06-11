@@ -6,18 +6,16 @@ module Yt
     # Resources with descriptions are: videos and channels.
     #
     # @example
-    #
-    # description = Yt::Description.new 'Fullscreen provides a suite of end-to-end YouTube tools and services to many of the world’s leading brands and media companies.'
-    # description.to_s.slice(0,19) # => 'Fullscreen provides'
-    # description.length # => 127
+    #   description = Yt::Description.new 'Fullscreen provides a suite of end-to-end YouTube tools and services to many of the world’s leading brands and media companies.'
+    #   description.to_s.slice(0,19) # => 'Fullscreen provides'
+    #   description.length # => 127
     #
     class Description < String
       # Returns whether the description includes a YouTube video URL
       #
       # @example
-      #
-      # description = Yt::Description.new 'Link to video: youtube.com/watch?v=MESycYJytkU'
-      # description.has_link_to_video? #=> true
+      #   description = Yt::Description.new 'Link to video: youtube.com/watch?v=MESycYJytkU'
+      #   description.has_link_to_video? #=> true
       #
       # @return [Boolean] Whether the description includes a link to a video
       def has_link_to_video?
@@ -29,9 +27,8 @@ module Yt
       # Returns whether the description includes a YouTube channel URL
       #
       # @example
-      #
-      # description = Yt::Description.new 'Link to channel: youtube.com/fullscreen'
-      # description.has_link_to_channel? #=> true
+      #   description = Yt::Description.new 'Link to channel: youtube.com/fullscreen'
+      #   description.has_link_to_channel? #=> true
       #
       # @return [Boolean] Whether the description includes a link to a channel
       def has_link_to_channel?(options = {}) # TODO: which channel
@@ -43,9 +40,8 @@ module Yt
       # Returns whether the description includes a YouTube subscription URL
       #
       # @example
-      #
-      # description = Yt::Description.new 'Link to subscribe: youtube.com/subscription_center?add_user=fullscreen'
-      # description.has_link_to_subscribe? #=> true
+      #   description = Yt::Description.new 'Link to subscribe: youtube.com/subscription_center?add_user=fullscreen'
+      #   description.has_link_to_subscribe? #=> true
       #
       # @return [Boolean] Whether the description includes a link to subscribe
       def has_link_to_subscribe?(options = {}) # TODO: which channel
@@ -57,9 +53,8 @@ module Yt
       # Returns whether the description includes a YouTube playlist URL
       #
       # @example
-      #
-      # description = Yt::Description.new 'Link to playlist: youtube.com/playlist?list=LLxO1tY8h1AhOz0T4ENwmpow'
-      # description.has_link_to_playlist? #=> true
+      #   description = Yt::Description.new 'Link to playlist: youtube.com/playlist?list=LLxO1tY8h1AhOz0T4ENwmpow'
+      #   description.has_link_to_playlist? #=> true
       #
       # @return [Boolean] Whether the description includes a link to a playlist
       def has_link_to_playlist?

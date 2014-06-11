@@ -2,7 +2,12 @@ require 'yt/models/resource'
 
 module Yt
   module Models
+    # Provides methods to interact with YouTube playlists.
+    # @see https://developers.google.com/youtube/v3/docs/playlists
     class Playlist < Resource
+
+      # @!attribute playlist_items
+      #   @return [Yt::Collections::PlaylistItems] the playlist’s items.
       has_many :playlist_items
 
       def delete

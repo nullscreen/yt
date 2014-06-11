@@ -1,5 +1,7 @@
 module Yt
   module Models
+    # Provides methods to authenticate with YouTube.
+    # @see https://developers.google.com/youtube/v3/guides/authentication
     class Authentication
       attr_reader :access_token, :refresh_token, :expires_at
 

@@ -5,7 +5,6 @@ require 'yt/errors/request_error'
 require 'active_support/core_ext/module/delegation' # for delegate
 require 'active_support/core_ext/string/inflections' # for camelize
 
-
 module Yt
   module Models
     class Base

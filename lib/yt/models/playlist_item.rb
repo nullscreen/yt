@@ -2,8 +2,18 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # Provides methods to interact with YouTube playlist items.
+    # @see https://developers.google.com/youtube/v3/docs/playlistItems
     class PlaylistItem < Base
-      attr_reader :id, :video, :position
+      # @return [String] the ID that uniquely identify a YouTube playlist item.
+      attr_reader :id
+
+      # @return [String] the order in which the item appears in the playlist.
+      #   The value uses a zero-based index, so the first item has a position
+      #   of 0, the second item has a position of 1, and so forth.
+      attr_reader :position
+
+      attr_reader :video
 
       def initialize(options = {})
         @id = options[:id]
