@@ -12,6 +12,7 @@ module Yt
       include Actions::Delete
       include Actions::Update
 
+      # @private
       def self.has_many(attributes)
         attributes = attributes.to_s
         require "yt/collections/#{attributes}"
@@ -24,9 +25,8 @@ module Yt
         end
       end
 
-      def self.has_one(attribute, options = {})
-        delegate *options[:delegate], to: attribute if options[:delegate]
-
+      # @private
+      def self.has_one(attribute)
         attributes = attribute.to_s.pluralize
         has_many attributes
 
