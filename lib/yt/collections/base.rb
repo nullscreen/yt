@@ -18,6 +18,12 @@ module Yt
       def self.of(parent)
         new parent: parent, auth: parent.auth
       end
+
+      def where(conditions = {})
+        @items = []
+        @extra_params = conditions
+        self
+      end
     end
   end
 end

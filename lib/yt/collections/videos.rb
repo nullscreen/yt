@@ -13,9 +13,14 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:params] = @parent.videos_params.merge type: :video, maxResults: 50, part: 'snippet'
+          params[:params] = @parent.videos_params.merge videos_params
           params[:path] = '/youtube/v3/search'
         end
+      end
+
+      def videos_params
+        @extra_params ||= {}
+        {type: :video, maxResults: 50, part: 'snippet'}.merge @extra_params
       end
     end
   end
