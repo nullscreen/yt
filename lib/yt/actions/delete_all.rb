@@ -9,12 +9,12 @@ module Yt
     private
 
       def do_delete_all(params = {})
-        where(params).map do |item|
+        list_all(params).map do |item|
           item.delete
         end.tap { @items = [] }
       end
 
-      def where(params = {})
+      def list_all(params = {})
         list.find_all do |item|
           params.all? do |method, value|
             # TODO: could be symbol etc...
