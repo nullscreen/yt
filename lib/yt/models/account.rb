@@ -7,8 +7,14 @@ module Yt
     class Account < Base
       include Associations::Authentications
 
-      has_one :channel, delegate: [:videos, :playlists, :create_playlist, :delete_playlists, :update_playlists]
-      has_one :user_info, delegate: [:id, :email, :has_verified_email?, :gender, :name, :given_name, :family_name, :profile_url, :avatar_url, :locale, :hd]
+      has_one :channel
+      delegate :playlists, :create_playlist, :delete_playlists, to: :channel
+
+      has_one :user_info
+      delegate :id, :email, :has_verified_email?, :gender, :name,
+               :given_name, :family_name, :profile_url, :avatar_url,
+               :locale, :hd, to: :user_info
+
       has_many :videos
 
       def videos_params

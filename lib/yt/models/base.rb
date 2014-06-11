@@ -24,9 +24,7 @@ module Yt
         end
       end
 
-      def self.has_one(attribute, options = {})
-        delegate *options[:delegate], to: attribute if options[:delegate]
-
+      def self.has_one(attribute)
         attributes = attribute.to_s.pluralize
         has_many attributes
 

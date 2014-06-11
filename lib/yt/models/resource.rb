@@ -6,8 +6,13 @@ module Yt
     class Resource < Base
       attr_reader :auth
       has_one :id
-      has_one :snippet, delegate: [:title, :description, :thumbnail_url, :published_at, :tags]
-      has_one :status, delegate: [:privacy_status, :public?, :private?, :unlisted?]
+
+      has_one :snippet
+      delegate :title, :description, :thumbnail_url, :published_at,
+               :tags, to: :snippet
+
+      has_one :status
+      delegate :privacy_status, :public?, :private?, :unlisted?, to: :status
 
       def initialize(options = {})
         @url = URL.new(options[:url]) if options[:url]
