@@ -1,7 +1,8 @@
-Yt - the most reliable Ruby client for the YouTube API
+Yt - a Ruby client for the YouTube API
 ======================================================
 
 Yt helps you write apps that need to interact with YouTube.
+
 The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
 
 [![Gem Version](https://badge.fury.io/rb/yt.svg)](http://badge.fury.io/rb/yt)
