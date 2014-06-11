@@ -39,6 +39,10 @@ module Yt
       def delete_playlists(attrs = {})
         playlists.delete_all attrs
       end
+
+      def videos_params
+        {channelId: id}
+      end
     end
   end
 end

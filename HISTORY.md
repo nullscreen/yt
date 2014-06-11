@@ -2,7 +2,9 @@ v0.6 - 2014/06/05
 -----------------
 
 * [breaking change] Rename Channel#earning to Channel#earnings_on
+* [breaking change] Account#videos shows *all* videos owned by account (public and private)
 * Add the .status association to *every* type of resource (Channel, Video, Playlist)
+* Allow account.videos to be chained with .where, such as in account.videos.where(q: 'query')
 
 v0.5 - 2014/05/16
 -----------------
