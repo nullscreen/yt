@@ -5,12 +5,12 @@ Yt helps you write apps that need to interact with YouTube.
 
 The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
 
-[![Gem Version](https://badge.fury.io/rb/yt.svg)](http://badge.fury.io/rb/yt)
-[![Dependency Status](https://gemnasium.com/Fullscreen/yt.png)](https://gemnasium.com/Fullscreen/yt)
-[![Build Status](https://travis-ci.org/Fullscreen/yt.png?branch=master)](https://travis-ci.org/Fullscreen/yt)
-[![Coverage Status](https://coveralls.io/repos/Fullscreen/yt/badge.png?)](https://coveralls.io/r/Fullscreen/yt)
-[![Code Climate](https://codeclimate.com/github/Fullscreen/yt.png)](https://codeclimate.com/github/Fullscreen/yt)
-[![Inline docs](http://inch-pages.github.io/github/Fullscreen/yt.png)](http://inch-pages.github.io/github/Fullscreen/yt)
+[![Build Status](http://img.shields.io/travis/Fullscreen/yt/master.svg)](https://travis-ci.org/Fullscreen/yt)
+[![Coverage Status](http://img.shields.io/coveralls/Fullscreen/yt/master.svg)](https://coveralls.io/r/Fullscreen/yt)
+[![Dependency Status](http://img.shields.io/gemnasium/Fullscreen/yt.svg)](https://gemnasium.com/Fullscreen/yt)
+[![Code Climate](http://img.shields.io/codeclimate/github/Fullscreen/yt.svg)](https://codeclimate.com/github/Fullscreen/yt)
+[![Online docs](http://img.shields.io/badge/docs-✓-green.svg)](http://rubydoc.info/github/Fullscreen/yt/master/frames)
+[![Gem Version](http://img.shields.io/gem/v/yt.svg)](http://rubygems.org/gems/yt)
 
 After [registering your app](#configuring-your-app), you can run commands like:
 
