@@ -105,7 +105,7 @@ module Yt
       # random error that can be fixed by waiting for some seconds and running
       # the exact same query, or the access token needs to be refreshed.
       def run_again?
-        refresh_token_and_retry? || run_again_after_a_while?
+        refresh_token_and_retry? || server_error? && sleep_and_retry?
       end
 
       # Once in a while, YouTube responds with 500, or 503, or 400 Error and
@@ -113,16 +113,16 @@ module Yt
       # In all these cases, running the same query after some seconds fixes
       # the issue. This it not documented by YouTube and hardly testable, but
       # trying again is a workaround that works and hardly causes any damage.
-      def run_again_after_a_while?(max_retries = 1)
+      def sleep_and_retry?(max_retries = 1)
         @retries_so_far ||= -1
         @retries_so_far += 1
-        if (@retries_so_far < max_retries) && worth_another_try?
+        if (@retries_so_far < max_retries)
           @response = @http_request = @uri = nil
           sleep 3
         end
       end
 
-      def worth_another_try?
+      def server_error?
         case response
           when Net::HTTPServerError then true
           when Net::HTTPBadRequest then response.body =~ /did not conform/
@@ -141,11 +141,13 @@ module Yt
       end
 
       def response_error
-        case response
-          when Net::HTTPServerError then Errors::ServerError
+        if server_error?
+          Errors::ServerError
+        else case response
           when Net::HTTPUnauthorized then Errors::Unauthorized
           when Net::HTTPForbidden then Errors::Forbidden
           else Errors::RequestError
+          end
         end
       end
 
