@@ -29,7 +29,7 @@ module Yt
         if response.is_a? @expected_response
           response.tap{|response| response.body = parse_format response.body}
         else
-          run_again? ? run : raise(error_for(response), request_error_message)
+          run_again? ? run : raise(response_error, request_error_message)
         end
       end
 
@@ -39,6 +39,8 @@ module Yt
         @response ||= Net::HTTP.start(*net_http_options) do |http|
           http.request http_request
         end
+      rescue OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ENETUNREACH => e
+        @response ||= e
       end
 
       def http_request
@@ -105,7 +107,7 @@ module Yt
       # random error that can be fixed by waiting for some seconds and running
       # the exact same query, or the access token needs to be refreshed.
       def run_again?
-        run_again_with_refreshed_authentication? || run_again_after_a_while?
+        refresh_token_and_retry? || server_error? && sleep_and_retry?
       end
 
       # Once in a while, YouTube responds with 500, or 503, or 400 Error and
@@ -113,17 +115,20 @@ module Yt
       # In all these cases, running the same query after some seconds fixes
       # the issue. This it not documented by YouTube and hardly testable, but
       # trying again is a workaround that works and hardly causes any damage.
-      def run_again_after_a_while?(max_retries = 1)
+      def sleep_and_retry?(max_retries = 1)
         @retries_so_far ||= -1
         @retries_so_far += 1
-        if (@retries_so_far < max_retries) && worth_another_try?
+        if (@retries_so_far < max_retries)
           @response = @http_request = @uri = nil
           sleep 3
         end
       end
 
-      def worth_another_try?
+      def server_error?
         case response
+          when OpenSSL::SSL::SSLError then true
+          when Errno::ETIMEDOUT then true
+          when Errno::ENETUNREACH then true
           when Net::HTTPServerError then true
           when Net::HTTPBadRequest then response.body =~ /did not conform/
           else false
@@ -133,26 +138,28 @@ module Yt
       # If a request authorized with an access token returns 401, then the
       # access token might have expired. If a refresh token is also present,
       # try to run the request one more time with a refreshed access token.
-      def run_again_with_refreshed_authentication?
+      def refresh_token_and_retry?
         if response.is_a? Net::HTTPUnauthorized
           @response = @http_request = @uri = nil
           @auth.refresh
         end if @auth.respond_to? :refresh
       end
 
-      def error_for(response)
-        case response
-          when Net::HTTPServerError then Errors::ServerError
+      def response_error
+        if server_error?
+          Errors::ServerError
+        else case response
           when Net::HTTPUnauthorized then Errors::Unauthorized
           when Net::HTTPForbidden then Errors::Forbidden
           else Errors::RequestError
+          end
         end
       end
 
       def request_error_message
         {}.tap do |message|
           message[:request_curl] = as_curl
-          message[:response_body] = JSON(response.body) rescue response.body
+          message[:response_body] = JSON(response.body) rescue response.inspect
         end.to_json
       end
 
