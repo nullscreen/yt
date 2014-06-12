@@ -89,6 +89,9 @@ module Yt
         playlists.delete_all attrs
       end
 
+      # @private
+      # Tells `has_many :videos` that channel.videos should return all the
+      # videos publicly available on the channel.
       def videos_params
         {channelId: id}
       end

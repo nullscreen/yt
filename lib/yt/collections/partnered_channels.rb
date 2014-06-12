@@ -6,6 +6,8 @@ module Yt
 
     private
 
+      # @return [Hash] the parameters to submit to YouTube to list partnered channels.
+      # @see https://developers.google.com/youtube/v3/docs/channels/list
       def list_params
         super.tap do |params|
           params[:params].delete :mine
@@ -14,6 +16,9 @@ module Yt
         end
       end
 
+      # @private
+      # @note Partnered Channels overwrites +list_resources+ since the endpoint
+      #   to hit is 'channels', not 'partnered_channels'.
       def list_resources
         self.class.superclass
       end
