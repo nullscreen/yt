@@ -29,7 +29,7 @@ module Yt
         if response.is_a? @expected_response
           response.tap{|response| response.body = parse_format response.body}
         else
-          run_again? ? run : raise(error_for(response), request_error_message)
+          run_again? ? run : raise(response_error, request_error_message)
         end
       end
 
@@ -140,7 +140,7 @@ module Yt
         end if @auth.respond_to? :refresh
       end
 
-      def error_for(response)
+      def response_error
         case response
           when Net::HTTPServerError then Errors::ServerError
           when Net::HTTPUnauthorized then Errors::Unauthorized
