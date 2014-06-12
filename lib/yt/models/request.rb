@@ -105,7 +105,7 @@ module Yt
       # random error that can be fixed by waiting for some seconds and running
       # the exact same query, or the access token needs to be refreshed.
       def run_again?
-        run_again_with_refreshed_authentication? || run_again_after_a_while?
+        refresh_token_and_retry? || run_again_after_a_while?
       end
 
       # Once in a while, YouTube responds with 500, or 503, or 400 Error and
@@ -133,7 +133,7 @@ module Yt
       # If a request authorized with an access token returns 401, then the
       # access token might have expired. If a refresh token is also present,
       # try to run the request one more time with a refreshed access token.
-      def run_again_with_refreshed_authentication?
+      def refresh_token_and_retry?
         if response.is_a? Net::HTTPUnauthorized
           @response = @http_request = @uri = nil
           @auth.refresh
