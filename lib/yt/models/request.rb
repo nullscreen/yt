@@ -39,6 +39,8 @@ module Yt
         @response ||= Net::HTTP.start(*net_http_options) do |http|
           http.request http_request
         end
+      rescue OpenSSL::SSL::SSLError => error
+        @response ||= error
       end
 
       def http_request
@@ -124,6 +126,7 @@ module Yt
 
       def server_error?
         case response
+          when OpenSSL::SSL::SSLError then true
           when Net::HTTPServerError then true
           when Net::HTTPBadRequest then response.body =~ /did not conform/
           else false
@@ -154,7 +157,7 @@ module Yt
       def request_error_message
         {}.tap do |message|
           message[:request_curl] = as_curl
-          message[:response_body] = JSON(response.body) rescue response.body
+          message[:response_body] = JSON(response.body) rescue response.inspect
         end.to_json
       end
 
