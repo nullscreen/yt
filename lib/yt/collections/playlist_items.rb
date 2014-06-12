@@ -22,10 +22,15 @@ module Yt
 
     private
 
+      # @return [Yt::Models::PlaylistItem] a new playlist item initialized with
+      #   one of the items returned by asking YouTube for a list of items.
+      # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
       def new_item(data)
         Yt::PlaylistItem.new id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth
       end
 
+      # @return [Hash] the parameters to submit to YouTube to list items.
+      # @see https://developers.google.com/youtube/v3/docs/playlistItems/list
       def list_params
         super.tap do |params|
           params[:params] = {maxResults: 50, part: 'snippet,status', playlistId: @parent.id}
