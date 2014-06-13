@@ -2,8 +2,9 @@ require 'yt/actions/delete'
 require 'yt/actions/update'
 require 'yt/errors/request_error'
 
+require 'active_support' # does not load anything by default but is required
 require 'active_support/core_ext/module/delegation' # for delegate
-require 'active_support/core_ext/string/inflections' # for camelize
+require 'active_support/core_ext/string/inflections' # for camelize/constantize
 
 module Yt
   module Models
