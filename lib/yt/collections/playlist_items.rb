@@ -36,12 +36,6 @@ module Yt
           params[:params] = {maxResults: 50, part: 'snippet,status', playlistId: @parent.id}
         end
       end
-
-      def insert_params
-        super.tap do |params|
-          params[:path] = '/youtube/v3/playlistItems'
-        end
-      end
     end
   end
 end
