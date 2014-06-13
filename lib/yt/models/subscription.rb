@@ -29,6 +29,8 @@ module Yt
 
     private
 
+      # @return [Hash] the parameters to submit to YouTube to delete a subscription.
+      # @see https://developers.google.com/youtube/v3/docs/subscriptions/delete
       def delete_params
         super.tap do |params|
           params[:path] = '/youtube/v3/subscriptions'

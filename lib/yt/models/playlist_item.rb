@@ -35,6 +35,8 @@ module Yt
 
     private
 
+      # @return [Hash] the parameters to submit to YouTube to delete a playlist item.
+      # @see https://developers.google.com/youtube/v3/docs/playlistItems/delete
       def delete_params
         super.tap do |params|
           params[:path] = '/youtube/v3/playlistItems'

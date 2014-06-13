@@ -20,6 +20,10 @@ module Yt
 
     private
 
+      # @return [Yt::Models::Subscription] a new subscription initialized with
+      #   one of the items returned by asking YouTube for a list of
+      #   subscriptions to a channel.
+      # @see https://developers.google.com/youtube/v3/docs/subscriptions#resource
       def new_item(data)
         Yt::Subscription.new id: data['id'], auth: @auth
       end
@@ -41,15 +45,18 @@ module Yt
         super params
       end
 
+      # @return [Hash] the parameters to submit to YouTube to list subscriptions.
+      # @see https://developers.google.com/youtube/v3/docs/subscriptions/list
       def list_params
         super.tap do |params|
           params[:params] = {maxResults: 50, forChannelId: @parent.id, mine: true, part: 'snippet'}
         end
       end
 
+      # @return [Hash] the parameters to submit to YouTube to add a subscriptions.
+      # @see https://developers.google.com/youtube/v3/docs/subscriptions/insert
       def insert_params
         super.tap do |params|
-          params[:path] = '/youtube/v3/subscriptions'
           params[:params] = {part: 'snippet'}
           params[:body] = {snippet: {resourceId: {channelId: @parent.id}}}
         end
