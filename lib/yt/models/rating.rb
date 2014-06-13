@@ -22,6 +22,8 @@ module Yt
 
     private
 
+      # @return [Hash] the parameters to submit to YouTube to update a rating.
+      # @see https://developers.google.com/youtube/v3/docs/videos/rate
       def update_params
         super.tap do |params|
           params[:method] = :post

@@ -25,19 +25,18 @@ module Yt
 
     private
 
+      # @return [Yt::Models::Playlist] a new playlist initialized with
+      #   one of the items returned by asking YouTube for a list of playlists.
+      # @see https://developers.google.com/youtube/v3/docs/playlists#resource
       def new_item(data)
         Yt::Playlist.new id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth
       end
 
+      # @return [Hash] the parameters to submit to YouTube to list playlists.
+      # @see https://developers.google.com/youtube/v3/docs/playlist/list
       def list_params
         super.tap do |params|
           params[:params] = {maxResults: 50, part: 'snippet,status', channelId: @parent.id}
-        end
-      end
-
-      def insert_params
-        super.tap do |params|
-          params[:path] = '/youtube/v3/playlists'
         end
       end
     end

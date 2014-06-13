@@ -10,6 +10,13 @@ module Yt
       #   @return [Yt::Collections::PlaylistItems] the playlist’s items.
       has_many :playlist_items
 
+      # Deletes the playlist.
+      #
+      # This method requires {Resource#auth auth} to return an authenticated
+      # instance of {Yt::Account} with permissions to delete the playlist
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
+      #   return an account with permissions to delete the playlist.
+      # @return [Boolean] whether the playlist does not exist anymore.
       def delete
         do_delete {@id = nil}
         !exists?
@@ -59,6 +66,8 @@ module Yt
 
     private
 
+      # @return [Hash] the parameters to submit to YouTube to delete a playlist.
+      # @see https://developers.google.com/youtube/v3/docs/playlists/delete
       def delete_params
         super.tap do |params|
           params[:path] = '/youtube/v3/playlists'
@@ -66,6 +75,8 @@ module Yt
         end
       end
 
+      # @return [Hash] the parameters to submit to YouTube to update a playlist.
+      # @see https://developers.google.com/youtube/v3/docs/playlists/update
       def update_params
         super.tap do |params|
           params[:path] = '/youtube/v3/playlists'

@@ -7,7 +7,7 @@ module Yt
       # @option options [String] :data The XML representation of an annotation
       # @note YouTube API V3 does not provide access to video annotations,
       #   therefore the XML endpoint is used to retrieve them and its response
-      #    is passed to the Annotation initializer.
+      #   is passed to the Annotation initializer.
       def initialize(options = {})
         @data = options[:data]
       end

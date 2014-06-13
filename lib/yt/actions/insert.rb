@@ -14,7 +14,10 @@ module Yt
       end
 
       def insert_params
+        path = "/youtube/v3/#{self.class.to_s.demodulize.camelize :lower}"
+
         {}.tap do |params|
+          params[:path] = path
           params[:method] = :post
           params[:auth] = @auth
           params[:expected_response] = Net::HTTPOK
