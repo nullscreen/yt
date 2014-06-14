@@ -6,14 +6,14 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/playlists
     class Playlist < Resource
 
-      # @!attribute playlist_items
+      # @!attribute [r] playlist_items
       #   @return [Yt::Collections::PlaylistItems] the playlist’s items.
       has_many :playlist_items
 
       # Deletes the playlist.
       #
       # This method requires {Resource#auth auth} to return an authenticated
-      # instance of {Yt::Account} with permissions to delete the playlist
+      # instance of {Yt::Account} with permissions to delete the playlist.
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an account with permissions to delete the playlist.
       # @return [Boolean] whether the playlist does not exist anymore.
@@ -44,6 +44,14 @@ module Yt
         !@id.nil?
       end
 
+      # Adds a video to the playlist
+      # Does not raise an error if the video cannot be added (e.g., unknown).
+      #
+      # This method requires {Resource#auth auth} to return an authenticated
+      # instance of {Yt::Account} with permissions to update the playlist.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
+      #   return an account with permissions to update the playlist.
+      # @return [Yt::PlaylistItem] the item added to the playlist.
       def add_video(video_id)
         playlist_items.insert video_params(video_id), ignore_errors: true
       end

@@ -10,15 +10,15 @@ module Yt
       include Associations::Earnings
       include Associations::Views
 
-      # @!attribute subscriptions
+      # @!attribute [r] subscriptions
       #   @return [Yt::Collections::Subscriptions] the channel’s subscriptions.
       has_many :subscriptions
 
-      # @!attribute videos
+      # @!attribute [r] videos
       #   @return [Yt::Collections::Videos] the channel’s videos.
       has_many :videos
 
-      # @!attribute playlists
+      # @!attribute [r] playlists
       #   @return [Yt::Collections::Playlists] the channel’s playlists.
       has_many :playlists
 

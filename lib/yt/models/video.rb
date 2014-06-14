@@ -5,16 +5,16 @@ module Yt
     # Provides methods to interact with YouTube videos.
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
-      # @!attribute details_set
+      # @!attribute [r] details_set
       #   @return [Yt::Models::DetailsSet] the video’s content details.
       has_one :details_set
       delegate :duration, to: :details_set
 
-      # @!attribute rating
+      # @!attribute [r] rating
       #   @return [Yt::Models::Rating] the video’s rating.
       has_one :rating
 
-      # @!attribute annotations
+      # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
 
