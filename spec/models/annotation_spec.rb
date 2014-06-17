@@ -127,5 +127,18 @@ describe Yt::Annotation do
       it { expect(annotation.starts_after? 0).to be_nil }
       it { expect(annotation.starts_before? 0).to be_nil }
     end
+
+    context 'given an annotation with "never" as the timestamp' do
+      let(:xml) { %Q{
+        <segment>
+        <movingRegion type="rect">
+        <rectRegion h="6.0" t="never" w="25.0" x="7.0" y="5.0"/>
+        <rectRegion h="6.0" t="never" w="25.0" x="7.0" y="5.0"/>
+        </movingRegion>
+        </segment>
+      } }
+      it { expect(annotation.starts_after? 0).to be_nil }
+      it { expect(annotation.starts_before? 0).to be_nil }
+    end
   end
 end

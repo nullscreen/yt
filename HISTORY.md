@@ -6,6 +6,7 @@ v0.6 - 2014/06/05
 * Add the .status association to *every* type of resource (Channel, Video, Playlist)
 * Allow account.videos to be chained with .where, such as in account.videos.where(q: 'query')
 * Retry request once when YouTube times out
+* Handle annotations with "never" as the timestamp
 
 v0.5 - 2014/05/16
 -----------------

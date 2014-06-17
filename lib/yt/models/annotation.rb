@@ -107,7 +107,7 @@ module Yt
       end
 
       def timestamps
-        @timestamps ||= positions.map do |pos|
+        @timestamps ||= positions.reject{|pos| pos['t'] == 'never'}.map do |pos|
           regex = %r{(?:|(?<hours>\d*):)(?:|(?<min>\d*):)(?<sec>\d*)\.(?<ms>\d*)}
           match = pos['t'].match regex
           hours = (match[:hours] || '0').to_i
