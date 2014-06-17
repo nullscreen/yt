@@ -75,7 +75,7 @@ module Yt
     private
 
       def text
-        @text ||= @data.fetch 'TEXT', ''
+        @text ||= @data['TEXT'] || ''
       end
 
       def type
@@ -107,7 +107,7 @@ module Yt
       end
 
       def timestamps
-        @timestamps ||= positions.map do |pos|
+        @timestamps ||= positions.reject{|pos| pos['t'] == 'never'}.map do |pos|
           regex = %r{(?:|(?<hours>\d*):)(?:|(?<min>\d*):)(?<sec>\d*)\.(?<ms>\d*)}
           match = pos['t'].match regex
           hours = (match[:hours] || '0').to_i
@@ -118,7 +118,7 @@ module Yt
       end
 
       def positions
-        @positions ||= region['rectRegion'] || region['anchoredRegion'] || []
+        @positions ||= Array.wrap region['rectRegion'] || region['anchoredRegion']
       end
 
       def region

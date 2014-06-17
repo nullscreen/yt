@@ -24,6 +24,18 @@ describe Yt::Annotation do
       it { expect(annotation.below? 5).to be true }
     end
 
+    context 'given an annotation without a single position' do
+      let(:xml) { %Q{
+        <segment>
+        <movingRegion type="rect">
+        <rectRegion d="0" h="17.7779998779" t="0:05.000" w="25.0" x="7.117000103" y="5.07000017166"/>
+        </movingRegion>
+        </segment>
+      } }
+      it { expect(annotation.above? 50).to be true }
+      it { expect(annotation.below? 50).to be_falsey }
+    end
+
     context 'given an annotation without explicit location' do
       let(:xml) { '<segment></segment>' }
       it { expect(annotation.above? 50).to be_falsey }
@@ -75,6 +87,11 @@ describe Yt::Annotation do
       let(:xml) { '<action type="openUrl"><url link_class="3"/></action>' }
       it { expect(annotation).not_to have_link_to_playlist }
     end
+
+    context 'given an annotation without text' do
+      let(:xml) { '<TEXT />' }
+      it { expect(annotation).not_to have_link_to_playlist }
+    end
   end
 
   describe '#has_link_to_same_window?' do
@@ -124,6 +141,19 @@ describe Yt::Annotation do
 
     context 'given an annotation without timestamps' do
       let(:xml) { '<segment></segment>' }
+      it { expect(annotation.starts_after? 0).to be_nil }
+      it { expect(annotation.starts_before? 0).to be_nil }
+    end
+
+    context 'given an annotation with "never" as the timestamp' do
+      let(:xml) { %Q{
+        <segment>
+        <movingRegion type="rect">
+        <rectRegion h="6.0" t="never" w="25.0" x="7.0" y="5.0"/>
+        <rectRegion h="6.0" t="never" w="25.0" x="7.0" y="5.0"/>
+        </movingRegion>
+        </segment>
+      } }
       it { expect(annotation.starts_after? 0).to be_nil }
       it { expect(annotation.starts_before? 0).to be_nil }
     end

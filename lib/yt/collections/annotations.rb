@@ -5,6 +5,8 @@ module Yt
   module Collections
     # Provides methods to interact with a collection of YouTube annotations.
     # Resources with annotations are: {Yt::Models::Video videos}.
+    # @note Since there is no (authenticable) API endpoint to retrieve
+    #   annotations, only annotations of *public videos* can be retrieved.
     class Annotations < Base
 
     private
@@ -38,6 +40,15 @@ module Yt
 
         document = response.body.fetch('document', {})['annotations'] || {}
         Array.wrap document.fetch 'annotation', []
+      rescue Yt::Error => error
+        expected?(error) ? [] : raise(error)
+      end
+
+      # Since there is no API endpoint, retrieving annotations of unknown
+      # videos or of private videos (to which YouTube responds with 403)
+      # should not raise an error, but simply not return any annotation.
+      def expected?(error)
+        error.is_a? Yt::Errors::Forbidden
       end
     end
   end
