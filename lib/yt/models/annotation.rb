@@ -75,7 +75,7 @@ module Yt
     private
 
       def text
-        @text ||= @data.fetch 'TEXT', ''
+        @text ||= @data['TEXT'] || ''
       end
 
       def type

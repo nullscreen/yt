@@ -75,6 +75,11 @@ describe Yt::Annotation do
       let(:xml) { '<action type="openUrl"><url link_class="3"/></action>' }
       it { expect(annotation).not_to have_link_to_playlist }
     end
+
+    context 'given an annotation without text' do
+      let(:xml) { '<TEXT />' }
+      it { expect(annotation).not_to have_link_to_playlist }
+    end
   end
 
   describe '#has_link_to_same_window?' do
