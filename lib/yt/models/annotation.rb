@@ -118,7 +118,7 @@ module Yt
       end
 
       def positions
-        @positions ||= region['rectRegion'] || region['anchoredRegion'] || []
+        @positions ||= Array.wrap region['rectRegion'] || region['anchoredRegion']
       end
 
       def region

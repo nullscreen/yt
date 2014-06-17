@@ -24,6 +24,18 @@ describe Yt::Annotation do
       it { expect(annotation.below? 5).to be true }
     end
 
+    context 'given an annotation without a single position' do
+      let(:xml) { %Q{
+        <segment>
+        <movingRegion type="rect">
+        <rectRegion d="0" h="17.7779998779" t="0:05.000" w="25.0" x="7.117000103" y="5.07000017166"/>
+        </movingRegion>
+        </segment>
+      } }
+      it { expect(annotation.above? 50).to be true }
+      it { expect(annotation.below? 50).to be_falsey }
+    end
+
     context 'given an annotation without explicit location' do
       let(:xml) { '<segment></segment>' }
       it { expect(annotation.above? 50).to be_falsey }
