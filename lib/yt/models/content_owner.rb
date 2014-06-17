@@ -7,7 +7,7 @@ module Yt
     # @see https://developers.google.com/youtube/analytics/v1/content_owner_reports
     class ContentOwner < Account
 
-      # @!attribute partnered_channels
+      # @!attribute [r] partnered_channels
       #   @return [Yt::Collection::PartneredChannels] the channels managed by the CMS account.
       has_many :partnered_channels
 
