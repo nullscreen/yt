@@ -69,12 +69,12 @@ module Yt
       # To receive a gzip-encoded response you must do two things:
       # - Set the Accept-Encoding HTTP request header to gzip.
       # - Modify your user agent to contain the string gzip.
-      # Note that HTTP headers are case-insensitive.
+      # Net::HTTP already sets the Accept-Encoding header, so all it’s left
+      # to do is to specify an appropriate User Agent.
       # @see https://developers.google.com/youtube/v3/getting-started#gzip
       # @see http://www.ietf.org/rfc/rfc2616.txt
       def gzip_headers
         @gzip_headers ||= {}.tap do |headers|
-          headers['accept-encoding'] = 'gzip'
           headers['user-agent'] = 'Yt (gzip)'
         end
       end
