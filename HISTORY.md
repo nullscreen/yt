@@ -1,3 +1,8 @@
+v0.7 - 2014/06/18
+-----------------
+
+* [breaking change] Rename DetailsSet to ContentDetail
+
 v0.6 - 2014/06/05
 -----------------
 

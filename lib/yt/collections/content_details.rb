@@ -1,14 +1,14 @@
 require 'yt/collections/base'
-require 'yt/models/details_set'
+require 'yt/models/content_detail'
 
 module Yt
   module Collections
-    class DetailsSets < Base
+    class ContentDetails < Base
 
     private
 
       def new_item(data)
-        Yt::DetailsSet.new data: data['contentDetails']
+        Yt::ContentDetail.new data: data['contentDetails']
       end
 
       def list_params
