@@ -8,7 +8,7 @@ module Yt
       # @!attribute [r] details_set
       #   @return [Yt::Models::DetailsSet] the video’s content details.
       has_one :details_set
-      delegate :duration, to: :details_set
+      delegate :duration, :hd?, :stereoscopic?, :captioned?, :licensed?, to: :details_set
 
       # @!attribute [r] rating
       #   @return [Yt::Models::Rating] the video’s rating.

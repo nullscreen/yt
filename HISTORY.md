@@ -7,6 +7,7 @@ v0.6 - 2014/06/05
 * Allow account.videos to be chained with .where, such as in account.videos.where(q: 'query')
 * Retry request once when YouTube times out
 * Handle annotations with "never" as the timestamp, without text, singleton positions, of private videos
+* New methods for Video: hd?, stereoscopic?, captioned?, licensed?
 
 v0.5 - 2014/05/16
 -----------------

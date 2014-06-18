@@ -27,6 +27,10 @@ video = Yt::Video.new id: 'MESycYJytkU'
 video.title #=> "Fullscreen Creator Platform"
 video.public? #=> true
 video.duration #=> 86
+video.hd? #=> true
+video.stereoscopic? #=> false
+video.captioned? #=> true
+video.licensed? #=> false
 video.annotations.count #=> 1
 ```
 
