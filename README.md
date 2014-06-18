@@ -19,13 +19,23 @@ channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 channel.title #=> "Fullscreen"
 channel.description #=> "The first media company for the connected generation."
 channel.public? #=> true
-channel.videos.count #=> 12
+channel.view_count #=> 421619
+channel.comment_count #=> 773
+channel.video_count #=> 13
+channel.subscriber_count #=> 136925
+channel.subscriber_count_visible? #=> true
+channel.videos.count #=> 13
 ```
 
 ```ruby
 video = Yt::Video.new id: 'MESycYJytkU'
 video.title #=> "Fullscreen Creator Platform"
 video.public? #=> true
+video.view_count #=> 55843
+video.comment_count #=> 308
+video.like_count #=> 556
+video.dislike_count #=> 78
+video.favorite_count #=> 0
 video.duration #=> 86
 video.hd? #=> true
 video.stereoscopic? #=> false
@@ -336,7 +346,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.6.6'
+    gem 'yt', '~> 0.7.0'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

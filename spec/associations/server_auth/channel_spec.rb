@@ -16,6 +16,16 @@ describe Yt::Channel, :server_app do
     it { expect{channel.snippet}.to raise_error Yt::Errors::NoItems }
   end
 
+  describe '.statistics_set of existing channel' do
+    let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
+    it { expect(channel.statistics_set).to be_a Yt::StatisticsSet }
+  end
+
+  describe '.statistics_set of unknown channel' do
+    let(:id) { 'not-a-channel-id' }
+    it { expect{channel.statistics_set}.to raise_error Yt::Errors::NoItems }
+  end
+
   describe '.status of existing channel' do
     let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
     it { expect(channel.status).to be_a Yt::Status }

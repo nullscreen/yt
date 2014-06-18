@@ -5,7 +5,7 @@ module Yt
     # Encapsulates information about the video content, including the length
     # of the video and an indication of whether captions are available.
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
-    class DetailsSet < Base
+    class ContentDetail < Base
 
       def initialize(options = {})
         @data = options[:data]

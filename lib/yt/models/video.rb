@@ -5,10 +5,11 @@ module Yt
     # Provides methods to interact with YouTube videos.
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
-      # @!attribute [r] details_set
-      #   @return [Yt::Models::DetailsSet] the video’s content details.
-      has_one :details_set
-      delegate :duration, :hd?, :stereoscopic?, :captioned?, :licensed?, to: :details_set
+      # @!attribute [r] content_detail
+      #   @return [Yt::Models::ContentDetail] the video’s content details.
+      has_one :content_detail
+      delegate :duration, :hd?, :stereoscopic?, :captioned?, :licensed?,
+               to: :content_detail
 
       # @!attribute [r] rating
       #   @return [Yt::Models::Rating] the video’s rating.
@@ -17,6 +18,12 @@ module Yt
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
+
+      # @!attribute [r] statistics_set
+      #   @return [Yt::Models::StatisticsSet] the statistics for the video.
+      has_one :statistics_set
+      delegate :view_count, :like_count, :dislike_count, :favorite_count,
+               :comment_count, to: :statistics_set
 
       # Returns whether the authenticated account likes the video.
       #
