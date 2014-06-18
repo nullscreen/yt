@@ -40,9 +40,10 @@ module Yt
         data.last
       end
 
-      def metrics
-        ''
-      end
+      # To be overriden by superclasses
+      # def metrics
+      #   ''
+      # end
 
       def items_key
         'rows'
