@@ -27,6 +27,10 @@ video = Yt::Video.new id: 'MESycYJytkU'
 video.title #=> "Fullscreen Creator Platform"
 video.public? #=> true
 video.duration #=> 86
+video.hd? #=> true
+video.stereoscopic? #=> false
+video.captioned? #=> true
+video.licensed? #=> false
 video.annotations.count #=> 1
 ```
 
@@ -332,7 +336,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.6.4'
+    gem 'yt', '~> 0.6.5'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

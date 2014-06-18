@@ -24,7 +24,7 @@ module Yt
         end
       end
 
-      def delete
+      def delete(options = {})
         do_delete {@id = nil}
         !exists?
       end

@@ -8,7 +8,7 @@ module Yt
       alias size count
 
       def first!
-        first.tap{|item| raise Errors::NoItems unless item}
+        first.tap{|item| raise Errors::NoItems, last_request unless item}
       end
 
     private
@@ -48,11 +48,18 @@ module Yt
       end
 
       def fetch_page(params = {})
-        request = Yt::Request.new params
-        response = request.run
+        response = request(params).run
         token = response.body['nextPageToken']
         items = response.body.fetch items_key, []
         {items: items, token: token}
+      end
+
+      def request(params = {})
+        @last_request = Yt::Request.new params
+      end
+
+      def last_request
+        @last_request.request_error_message if @last_request
       end
 
       def list_params

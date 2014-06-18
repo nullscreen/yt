@@ -4,7 +4,7 @@ require 'yt/associations/views'
 
 module Yt
   module Models
-    # Provides methods to interact with YouTube channels.
+    # A channel resource contains information about a YouTube channel.
     # @see https://developers.google.com/youtube/v3/docs/channels
     class Channel < Resource
       include Associations::Earnings

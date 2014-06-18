@@ -19,6 +19,7 @@ module Yt
         rescue Yt::Error => error
           ignorable_errors = error.reasons & ['subscriptionNotFound']
           raise error unless options[:ignore_errors] && ignorable_errors.any?
+          @id = nil
         end
         !exists?
       end

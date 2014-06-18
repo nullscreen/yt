@@ -2,8 +2,8 @@ require 'yt/models/base'
 
 module Yt
   module Models
-    # Encapsulates information about the content of a resource, for
-    # instance a video.
+    # Encapsulates information about the video content, including the length
+    # of the video and an indication of whether captions are available.
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     class DetailsSet < Base
 
@@ -11,9 +11,30 @@ module Yt
         @data = options[:data]
       end
 
-      # @return [Integer] the duration of the resource (in seconds).
+      # @return [Integer] the duration of the video (in seconds).
       def duration
-        @duration = to_seconds @data.fetch('duration', 0)
+        @duration ||= to_seconds @data.fetch('duration', 0)
+      end
+
+      # @return [Boolean] whether the video is available in 3D.
+      def stereoscopic?
+        @stereoscopic ||= @data['dimension'] == '3d'
+      end
+
+      # @return [Boolean] whether the video is available in high definition.
+      def hd?
+        @hd ||= @data['definition'] == 'hd'
+      end
+
+      # @return [Boolean] whether captions are available for the video.
+      def captioned?
+        @hd ||= @data['caption'] == 'true'
+      end
+
+      # @return [Boolean] whether the video represents licensed content, which
+      #   means that the content has been claimed by a YouTube content partner.
+      def licensed?
+        @licensed ||= @data.fetch 'licensedContent', false
       end
 
     private

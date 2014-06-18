@@ -15,7 +15,7 @@ module Yt
 
       def delete_all(params = {}, options = {})
         throttle
-        do_delete_all params
+        do_delete_all params, options
       end
 
     private

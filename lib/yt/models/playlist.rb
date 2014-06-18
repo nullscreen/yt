@@ -17,7 +17,7 @@ module Yt
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an account with permissions to delete the playlist.
       # @return [Boolean] whether the playlist does not exist anymore.
-      def delete
+      def delete(options = {})
         do_delete {@id = nil}
         !exists?
       end

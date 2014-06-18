@@ -8,9 +8,9 @@ module Yt
 
     private
 
-      def do_delete_all(params = {})
+      def do_delete_all(params = {}, options = {})
         list_all(params).map do |item|
-          item.delete
+          item.delete options
         end.tap { @items = [] }
       end
 
