@@ -19,7 +19,7 @@ module Yt
         @body_type = options.fetch :body_type, :json
         @expected_response = options.fetch :expected_response, Net::HTTPSuccess
         @format = options.fetch :format, :json
-        @headers = options.fetch :headers, {}
+        @headers = options.fetch :headers, gzip_headers
         @host = options.fetch :host, google_api_host
         @method = options.fetch :method, :get
         @path = options[:path]
@@ -57,6 +57,19 @@ module Yt
           request.initialize_http_header 'Content-length' => '0' unless @body
         end
         @headers.each{|name, value| request.add_field name, value}
+      end
+
+      # To receive a gzip-encoded response you must do two things:
+      # - Set the Accept-Encoding HTTP request header to gzip.
+      # - Modify your user agent to contain the string gzip.
+      # Note that HTTP headers are case-insensitive.
+      # @see https://developers.google.com/youtube/v3/getting-started#gzip
+      # @see http://www.ietf.org/rfc/rfc2616.txt
+      def gzip_headers
+        @gzip_headers ||= {}.tap do |headers|
+          headers['accept-encoding'] = 'gzip'
+          headers['user-agent'] = 'Yt (gzip)'
+        end
       end
 
       def set_body!(request)
@@ -168,6 +181,7 @@ module Yt
         'curl'.tap do |curl|
           curl <<  " -X #{http_request.method}"
           http_request.each_header do |name, value|
+            next if gzip_headers.has_key? name
             curl << %Q{ -H "#{name}: #{value}"}
           end
           curl << %Q{ -d '#{http_request.body}'} if http_request.body
