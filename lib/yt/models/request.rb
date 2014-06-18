@@ -34,6 +34,13 @@ module Yt
         end
       end
 
+      def request_error_message
+        {}.tap do |message|
+          message[:request_curl] = as_curl
+          message[:response_body] = JSON(response.body) rescue response.inspect
+        end.to_json
+      end
+
     private
 
       def response
@@ -168,13 +175,6 @@ module Yt
           else Errors::RequestError
           end
         end
-      end
-
-      def request_error_message
-        {}.tap do |message|
-          message[:request_curl] = as_curl
-          message[:response_body] = JSON(response.body) rescue response.inspect
-        end.to_json
       end
 
       def as_curl
