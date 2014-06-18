@@ -10,6 +10,7 @@ describe Yt::Video, :server_app do
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
     it { expect(video.snippet).to be_a Yt::Snippet }
     it { expect(video.status).to be_a Yt::Status }
+    it { expect(video.statistics_set).to be_a Yt::StatisticsSet }
   end
 
   context 'given an unknown video' do
@@ -18,5 +19,6 @@ describe Yt::Video, :server_app do
     it { expect{video.content_detail}.to raise_error Yt::Errors::NoItems }
     it { expect{video.snippet}.to raise_error Yt::Errors::NoItems }
     it { expect{video.status}.to raise_error Yt::Errors::NoItems }
+    it { expect{video.statistics_set}.to raise_error Yt::Errors::NoItems }
   end
 end

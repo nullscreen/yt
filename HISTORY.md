@@ -2,6 +2,8 @@ v0.7 - 2014/06/18
 -----------------
 
 * [breaking change] Rename DetailsSet to ContentDetail
+* Add statistics_set to Video (views, likes, dislikes, favorites, comments)
+* Add statistics_set to Channel (views, comments, videos, subscribers)
 
 v0.6 - 2014/06/05
 -----------------

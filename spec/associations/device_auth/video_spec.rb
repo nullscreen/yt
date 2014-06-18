@@ -11,6 +11,7 @@ describe Yt::Video, :device_app do
     it { expect(video.snippet).to be_a Yt::Snippet }
     it { expect(video.rating).to be_a Yt::Rating }
     it { expect(video.status).to be_a Yt::Status }
+    it { expect(video.statistics_set).to be_a Yt::StatisticsSet }
 
     context 'that I like' do
       before { video.like }
@@ -38,5 +39,6 @@ describe Yt::Video, :device_app do
     it { expect{video.snippet}.to raise_error Yt::Errors::NoItems }
     it { expect{video.rating}.to raise_error Yt::Errors::NoItems }
     it { expect{video.status}.to raise_error Yt::Errors::NoItems }
+    it { expect{video.statistics_set}.to raise_error Yt::Errors::NoItems }
   end
 end

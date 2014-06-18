@@ -22,6 +22,13 @@ module Yt
       #   @return [Yt::Collections::Playlists] the channel’s playlists.
       has_many :playlists
 
+
+      # @!attribute [r] statistics_set
+      #   @return [Yt::Models::StatisticsSet] the statistics for the video.
+      has_one :statistics_set
+      delegate :view_count, :comment_count, :video_count, :subscriber_count,
+               :subscriber_count_visible?, to: :statistics_set
+
       # Returns whether the authenticated account is subscribed to the channel.
       #
       # This method requires {Resource#auth auth} to return an

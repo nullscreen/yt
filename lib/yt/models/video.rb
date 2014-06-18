@@ -19,6 +19,12 @@ module Yt
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
 
+      # @!attribute [r] statistics_set
+      #   @return [Yt::Models::StatisticsSet] the statistics for the video.
+      has_one :statistics_set
+      delegate :view_count, :like_count, :dislike_count, :favorite_count,
+               :comment_count, to: :statistics_set
+
       # Returns whether the authenticated account likes the video.
       #
       # This method requires {Resource#auth auth} to return an
