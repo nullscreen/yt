@@ -4,53 +4,63 @@ require 'spec_helper'
 require 'yt/models/playlist'
 
 describe Yt::Playlist, :device_app do
-  let(:playlist) { Yt::Playlist.new id: id, auth: $account }
+  subject(:playlist) { Yt::Playlist.new id: id, auth: $account }
 
-  describe '.snippet of existing playlist' do
+  context 'given an existing playlist' do
     let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
-    it { expect(playlist.snippet).to be_a Yt::Snippet }
-  end
 
-  describe '.status of existing playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+    it 'returns valid snippet data' do
+      expect(playlist.snippet).to be_a Yt::Snippet
+      expect(playlist.title).to be_a String
+      expect(playlist.description).to be_a Yt::Description
+      expect(playlist.thumbnail_url).to be_a String
+      expect(playlist.published_at).to be_a Time
+      expect(playlist.tags).to be_an Array
+      expect(playlist.channel_id).to be_a String
+      expect(playlist.channel_title).to be_a String
+    end
+
     it { expect(playlist.status).to be_a Yt::Status }
+    it { expect(playlist.playlist_items).to be_a Yt::Collections::PlaylistItems }
+    it { expect(playlist.playlist_items.first).to be_a Yt::PlaylistItem }
   end
 
-  describe '.snippet of unknown playlist' do
+  context 'given an unknown playlist' do
     let(:id) { 'not-a-playlist-id' }
+
     it { expect{playlist.snippet}.to raise_error Yt::Errors::NoItems }
-  end
-
-  describe '.status of unknown playlist' do
-    let(:id) { 'not-a-playlist-id' }
     it { expect{playlist.status}.to raise_error Yt::Errors::NoItems }
   end
 
-  describe '.delete on my own playlist' do
+  context 'given someone else’s playlist' do
+    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+    let(:video_id) { 'MESycYJytkU' }
+
+    it { expect{playlist.delete}.to fail.with 'forbidden' }
+    it { expect{playlist.update}.to fail.with 'forbidden' }
+    it { expect{playlist.add_video! video_id}.to raise_error Yt::Errors::RequestError }
+    it { expect{playlist.delete_playlist_items}.to raise_error Yt::Errors::RequestError }
+  end
+
+  context 'given one of my own playlists that I want to delete' do
     before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Delete Playlist #{rand}" }
     let(:id) { @my_playlist.id }
 
     it { expect(playlist.delete).to be true }
   end
 
-  describe '.delete on someone else’s playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
-
-    it { expect{playlist.delete}.to fail.with 'forbidden' }
-  end
-
-  describe '.update on my own playlist' do
+  context 'given one of my own playlists that I want to update' do
     before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Update Playlist #{rand}" }
     after(:all) { @my_playlist.delete }
     let(:id) { @my_playlist.id }
 
-    context 'changes the attributes that are specified to be updated' do
+    describe 'updates the attributes that I specify explicitly' do
       let(:attrs) { {title: "Yt Test Update Playlist #{rand} - new title"} }
       it { expect(playlist.update attrs).to eq true }
       it { expect{playlist.update attrs}.to change{playlist.title} }
     end
 
-    context 'does not changes the attributes that are not specified to be updated' do
+    describe 'does not update the other attributes' do
       let(:attrs) { {} }
       it { expect(playlist.update attrs).to eq true }
       it { expect{playlist.update attrs}.not_to change{playlist.title} }
@@ -58,20 +68,6 @@ describe Yt::Playlist, :device_app do
       it { expect{playlist.update attrs}.not_to change{playlist.tags} }
       it { expect{playlist.update attrs}.not_to change{playlist.privacy_status} }
     end
-  end
-
-  describe '.update on someone else’s playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
-
-    it { expect{playlist.update}.to fail.with 'forbidden' }
-  end
-
-  describe '.playlist_items of my own playlist' do
-    before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Items" }
-    after(:all) { @my_playlist.delete }
-    let(:id) { @my_playlist.id }
-
-    it { expect(playlist.playlist_items).to be_a Yt::Collections::PlaylistItems }
 
     context 'given an existing video' do
       let(:video_id) { 'MESycYJytkU' }
@@ -119,18 +115,6 @@ describe Yt::Playlist, :device_app do
         it { expect{playlist.add_videos video_ids}.to change{playlist.playlist_items.count}.by(1) }
         it { expect{playlist.add_videos! video_ids}.to fail.with 'videoNotFound' }
       end
-    end
-  end
-
-  describe '.playlist_items of someone else’s playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
-    let(:video_id) { 'MESycYJytkU' }
-
-    it { expect(playlist.playlist_items).to be_a Yt::Collections::PlaylistItems }
-
-    describe 'cannot be created or destroyed' do
-      it { expect{playlist.add_video! video_id}.to raise_error Yt::Errors::RequestError }
-      it { expect{playlist.delete_playlist_items}.to raise_error Yt::Errors::RequestError }
     end
   end
 end

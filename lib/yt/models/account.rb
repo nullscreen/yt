@@ -16,9 +16,8 @@ module Yt
       # @!attribute [r] user_info
       #   @return [Yt::Models::UserInfo] the account’s profile information.
       has_one :user_info
-      delegate :id, :email, :has_verified_email?, :gender, :name,
-               :given_name, :family_name, :profile_url, :avatar_url,
-               :locale, :hd, to: :user_info
+      delegate :id, :email, :has_verified_email?, :gender, :name, :given_name,
+        :family_name, :profile_url, :avatar_url, :locale, :hd, to: :user_info
 
       # @!attribute [r] videos
       #   @return [Yt::Collections::Videos] the videos owned by the account.

@@ -21,8 +21,14 @@ module Yt
       def list_params
         super.tap do |params|
           params[:params] = {id: @parent.id, part: 'status'}
-          params[:path] = "/youtube/v3/#{@parent.kind.pluralize}"
         end
+      end
+
+      # @private
+      # @note Statuses overrides +list_resources+ since the endpoint is not 
+      #   '/statuses' but the endpoint related to the snippet’s resource.
+      def list_resources
+        @parent.class.to_s.pluralize
       end
     end
   end

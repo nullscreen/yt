@@ -9,7 +9,7 @@ module Yt
 
       has_one :snippet
       delegate :title, :description, :thumbnail_url, :published_at,
-               :tags, to: :snippet
+        to: :snippet
 
       has_one :status
       delegate :privacy_status, :public?, :private?, :unlisted?, to: :status

@@ -8,7 +8,20 @@ describe Yt::Video, :device_app do
     let(:id) { 'MESycYJytkU' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
-    it { expect(video.snippet).to be_a Yt::Snippet }
+
+    it 'returns valid snippet data' do
+      expect(video.snippet).to be_a Yt::Snippet
+      expect(video.title).to be_a String
+      expect(video.description).to be_a Yt::Description
+      expect(video.thumbnail_url).to be_a String
+      expect(video.published_at).to be_a Time
+      expect(video.tags).to be_an Array
+      expect(video.channel_id).to be_a String
+      expect(video.channel_title).to be_a String
+      expect(video.category_id).to be_a String
+      expect(video.live_broadcast_content).to be_a String
+    end
+
     it { expect(video.rating).to be_a Yt::Rating }
     it { expect(video.status).to be_a Yt::Status }
     it { expect(video.statistics_set).to be_a Yt::StatisticsSet }

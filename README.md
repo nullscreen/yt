@@ -17,13 +17,8 @@ After [registering your app](#configuring-your-app), you can run commands like:
 ```ruby
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 channel.title #=> "Fullscreen"
-channel.description #=> "The first media company for the connected generation."
 channel.public? #=> true
-channel.view_count #=> 421619
 channel.comment_count #=> 773
-channel.video_count #=> 13
-channel.subscriber_count #=> 136925
-channel.subscriber_count_visible? #=> true
 channel.videos.count #=> 13
 ```
 
@@ -63,7 +58,7 @@ Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Acco
 account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
 
 account.email #=> .. your e-mail address..
-account.channel #=> #<Yt::Channel @id=...>
+account.channel #=> #<Yt::Models::Channel @id=...>
 ```
 
 *All the above methods require authentication (see below).*
@@ -81,7 +76,7 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 
 content_owner.partnered_channels.count #=> 12
-content_owner.partnered_channels.first #=> #<Yt::Channel @id=...>
+content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
 ```
 
 *All the above methods require authentication (see below).*
@@ -100,15 +95,25 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 
 ```ruby
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
+
 channel.title #=> "Fullscreen"
+channel.description #=> "The first media company for the connected generation."
 channel.description.has_link_to_playlist? #=> false
+channel.thumbnail_url #=> "https://yt3.ggpht.com/-KMnbKDBl60w/AAAAAAAAAAI/AAAAAAAAAAA/NjmFYOCVig4/s88-c-k-no/photo.jpg"
+channel.published_at #=> 2006-03-23 06:13:25 UTC
 channel.public? #=> true
 
+channel.view_count #=> 421619
+channel.comment_count #=> 773
+channel.video_count #=> 13
+channel.subscriber_count #=> 136925
+channel.subscriber_count_visible? #=> true
+
 channel.videos.count #=> 12
-channel.videos.first #=> #<Yt::Video @id=...>
+channel.videos.first #=> #<Yt::Models::Video @id=...>
 
 channel.playlists.count #=> 2
-channel.playlists.first #=> #<Yt::Playlist @id=...>
+channel.playlists.first #=> #<Yt::Models::Playlist @id=...>
 ```
 
 *The methods above do not require authentication.*
@@ -140,7 +145,6 @@ channel.views since: 3.days.ago, until: 2.days.ago #=> {Wed, 28 May 2014 => 12, 
 
 *The methods above require to be authenticated as the channel’s content owner (see below).*
 
-
 Yt::Video
 -----------
 
@@ -152,13 +156,27 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 
 ```ruby
 video = Yt::Video.new id: 'MESycYJytkU'
+
 video.title #=> "Fullscreen Creator Platform"
-video.duration #=> 63
-video.description.has_link_to_subscribe? #=> false
+video.description #=> "The new Fullscreen Creator Platform gives creators and brands a suite of exclusive Fullscreen Apps to build, manage and monetize their YouTube audience..."
+video.description.has_link_to_channel? #=> true
+video.thumbnail_url #=> "https://i1.ytimg.com/vi/MESycYJytkU/default.jpg"
+video.published_at #=> 2013-07-09 16:27:32 UTC
 video.public? #=> true
+video.tags #=> []
+video.channel_id #=> "UCxO1tY8h1AhOz0T4ENwmpow"
+video.channel_title #=> "Fullscreen"
+video.category_id #=> "22"
+video.live_broadcast_content #=> "none"
+
+video.duration #=> 86
+video.hd? #=> true
+video.stereoscopic? #=> false
+video.captioned? #=> true
+video.licensed? #=> false
 
 video.annotations.count #=> 1
-video.annotations.first #=> #<Yt::Annotation @id=...>
+video.annotations.first #=> #<Yt::Models::Annotation @id=...>
 ```
 
 *The methods above do not require authentication.*
@@ -185,11 +203,19 @@ Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Pla
 
 ```ruby
 playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
+
 playlist.title #=> "Fullscreen Features"
+playlist.description #=> "You send us your best videos and we feature our favorite ones throughout the week!"
+playlist.description.has_link_to_subscribe? #=> false
+playlist.thumbnail_url #=> "https://i1.ytimg.com/vi/36kL2alg7Jk/default.jpg"
+playlist.published_at #=> 2012-11-27 21:23:38 UTC
 playlist.public? #=> true
+playlist.tags #=> []
+playlist.channel_id #=> "UCxO1tY8h1AhOz0T4ENwmpow"
+playlist.channel_title #=> "Fullscreen"
 
 playlist.playlist_items.count #=> 1
-playlist.playlist_items.first #=> #<Yt::PlaylistItem @id=...>
+playlist.playlist_items.first #=> #<Yt::Models::PlaylistItem @id=...>
 playlist.playlist_items.first.position #=> 0
 playlist.playlist_items.first.video.title #=> "Fullscreen Creator Platform"
 ```
@@ -200,6 +226,40 @@ playlist.playlist_items.first.video.title #=> "Fullscreen Creator Platform"
 playlist.add_video 'MESycYJytkU'
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
+```
+
+*The methods above require to be authenticated as the playlist’s owner (see below).*
+
+Yt::PlaylistItem
+----------------
+
+Use [Yt::PlaylistItem](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/PlaylistItem) to:
+
+* read attributes of a playlist item
+* delete a playlist item
+
+```ruby
+item = Yt::PlaylistItem.new id: 'PLjW_GNR5Ir0GWEP_oveGBNjTvKkYyZfsna1TZDCBP-Z8'
+
+item.title #=> "Titanium - David Guetta - Space Among Many Cover ft. Evan Chan and Glenna Roberts"
+item.description #=> "CLICK to tweet this video: [...]"
+item.description.has_link_to_channel? #=> true
+item.thumbnail_url #=> "https://i1.ytimg.com/vi/W4GhTprSsOY/default.jpg"
+item.published_at #=> 2012-12-22 19:38:02 UTC
+item.public? #=> true
+item.channel_id #=> "UCxO1tY8h1AhOz0T4ENwmpow"
+item.channel_title #=> "Fullscreen"
+item.playlist_id #=> "PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc"
+item.position #=> 0
+item.video_id #=> "W4GhTprSsOY"
+item.video #=> #<Yt::Models::Video @id=...>
+
+```
+
+*The methods above do not require authentication.*
+
+```ruby
+item.delete #=> true
 ```
 
 *The methods above require to be authenticated as the playlist’s owner (see below).*
@@ -346,7 +406,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.0'
+    gem 'yt', '~> 0.7.1'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
