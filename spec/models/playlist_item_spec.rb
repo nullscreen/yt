@@ -4,18 +4,17 @@ require 'yt/models/playlist_item'
 describe Yt::PlaylistItem do
   subject(:playlist_item) { Yt::PlaylistItem.new attrs }
 
-  describe '#position' do
+  describe '#snippet' do
     context 'given fetching a playlist item returns a snippet' do
       let(:attrs) { {snippet: {"position"=>0}} }
-      it { expect(playlist_item.position).to be 0 }
+      it { expect(playlist_item.snippet).to be_a Yt::Snippet }
     end
   end
 
-  describe '#video' do
-    context 'given fetching a playlist item returns a snippet' do
-      let(:attrs) { {snippet: {"title"=>"Fullscreen"}} }
-      it { expect(playlist_item.video).to be_a Yt::Video }
-      it { expect(playlist_item.video.title).to eq "Fullscreen" }
+  describe '#status' do
+    context 'given fetching a playlist item returns a status' do
+      let(:attrs) { {status: {"privacyStatus"=>"public"}} }
+      it { expect(playlist_item.status).to be_a Yt::Status }
     end
   end
 

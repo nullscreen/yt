@@ -4,6 +4,10 @@ v0.7 - 2014/06/18
 * [breaking change] Rename DetailsSet to ContentDetail
 * Add statistics_set to Video (views, likes, dislikes, favorites, comments)
 * Add statistics_set to Channel (views, comments, videos, subscribers)
+* More snippet methods for Video (channel_id, channel_title, category_id, live_broadcast_content)
+* More snippet methods for Playlist (channel_id, channel_title)
+* More snippet methods for PlaylistItem (channel_id, channel_title, playlist_id, video_id)
+* More status methods for PlaylistItem (privacy_status, public?, private?, unlisted?)
 
 v0.6 - 2014/06/05
 -----------------

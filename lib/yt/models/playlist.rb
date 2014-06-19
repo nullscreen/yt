@@ -5,6 +5,7 @@ module Yt
     # Provides methods to interact with YouTube playlists.
     # @see https://developers.google.com/youtube/v3/docs/playlists
     class Playlist < Resource
+      delegate :tags, :channel_id, :channel_title, to: :snippet
 
       # @!attribute [r] playlist_items
       #   @return [Yt::Collections::PlaylistItems] the playlist’s items.

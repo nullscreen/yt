@@ -1,60 +1,42 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 require 'yt/models/channel'
 
 describe Yt::Channel, :server_app do
-  let(:channel) { Yt::Channel.new id: id }
+  subject(:channel) { Yt::Channel.new id: id }
 
-  describe '.snippet of existing channel' do
+  context 'given an existing channel' do
     let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
-    it { expect(channel.snippet).to be_a Yt::Snippet }
-  end
 
-  describe '.snippet of unknown channel' do
-    let(:id) { 'not-a-channel-id' }
-    it { expect{channel.snippet}.to raise_error Yt::Errors::NoItems }
-  end
+    it 'returns valid snippet data' do
+      expect(channel.snippet).to be_a Yt::Snippet
+      expect(channel.title).to be_a String
+      expect(channel.description).to be_a Yt::Description
+      expect(channel.thumbnail_url).to be_a String
+      expect(channel.published_at).to be_a Time
+    end
 
-  describe '.statistics_set of existing channel' do
-    let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
-    it { expect(channel.statistics_set).to be_a Yt::StatisticsSet }
-  end
-
-  describe '.statistics_set of unknown channel' do
-    let(:id) { 'not-a-channel-id' }
-    it { expect{channel.statistics_set}.to raise_error Yt::Errors::NoItems }
-  end
-
-  describe '.status of existing channel' do
-    let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
     it { expect(channel.status).to be_a Yt::Status }
-  end
-
-  describe '.status of unknown channel' do
-    let(:id) { 'not-a-channel-id' }
-    it { expect{channel.status}.to raise_error Yt::Errors::NoItems }
-  end
-
-  describe '.videos of existing channel' do
-    let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
+    it { expect(channel.statistics_set).to be_a Yt::StatisticsSet }
     it { expect(channel.videos).to be_a Yt::Collections::Videos }
     it { expect(channel.videos.first).to be_a Yt::Video }
-  end
-
-  describe '.videos of unknown channel starting with UC' do
-    let(:id) { 'UC-not-a-channel-id' }
-
-    # NOTE: This test is just a reflection of YouTube irrational behavior of
-    # returns 0 results if the name of an unknown channel starts with UC, but
-    # returning 100,000 results otherwise (ignoring the channel filter).
-    it { expect(channel.videos.count).to be 0 }
-  end
-
-  describe '.playlists of someone else’s channel' do
-    let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
-
     it { expect(channel.playlists).to be_a Yt::Collections::Playlists }
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
+  end
+
+  context 'given an unknown channel' do
+    let(:id) { 'not-a-channel-id' }
+
+    it { expect{channel.snippet}.to raise_error Yt::Errors::NoItems }
+    it { expect{channel.status}.to raise_error Yt::Errors::NoItems }
+    it { expect{channel.statistics_set}.to raise_error Yt::Errors::NoItems }
+
+    describe 'starting with UC' do
+      let(:id) { 'UC-not-a-channel-id' }
+
+      # NOTE: This test is just a reflection of YouTube irrational behavior of
+      # returns 0 results if the name of an unknown channel starts with UC, but
+      # returning 100,000 results otherwise (ignoring the channel filter).
+      it { expect(channel.videos.count).to be 0 }
+    end
   end
 end
