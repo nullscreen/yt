@@ -10,4 +10,12 @@ describe Yt::Video do
       it { expect(video.snippet).to be_a Yt::Snippet }
     end
   end
+
+  describe '#update' do
+    let(:attrs) { {id: 'MESycYJytkU', snippet: {'title'=>'old'}} }
+    before { expect(video).to receive(:do_update).and_yield 'snippet'=>{'title'=>'new'} }
+
+    it { expect(video.update title: 'new').to be true }
+    it { expect{video.update title: 'new'}.to change{video.title} }
+  end
 end

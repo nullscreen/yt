@@ -1,10 +1,12 @@
+# encoding: UTF-8
+
 require 'spec_helper'
 require 'yt/models/video'
 
 describe Yt::Video, :device_app do
   subject(:video) { Yt::Video.new id: id, auth: $account }
 
-  context 'given an existing video' do
+  context 'given someone else’s video' do
     let(:id) { 'MESycYJytkU' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
@@ -25,6 +27,7 @@ describe Yt::Video, :device_app do
     it { expect(video.rating).to be_a Yt::Rating }
     it { expect(video.status).to be_a Yt::Status }
     it { expect(video.statistics_set).to be_a Yt::StatisticsSet }
+    it { expect{video.update}.to fail }
 
     context 'that I like' do
       before { video.like }
@@ -53,5 +56,27 @@ describe Yt::Video, :device_app do
     it { expect{video.rating}.to raise_error Yt::Errors::NoItems }
     it { expect{video.status}.to raise_error Yt::Errors::NoItems }
     it { expect{video.statistics_set}.to raise_error Yt::Errors::NoItems }
+  end
+
+  context 'given one of my own videos that I want to update' do
+    let(:id) { $account.videos.first.id }
+
+    describe 'updates the attributes that I specify explicitly' do
+      # NOTE: The use of UTF-8 characters is to test that we can pass up to
+      # 50 characters, independently of their representation
+      let(:attrs) { {title: "Yt Example Update Video #{rand} - ®•♡❥❦❧☙"} }
+      it { expect(video.update attrs).to eq true }
+      it { expect{video.update attrs}.to change{video.title} }
+    end
+
+    describe 'does not update the other attributes' do
+      let(:attrs) { {} }
+      it { expect(video.update attrs).to eq true }
+      it { expect{video.update attrs}.not_to change{video.title} }
+      it { expect{video.update attrs}.not_to change{video.description} }
+      it { expect{video.update attrs}.not_to change{video.tags} }
+      it { expect{video.update attrs}.not_to change{video.category_id} }
+      it { expect{video.update attrs}.not_to change{video.privacy_status} }
+    end
   end
 end

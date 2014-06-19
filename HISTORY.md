@@ -8,6 +8,7 @@ v0.7 - 2014/06/18
 * More snippet methods for Playlist (channel_id, channel_title)
 * More snippet methods for PlaylistItem (channel_id, channel_title, playlist_id, video_id)
 * More status methods for PlaylistItem (privacy_status, public?, private?, unlisted?)
+* Add video.update to update title, description, tags and categoryId of a video
 
 v0.6 - 2014/06/05
 -----------------
