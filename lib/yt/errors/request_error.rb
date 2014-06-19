@@ -35,7 +35,7 @@ module Yt
       end
 
       def response_body
-        json['response_body']
+        json['response_body'].is_a?(Hash) ? json['response_body'] : {}
       end
 
       def request_curl

@@ -50,7 +50,7 @@ Yt::Account
 Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Account) to:
 
 * authenticate as a YouTube account
-* read attributes of the account
+* read the attributes of the account
 * access the YouTube channel of the account
 
 ```ruby
@@ -86,7 +86,7 @@ Yt::Channel
 
 Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Channel) to:
 
-* read attributes of a channel
+* read the attributes of a channel
 * access the videos of a channel
 * access the playlists of a channel
 * subscribe to and unsubscribe from a channel
@@ -150,7 +150,8 @@ Yt::Video
 
 Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video) to:
 
-* read attributes of a video
+* read the attributes of a video
+* update the attributes of a video
 * access the annotations of a video
 * like and dislike a video
 
@@ -191,12 +192,19 @@ video.like #=> true
 
 *The methods above require to be authenticated as a YouTube account (see below).*
 
+```ruby
+video.update title: 'New title', description: 'New description', tags: ['new tag'], categoryId: '21'
+```
+
+*The methods above require to be authenticated as the video’s owner (see below).*
+
 Yt::Playlist
 ------------
 
 Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Playlist) to:
 
-* read attributes of a playlist
+* read the attributes of a playlist
+* update the attributes of a playlist
 * access the items of a playlist
 * add one or multiple videos to a playlist
 * delete items from a playlist
@@ -223,6 +231,7 @@ playlist.playlist_items.first.video.title #=> "Fullscreen Creator Platform"
 *The methods above do not require authentication.*
 
 ```ruby
+playlist.update title: 'New title', description: 'New description', tags: ['new tag'], privacy_status: 'private'
 playlist.add_video 'MESycYJytkU'
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
@@ -235,7 +244,7 @@ Yt::PlaylistItem
 
 Use [Yt::PlaylistItem](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/PlaylistItem) to:
 
-* read attributes of a playlist item
+* read the attributes of a playlist item
 * delete a playlist item
 
 ```ruby
@@ -270,7 +279,7 @@ Yt::Annotation
 
 Use [Yt::Annotation](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Annotation) to:
 
-* read attributes of an annotation
+* read the attributes of an annotation
 
 ```ruby
 video = Yt::Video.new id: 'MESycYJytkU'
@@ -406,7 +415,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.1'
+    gem 'yt', '~> 0.7.2'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

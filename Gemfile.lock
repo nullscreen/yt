@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    yt (0.7.1)
+    yt (0.7.2)
       activesupport
 
 GEM

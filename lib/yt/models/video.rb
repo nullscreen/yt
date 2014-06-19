@@ -5,7 +5,7 @@ module Yt
     # Provides methods to interact with YouTube videos.
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
-      delegate :tags, :channel_id, :channel_title, :category_id, 
+      delegate :tags, :channel_id, :channel_title, :category_id,
         :live_broadcast_content, to: :snippet
 
       # @!attribute [r] content_detail
@@ -27,6 +27,25 @@ module Yt
       has_one :statistics_set
       delegate :view_count, :like_count, :dislike_count, :favorite_count,
         :comment_count, to: :statistics_set
+
+      # @todo Update the status, not just the snippet. This requires some
+      #   caution, as the whole status object needs to be updated, not just
+      #   privacyStatus, but also embeddable, license, publicStatsViewable,
+      #   and publishAt
+      def update(options = {})
+        options[:title] ||= title
+        options[:description] ||= description
+        options[:tags] ||= tags
+        options[:categoryId] ||= category_id
+        snippet = options.slice :title, :description, :tags, :categoryId
+        body = {id: @id, snippet: snippet}
+
+        do_update(params: {part: 'snippet'}, body: body) do |data|
+          @id = data['id']
+          @snippet = Snippet.new data: data['snippet'] if data['snippet']
+          true
+        end
+      end
 
       # Returns whether the authenticated account likes the video.
       #
@@ -73,6 +92,18 @@ module Yt
       def unlike
         rating.update :none
         !liked?
+      end
+
+    private
+
+      # @return [Hash] the parameters to submit to YouTube to update a video.
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      def update_params
+        super.tap do |params|
+          params[:path] = '/youtube/v3/videos'
+          params[:body_type] = :json
+          params[:expected_response] = Net::HTTPOK
+        end
       end
     end
   end
