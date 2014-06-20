@@ -2,32 +2,24 @@ require 'yt/collections/views'
 
 module Yt
   module Associations
-    # Provides the `has_many :views` method to YouTube resources, which
-    # allows to invoke view-related methods, such as .views.
-    # YouTube resources with views are: channels.
+    # Provides methods which allows to access the view count of a resource.
+    #
+    # YouTube resources with view counts are: {Yt::Models::Channel channels}.
     module Views
-      # Return the view count for one specific day.
-      #
+      # @return [Integer, nil] the view count for one specific day.
       # @param [Date or Time or DateTime or String] date The date to obtain
-      # the estimated views for. If String, must be Date-parseable.
-      #
-      # @return [Integer or Nil] The estimated views.
+      #   the views for. If +String+, must be Date-parseable.
       def views_on(date)
         views(from: date, to: date).values.first
       end
 
-      # Return the view count for a range of days.
-      #
-      # @param [Hash] options the range of days to get the views for.
+      # @return [Hash] the view counts for a range of days. Each +key+ is a +Date+
+      #   and each +value+ is an +Integer+ or +nil+, representing the number of views.
+      # @param [Hash] options the range of days to get the view for.
       # @option options [Date or Time or DateTime or String] :since The start
-      # of the days range. If String, must be Date-parseable.
-      # @note options[:since] is aliased as options[:from]
+      #   of the days range. If +String+, must be Date-parseable. Also aliased as *:from*.
       # @option options [Date or Time or DateTime or String] :until The end
-      # of the days range. If String, must be Date-parseable.
-      # @note options[:until] is aliased as options[:to]
-      #
-      # @return [Hash] The view count by day. Each :key is a Date
-      # and each :value is an Integer or nil, representing the number of views.
+      #   of the days range. If +String+, must be Date-parseable. Also aliased as *:to*.
       def views(options = {})
         from = options[:since] || options[:from] || 5.days.ago
         to = options[:until] || options[:to] || 1.day.ago

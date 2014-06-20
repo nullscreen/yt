@@ -4,9 +4,10 @@ require 'yt/models/annotation'
 module Yt
   module Collections
     # Provides methods to interact with a collection of YouTube annotations.
+    #
     # Resources with annotations are: {Yt::Models::Video videos}.
     # @note Since there is no (authenticable) API endpoint to retrieve
-    #   annotations, only annotations of *public videos* can be retrieved.
+    #   annotations, only annotations of public videos can be retrieved.
     class Annotations < Base
 
     private

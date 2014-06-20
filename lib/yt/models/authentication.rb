@@ -6,11 +6,14 @@ module Yt
 
       # Before your application can access private data using a Google API,
       # it must obtain an access token that grants access to that API.
+      #
       # A single access token can grant varying degrees of access to multiple
       # APIs. A variable parameter called scope controls the set of resources
       # and operations that an access token permits.
+      #
       # After an application obtains an access token, it sends the token to a
       # Google API in an HTTP authorization header.
+      #
       # Access tokens are valid only for the set of operations and resources
       # described in the scope of the token request. For example, if an access
       # token is issued for the Google+ API, it does not grant access to the
@@ -23,12 +26,14 @@ module Yt
       # to a Google API beyond the lifetime of a single access token, it can
       # obtain a refresh token. A refresh token allows your application to
       # obtain new access tokens.
-      # @note Save refresh tokens in secure long-term storage and continue to
+      #
+      # Save refresh tokens in secure long-term storage and continue to
       # use them as long as they remain valid. Limits apply to the number of
       # refresh tokens that are issued per client-user combination, and per
       # user across all clients, and these limits are different. If your
       # application requests enough refresh tokens to go over one of the
       # limits, older refresh tokens stop working.
+      #
       # There is currently a 25-token limit per Google user account.
       # If a user account has 25 valid tokens, the next authentication request
       # succeeds, but quietly invalidates the oldest outstanding token without
@@ -39,7 +44,9 @@ module Yt
 
       # Access tokens have limited lifetimes. If your application needs access
       # to a Google API beyond the lifetime of a single access token, it can
-      # obtain a refresh token. A refresh token allows your application to
+      # obtain a refresh token.
+      #
+      # A refresh token allows your application to
       # obtain new access tokens.
       #
       # @return [Time] the time when access token no longer works.

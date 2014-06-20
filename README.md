@@ -45,7 +45,7 @@ Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Acco
 * access the YouTube channel of the account
 
 ```ruby
-# An account can be initialized with access token, refresh token or an authorization code
+# Accounts can be initialized with access token, refresh token or an authorization code
 account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
 
 account.email #=> .. your e-mail address..
@@ -63,7 +63,7 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 * list the channels partnered with a YouTube content owner
 
 ```ruby
-# A content owner is an account, therefore can be initialized with access token, refresh token or an authorization code
+# Content owners can be initialized with access token, refresh token or an authorization code
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 
 content_owner.partnered_channels.count #=> 12
@@ -90,7 +90,7 @@ channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 channel.title #=> "Fullscreen"
 channel.description #=> "The first media company for the connected generation."
 channel.description.has_link_to_playlist? #=> false
-channel.thumbnail_url #=> "https://yt3.ggpht.com/-KMnbKDBl60w/AAAAAAAAAAI/AAAAAAAAAAA/NjmFYOCVig4/s88-c-k-no/photo.jpg"
+channel.thumbnail_url #=> "https://yt3.ggpht.com/-KMnbKDBl60w/.../photo.jpg"
 channel.published_at #=> 2006-03-23 06:13:25 UTC
 channel.public? #=> true
 
@@ -118,7 +118,6 @@ channel.subscribe #=> true
 
 channel.create_playlist title: 'New playlist' #=> true
 channel.delete_playlists title: 'New playlist' #=> [true]
-
 ```
 
 *The methods above require to be authenticated as a YouTube account (see below).*
@@ -150,7 +149,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 video = Yt::Video.new id: 'MESycYJytkU'
 
 video.title #=> "Fullscreen Creator Platform"
-video.description #=> "The new Fullscreen Creator Platform gives creators and brands a suite of exclusive Fullscreen Apps to build, manage and monetize their YouTube audience..."
+video.description #=> "The new Fullscreen Creator Platform gives creators and brands a suite..."
 video.description.has_link_to_channel? #=> true
 video.thumbnail_url #=> "https://i1.ytimg.com/vi/MESycYJytkU/default.jpg"
 video.published_at #=> 2013-07-09 16:27:32 UTC
@@ -184,7 +183,7 @@ video.like #=> true
 *The methods above require to be authenticated as a YouTube account (see below).*
 
 ```ruby
-video.update title: 'New title', description: 'New description', tags: ['new tag'], categoryId: '21'
+video.update title: 'A title', description: 'A description', tags: ['a tag'], categoryId: '21'
 ```
 
 *The methods above require to be authenticated as the video’s owner (see below).*
@@ -204,7 +203,7 @@ Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Pla
 playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
 
 playlist.title #=> "Fullscreen Features"
-playlist.description #=> "You send us your best videos and we feature our favorite ones throughout the week!"
+playlist.description #=> "You send us your best videos and we feature our favorite ones..."
 playlist.description.has_link_to_subscribe? #=> false
 playlist.thumbnail_url #=> "https://i1.ytimg.com/vi/36kL2alg7Jk/default.jpg"
 playlist.published_at #=> 2012-11-27 21:23:38 UTC
@@ -222,7 +221,7 @@ playlist.playlist_items.first.video.title #=> "Fullscreen Creator Platform"
 *The methods above do not require authentication.*
 
 ```ruby
-playlist.update title: 'New title', description: 'New description', tags: ['new tag'], privacy_status: 'private'
+playlist.update title: 'title', description: 'desc', tags: ['new tag'], privacy_status: 'private'
 playlist.add_video 'MESycYJytkU'
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
@@ -253,7 +252,6 @@ item.playlist_id #=> "PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc"
 item.position #=> 0
 item.video_id #=> "W4GhTprSsOY"
 item.video #=> #<Yt::Models::Video @id=...>
-
 ```
 
 *The methods above do not require authentication.*

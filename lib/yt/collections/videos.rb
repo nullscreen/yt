@@ -4,6 +4,7 @@ require 'yt/models/video'
 module Yt
   module Collections
     # Provides methods to interact with a collection of YouTube videos.
+    #
     # Resources with videos are: {Yt::Models::Channel channels} and
     # {Yt::Models::Account accounts}.
     class Videos < Base

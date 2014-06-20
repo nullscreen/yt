@@ -4,6 +4,7 @@ require 'yt/models/channel'
 module Yt
   module Collections
     # Provides methods to interact with a collection of YouTube channels.
+    #
     # Resources with channels are: {Yt::Models::Account accounts}.
     class Channels < Base
 

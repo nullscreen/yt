@@ -7,7 +7,8 @@ module Yt
   module Associations
     # Provides authentication methods to YouTube resources, which
     # allows to access to content detail set-specific methods like `access_token`.
-    # YouTube resources with authentication are: accounts.
+    #
+    # YouTube resources with authentication are: {Yt::Models::Account accounts}.
     module Authentications
       delegate :access_token, :refresh_token, :expires_at, to: :authentication
 

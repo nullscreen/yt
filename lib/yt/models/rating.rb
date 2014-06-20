@@ -6,7 +6,7 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/videos/rate
     # @see https://developers.google.com/youtube/v3/docs/videos/getRating
     class Rating < Base
-      # @return [Symbol or nil] the rating of a video (if present).
+      # @return [Symbol, nil] the rating of a video (if present).
       #  Valid values are: :dislike, :like, :none, :unspecified
       attr_reader :rating
 

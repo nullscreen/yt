@@ -1,13 +1,12 @@
 module Yt
   module Models
     # Provides methods to interact with YouTube annotations.
+    # @note YouTube API V3 does not provide access to video annotations,
+    #   therefore a legacy XML endpoint is used to retrieve annotations.
     # @see https://www.youtube.com/yt/playbook/annotations.html
     class Annotation
       # @param [Hash] options the options to initialize an Annotation.
       # @option options [String] :data The XML representation of an annotation
-      # @note YouTube API V3 does not provide access to video annotations,
-      #   therefore the XML endpoint is used to retrieve them and its response
-      #   is passed to the Annotation initializer.
       def initialize(options = {})
         @data = options[:data]
       end
@@ -58,7 +57,7 @@ module Yt
       # @return [Boolean] whether the annotation starts after the number of
       #   seconds indicated.
       # @note This is broken for invideo programming, because they do not
-      # have the timestamp in the region, but in the "data" field
+      #   have the timestamp in the region, but in the "data" field
       def starts_after?(seconds)
         timestamps.first > seconds if timestamps.any?
       end
@@ -67,7 +66,7 @@ module Yt
       # @return [Boolean] whether the annotation starts before the number of
       #   seconds indicated.
       # @note This is broken for invideo programming, because they do not
-      # have the timestamp in the region, but in the "data" field
+      #   have the timestamp in the region, but in the "data" field
       def starts_before?(seconds)
         timestamps.first < seconds if timestamps.any?
       end
