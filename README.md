@@ -25,17 +25,8 @@ channel.videos.count #=> 13
 ```ruby
 video = Yt::Video.new id: 'MESycYJytkU'
 video.title #=> "Fullscreen Creator Platform"
-video.public? #=> true
-video.view_count #=> 55843
 video.comment_count #=> 308
-video.like_count #=> 556
-video.dislike_count #=> 78
-video.favorite_count #=> 0
-video.duration #=> 86
 video.hd? #=> true
-video.stereoscopic? #=> false
-video.captioned? #=> true
-video.licensed? #=> false
 video.annotations.count #=> 1
 ```
 
