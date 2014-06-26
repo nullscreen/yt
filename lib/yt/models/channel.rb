@@ -121,6 +121,21 @@ module Yt
       def videos_params
         {channelId: id}
       end
+
+      # @private
+      # Tells `has_reports` to retrieve the reports from YouTube Analytics API
+      # either as a Channel or as a Content Owner.
+      # @see https://developers.google.com/youtube/analytics/v1/reports
+      def reports_params
+        {}.tap do |params|
+          if auth.owner_name
+            params['ids'] = "contentOwner==#{auth.owner_name}"
+            params['filters'] = "channel==#{id}"
+          else
+            params['ids'] = "channel==#{id}"
+          end
+        end
+      end
     end
   end
 end
