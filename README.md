@@ -86,7 +86,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * access the playlists of a channel
 * subscribe to and unsubscribe from a channel
 * create and delete playlists from a channel
-* retrieve the estimated daily earnings of a channel
+* retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a channel
 
 ```ruby
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
@@ -131,10 +131,12 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: content_owner
 
 channel.earnings_on 5.days.ago #=> 12.23
-channel.earnings until: 2.days.ago #=> {Wed, 28 May 2014 => 1.34, Thu, 29 May 2014 => 0.47}
-
-channel.views_on 5.days.ago #=> 44
-channel.views since: 3.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3}
+channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
+channel.ch.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
+channel.ch.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
+channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
+channel.impressions_on 5.days.ago #=> 157.0
 ```
 
 *The methods above require to be authenticated as the channel’s content owner (see below).*
@@ -431,7 +433,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.3'
+    gem 'yt', '~> 0.7.4'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

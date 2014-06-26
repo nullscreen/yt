@@ -27,6 +27,21 @@ module Yt
       # @macro has_report
       has_report :views
 
+      # @macro has_report
+      has_report :comments
+
+      # @macro has_report
+      has_report :likes
+
+      # @macro has_report
+      has_report :dislikes
+
+      # @macro has_report
+      has_report :shares
+
+      # @macro has_report
+      has_report :impressions
+
       # @!attribute [r] statistics_set
       #   @return [Yt::Models::StatisticsSet] the statistics for the video.
       has_one :statistics_set
