@@ -459,7 +459,7 @@ How to test
 Yt comes with two different sets of tests:
 
 1. tests in `spec/models`, `spec/collections` and `spec/errors` **do not hit** the YouTube API
-1. tests in `spec/associations` **hit** the YouTube API and require authentication
+1. tests in `spec/requests` **hit** the YouTube API and require authentication
 
 The reason why some tests actually hit the YouTube API is because they are
 meant to really integrate Yt with YouTube. YouTube API is not exactly

@@ -10,6 +10,7 @@ v0.7 - 2014/06/18
 * More status methods for PlaylistItem (privacy_status, public?, private?, unlisted?)
 * Add video.update to update title, description, tags and categoryId of a video
 * Sort channel.videos by most recent first
+* Extract Reports (earnings, views) into module with macro `has_report`
 
 v0.6 - 2014/06/05
 -----------------
