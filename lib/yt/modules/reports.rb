@@ -1,7 +1,4 @@
-require 'yt/collections/authentications'
-require 'yt/config'
-require 'yt/errors/no_items'
-require 'yt/errors/unauthorized'
+require 'yt/collections/reports'
 
 module Yt
   module Modules
@@ -9,10 +6,22 @@ module Yt
     #
     # YouTube resources with reports are: {Yt::Models::Channel channels}.
     module Reports
-      # @private
-      # @example The following adds the +earnings+ and +earnings_on+ methods
-      #   to every channel to ease the access to its estimated daily earnings.
-      #
+      # @!macro has_report
+      #   @!method $1_on(date)
+      #     @return [Float] the $1 for a single day.
+      #     @param [#to_date] date The single day to get the $1 for.
+      #   @!method $1(options = {})
+      #     @return [Hash<Date, Float>] the $1 for a range of a days.
+      #     @param [Hash] options the range of days to get the $1 for.
+      #     @option options [#to_date] :since The first day of the range.
+      #       Also aliased as *:from*.
+      #     @option options [#to_date] :until The last day of the range.
+      #       Also aliased as *:to*.
+
+      # Defines two public instance methods to access the reports of a
+      # resource for a specific metric.
+      # @param [Symbol] metric the metric to access the reports of.
+      # @example Adds +earnings+ and +earnings_on+ on a Channel resource.
       #   class Channel < Resource
       #     has_report :earnings
       #   end
@@ -39,16 +48,16 @@ module Yt
           instance_variable_set "@range_#{metric}", ivar || {}
           instance_variable_get("@range_#{metric}")[date_range] ||= send("all_#{metric}").within date_range
         end
-
         private "range_#{metric}"
 
         define_method "all_#{metric}" do
-          require "yt/collections/#{metric}"
-          mod = metric.to_s.sub(/.*\./, '').camelize
-          collection = "Yt::Collections::#{mod.pluralize}".constantize
-          collection.of self
+          # @note Asking for the "earnings" metric of a day in which a channel
+          # made 0 USD returns the wrong "nil". But adding to the request the
+          # "estimatedMinutesWatched" metric returns the correct value 0.
+          query = metric
+          query = "estimatedMinutesWatched,#{metric}" if metric == :earnings
+          Collections::Reports.of(self).tap{|reports| reports.metric = query}
         end
-
         private "all_#{metric}"
       end
     end

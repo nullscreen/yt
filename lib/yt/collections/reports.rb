@@ -3,6 +3,7 @@ require 'yt/collections/base'
 module Yt
   module Collections
     class Reports < Base
+      attr_writer :metric
 
       def within(days_range)
         @days_range = days_range
@@ -24,7 +25,7 @@ module Yt
             params['filters'] = "channel==#{@parent.id}"
             params['start-date'] = @days_range.begin
             params['end-date'] = @days_range.end
-            params['metrics'] = metrics
+            params['metrics'] = @metric
             params['dimensions'] = :day
           end
         end
@@ -39,11 +40,6 @@ module Yt
         # NOTE: could use column headers to be more precise
         data.last
       end
-
-      # To be overriden by superclasses
-      # def metrics
-      #   ''
-      # end
 
       def items_key
         'rows'
