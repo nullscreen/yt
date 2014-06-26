@@ -1,14 +1,13 @@
 require 'yt/models/resource'
-require 'yt/associations/earnings'
-require 'yt/associations/views'
+require 'yt/modules/reports'
 
 module Yt
   module Models
     # A channel resource contains information about a YouTube channel.
     # @see https://developers.google.com/youtube/v3/docs/channels
     class Channel < Resource
-      include Associations::Earnings
-      include Associations::Views
+      # Includes the +:has_report+ method to access YouTube Analytics reports.
+      extend Modules::Reports
 
       # @!attribute [r] subscriptions
       #   @return [Yt::Collections::Subscriptions] the channel’s subscriptions.
@@ -21,6 +20,34 @@ module Yt
       # @!attribute [r] playlists
       #   @return [Yt::Collections::Playlists] the channel’s playlists.
       has_many :playlists
+
+      # @!method earnings(options = {})
+      #   @return [Hash<Date, Float>] the estimated earnings of the channel.
+      #     Every key/value pair corresponds to the earnings in USD for a day.
+      #   @param [Hash] options the range of days to get the earnings for.
+      #   @option options [#to_date] :since The first day of the range.
+      #     Also aliased as *:from*.
+      #   @option options [#to_date] :until The last day of the range.
+      #     Also aliased as *:to*.
+      #
+      # @!method earnings_on(date)
+      #   @return [Float] the estimated earnings of the channel in USD.
+      #   @param [#to_date] date The single day to get the earnings for.
+      has_report :earnings
+
+      # @!method views(options = {})
+      #   @return [Hash<Date, Integer>] the views of the channel.
+      #     Every key/value pair corresponds to the views for a day.
+      #   @param [Hash] options the range of days to get the views for.
+      #   @option options [#to_date] :since The first day of the range.
+      #     Also aliased as *:from*.
+      #   @option options [#to_date] :until The last day of the range.
+      #     Also aliased as *:to*.
+      #
+      # @!method views_on(date)
+      #   @return [Integer] the views of the channel.
+      #   @param [#to_date] date The single day to get the views for.
+      has_report :views
 
       # @!attribute [r] statistics_set
       #   @return [Yt::Models::StatisticsSet] the statistics for the video.
