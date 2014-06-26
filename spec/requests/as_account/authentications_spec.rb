@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'yt/associations/authentications'
+require 'yt/models/account'
 
-describe Yt::Associations::Authentications, :device_app do
+describe Yt::Account, :device_app do
   subject(:account) { Yt::Account.new attrs }
 
   describe '#refresh' do

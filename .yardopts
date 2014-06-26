@@ -1,1 +1,3 @@
 --no-private
+lib/yt/modules/reports.rb
+lib/**/*.rb

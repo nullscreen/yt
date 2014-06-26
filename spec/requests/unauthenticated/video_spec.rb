@@ -1,8 +1,8 @@
 require 'spec_helper'
 require 'yt/models/video'
 
-describe Yt::Video, :device_app do
-  subject(:video) { Yt::Video.new id: id, auth: $account }
+describe Yt::Video do
+  subject(:video) { Yt::Video.new id: id }
 
   context 'given a public video with annotations' do
     let(:id) { 'MESycYJytkU' }

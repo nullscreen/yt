@@ -1,14 +1,13 @@
 require 'yt/models/resource'
-require 'yt/associations/earnings'
-require 'yt/associations/views'
+require 'yt/modules/reports'
 
 module Yt
   module Models
     # A channel resource contains information about a YouTube channel.
     # @see https://developers.google.com/youtube/v3/docs/channels
     class Channel < Resource
-      include Associations::Earnings
-      include Associations::Views
+      # Includes the +:has_report+ method to access YouTube Analytics reports.
+      extend Modules::Reports
 
       # @!attribute [r] subscriptions
       #   @return [Yt::Collections::Subscriptions] the channel’s subscriptions.
@@ -21,6 +20,27 @@ module Yt
       # @!attribute [r] playlists
       #   @return [Yt::Collections::Playlists] the channel’s playlists.
       has_many :playlists
+
+      # @macro has_report
+      has_report :earnings
+
+      # @macro has_report
+      has_report :views
+
+      # @macro has_report
+      has_report :comments
+
+      # @macro has_report
+      has_report :likes
+
+      # @macro has_report
+      has_report :dislikes
+
+      # @macro has_report
+      has_report :shares
+
+      # @macro has_report
+      has_report :impressions
 
       # @!attribute [r] statistics_set
       #   @return [Yt::Models::StatisticsSet] the statistics for the video.
