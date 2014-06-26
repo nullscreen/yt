@@ -11,9 +11,6 @@ module Yt
       #   @return [Yt::Collection::PartneredChannels] the channels managed by the CMS account.
       has_many :partnered_channels
 
-      # @return [String] the name of the CMS account.
-      attr_reader :owner_name
-
       def initialize(options = {})
         super options
         @owner_name = options[:owner_name]
