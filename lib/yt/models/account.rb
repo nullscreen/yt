@@ -1,12 +1,13 @@
 require 'yt/models/base'
-require 'yt/associations/authentications'
+require 'yt/modules/authentication'
 
 module Yt
   module Models
     # Provides methods to interact with YouTube accounts.
     # @see https://developers.google.com/youtube/v3/guides/authentication
     class Account < Base
-      include Associations::Authentications
+      # Includes methods to authenticate with YouTube API.
+      include Modules::Authentication
 
       # @!attribute [r] channel
       #   @return [Yt::Models::Channel] the account’s channel.

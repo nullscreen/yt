@@ -4,12 +4,12 @@ require 'yt/errors/no_items'
 require 'yt/errors/unauthorized'
 
 module Yt
-  module Associations
+  module Modules
     # Provides authentication methods to YouTube resources, which
     # allows to access to content detail set-specific methods like `access_token`.
     #
     # YouTube resources with authentication are: {Yt::Models::Account accounts}.
-    module Authentications
+    module Authentication
       delegate :access_token, :refresh_token, :expires_at, to: :authentication
 
       def initialize(options = {})
