@@ -6,11 +6,11 @@ matrix:
   - rvm: 1.9.3
     gemfile: gemfiles/Gemfile.activesupport-3.x
     env:
-    - secure: Z93M7+GBYG8A7Dsjwcsgj/8AmdJ5X2KezBk9qelw89/OtAqIp1zMNQehTEg24p/NygkNjnGycb3DQuW++31v4c+mt5/MgDDhd2jXJ4+js+3gAMAIpiMtPJfEOvmKxLbC0uMaQhXLn7dGMnn8ed7hh6Zu/8P+17qZvVeI0thI3Dg=
+    - secure: OsmWyhhYNILEb1lhqxPX+iEfbWzC3dELuxQ7JGP9iN/FhqBtlV51cu+u2cBBdql6Gzuqi4VlMEeJSX0PQUmzOsMb0vHhOJDyp4a32NE+xry8LOT8XdCwni20ZBcUeFxC5hMUVebPuhqBTFjBWbXQKwKSXIdPnNWz31d9kyGIsxk=
   - rvm: 2.0.0
     gemfile: gemfiles/Gemfile.activesupport-4.x
     env:
-    - secure: eIxGZcTZFVMxn0cxjaknhflAR78L6q+Q2G6jCXnFxqj8ARfgAS1F8v7ErkGaJ9h6dxfsH+5evhj4ZUc/gvHaqs8jcT9CVGUZsC7jpZz3gkfQ9k7Tm3sTnSfv4HbqGM8OkCJkLNOUQypmGr+mkPQskroNPhm6WT9Ml1vGq1RSTow=
+    - secure: FrmFA2BE0FYyuKsf0FEO0EAXY+h048HbD1p3lu5XPo9/lxpAl7wM5m12HsnJQuNY6UlUmZ5bp9f8upCBZpz7cLZK5e/FWLWSvkv3Fts+NVsbAcVtFgvBKOCgTznZi/qgUtqbWBevkM3gyXyylzdB+c4wWjoOO/xSDVR227m8nMA=
 env:
   global:
   - secure: ApPj5c9h6xk+AbHHf4KXL10QnleYCWwcp2+qMFolrS6RWR5vhrnKq1UBo0h59HuvXeOQIgZ/GmocuSEZovS9c1hQP3n0PHSNEnGUNJyn6CS3BiPQSWmC3p2pONo1Xv+hVWfzDoEv80b82GX5P5x/l1BSqhpxLA9geITJprWsoLg=

@@ -122,6 +122,12 @@ channel.subscribe #=> true
 
 channel.create_playlist title: 'New playlist' #=> true
 channel.delete_playlists title: 'New playlist' #=> [true]
+
+channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
+channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
+channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
+channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 ```
 
 *The methods above require to be authenticated as a YouTube account (see below).*
@@ -394,7 +400,7 @@ with an extra `code` parameter that looks something like `4/Ja60jJ7_Kw0`.
 Just pass the code to the following method to authenticate and initialize the account:
 
 ```ruby
-account = Yt::Account.new authorization_code: '4/Ja60jJ7_Kw0'
+account = Yt::Account.new authorization_code: '4/Ja60jJ7_Kw0', redirect_uri: redirect_uri
 account.email #=> (retrieves the account’s e-mail address)
 account.videos #=> (lists a video to an account’s playlist)
 ```
@@ -433,7 +439,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.4'
+    gem 'yt', '~> 0.7.5'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

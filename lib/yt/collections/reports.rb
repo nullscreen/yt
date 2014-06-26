@@ -20,14 +20,16 @@ module Yt
       def list_params
         super.tap do |params|
           params[:path] = '/youtube/analytics/v1/reports'
-          params[:params] = {}.tap do |params|
-            params['ids'] = "contentOwner==#{@auth.owner_name}"
-            params['filters'] = "channel==#{@parent.id}"
-            params['start-date'] = @days_range.begin
-            params['end-date'] = @days_range.end
-            params['metrics'] = @metric
-            params['dimensions'] = :day
-          end
+          params[:params] = @parent.reports_params.merge reports_params
+        end
+      end
+
+      def reports_params
+        {}.tap do |params|
+          params['start-date'] = @days_range.begin
+          params['end-date'] = @days_range.end
+          params['metrics'] = @metric
+          params['dimensions'] = :day
         end
       end
 

@@ -70,6 +70,26 @@ describe Yt::Channel, :device_app do
     # rather than a more logical 4xx error. Hopefully this will get fixed
     # and this code (and test) removed.
     it { expect{channel.subscribe}.to raise_error Yt::Errors::ServerError }
+
+    it 'returns valid reports for channel-related metrics' do
+      # Some reports are only available to Content Owners.
+      # See content ownere test for more details about what the methods return.
+      expect{channel.views}.not_to raise_error
+      expect{channel.comments}.not_to raise_error
+      expect{channel.likes}.not_to raise_error
+      expect{channel.dislikes}.not_to raise_error
+      expect{channel.shares}.not_to raise_error
+      expect{channel.earnings}.to raise_error Yt::Errors::Unauthorized
+      expect{channel.impressions}.to raise_error Yt::Errors::Unauthorized
+
+      expect{channel.views_on 3.days.ago}.not_to raise_error
+      expect{channel.comments_on 3.days.ago}.not_to raise_error
+      expect{channel.likes_on 3.days.ago}.not_to raise_error
+      expect{channel.dislikes_on 3.days.ago}.not_to raise_error
+      expect{channel.shares_on 3.days.ago}.not_to raise_error
+      expect{channel.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
+      expect{channel.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
+    end
   end
 
   context 'given an unknown channel' do

@@ -24,6 +24,10 @@ module Yt
       #   @return [Yt::Collections::Videos] the videos owned by the account.
       has_many :videos
 
+      # @return [String] name of the CMS account, if the account is partnered.
+      # @return [nil] if the account is not a partnered content owner.
+      attr_reader :owner_name
+
       # @private
       # Tells `has_many :videos` that account.videos should return all the
       # videos *owned by* the account (public, private, unlisted).

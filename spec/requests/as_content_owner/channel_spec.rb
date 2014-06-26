@@ -182,6 +182,18 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'shares can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:shares) { channel.shares_on 5.days.ago}
+          it { expect(shares).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:shares) { channel.shares_on 20.years.ago}
+          it { expect(shares).to be_nil }
+        end
+      end
+
       describe 'shares can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
