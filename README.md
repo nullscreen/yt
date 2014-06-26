@@ -394,7 +394,7 @@ with an extra `code` parameter that looks something like `4/Ja60jJ7_Kw0`.
 Just pass the code to the following method to authenticate and initialize the account:
 
 ```ruby
-account = Yt::Account.new authorization_code: '4/Ja60jJ7_Kw0'
+account = Yt::Account.new authorization_code: '4/Ja60jJ7_Kw0', redirect_uri: redirect_uri
 account.email #=> (retrieves the account’s e-mail address)
 account.videos #=> (lists a video to an account’s playlist)
 ```
