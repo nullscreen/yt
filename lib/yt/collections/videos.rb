@@ -28,8 +28,9 @@ module Yt
       end
 
       def videos_params
+        params = {type: :video, maxResults: 50, part: 'snippet', order: 'date'}
         @extra_params ||= {}
-        {type: :video, maxResults: 50, part: 'snippet'}.merge @extra_params
+        params.merge @extra_params
       end
     end
   end
