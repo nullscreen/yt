@@ -36,7 +36,7 @@ module Yt
       has_report :earnings
 
       # @!method views(options = {})
-      #   @return [Hash<Date, Integer>] the views of the channel.
+      #   @return [Hash<Date, Float>] the views of the channel.
       #     Every key/value pair corresponds to the views for a day.
       #   @param [Hash] options the range of days to get the views for.
       #   @option options [#to_date] :since The first day of the range.
@@ -45,7 +45,7 @@ module Yt
       #     Also aliased as *:to*.
       #
       # @!method views_on(date)
-      #   @return [Integer] the views of the channel.
+      #   @return [Float] the views of the channel.
       #   @param [#to_date] date The single day to get the views for.
       has_report :views
 

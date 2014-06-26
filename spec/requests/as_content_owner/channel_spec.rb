@@ -57,7 +57,7 @@ describe Yt::Channel, :partner do
       describe 'views can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:views) { channel.views_on 5.days.ago}
-          it { expect(views).to be_an Integer }
+          it { expect(views).to be_a Float }
         end
 
         context 'in which the channel was not partnered' do
