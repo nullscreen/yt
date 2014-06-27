@@ -73,7 +73,7 @@ describe Yt::Channel, :device_app do
 
     it 'returns valid reports for channel-related metrics' do
       # Some reports are only available to Content Owners.
-      # See content ownere test for more details about what the methods return.
+      # See content owner test for more details about what the methods return.
       expect{channel.views}.not_to raise_error
       expect{channel.comments}.not_to raise_error
       expect{channel.likes}.not_to raise_error

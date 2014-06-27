@@ -13,6 +13,7 @@ v0.7 - 2014/06/18
 * Extract Reports (earnings, views) into module with macro `has_report`
 * New channel reports: comments, likes, dislikes, shares and impressions
 * Allow both normal and partnered channels to retrieve reports about views, comments, likes, dislikes, shares
+* Make reports available also on Video (not just Channel)
 
 v0.6 - 2014/06/05
 -----------------

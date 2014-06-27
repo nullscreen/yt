@@ -58,7 +58,7 @@ describe Yt::Video, :device_app do
     it { expect{video.statistics_set}.to raise_error Yt::Errors::NoItems }
   end
 
-  context 'given one of my own videos that I want to update' do
+  context 'given one of my own videos' do
     let(:id) { $account.videos.first.id }
 
     describe 'updates the attributes that I specify explicitly' do
@@ -77,6 +77,27 @@ describe Yt::Video, :device_app do
       it { expect{video.update attrs}.not_to change{video.tags} }
       it { expect{video.update attrs}.not_to change{video.category_id} }
       it { expect{video.update attrs}.not_to change{video.privacy_status} }
+    end
+
+
+    it 'returns valid reports for channel-related metrics' do
+      # Some reports are only available to Content Owners.
+      # See content ownere test for more details about what the methods return.
+      expect{video.views}.not_to raise_error
+      expect{video.comments}.not_to raise_error
+      expect{video.likes}.not_to raise_error
+      expect{video.dislikes}.not_to raise_error
+      expect{video.shares}.not_to raise_error
+      expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
+      expect{video.impressions}.to raise_error Yt::Errors::Unauthorized
+
+      expect{video.views_on 3.days.ago}.not_to raise_error
+      expect{video.comments_on 3.days.ago}.not_to raise_error
+      expect{video.likes_on 3.days.ago}.not_to raise_error
+      expect{video.dislikes_on 3.days.ago}.not_to raise_error
+      expect{video.shares_on 3.days.ago}.not_to raise_error
+      expect{video.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
+      expect{video.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end
   end
 end
