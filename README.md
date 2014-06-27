@@ -119,6 +119,13 @@ channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: account
 
 channel.subscribed? #=> false
 channel.subscribe #=> true
+```
+
+*The methods above require to be authenticated as a YouTube account (see below).*
+
+```ruby
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
+channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: account
 
 channel.create_playlist title: 'New playlist' #=> true
 channel.delete_playlists title: 'New playlist' #=> [true]
@@ -130,7 +137,7 @@ channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 =
 channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 ```
 
-*The methods above require to be authenticated as a YouTube account (see below).*
+*The methods above require to be authenticated as the channel’s account (see below).*
 
 ```ruby
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
@@ -156,6 +163,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * update the attributes of a video
 * access the annotations of a video
 * like and dislike a video
+* retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a channel
 
 ```ruby
 video = Yt::Video.new id: 'MESycYJytkU'
@@ -195,10 +203,34 @@ video.like #=> true
 *The methods above require to be authenticated as a YouTube account (see below).*
 
 ```ruby
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
+video = Yt::Video.new id: 'MESycYJytkU', auth: account
+
 video.update title: 'A title', description: 'A description', tags: ['a tag'], categoryId: '21'
+
+video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
+video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
+video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
+video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 ```
 
 *The methods above require to be authenticated as the video’s owner (see below).*
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+video = Yt::Video.new id: 'MESycYJytkU', auth: content_owner
+
+video.earnings_on 5.days.ago #=> 12.23
+video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
+video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
+video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
+video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
+video.impressions_on 5.days.ago #=> 157.0
+```
+
+*The methods above require to be authenticated as the video’s content owner (see below).*
 
 Yt::Playlist
 ------------
@@ -439,7 +471,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.5'
+    gem 'yt', '~> 0.7.6'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
