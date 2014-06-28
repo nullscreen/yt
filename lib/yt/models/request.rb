@@ -48,7 +48,7 @@ module Yt
         @response ||= Net::HTTP.start(*net_http_options) do |http|
           http.request http_request
         end
-      rescue OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ENETUNREACH => e
+      rescue OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ENETUNREACH, Errno::ECONNRESET => e
         @response ||= e
       end
 
