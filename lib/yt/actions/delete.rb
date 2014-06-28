@@ -1,23 +1,18 @@
-require 'yt/models/request'
+require 'yt/actions/modify'
 
 module Yt
   module Actions
     module Delete
+      include Modify
 
     private
 
-      def do_delete(extra_delete_params = {})
-        request = Yt::Request.new delete_params.merge(extra_delete_params)
-        response = request.run
-        yield response.body
+      def do_delete(extra_delete_params = {}, &block)
+        do_modify delete_params.merge(extra_delete_params), &block
       end
 
       def delete_params
-        {}.tap do |params|
-          params[:method] = :delete
-          params[:auth] = @auth
-          params[:expected_response] = Net::HTTPNoContent
-        end
+        modify_params.tap{|params| params[:method] = :delete}
       end
     end
   end

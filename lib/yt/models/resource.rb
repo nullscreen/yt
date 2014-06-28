@@ -29,6 +29,24 @@ module Yt
       def username
         @url.username if @url
       end
+
+    private
+
+      # @return [Hash] the parameters to submit to YouTube to update a playlist.
+      # @see https://developers.google.com/youtube/v3/docs/playlists/update
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      def update_params
+        super.tap do |params|
+          params[:body_type] = :json
+          params[:expected_response] = Net::HTTPOK
+        end
+      end
+
+      # @return [Hash] the parameters to submit to YouTube to delete a playlist.
+      # @see https://developers.google.com/youtube/v3/docs/playlists/delete
+      def delete_params
+        super.tap{|params| params[:params] = {id: @id}}
+      end
     end
   end
 end
