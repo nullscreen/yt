@@ -1,3 +1,4 @@
+require 'open-uri'
 require 'yt/models/base'
 
 module Yt
@@ -25,6 +26,26 @@ module Yt
       attr_reader :owner_name
 
       has_authentication
+
+      # @!attribute [r] resumable_sessions
+      #   @return [Yt::Collections::ResumableSessions] the sessions used to
+      #     upload videos using the resumable upload protocol.
+      has_many :resumable_sessions
+
+      # Uploads a video
+      # @param [String] path_or_url the video to upload. Can either be the
+      #   path of a local file or the URL of a remote file.
+      # @param [Hash] params the metadata to add to the uploaded video.
+      # @option params [String] :title The video’s title.
+      # @option params [String] :description The video’s description.
+      # @option params [Array<String>] :title The video’s tags.
+      # @option params [String] :privacy_status The video’s privacy status.
+      # @return [Yt::Models::Video] the newly uploaded video.
+      def upload_video(path_or_url, params = {})
+        file = open path_or_url, 'rb'
+        session = resumable_sessions.insert file.size, params
+        session.upload_video file
+      end
 
       # @private
       # Tells `has_many :videos` that account.videos should return all the

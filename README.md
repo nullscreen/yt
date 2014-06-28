@@ -44,6 +44,7 @@ Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Acco
 * read the attributes of the account
 * access the channel managed by the account
 * access the videos uploaded by the account
+* upload a video
 
 ```ruby
 # Accounts can be initialized with access token, refresh token or an authorization code
@@ -54,6 +55,9 @@ account.channel #=> #<Yt::Models::Channel @id=...>
 
 account.videos.count #=> 12
 account.videos.first #=> #<Yt::Models::Video @id=...>
+
+account.upload_video 'my_video.mp4', title: 'My new video', privacy_status: 'private'
+account.upload_video 'http://example.com/remote.m4v', title: 'My other video', tags: ['music']
 ```
 
 *All the above methods require authentication (see below).*
@@ -471,7 +475,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.7'
+    gem 'yt', '~> 0.7.8'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)

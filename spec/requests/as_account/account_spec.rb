@@ -28,4 +28,21 @@ describe Yt::Account, :device_app do
       end
     end
   end
+
+  describe '.upload_video' do
+    let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private'} }
+    let(:video) { $account.upload_video path_or_url, video_params }
+
+    context 'given the path to a local video file' do
+      let(:path_or_url) { File.expand_path '../video.mp4', __FILE__ }
+
+      it { expect(video).to be_a Yt::Video }
+    end
+
+    context 'given the URL of a remote video file' do
+      let(:path_or_url) { 'https://bit.ly/yt_test' }
+
+      it { expect(video).to be_a Yt::Video }
+    end
+  end
 end

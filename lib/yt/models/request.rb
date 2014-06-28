@@ -16,6 +16,7 @@ module Yt
       def initialize(options = {})
         @auth = options[:auth]
         @body = options[:body]
+        @file = options[:file]
         @body_type = options.fetch :body_type, :json
         @expected_response = options.fetch :expected_response, Net::HTTPSuccess
         @format = options.fetch :format, :json
@@ -83,6 +84,7 @@ module Yt
         case @body_type
           when :json then request.body = @body.to_json
           when :form then request.set_form_data @body
+          when :file then request.body = @body.read
         end if @body
       end
 
