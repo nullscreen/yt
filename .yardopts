@@ -1,3 +1,3 @@
 --no-private
-lib/yt/modules/reports.rb
+lib/yt/associations/has_reports.rb
 lib/**/*.rb

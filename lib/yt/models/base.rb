@@ -1,15 +1,23 @@
 require 'yt/actions/delete'
 require 'yt/actions/update'
-require 'yt/modules/associations'
+
+require 'yt/associations/has_authentication'
+require 'yt/associations/has_many'
+require 'yt/associations/has_one'
+require 'yt/associations/has_reports'
+
 require 'yt/errors/request_error'
 
 module Yt
   module Models
     class Base
-      extend Modules::Associations
-
       include Actions::Delete
       include Actions::Update
+
+      extend Associations::HasReports
+      extend Associations::HasOne
+      extend Associations::HasMany
+      extend Associations::HasAuthentication
     end
   end
 

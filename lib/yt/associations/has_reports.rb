@@ -1,11 +1,10 @@
-require 'yt/collections/reports'
-
 module Yt
-  module Modules
+  module Associations
     # Provides methods to to access the analytics reports of a resource.
     #
-    # YouTube resources with reports are: {Yt::Models::Channel channels}.
-    module Reports
+    # YouTube resources with reports are: {Yt::Models::Channel channels} and
+    #  {Yt::Models::Channel videos}.
+    module HasReports
       # @!macro has_report
       #   @!method $1_on(date)
       #     @return [Float] the $1 for a single day.
@@ -26,6 +25,8 @@ module Yt
       #     has_report :earnings
       #   end
       def has_report(metric)
+        require 'yt/collections/reports'
+
         define_method "#{metric}_on" do |date|
           send(metric, from: date, to: date).values.first
         end
