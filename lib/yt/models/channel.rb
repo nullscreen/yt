@@ -1,14 +1,10 @@
 require 'yt/models/resource'
-require 'yt/modules/reports'
 
 module Yt
   module Models
     # A channel resource contains information about a YouTube channel.
     # @see https://developers.google.com/youtube/v3/docs/channels
     class Channel < Resource
-      # Includes the +:has_report+ method to access YouTube Analytics reports.
-      extend Modules::Reports
-
       # @!attribute [r] subscriptions
       #   @return [Yt::Collections::Subscriptions] the channel’s subscriptions.
       has_many :subscriptions

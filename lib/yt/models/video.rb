@@ -1,14 +1,10 @@
 require 'yt/models/resource'
-require 'yt/modules/reports'
 
 module Yt
   module Models
     # Provides methods to interact with YouTube videos.
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
-      # Includes the +:has_report+ method to access YouTube Analytics reports.
-      extend Modules::Reports
-
       delegate :tags, :channel_id, :channel_title, :category_id,
         :live_broadcast_content, to: :snippet
 
