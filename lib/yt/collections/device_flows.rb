@@ -1,9 +1,9 @@
-require 'yt/collections/base'
+require 'yt/collections/authentications'
 require 'yt/models/device_flow'
 
 module Yt
   module Collections
-    class DeviceFlows < Base
+    class DeviceFlows < Authentications
       attr_accessor :auth_params
 
     private
@@ -14,18 +14,8 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:host] = 'accounts.google.com'
           params[:path] = '/o/oauth2/device/code'
-          params[:body_type] = :form
-          params[:method] = :post
-          params[:auth] = nil
-          params[:body] = auth_params
         end
-      end
-
-      def next_page
-        request = Yt::Request.new list_params
-        Array.wrap request.run.body
       end
     end
   end

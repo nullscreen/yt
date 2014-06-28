@@ -107,13 +107,17 @@ module Yt
 
       def timestamps
         @timestamps ||= positions.reject{|pos| pos['t'] == 'never'}.map do |pos|
-          regex = %r{(?:|(?<hours>\d*):)(?:|(?<min>\d*):)(?<sec>\d*)\.(?<ms>\d*)}
-          match = pos['t'].match regex
-          hours = (match[:hours] || '0').to_i
-          minutes = (match[:min] || '0').to_i
-          seconds = (match[:sec]).to_i
-          (hours * 60 + minutes) * 60 + seconds
+          timestamp_of pos
         end
+      end
+
+      def timestamp_of(position)
+        regex = %r{(?:|(?<hours>\d*):)(?:|(?<min>\d*):)(?<sec>\d*)\.(?<ms>\d*)}
+        match = position['t'].match regex
+        hours = (match[:hours] || '0').to_i
+        minutes = (match[:min] || '0').to_i
+        seconds = (match[:sec]).to_i
+        (hours * 60 + minutes) * 60 + seconds
       end
 
       def positions

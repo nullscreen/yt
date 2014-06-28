@@ -27,10 +27,21 @@ module Yt
       def has_report(metric)
         require 'yt/collections/reports'
 
+        define_metric_on_method metric
+        define_metric_method metric
+        define_range_metric_method metric
+        define_all_metric_method metric
+      end
+
+    private
+
+      def define_metric_on_method(metric)
         define_method "#{metric}_on" do |date|
           send(metric, from: date, to: date).values.first
         end
+      end
 
+      def define_metric_method(metric)
         define_method metric do |options = {}|
           from = options[:since] || options[:from] || 5.days.ago
           to = options[:until] || options[:to] || 1.day.ago
@@ -43,14 +54,18 @@ module Yt
             [date, instance_variable_get("@#{metric}")[date] ||= send("range_#{metric}", range)[date]]
           end]
         end
+      end
 
+      def define_range_metric_method(metric)
         define_method "range_#{metric}" do |date_range|
           ivar = instance_variable_get "@range_#{metric}"
           instance_variable_set "@range_#{metric}", ivar || {}
           instance_variable_get("@range_#{metric}")[date_range] ||= send("all_#{metric}").within date_range
         end
         private "range_#{metric}"
+      end
 
+      def define_all_metric_method(metric)
         define_method "all_#{metric}" do
           # @note Asking for the "earnings" metric of a day in which a channel
           # made 0 USD returns the wrong "nil". But adding to the request the

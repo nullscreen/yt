@@ -129,18 +129,6 @@ module Yt
           params['filters'] = "video==#{id}"
         end
       end
-
-    private
-
-      # @return [Hash] the parameters to submit to YouTube to update a video.
-      # @see https://developers.google.com/youtube/v3/docs/videos/update
-      def update_params
-        super.tap do |params|
-          params[:path] = '/youtube/v3/videos'
-          params[:body_type] = :json
-          params[:expected_response] = Net::HTTPOK
-        end
-      end
     end
   end
 end

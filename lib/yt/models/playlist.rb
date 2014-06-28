@@ -75,25 +75,6 @@ module Yt
 
     private
 
-      # @return [Hash] the parameters to submit to YouTube to delete a playlist.
-      # @see https://developers.google.com/youtube/v3/docs/playlists/delete
-      def delete_params
-        super.tap do |params|
-          params[:path] = '/youtube/v3/playlists'
-          params[:params] = {id: @id}
-        end
-      end
-
-      # @return [Hash] the parameters to submit to YouTube to update a playlist.
-      # @see https://developers.google.com/youtube/v3/docs/playlists/update
-      def update_params
-        super.tap do |params|
-          params[:path] = '/youtube/v3/playlists'
-          params[:body_type] = :json
-          params[:expected_response] = Net::HTTPOK
-        end
-      end
-
       def video_params(video_id)
         {id: video_id, kind: :video}
       end

@@ -1,23 +1,18 @@
-require 'yt/models/request'
+require 'yt/actions/modify'
 
 module Yt
   module Actions
     module Update
+      include Modify
 
     private
 
-      def do_update(extra_update_params = {})
-        request = Yt::Request.new update_params.deep_merge(extra_update_params)
-        response = request.run
-        yield response.body
+      def do_update(extra_update_params = {}, &block)
+        do_modify update_params.deep_merge(extra_update_params), &block
       end
 
       def update_params
-        {}.tap do |params|
-          params[:method] = :put
-          params[:auth] = @auth
-          params[:expected_response] = Net::HTTPNoContent
-        end
+        modify_params.tap{|params| params[:method] = :put}
       end
     end
   end
