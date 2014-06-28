@@ -7,6 +7,8 @@ module Yt
     module HasAuthentication
       def has_authentication
         require 'yt/collections/authentications'
+        require 'yt/collections/device_flows'
+        require 'yt/errors/missing_auth'
         require 'yt/errors/no_items'
         require 'yt/errors/unauthorized'
 
@@ -20,6 +22,7 @@ module Yt
       def initialize(options = {})
         @access_token = options[:access_token]
         @refresh_token = options[:refresh_token]
+        @device_code = options[:device_code]
         @expires_at = options[:expires_at]
         @authorization_code = options[:authorization_code]
         @redirect_uri = options[:redirect_uri]
@@ -32,7 +35,10 @@ module Yt
 
       def authentication
         @authentication = current_authentication
-        @authentication ||= new_authentication || refreshed_authentication!
+        @authentication ||= use_refresh_token! if @refresh_token
+        @authentication ||= use_authorization_code! if @authorization_code
+        @authentication ||= use_device_code! if @device_code
+        @authentication ||= raise_missing_authentication!
       end
 
       def authentication_url
@@ -66,21 +72,53 @@ module Yt
       end
 
       # Tries to obtain an access token using the authorization code (which
-      # can only be used once). On failure, does not raise an error because
-      # the access token might still be retrieved with a refresh token.
-      def new_authentication
+      # can only be used once). On failure, raise an error.
+      def use_authorization_code!
         new_authentications.first!
       rescue Errors::NoItems => error
-        nil
+        raise Errors::Unauthorized, error.to_param
       end
 
       # Tries to obtain an access token using the refresh token (which can
-      # be used multiple times). On failure, raise an error because there are
-      # no more options to obtain an access token.
-      def refreshed_authentication!
+      # be used multiple times). On failure, raise an error.
+      def use_refresh_token!
         refreshed_authentications.first!
       rescue Errors::NoItems => error
         raise Errors::Unauthorized, error.to_param
+      end
+
+      # Tries to obtain an access token using the device code (which must be
+      # confirmed by the user with the user_code). On failure, raise an error.
+      def use_device_code!
+        device_code_authentications.first!.tap do |auth|
+          raise Errors::MissingAuth, pending_device_code_message if auth.pending?
+        end
+      end
+
+      def raise_missing_authentication!
+        error_message = case
+          when @redirect_uri && @scopes then missing_authorization_code_message
+          when @scopes then pending_device_code_message
+        end
+        raise Errors::MissingAuth, error_message
+      end
+
+      def pending_device_code_message
+        @device_flow ||= device_flows.first!
+        @device_code ||= @device_flow.device_code
+        {}.tap do |params|
+          params[:scopes] = @scopes
+          params[:user_code] = @device_flow.user_code
+          params[:verification_url] = @device_flow.verification_url
+        end
+      end
+
+      def missing_authorization_code_message
+        {}.tap do |params|
+          params[:scopes] = @scopes
+          params[:authentication_url] = authentication_url
+          params[:redirect_uri] = @redirect_uri
+        end
       end
 
       def new_authentications
@@ -92,6 +130,18 @@ module Yt
       def refreshed_authentications
         @refreshed_authentications ||= Collections::Authentications.of(self).tap do |auth|
           auth.auth_params = refreshed_authentication_params
+        end
+      end
+
+      def device_code_authentications
+        Collections::Authentications.of(self).tap do |auth|
+          auth.auth_params = device_code_authentication_params
+        end
+      end
+
+      def device_flows
+        @device_flows ||= Collections::DeviceFlows.of(self).tap do |auth|
+          auth.auth_params = device_flow_params
         end
       end
 
@@ -128,6 +178,22 @@ module Yt
           params[:client_secret] = client_secret
           params[:refresh_token] = @refresh_token
           params[:grant_type] = :refresh_token
+        end
+      end
+
+      def device_code_authentication_params
+        {}.tap do |params|
+          params[:client_id] = client_id
+          params[:client_secret] = client_secret
+          params[:code] = @device_code
+          params[:grant_type] = 'http://oauth.net/grant_type/device/1.0'
+        end
+      end
+
+      def device_flow_params
+        {}.tap do |params|
+          params[:client_id] = client_id
+          params[:scope] = authentication_scope
         end
       end
 

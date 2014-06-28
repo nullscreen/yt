@@ -1,7 +1,7 @@
 module Yt
   module Errors
     class RequestError < StandardError
-      def initialize(msg = nil)
+      def initialize(msg = {})
         @msg = msg
         super msg
       end

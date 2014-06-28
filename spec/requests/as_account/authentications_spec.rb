@@ -65,7 +65,12 @@ describe Yt::Account, :device_app do
         context 'that has expired' do
           let(:expires_at) { 1.day.ago.to_s }
 
-          context 'and no valid refresh token' do
+          context 'and no refresh token' do
+            it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+          end
+
+          context 'and an invalid refresh token' do
+            before { attrs[:refresh_token] = '--not-a-valid-refresh-token--' }
             it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
           end
 
@@ -80,7 +85,7 @@ describe Yt::Account, :device_app do
         let(:access_token) { '--not-a-valid-access-token--' }
         let(:expires_at) { 1.day.from_now }
 
-        context 'and no valid refresh token' do
+        context 'and no refresh token' do
           it { expect{account.channel}.to raise_error Yt::Errors::Unauthorized }
         end
 
@@ -91,9 +96,28 @@ describe Yt::Account, :device_app do
       end
     end
 
+    context 'given scopes' do
+      let(:attrs) { {scopes: ['userinfo.email', 'youtube']} }
+
+      context 'and a redirect_uri' do
+        before { attrs[:redirect_uri] = 'http://localhost/' }
+
+        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+      end
+
+      context 'and no device token' do
+        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+      end
+
+      context 'and an invalid device code' do
+        before { attrs[:device_code] = '--not-a-valid-device-code--' }
+        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+      end
+    end
+
     context 'given no token or code' do
       let(:attrs) { {} }
-      it { expect{account.authentication}.to raise_error Yt::Errors::Unauthorized }
+      it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
     end
   end
 
