@@ -7,6 +7,7 @@ module Yt
     module HasAuthentication
       def has_authentication
         require 'yt/collections/authentications'
+        require 'yt/errors/missing_auth'
         require 'yt/errors/no_items'
         require 'yt/errors/unauthorized'
 
@@ -32,7 +33,9 @@ module Yt
 
       def authentication
         @authentication = current_authentication
-        @authentication ||= new_authentication || refreshed_authentication!
+        @authentication ||= use_refresh_token! if @refresh_token
+        @authentication ||= use_authorization_code! if @authorization_code
+        @authentication ||= raise_missing_authentication!
       end
 
       def authentication_url
@@ -66,21 +69,28 @@ module Yt
       end
 
       # Tries to obtain an access token using the authorization code (which
-      # can only be used once). On failure, does not raise an error because
-      # the access token might still be retrieved with a refresh token.
-      def new_authentication
+      # can only be used once). On failure, raise an error.
+      def use_authorization_code!
         new_authentications.first!
       rescue Errors::NoItems => error
-        nil
+        raise Errors::Unauthorized, error.to_param
       end
 
       # Tries to obtain an access token using the refresh token (which can
-      # be used multiple times). On failure, raise an error because there are
-      # no more options to obtain an access token.
-      def refreshed_authentication!
+      # be used multiple times). On failure, raise an error.
+      def use_refresh_token!
         refreshed_authentications.first!
       rescue Errors::NoItems => error
         raise Errors::Unauthorized, error.to_param
+      end
+
+      def raise_missing_authentication!
+        error = {}.tap do |params|
+          params[:authentication_url] = authentication_url
+          params[:scopes] = @scopes
+          params[:redirect_uri] = @redirect_uri
+        end
+        raise Errors::MissingAuth, error
       end
 
       def new_authentications
