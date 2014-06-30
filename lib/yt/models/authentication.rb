@@ -55,12 +55,18 @@ module Yt
       def initialize(data = {})
         @access_token = data['access_token']
         @refresh_token = data['refresh_token']
+        @error = data['error']
         @expires_at = expiration_date data.slice('expires_at', 'expires_in')
       end
 
       # @return [Boolean] whether the access token has expired.
       def expired?
         @expires_at && @expires_at.past?
+      end
+
+      # @return [Boolean] whether the device auth is pending
+      def pending?
+        @error == 'authorization_pending'
       end
 
     private

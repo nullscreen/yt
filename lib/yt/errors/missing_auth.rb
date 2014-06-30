@@ -11,17 +11,19 @@ module Yt
         MSG
       end
 
-    private
-
       def more_details
         if scopes && authentication_url && redirect_uri
-          more_details_with_url
+          more_details_with_authentication_url
+        elsif scopes && user_code && verification_url
+          more_details_with_verification_url
         else
           more_details_without_url
         end
       end
 
-      def more_details_with_url
+    private
+
+      def more_details_with_authentication_url
         <<-MSG.gsub(/^ {8}/, '')
         You can ask YouTube accounts to authenticate your app for the scopes
         #{scopes} by directing them to #{authentication_url}.
@@ -31,6 +33,13 @@ module Yt
         to build an authorized account object by running:
 
         Yt::Account.new authorization_code: code, redirect_uri: "#{redirect_uri}"
+        MSG
+      end
+
+      def more_details_with_verification_url
+        <<-MSG.gsub(/^ {8}/, '')
+        Please authenticate your app by visiting the page #{verification_url}
+        and entering the code #{user_code} before continuing.
         MSG
       end
 
@@ -58,6 +67,14 @@ module Yt
 
       def redirect_uri
         @msg[:redirect_uri]
+      end
+
+      def user_code
+        @msg[:user_code]
+      end
+
+      def verification_url
+        @msg[:verification_url]
       end
     end
   end

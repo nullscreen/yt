@@ -96,6 +96,25 @@ describe Yt::Account, :device_app do
       end
     end
 
+    context 'given scopes' do
+      let(:attrs) { {scopes: ['userinfo.email', 'youtube']} }
+
+      context 'and a redirect_uri' do
+        before { attrs[:redirect_uri] = 'http://localhost/' }
+
+        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+      end
+
+      context 'and no device token' do
+        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+      end
+
+      context 'and an invalid device code' do
+        before { attrs[:device_code] = '--not-a-valid-device-code--' }
+        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
+      end
+    end
+
     context 'given no token or code' do
       let(:attrs) { {} }
       it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
