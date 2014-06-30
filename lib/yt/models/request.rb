@@ -159,11 +159,14 @@ module Yt
       # If a request authorized with an access token returns 401, then the
       # access token might have expired. If a refresh token is also present,
       # try to run the request one more time with a refreshed access token.
+      # If it's not present, then don't raise the returned MissingAuth, just
+      # let the original error bubble up.
       def refresh_token_and_retry?
         if response.is_a? Net::HTTPUnauthorized
-          @response = @http_request = @uri = nil
-          @auth.refresh
+          @auth.refresh.tap { @response = @http_request = @uri = nil }
         end if @auth.respond_to? :refresh
+      rescue Errors::MissingAuth
+        false
       end
 
       def response_error
