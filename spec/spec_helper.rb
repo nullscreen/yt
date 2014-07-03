@@ -7,7 +7,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
 ]
 SimpleCov.start
 
-Dir['./spec/support/**/*'].each {|f| require f}
+Dir['./spec/support/**/*.rb'].each {|f| require f}
 
 RSpec.configure do |config|
   config.order = 'random'
