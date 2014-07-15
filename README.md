@@ -32,6 +32,22 @@ video.annotations.count #=> 1
 
 The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
 
+How to install
+==============
+
+To install on your system, run
+
+    gem install yt
+
+To use inside a bundled Ruby project, add this line to the Gemfile:
+
+    gem 'yt', '~> 0.7.8'
+
+Since the gem follows [Semantic Versioning](http://semver.org),
+indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
+guarantees that your project won’t occur in any error when you `bundle update`
+and a new version of Yt is released.
+
 Available resources
 ===================
 
@@ -466,24 +482,8 @@ end
 so use the approach that you prefer.
 If a variable is set in both places, then `Yt.configure` takes precedence.
 
-How to install
-==============
-
-To install on your system, run
-
-    gem install yt
-
-To use inside a bundled Ruby project, add this line to the Gemfile:
-
-    gem 'yt', '~> 0.7.8'
-
-Since the gem follows [Semantic Versioning](http://semver.org),
-indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
-guarantees that your project won’t occur in any error when you `bundle update`
-and a new version of Yt is released.
-
 Why you should use Yt…
------------------------
+======================
 
 … and not [youtube_it](https://github.com/kylejginavan/youtube_it)?
 Because youtube_it does not support Google API V3 and the previous version
