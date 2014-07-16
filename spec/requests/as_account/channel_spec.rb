@@ -40,6 +40,15 @@ describe Yt::Channel, :device_app do
       it { expect(channel.subscribed?).to be true }
       it { expect(channel.unsubscribe!).to be_truthy }
     end
+
+    # NOTE: These tests are slow because they go through multiple pages of
+    # results and do so to test that we can overcome YouTube’s limitation of
+    # only returning the first 500 results for each query.
+    context 'with more than 500 videos' do
+      let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
+      it { expect(channel.video_count).to be > 500 }
+      it { expect(channel.videos.count).to be > 500 }
+    end
   end
 
   context 'given my own channel' do

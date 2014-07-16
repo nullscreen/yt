@@ -27,8 +27,24 @@ module Yt
         end
       end
 
+      def next_page
+        super.tap{|items| add_offset_to(items) if @page_token.nil?}
+      end
+
+      # According to http://stackoverflow.com/a/23256768 YouTube does not
+      # provide more than 500 results for any query. In order to overcome
+      # that limit, the query is restarted with a publishedBefore filter in
+      # case there are more videos to be listed for a channel
+      def add_offset_to(items)
+        if items.count == videos_params[:maxResults]
+          last_published = items.last['snippet']['publishedAt']
+          @page_token, @published_before = '', last_published
+        end
+      end
+
       def videos_params
         params = {type: :video, maxResults: 50, part: 'snippet', order: 'date'}
+        params[:publishedBefore] = @published_before if @published_before
         @extra_params ||= {}
         params.merge @extra_params
       end
