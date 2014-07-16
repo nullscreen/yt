@@ -15,6 +15,7 @@ v0.7 - 2014/06/18
 * Allow both normal and partnered channels to retrieve reports about views, comments, likes, dislikes, shares
 * Make reports available also on Video (not just Channel)
 * New account.upload_video to upload a video (either local or remote).
+* Make channel.videos access more than 500 videos per channel
 
 v0.6 - 2014/06/05
 -----------------
