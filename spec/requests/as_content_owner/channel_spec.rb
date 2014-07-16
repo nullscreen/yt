@@ -216,7 +216,7 @@ describe Yt::Channel, :partner do
 
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
-          let(:impressions) { channel.impressions_on 5.days.ago}
+          let(:impressions) { channel.impressions_on 20.days.ago}
           it { expect(impressions).to be_a Float }
         end
 
