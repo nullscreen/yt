@@ -203,7 +203,7 @@ describe Yt::Video, :partner do
 
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:impressions) { video.impressions_on 5.days.ago}
+          let(:impressions) { video.impressions_on 20.days.ago}
           it { expect(impressions).to be_a Float }
         end
 
