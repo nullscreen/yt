@@ -60,9 +60,13 @@ module Yt
       end
 
       def set_headers!(request)
-        if @body_type == :json
+        case @body_type
+        when :json
           request.initialize_http_header 'Content-Type' => 'application/json'
           request.initialize_http_header 'Content-length' => '0' unless @body
+        when :file
+          request.initialize_http_header 'Content-Length' => @body.size.to_s
+          request.initialize_http_header 'Transfer-Encoding' => 'chunked'
         end
         @headers.each{|name, value| request.add_field name, value}
       end
@@ -84,7 +88,7 @@ module Yt
         case @body_type
           when :json then request.body = @body.to_json
           when :form then request.set_form_data @body
-          when :file then request.body = @body.read
+          when :file then request.body_stream = @body
         end if @body
       end
 
