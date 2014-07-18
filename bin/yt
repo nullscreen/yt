@@ -53,6 +53,7 @@ puts "  Subscribers are visible? #{channel.subscriber_count_visible?}"
 # puts "  Likes: #{channel.likes}"
 # puts "  Dislikes: #{channel.dislikes}"
 # puts "  Shares: #{channel.shares}"
+# puts "  Viewers: #{channel.viewer_percentages}"
 
 account.videos.first(5).each.with_index do |video, i|
   puts "\nVIDEO #{i+1}:\n"
@@ -82,6 +83,7 @@ account.videos.first(5).each.with_index do |video, i|
   # puts "  Likes: #{video.likes}"
   # puts "  Dislikes: #{video.dislikes}"
   # puts "  Shares: #{video.shares}"
+  # puts "  Viewers: #{video.viewer_percentages}"
   puts "  Annotations: #{video.annotations.count}"
 end
 

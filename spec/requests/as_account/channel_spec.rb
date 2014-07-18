@@ -99,6 +99,10 @@ describe Yt::Channel, :device_app do
       expect{channel.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
       expect{channel.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end
+
+    it 'returns valid reports for channel-related demographics' do
+      expect{channel.viewer_percentages}.not_to raise_error
+    end
   end
 
   context 'given an unknown channel' do

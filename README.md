@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.9'
+    gem 'yt', '~> 0.7.10'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -107,6 +107,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * subscribe to and unsubscribe from a channel
 * create and delete playlists from a channel
 * retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a channel
+* retrieve the viewer percentage of a channel by gender and age group
 
 ```ruby
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
@@ -155,6 +156,8 @@ channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 201
 channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
 channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
+
+channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 ```
 
 *The methods above require to be authenticated as the channel’s account (see below).*
@@ -170,6 +173,8 @@ channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 =>
 channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 channel.impressions_on 5.days.ago #=> 157.0
+
+channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 ```
 
 *The methods above require to be authenticated as the channel’s content owner (see below).*
@@ -183,7 +188,8 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * update the attributes of a video
 * access the annotations of a video
 * like and dislike a video
-* retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a channel
+* retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a video
+* retrieve the viewer percentage of a video by gender and age group
 
 ```ruby
 video = Yt::Video.new id: 'MESycYJytkU'
@@ -233,6 +239,8 @@ video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 
 video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
 video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
+
+video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 ```
 
 *The methods above require to be authenticated as the video’s owner (see below).*
@@ -248,6 +256,8 @@ video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0
 video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 video.impressions_on 5.days.ago #=> 157.0
+
+video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 ```
 
 *The methods above require to be authenticated as the video’s content owner (see below).*

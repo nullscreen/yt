@@ -1,9 +1,9 @@
 module Yt
   module Associations
-    # Provides methods to to access the analytics reports of a resource.
+    # Provides methods to access the analytics reports of a resource.
     #
     # YouTube resources with reports are: {Yt::Models::Channel channels} and
-    #  {Yt::Models::Channel videos}.
+    # {Yt::Models::Channel videos}.
     module HasReports
       # @!macro has_report
       #   @!method $1_on(date)

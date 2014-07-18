@@ -16,6 +16,7 @@ v0.7 - 2014/06/18
 * Make reports available also on Video (not just Channel)
 * New account.upload_video to upload a video (either local or remote).
 * Make channel.videos access more than 500 videos per channel
+* Add viewer percentage (age group, gender) to Channel and Video reports
 
 v0.6 - 2014/06/05
 -----------------
