@@ -101,6 +101,7 @@ describe Yt::Video, :device_app do
 
     it 'returns valid reports for video-related demographics' do
       expect{video.viewer_percentages}.not_to raise_error
+      expect{video.viewer_percentage}.not_to raise_error
     end
   end
 end
