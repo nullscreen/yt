@@ -79,8 +79,7 @@ describe Yt::Video, :device_app do
       it { expect{video.update attrs}.not_to change{video.privacy_status} }
     end
 
-
-    it 'returns valid reports for channel-related metrics' do
+    it 'returns valid reports for video-related metrics' do
       # Some reports are only available to Content Owners.
       # See content ownere test for more details about what the methods return.
       expect{video.views}.not_to raise_error
@@ -98,6 +97,10 @@ describe Yt::Video, :device_app do
       expect{video.shares_on 3.days.ago}.not_to raise_error
       expect{video.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
+    end
+
+    it 'returns valid reports for video-related demographics' do
+      expect{video.viewer_percentages}.not_to raise_error
     end
   end
 end

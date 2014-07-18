@@ -14,11 +14,11 @@ module Yt
       # video to upload. If the request succeeds, YouTube returns a unique
       # URL to upload the video file (and eventually resume the upload).
       # @param [Integer] content_length the size (bytes) of the video to upload.
-      # @param [Hash] params the metadata to add to the uploaded video.
-      # @option params [String] :title The video’s title.
-      # @option params [String] :description The video’s description.
-      # @option params [Array<String>] :title The video’s tags.
-      # @option params [String] :privacy_status The video’s privacy status.
+      # @param [Hash] options the metadata to add to the uploaded video.
+      # @option options [String] :title The video’s title.
+      # @option options [String] :description The video’s description.
+      # @option options [Array<String>] :title The video’s tags.
+      # @option options [String] :privacy_status The video’s privacy status.
       def insert(content_length, options = {})
         @headers = headers_for content_length
         body = {}

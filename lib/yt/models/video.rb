@@ -43,6 +43,9 @@ module Yt
       # @macro has_report
       has_report :impressions
 
+      # @macro has_viewer_percentages
+      has_viewer_percentages
+
       # @!attribute [r] statistics_set
       #   @return [Yt::Models::StatisticsSet] the statistics for the video.
       has_one :statistics_set

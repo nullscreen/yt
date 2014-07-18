@@ -1,3 +1,4 @@
 --no-private
 lib/yt/associations/has_reports.rb
+lib/yt/associations/has_viewer_percentages.rb
 lib/**/*.rb

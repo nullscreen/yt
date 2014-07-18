@@ -5,6 +5,7 @@ require 'yt/associations/has_authentication'
 require 'yt/associations/has_many'
 require 'yt/associations/has_one'
 require 'yt/associations/has_reports'
+require 'yt/associations/has_viewer_percentages'
 
 require 'yt/errors/request_error'
 
@@ -15,6 +16,7 @@ module Yt
       include Actions::Update
 
       extend Associations::HasReports
+      extend Associations::HasViewerPercentages
       extend Associations::HasOne
       extend Associations::HasMany
       extend Associations::HasAuthentication
