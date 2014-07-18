@@ -246,6 +246,9 @@ describe Yt::Video, :partner do
         expect(video.viewer_percentages[:male]['45-54']).to be_a Float
         expect(video.viewer_percentages[:male]['55-64']).to be_a Float
         expect(video.viewer_percentages[:male]['65-']).to be_a Float
+
+        expect(video.viewer_percentage(gender: :male)).to be_a Float
+        expect(video.viewer_percentage(gender: :female)).to be_a Float
       end
     end
   end

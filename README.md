@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.7.10'
+    gem 'yt', '~> 0.7.11'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -158,6 +158,7 @@ channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 =
 channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+channel.viewer_percentage(gender: :male) #=> 49.12
 ```
 
 *The methods above require to be authenticated as the channel’s account (see below).*
@@ -175,6 +176,7 @@ channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.
 channel.impressions_on 5.days.ago #=> 157.0
 
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+channel.viewer_percentage(gender: :female) #=> 49.12
 ```
 
 *The methods above require to be authenticated as the channel’s content owner (see below).*
@@ -241,6 +243,7 @@ video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 
 video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+video.viewer_percentage(gender: :female) #=> 49.12
 ```
 
 *The methods above require to be authenticated as the video’s owner (see below).*
@@ -258,6 +261,7 @@ video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 video.impressions_on 5.days.ago #=> 157.0
 
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+video.viewer_percentage(gender: :female) #=> 49.12
 ```
 
 *The methods above require to be authenticated as the video’s content owner (see below).*

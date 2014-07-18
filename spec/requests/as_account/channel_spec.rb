@@ -102,6 +102,7 @@ describe Yt::Channel, :device_app do
 
     it 'returns valid reports for channel-related demographics' do
       expect{channel.viewer_percentages}.not_to raise_error
+      expect{channel.viewer_percentage}.not_to raise_error
     end
   end
 

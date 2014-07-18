@@ -259,6 +259,9 @@ describe Yt::Channel, :partner do
         expect(channel.viewer_percentages[:male]['45-54']).to be_a Float
         expect(channel.viewer_percentages[:male]['55-64']).to be_a Float
         expect(channel.viewer_percentages[:male]['65-']).to be_a Float
+
+        expect(channel.viewer_percentage(gender: :male)).to be_a Float
+        expect(channel.viewer_percentage(gender: :female)).to be_a Float
       end
     end
 
