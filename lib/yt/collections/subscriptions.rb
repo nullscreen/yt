@@ -9,8 +9,9 @@ module Yt
         throttle
         do_insert
       rescue Yt::Error => error
-        ignorable_errors = error.reasons & ['subscriptionDuplicate']
-        raise error unless options[:ignore_errors] && ignorable_errors.any?
+        ignorable_error = error.reasons.include? 'subscriptionDuplicate'
+        ignorable_error ||= (@parent.id == @auth.channel.id) if @auth
+        raise error unless options[:ignore_errors] && ignorable_error
       end
 
       def delete_all(params = {}, options = {})

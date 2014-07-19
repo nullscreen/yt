@@ -74,11 +74,11 @@ describe Yt::Channel, :device_app do
       it { expect{channel.delete_playlists params}.to change{channel.playlists.count}.by(-1) }
     end
 
-    # NOTE: This test is just a reflection of YouTube irrational behavior of
-    # raising a 500 error when you try to subscribe to your own channel,
-    # rather than a more logical 4xx error. Hopefully this will get fixed
-    # and this code (and test) removed.
-    it { expect{channel.subscribe}.to raise_error Yt::Errors::ServerError }
+    # @note: this test is just a reflection of YouTube irrational behavior of
+    # raising a 500 error when you try to subscribe to your own channel.
+    # `subscribe` will ignore the error, but `subscribe!` will raise it.
+    it { expect{channel.subscribe!}.to raise_error Yt::Errors::ServerError }
+    it { expect(channel.subscribe).to be_falsey }
 
     it 'returns valid reports for channel-related metrics' do
       # Some reports are only available to Content Owners.
