@@ -1,3 +1,8 @@
+v0.8 - 2014/07/18
+-----------------
+
+* [breaking change] channel.subscribe returns nil (not raise an error) when trying to subscribe to your own channel
+
 v0.7 - 2014/06/18
 -----------------
 
