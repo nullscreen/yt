@@ -544,18 +544,6 @@ This will fail unless you have set up a test YouTube application and some
 tests YouTube accounts to hit the API. Once again, you probably don’t need
 this, since Travis CI already takes care of running this kind of tests.
 
-How to contribute
-=================
-
-Yt needs your support!
-The goal of Yt is to provide a Ruby interface for all the methods exposed by
-the [YouTube Data API (v3)](https://developers.google.com/youtube/v3) and by
-the [YouTube Analytics API](https://developers.google.com/youtube/analytics).
-
-If you find that a method is missing, fork the project, add the missing code,
-write the appropriate tests, then submit a pull request, and it will gladly
-be merged!
-
 How to release new versions
 ===========================
 
@@ -571,5 +559,20 @@ Remember that the yt gem follows [Semantic Versioning](http://semver.org).
 Any new release that is fully backward-compatible should bump the *patch* version (0.0.x).
 Any new version that breaks compatibility should bump the *minor* version (0.x.0)
 
-Don’t hesitate to send code comments, issues or pull requests through GitHub!
-All feedback is appreciated. A [googol](http://en.wikipedia.org/wiki/Googol) of thanks! :)
+How to contribute
+=================
+
+Yt needs your support!
+The goal of Yt is to provide a Ruby interface for all the methods exposed by
+the [YouTube Data API (v3)](https://developers.google.com/youtube/v3) and by
+the [YouTube Analytics API](https://developers.google.com/youtube/analytics).
+
+If you find that a method is missing, fork the project, add the missing code,
+write the appropriate tests, then submit a pull request, and it will gladly
+be merged!
+
+Don’t hesitate to send code comments, issues or pull requests through GitHub
+and to spread the love on Twitter by following [@ytgem](https://twitter.com/intent/user?screen_name=ytgem)
+All feedback is appreciated.
+
+![yt4](https://cloud.githubusercontent.com/assets/7408595/3638115/0ef9d6bc-1037-11e4-831a-787204e9b979.png)
