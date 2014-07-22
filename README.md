@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.8.0'
+    gem 'yt', '~> 0.8.1'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -201,12 +201,39 @@ video.description #=> "The new Fullscreen Creator Platform gives creators and br
 video.description.has_link_to_channel? #=> true
 video.thumbnail_url #=> "https://i1.ytimg.com/vi/MESycYJytkU/default.jpg"
 video.published_at #=> 2013-07-09 16:27:32 UTC
-video.public? #=> true
 video.tags #=> []
 video.channel_id #=> "UCxO1tY8h1AhOz0T4ENwmpow"
 video.channel_title #=> "Fullscreen"
 video.category_id #=> "22"
 video.live_broadcast_content #=> "none"
+
+video.public? #=> true
+video.uploaded? #=> false
+video.rejected? #=> false
+video.failed? #=> true
+video.processed? #=> false
+video.deleted? #=> false
+video.uses_unsupported_codec? #=> true
+video.has_failed_conversion? #=> false
+video.empty? #=> false
+video.invalid? #=> false
+video.too_small? #=> false
+video.aborted? #=> false
+video.claimed? #=> false
+video.infringes_copyright? #=> false
+video.duplicate? #=> false
+video.inappropriate? #=> false
+video.too_long? #=> false
+video.violates_terms_of_use? #=> false
+video.infringes_trademark? #=> false
+video.belongs_to_closed_account? #=> false
+video.belongs_to_suspended_account? #=> false
+video.scheduled? #=> true
+video.scheduled_at #=> Tue, 27 May 2014 12:50:00
+video.licensed_as_creative_commons? #=> true
+video.licensed_as_standard_youtube? #=> false
+video.embeddable? #=> false
+video.has_public_stats_viewable? #=> false
 
 video.duration #=> 86
 video.hd? #=> true

@@ -8,6 +8,15 @@ module Yt
       delegate :tags, :channel_id, :channel_title, :category_id,
         :live_broadcast_content, to: :snippet
 
+      delegate :deleted?, :failed?, :processed?, :rejected?, :uploaded?,
+        :uses_unsupported_codec?, :has_failed_conversion?, :empty?, :invalid?,
+        :too_small?, :aborted?, :claimed?, :infringes_copyright?, :duplicate?,
+        :scheduled_at, :scheduled?, :too_long?, :violates_terms_of_use?,
+        :inappropriate?, :infringes_trademark?, :belongs_to_closed_account?,
+        :belongs_to_suspended_account?, :licensed_as_creative_commons?,
+        :licensed_as_standard_youtube?, :has_public_stats_viewable?,
+        :embeddable?, to: :status
+
       # @!attribute [r] content_detail
       #   @return [Yt::Models::ContentDetail] the video’s content details.
       has_one :content_detail
