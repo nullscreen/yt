@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.8.1'
+    gem 'yt', '~> 0.8.2'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -85,6 +85,7 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
+* list the claims administered by the content owner
 
 ```ruby
 # Content owners can be initialized with access token, refresh token or an authorization code
@@ -92,6 +93,9 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 
 content_owner.partnered_channels.count #=> 12
 content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
+
+content_owner.claims.where(q: 'Fullscreen').count #=> 24
+content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
 ```
 
 *All the above methods require authentication (see below).*
