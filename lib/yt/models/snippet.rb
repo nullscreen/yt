@@ -115,6 +115,8 @@ module Yt
         @category_id ||= @data['categoryId']
       end
 
+      BROADCAST_TYPES = %q(live none upcoming)
+
       # @return [String] if the resource is a video, whether the resource is a
       #   live broadcast. Valid values are: live, none, upcoming.
       # @return [nil] if the resource is a channel.

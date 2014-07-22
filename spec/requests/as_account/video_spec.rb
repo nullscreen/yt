@@ -11,22 +11,30 @@ describe Yt::Video, :device_app do
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
-    it 'returns valid snippet data' do
-      expect(video.snippet).to be_a Yt::Snippet
+    it 'returns valid metadata' do
       expect(video.title).to be_a String
-      expect(video.description).to be_a Yt::Description
+      expect(video.description).to be_a String
       expect(video.thumbnail_url).to be_a String
       expect(video.published_at).to be_a Time
+      expect(video.privacy_status).to be_in Yt::Status::PRIVACY_STATUSES
       expect(video.tags).to be_an Array
       expect(video.channel_id).to be_a String
       expect(video.channel_title).to be_a String
       expect(video.category_id).to be_a String
-      expect(video.live_broadcast_content).to be_a String
+      expect(video.live_broadcast_content).to be_in Yt::Snippet::BROADCAST_TYPES
+      expect(video.view_count).to be_an Integer
+      expect(video.like_count).to be_an Integer
+      expect(video.dislike_count).to be_an Integer
+      expect(video.favorite_count).to be_an Integer
+      expect(video.comment_count).to be_an Integer
+      expect(video.duration).to be_an Integer
+      expect(video.hd?).to be_in [true, false]
+      expect(video.stereoscopic?).to be_in [true, false]
+      expect(video.captioned?).to be_in [true, false]
+      expect(video.licensed?).to be_in [true, false]
+      expect(video.liked?).to be_in [true, false]
     end
 
-    it { expect(video.rating).to be_a Yt::Rating }
-    it { expect(video.status).to be_a Yt::Status }
-    it { expect(video.statistics_set).to be_a Yt::StatisticsSet }
     it { expect{video.update}.to fail }
 
     context 'that I like' do

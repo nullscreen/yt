@@ -8,19 +8,20 @@ describe Yt::Channel, :device_app do
   context 'given someone else’s channel' do
     let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
 
-    it 'returns valid snippet data' do
-      expect(channel.snippet).to be_a Yt::Snippet
+    it 'returns valid metadata' do
       expect(channel.title).to be_a String
-      expect(channel.description).to be_a Yt::Description
+      expect(channel.description).to be_a String
       expect(channel.thumbnail_url).to be_a String
       expect(channel.published_at).to be_a Time
+      expect(channel.privacy_status).to be_in Yt::Status::PRIVACY_STATUSES
+      expect(channel.view_count).to be_an Integer
+      expect(channel.comment_count).to be_an Integer
+      expect(channel.video_count).to be_an Integer
+      expect(channel.subscriber_count).to be_an Integer
+      expect(channel.subscriber_count_visible?).to be_in [true, false]
     end
 
-    it { expect(channel.status).to be_a Yt::Status }
-    it { expect(channel.statistics_set).to be_a Yt::StatisticsSet }
-    it { expect(channel.videos).to be_a Yt::Collections::Videos }
     it { expect(channel.videos.first).to be_a Yt::Video }
-    it { expect(channel.playlists).to be_a Yt::Collections::Playlists }
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
     it { expect{channel.create_playlist}.to raise_error Yt::Errors::RequestError }
     it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
