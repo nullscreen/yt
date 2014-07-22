@@ -85,6 +85,8 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
+* list the claims administered by the content owner
+* search the claims administered by the content owner
 
 ```ruby
 # Content owners can be initialized with access token, refresh token or an authorization code
@@ -92,6 +94,8 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 
 content_owner.partnered_channels.count #=> 12
 content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
+content_owner.claims.first #=> => #<Yt::Models::Claim ...>
+content_owner.claim_searches.where(videoId: 'dQw4w9WgXcQ,btPJPFnesV4').first #=> => #<Yt::Models::Claim ...>
 ```
 
 *All the above methods require authentication (see below).*
