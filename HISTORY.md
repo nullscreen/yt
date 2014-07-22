@@ -8,6 +8,7 @@ v0.9 - 2014/07/28
 * Add claim.third_party?
 * Add actual_start_time, actual_end_time, scheduled_start_time, scheduled_end_time for live-streaming videos
 * Add privacy_status, public_stats_viewable, publish_at to the options that Video#update accepts
+* Allow angle brackets when editing title, description, tags and replace them with similar characters allowed by YouTube
 
 v0.8 - 2014/07/18
 -----------------
