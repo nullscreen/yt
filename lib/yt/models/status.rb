@@ -8,25 +8,29 @@ module Yt
         @data = options[:data]
       end
 
-      # @return [Boolean] whether the resource is public
+# Privacy status
+
+      PRIVACY_STATUSES = %q(private public unlisted)
+
+      # @return [String] the privacy status of the resource. Valid values are:
+      #   private, public, unlisted.
+      def privacy_status
+        @privacy_status ||= @data['privacyStatus']
+      end
+
+      # @return [Boolean] whether the resource is public.
       def public?
         privacy_status == 'public'
       end
 
-      # @return [Boolean] whether the resource is private
+      # @return [Boolean] whether the resource is private.
       def private?
         privacy_status == 'private'
       end
 
-      # @return [Boolean] whether the resource is unlisted
+      # @return [Boolean] whether the resource is unlisted.
       def unlisted?
         privacy_status == 'unlisted'
-      end
-
-      # @return [String] the privacy status of the channel.
-      # Valid values are: private, public, unlisted
-      def privacy_status
-        @privacy_status ||= @data['privacyStatus']
       end
     end
   end
