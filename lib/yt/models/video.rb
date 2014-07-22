@@ -158,7 +158,7 @@ module Yt
       # @todo: Add status, recording details keys
       def update_parts
         snippet_keys = [:title, :description, :tags, :category_id]
-        {snippet: {keys: snippet_keys}}
+        {snippet: {keys: snippet_keys, sanitize_brackets: true}}
       end
     end
   end
