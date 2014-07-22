@@ -110,7 +110,8 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * retrieve the viewer percentage of a channel by gender and age group
 
 ```ruby
-channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
+# Channels can be initialized with ID or URL
+channel = Yt::Channel.new url: 'youtube.com/fullscreen'
 
 channel.title #=> "Fullscreen"
 channel.description #=> "The first media company for the connected generation."
@@ -194,7 +195,8 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the viewer percentage of a video by gender and age group
 
 ```ruby
-video = Yt::Video.new id: 'MESycYJytkU'
+# Videos can be initialized with ID or URL
+video = Yt::Video.new url: 'http://youtu.be/MESycYJytkU'
 
 video.title #=> "Fullscreen Creator Platform"
 video.description #=> "The new Fullscreen Creator Platform gives creators and brands a suite..."
@@ -305,7 +307,8 @@ Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Pla
 * delete items from a playlist
 
 ```ruby
-playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
+# Playlists can be initialized with ID or URL
+playlist = Yt::Playlist.new url: 'youtube.com/playlist?list=PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
 
 playlist.title #=> "Fullscreen Features"
 playlist.description #=> "You send us your best videos and we feature our favorite ones..."
