@@ -11,6 +11,10 @@ module Yt
       #   @return [Yt::Collection::PartneredChannels] the channels managed by the CMS account.
       has_many :partnered_channels
 
+      # @!attribute [r] claims
+      #   @return [Yt::Collection::Claims] the claims administered by the content owner.
+      has_many :claims
+
       def initialize(options = {})
         super options
         @owner_name = options[:owner_name]

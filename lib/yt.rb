@@ -1,6 +1,7 @@
 require 'yt/config'
 require 'yt/models/account'
 require 'yt/models/channel'
+require 'yt/models/claim'
 require 'yt/models/content_owner'
 require 'yt/models/playlist'
 require 'yt/models/playlist_item'

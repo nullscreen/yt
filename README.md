@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.8.1'
+    gem 'yt', '~> 0.8.2'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -85,6 +85,7 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
+* list the claims administered by the content owner
 
 ```ruby
 # Content owners can be initialized with access token, refresh token or an authorization code
@@ -92,6 +93,9 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 
 content_owner.partnered_channels.count #=> 12
 content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
+
+content_owner.claims.where(q: 'Fullscreen').count #=> 24
+content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
 ```
 
 *All the above methods require authentication (see below).*
@@ -110,7 +114,8 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * retrieve the viewer percentage of a channel by gender and age group
 
 ```ruby
-channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
+# Channels can be initialized with ID or URL
+channel = Yt::Channel.new url: 'youtube.com/fullscreen'
 
 channel.title #=> "Fullscreen"
 channel.description #=> "The first media company for the connected generation."
@@ -194,7 +199,8 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the viewer percentage of a video by gender and age group
 
 ```ruby
-video = Yt::Video.new id: 'MESycYJytkU'
+# Videos can be initialized with ID or URL
+video = Yt::Video.new url: 'http://youtu.be/MESycYJytkU'
 
 video.title #=> "Fullscreen Creator Platform"
 video.description #=> "The new Fullscreen Creator Platform gives creators and brands a suite..."
@@ -305,7 +311,8 @@ Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Pla
 * delete items from a playlist
 
 ```ruby
-playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
+# Playlists can be initialized with ID or URL
+playlist = Yt::Playlist.new url: 'youtube.com/playlist?list=PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
 
 playlist.title #=> "Fullscreen Features"
 playlist.description #=> "You send us your best videos and we feature our favorite ones..."
