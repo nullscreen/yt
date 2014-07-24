@@ -113,6 +113,7 @@ module Yt
 
       def timestamp_of(position)
         regex = %r{(?:|(?<hours>\d*):)(?:|(?<min>\d*):)(?<sec>\d*)\.(?<ms>\d*)}
+        position['t'] = '00:00:00.000' if position['t'] == '0'
         match = position['t'].match regex
         hours = (match[:hours] || '0').to_i
         minutes = (match[:min] || '0').to_i
