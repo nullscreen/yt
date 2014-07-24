@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.8.2'
+    gem 'yt', '~> 0.8.3'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -76,7 +76,16 @@ account.upload_video 'my_video.mp4', title: 'My new video', privacy_status: 'pri
 account.upload_video 'http://example.com/remote.m4v', title: 'My other video', tags: ['music']
 ```
 
-*All the above methods require authentication (see below).*
+*The methods above require to be authenticated as a YouTube account (see below).*
+
+```ruby
+account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
+
+account.content_owners.count #=> 3
+account.content_owners.first #=>  #<Yt::Models::ContentOwner @id=...>
+```
+
+*The methods above require to be authenticated as a YouTube Content Partner account (see below).*
 
 Yt::ContentOwner
 ----------------

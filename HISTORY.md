@@ -5,6 +5,7 @@ v0.8 - 2014/07/18
 * Add all the status fields to Video (upload status, failure reason, rejection reason, scheduled time, license, embeddable, public stats viewable)
 * Add content_owner.claims to list the claims administered by a content owner.
 * Allow content_owner.claims to be chained with .where, such as in account.videos.where(q: 'query')
+* Add account.content_owners to list content owners associated with an account
 
 v0.7 - 2014/06/18
 -----------------

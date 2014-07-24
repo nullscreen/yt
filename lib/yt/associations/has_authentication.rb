@@ -27,6 +27,7 @@ module Yt
         @authorization_code = options[:authorization_code]
         @redirect_uri = options[:redirect_uri]
         @scopes = options[:scopes]
+        @authentication = options[:authentication]
       end
 
       def auth
