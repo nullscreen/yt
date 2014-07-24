@@ -157,5 +157,17 @@ describe Yt::Annotation do
       it { expect(annotation.starts_after? 0).to be_nil }
       it { expect(annotation.starts_before? 0).to be_nil }
     end
+
+    context 'given an annotation with "0" as the timestamp' do
+      let(:xml) { %Q{
+        <segment>
+        <movingRegion type="rect">
+        <rectRegion h="6.0" t="0" w="25.0" x="7.0" y="5.0"/>
+        </movingRegion>
+        </segment>
+      } }
+      it { expect(annotation.starts_after? 10).to be_falsey }
+      it { expect(annotation.starts_before? 10).to be true }
+    end
   end
 end
