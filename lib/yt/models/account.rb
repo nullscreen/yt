@@ -32,6 +32,11 @@ module Yt
       #     upload videos using the resumable upload protocol.
       has_many :resumable_sessions
 
+      # @!attribute [r] content_owners
+      #   @return [Yt::Collections::ContentOwners] the content_owners accessible
+      #     by the account.
+      has_many :content_owners
+
       # Uploads a video
       # @param [String] path_or_url the video to upload. Can either be the
       #   path of a local file or the URL of a remote file.
