@@ -28,7 +28,7 @@ module Yt
 
       def claims_params
         {onBehalfOfContentOwner: @parent.owner_name}.tap do |params|
-          (@extra_params ||= {}).each do |key, value|
+          @extra_params.each do |key, value|
             params[key.to_s.camelize :lower] = value
           end
         end

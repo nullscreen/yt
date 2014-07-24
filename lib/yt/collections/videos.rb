@@ -15,7 +15,7 @@ module Yt
       #   the items returned by asking YouTube for a list of videos.
       # @see https://developers.google.com/youtube/v3/docs/videos#resource
       def new_item(data)
-        Yt::Video.new id: data['id']['videoId'], snippet: data['snippet'], auth: @auth
+        Yt::Video.new id: data['id']['videoId'], snippet: data['snippet'], statistics: data['statistics'], auth: @auth
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.
@@ -23,7 +23,7 @@ module Yt
       def list_params
         super.tap do |params|
           params[:params] = @parent.videos_params.merge videos_params
-          params[:path] = '/youtube/v3/search'
+          params[:path] = videos_path
         end
       end
 
@@ -43,10 +43,21 @@ module Yt
       end
 
       def videos_params
-        params = {type: :video, maxResults: 50, part: 'snippet', order: 'date'}
+        params = {type: :video, maxResults: 50, part: videos_parts, order: 'date'}
         params[:publishedBefore] = @published_before if @published_before
-        @extra_params ||= {}
         params.merge @extra_params
+      end
+
+      def videos_path
+        if @extra_params.empty? || @extra_params.key?(:id)
+          '/youtube/v3/videos'
+        else
+          '/youtube/v3/search'
+        end
+      end
+
+      def videos_parts
+        [:snippet].concat(@extra_parts).uniq.join(',')
       end
     end
   end
