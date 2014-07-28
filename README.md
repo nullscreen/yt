@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.8.4'
+    gem 'yt', '~> 0.8.5'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -203,6 +203,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * read the attributes of a video
 * update the attributes of a video
 * access the annotations of a video
+* delete a video
 * like and dislike a video
 * retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a video
 * retrieve the viewer percentage of a video by gender and age group
@@ -286,6 +287,8 @@ video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 video.viewer_percentage(gender: :female) #=> 49.12
+
+video.delete #=> true
 ```
 
 *The methods above require to be authenticated as the video’s owner (see below).*

@@ -18,4 +18,15 @@ describe Yt::Video do
     it { expect(video.update title: 'new').to be true }
     it { expect{video.update title: 'new'}.to change{video.title} }
   end
+
+  describe '#delete' do
+    let(:attrs) { {id: 'video-id'} }
+
+    context 'given an existing video' do
+      before { expect(video).to receive(:do_delete).and_yield }
+
+      it { expect(video.delete).to be true }
+      it { expect{video.delete}.to change{video.exists?} }
+    end
+  end
 end
