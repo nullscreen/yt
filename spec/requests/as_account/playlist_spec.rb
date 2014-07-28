@@ -51,20 +51,68 @@ describe Yt::Playlist, :device_app do
     before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Update Playlist #{rand}" }
     after(:all) { @my_playlist.delete }
     let(:id) { @my_playlist.id }
+    let!(:old_title) { @my_playlist.title }
+    let!(:old_privacy_status) { @my_playlist.privacy_status }
+    let(:update) { @my_playlist.update attrs }
 
-    describe 'updates the attributes that I specify explicitly' do
-      let(:attrs) { {title: "Yt Test Update Playlist #{rand} - new title"} }
-      it { expect(playlist.update attrs).to eq true }
-      it { expect{playlist.update attrs}.to change{playlist.title} }
+    context 'given I update the title' do
+      # NOTE: The use of UTF-8 characters is to test that we can pass up to
+      # 50 characters, independently of their representation
+      let(:attrs) { {title: "Yt Example Update Playlist #{rand} - ®•♡❥❦❧☙"} }
+
+      specify 'only updates the title' do
+        expect(update).to be true
+        expect(@my_playlist.title).not_to eq old_title
+        expect(@my_playlist.privacy_status).to eq old_privacy_status
+      end
     end
 
-    describe 'does not update the other attributes' do
-      let(:attrs) { {} }
-      it { expect(playlist.update attrs).to eq true }
-      it { expect{playlist.update attrs}.not_to change{playlist.title} }
-      it { expect{playlist.update attrs}.not_to change{playlist.description} }
-      it { expect{playlist.update attrs}.not_to change{playlist.tags} }
-      it { expect{playlist.update attrs}.not_to change{playlist.privacy_status} }
+    context 'given I update the description' do
+      let!(:old_description) { @my_playlist.description }
+      let(:attrs) { {description: "Yt Example Description  #{rand} - ®•♡❥❦❧☙"} }
+
+      specify 'only updates the description' do
+        expect(update).to be true
+        expect(@my_playlist.description).not_to eq old_description
+        expect(@my_playlist.title).to eq old_title
+        expect(@my_playlist.privacy_status).to eq old_privacy_status
+      end
+    end
+
+    context 'given I update the tags' do
+      let!(:old_tags) { @my_playlist.tags }
+      let(:attrs) { {tags: ["Yt Test Tag #{rand}"]} }
+
+      specify 'only updates the tag' do
+        expect(update).to be true
+        expect(@my_playlist.tags).not_to eq old_tags
+        expect(@my_playlist.title).to eq old_title
+        expect(@my_playlist.privacy_status).to eq old_privacy_status
+      end
+    end
+
+    context 'given I update the privacy status' do
+      let!(:new_privacy_status) { old_privacy_status == 'private' ? 'unlisted' : 'private' }
+
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {privacy_status: new_privacy_status} }
+
+        specify 'only updates the privacy status' do
+          expect(update).to be true
+          expect(@my_playlist.privacy_status).not_to eq old_privacy_status
+          expect(@my_playlist.title).to eq old_title
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {privacyStatus: new_privacy_status} }
+
+        specify 'only updates the privacy status' do
+          expect(update).to be true
+          expect(@my_playlist.privacy_status).not_to eq old_privacy_status
+          expect(@my_playlist.title).to eq old_title
+        end
+      end
     end
 
     context 'given an existing video' do
