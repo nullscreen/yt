@@ -16,7 +16,7 @@ module Yt
         @auth = options[:auth]
       end
 
-      def update(new_rating)
+      def set(new_rating)
         do_update(params: {rating: new_rating}) {@rating = new_rating}
       end
 

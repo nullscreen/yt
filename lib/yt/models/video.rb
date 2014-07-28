@@ -115,7 +115,7 @@ module Yt
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an authenticated account.
       def like
-        rating.update :like
+        rating.set :like
         liked?
       end
 
@@ -127,7 +127,7 @@ module Yt
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an authenticated account.
       def dislike
-        rating.update :dislike
+        rating.set :dislike
         !liked?
       end
 
@@ -139,7 +139,7 @@ module Yt
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an authenticated account.
       def unlike
-        rating.update :none
+        rating.set :none
         !liked?
       end
 

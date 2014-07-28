@@ -1,3 +1,8 @@
+v0.9 - 2014/07/28
+-----------------
+
+* [breaking change] Rename rating.update to rating.set
+
 v0.8 - 2014/07/18
 -----------------
 
