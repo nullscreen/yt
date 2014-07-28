@@ -105,6 +105,8 @@ content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
+
+content_owner.references.where(asset_id: "ABCDEFG").first => #<Yt::Models::Reference @id=...>
 ```
 
 *All the above methods require authentication (see below).*

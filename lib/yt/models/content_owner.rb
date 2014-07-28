@@ -15,6 +15,10 @@ module Yt
       #   @return [Yt::Collection::Claims] the claims administered by the content owner.
       has_many :claims
 
+      # @!attribute [r] references
+      #   @return [Yt::Collection::References] the references administered by the content owner.
+      has_many :references
+
       def initialize(options = {})
         super options
         @owner_name = options[:owner_name]
