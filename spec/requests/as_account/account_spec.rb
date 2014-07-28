@@ -32,6 +32,7 @@ describe Yt::Account, :device_app do
   describe '.upload_video' do
     let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private'} }
     let(:video) { $account.upload_video path_or_url, video_params }
+    after { video.delete }
 
     context 'given the path to a local video file' do
       let(:path_or_url) { File.expand_path '../video.mp4', __FILE__ }

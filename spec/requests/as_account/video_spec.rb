@@ -61,6 +61,7 @@ describe Yt::Video, :device_app do
     end
 
     it { expect{video.update}.to fail }
+    it { expect{video.delete}.to fail.with 'forbidden' }
 
     context 'that I like' do
       before { video.like }
@@ -91,7 +92,14 @@ describe Yt::Video, :device_app do
     it { expect{video.statistics_set}.to raise_error Yt::Errors::NoItems }
   end
 
-  context 'given one of my own videos' do
+  context 'given one of my own videos that I want to delete' do
+    before(:all) { @tmp_video = $account.upload_video 'https://bit.ly/yt_test', title: "Yt Test Delete Video #{rand}" }
+    let(:id) { @tmp_video.id }
+
+    it { expect(video.delete).to be true }
+  end
+
+  context 'given one of my own videos that I want to update' do
     let(:id) { $account.videos.first.id }
 
     describe 'updates the attributes that I specify explicitly' do

@@ -61,6 +61,22 @@ module Yt
       delegate :view_count, :like_count, :dislike_count, :favorite_count,
         :comment_count, to: :statistics_set
 
+      # Deletes the video.
+      #
+      # This method requires {Resource#auth auth} to return an authenticated
+      # instance of {Yt::Account} with permissions to delete the video.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
+      #   return an account with permissions to delete the video.
+      # @return [Boolean] whether the video does not exist anymore.
+      def delete(options = {})
+        do_delete {@id = nil}
+        !exists?
+      end
+
+      def exists?
+        !@id.nil?
+      end
+
       # @todo Update the status, not just the snippet. This requires some
       #   caution, as the whole status object needs to be updated, not just
       #   privacyStatus, but also embeddable, license, publicStatsViewable,
