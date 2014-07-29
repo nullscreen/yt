@@ -11,11 +11,11 @@ module Yt
       delegate :deleted?, :failed?, :processed?, :rejected?, :uploaded?,
         :uses_unsupported_codec?, :has_failed_conversion?, :empty?, :invalid?,
         :too_small?, :aborted?, :claimed?, :infringes_copyright?, :duplicate?,
-        :scheduled_at, :scheduled?, :too_long?, :violates_terms_of_use?,
+        :scheduled_at, :publish_at, :scheduled?, :too_long?, :violates_terms_of_use?,
         :inappropriate?, :infringes_trademark?, :belongs_to_closed_account?,
         :belongs_to_suspended_account?, :licensed_as_creative_commons?,
         :licensed_as_standard_youtube?, :has_public_stats_viewable?,
-        :embeddable?, to: :status
+        :public_stats_viewable, :embeddable, :embeddable?, :license, to: :status
 
       # @!attribute [r] content_detail
       #   @return [Yt::Models::ContentDetail] the video’s content details.
@@ -77,24 +77,15 @@ module Yt
         !@id.nil?
       end
 
-      # @todo Update the status, not just the snippet. This requires some
-      #   caution, as the whole status object needs to be updated, not just
-      #   privacyStatus, but also embeddable, license, publicStatsViewable,
-      #   and publishAt
-      def update(options = {})
-        options[:title] ||= title
-        options[:description] ||= description
-        options[:tags] ||= tags
-        options[:categoryId] ||= category_id
-        snippet = options.slice :title, :description, :tags, :categoryId
-        body = {id: @id, snippet: snippet}
-
-        do_update(params: {part: 'snippet'}, body: body) do |data|
+      def update(attributes = {})
+        super attributes do |data|
           @id = data['id']
           @snippet = Snippet.new data: data['snippet'] if data['snippet']
+          @status = Status.new data: data['status'] if data['status']
           true
         end
       end
+
 
       # Returns whether the authenticated account likes the video.
       #
@@ -156,6 +147,17 @@ module Yt
           end
           params['filters'] = "video==#{id}"
         end
+      end
+
+    private
+
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      # @todo: Add recording details keys
+      def update_parts
+        snippet_keys = [:title, :description, :tags, :category_id]
+        status_keys = [:privacy_status, :embeddable, :license,
+          :public_stats_viewable, :publish_at]
+        {snippet: {keys: snippet_keys}, status: {keys: status_keys}}
       end
     end
   end

@@ -101,23 +101,187 @@ describe Yt::Video, :device_app do
 
   context 'given one of my own videos that I want to update' do
     let(:id) { $account.videos.first.id }
+    let!(:old_title) { video.title }
+    let!(:old_privacy_status) { video.privacy_status }
+    let(:update) { video.update attrs }
 
-    describe 'updates the attributes that I specify explicitly' do
+    context 'given I update the title' do
       # NOTE: The use of UTF-8 characters is to test that we can pass up to
       # 50 characters, independently of their representation
       let(:attrs) { {title: "Yt Example Update Video #{rand} - ®•♡❥❦❧☙"} }
-      it { expect(video.update attrs).to eq true }
-      it { expect{video.update attrs}.to change{video.title} }
+
+      specify 'only updates the title' do
+        expect(update).to be true
+        expect(video.title).not_to eq old_title
+        expect(video.privacy_status).to eq old_privacy_status
+      end
     end
 
-    describe 'does not update the other attributes' do
-      let(:attrs) { {} }
-      it { expect(video.update attrs).to eq true }
-      it { expect{video.update attrs}.not_to change{video.title} }
-      it { expect{video.update attrs}.not_to change{video.description} }
-      it { expect{video.update attrs}.not_to change{video.tags} }
-      it { expect{video.update attrs}.not_to change{video.category_id} }
-      it { expect{video.update attrs}.not_to change{video.privacy_status} }
+    context 'given I update the description' do
+      let!(:old_description) { video.description }
+      let(:attrs) { {description: "Yt Example Description  #{rand} - ®•♡❥❦❧☙"} }
+
+      specify 'only updates the description' do
+        expect(update).to be true
+        expect(video.description).not_to eq old_description
+        expect(video.title).to eq old_title
+        expect(video.privacy_status).to eq old_privacy_status
+      end
+    end
+
+    context 'given I update the tags' do
+      let!(:old_tags) { video.tags }
+      let(:attrs) { {tags: ["Yt Test Tag #{rand}"]} }
+
+      specify 'only updates the tag' do
+        expect(update).to be true
+        expect(video.tags).not_to eq old_tags
+        expect(video.title).to eq old_title
+        expect(video.privacy_status).to eq old_privacy_status
+      end
+    end
+
+    context 'given I update the category ID' do
+      let!(:old_category_id) { video.category_id }
+      let!(:new_category_id) { old_category_id == '22' ? '21' : '22' }
+
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {category_id: new_category_id} }
+
+        specify 'only updates the category ID' do
+          expect(update).to be true
+          expect(video.category_id).not_to eq old_category_id
+          expect(video.title).to eq old_title
+          expect(video.privacy_status).to eq old_privacy_status
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {categoryId: new_category_id} }
+
+        specify 'only updates the category ID' do
+          expect(update).to be true
+          expect(video.category_id).not_to eq old_category_id
+        end
+      end
+    end
+
+    # note: 'scheduled' videos cannot be set to 'unlisted'
+    context 'given I update the privacy status' do
+      before { video.update publish_at: nil if video.scheduled? }
+      let!(:new_privacy_status) { old_privacy_status == 'private' ? 'unlisted' : 'private' }
+
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {privacy_status: new_privacy_status} }
+
+        specify 'only updates the privacy status' do
+          expect(update).to be true
+          expect(video.privacy_status).not_to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {privacyStatus: new_privacy_status} }
+
+        specify 'only updates the privacy status' do
+          expect(update).to be true
+          expect(video.privacy_status).not_to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+    end
+
+    context 'given I update the embeddable status' do
+      let!(:old_embeddable) { video.embeddable? }
+      let!(:new_embeddable) { !old_embeddable }
+
+      let(:attrs) { {embeddable: new_embeddable} }
+
+      # @note: This test is a reflection of another irrational behavior of
+      #   YouTube API. Although 'embeddable' can be passed as an 'update'
+      #   attribute according to the documentation, it simply does not work.
+      #   The day YouTube fixes it, then this test will finally fail and will
+      #   be removed, documenting how to update 'embeddable' too.
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      # @see https://code.google.com/p/gdata-issues/issues/detail?id=4861
+      specify 'does not update the embeddable status' do
+        expect(update).to be true
+        expect(video.embeddable?).to eq old_embeddable
+      end
+    end
+
+    context 'given I update the license' do
+      let!(:old_license) { video.license }
+      let!(:new_license) { old_license == 'youtube' ? 'creativeCommon' : 'youtube' }
+      let(:attrs) { {license: new_license} }
+
+      # @note: This test is a reflection of another irrational behavior of
+      #   YouTube API. Although 'license' can be passed as an 'update'
+      #   attribute according to the documentation, it simply does not work.
+      #   The day YouTube fixes it, then this test will finally fail and will
+      #   be removed, documenting how to update 'embeddable' too.
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      # @see https://code.google.com/p/gdata-issues/issues/detail?id=4861
+      specify 'does not update the embeddable status' do
+        expect(update).to be true
+        expect(video.license).to eq old_license
+      end
+    end
+
+    context 'given I update the public stats viewable setting' do
+      let!(:old_public_stats_viewable) { video.has_public_stats_viewable? }
+      let!(:new_public_stats_viewable) { !old_public_stats_viewable }
+
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {public_stats_viewable: new_public_stats_viewable} }
+
+        specify 'only updates the public stats viewable setting' do
+          expect(update).to be true
+          expect(video.has_public_stats_viewable?).to eq new_public_stats_viewable
+          expect(video.privacy_status).to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {publicStatsViewable: new_public_stats_viewable} }
+
+        specify 'only updates the public stats viewable setting' do
+          expect(update).to be true
+          expect(video.has_public_stats_viewable?).to eq new_public_stats_viewable
+          expect(video.privacy_status).to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+    end
+
+    # note: only 'private' video can be scheduled
+    context 'given I update the timestamp to publish the video' do
+      before { video.update privacy_status: 'private' unless video.private? }
+      let!(:old_scheduled_at) { video.scheduled_at }
+      let!(:new_scheduled_at) { (5.years.from_now.change(usec: 0).change(min: rand(60))).utc }
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {publish_at: new_scheduled_at.iso8601(3)} }
+
+        specify 'only updates the timestamp to publish the video' do
+          expect(update).to be true
+          expect(video.scheduled_at).to eq new_scheduled_at
+          expect(video.privacy_status).to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {publishAt: new_scheduled_at} }
+
+        specify 'only updates the timestamp to publish the video' do
+          expect(update).to be true
+          expect(video.scheduled_at).to eq new_scheduled_at
+          expect(video.privacy_status).to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
     end
 
     it 'returns valid reports for video-related metrics' do

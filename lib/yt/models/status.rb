@@ -249,6 +249,7 @@ module Yt
       def scheduled_at
         @scheduled_at ||= Time.parse @data['publishAt'] if scheduled?
       end
+      alias publish_at scheduled_at
 
       # Returns whether the video is scheduled to be published.
       # @return [Boolean] if the resource is a video, whether it is currently
@@ -295,6 +296,7 @@ module Yt
       def embeddable?
         @embeddable ||= @data['embeddable']
       end
+      alias embeddable embeddable?
 
 # Public stats (Video only)
 
@@ -308,6 +310,7 @@ module Yt
       def has_public_stats_viewable?
         @public_stats_viewable ||= @data['publicStatsViewable']
       end
+      alias public_stats_viewable has_public_stats_viewable?
 
     private
 
