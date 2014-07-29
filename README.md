@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.9.0'
+    gem 'yt', '~> 0.9.1'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -105,6 +105,8 @@ content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
+
+content_owner.references.where(asset_id: "ABCDEFG").first => #<Yt::Models::Reference @id=...>
 ```
 
 *All the above methods require authentication (see below).*

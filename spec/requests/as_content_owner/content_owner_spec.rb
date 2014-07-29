@@ -85,4 +85,32 @@ describe Yt::ContentOwner, :partner do
       end
     end
   end
+
+  describe '.references' do
+    describe '.where(id: reference_id)' do
+      let(:reference) { $content_owner.references.where(id: reference_id).first }
+
+      context 'given the ID of a reference administered by the content owner' do
+        let(:reference_id) { ENV['YT_TEST_PARTNER_REFERENCE_ID'] }
+
+        it 'returns valid metadata' do
+          expect(reference.id).to be_a String
+          expect(reference.asset_id).to be_a String
+          expect(reference.length).to be_a Float
+          expect(reference.video_id).to be_a String
+          expect(reference.claim_id).to be_a String
+          expect(reference.audioswap_enabled?).to be_in [true, false]
+          expect(reference.ignore_fp_match?).to be_in [true, false]
+          expect(reference.urgent?).to be_in [true, false]
+          expect(reference.status).to be_in Yt::Reference::STATUSES
+          expect(reference.content_type).to be_in Yt::Reference::CONTENT_TYPES
+        end
+      end
+
+      context 'given an unknown reference ID' do
+        let(:reference_id) { '--not-a-matching-reference-id--' }
+        it { expect(reference).not_to be }
+      end
+    end
+  end
 end
