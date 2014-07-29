@@ -113,4 +113,30 @@ describe Yt::ContentOwner, :partner do
       end
     end
   end
+
+  describe '.policies' do
+    describe 'given the content owner has policies' do
+      let(:policy) { $content_owner.policies.first }
+      let(:rule) { policy.rules.first }
+
+      it 'returns valid metadata' do
+        expect(policy.id).to be_a String
+        expect(policy.name).to be_a String
+        expect(policy.time_updated).to be_a Time
+        expect(rule.action).to  be_in Yt::PolicyRule::ACTIONS
+        expect(rule.included_territories).to be_an Array
+        expect(rule.excluded_territories).to be_an Array
+        expect(rule.match_duration).to be_an Array
+        expect(rule.match_percent).to be_an Array
+        expect(rule.reference_duration).to be_an Array
+        expect(rule.reference_percent).to be_an Array
+      end
+    end
+
+    describe '.where(id: policy_id) given an unknown policy ID' do
+      let(:policy) { $content_owner.policies.where(id: policy_id).first }
+      let(:policy_id) { '--not-a-matching-reference-id--' }
+      it { expect(policy).not_to be }
+    end
+  end
 end

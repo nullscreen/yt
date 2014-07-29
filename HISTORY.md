@@ -3,6 +3,7 @@ v0.9 - 2014/07/28
 
 * [breaking change] Rename rating.update to rating.set
 * Add content_owner.references to retrieve ContentID references
+* Add content_owner.policies to list ContentID policies
 
 
 v0.8 - 2014/07/18

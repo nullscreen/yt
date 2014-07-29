@@ -19,6 +19,10 @@ module Yt
       #   @return [Yt::Collection::References] the references administered by the content owner.
       has_many :references
 
+      # @!attribute [r] policies
+      #   @return [Yt::Collection::Policies] the policies saved by the content owner.
+      has_many :policies
+
       def initialize(options = {})
         super options
         @owner_name = options[:owner_name]
