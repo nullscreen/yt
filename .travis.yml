@@ -1,6 +1,6 @@
 language: ruby
 notifications:
-  email: false
+  email: true
 matrix:
   include:
   - rvm: 1.9.3
