@@ -19,7 +19,6 @@ module Yt
       # @see https://developers.google.com/youtube/partner/docs/v1/claims/list
       # @see https://developers.google.com/youtube/partner/docs/v1/claimSearch/list
       def list_params
-
         super.tap do |params|
           params[:path] = claims_path
           params[:params] = claims_params
@@ -27,16 +26,15 @@ module Yt
       end
 
       def claims_params
-        {onBehalfOfContentOwner: @parent.owner_name}.tap do |params|
-          (@extra_params).each do |key, value|
-            params[key.to_s.camelize(:lower).to_sym] = value
-          end
-        end
+        apply_where_params! on_behalf_of_content_owner: @parent.owner_name
       end
 
+      # @private
+      # @todo: This is the only place outside of base.rb where @where_params
+      #   is accessed; it should be replaced with a filter on params instead.
       def claims_path
-        @extra_params ||= {}
-        if @extra_params.empty? || @extra_params.key?(:id)
+        @where_params ||= {}
+        if @where_params.empty? || @where_params.key?(:id)
           '/youtube/partner/v1/claims'
         else
           '/youtube/partner/v1/claimSearch'

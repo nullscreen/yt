@@ -22,7 +22,7 @@ module Yt
       # @see https://developers.google.com/youtube/v3/docs/search/list
       def list_params
         super.tap do |params|
-          params[:params] = @parent.videos_params.merge videos_params
+          params[:params] = videos_params
           params[:path] = '/youtube/v3/search'
         end
       end
@@ -36,16 +36,21 @@ module Yt
       # that limit, the query is restarted with a publishedBefore filter in
       # case there are more videos to be listed for a channel
       def add_offset_to(items)
-        if items.count == videos_params[:maxResults]
+        if items.count == videos_params[:max_results]
           last_published = items.last['snippet']['publishedAt']
           @page_token, @published_before = '', last_published
         end
       end
 
       def videos_params
-        params = {type: :video, maxResults: 50, part: 'snippet', order: 'date'}
-        params[:publishedBefore] = @published_before if @published_before
-        params.merge (@extra_params ||= {})
+        @parent.videos_params.tap do |params|
+          params[:type] = :video
+          params[:max_results] = 50
+          params[:part] = 'snippet'
+          params[:order] = 'date'
+          params[:published_before] = @published_before if @published_before
+          apply_where_params! params
+        end
       end
     end
   end

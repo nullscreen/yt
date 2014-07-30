@@ -20,10 +20,14 @@ module Yt
 
     private
 
-      # @return [Hash] the parameters to submit to YouTube to list playlists.
-      # @see https://developers.google.com/youtube/v3/docs/playlist/list
+      # @return [Hash] the parameters to submit to YouTube to list channels.
+      # @see https://developers.google.com/youtube/v3/docs/channels/list
       def list_params
-        super.tap{|params| params[:params].merge! channelId: @parent.id}
+        super.tap{|params| params[:params] = playlists_params}
+      end
+
+      def playlists_params
+        resources_params.merge channel_id: @parent.id
       end
     end
   end

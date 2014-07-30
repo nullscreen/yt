@@ -25,11 +25,7 @@ module Yt
       end
 
       def references_params
-        {onBehalfOfContentOwner: @parent.owner_name}.tap do |params|
-          (@extra_params ||= {}).each do |key, value|
-            params[key.to_s.camelize(:lower).to_sym] = value
-          end
-        end
+        apply_where_params! on_behalf_of_content_owner: @parent.owner_name
       end
     end
   end

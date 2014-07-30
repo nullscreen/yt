@@ -12,7 +12,11 @@ module Yt
       # @return [Hash] the parameters to submit to YouTube to list channels.
       # @see https://developers.google.com/youtube/v3/docs/channels/list
       def list_params
-        super.tap{|params| params[:params].merge! mine: true}
+        super.tap{|params| params[:params] = channels_params}
+      end
+
+      def channels_params
+        resources_params.merge mine: true
       end
     end
   end

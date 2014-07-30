@@ -24,12 +24,13 @@ module Yt
       def list_params
         super.tap do |params|
           params[:path] = '/youtube/analytics/v1/reports'
-          params[:params] = @parent.reports_params.merge reports_params
+          params[:params] = reports_params
+          params[:capitalize_params] = false
         end
       end
 
       def reports_params
-        {}.tap do |params|
+        @parent.reports_params.tap do |params|
           params['start-date'] = 3.months.ago.to_date
           params['end-date'] = Date.today.to_date
           params['metrics'] = :viewerPercentage

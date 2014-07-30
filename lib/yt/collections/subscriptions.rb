@@ -50,7 +50,16 @@ module Yt
       # @see https://developers.google.com/youtube/v3/docs/subscriptions/list
       def list_params
         super.tap do |params|
-          params[:params] = {maxResults: 50, forChannelId: @parent.id, mine: true, part: 'snippet'}
+          params[:params] = subscriptions_params
+        end
+      end
+
+      def subscriptions_params
+        {}.tap do |params|
+          params[:max_results] = 50
+          params[:for_channel_id] = @parent.id
+          params[:mine] = true
+          params[:part] = 'snippet'
         end
       end
 

@@ -19,13 +19,11 @@ module Yt
       #   of a resource, for instance a channel.
       # @see https://developers.google.com/youtube/v3/docs/channels/list
       def list_params
-        super.tap do |params|
-          params[:params] = {id: @parent.id, part: 'status'}
-        end
+        super.tap{|params| params[:params] = {id: @parent.id, part: 'status'}}
       end
 
       # @private
-      # @note Statuses overrides +list_resources+ since the endpoint is not 
+      # @note Statuses overrides +list_resources+ since the endpoint is not
       #   '/statuses' but the endpoint related to the snippet’s resource.
       def list_resources
         @parent.class.to_s.pluralize

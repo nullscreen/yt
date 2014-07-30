@@ -6,13 +6,14 @@ module Yt
 
     private
 
-      # @return [Hash] the parameters to submit to YouTube to list partnered channels.
-      # @see https://developers.google.com/youtube/v3/docs/channels/list
-      def list_params
+      # @private
+      # @note Partnered Channels overwrites +channel_params+ since the query
+      #   is slightly different.
+      def channels_params
         super.tap do |params|
-          params[:params].delete :mine
-          params[:params][:managedByMe] = true
-          params[:params][:onBehalfOfContentOwner] = @parent.owner_name
+          params.delete :mine
+          params[:managed_by_me] = true
+          params[:on_behalf_of_content_owner] = @parent.owner_name
         end
       end
 
