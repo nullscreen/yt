@@ -100,7 +100,7 @@ describe Yt::Video, :device_app do
   end
 
   context 'given one of my own videos that I want to update' do
-    let(:id) { $account.videos.first.id }
+    let(:id) { $account.videos.where(order: 'viewCount').first.id }
     let!(:old_title) { video.title }
     let!(:old_privacy_status) { video.privacy_status }
     let(:update) { video.update attrs }
