@@ -101,23 +101,69 @@ describe Yt::Video, :device_app do
 
   context 'given one of my own videos that I want to update' do
     let(:id) { $account.videos.first.id }
+    let!(:old_title) { video.title }
+    let!(:old_privacy_status) { video.privacy_status }
+    let(:update) { video.update attrs }
 
-    describe 'updates the attributes that I specify explicitly' do
+    context 'given I update the title' do
       # NOTE: The use of UTF-8 characters is to test that we can pass up to
       # 50 characters, independently of their representation
       let(:attrs) { {title: "Yt Example Update Video #{rand} - ®•♡❥❦❧☙"} }
-      it { expect(video.update attrs).to eq true }
-      it { expect{video.update attrs}.to change{video.title} }
+
+      specify 'only updates the title' do
+        expect(update).to be true
+        expect(video.title).not_to eq old_title
+        expect(video.privacy_status).to eq old_privacy_status
+      end
     end
 
-    describe 'does not update the other attributes' do
-      let(:attrs) { {} }
-      it { expect(video.update attrs).to eq true }
-      it { expect{video.update attrs}.not_to change{video.title} }
-      it { expect{video.update attrs}.not_to change{video.description} }
-      it { expect{video.update attrs}.not_to change{video.tags} }
-      it { expect{video.update attrs}.not_to change{video.category_id} }
-      it { expect{video.update attrs}.not_to change{video.privacy_status} }
+    context 'given I update the description' do
+      let!(:old_description) { video.description }
+      let(:attrs) { {description: "Yt Example Description  #{rand} - ®•♡❥❦❧☙"} }
+
+      specify 'only updates the description' do
+        expect(update).to be true
+        expect(video.description).not_to eq old_description
+        expect(video.title).to eq old_title
+        expect(video.privacy_status).to eq old_privacy_status
+      end
+    end
+
+    context 'given I update the tags' do
+      let!(:old_tags) { video.tags }
+      let(:attrs) { {tags: ["Yt Test Tag #{rand}"]} }
+
+      specify 'only updates the tag' do
+        expect(update).to be true
+        expect(video.tags).not_to eq old_tags
+        expect(video.title).to eq old_title
+        expect(video.privacy_status).to eq old_privacy_status
+      end
+    end
+
+    context 'given I update the category ID' do
+      let!(:old_category_id) { video.category_id }
+      let!(:new_category_id) { old_category_id == '22' ? '21' : '22' }
+
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {category_id: new_category_id} }
+
+        specify 'only updates the category ID' do
+          expect(update).to be true
+          expect(video.category_id).not_to eq old_category_id
+          expect(video.title).to eq old_title
+          expect(video.privacy_status).to eq old_privacy_status
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {categoryId: new_category_id} }
+
+        specify 'only updates the category ID' do
+          expect(update).to be true
+          expect(video.category_id).not_to eq old_category_id
+        end
+      end
     end
 
     it 'returns valid reports for video-related metrics' do
