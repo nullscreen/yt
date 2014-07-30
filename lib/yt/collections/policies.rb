@@ -28,7 +28,7 @@ module Yt
       def policies_params
         {onBehalfOfContentOwner: @parent.owner_name}.tap do |params|
           (@extra_params ||= {}).each do |key, value|
-            params[key.to_s.camelize :lower] = value
+            params[key.to_s.camelize(:lower).to_sym] = value
           end
         end
       end

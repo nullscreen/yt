@@ -19,6 +19,7 @@ module Yt
           while next_item = find_next
             items << next_item
           end
+          @extra_params = {}
         end
       end
 

@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'yt/collections/videos'
-require 'yt/models/channel'
+require 'yt/collections/claims'
+require 'yt/models/content_owner'
 
-describe Yt::Collections::Videos do
-  subject(:collection) { Yt::Collections::Videos.new parent: channel }
-  let(:channel) { Yt::Channel.new id: 'any-id' }
+describe Yt::Collections::Claims do
+  subject(:collection) { Yt::Collections::Claims.new parent: content_owner }
+  let(:content_owner) { Yt::ContentOwner.new owner_name: 'any-name' }
   let(:page) { {items: [], token: 'any-token'} }
   let(:query) { {q: 'search string'} }
 
