@@ -20,9 +20,16 @@ module Yt
       end
 
       def where(conditions = {})
-        @items = []
-        @extra_params = conditions
-        self
+        self.tap do
+          @items = []
+          @where_params = conditions
+        end
+      end
+
+    private
+
+      def apply_where_params!(params = {})
+        params.merge!(@where_params ||= {})
       end
     end
   end

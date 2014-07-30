@@ -27,6 +27,7 @@ module Yt
           params[:host] = 'www.youtube.com'
           params[:path] = '/annotations_invideo'
           params[:params] = {video_id: @parent.id}
+          params[:camelize_params] = false
           params[:expected_response] = Net::HTTPOK
         end
       end

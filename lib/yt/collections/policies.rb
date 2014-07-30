@@ -18,7 +18,6 @@ module Yt
       #   saved by the content owner.
       # @see https://developers.google.com/youtube/partner/docs/v1/policies/list
       def list_params
-
         super.tap do |params|
           params[:params] = policies_params
           params[:path] = '/youtube/partner/v1/policies'
@@ -26,11 +25,7 @@ module Yt
       end
 
       def policies_params
-        {onBehalfOfContentOwner: @parent.owner_name}.tap do |params|
-          (@extra_params ||= {}).each do |key, value|
-            params[key.to_s.camelize(:lower).to_sym] = value
-          end
-        end
+        apply_where_params! on_behalf_of_content_owner: @parent.owner_name
       end
     end
   end

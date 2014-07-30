@@ -18,13 +18,8 @@ module Yt
         resource_class.new id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth
       end
 
-      # @return [Hash] the parameters to submit to YouTube to list items.
-      # @see https://developers.google.com/youtube/v3/docs/playlistItems/list
-      # @see https://developers.google.com/youtube/v3/docs/playlists/list
-      def list_params
-        super.tap do |params|
-          params[:params] = {maxResults: 50, part: 'snippet,status'}
-        end
+      def resources_params
+        {max_results: 50, part: 'snippet,status'}
       end
 
       def resource_class

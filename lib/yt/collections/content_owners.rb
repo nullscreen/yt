@@ -25,7 +25,7 @@ module Yt
       end
 
       def content_owners_params
-        {fetchMine: true}
+        {fetch_mine: true}
       end
     end
   end

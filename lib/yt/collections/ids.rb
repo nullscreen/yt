@@ -13,9 +13,13 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:params] = {forUsername: @parent.username, part: 'id'}
+          params[:params] = ids_params
           params[:path] = "/youtube/v3/#{@parent.kind.pluralize}"
         end
+      end
+
+      def ids_params
+        {for_username: @parent.username, part: 'id'}
       end
     end
   end

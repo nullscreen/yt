@@ -19,7 +19,7 @@ module Yt
           while next_item = find_next
             items << next_item
           end
-          @extra_params = {}
+          @where_params = {}
         end
       end
 
@@ -42,7 +42,7 @@ module Yt
 
       def next_page
         params = list_params.dup
-        params[:params][:pageToken] = @page_token if @page_token
+        params[:params][:page_token] = @page_token if @page_token
         next_page = fetch_page params
         @page_token = next_page[:token]
         next_page[:items]
@@ -56,6 +56,7 @@ module Yt
       end
 
       def request(params = {})
+        camelize_keys! params[:params] if params.fetch(:camelize_params, true)
         @last_request = Yt::Request.new params
       end
 
@@ -80,6 +81,12 @@ module Yt
 
       def list_resources
         self.class
+      end
+
+      def camelize_keys!(hash = {})
+        hash.dup.each_key do |key|
+          hash[key.to_s.camelize(:lower).to_sym] = hash.delete key
+        end
       end
     end
   end
