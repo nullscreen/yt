@@ -13,6 +13,8 @@ module Yt
       def initialize(options = {})
         @parent = options[:parent]
         @auth = options[:auth]
+        @extra_params = {}
+        @extra_parts = []
       end
 
       def self.of(parent)
@@ -22,6 +24,12 @@ module Yt
       def where(conditions = {})
         @items = []
         @extra_params = conditions
+        self
+      end
+
+      def include(*parts)
+        @items = []
+        @extra_parts = parts
         self
       end
     end
