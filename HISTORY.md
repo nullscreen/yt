@@ -5,6 +5,7 @@ v0.9 - 2014/07/28
 * Add content_owner.references to retrieve ContentID references
 * Add content_owner.policies to list ContentID policies
 * Let 'update' methods understand both under_score and camelCased parameters
+* Add claim.third_party?
 
 
 v0.8 - 2014/07/18

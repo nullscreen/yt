@@ -9,7 +9,20 @@ describe Yt::ContentOwner, :partner do
   end
 
   describe '.claims' do
-    it { expect($content_owner.claims.first).to be_a Yt::Claim }
+    describe 'given the content owner has policies' do
+      let(:claim) { $content_owner.claims.first }
+
+      it 'returns valid metadata' do
+        expect(claim.id).to be_a String
+        expect(claim.asset_id).to be_a String
+        expect(claim.video_id).to be_a String
+        expect(claim.status).to be_in Yt::Claim::STATUSES
+        expect(claim.content_type).to be_in Yt::Claim::CONTENT_TYPES
+        expect(claim.created_at).to be_a Time
+        expect(claim).not_to be_third_party
+        expect(claim.block_outside_ownership?).to be_in [true, false]
+      end
+    end
 
     describe '.where(id: claim_id)' do
       let(:count) { $content_owner.claims.where(id: claim_id).count }

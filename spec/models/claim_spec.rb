@@ -189,4 +189,16 @@ describe Yt::Claim do
       it { expect(claim.block_outside_ownership?).to be false }
     end
   end
+
+  describe '#third_party?' do
+    context 'given fetching a claim returns thirdPartyClaim true' do
+      let(:data) { {"thirdPartyClaim"=>true} }
+      it { expect(claim.third_party?).to be true }
+    end
+
+    context 'given fetching a claim returns thirdPartyClaim true' do
+      let(:data) { {"thirdPartyClaim"=>false} }
+      it { expect(claim.third_party?).to be false }
+    end
+  end
 end
