@@ -24,22 +24,7 @@ module Yt
       end
 
       def update(attributes = {})
-        underscore_keys! attributes
-
-        body = {id: @id}.tap do |body|
-          update_parts.each do |part, options|
-            if (options[:keys] & attributes.keys).any? || options[:required]
-              body[part] = {}.tap do |hash|
-                options[:keys].map do |key|
-                  hash[camelize key] = attributes[key] || send(key)
-                end
-              end
-            end
-          end
-        end
-
-        part = body.except(:id).keys.join(',')
-        do_update(params: {part: part}, body: body) do |data|
+        super attributes do |data|
           @id = data['id']
           @snippet = Snippet.new data: data['snippet'] if data['snippet']
           @status = Status.new data: data['status'] if data['status']
@@ -86,18 +71,6 @@ module Yt
         snippet = {keys: [:title, :description, :tags], required: true}
         status = {keys: [:privacy_status]}
         {snippet: snippet, status: status}
-      end
-
-      # @note If we dropped support for ActiveSupport 3, then we could simply
-      # invoke transform_keys!{|key| key.to_s.underscore.to_sym}
-      def underscore_keys!(hash)
-        hash.dup.each_key do |key|
-          hash[key.to_s.underscore.to_sym] = hash.delete key
-        end
-      end
-
-      def camelize(value)
-        value.to_s.camelize(:lower).to_sym
       end
 
       def video_params(video_id)
