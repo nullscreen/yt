@@ -81,20 +81,14 @@ module Yt
       #   caution, as the whole status object needs to be updated, not just
       #   privacyStatus, but also embeddable, license, publicStatsViewable,
       #   and publishAt
-      def update(options = {})
-        options[:title] ||= title
-        options[:description] ||= description
-        options[:tags] ||= tags
-        options[:categoryId] ||= category_id
-        snippet = options.slice :title, :description, :tags, :categoryId
-        body = {id: @id, snippet: snippet}
-
-        do_update(params: {part: 'snippet'}, body: body) do |data|
+      def update(attributes = {})
+        super attributes do |data|
           @id = data['id']
           @snippet = Snippet.new data: data['snippet'] if data['snippet']
           true
         end
       end
+
 
       # Returns whether the authenticated account likes the video.
       #
@@ -156,6 +150,15 @@ module Yt
           end
           params['filters'] = "video==#{id}"
         end
+      end
+
+    private
+
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      # @todo: Add status, recording details keys
+      def update_parts
+        snippet_keys = [:title, :description, :tags, :category_id]
+        {snippet: {keys: snippet_keys}}
       end
     end
   end

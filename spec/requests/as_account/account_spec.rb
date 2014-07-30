@@ -12,7 +12,7 @@ describe Yt::Account, :device_app do
 
   describe '.videos' do
     it { expect($account.videos).to be_a Yt::Collections::Videos }
-    it { expect($account.videos.first).to be_a Yt::Video }
+    it { expect($account.videos.where(order: 'viewCount').first).to be_a Yt::Video }
 
     describe '.where(q: query_string)' do
       let(:count) { $account.videos.where(q: query).count }
