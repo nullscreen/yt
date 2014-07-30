@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yt/models/playlist'
+require 'yt/models/playlist_item'
 require 'yt/collections/playlist_items'
 
 describe Yt::Collections::PlaylistItems do

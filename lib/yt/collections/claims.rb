@@ -21,20 +21,21 @@ module Yt
       def list_params
 
         super.tap do |params|
-          params[:params] = claims_params
           params[:path] = claims_path
+          params[:params] = claims_params
         end
       end
 
       def claims_params
         {onBehalfOfContentOwner: @parent.owner_name}.tap do |params|
-          (@extra_params ||= {}).each do |key, value|
-            params[key.to_s.camelize :lower] = value
+          (@extra_params).each do |key, value|
+            params[key.to_s.camelize(:lower).to_sym] = value
           end
         end
       end
 
       def claims_path
+        @extra_params ||= {}
         if @extra_params.empty? || @extra_params.key?(:id)
           '/youtube/partner/v1/claims'
         else

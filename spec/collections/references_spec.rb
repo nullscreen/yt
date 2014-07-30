@@ -1,12 +1,12 @@
 require 'spec_helper'
-require 'yt/collections/videos'
-require 'yt/models/channel'
+require 'yt/collections/references'
+require 'yt/models/content_owner'
 
-describe Yt::Collections::Videos do
-  subject(:collection) { Yt::Collections::Videos.new parent: channel }
-  let(:channel) { Yt::Channel.new id: 'any-id' }
+describe Yt::Collections::References do
+  subject(:collection) { Yt::Collections::References.new parent: content_owner }
+  let(:content_owner) { Yt::ContentOwner.new id: 'any-id' }
   let(:page) { {items: [], token: 'any-token'} }
-  let(:query) { {q: 'search string'} }
+  let(:query) { {id: 'reference-id'} }
 
   describe '#count' do
     context 'called once with .where(query) and once without' do
