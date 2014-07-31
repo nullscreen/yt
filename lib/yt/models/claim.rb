@@ -27,6 +27,11 @@ module Yt
         @video_id ||= @data["videoId"]
       end
 
+# Status
+
+      STATUSES = %q(active appealed disputed inactive pending potential
+        takedown unknown)
+
       # @return [String] the claim’s status. Valid values are: active,
       #   appealed, disputed, inactive, pending, potential, takedown, unknown.
       # @note When updating a claim, you can update its status from active to
@@ -76,6 +81,10 @@ module Yt
         status == 'unknown'
       end
 
+# Content Type
+
+      CONTENT_TYPES = %q(audio video audiovisual)
+
       # @return [String] whether the claim covers the audio, video, or
       #   audiovisual portion of the claimed content. Valid values are: audio,
       #   audiovisual, video.
@@ -101,6 +110,11 @@ module Yt
       # @return [Time] the date and time that the claim was created.
       def created_at
         @created_at ||= Time.parse @data["timeCreated"]
+      end
+
+      # @return [Boolean] whether a third party created the claim.
+      def third_party?
+        @third_party_claim ||= @data['thirdPartyClaim'] == true
       end
 
       # Return whether the video should be blocked where not explicitly owned.
