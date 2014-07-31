@@ -20,7 +20,6 @@ describe Yt::ContentOwner, :partner do
         expect(claim.content_type).to be_in Yt::Claim::CONTENT_TYPES
         expect(claim.created_at).to be_a Time
         expect(claim).not_to be_third_party
-        expect(claim.block_outside_ownership?).to be_in [true, false]
       end
     end
 
