@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'yt/models/base'
 require 'yt/models/url'
 
@@ -56,13 +58,22 @@ module Yt
       end
 
       def build_update_body(attributes = {})
-        body = {}
-        update_parts.each do |name, part|
-          body[name] = {}.tap do |hash|
-            part[:keys].map{|k| hash[camelize k] = attributes.fetch k, send(k)}
-          end if should_include_part_in_update?(part, attributes)
+        {}.tap do |body|
+          update_parts.each do |name, part|
+            if should_include_part_in_update? part, attributes
+              body[name] = build_update_body_part part, attributes
+              sanitize_brackets! body[name] if part[:sanitize_brackets]
+            end
+          end
         end
-        body
+      end
+
+      def build_update_body_part(part, attributes = {})
+        {}.tap do |body_part|
+          part[:keys].map do |key|
+            body_part[camelize key] = attributes.fetch key, send(key)
+          end
+        end
       end
 
       def should_include_part_in_update?(part, attributes = {})
@@ -73,6 +84,17 @@ module Yt
       # invoke transform_keys!{|key| key.to_s.underscore.to_sym}
       def underscore_keys!(hash)
         hash.dup.each_key{|key| hash[underscore key] = hash.delete key}
+      end
+
+      # @return [Hash] the original hash with angle brackets characters in its
+      #   values replaced with similar Unicode characters accepted by Youtube.
+      # @see https://support.google.com/youtube/answer/57404?hl=en
+      def sanitize_brackets!(source)
+        case source
+          when String then source.gsub('<', '‹').gsub('>', '›')
+          when Array then source.map{|string| sanitize_brackets! string}
+          when Hash then source.each{|k,v| source[k] = sanitize_brackets! v}
+        end
       end
 
       def camelize(value)

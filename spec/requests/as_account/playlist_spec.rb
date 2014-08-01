@@ -91,6 +91,17 @@ describe Yt::Playlist, :device_app do
       end
     end
 
+    context 'given I update title, description and/or tags using angle brackets' do
+      let(:attrs) { {title: "Yt Test < >", description: '< >', tags: ['<tag>']} }
+
+      specify 'updates them replacing angle brackets with similar unicode characters accepted by YouTube' do
+        expect(update).to be true
+        expect(playlist.title).to eq 'Yt Test ‹ ›'
+        expect(playlist.description).to eq '‹ ›'
+        expect(playlist.tags).to eq ['‹tag›']
+      end
+    end
+
     context 'given I update the privacy status' do
       let!(:new_privacy_status) { old_privacy_status == 'private' ? 'unlisted' : 'private' }
 

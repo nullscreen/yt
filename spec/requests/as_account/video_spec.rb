@@ -166,6 +166,17 @@ describe Yt::Video, :device_app do
       end
     end
 
+    context 'given I update title, description and/or tags using angle brackets' do
+      let(:attrs) { {title: "Yt Test < >", description: '< >', tags: ['<tag>']} }
+
+      specify 'updates them replacing angle brackets with similar unicode characters accepted by YouTube' do
+        expect(update).to be true
+        expect(video.title).to eq 'Yt Test ‹ ›'
+        expect(video.description).to eq '‹ ›'
+        expect(video.tags).to eq ['‹tag›']
+      end
+    end
+
     it 'returns valid reports for video-related metrics' do
       # Some reports are only available to Content Owners.
       # See content ownere test for more details about what the methods return.
