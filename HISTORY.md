@@ -6,7 +6,7 @@ v0.9 - 2014/07/28
 * Add content_owner.policies to list ContentID policies
 * Let 'update' methods understand both under_score and camelCased parameters
 * Add claim.third_party?
-
+* Add actual_start_time, actual_end_time, scheduled_start_time, scheduled_end_time for live-streaming videos
 
 v0.8 - 2014/07/18
 -----------------
