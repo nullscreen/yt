@@ -5,6 +5,16 @@ describe Yt::ContentDetail do
   subject(:content_detail) { Yt::ContentDetail.new data: data }
 
   describe '#duration' do
+    context 'given a content_detail with duration in weeks, days, hours, minutes' do
+      let(:data) { {"duration"=>"P1W2DT6H21M32S"}}
+      it { expect(content_detail.duration).to eq 800492 }
+    end
+
+    context 'given a content_detail with duration in days' do
+      let(:data) { {"duration"=>"P1D"}}
+      it { expect(content_detail.duration).to eq 86400 }
+    end
+
     context 'given a content_detail with duration in hours, minutes, seconds' do
       let(:data) { {"duration"=>"PT1H18M52S"} }
       it { expect(content_detail.duration).to eq 4732 }
