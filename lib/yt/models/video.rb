@@ -27,6 +27,11 @@ module Yt
       #   @return [Yt::Models::Rating] the video’s rating.
       has_one :rating
 
+      # @!attribute [r] live_streaming_details
+      #   @return [Yt::Models::LiveStreamingDetail] live streaming details.
+      has_one :live_streaming_detail
+      delegate :actual_start_time, :actual_end_time, :scheduled_start_time, :scheduled_end_time, :concurrent_viewers, to: :live_streaming_detail
+
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations

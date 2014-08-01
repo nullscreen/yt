@@ -49,7 +49,7 @@ module Yt
       # @return [Time] if the resource is a video, the date and time that the
       #   video was published.
       def published_at
-        @published_at ||= Time.parse @data['publishedAt']
+        @published_at ||= Time.zone.parse @data['publishedAt']
       end
 
       # @param [Symbol, String] size The size of the thumbnail to retrieve.
