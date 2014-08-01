@@ -12,22 +12,23 @@ module Yt
 
       # @return [Time] The time that the broadcast actually started
       def actual_start_time
-        @actual_start_time ||= Time.parse @data['actualStartTime'] if @data['actualStartTime']
+        @actual_start_time ||= Time.zone.parse @data['actualStartTime'] if @data['actualStartTime']
       end
 
       # @return [Time] The time that the broadcast actually ended
       def actual_end_time
-        @actual_end_time ||= Time.parse @data['actualEndTime'] if @data['actualEndTime']
+        @actual_end_time ||= Time.zone.parse @data['actualEndTime'] if @data['actualEndTime']
       end
 
       # @return [Time] The time that the broadcast is scheduled to begin
       def scheduled_start_time
-        @scheduled_start_time ||= Time.parse @data['scheduledStartTime'] if @data['scheduledStartTime']
+        print @data['scheduledStartTime']
+        @scheduled_start_time ||= Time.zone.parse @data['scheduledStartTime'] if @data['scheduledStartTime']
       end
 
       # @return [Time] The time that the broadcast is scheduled to end
       def scheduled_end_time
-        @scheduled_end_time ||= Time.parse @data['scheduledEndTime'] if @data['scheduledEndTime']
+        @scheduled_end_time ||= Time.zone.parse @data['scheduledEndTime'] if @data['scheduledEndTime']
       end
 
       # @return [integer] The number of viewers currently watching the broadcast.
