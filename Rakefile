@@ -17,7 +17,7 @@ require "rspec/core/version"
 #   API to work again.
 desc "Run all examples except ones with access to Content Owner"
 RSpec::Core::RakeTask.new(:spec) do |t|
-  t.rspec_opts = '--tag ~partner --tag ~device_app'
+  t.rspec_opts = '--tag ~partner'
 end
 
 task default: [:spec]
