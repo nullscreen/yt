@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'yt/actions/list'
 require 'yt/models/request'
 
@@ -20,7 +21,8 @@ module Yt
             # TODO: could be symbol etc...
             item.respond_to?(method) && case value
             when Regexp then item.send(method) =~ value
-            else item.send(method) == value
+            when Array then item.send(method) == value.map{|item| item.to_s.gsub('<', '‹').gsub('>', '›')}
+            else item.send(method) == value.to_s.gsub('<', '‹').gsub('>', '›')
             end
           end
         end

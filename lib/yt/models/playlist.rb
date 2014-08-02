@@ -74,8 +74,10 @@ module Yt
         {snippet: snippet, status: status}
       end
 
+      # @todo: extend camelize to also camelize the nested hashes, so we
+      #   don’t have to write videoId
       def video_params(video_id)
-        {id: video_id, kind: :video}
+        {resource_id: {kind: 'youtube#video', videoId: video_id}}
       end
     end
   end

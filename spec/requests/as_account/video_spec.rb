@@ -195,11 +195,11 @@ describe Yt::Video, :device_app do
     end
 
     context 'given I update title, description and/or tags using angle brackets' do
-      let(:attrs) { {title: "Yt Test < >", description: '< >', tags: ['<tag>']} }
+      let(:attrs) { {title: "Example Yt Test < >", description: '< >', tags: ['<tag>']} }
 
       specify 'updates them replacing angle brackets with similar unicode characters accepted by YouTube' do
         expect(update).to be true
-        expect(video.title).to eq 'Yt Test ‹ ›'
+        expect(video.title).to eq 'Example Yt Test ‹ ›'
         expect(video.description).to eq '‹ ›'
         expect(video.tags).to eq ['‹tag›']
       end

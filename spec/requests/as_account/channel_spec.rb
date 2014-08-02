@@ -54,9 +54,9 @@ describe Yt::Channel, :device_app do
 
   context 'given my own channel' do
     let(:id) { $account.channel.id }
-    let(:title) { 'Yt Test title' }
-    let(:description) { 'Yt Test description' }
-    let(:tags) { ['Yt Test Tag 1', 'Yt Test Tag 2'] }
+    let(:title) { 'Yt Test <title>' }
+    let(:description) { 'Yt Test <description>' }
+    let(:tags) { ['Yt Test Tag 1', 'Yt Test <Tag> 2'] }
     let(:privacy_status) { 'unlisted' }
     let(:params) { {title: title, description: description, tags: tags, privacy_status: privacy_status} }
 
