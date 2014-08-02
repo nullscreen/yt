@@ -194,6 +194,17 @@ describe Yt::Video, :device_app do
       end
     end
 
+    context 'given I update title, description and/or tags using angle brackets' do
+      let(:attrs) { {title: "Example Yt Test < >", description: '< >', tags: ['<tag>']} }
+
+      specify 'updates them replacing angle brackets with similar unicode characters accepted by YouTube' do
+        expect(update).to be true
+        expect(video.title).to eq 'Example Yt Test ‹ ›'
+        expect(video.description).to eq '‹ ›'
+        expect(video.tags).to eq ['‹tag›']
+      end
+    end
+
     # note: 'scheduled' videos cannot be set to 'unlisted'
     context 'given I update the privacy status' do
       before { video.update publish_at: nil if video.scheduled? }
@@ -347,5 +358,4 @@ describe Yt::Video, :device_app do
       end
     end
   end
-
 end

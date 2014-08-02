@@ -68,13 +68,16 @@ module Yt
 
       # @see https://developers.google.com/youtube/v3/docs/playlists/update
       def update_parts
-        snippet = {keys: [:title, :description, :tags], required: true}
+        keys = [:title, :description, :tags]
+        snippet = {keys: keys, required: true, sanitize_brackets: true}
         status = {keys: [:privacy_status]}
         {snippet: snippet, status: status}
       end
 
+      # @todo: extend camelize to also camelize the nested hashes, so we
+      #   don’t have to write videoId
       def video_params(video_id)
-        {id: video_id, kind: :video}
+        {resource_id: {kind: 'youtube#video', videoId: video_id}}
       end
     end
   end
