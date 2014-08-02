@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.9.3'
+    gem 'yt', '~> 0.9.4'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -210,6 +210,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * like and dislike a video
 * retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a video
 * retrieve the viewer percentage of a video by gender and age group
+* retrieve data about live-streaming videos
 
 ```ruby
 # Videos can be initialized with ID or URL
@@ -259,6 +260,12 @@ video.hd? #=> true
 video.stereoscopic? #=> false
 video.captioned? #=> true
 video.licensed? #=> false
+
+video.actual_start_time #=> Tue, 27 May 2014 12:50:00
+video.actual_end_time #=> Tue, 27 May 2014 12:54:00
+video.scheduled_start_time #=> Tue, 27 May 2014 12:49:00
+video.scheduled_end_time #=> Tue, 27 May 2014 12:55:00
+video.concurrent_viewers #=> 0
 
 video.annotations.count #=> 1
 video.annotations.first #=> #<Yt::Models::Annotation @id=...>

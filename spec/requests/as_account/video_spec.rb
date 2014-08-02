@@ -58,6 +58,11 @@ describe Yt::Video, :device_app do
       expect(video.licensed_as_standard_youtube?).to be_in [true, false]
       expect(video.has_public_stats_viewable?).to be_in [true, false]
       expect(video.embeddable?).to be_in [true, false]
+      expect(video.actual_start_time).to be_nil
+      expect(video.actual_end_time).to be_nil
+      expect(video.scheduled_start_time).to be_nil
+      expect(video.scheduled_end_time).to be_nil
+      expect(video.concurrent_viewers).to be_nil
     end
 
     it { expect{video.update}.to fail }
@@ -79,6 +84,29 @@ describe Yt::Video, :device_app do
       before { video.unlike }
       it { expect(video).not_to be_liked }
       it { expect(video.like).to be true }
+    end
+  end
+
+  context 'given someone else’s live video broadcast scheduled in the future' do
+    let(:id) { 'PqzGI8gO_gk' }
+
+    it 'returns valid live streaming details' do
+      expect(video.actual_start_time).to be_nil
+      expect(video.actual_end_time).to be_nil
+      expect(video.scheduled_start_time).to be_a Time
+      expect(video.scheduled_end_time).to be_nil
+    end
+  end
+
+  context 'given someone else’s past live video broadcast' do
+    let(:id) { 'COOM8_tOy6U' }
+
+    it 'returns valid live streaming details' do
+      expect(video.actual_start_time).to be_a Time
+      expect(video.actual_end_time).to be_a Time
+      expect(video.scheduled_start_time).to be_a Time
+      expect(video.scheduled_end_time).to be_a Time
+      expect(video.concurrent_viewers).to be_nil
     end
   end
 
