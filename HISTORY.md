@@ -7,6 +7,7 @@ v0.9 - 2014/07/28
 * Let 'update' methods understand both under_score and camelCased parameters
 * Add claim.third_party?
 * Add actual_start_time, actual_end_time, scheduled_start_time, scheduled_end_time for live-streaming videos
+* Add privacy_status, public_stats_viewable, publish_at to the options that Video#update accepts
 
 v0.8 - 2014/07/18
 -----------------

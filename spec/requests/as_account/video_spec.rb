@@ -194,6 +194,96 @@ describe Yt::Video, :device_app do
       end
     end
 
+    # note: 'scheduled' videos cannot be set to 'unlisted'
+    context 'given I update the privacy status' do
+      before { video.update publish_at: nil if video.scheduled? }
+      let!(:new_privacy_status) { old_privacy_status == 'private' ? 'unlisted' : 'private' }
+
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {privacy_status: new_privacy_status} }
+
+        specify 'only updates the privacy status' do
+          expect(update).to be true
+          expect(video.privacy_status).not_to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {privacyStatus: new_privacy_status} }
+
+        specify 'only updates the privacy status' do
+          expect(update).to be true
+          expect(video.privacy_status).not_to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+    end
+
+    context 'given I update the embeddable status' do
+      let!(:old_embeddable) { video.embeddable? }
+      let!(:new_embeddable) { !old_embeddable }
+
+      let(:attrs) { {embeddable: new_embeddable} }
+
+      # @note: This test is a reflection of another irrational behavior of
+      #   YouTube API. Although 'embeddable' can be passed as an 'update'
+      #   attribute according to the documentation, it simply does not work.
+      #   The day YouTube fixes it, then this test will finally fail and will
+      #   be removed, documenting how to update 'embeddable' too.
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      # @see https://code.google.com/p/gdata-issues/issues/detail?id=4861
+      specify 'does not update the embeddable status' do
+        expect(update).to be true
+        expect(video.embeddable?).to eq old_embeddable
+      end
+    end
+
+    context 'given I update the license' do
+      let!(:old_license) { video.license }
+      let!(:new_license) { old_license == 'youtube' ? 'creativeCommon' : 'youtube' }
+      let(:attrs) { {license: new_license} }
+
+      # @note: This test is a reflection of another irrational behavior of
+      #   YouTube API. Although 'license' can be passed as an 'update'
+      #   attribute according to the documentation, it simply does not work.
+      #   The day YouTube fixes it, then this test will finally fail and will
+      #   be removed, documenting how to update 'embeddable' too.
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      # @see https://code.google.com/p/gdata-issues/issues/detail?id=4861
+      specify 'does not update the embeddable status' do
+        expect(update).to be true
+        expect(video.license).to eq old_license
+      end
+    end
+
+    context 'given I update the public stats viewable setting' do
+      let!(:old_public_stats_viewable) { video.has_public_stats_viewable? }
+      let!(:new_public_stats_viewable) { !old_public_stats_viewable }
+
+      context 'passing the parameter in underscore syntax' do
+        let(:attrs) { {public_stats_viewable: new_public_stats_viewable} }
+
+        specify 'only updates the public stats viewable setting' do
+          expect(update).to be true
+          expect(video.has_public_stats_viewable?).to eq new_public_stats_viewable
+          expect(video.privacy_status).to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+
+      context 'passing the parameter in camel-case syntax' do
+        let(:attrs) { {publicStatsViewable: new_public_stats_viewable} }
+
+        specify 'only updates the public stats viewable setting' do
+          expect(update).to be true
+          expect(video.has_public_stats_viewable?).to eq new_public_stats_viewable
+          expect(video.privacy_status).to eq old_privacy_status
+          expect(video.title).to eq old_title
+        end
+      end
+    end
+
     it 'returns valid reports for video-related metrics' do
       # Some reports are only available to Content Owners.
       # See content ownere test for more details about what the methods return.
@@ -219,4 +309,43 @@ describe Yt::Video, :device_app do
       expect{video.viewer_percentage}.not_to raise_error
     end
   end
+
+  # @note: This test is separated from the block above because, for some
+  #   undocumented reasons, if an existing video was private, then set to
+  #   unlisted, then set to private again, YouTube _sometimes_ raises a
+  #   400 Error when trying to set the publishAt timestamp.
+  #   Therefore, just to test the updating of publishAt, we use a brand new
+  #   video (set to private), rather than reusing an existing one as above.
+  context 'given one of my own *private* videos that I want to update' do
+    before { @tmp_video = $account.upload_video 'https://bit.ly/yt_test', title: old_title, privacy_status: old_privacy_status }
+    let(:id) { @tmp_video.id }
+    let!(:old_title) { "Yt Test Update publishAt Video #{rand}" }
+    let!(:old_privacy_status) { 'private' }
+    after  { video.delete}
+
+    let!(:new_scheduled_at) { Yt::Timestamp.parse("#{rand 30 + 1} Jan 2020", Time.now) }
+
+    context 'passing the parameter in underscore syntax' do
+      let(:attrs) { {publish_at: new_scheduled_at} }
+
+      specify 'only updates the timestamp to publish the video' do
+        expect(video.update attrs).to be true
+        expect(video.scheduled_at).to eq new_scheduled_at
+        expect(video.privacy_status).to eq old_privacy_status
+        expect(video.title).to eq old_title
+      end
+    end
+
+    context 'passing the parameter in camel-case syntax' do
+      let(:attrs) { {publishAt: new_scheduled_at} }
+
+      specify 'only updates the timestamp to publish the video' do
+        expect(video.update attrs).to be true
+        expect(video.scheduled_at).to eq new_scheduled_at
+        expect(video.privacy_status).to eq old_privacy_status
+        expect(video.title).to eq old_title
+      end
+    end
+  end
+
 end
