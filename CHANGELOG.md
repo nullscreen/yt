@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.10.0 - Unreleased
+
+* [ENHANCEMENT] Alias `policy.time_updated` to more coherent `policy.updated_at`
+
 ## 0.9.8 - 2014-08-11
 
 * [FEATURE] Add `.content_owner` and `.linked_at` to channels managed by a CMS content owner

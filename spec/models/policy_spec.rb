@@ -25,10 +25,10 @@ describe Yt::Policy do
     end
   end
 
-  describe '#time_updated' do
+  describe '#updated_at' do
     context 'given fetching a policy returns a timeUpdated' do
       let(:data) { {"timeUpdated"=>"1970-01-16T20:33:03.675Z"} }
-      it { expect(policy.time_updated.year).to be 1970 }
+      it { expect(policy.updated_at.year).to be 1970 }
     end
   end
 

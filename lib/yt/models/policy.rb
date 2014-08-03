@@ -29,9 +29,10 @@ module Yt
       end
 
       # @return [String] the time the policy was updated.
-      def time_updated
-        @time_updated ||= Time.parse @data['timeUpdated']
+      def updated_at
+        @updated_at ||= Time.parse @data['timeUpdated']
       end
+      alias time_updated updated_at
 
       # @return [Array<PolicyRule>] a list of rules that specify the action
       #   that YouTube should take and may optionally specify the conditions

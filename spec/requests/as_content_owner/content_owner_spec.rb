@@ -129,7 +129,7 @@ describe Yt::ContentOwner, :partner do
       it 'returns valid metadata' do
         expect(policy.id).to be_a String
         expect(policy.name).to be_a String
-        expect(policy.time_updated).to be_a Time
+        expect(policy.updated_at).to be_a Time
         expect(rule.action).to  be_in Yt::PolicyRule::ACTIONS
         expect(rule.included_territories).to be_an Array
         expect(rule.excluded_territories).to be_an Array
