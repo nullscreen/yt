@@ -1,28 +1,133 @@
-v0.9 - 2014/07/28
------------------
+# Changelog
 
-* [breaking change] Rename rating.update to rating.set
-* Add content_owner.references to retrieve ContentID references
-* Add content_owner.policies to list ContentID policies
-* Let 'update' methods understand both under_score and camelCased parameters
-* Add claim.third_party?
-* Add actual_start_time, actual_end_time, scheduled_start_time, scheduled_end_time for live-streaming videos
-* Add privacy_status, public_stats_viewable, publish_at to the options that Video#update accepts
-* Allow angle brackets when editing title, description, tags and replace them with similar characters allowed by YouTube
-* Correctly parse duration of videos longer than 24 hours
+All notable changes to this project will be documented in this file.
 
-v0.8 - 2014/07/18
------------------
+For more information about changelogs, check
+[Keep a Changelog](http://keepachangelog.com) and
+[Vandamme](http://tech-angels.github.io/vandamme).
 
-* [breaking change] channel.subscribe returns nil (not raise an error) when trying to subscribe to your own channel
-* Add all the status fields to Video (upload status, failure reason, rejection reason, scheduled time, license, embeddable, public stats viewable)
-* Add content_owner.claims to list the claims administered by a content owner.
-* Allow content_owner.claims to be chained with .where, such as in account.videos.where(q: 'query')
-* Add account.content_owners to list content owners associated with an account
-* Add video.delete
+## 0.9.7 - 2014-08-02
 
-v0.7 - 2014/06/18
------------------
+* [BUGFIX] Correctly parse videos’ duration for videos longer than 24 hours
+
+## 0.9.6 - 2014-08-02
+
+* [ENHANCEMENT] Accept angle brackets characters in videos’ and playlists’ metadata
+
+## 0.9.5 - 2014-08-02
+
+* [FEATURE] Allow status attributes of a video to be updated
+
+`video.update` now accepts three new attributes: `privacy_status`,
+`public_stats_viewable` and `publish_at`.
+
+## 0.9.4 - 2014-08-02
+
+* [FEATURE] Expose metadata for live-streaming videos
+
+New method are now available for `Video` instance to check their live-streaming
+details: `actual_start_time`, `actual_end_time`, `scheduled_start_time`,
+`scheduled_end_time` and `concurrent_viewers`.
+
+## 0.9.3 - 2014-07-30
+
+* [BUGFIX] Don’t cache `.where` conditions on multiple calls
+
+For instance, invoking `account.videos.where(q: 'x').count` followed by
+`account.videos.count` used to return the same result, because the `where`
+conditions of the first request were wrongly kept for the successive request.
+
+* [FEATURE] Check if a ContentID claim is third-party with `claim.third_party?`
+* [ENHANCEMENT] `update` methods accept both underscore and camel-case attributes
+
+For instance, either of the following syntaxes can now be used:
+`video.update categoryId: "22"` or `video.update category_id: "22"`.
+
+## 0.9.2 - 2014-07-29
+
+* [FEATURE] List ContentID policies with `content_owner.policies`
+
+## 0.9.1 - 2014-07-28
+
+* [FEATURE] List ContentID references with `content_owner.references`
+* [ENHANCEMENT] `playlist.update` accepts both `privacyStatus` and `privacy_status`
+
+For instance, either of the following syntaxes can now be used:
+`playlist.update privacyStatus: "unlisted"` or
+`playlist.update privacy_status: "unlisted"`.
+
+## 0.9.0 - 2014-07-28
+
+**How to upgrade**
+
+If your code never declares instances of `Yt::Rating`, or never calls the
+`update` method on them, then you are good to go.
+
+If it does, then *simply replace `update` with `set`*:
+
+```ruby
+rating = Yt::Rating.new
+# old syntax
+rating.update :like
+# new syntax
+rating.set :like
+```
+
+* [ENHANCEMENT] `rating.set` replaces `rating.update` to rate a video
+
+## 0.8.5 - 2014-07-28
+
+* [FEATURE] Delete a video with `video.delete`
+
+## 0.8.4 - 2014-07-24
+
+* [BUGFIX] Correctly parse annotations with timestamp written as `t='0'`
+
+## 0.8.3 - 2014-07-24
+
+* [FEATURE] List content owners managed by an account with `account.content_owners`
+
+## 0.8.2 - 2014-07-23
+
+* [FEATURE] List ContentID claims administered by a content owner with `content_owner.claims`
+
+## 0.8.1 - 2014-07-22
+
+* [FEATURE] Include all the video-related status information in `video.status`
+
+New method are now available for `Video` instance to check their status
+information: `public?`, `uploaded?`, `rejected?`, `failed?`, `processed?`,
+`deleted?`, `uses_unsupported_codec?`, `has_failed_conversion?`, `empty?`,
+`invalid?`, `too_small?`, `aborted?`, `claimed?`, `infringes_copyright?`,
+`duplicate?`, `inappropriate?`, `too_long?`, `belongs_to_closed_account?`,
+`infringes_trademark?`, `violates_terms_of_use?`, `has_public_stats_viewable?`,
+`belongs_to_suspended_account?`, `scheduled?`, `scheduled_at`, `embeddable?`
+`licensed_as_creative_commons?` and `licensed_as_standard_youtube?`.
+
+## 0.8.0 - 2014-07-19
+
+**How to upgrade**
+
+If your code never declares instances of `Yt::Channel`, or never calls the
+`subscribe` method on them, then you are good to go.
+
+If it does, then be aware that `subscribe` will not raise an error anymore if
+a YouTube user tries to subscribe to her/his own YouTube channel. Instead,
+`subscribe` will simply return `nil`. If this is acceptable, then you are good
+to go. If you want the old behavior, replace `subscribe` with `subscribe!`:
+
+```ruby
+account = Yt::Account.new access_token: 'ya29...'
+channel = account.channel
+# old behavior
+channel.subscribe # => raise error
+# new behavior
+channel.subscribe # => nil
+channel.subscribe! # => raise error
+```
+* [ENHANCEMENT] `channel.subscribe` does not raise error when trying to subscribe to one’s own channel
+
+## 0.7 - 2014/06/18
 
 * [breaking change] Rename DetailsSet to ContentDetail
 * Add statistics_set to Video (views, likes, dislikes, favorites, comments)
@@ -41,8 +146,7 @@ v0.7 - 2014/06/18
 * Make channel.videos access more than 500 videos per channel
 * Add viewer percentage (age group, gender) to Channel and Video reports
 
-v0.6 - 2014/06/05
------------------
+## 0.6 - 2014/06/05
 
 * [breaking change] Rename Channel#earning to Channel#earnings_on
 * [breaking change] Account#videos shows *all* videos owned by account (public and private)
@@ -52,8 +156,7 @@ v0.6 - 2014/06/05
 * Handle annotations with "never" as the timestamp, without text, singleton positions, of private videos
 * New methods for Video: hd?, stereoscopic?, captioned?, licensed?
 
-v0.5 - 2014/05/16
------------------
+## 0.5 - 2014/05/16
 
 * More complete custom exception Yt::Error, with code, body and curl
 * Replace `:ignore_not_found` and `:ignore_duplicates` with `:ignore_errors`
@@ -76,8 +179,7 @@ v0.5 - 2014/05/16
 * Wait 3 seconds and retry *every* request that returns 500, 503 or 400 with "Invalid query"
 * New Views collection to retrieve view count for YouTube-partnered channels
 
-v0.4 - 2014/05/09
---------------------
+## 0.4 - 2014/05/09
 
 * Complete rewrite, using ActiveSupport and separating models and collections
 * New methods to handle annotations, details sets
@@ -88,33 +190,28 @@ v0.4 - 2014/05/09
 * Allow to configure Yt credentials through environment variables
 * When updating a playlist, only changes the specified attributes
 
-v0.3.0 - 2014/04/16
---------------------
+## 0.3.0 - 2014/04/16
 
 * New and improved methods to handle subscriptions, playlists, playlist items
 * `find_or_create_playlist_by` does not yield a block anymore
 * `account.subscribe_to!` raises error in case of duplicate subscription, but `account.subscribe_to` does not
 
-v0.2.1 - 2014/04/10
---------------------
+## 0.2.1 - 2014/04/10
 
 * `account.subscribe_to!` does not raise error in case of duplicate subscription
 * Accountable objects can be initialized with the OAuth access token if there's no need to get a fresh one with a refresh token
 
-v0.2.0 - 2014/04/09
---------------------
+## 0.2.0 - 2014/04/09
 
 * Replaced `account.perform!` with `account.like!`, `account.subscribe_to!`
 * Added `account.add_to!` to add a video to an account’s playlist
 * Added `account.find_or_create_playlist_by` to find or create an account’s playlist
 
-v0.1.1 - 2014/04/09
---------------------
+## 0.1.1 - 2014/04/09
 
 * Added support for Ruby 2.0.0
 
-v0.1.0  - 2014/04/08
---------------------
+## 0.1.0  - 2014/04/08
 
 * Support for authenticated resources: Youtube accounts and Google accounts
 * Support for public Youtube resources: channels and videos
