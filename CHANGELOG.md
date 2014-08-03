@@ -6,6 +6,17 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.1 - 2014-08-17
+
+* [ENHANCEMENT] Add Video search even without a parent account or channel
+
+For instance, to search for the most viewed video on the whole YouTube, run:
+
+```ruby
+videos = Yt::Collections::Videos.new
+videos.where(order: 'viewCount').first.title #=>  "PSY - GANGNAM STYLE"
+```
+
 ## 0.11.0 - 2014-08-17
 
 **How to upgrade**
