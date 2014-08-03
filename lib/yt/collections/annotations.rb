@@ -46,6 +46,15 @@ module Yt
         expected?(error) ? [] : raise(error)
       end
 
+      # @private
+      # @note Annotations overwrites +total_results+ since `items_key` is
+      #   not `items` for annotations.
+      # @todo Remove this function by extracting the keys used by annotations
+      #   in a method and reusing them both in `next_page` and `total_results`.
+      def total_results
+        count
+      end
+
       # Since there is no API endpoint, retrieving annotations of unknown
       # videos or of private videos (to which YouTube responds with 403)
       # should not raise an error, but simply not return any annotation.

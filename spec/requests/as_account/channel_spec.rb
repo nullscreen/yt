@@ -42,12 +42,15 @@ describe Yt::Channel, :device_app do
       it { expect(channel.unsubscribe!).to be_truthy }
     end
 
-    # NOTE: These tests are slow because they go through multiple pages of
-    # results and do so to test that we can overcome YouTube’s limitation of
-    # only returning the first 500 results for each query.
+    # @note: these tests are slow because they go through multiple pages of
+    #   results and do so to test that we can overcome YouTube’s limitation of
+    #   only returning the first 500 results for each query.
+    # @note: in principle, the following three counters should match, but in
+    #   reality +video_count+ and +size+ are only approximations.
     context 'with more than 500 videos' do
       let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
       it { expect(channel.video_count).to be > 500 }
+      it { expect(channel.videos.size).to be > 500 }
       it { expect(channel.videos.count).to be > 500 }
     end
   end
@@ -126,7 +129,8 @@ describe Yt::Channel, :device_app do
       # NOTE: This test is just a reflection of YouTube irrational behavior of
       # returns 0 results if the name of an unknown channel starts with UC, but
       # returning 100,000 results otherwise (ignoring the channel filter).
-      it { expect(channel.videos.count).to be 0 }
+      it { expect(channel.videos.count).to be_zero }
+      it { expect(channel.videos.size).to be_zero }
     end
   end
 end

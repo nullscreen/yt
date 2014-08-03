@@ -36,7 +36,8 @@ describe Yt::Channel, :server_app do
       # NOTE: This test is just a reflection of YouTube irrational behavior of
       # returns 0 results if the name of an unknown channel starts with UC, but
       # returning 100,000 results otherwise (ignoring the channel filter).
-      it { expect(channel.videos.count).to be 0 }
+      it { expect(channel.videos.count).to be_zero }
+      it { expect(channel.videos.size).to be_zero }
     end
   end
 end

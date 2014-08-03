@@ -9,6 +9,7 @@ describe Yt::Video do
 
     it { expect(video.annotations).to be_a Yt::Collections::Annotations }
     it { expect(video.annotations.first).to be_a Yt::Annotation }
+    it { expect(video.annotations.size).to be > 0 }
   end
 
   context 'given a private video' do
@@ -16,5 +17,6 @@ describe Yt::Video do
 
     it { expect(video.annotations).to be_a Yt::Collections::Annotations }
     it { expect(video.annotations.count).to be_zero }
+    it { expect(video.annotations.size).to be_zero }
   end
 end
