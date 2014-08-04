@@ -105,6 +105,11 @@ describe Yt::Channel, :device_app do
       expect{channel.viewer_percentages}.not_to raise_error
       expect{channel.viewer_percentage}.not_to raise_error
     end
+
+    it 'cannot give information about its content owner' do
+      expect{channel.content_owner}.to raise_error Yt::Errors::Forbidden
+      expect{channel.linked_at}.to raise_error Yt::Errors::Forbidden
+    end
   end
 
   context 'given an unknown channel' do

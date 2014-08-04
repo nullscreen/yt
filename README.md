@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.9.7'
+    gem 'yt', '~> 0.9.8'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -194,6 +194,9 @@ channel.impressions_on 5.days.ago #=> 157.0
 
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 channel.viewer_percentage(gender: :female) #=> 49.12
+
+channel.content_owner #=> 'FullScreen'
+channel.linked_at #=> Wed, 28 May 2014
 ```
 
 *The methods above require to be authenticated as the channel’s content owner (see below).*
