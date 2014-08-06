@@ -41,12 +41,16 @@ module Yt
       # @see https://console.developers.google.com Google Developers Console
       attr_accessor :api_key
 
+      # @return [Array<Proc>] Register a proc to handle token updates.
+      attr_accessor :authentication_handlers
+
       # Initialize the global configuration settings, using the values of
       # the specified following environment variables by default.
       def initialize
         @client_id = ENV['YT_CLIENT_ID']
         @client_secret = ENV['YT_CLIENT_SECRET']
         @api_key = ENV['YT_API_KEY']
+        @authentication_handlers = []
       end
     end
   end
