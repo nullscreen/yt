@@ -39,10 +39,13 @@ module Yt
 
       def authentication
         @authentication = current_authentication
-        @authentication ||= use_refresh_token! if @refresh_token
-        @authentication ||= use_authorization_code! if @authorization_code
-        @authentication ||= use_device_code! if @device_code
-        @authentication ||= raise_missing_authentication!
+
+        unless @authentication
+          @authentication = authenticate!
+          notify_authentication_handlers
+        end
+
+        @authentication
       end
 
       def authentication_url
@@ -61,6 +64,28 @@ module Yt
       end
 
     private
+
+      def notify_authentication_handlers
+        Yt.configuration.authentication_handlers.each do |handler|
+          begin
+            handler.call(self)
+          rescue => ex
+            # Catch and log all exceptions so associated handlers don't interfere with YT
+          end
+        end
+      end
+
+      def authenticate!
+        if @refresh_token
+          use_refresh_token!
+        elsif @authorization_code
+          use_authorization_code!
+        elsif @device_code
+          use_device_code!
+        else
+          raise_missing_authentication!
+        end
+      end
 
       def current_authentication
         @authentication ||= Yt::Authentication.new current_data if @access_token

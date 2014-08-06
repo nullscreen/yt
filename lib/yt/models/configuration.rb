@@ -45,6 +45,9 @@ module Yt
       # @return [String] the level of output to print for debugging purposes.
       attr_accessor :log_level
 
+      # @return [Array<Proc>] Register a proc to handle token updates.
+      attr_accessor :authentication_handlers
+
       # Initialize the global configuration settings, using the values of
       # the specified following environment variables by default.
       def initialize
@@ -52,6 +55,7 @@ module Yt
         @client_secret = ENV['YT_CLIENT_SECRET']
         @api_key = ENV['YT_API_KEY']
         @log_level = ENV['YT_LOG_LEVEL']
+        @authentication_handlers = []
       end
 
       # @return [Boolean] whether the logging output is extra-verbose.
