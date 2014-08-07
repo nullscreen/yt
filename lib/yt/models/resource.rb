@@ -86,6 +86,12 @@ module Yt
         hash.dup.each_key{|key| hash[underscore key] = hash.delete key}
       end
 
+      def camelize_keys!(hash)
+        hash.dup.each_key do |key|
+          hash[key.to_s.camelize(:lower).to_sym] = hash.delete key
+        end
+      end
+
       # @return [Hash] the original hash with angle brackets characters in its
       #   values replaced with similar Unicode characters accepted by Youtube.
       # @see https://support.google.com/youtube/answer/57404?hl=en

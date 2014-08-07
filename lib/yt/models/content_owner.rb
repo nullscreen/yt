@@ -23,6 +23,10 @@ module Yt
       #   @return [Yt::Collection::Policies] the policies saved by the content owner.
       has_many :policies
 
+      # @!attribute [r] assets
+      #   @return [Yt::Collection::Assets] the assets owned by the content owner.
+      has_many :assets
+
       def initialize(options = {})
         super options
         @owner_name = options[:owner_name]
