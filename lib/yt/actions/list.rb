@@ -4,7 +4,7 @@ require 'yt/errors/no_items'
 module Yt
   module Actions
     module List
-      delegate :count, :first, :any?, :each, :map, :flat_map, :find, to: :list
+      delegate :count, :first, :reverse, :reverse_each, :to_a, :any?, :each, :map, :flat_map, :find, to: :list
       alias size count
 
       def first!
