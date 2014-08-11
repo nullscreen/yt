@@ -4,8 +4,8 @@ require 'yt/errors/no_items'
 module Yt
   module Actions
     module List
-      delegate :count, :first, :any?, :each, :map, :flat_map, :find, to: :list
-      alias size count
+      delegate :count, :first, :any?, :each, :map, :flat_map, :find,
+        :size, to: :list
 
       def first!
         first.tap{|item| raise Errors::NoItems, last_request unless item}
@@ -15,12 +15,21 @@ module Yt
 
       def list
         @last_index, @page_token = 0, nil
-        Enumerator.new do |items|
+        Enumerator.new(-> {total_results}) do |items|
           while next_item = find_next
             items << next_item
           end
           @where_params = {}
         end
+      end
+
+      # @private
+      # Returns the total number of items that YouTube can provide for the
+      # given request, either all in one page or in consecutive pages.
+      def total_results
+        response = request(list_params).run
+        total_results = response.body.fetch('pageInfo', {})['totalResults']
+        total_results ||= response.body.fetch(items_key, []).size
       end
 
       def find_next

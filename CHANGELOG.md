@@ -6,8 +6,31 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.10.0 - Unreleased
+## 0.10.0 - 2014-08-11
 
+**How to upgrade**
+
+If your code never calls the `size` method to count how many items a list of
+results has (e.g., how many videos an account has), then you are good to go.
+
+If it does, then be aware that `size` will now return try to the number of
+items as specified in the "totalResults" field of the first page of the YouTube
+response, rather than loading *all* the pages (possibly thousands) and counting
+exactly how many items are returned.
+
+If this is acceptable, then you are good to go.
+If you want the old behavior, replace `size` with `count`:
+
+```ruby
+account = Yt::Account.new access_token: 'ya29...'
+# old behavior
+account.videos.size # => retrieved *all* the pages of the account’s videos
+# new behavior
+account.videos.size # => retrieves only the first page, returning the totalResults counter
+account.videos.count # => retrieves *all* the pages of the account’s videos
+```
+
+* [ENHANCEMENT] Calling `size` on a collection does not load all the pages of the collection
 * [ENHANCEMENT] Alias `policy.time_updated` to more coherent `policy.updated_at`
 
 ## 0.9.8 - 2014-08-11
@@ -121,18 +144,21 @@ If your code never declares instances of `Yt::Channel`, or never calls the
 
 If it does, then be aware that `subscribe` will not raise an error anymore if
 a YouTube user tries to subscribe to her/his own YouTube channel. Instead,
-`subscribe` will simply return `nil`. If this is acceptable, then you are good
-to go. If you want the old behavior, replace `subscribe` with `subscribe!`:
+`subscribe` will simply return `nil`.
+
+If this is acceptable, then you are good to go.
+If you want the old behavior, replace `subscribe` with `subscribe!`:
 
 ```ruby
 account = Yt::Account.new access_token: 'ya29...'
 channel = account.channel
 # old behavior
-channel.subscribe # => raise error
+channel.subscribe # => raised an error
 # new behavior
 channel.subscribe # => nil
-channel.subscribe! # => raise error
+channel.subscribe! # => raises an error
 ```
+
 * [ENHANCEMENT] `channel.subscribe` does not raise error when trying to subscribe to one’s own channel
 
 ## 0.7 - 2014/06/18
