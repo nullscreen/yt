@@ -58,11 +58,6 @@ describe Yt::ContentOwner, :partner do
         let(:video_id) { ENV['YT_TEST_PARTNER_VIDEO_ID'] }
         it { expect(count).to be > 0 }
       end
-
-      context 'given an unknown video ID' do
-        let(:video_id) { '--not-a-matching-video-id--' }
-        it { expect(count).to be_zero }
-      end
     end
 
     describe '.where(q: query)' do
