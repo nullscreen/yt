@@ -47,6 +47,12 @@ module Yt
       delegate :view_count, :comment_count, :video_count, :subscriber_count,
         :subscriber_count_visible?, to: :statistics_set
 
+      # @!attribute [r] content_owner_detail
+      #   @return [Yt::Models::ContentOwnerDetail] the video’s content owner
+      #     details.
+      has_one :content_owner_detail
+      delegate :content_owner, :linked_at, to: :content_owner_detail
+
       # Returns whether the authenticated account is subscribed to the channel.
       #
       # This method requires {Resource#auth auth} to return an
@@ -134,6 +140,15 @@ module Yt
             params['ids'] = "channel==#{id}"
           end
         end
+      end
+
+      # @private
+      # Tells `has_one :content_owner_detail` to retrieve the content owner
+      # detail as the Content Owner, it the channel was authorized with one.
+      # If it was not, the call will fail, since YouTube only allows content
+      # owners to check who is the content owner of a channel.
+      def content_owner_details_params
+        {on_behalf_of_content_owner: auth.owner_name || auth.id}
       end
     end
   end

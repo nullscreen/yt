@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.9.8 - 2014-08-11
+
+* [FEATURE] Add `.content_owner` and `.linked_at` to channels managed by a CMS content owner
+
 ## 0.9.7 - 2014-08-02
 
 * [BUGFIX] Correctly parse videos’ duration for videos longer than 24 hours

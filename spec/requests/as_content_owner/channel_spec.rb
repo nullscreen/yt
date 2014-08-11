@@ -263,13 +263,25 @@ describe Yt::Channel, :partner do
         expect(channel.viewer_percentage(gender: :male)).to be_a Float
         expect(channel.viewer_percentage(gender: :female)).to be_a Float
       end
+
+      specify 'information about its content owner can be retrieved' do
+        expect(channel.content_owner).to be_a String
+        expect(channel.linked_at).to be_a Time
+      end
     end
 
     context 'not managed by the authenticated Content Owner' do
       let(:id) { 'UCBR8-60-B28hp2BmDPdntcQ' }
 
-      it { expect{channel.earnings}.to raise_error Yt::Errors::Forbidden }
-      it { expect{channel.views}.to raise_error Yt::Errors::Forbidden }
+      specify 'earnings and impressions cannot be retrieved' do
+        expect{channel.earnings}.to raise_error Yt::Errors::Forbidden
+        expect{channel.views}.to raise_error Yt::Errors::Forbidden
+      end
+
+      specify 'information about its content owner cannot be retrieved' do
+        expect(channel.content_owner).to be_nil
+        expect(channel.linked_at).to be_nil
+      end
     end
   end
 end
