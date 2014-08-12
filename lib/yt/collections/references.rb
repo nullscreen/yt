@@ -8,6 +8,12 @@ module Yt
     # Resources with references are: {Yt::Models::ContentOwner content owners}.
     class References < Base
 
+      def insert(options = {})
+        params = {onBehalfOfContentOwner: @parent.owner_name}.merge options.slice :claimId, :claim_id
+        body = options.except :claimId, :claim_id
+        do_insert(params: params, body: body)
+      end
+
     private
 
       def new_item(data)
@@ -24,9 +30,18 @@ module Yt
         end
       end
 
+      # @return [Hash] the parameters to submit to YouTube to add a reference.
+      # @see https://developers.google.com/youtube/partner/docs/v1/references/insert
+      def insert_params
+        super.tap do |params|
+          params[:path] = '/youtube/partner/v1/references'
+        end
+      end
+
       def references_params
         apply_where_params! on_behalf_of_content_owner: @parent.owner_name
       end
+
     end
   end
 end
