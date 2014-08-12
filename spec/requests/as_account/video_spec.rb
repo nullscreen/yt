@@ -334,7 +334,7 @@ describe Yt::Video, :device_app do
     let!(:old_privacy_status) { 'private' }
     after  { video.delete}
 
-    let!(:new_scheduled_at) { Yt::Timestamp.parse("#{rand 30 + 1} Jan 2020", Time.now) }
+    let!(:new_scheduled_at) { Yt::Timestamp.parse("#{rand(30) + 1} Jan 2020", Time.now) }
 
     context 'passing the parameter in underscore syntax' do
       let(:attrs) { {publish_at: new_scheduled_at} }
