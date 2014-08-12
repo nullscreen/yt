@@ -27,6 +27,10 @@ module Yt
         super options
         @owner_name = options[:owner_name]
       end
+
+      def create_reference(params = {})
+        references.insert params
+      end
     end
   end
 end

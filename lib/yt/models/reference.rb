@@ -7,6 +7,21 @@ module Yt
     class Reference < Base
       def initialize(options = {})
         @data = options[:data]
+        @id = options[:id]
+        @auth = options[:auth]
+      end
+
+      # Soft-deletes the reference.
+      #
+      # @note YouTube API does not provide a +delete+ method for the Reference
+      #   resource, but only an +update+ method. Updating the +status+ of a
+      #   Reference to "inactive" can be considered a soft-deletion, since it
+      #   allows to successively create new references for the same claim.
+      # @return [Boolean] whether the reference is inactive.
+      def delete
+        body = {id: id, status: :inactive}
+        do_update(body: body) {|data| @data = data}
+        inactive?
       end
 
       # @return [String] the ID that YouTube assigns and uses to uniquely
@@ -172,6 +187,17 @@ module Yt
       #   content.
       def audiovisual?
         content_type == 'audiovisual'
+      end
+
+    private
+
+      # @see https://developers.google.com/youtube/partner/docs/v1/references/update
+      def update_params
+        super.tap do |params|
+          params[:expected_response] = Net::HTTPOK
+          params[:path] = "/youtube/partner/v1/references/#{id}"
+          params[:params] = {onBehalfOfContentOwner: @auth.owner_name}
+        end
       end
     end
   end
