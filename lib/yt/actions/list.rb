@@ -1,4 +1,5 @@
 require 'yt/models/request'
+require 'yt/models/iterator'
 require 'yt/errors/no_items'
 
 module Yt
@@ -15,7 +16,7 @@ module Yt
 
       def list
         @last_index, @page_token = 0, nil
-        Enumerator.new(-> {total_results}) do |items|
+        Yt::Iterator.new(-> {total_results}) do |items|
           while next_item = find_next
             items << next_item
           end

@@ -2,9 +2,12 @@ require 'spec_helper'
 require 'yt/models/content_owner'
 
 describe Yt::ContentOwner, :partner do
-  describe '.partnered_channels' do
-    it { expect($content_owner.partnered_channels.size).to be > 0 }
+  describe '.partnered_channels.first' do
     it { expect($content_owner.partnered_channels.first).to be_a Yt::Channel }
+  end
+
+  describe '.partnered_channels.size', :ruby2 do
+    it { expect($content_owner.partnered_channels.size).to be > 0 }
   end
 
   describe '.claims' do

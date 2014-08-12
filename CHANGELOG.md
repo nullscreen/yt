@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.10.1 - 2014-08-11
+
+* [BUGFIX] Make Yt work on Ruby 1.9.3 / ActiveSupport 3.0 again (was broken by 0.10.0)
+
 ## 0.10.0 - 2014-08-11
 
 **How to upgrade**
