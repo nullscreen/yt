@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.10.3 - 2014-08-12
+
+* [FEATURE] Add methods to insert and delete ContentID references
+* [FEATURE] Add `.match_reference_id` to Claim model
+
 ## 0.10.2 - 2014-08-11
 
 * [FEATURE] Add `MatchPolicy` class with `.update` to change the policy used by an asset

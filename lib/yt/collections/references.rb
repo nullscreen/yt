@@ -7,11 +7,25 @@ module Yt
     #
     # Resources with references are: {Yt::Models::ContentOwner content owners}.
     class References < Base
+      def insert(attributes = {})
+        underscore_keys! attributes
+        body = {contentType: attributes[:content_type] }
+        params = {claimId: attributes[:claim_id], onBehalfOfContentOwner: @auth.owner_name}
+        do_insert(params: params, body: body)
+      end
 
     private
 
       def new_item(data)
-        Yt::Reference.new data: data
+        Yt::Reference.new data: data, auth: @auth
+      end
+
+      # @return [Hash] the parameters to submit to YouTube to add a reference.
+      # @see https://developers.google.com/youtube/partner/docs/v1/references/insert
+      def insert_params
+        super.tap do |params|
+          params[:path] = '/youtube/partner/v1/references'
+        end
       end
 
       # @return [Hash] the parameters to submit to YouTube to list references
@@ -26,6 +40,16 @@ module Yt
 
       def references_params
         apply_where_params! on_behalf_of_content_owner: @parent.owner_name
+      end
+
+      # If we dropped support for ActiveSupport 3, then we could simply
+      # invoke transform_keys!{|key| key.to_s.underscore.to_sym}
+      def underscore_keys!(hash)
+        hash.dup.each_key{|key| hash[underscore key] = hash.delete key}
+      end
+
+      def underscore(value)
+        value.to_s.underscore.to_sym
       end
     end
   end

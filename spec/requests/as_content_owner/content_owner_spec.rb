@@ -95,6 +95,33 @@ describe Yt::ContentOwner, :partner do
     end
   end
 
+  describe 'references' do
+    let(:claim_id) { ENV['YT_TEST_PARTNER_REFERENCE_CLAIM_ID'] }
+    let(:content_type) { ENV['YT_TEST_PARTNER_REFERENCE_CONTENT_TYPE'] }
+    let(:params) { {claim_id: claim_id, content_type: content_type} }
+
+    specify 'can be added' do
+      begin
+        expect($content_owner.create_reference params).to be_a Yt::Reference
+      rescue Yt::Errors::RequestError => e
+        # @note: Every time this test runs, a reference is inserted for the
+        #   same claim, but YouTube does not allow this, and responds with an
+        #   error message like "You attempted to create a reference using the
+        #   content of a previously claimed video, but such a reference already
+        #   exists. The ID of the duplicate reference is xhpACYclOdc."
+        #   For the sake of testing, we delete the duplicate and try again.
+        # @note: Deleting a reference does not work if the reference status is
+        #   "checking" or "pending" and it can take up to 4 minutes for a new
+        #   reference to be checked. The +sleep+ statement takes care of this
+        #   case in the only way allowed by YouTube: sadly waiting.
+        raise unless e.reasons.include? 'referenceAlreadyExists'
+        id = e.kind['message'].match(/reference is (.*?)\.$/) {|re| re[1]}
+        sleep 15 until Yt::Reference.new(id: id, auth: $content_owner).delete
+        expect($content_owner.create_reference params).to be_a Yt::Reference
+      end
+    end
+  end
+
   describe '.references' do
     describe '.where(id: reference_id)' do
       let(:reference) { $content_owner.references.where(id: reference_id).first }
