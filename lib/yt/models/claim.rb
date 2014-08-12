@@ -131,6 +131,12 @@ module Yt
       def block_outside_ownership?
         @block_outside_ownership ||= @data["blockOutsideOwnership"]
       end
+
+      # @return [String] The unique ID that YouTube uses to identify the
+      #   reference that generated the match.
+      def match_reference_id
+        @match_reference_id ||= @data.fetch('matchInfo', {})['referenceId']
+      end
     end
   end
 end

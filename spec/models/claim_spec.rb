@@ -190,6 +190,13 @@ describe Yt::Claim do
     end
   end
 
+  describe '#match_reference_id' do
+    context 'given fetching a claim returns matchInfo' do
+      let(:data) { {"matchInfo"=>{"referenceId"=>"0r3JDtcRLuQ"}} }
+      it { expect(claim.match_reference_id).to eq "0r3JDtcRLuQ" }
+    end
+  end
+
   describe '#third_party?' do
     context 'given fetching a claim returns thirdPartyClaim true' do
       let(:data) { {"thirdPartyClaim"=>true} }
