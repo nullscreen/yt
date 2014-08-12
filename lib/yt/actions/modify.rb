@@ -10,7 +10,7 @@ module Yt
       def do_modify(params = {})
         request = Yt::Request.new params
         response = request.run
-        yield response.body
+        yield response.body if block_given?
       end
 
       def modify_params
