@@ -13,9 +13,14 @@ module Yt
 
       # @return [Yt::Models::Video] a new video initialized with one of
       #   the items returned by asking YouTube for a list of videos.
+      # According to the documentation, tags are only visible to the video's
+      # uploader, and are not returned when search for all the videos of an
+      # account. Instead, a separate call to Videos#list is required. Setting
+      # +includes_tags+ to +false+ makes sure that `video.tags` will do this.
       # @see https://developers.google.com/youtube/v3/docs/videos#resource
       def new_item(data)
-        Yt::Video.new id: data['id']['videoId'], snippet: data['snippet'], auth: @auth
+        snippet = data.fetch('snippet', {}).merge includes_tags: false
+        Yt::Video.new id: data['id']['videoId'], snippet: snippet, auth: @auth
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.

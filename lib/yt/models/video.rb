@@ -5,7 +5,7 @@ module Yt
     # Provides methods to interact with YouTube videos.
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
-      delegate :tags, :channel_id, :channel_title, :category_id,
+      delegate :channel_id, :channel_title, :category_id,
         :live_broadcast_content, to: :snippet
 
       delegate :deleted?, :failed?, :processed?, :rejected?, :uploaded?,
@@ -66,6 +66,19 @@ module Yt
       has_one :statistics_set
       delegate :view_count, :like_count, :dislike_count, :favorite_count,
         :comment_count, to: :statistics_set
+
+      # Returns the list of keyword tags associated with the video.
+      # Since YouTube API only returns tags on Videos#list, the memoized
+      # @snippet is erased if the video was instantiated through Video#search
+      # (e.g., by calling account.videos or channel.videos), so that the full
+      # snippet (with tags) is loaded, rather than the partial one.
+      # @see https://developers.google.com/youtube/v3/docs/videos
+      # @return [Array<Yt::Models::Tag>] the list of keyword tags associated
+      #   with the video.
+      def tags
+        @snippet = nil unless snippet.includes_tags
+        snippet.tags
+      end
 
       # Deletes the video.
       #

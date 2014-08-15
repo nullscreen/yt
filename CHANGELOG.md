@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.10.4 - 2014-08-15
+
+* [BUGFIX] List tags of videos retrieved with channel.videos and account.videos
+
 ## 0.10.3 - 2014-08-12
 
 * [FEATURE] Add methods to insert and delete ContentID references
