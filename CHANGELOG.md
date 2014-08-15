@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.10.5 - unreleased
+
+* [ENHANCEMENT] Use PATCH rather than PUT to partially update a MatchPolicy
+
 ## 0.10.4 - 2014-08-15
 
 * [BUGFIX] List tags of videos retrieved with channel.videos and account.videos
