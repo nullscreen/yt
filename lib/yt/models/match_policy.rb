@@ -11,19 +11,18 @@ module Yt
         @auth = options[:auth]
       end
 
-      # @note Only policyId can be currently updated, not rules.
       def update(attributes = {})
         underscore_keys! attributes
-        do_update body: {policyId: attributes[:policy_id]}
+        do_patch body: {policyId: attributes[:policy_id]}
         true
       end
 
     private
 
-      # @return [Hash] the parameters to submit to YouTube to update an asset
+      # @return [Hash] the parameters to submit to YouTube to patch an asset
       #   match policy.
-      # @see https://developers.google.com/youtube/partner/docs/v1/assetMatchPolicy/update
-      def update_params
+      # @see https://developers.google.com/youtube/partner/docs/v1/assetMatchPolicy/patch
+      def patch_params
         super.tap do |params|
           params[:path] = "/youtube/partner/v1/assets/#{@asset_id}/matchPolicy"
           params[:params] = {onBehalfOfContentOwner: @auth.owner_name}
