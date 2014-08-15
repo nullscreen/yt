@@ -11,8 +11,12 @@ describe Yt::Account, :device_app do
   end
 
   describe '.videos' do
-    it { expect($account.videos).to be_a Yt::Collections::Videos }
-    it { expect($account.videos.where(order: 'viewCount').first).to be_a Yt::Video }
+    let(:video) { $account.videos.where(order: 'viewCount').first }
+
+    specify 'returns the account’s videos with its tags' do
+      expect(video).to be_a Yt::Video
+      expect(video.tags).not_to be_empty
+    end
 
     describe '.where(q: query_string)' do
       let(:count) { $account.videos.where(q: query).count }
