@@ -52,7 +52,7 @@ module Yt
           params[:type] = :video
           params[:max_results] = 50
           params[:part] = 'snippet'
-          params[:order] = 'date'
+          params[:order] ||= 'date'
           params[:published_before] = @published_before if @published_before
           apply_where_params! params
         end

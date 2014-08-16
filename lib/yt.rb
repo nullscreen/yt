@@ -6,6 +6,7 @@ require 'yt/models/content_owner'
 require 'yt/models/match_policy'
 require 'yt/models/playlist'
 require 'yt/models/playlist_item'
+require 'yt/models/search'
 require 'yt/models/video'
 
 # An object-oriented Ruby client for YouTube.
