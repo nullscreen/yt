@@ -398,6 +398,22 @@ item.delete #=> true
 *The methods above require to be authenticated as the playlist’s owner (see below).*
 
 
+Yt::Collections::Videos
+-----------------------
+
+Use [Yt::Collections::Videos](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Collections/Videos) to:
+
+* search for videos
+
+```ruby
+videos = Yt::Collections::Videos.new
+videos.where(order: 'viewCount').first.title #=>  "PSY - GANGNAM STYLE"
+videos.where(q: 'Fullscreen CreatorPlatform', safe_search: 'none').size #=> 324
+```
+
+*The methods above do not require authentication.*
+
+
 Yt::Annotation
 --------------
 
