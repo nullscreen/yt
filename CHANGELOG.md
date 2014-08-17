@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.10.5 - unreleased
+## 0.10.5 - 2014-08-17
 
 * [ENHANCEMENT] Use PATCH rather than PUT to partially update a MatchPolicy
 
