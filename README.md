@@ -397,6 +397,20 @@ item.delete #=> true
 
 *The methods above require to be authenticated as the playlist’s owner (see below).*
 
+Yt::Search
+----------
+
+Use [Yt::Search](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Search) to
+
+* find videos matching a user's query
+
+```ruby
+search = Yt::Search.new 'railsconf 2014 keynote'
+search.videos.first #=> #<Yt::Models::Video @id=...>
+```
+
+*The methods above do not require authentication.*
+
 
 Yt::Annotation
 --------------
