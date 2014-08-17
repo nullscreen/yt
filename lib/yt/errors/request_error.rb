@@ -1,3 +1,5 @@
+require 'yt/config'
+
 module Yt
   module Errors
     class RequestError < StandardError
@@ -9,11 +11,7 @@ module Yt
       def message
         <<-MSG.gsub(/^ {8}/, '')
         #{explanation}:
-        #{response_body}
-
-        You can retry the same request manually by running:
-        #{request_curl}
-        #{more_details}
+        #{Yt.configuration.debugging? ? details : no_details }
         MSG
       end
 
@@ -29,6 +27,27 @@ module Yt
 
       def explanation
         'A request to YouTube API failed'
+      end
+
+
+      def details
+        <<-MSG.gsub(/^ {8}/, '')
+        #{response_body}
+
+        You can retry the same request manually by running:
+        #{request_curl}
+        #{more_details}
+        MSG
+      end
+
+      def no_details
+        <<-MSG.gsub(/^ {8}/, '')
+        To display more verbose errors, change the configuration of Yt with:
+
+        Yt.configure do |config|
+          config.log_level = :debug
+        end
+        MSG
       end
 
       def more_details

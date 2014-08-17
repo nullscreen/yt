@@ -6,6 +6,26 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.0 - 2014-08-17
+
+**How to upgrade**
+
+When a request to YouTube fails, Yt used to print out a verbose error message,
+including the response body and the request that caused the error (in curl
+format). This output could include sensitive data (such as the authentication
+token). For security reasons, Yt will not print it out anymore by default.
+
+If this is acceptable, then you are good to go.
+If you want the old behavior, set the `log_level` of Yt to `:debug`:
+
+```ruby
+Yt.configure do |config|
+  config.log_level = :debug
+end
+```
+
+* [ENHANCEMENT] Add `log_level` to Yt.configuration
+
 ## 0.10.5 - 2014-08-17
 
 * [ENHANCEMENT] Use PATCH rather than PUT to partially update a MatchPolicy
