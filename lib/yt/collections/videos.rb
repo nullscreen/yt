@@ -48,12 +48,13 @@ module Yt
       end
 
       def videos_params
-        @parent.videos_params.tap do |params|
+        {}.tap do |params|
           params[:type] = :video
           params[:max_results] = 50
           params[:part] = 'snippet'
           params[:order] = 'date'
           params[:published_before] = @published_before if @published_before
+          params.merge! @parent.videos_params if @parent
           apply_where_params! params
         end
       end

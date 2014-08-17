@@ -19,10 +19,25 @@ module Yt
         new parent: parent, auth: parent.auth
       end
 
-      def where(conditions = {})
+      # Adds requirements to the collection in order to limit the result of
+      # List methods to only items that match the requirements.
+      #
+      # Under the hood, all the requirements are passed to the YouTube API
+      # as query parameters, after transforming the keys to camel-case.
+      #
+      # To know which requirements are available for each collection, check
+      # the documentation of the corresponding YouTube API endpoint.
+      # For instance the list of valid requirements to filter a list of videos
+      # are at https://developers.google.com/youtube/v3/docs/search/list
+      #
+      # @example Return the first video of a channel (no requirements):
+      #   video.channels.first
+      # @example Return the first long video of a channel by video count:
+      #   video.channels.where(order: 'viewCount', video_duration: 'long').first
+      def where(requirements = {})
         self.tap do
           @items = []
-          @where_params = conditions
+          @where_params = requirements
         end
       end
 
