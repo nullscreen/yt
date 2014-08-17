@@ -28,6 +28,8 @@ module Yt
       end
 
       def run
+        p as_curl if Yt.configuration.developing?
+
         if response.is_a? @expected_response
           response.tap{|response| response.body = parse_format response.body}
         else
