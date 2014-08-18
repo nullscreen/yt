@@ -12,10 +12,8 @@ For more information about changelogs, check
 
 For instance, to search for the most viewed video on the whole YouTube, run:
 
-```ruby
-videos = Yt::Collections::Videos.new
-videos.where(order: 'viewCount').first.title #=>  "PSY - GANGNAM STYLE"
-```
+    videos = Yt::Collections::Videos.new
+    videos.where(order: 'viewCount').first.title #=>  "PSY - GANGNAM STYLE"
 
 ## 0.11.0 - 2014-08-17
 
@@ -29,11 +27,9 @@ token). For security reasons, Yt will not print it out anymore by default.
 If this is acceptable, then you are good to go.
 If you want the old behavior, set the `log_level` of Yt to `:debug`:
 
-```ruby
-Yt.configure do |config|
-  config.log_level = :debug
-end
-```
+    Yt.configure do |config|
+      config.log_level = :debug
+    end
 
 * [ENHANCEMENT] Add `log_level` to Yt.configuration
 
@@ -73,14 +69,12 @@ exactly how many items are returned.
 If this is acceptable, then you are good to go.
 If you want the old behavior, replace `size` with `count`:
 
-```ruby
-account = Yt::Account.new access_token: 'ya29...'
-# old behavior
-account.videos.size # => retrieved *all* the pages of the account’s videos
-# new behavior
-account.videos.size # => retrieves only the first page, returning the totalResults counter
-account.videos.count # => retrieves *all* the pages of the account’s videos
-```
+    account = Yt::Account.new access_token: 'ya29...'
+    # old behavior
+    account.videos.size # => retrieved *all* the pages of the account’s videos
+    # new behavior
+    account.videos.size # => retrieves only the first page, returning the totalResults counter
+    account.videos.count # => retrieves *all* the pages of the account’s videos
 
 * [ENHANCEMENT] Calling `size` on a collection does not load all the pages of the collection
 * [ENHANCEMENT] Alias `policy.time_updated` to more coherent `policy.updated_at`
@@ -148,13 +142,11 @@ If your code never declares instances of `Yt::Rating`, or never calls the
 
 If it does, then *simply replace `update` with `set`*:
 
-```ruby
-rating = Yt::Rating.new
-# old syntax
-rating.update :like
-# new syntax
-rating.set :like
-```
+    rating = Yt::Rating.new
+    # old syntax
+    rating.update :like
+    # new syntax
+    rating.set :like
 
 * [ENHANCEMENT] `rating.set` replaces `rating.update` to rate a video
 
@@ -201,15 +193,13 @@ a YouTube user tries to subscribe to her/his own YouTube channel. Instead,
 If this is acceptable, then you are good to go.
 If you want the old behavior, replace `subscribe` with `subscribe!`:
 
-```ruby
-account = Yt::Account.new access_token: 'ya29...'
-channel = account.channel
-# old behavior
-channel.subscribe # => raised an error
-# new behavior
-channel.subscribe # => nil
-channel.subscribe! # => raises an error
-```
+    account = Yt::Account.new access_token: 'ya29...'
+    channel = account.channel
+    # old behavior
+    channel.subscribe # => raised an error
+    # new behavior
+    channel.subscribe # => nil
+    channel.subscribe! # => raises an error
 
 * [ENHANCEMENT] `channel.subscribe` does not raise error when trying to subscribe to one’s own channel
 
