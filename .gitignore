@@ -12,6 +12,7 @@
 /db/*.sqlite3-journal
 
 coverage/
+Gemfile.lock
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
