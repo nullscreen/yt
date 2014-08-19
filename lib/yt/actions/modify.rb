@@ -1,9 +1,11 @@
 require 'yt/models/request'
+require 'yt/actions/base'
 
 module Yt
   module Actions
     # Abstract module that contains methods common to Delete and Update
     module Modify
+      include Base
 
     private
 

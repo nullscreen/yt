@@ -1,8 +1,10 @@
 require 'yt/models/request'
+require 'yt/actions/base'
 
 module Yt
   module Actions
     module Insert
+      include Base
 
     private
 
