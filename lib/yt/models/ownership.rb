@@ -14,7 +14,7 @@ module Yt
       # update the ownership details
       def update(attributes = {})
         underscore_keys! attributes
-        do_update body: {   kind: attributes[:policy_id],
+        do_update body: {   kind: attributes[:kind],
                             general: attributes[:general]
         }
         true
