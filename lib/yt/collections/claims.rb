@@ -7,11 +7,29 @@ module Yt
     #
     # Resources with claims are: {Yt::Models::ContentOwner content owners}.
     class Claims < Base
+      def insert(attributes = {})
+        underscore_keys! attributes
+        body = {  assetId: attributes[:asset_id],
+                  videoId: attributes[:video_id],
+                  policy: attributes[:policy],
+                  contentType: attributes[:content_type]
+        }
+        params = {onBehalfOfContentOwner: @auth.owner_name}
+        do_insert(params: params, body: body)
+      end
 
     private
 
       def new_item(data)
         Yt::Claim.new data: data
+      end
+
+      # @return [Hash] the parameters to submit to YouTube to add a claim.
+      # @see https://developers.google.com/youtube/partner/docs/v1/claims/insert
+      def insert_params
+        super.tap do |params|
+          params[:path] = '/youtube/partner/v1/claims'
+        end
       end
 
       # @return [Hash] the parameters to submit to YouTube to list claims

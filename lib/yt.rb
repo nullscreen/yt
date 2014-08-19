@@ -7,6 +7,7 @@ require 'yt/models/match_policy'
 require 'yt/models/playlist'
 require 'yt/models/playlist_item'
 require 'yt/models/video'
+require 'yt/models/ownership'
 
 # An object-oriented Ruby client for YouTube.
 # Helps creating applications that need to interact with YouTube objects.
