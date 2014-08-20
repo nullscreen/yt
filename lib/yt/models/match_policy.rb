@@ -25,7 +25,7 @@ module Yt
       def patch_params
         super.tap do |params|
           params[:path] = "/youtube/partner/v1/assets/#{@asset_id}/matchPolicy"
-          params[:params] = {onBehalfOfContentOwner: @auth.owner_name}
+          params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
           params[:expected_response] = Net::HTTPOK
         end
       end

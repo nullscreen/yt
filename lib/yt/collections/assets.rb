@@ -10,7 +10,7 @@ module Yt
       def insert(attributes = {})
         underscore_keys! attributes
         body = {type: attributes[:type]}
-        params = {onBehalfOfContentOwner: @auth.owner_name}
+        params = {on_behalf_of_content_owner: @auth.owner_name}
         do_insert(params: params, body: body)
       end
 

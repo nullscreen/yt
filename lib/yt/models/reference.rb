@@ -196,7 +196,7 @@ module Yt
         super.tap do |params|
           params[:expected_response] = Net::HTTPOK
           params[:path] = "/youtube/partner/v1/references/#{id}"
-          params[:params] = {onBehalfOfContentOwner: @auth.owner_name}
+          params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
         end
       end
     end
