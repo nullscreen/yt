@@ -175,4 +175,16 @@ describe Yt::ContentOwner, :partner do
       it { expect(policy).not_to be }
     end
   end
+
+  # @note: The following test works, but YouTube API endpoint to mark
+  #   an asset as 'invalid' (soft-delete) does not work, and apparently
+  #   there is no way to update the status of a asset.
+  #   Therefore, the test is commented out, otherwise a new asset would
+  #   be created every time the test is run.
+  # describe 'assets can be added' do
+  #   let(:params) { {type: 'web'} }
+  #   before { @asset = $content_owner.create_asset params }
+  #   after { @asset.delete } # This does not seem to work
+  #   it { expect(@asset).to be_a Yt::Asset }
+  # end
 end

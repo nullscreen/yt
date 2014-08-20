@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.2 - unreleased
+
+* [FEATURE] Add `content_owner.create_asset` and Asset model
+
 ## 0.11.1 - 2014-08-17
 
 * [ENHANCEMENT] Add Video search even without a parent account or channel
