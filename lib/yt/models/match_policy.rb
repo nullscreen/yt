@@ -13,7 +13,7 @@ module Yt
 
       def update(attributes = {})
         underscore_keys! attributes
-        do_patch body: {policyId: attributes[:policy_id]}
+        do_patch body: attributes.slice(:policy_id)
         true
       end
 
