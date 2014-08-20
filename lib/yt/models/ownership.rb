@@ -19,6 +19,11 @@ module Yt
         true
       end
 
+      # Assigns 100% of the general ownership of the asset to @auth.
+      def obtain!
+        update general: [{ratio: 100, owner: @auth.owner_name, type: :exclude}]
+      end
+
       # @return [Array<RightOwner>] a list that identifies the owners of an
       #   asset and the territories where each owner has ownership.
       #   General  asset ownership is used for all types of assets and is the

@@ -11,5 +11,9 @@ describe Yt::Ownership, :partner do
       let(:general_owner) { {ratio: 100, owner: 'FullScreen', type: 'include', territories: ['US', 'CA']} }
       it { expect(ownership.update general: [general_owner]).to be true }
     end
+
+    describe 'the complete ownership can be obtained' do
+      it { expect(ownership.obtain!).to be true }
+    end
   end
 end
