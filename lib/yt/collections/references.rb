@@ -9,8 +9,8 @@ module Yt
     class References < Base
       def insert(attributes = {})
         underscore_keys! attributes
-        body = {contentType: attributes[:content_type] }
-        params = {claimId: attributes[:claim_id], onBehalfOfContentOwner: @auth.owner_name}
+        body = {content_type: attributes[:content_type] }
+        params = {claim_id: attributes[:claim_id], on_behalf_of_content_owner: @auth.owner_name}
         do_insert(params: params, body: body)
       end
 

@@ -39,6 +39,7 @@ module Yt
           params[:path] = @uri.path
           params[:expected_response] = Net::HTTPSuccess
           params[:headers] = @headers
+          params[:camelize_params] = false
           params[:params] = session_params
         end
       end

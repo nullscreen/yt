@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.11.1'
+    gem 'yt', '~> 0.11.2'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -95,6 +95,9 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
 * list the claims administered by the content owner
+* list and delete the references administered by the content owner
+* list the policies and policy rules administered by the content owner
+* create assets
 
 ```ruby
 # Content owners can be initialized with access token, refresh token or an authorization code
@@ -105,9 +108,19 @@ content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
+content_owner.claims.first.video_id #=> 'MESycYJytkU'
+content_owner.claims.first.status #=> "active"
 
-content_owner.references.where(asset_id: "ABCDEFG").first => #<Yt::Models::Reference @id=...>
-content_owner.policies.first => #<Yt::Models::Policy @id=...>
+reference = content_owner.references.where(asset_id: "ABCDEFG").first #=> #<Yt::Models::Reference @id=...>
+reference.delete #=> true
+
+content_owner.policies.first #=> #<Yt::Models::Policy @id=...>
+content_owner.policies.first.name #=> "Track in all countries"
+content_owner.policies.first.rules.first #=> #<Yt::Models::PolicyRule @id=...>
+content_owner.policies.first.rules.first.action #=> "monetize"
+content_owner.policies.first.rules.first.included_territories #=> ["US", "CA"]
+
+content_owner.create_asset type: 'web' #=> #<Yt::Models::Asset @id=...>
 ```
 
 *All the above methods require authentication (see below).*
@@ -431,6 +444,68 @@ annotation.has_link_to_playlist? #=> true
 ```
 
 *Annotations do not require authentication.*
+
+Yt::MatchPolicy
+---------------
+
+Use [Yt::MatchPolicy](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/MatchPolicy) to:
+
+* update the policy used by an asset
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+match_policy = Yt::MatchPolicy.new asset_id: 'ABCD12345678', auth: content_owner
+match_policy.update policy_id: 'aBcdEF6g-HJ' #=> true
+
+Yt::Asset
+---------
+
+Use [Yt::Asset](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Asset) to:
+
+* read the ownership of an asset
+
+```ruby
+
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+asset = Yt::Asset.new id: 'ABCD12345678', auth: content_owner
+asset.ownership #=> #<Yt::Models::Ownership @general=...>
+asset.general_owners.first.owner #=> 'FullScreen'
+asset.general_owners.first.everywhere? #=> true
+```
+
+*The methods above require to be authenticated as the video’s content owner (see below).*
+
+Yt::Ownership
+-------------
+
+Use [Yt::Ownership](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Ownership) to:
+
+* update the ownership of an asset
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+ownership = Yt::Ownership.new asset_id: 'ABCD12345678', auth: $content_owner
+new_general_owner_attrs = {ratio: 100, owner: 'FullScreen', type: 'include', territories: ['US', 'CA']}
+ownership.update general: [new_general_owner_attrs]
+```
+
+*The methods above require to be authenticated as the video’s content owner (see below).*
+
+Yt::AdvertisingOptionsSet
+-------------------------
+
+Use [Yt::AdvertisingOptionsSet](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/AdvertisingOptionsSet) to:
+
+* update the advertising settings of a video
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+ad_options = Yt::AdvertisingOptionsSet.new video_id: 'MESycYJytkU', auth: $content_owner
+ad_options.update ad_formats: %w(standard_instream long) #=> true
+```
+
+*The methods above require to be authenticated as the video’s content owner (see below).*
+
 
 Configuring your app
 ====================

@@ -7,6 +7,19 @@ module Yt
     class Claim < Base
       def initialize(options = {})
         @data = options[:data]
+        @id = options[:id]
+        @auth = options[:auth]
+      end
+
+      # Soft-deletes the claim.
+      # @note YouTube API does not provide a +delete+ method for the Asset
+      #   resource, but only an +update+ method. Updating the +status+ of a
+      #   Asset to "inactive" can be considered a soft-deletion.
+      # @return [Boolean] whether the claim is inactive.
+      def delete
+        body = {status: :inactive}
+        do_patch(body: body) {|data| @data = data}
+        inactive?
       end
 
       # @return [String] the ID that YouTube assigns and uses to uniquely
@@ -136,6 +149,15 @@ module Yt
       #   reference that generated the match.
       def match_reference_id
         @match_reference_id ||= @data.fetch('matchInfo', {})['referenceId']
+      end
+
+      # @see https://developers.google.com/youtube/partner/docs/v1/claims/update
+      def patch_params
+        super.tap do |params|
+          params[:expected_response] = Net::HTTPOK
+          params[:path] = "/youtube/partner/v1/claims/#{id}"
+          params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
+        end
       end
     end
   end

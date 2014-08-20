@@ -124,7 +124,7 @@ module Yt
       # Tells `has_many :videos` that channel.videos should return all the
       # videos publicly available on the channel.
       def videos_params
-        {channelId: id}
+        {channel_id: id}
       end
 
       # @private

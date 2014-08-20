@@ -56,7 +56,7 @@ module Yt
       # Tells `has_many :videos` that account.videos should return all the
       # videos *owned by* the account (public, private, unlisted).
       def videos_params
-        {forMine: true}
+        {for_mine: true}
       end
     end
   end

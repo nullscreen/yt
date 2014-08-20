@@ -21,6 +21,7 @@ module Yt
           params[:method] = :post
           params[:auth] = nil
           params[:body] = auth_params
+          params[:camelize_body] = false
         end
       end
 
