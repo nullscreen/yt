@@ -95,6 +95,8 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
 * list the claims administered by the content owner
+* list and delete the references administered by the content owner
+* list the policies and policy rules administered by the content owner
 
 ```ruby
 # Content owners can be initialized with access token, refresh token or an authorization code
@@ -105,9 +107,17 @@ content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
+content_owner.claims.first.video_id #=> 'MESycYJytkU'
+content_owner.claims.first.status #=> "active"
 
-content_owner.references.where(asset_id: "ABCDEFG").first => #<Yt::Models::Reference @id=...>
-content_owner.policies.first => #<Yt::Models::Policy @id=...>
+reference = content_owner.references.where(asset_id: "ABCDEFG").first #=> #<Yt::Models::Reference @id=...>
+reference.delete #=> true
+
+content_owner.policies.first #=> #<Yt::Models::Policy @id=...>
+content_owner.policies.first.name #=> "Track in all countries"
+content_owner.policies.first.rules.first #=> #<Yt::Models::PolicyRule @id=...>
+content_owner.policies.first.rules.first.action #=> "monetize"
+content_owner.policies.first.rules.first.included_territories #=> ["US", "CA"]
 ```
 
 *All the above methods require authentication (see below).*
@@ -431,6 +441,22 @@ annotation.has_link_to_playlist? #=> true
 ```
 
 *Annotations do not require authentication.*
+
+Yt::MatchPolicy
+---------------
+
+Use [Yt::MatchPolicy](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/MatchPolicy) to:
+
+* update the policy used by an asset
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+match_policy = Yt::MatchPolicy.new asset_id: 'ABCD12345678', auth: content_owner
+match_policy.update policy_id: 'aBcdEF6g-HJ' #=> true
+```
+
+*The methods above require to be authenticated as the video’s content owner (see below).*
+
 
 Configuring your app
 ====================
