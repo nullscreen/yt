@@ -6,6 +6,13 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.2 - 2014-08-19
+
+* [FEATURE] Add Assets Collection
+* [FEATURE] Add Asset model
+* [FEATURE] Add Ownership model
+* [FEATURE] Add VideoAdvertisingOptions model
+
 ## 0.11.1 - 2014-08-17
 
 * [ENHANCEMENT] Add Video search even without a parent account or channel

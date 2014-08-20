@@ -94,6 +94,7 @@ module Yt
       def camelize(value)
         value.to_s.camelize(:lower).to_sym
       end
+
     end
   end
 end

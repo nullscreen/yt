@@ -41,6 +41,7 @@ module Yt
       def references_params
         apply_where_params! on_behalf_of_content_owner: @parent.owner_name
       end
+
     end
   end
 end
