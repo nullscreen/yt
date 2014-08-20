@@ -11,7 +11,7 @@ module Yt
         underscore_keys! attributes
         body = {  assetId: attributes[:asset_id],
                   videoId: attributes[:video_id],
-                  policy: attributes[:policy],
+                  policy: {id: attributes[:policy_id]},
                   contentType: attributes[:content_type]
         }
         params = {onBehalfOfContentOwner: @auth.owner_name}
