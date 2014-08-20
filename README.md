@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.11.1'
+    gem 'yt', '~> 0.11.2'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -94,7 +94,7 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
-* create and list claims administered by the content owner
+* list the claims administered by the content owner
 * list and delete the references administered by the content owner
 * list the policies and policy rules administered by the content owner
 * create assets
@@ -106,7 +106,6 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 content_owner.partnered_channels.count #=> 12
 content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
 
-content_owner.create_claim asset_id: 'ABCDEFG', video_id: 'MESycYJytkU', policy_id: 'aBcdEF6g-HJ', content_type: 'audiovisual' #=> #<Yt::Models::Claim @id=...>
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
 content_owner.claims.first.video_id #=> 'MESycYJytkU'
@@ -491,6 +490,22 @@ ownership.update general: [new_general_owner_attrs]
 ```
 
 *The methods above require to be authenticated as the video’s content owner (see below).*
+
+Yt::AdvertisingOptionsSet
+-------------------------
+
+Use [Yt::AdvertisingOptionsSet](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/AdvertisingOptionsSet) to:
+
+* update the advertising settings of a video
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+ad_options = Yt::AdvertisingOptionsSet.new video_id: 'MESycYJytkU', auth: $content_owner
+ad_options.update ad_formats: %w(standard_instream long) #=> true
+```
+
+*The methods above require to be authenticated as the video’s content owner (see below).*
+
 
 Configuring your app
 ====================

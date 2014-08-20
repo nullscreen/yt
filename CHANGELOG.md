@@ -6,8 +6,9 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.11.2 - unreleased
+## 0.11.2 - 2014-08-20
 
+* [FEATURE] Add AdvertisingOptionsSet with `update` to change the advertising settings of a video
 * [FEATURE] Add `content_owner.create_claim` and `claim.delete`
 * [FEATURE] Add `update` method to Ownership to change owners of an asset
 * [FEATURE] Add `asset.ownership` to list the owners of an asset
