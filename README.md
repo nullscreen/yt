@@ -456,6 +456,21 @@ Use [Yt::MatchPolicy](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 match_policy = Yt::MatchPolicy.new asset_id: 'ABCD12345678', auth: content_owner
 match_policy.update policy_id: 'aBcdEF6g-HJ' #=> true
+
+Yt::Asset
+---------
+
+Use [Yt::Asset](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Asset) to:
+
+* read the ownership of an asset
+
+```ruby
+
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+asset = Yt::Asset.new id: 'ABCD12345678', auth: content_owner
+asset.ownership #=> #<Yt::Models::Ownership @general=...>
+asset.general_owners.first.owner #=> 'FullScreen'
+asset.general_owners.first.everywhere? #=> true
 ```
 
 *The methods above require to be authenticated as the video’s content owner (see below).*

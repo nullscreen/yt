@@ -5,11 +5,19 @@ module Yt
     # Provides methods to interact with YouTube ContentID assets.
     # @see https://developers.google.com/youtube/partner/docs/v1/assets
     class Asset < Base
+      attr_reader :auth
+
       def initialize(options = {})
         @data = options[:data]
         @id = options[:id]
         @auth = options[:auth]
       end
+
+      # @!attribute [r] ownership
+      #   @return [Yt::Models::Ownership] the asset’s ownership.
+      has_one :ownership
+      delegate :general_owners, :performance_owners, :synchronization_owners,
+        :mechanical_owners, to: :ownership
 
       # Soft-deletes the asset.
       # @note YouTube API does not provide a +delete+ method for the Asset
