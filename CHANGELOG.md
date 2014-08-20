@@ -8,6 +8,7 @@ For more information about changelogs, check
 
 ## 0.11.2 - unreleased
 
+* [FEATURE] Add `update` method to Ownership to change owners of an asset
 * [FEATURE] Add `asset.ownership` to list the owners of an asset
 * [FEATURE] Add `content_owner.create_asset` and Asset model
 

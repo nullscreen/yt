@@ -43,7 +43,7 @@ describe Yt::ContentOwner, :partner do
       let(:count) { $content_owner.claims.where(asset_id: asset_id).count }
 
       context 'given the asset ID of a claim administered by the content owner' do
-        let(:asset_id) { ENV['YT_TEST_PARTNER_ASSET_ID'] }
+        let(:asset_id) { ENV['YT_TEST_PARTNER_ASSET_WITH_CLAIM_ID'] }
         it { expect(count).to be > 0 }
       end
 

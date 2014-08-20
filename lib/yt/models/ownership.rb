@@ -8,8 +8,15 @@ module Yt
     # @see https://developers.google.com/youtube/partner/docs/v1/ownership
     class Ownership < Base
       def initialize(options = {})
-        @data = options[:data]
+        @data = options[:data] || {}
         @auth = options[:auth]
+        @asset_id = options[:asset_id]
+      end
+
+      def update(attributes = {})
+        underscore_keys! attributes
+        do_update body: attributes
+        true
       end
 
       # @return [Array<RightOwner>] a list that identifies the owners of an
@@ -40,6 +47,15 @@ module Yt
       end
 
     private
+
+      # @see https://developers.google.com/youtube/partner/docs/v1/ownership/update
+      def update_params
+        super.tap do |params|
+          params[:expected_response] = Net::HTTPOK
+          params[:path] = "/youtube/partner/v1/assets/#{@asset_id}/ownership"
+          params[:params] = {onBehalfOfContentOwner: @auth.owner_name}
+        end
+      end
 
       def as_owners(data)
         (data || []).map{|owner_data| Yt::RightOwner.new data: owner_data}

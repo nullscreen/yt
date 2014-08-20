@@ -11,7 +11,7 @@ module Yt
     private
 
       def new_item(data)
-        Yt::Ownership.new data: data, auth: @auth
+        Yt::Ownership.new data: data, asset_id: @parent.id, auth: @auth
       end
 
       # @return [Hash] the parameters to submit to YouTube to get ownerships.

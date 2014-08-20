@@ -475,6 +475,21 @@ asset.general_owners.first.everywhere? #=> true
 
 *The methods above require to be authenticated as the video’s content owner (see below).*
 
+Yt::Ownership
+-------------
+
+Use [Yt::Ownership](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Ownership) to:
+
+* update the ownership of an asset
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+ownership = Yt::Ownership.new asset_id: 'ABCD12345678', auth: $content_owner
+new_general_owner_attrs = {ratio: 100, owner: 'FullScreen', type: 'include', territories: ['US', 'CA']}
+ownership.update general: [new_general_owner_attrs]
+```
+
+*The methods above require to be authenticated as the video’s content owner (see below).*
 
 Configuring your app
 ====================
