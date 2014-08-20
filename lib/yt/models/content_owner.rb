@@ -8,19 +8,19 @@ module Yt
     class ContentOwner < Account
 
       # @!attribute [r] partnered_channels
-      #   @return [Yt::Collection::PartneredChannels] the channels managed by the CMS account.
+      #   @return [Yt::Collections::PartneredChannels] the channels managed by the CMS account.
       has_many :partnered_channels
 
       # @!attribute [r] claims
-      #   @return [Yt::Collection::Claims] the claims administered by the content owner.
+      #   @return [Yt::Collections::Claims] the claims administered by the content owner.
       has_many :claims
 
       # @!attribute [r] references
-      #   @return [Yt::Collection::References] the references administered by the content owner.
+      #   @return [Yt::Collections::References] the references administered by the content owner.
       has_many :references
 
       # @!attribute [r] policies
-      #   @return [Yt::Collection::Policies] the policies saved by the content owner.
+      #   @return [Yt::Collections::Policies] the policies saved by the content owner.
       has_many :policies
 
       def initialize(options = {})
