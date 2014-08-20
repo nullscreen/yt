@@ -24,8 +24,11 @@ module Yt
         @host = options.fetch :host, google_api_host
         @method = options.fetch :method, :get
         @path = options[:path]
-        @query = options.fetch(:params, {}).to_param
+        params = options.fetch :params, {}
+        camelize_keys! params if options.fetch(:camelize_params, true)
+        @query = params.to_param
       end
+
 
       def run
         p as_curl if Yt.configuration.developing?
@@ -130,6 +133,12 @@ module Yt
           when :xml then Hash.from_xml body
           when :json then JSON body
         end if body
+      end
+
+      def camelize_keys!(hash)
+        hash.dup.each_key do |key|
+          hash[key.to_s.camelize(:lower).to_sym] = hash.delete key
+        end if hash
       end
 
       # There are two cases to run a request again: YouTube responds with a

@@ -66,7 +66,6 @@ module Yt
       end
 
       def request(params = {})
-        camelize_keys! params[:params] if params.fetch(:camelize_params, true)
         @last_request = Yt::Request.new params
       end
 
@@ -91,12 +90,6 @@ module Yt
 
       def list_resources
         self.class
-      end
-
-      def camelize_keys!(hash = {})
-        hash.dup.each_key do |key|
-          hash[key.to_s.camelize(:lower).to_sym] = hash.delete key
-        end
       end
     end
   end
