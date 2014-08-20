@@ -15,7 +15,6 @@ module Yt
     class Request
       def initialize(options = {})
         @auth = options[:auth]
-        @body = options[:body]
         @file = options[:file]
         @body_type = options.fetch :body_type, :json
         @expected_response = options.fetch :expected_response, Net::HTTPSuccess
@@ -24,6 +23,8 @@ module Yt
         @host = options.fetch :host, google_api_host
         @method = options.fetch :method, :get
         @path = options[:path]
+        @body = options[:body]
+        camelize_keys! @body if options.fetch(:camelize_body, true)
         params = options.fetch :params, {}
         camelize_keys! params if options.fetch(:camelize_params, true)
         @query = params.to_param
@@ -135,10 +136,11 @@ module Yt
         end if body
       end
 
-      def camelize_keys!(hash)
-        hash.dup.each_key do |key|
-          hash[key.to_s.camelize(:lower).to_sym] = hash.delete key
-        end if hash
+      def camelize_keys!(object)
+        return object unless object.is_a?(Hash)
+        object.dup.each_key do |key|
+          object[key.to_s.camelize(:lower).to_sym] = object.delete key
+        end
       end
 
       # There are two cases to run a request again: YouTube responds with a
