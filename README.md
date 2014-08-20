@@ -208,7 +208,7 @@ channel.impressions_on 5.days.ago #=> 157.0
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 channel.viewer_percentage(gender: :female) #=> 49.12
 
-channel.content_owner #=> 'FullScreen'
+channel.content_owner #=> 'CMSname'
 channel.linked_at #=> Wed, 28 May 2014
 ```
 
@@ -456,6 +456,7 @@ Use [Yt::MatchPolicy](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 match_policy = Yt::MatchPolicy.new asset_id: 'ABCD12345678', auth: content_owner
 match_policy.update policy_id: 'aBcdEF6g-HJ' #=> true
+```
 
 Yt::Asset
 ---------
@@ -469,7 +470,8 @@ Use [Yt::Asset](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Asset)
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 asset = Yt::Asset.new id: 'ABCD12345678', auth: content_owner
 asset.ownership #=> #<Yt::Models::Ownership @general=...>
-asset.general_owners.first.owner #=> 'FullScreen'
+asset.ownership.obtain! #=> true
+asset.general_owners.first.owner #=> 'CMSname'
 asset.general_owners.first.everywhere? #=> true
 ```
 
@@ -485,7 +487,7 @@ Use [Yt::Ownership](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Ow
 ```ruby
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 ownership = Yt::Ownership.new asset_id: 'ABCD12345678', auth: $content_owner
-new_general_owner_attrs = {ratio: 100, owner: 'FullScreen', type: 'include', territories: ['US', 'CA']}
+new_general_owner_attrs = {ratio: 100, owner: 'CMSname', type: 'include', territories: ['US', 'CA']}
 ownership.update general: [new_general_owner_attrs]
 ```
 
