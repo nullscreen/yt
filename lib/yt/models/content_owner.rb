@@ -39,6 +39,10 @@ module Yt
       def create_asset(params = {})
         assets.insert params
       end
+
+      def create_claim(params = {})
+        claims.insert params
+      end
     end
   end
 end

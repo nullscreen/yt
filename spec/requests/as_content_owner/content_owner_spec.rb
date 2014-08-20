@@ -10,8 +10,31 @@ describe Yt::ContentOwner, :partner do
     it { expect($content_owner.partnered_channels.size).to be > 0 }
   end
 
+  describe 'claims' do
+    let(:asset_id) { ENV['YT_TEST_PARTNER_ASSET_ID'] }
+    let(:policy_id) { ENV['YT_TEST_PARTNER_POLICY_ID'] }
+    let(:video_id) { ENV['YT_TEST_PARTNER_CLAIMABLE_VIDEO_ID'] }
+    let(:params) { {asset_id: asset_id, video_id: video_id, policy_id: policy_id, content_type: 'audiovisual'} }
+
+    specify 'can be added' do
+      begin
+        expect($content_owner.create_claim params).to be_a Yt::Claim
+      rescue Yt::Errors::RequestError => e
+        # @note: Every time this test runs, a claim is inserted for the same
+        #   video and asset, but YouTube does not allow this, and responds with
+        #   an error message like "Video is already claimed. Existing claims
+        #   on this video: AbCdEFg1234".
+        #   For the sake of testing, we delete the duplicate and try again.
+        raise unless e.reasons.include? 'alreadyClaimed'
+        id = e.kind['message'].match(/this video: (.*?)$/) {|re| re[1]}
+        Yt::Claim.new(id: id, auth: $content_owner).delete
+        expect($content_owner.create_claim params).to be_a Yt::Claim
+      end
+    end
+  end
+
   describe '.claims' do
-    describe 'given the content owner has policies' do
+    describe 'given the content owner has claims' do
       let(:claim) { $content_owner.claims.first }
 
       it 'returns valid metadata' do
