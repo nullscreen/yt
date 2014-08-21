@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.11.2'
+    gem 'yt', '~> 0.11.3'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -464,6 +464,7 @@ Yt::Asset
 Use [Yt::Asset](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Asset) to:
 
 * read the ownership of an asset
+* update the attributes of an asset
 
 ```ruby
 
@@ -473,6 +474,8 @@ asset.ownership #=> #<Yt::Models::Ownership @general=...>
 asset.ownership.obtain! #=> true
 asset.general_owners.first.owner #=> 'CMSname'
 asset.general_owners.first.everywhere? #=> true
+
+asset.update metadata_mine: {notes: 'Some notes'} #=> true
 ```
 
 *The methods above require to be authenticated as the video’s content owner (see below).*

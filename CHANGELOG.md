@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.3 - 2014-08-21
+
+* [FEATURE] Add `update` method to Asset model
+
 ## 0.11.2 - 2014-08-20
 
 * [FEATURE] Add AdvertisingOptionsSet with `update` to change the advertising settings of a video
