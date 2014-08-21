@@ -13,6 +13,12 @@ module Yt
         @auth = options[:auth]
       end
 
+      def update(attributes = {})
+        underscore_keys! attributes
+        do_patch body: attributes
+        true
+      end
+
       # @!attribute [r] ownership
       #   @return [Yt::Models::Ownership] the asset’s ownership.
       has_one :ownership
@@ -30,7 +36,7 @@ module Yt
       # @return [Boolean] whether the asset is inactive.
       # def delete
       #   body = {id: id, status: :inactive}
-      #   do_update(body: body) {|data| @data = data}
+      #   do_patch(body: body) {|data| @data = data}
       #   inactive?
       # end
 
@@ -83,18 +89,15 @@ module Yt
 
     private
 
-      # @see https://developers.google.com/youtube/partner/docs/v1/assets/update
-      # @note Despite what the documentation says, YouTube API never returns
-      #   the status of an asset, so it’s impossible to update, although the
-      #   documentation says this should be the case. If YouTube ever fixes
-      #   the API, then the following code can be uncommented.
-      # def update_params
-      #   super.tap do |params|
-      #     params[:expected_response] = Net::HTTPOK
-      #     params[:path] = "/youtube/partner/v1/assets/#{id}"
-      #     params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
-      #   end
-      # end
+      # @see https://developers.google.com/youtube/partner/docs/v1/assets/patch
+      def patch_params
+        super.tap do |params|
+          params[:expected_response] = Net::HTTPOK
+          params[:path] = "/youtube/partner/v1/assets/#{@id}"
+          params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
+        end
+      end
+
     end
   end
 end
