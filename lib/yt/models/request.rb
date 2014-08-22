@@ -51,8 +51,10 @@ module Yt
     private
 
       def response
-        @response ||= Net::HTTP.start(*net_http_options) do |http|
-          http.request http_request
+        @response ||= ActiveSupport::Notifications.instrument 'request.yt' do |payload|
+          payload[:method] = @method
+          payload[:request_uri] = uri
+          payload[:response] = Net::HTTP.start(*net_http_options) { |http| http.request http_request }
         end
       rescue OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ENETUNREACH, Errno::ECONNRESET => e
         @response ||= e
