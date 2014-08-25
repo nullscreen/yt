@@ -7,11 +7,8 @@ module Yt
 
     private
 
-      # @return [Yt::Models::ContentOwnerDetail] a new content detail
-      #   initialized with one of the items returned by asking YouTube for a
-      #   list of them.
-      def new_item(data)
-        Yt::ContentOwnerDetail.new data: data['contentOwnerDetails']
+      def attributes_for_new_item(data)
+        {data: data['contentOwnerDetails']}
       end
 
       # @return [Hash] the parameters to submit to YouTube to get the

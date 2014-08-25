@@ -53,8 +53,16 @@ module Yt
       #   Can be overwritten by subclasses that initialize instance with
       #   a different set of parameters.
       def new_item(data)
-        resource_class.new data: data, auth: @auth
+        resource_class.new attributes_for_new_item(data)
       end
+
+      # @private
+      # Can be overwritten by subclasses that initialize instance with
+      # a different set of parameters.
+      def attributes_for_new_item(data)
+        {data: data, auth: @auth}
+      end
+
 
       def more_pages?
         @last_index.zero? || !@page_token.nil?

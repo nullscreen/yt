@@ -17,13 +17,8 @@ module Yt
 
     private
 
-      # @return [resource_class] a new resource item initialized with
-      #   one of the items returned by asking YouTube for a list of items.
-      # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
-      # @see https://developers.google.com/youtube/v3/docs/playlists#resource
-      # @see https://developers.google.com/youtube/v3/docs/channels#resource
-      def new_item(data)
-        resource_class.new id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth
+      def attributes_for_new_item(data)
+        {id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth}
       end
 
       def resources_params

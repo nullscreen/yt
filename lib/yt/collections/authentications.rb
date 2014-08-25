@@ -8,9 +8,9 @@ module Yt
 
     private
 
-      def new_item(data)
+      def attributes_for_new_item(data)
         data['refresh_token'] ||= auth_params[:refresh_token]
-        Yt::Authentication.new data
+        data
       end
 
       def list_params

@@ -21,7 +21,7 @@ module Yt
       # @note Partnered Channels overwrites +list_resources+ since the endpoint
       #   to hit is 'channels', not 'partnered_channels'.
       def list_resources
-        self.class.superclass
+        self.class.superclass.to_s.demodulize
       end
     end
   end

@@ -8,11 +8,9 @@ module Yt
 
     private
 
-      # @private
-      # @note This can be removed to use the one in List as soon as the parent
-      #   method in Authentications is changed
-      def new_item(data)
-        Yt::DeviceFlow.new data: data
+      # This overrides the parent mehthod defined in Authentications
+      def attributes_for_new_item(data)
+        {data: data}
       end
 
       def list_params

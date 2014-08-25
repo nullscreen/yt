@@ -7,8 +7,8 @@ module Yt
 
     private
 
-      def new_item(data)
-        Yt::Rating.new rating: data['rating'], video_id: @parent.id, auth: @auth
+      def attributes_for_new_item(data)
+        {rating: data['rating'], video_id: @parent.id, auth: @auth}
       end
 
       def list_params
