@@ -26,7 +26,7 @@ module Yt
       # @note Statuses overrides +list_resources+ since the endpoint is not
       #   '/statuses' but the endpoint related to the snippet’s resource.
       def list_resources
-        @parent.class.to_s.pluralize
+        @parent.class.to_s.pluralize.demodulize
       end
     end
   end

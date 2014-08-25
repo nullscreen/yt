@@ -43,7 +43,7 @@ module Yt
       end
 
       def resource_class
-        resource_name = list_resources.name.demodulize.singularize
+        resource_name = list_resources.singularize
         require "yt/models/#{resource_name.underscore}"
         "Yt::Models::#{resource_name}".constantize
       end
@@ -84,7 +84,7 @@ module Yt
       end
 
       def list_params
-        path = "/youtube/v3/#{list_resources.to_s.demodulize.camelize :lower}"
+        path = "/youtube/v3/#{list_resources.camelize :lower}"
 
         {}.tap do |params|
           params[:method] = :get
@@ -99,7 +99,7 @@ module Yt
       end
 
       def list_resources
-        self.class
+        self.class.to_s.demodulize
       end
     end
   end
