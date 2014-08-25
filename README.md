@@ -511,6 +511,25 @@ ad_options.update ad_formats: %w(standard_instream long) #=> true
 
 *The methods above require to be authenticated as the video’s content owner (see below).*
 
+Instrumentation
+===============
+
+Yt leverages [Active Support Instrumentation](http://edgeguides.rubyonrails.org/active_support_instrumentation.html) to provide a hook which developers can use to be notified when HTTP requests to YouTube are made.  This hook may be used to track the number of requests over time, monitor quota usage, provide an audit trail, or track how long a specific request takes to complete.
+
+Subscribe to the `request.yt` notification within your application:
+
+```ruby
+ActiveSupport::Notifications.subscribe 'request.yt' do |*args|
+  event = ActiveSupport::Notifications::Event.new(*args)
+
+  event.payload[:request_uri] #=> #<URI::HTTPS URL:https://www.googleapis.com/youtube/v3/channels?id=UCxO1tY8h1AhOz0T4ENwmpow&part=snippet>
+  event.payload[:method] #=> :get
+  event.payload[:response] #=> #<Net::HTTPOK 200 OK readbody=true>
+
+  event.end #=> 2014-08-22 16:57:17 -0700
+  event.duration #=> 141.867 (ms)
+end
+```
 
 Configuring your app
 ====================
