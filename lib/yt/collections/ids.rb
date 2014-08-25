@@ -7,8 +7,8 @@ module Yt
 
     private
 
-      def new_item(data)
-        Yt::Id.new data['id']
+      def attributes_for_new_item(data)
+        data['id']
       end
 
       def list_params

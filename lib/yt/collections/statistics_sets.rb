@@ -7,10 +7,8 @@ module Yt
 
     private
 
-      # @return [Yt::Models::StatisticsSet] a new statistics set initialized
-      #   with one of the items returned by asking YouTube for a list of them.
-      def new_item(data)
-        Yt::StatisticsSet.new data: data['statistics']
+      def attributes_for_new_item(data)
+        {data: data['statistics']}
       end
 
       # @return [Hash] the parameters to submit to YouTube to get the

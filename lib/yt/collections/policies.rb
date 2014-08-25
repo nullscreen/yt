@@ -10,10 +10,6 @@ module Yt
 
     private
 
-      def new_item(data)
-        Yt::Policy.new data: data
-      end
-
       # @return [Hash] the parameters to submit to YouTube to list policies
       #   saved by the content owner.
       # @see https://developers.google.com/youtube/partner/docs/v1/policies/list

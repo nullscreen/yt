@@ -17,23 +17,12 @@ module Yt
 
     private
 
-      # @return [resource_class] a new resource item initialized with
-      #   one of the items returned by asking YouTube for a list of items.
-      # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
-      # @see https://developers.google.com/youtube/v3/docs/playlists#resource
-      # @see https://developers.google.com/youtube/v3/docs/channels#resource
-      def new_item(data)
-        resource_class.new id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth
+      def attributes_for_new_item(data)
+        {id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth}
       end
 
       def resources_params
         {max_results: 50, part: 'snippet,status'}
-      end
-
-      def resource_class
-        resource_name = list_resources.name.demodulize.singularize
-        require "yt/models/#{resource_name.underscore}"
-        "Yt::Models::#{resource_name}".constantize
       end
 
       def build_insert_body(attributes = {})
@@ -57,17 +46,6 @@ module Yt
 
       def should_include_part_in_insert?(part, attributes = {})
         (part[:keys] & attributes.keys).any?
-      end
-
-      # @return [Hash] the original hash with angle brackets characters in its
-      #   values replaced with similar Unicode characters accepted by Youtube.
-      # @see https://support.google.com/youtube/answer/57404?hl=en
-      def sanitize_brackets!(source)
-        case source
-          when String then source.gsub('<', '‹').gsub('>', '›')
-          when Array then source.map{|string| sanitize_brackets! string}
-          when Hash then source.each{|k,v| source[k] = sanitize_brackets! v}
-        end
       end
 
       def camelize(value)

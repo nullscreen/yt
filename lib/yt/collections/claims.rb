@@ -17,10 +17,6 @@ module Yt
 
     private
 
-      def new_item(data)
-        Yt::Claim.new data: data, auth: @auth
-      end
-
       # @return [Hash] the parameters to submit to YouTube to list claims
       #   administered by the content owner.
       # @see https://developers.google.com/youtube/partner/docs/v1/claims/list

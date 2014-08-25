@@ -34,8 +34,8 @@ module Yt
 
     private
 
-      def new_item(data)
-        Yt::ResumableSession.new url: data['Location'], headers: @headers, auth: @auth
+      def attributes_for_new_item(data)
+        {url: data['Location'], headers: @headers, auth: @auth}
       end
 
       def insert_params

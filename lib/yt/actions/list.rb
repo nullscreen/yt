@@ -42,9 +42,27 @@ module Yt
         @items[(@last_index +=1) -1]
       end
 
-      # To be overriden by the subclasses
-      def new_item(data)
+      def resource_class
+        resource_name = list_resources.singularize
+        require "yt/models/#{resource_name.underscore}"
+        "Yt::Models::#{resource_name}".constantize
       end
+
+      # @return [resource_class] a new resource initialized with one
+      #   of the items returned by asking YouTube for a list of resources.
+      #   Can be overwritten by subclasses that initialize instance with
+      #   a different set of parameters.
+      def new_item(data)
+        resource_class.new attributes_for_new_item(data)
+      end
+
+      # @private
+      # Can be overwritten by subclasses that initialize instance with
+      # a different set of parameters.
+      def attributes_for_new_item(data)
+        {data: data, auth: @auth}
+      end
+
 
       def more_pages?
         @last_index.zero? || !@page_token.nil?
@@ -74,7 +92,7 @@ module Yt
       end
 
       def list_params
-        path = "/youtube/v3/#{list_resources.to_s.demodulize.camelize :lower}"
+        path = "/youtube/v3/#{list_resources.camelize :lower}"
 
         {}.tap do |params|
           params[:method] = :get
@@ -89,7 +107,7 @@ module Yt
       end
 
       def list_resources
-        self.class
+        self.class.to_s.demodulize
       end
     end
   end

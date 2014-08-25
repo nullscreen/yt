@@ -16,10 +16,6 @@ module Yt
 
     private
 
-      def new_item(data)
-        Yt::Reference.new data: data, auth: @auth
-      end
-
       # @return [Hash] the parameters to submit to YouTube to add a reference.
       # @see https://developers.google.com/youtube/partner/docs/v1/references/insert
       def insert_params

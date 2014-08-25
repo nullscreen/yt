@@ -7,11 +7,8 @@ module Yt
 
     private
 
-      # @return [Yt::Models::LiveStreamingDetail] a new live streaming detail
-      #   initialized with one of the items returned by asking YouTube for a
-      #   list of them.
-      def new_item(data)
-        Yt::LiveStreamingDetail.new data: data['liveStreamingDetails']
+      def attributes_for_new_item(data)
+        {data: data['liveStreamingDetails']}
       end
 
       # @return [Hash] the parameters to submit to YouTube to get the

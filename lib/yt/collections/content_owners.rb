@@ -10,6 +10,10 @@ module Yt
 
     private
 
+      def attributes_for_new_item(data)
+        {owner_name: data['id'], authentication: @auth.authentication}
+      end
+
       def new_item(data)
         Yt::ContentOwner.new owner_name: data['id'], authentication: @auth.authentication
       end

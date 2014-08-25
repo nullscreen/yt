@@ -32,12 +32,18 @@ module Yt
         @url.username if @url
       end
 
-      def update(attributes = {}, &block)
+      def update(attributes = {})
         underscore_keys! attributes
         body = build_update_body attributes
         params = {part: body.keys.join(',')}
-        do_update(params: params, body: body.merge(id: @id), &block)
+        do_update params: params, body: body.merge(id: @id) do |data|
+          @id = data['id']
+          @snippet = Snippet.new data: data['snippet'] if data['snippet']
+          @status = Status.new data: data['status'] if data['status']
+          true
+        end
       end
+
 
     private
 
@@ -78,17 +84,6 @@ module Yt
 
       def should_include_part_in_update?(part, attributes = {})
         part[:required] || (part[:keys] & attributes.keys).any?
-      end
-
-      # @return [Hash] the original hash with angle brackets characters in its
-      #   values replaced with similar Unicode characters accepted by Youtube.
-      # @see https://support.google.com/youtube/answer/57404?hl=en
-      def sanitize_brackets!(source)
-        case source
-          when String then source.gsub('<', '‹').gsub('>', '›')
-          when Array then source.map{|string| sanitize_brackets! string}
-          when Hash then source.each{|k,v| source[k] = sanitize_brackets! v}
-        end
       end
 
       def camelize(value)

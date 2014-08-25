@@ -21,12 +21,8 @@ module Yt
 
     private
 
-      # @return [Yt::Models::Subscription] a new subscription initialized with
-      #   one of the items returned by asking YouTube for a list of
-      #   subscriptions to a channel.
-      # @see https://developers.google.com/youtube/v3/docs/subscriptions#resource
-      def new_item(data)
-        Yt::Subscription.new id: data['id'], auth: @auth
+      def attributes_for_new_item(data)
+        {id: data['id'], auth: @auth}
       end
 
       # @note Google API must have some caching layer by which if we try to

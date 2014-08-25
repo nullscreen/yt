@@ -8,8 +8,9 @@ module Yt
 
     private
 
-      def new_item(data)
-        Yt::DeviceFlow.new data: data
+      # This overrides the parent mehthod defined in Authentications
+      def attributes_for_new_item(data)
+        {data: data}
       end
 
       def list_params
