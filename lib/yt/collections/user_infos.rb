@@ -7,12 +7,6 @@ module Yt
 
     private
 
-      # @return [Yt::Models::UserInfo] a new user info initialized with
-      #   one of the items returned by asking YouTube for a list of user infos.
-      def new_item(data)
-        Yt::UserInfo.new data: data
-      end
-
       # @return [Hash] the parameters to submit to YouTube to get the
       #   user info of an account
       # @see https://developers.google.com/+/api/latest/people/getOpenIdConnect

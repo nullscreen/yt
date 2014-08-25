@@ -30,12 +30,6 @@ module Yt
         {max_results: 50, part: 'snippet,status'}
       end
 
-      def resource_class
-        resource_name = list_resources.name.demodulize.singularize
-        require "yt/models/#{resource_name.underscore}"
-        "Yt::Models::#{resource_name}".constantize
-      end
-
       def build_insert_body(attributes = {})
         {}.tap do |body|
           insert_parts.each do |name, part|

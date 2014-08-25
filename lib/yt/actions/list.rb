@@ -42,8 +42,18 @@ module Yt
         @items[(@last_index +=1) -1]
       end
 
-      # To be overriden by the subclasses
+      def resource_class
+        resource_name = list_resources.name.demodulize.singularize
+        require "yt/models/#{resource_name.underscore}"
+        "Yt::Models::#{resource_name}".constantize
+      end
+
+      # @return [resource_class] a new resource initialized with one
+      #   of the items returned by asking YouTube for a list of resources.
+      #   Can be overwritten by subclasses that initialize instance with
+      #   a different set of parameters.
       def new_item(data)
+        resource_class.new data: data, auth: @auth
       end
 
       def more_pages?

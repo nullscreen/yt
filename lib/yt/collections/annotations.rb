@@ -12,12 +12,6 @@ module Yt
 
     private
 
-      # @return [Yt::Models::Annotation] a new annotation initialized with one
-      #   of the items returned by asking YouTube for a list of annotations.
-      def new_item(data)
-        Yt::Annotation.new data: data
-      end
-
       # @return [Hash] the parameters to submit to YouTube to list annotations.
       # @note YouTube does not provide an API endpoint to get annotations for
       #   a video, so we use an "old-style" URL that YouTube still maintains.
