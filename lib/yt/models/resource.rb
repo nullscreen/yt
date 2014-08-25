@@ -32,12 +32,18 @@ module Yt
         @url.username if @url
       end
 
-      def update(attributes = {}, &block)
+      def update(attributes = {})
         underscore_keys! attributes
         body = build_update_body attributes
         params = {part: body.keys.join(',')}
-        do_update(params: params, body: body.merge(id: @id), &block)
+        do_update params: params, body: body.merge(id: @id) do |data|
+          @id = data['id']
+          @snippet = Snippet.new data: data['snippet'] if data['snippet']
+          @status = Status.new data: data['status'] if data['status']
+          true
+        end
       end
+
 
     private
 

@@ -23,15 +23,6 @@ module Yt
         !exists?
       end
 
-      def update(attributes = {})
-        super attributes do |data|
-          @id = data['id']
-          @snippet = Snippet.new data: data['snippet'] if data['snippet']
-          @status = Status.new data: data['status'] if data['status']
-          true
-        end
-      end
-
       def exists?
         !@id.nil?
       end

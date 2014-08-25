@@ -96,16 +96,6 @@ module Yt
         !@id.nil?
       end
 
-      def update(attributes = {})
-        super attributes do |data|
-          @id = data['id']
-          @snippet = Snippet.new data: data['snippet'] if data['snippet']
-          @status = Status.new data: data['status'] if data['status']
-          true
-        end
-      end
-
-
       # Returns whether the authenticated account likes the video.
       #
       # This method requires {Resource#auth auth} to return an
