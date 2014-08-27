@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.4 - 2014-08-27
+
+* [ENHANCEMENT] Add Video search even by id, chart or rating
+* [FEATURE] Add `ActiveSupport::Notification` to inspect HTTP requests
+
 ## 0.11.3 - 2014-08-21
 
 * [FEATURE] Add `update` method to Asset model

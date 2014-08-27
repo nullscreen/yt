@@ -14,7 +14,7 @@ describe Yt::Account, :device_app do
   describe '.videos' do
     let(:video) { $account.videos.where(order: 'viewCount').first }
 
-    specify 'returns the account’s videos with its tags' do
+    specify 'returns the videos uploaded by the account with their tags' do
       expect(video).to be_a Yt::Video
       expect(video.tags).not_to be_empty
     end
@@ -31,6 +31,16 @@ describe Yt::Account, :device_app do
         let(:query) { '--not-a-matching-query-string--' }
         it { expect(count).to be_zero }
       end
+    end
+
+    describe 'ignores filters by ID (all the videos uploaded by the account are returned)' do
+      let(:other_video) { $account.videos.where(order: 'viewCount', id: 'invalid').first }
+      it { expect(other_video.id).to eq video.id }
+    end
+
+    describe 'ignores filters by chart (all the videos uploaded by the account are returned)' do
+      let(:other_video) { $account.videos.where(order: 'viewCount', chart: 'invalid').first }
+      it { expect(other_video.id).to eq video.id }
     end
   end
 

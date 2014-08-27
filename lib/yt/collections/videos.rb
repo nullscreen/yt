@@ -21,7 +21,7 @@ module Yt
       def list_params
         super.tap do |params|
           params[:params] = videos_params
-          params[:path] = '/youtube/v3/search'
+          params[:path] = videos_path
         end
       end
 
@@ -49,6 +49,19 @@ module Yt
           params[:published_before] = @published_before if @published_before
           params.merge! @parent.videos_params if @parent
           apply_where_params! params
+        end
+      end
+
+      # @private
+      # @todo: This is one of two places outside of base.rb where @where_params
+      #   is accessed; it should be replaced with a filter on params instead.
+      # @see https://developers.google.com/youtube/v3/docs/videos/list
+      def videos_path
+        @where_params ||= {}
+        if @parent.nil? && (@where_params.keys & [:id, :chart]).any?
+          '/youtube/v3/videos'
+        else
+          '/youtube/v3/search'
         end
       end
     end
