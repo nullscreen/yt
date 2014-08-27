@@ -12,8 +12,14 @@ module Yt
     private
 
       def attributes_for_new_item(data)
-        snippet = data.fetch('snippet', {}).merge includes_tags: false
-        {id: data['id']['videoId'], snippet: snippet, auth: @auth}
+        snippet = data.fetch('snippet', {})
+        snippet.merge!(includes_tags: false) if tags_hidden?
+
+        if search_videos?
+          {id: data['id']['videoId'], snippet: snippet, auth: @auth}
+        else
+          {id: data['id'], snippet: snippet, auth: @auth}
+        end
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.
@@ -58,11 +64,22 @@ module Yt
       # @see https://developers.google.com/youtube/v3/docs/videos/list
       def videos_path
         @where_params ||= {}
-        if @parent.nil? && (@where_params.keys & [:id, :chart]).any?
-          '/youtube/v3/videos'
-        else
+        if search_videos?
           '/youtube/v3/search'
+        else
+          '/youtube/v3/videos'
         end
+      end
+
+      def search_videos?
+        @parent.present? || (@where_params.keys & [:id, :chart]).empty?
+      end
+
+      # Tags are only visible if through the Videos#list method, and only through
+      # an authorized request.  If both of these conditions are met then the
+      # response will include tags if they are accessible to you.
+      def tags_hidden?
+        @auth.blank? || search_videos?
       end
     end
   end
