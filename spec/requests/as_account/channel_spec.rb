@@ -42,6 +42,14 @@ describe Yt::Channel, :device_app do
       it { expect(channel.unsubscribe!).to be_truthy }
     end
 
+    describe 'filtering by ID is ignored when listing videos' do
+      it { expect(channel.videos.where(id: 'invalid').first).to be_a Yt::Video }
+    end
+
+    describe 'filtering by chart is ignored when listing videos' do
+      it { expect(channel.videos.where(chart: 'invalid').first).to be_a Yt::Video }
+    end
+
     # @note: these tests are slow because they go through multiple pages of
     #   results and do so to test that we can overcome YouTube’s limitation of
     #   only returning the first 500 results for each query.

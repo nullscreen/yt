@@ -41,7 +41,7 @@ module Yt
       end
 
       # @private
-      # @todo: This is the only place outside of base.rb where @where_params
+      # @todo: This is one of two places outside of base.rb where @where_params
       #   is accessed; it should be replaced with a filter on params instead.
       def claims_path
         @where_params ||= {}

@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.11.3'
+    gem 'yt', '~> 0.11.4'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -74,6 +74,7 @@ account.videos.first #=> #<Yt::Models::Video @id=...>
 
 account.upload_video 'my_video.mp4', title: 'My new video', privacy_status: 'private'
 account.upload_video 'http://example.com/remote.m4v', title: 'My other video', tags: ['music']
+
 ```
 
 *The methods above require to be authenticated as a YouTube account (see below).*
@@ -422,6 +423,8 @@ Use [Yt::Collections::Videos](http://rubydoc.info/github/Fullscreen/yt/master/Yt
 videos = Yt::Collections::Videos.new
 videos.where(order: 'viewCount').first.title #=>  "PSY - GANGNAM STYLE"
 videos.where(q: 'Fullscreen CreatorPlatform', safe_search: 'none').size #=> 324
+videos.where(chart: 'mostPopular', video_category_id: 44).first.title #=> "SINISTER - Trailer"
+videos.where(id: 'MESycYJytkU,invalid').map(&:title) #=> ["Fullscreen Creator Platform"]
 ```
 
 *The methods above do not require authentication.*
