@@ -12,8 +12,9 @@ module Yt
     private
 
       def attributes_for_new_item(data)
+        id = use_list_endpoint? ? data['id'] : data['id']['videoId']
         snippet = data.fetch('snippet', {}).merge includes_tags: false
-        {id: data['id']['videoId'], snippet: snippet, auth: @auth}
+        {id: id, snippet: snippet, auth: @auth}
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.
@@ -52,17 +53,20 @@ module Yt
         end
       end
 
+      def videos_path
+        use_list_endpoint? ? '/youtube/v3/videos' : '/youtube/v3/search'
+      end
+
       # @private
+      # YouTube API provides two different endpoints to get a list of videos:
+      # /videos should be used when the query specifies video IDs or a chart,
+      # /search otherwise.
+      # @return [Boolean] whether to use the /videos endpoint.
       # @todo: This is one of two places outside of base.rb where @where_params
       #   is accessed; it should be replaced with a filter on params instead.
-      # @see https://developers.google.com/youtube/v3/docs/videos/list
-      def videos_path
+      def use_list_endpoint?
         @where_params ||= {}
-        if @parent.nil? && (@where_params.keys & [:id, :chart]).any?
-          '/youtube/v3/videos'
-        else
-          '/youtube/v3/search'
-        end
+        @parent.nil? && (@where_params.keys & [:id, :chart]).any?
       end
     end
   end

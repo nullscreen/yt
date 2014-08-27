@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.5 - 2014-08-27
+
+* [BUGFIX] Make videos.where(id: 'MESycYJytkU').first.id return 'MESycYJytkU'
+
 ## 0.11.4 - 2014-08-27
 
 * [ENHANCEMENT] Add Video search even by id, chart or rating
