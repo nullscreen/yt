@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.6 - 2014-08-28
+
+* [BUGFIX] Make Resource.new(url: url).title hit the right endpoint
+
 ## 0.11.5 - 2014-08-27
 
 * [BUGFIX] Make videos.where(id: 'MESycYJytkU').first.id return 'MESycYJytkU'
