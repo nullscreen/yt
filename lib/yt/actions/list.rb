@@ -24,9 +24,19 @@ module Yt
         end
       end
 
-      # @private
       # Returns the total number of items that YouTube can provide for the
       # given request, either all in one page or in consecutive pages.
+      #
+      # This number comes from the 'totalResults' component of the 'pageInfo'
+      # which, accordingly to YouTube documentation, *does not always match
+      # the actual number of items in the response*.
+      #
+      # For instance, when retrieving a list of channels, 'totalResults' might
+      # include inactive channels, which are filtered out from the response.
+      #
+      # The only way to obtain the *real* number of returned items is to
+      # iterate through all the pages, which can results in many requests.
+      # To avoid this, +total_results+ is provided as a good size estimation.
       def total_results
         response = request(list_params).run
         total_results = response.body.fetch('pageInfo', {})['totalResults']
