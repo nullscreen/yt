@@ -15,7 +15,7 @@ module Yt
       #   of a resource, for instance a channel.
       # @see https://developers.google.com/youtube/v3/docs/channels/list
       def list_params
-        endpoint = @parent.class.to_s.pluralize.demodulize.camelize :lower
+        endpoint = @parent.kind.pluralize.camelize :lower
         super.tap do |params|
           params[:path] = "/youtube/v3/#{endpoint}"
           params[:params] = {id: @parent.id, part: 'status'}
