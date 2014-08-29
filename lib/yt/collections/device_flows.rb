@@ -8,7 +8,7 @@ module Yt
 
     private
 
-      # This overrides the parent mehthod defined in Authentications
+      # This overrides the parent method defined in Authentications
       def attributes_for_new_item(data)
         {data: data}
       end

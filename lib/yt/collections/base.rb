@@ -13,6 +13,8 @@ module Yt
       def initialize(options = {})
         @parent = options[:parent]
         @auth = options[:auth]
+        @where_params = {}
+        @included_parts = []
       end
 
       def self.of(parent)
@@ -41,10 +43,17 @@ module Yt
         end
       end
 
+      def includes(*parts)
+        self.tap do
+          @items = []
+          @included_parts = parts
+        end
+      end
+
     private
 
       def apply_where_params!(params = {})
-        params.merge!(@where_params ||= {})
+        params.merge! @where_params
       end
     end
   end
