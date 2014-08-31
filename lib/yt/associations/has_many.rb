@@ -12,6 +12,7 @@ module Yt
         require 'active_support' # does not load anything by default
         require 'active_support/core_ext/string/inflections' # for camelize ...
         require "yt/collections/#{attributes}"
+
         collection_name = attributes.to_s.sub(/.*\./, '').camelize.pluralize
         collection = "Yt::Collections::#{collection_name}".constantize
         define_memoized_method(attributes) { collection.of self }

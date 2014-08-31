@@ -8,7 +8,6 @@ For more information about changelogs, check
 
 ## 0.11.7 - unreleased
 
-* [FEATURE] Add `subscribed_channels` to Channel (list which channels the channel is subscribed to)
 * [FEATURE] Add `subscribers` to Account (list which channels are subscribed to an account)
 
 ## 0.11.6 - 2014-08-28

@@ -53,12 +53,6 @@ module Yt
       has_one :content_owner_detail
       delegate :content_owner, :linked_at, to: :content_owner_detail
 
-      # @!attribute [r] subscribed_channels
-      #   @return [Yt::Collections::SubscribedChannels] the channels that the channel is subscribed to.
-      #   @raise [Yt::Errors::Forbidden] if the owner of the channel has
-      #     explicitly select the option to keep all subscriptions private.
-      has_many :subscribed_channels
-
       # Returns whether the authenticated account is subscribed to the channel.
       #
       # This method requires {Resource#auth auth} to return an

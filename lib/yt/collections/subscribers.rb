@@ -1,18 +1,9 @@
-require 'yt/collections/subscribed_channels'
+require 'yt/collections/channels'
+require 'yt/models/channel'
 
 module Yt
   module Collections
-    # Provides methods to interact with subscribers of a YouTube resource.
-    #
-    # Resources with subscribers are: {Yt::Models::Account accounts}.
-    #
-    # Confusingly, YouTube API provides the +same+ endpoint to either
-    # retrieve the channels that you are subscribed to or the channels
-    # that are subscribed to you. The difference relies in the setting the
-    # +mySubscribers+ parameter to true and in reading the information
-    # from the +subscriberSnippet+ part, not the +snippet+ part.
-    # @see https://developers.google.com/youtube/v3/docs/subscriptions/list
-    class Subscribers < SubscribedChannels
+    class Subscribers < Channels
 
     private
 
@@ -21,12 +12,28 @@ module Yt
         {id: snippet['channelId'], snippet: snippet, auth: @auth}
       end
 
+      # @return [Hash] the parameters to submit to YouTube to list subscribers.
+      # @see https://developers.google.com/youtube/v3/docs/channels/list
+      def list_params
+        super.tap{|params| params[:path] = '/youtube/v3/subscriptions'}
+      end
+
+      # @private
+      # @note Subscribers overwrites +channel_params+ since the query
+      #   is slightly different.
       def channels_params
         {}.tap do |params|
           params[:max_results] = 50
           params[:part] = 'subscriberSnippet'
           params[:my_subscribers] = true
         end
+      end
+
+      # @private
+      # @note Subscribers overwrites +list_resources+ since the objects to
+      #   instatiate belongs to Channel class not Subscriber.
+      def resource_class
+        Yt::Models::Channel
       end
     end
   end
