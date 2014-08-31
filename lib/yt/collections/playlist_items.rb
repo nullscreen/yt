@@ -24,7 +24,7 @@ module Yt
       end
 
       def insert_parts
-        {snippet: {keys: [:playlist_id, :resource_id]}}
+        {snippet: {keys: [:playlist_id, :resource_id, :position]}}
       end
     end
   end

@@ -134,6 +134,7 @@ describe Yt::Playlist, :device_app do
         it { expect{playlist.add_video video_id}.to change{playlist.playlist_items.count}.by(1) }
         it { expect(playlist.add_video! video_id).to be_a Yt::PlaylistItem }
         it { expect{playlist.add_video! video_id}.to change{playlist.playlist_items.count}.by(1) }
+        it { expect(playlist.add_video(video_id, position: 0).position).to be 0 }
       end
 
       describe 'can be removed' do
