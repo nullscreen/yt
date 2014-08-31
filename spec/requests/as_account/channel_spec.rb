@@ -25,7 +25,15 @@ describe Yt::Channel, :device_app do
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
     it { expect{channel.create_playlist}.to raise_error Yt::Errors::RequestError }
     it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
-    it { expect(channel.subscriptions).to be_a Yt::Collections::Subscriptions }
+
+    specify 'with a public list of subscriptions' do
+      expect(channel.subscribed_channels.first).to be_a Yt::Channel
+    end
+
+    context 'with a hidden list of subscriptions' do
+      let(:id) { 'UCG0hw7n_v0sr8MXgb6oel6w' }
+      it { expect{channel.subscribed_channels.size}.to raise_error Yt::Errors::Forbidden }
+    end
 
     # NOTE: These tests are slow because we *must* wait some seconds between
     # subscribing and unsubscribing to a channel, otherwise YouTube will show
@@ -70,6 +78,10 @@ describe Yt::Channel, :device_app do
     let(:tags) { ['Yt Test Tag 1', 'Yt Test <Tag> 2'] }
     let(:privacy_status) { 'unlisted' }
     let(:params) { {title: title, description: description, tags: tags, privacy_status: privacy_status} }
+
+    specify 'subscriptions can be listed (hidden or public)' do
+      expect(channel.subscriptions.size).to be
+    end
 
     describe 'playlists can be added' do
       after { channel.delete_playlists params }

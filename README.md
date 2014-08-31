@@ -139,6 +139,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * read the attributes of a channel
 * access the videos of a channel
 * access the playlists of a channel
+* access the channels that the channel is subscribed to
 * subscribe to and unsubscribe from a channel
 * create and delete playlists from a channel
 * retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a channel
@@ -166,6 +167,9 @@ channel.videos.first #=> #<Yt::Models::Video @id=...>
 
 channel.playlists.count #=> 2
 channel.playlists.first #=> #<Yt::Models::Playlist @id=...>
+
+channel.subscribed_channels.count #=> 132
+channel.subscribed_channels.first #=> #<Yt::Models::Channel @id=...>
 ```
 
 *The methods above do not require authentication.*
