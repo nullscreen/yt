@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.12.0'
+    gem 'yt', '~> 0.11.6'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -61,7 +61,6 @@ Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Acco
 * access the channel managed by the account
 * access the videos uploaded by the account
 * upload a video
-* list the channels subscribed to an account
 
 ```ruby
 # Accounts can be initialized with access token, refresh token or an authorization code
@@ -75,10 +74,6 @@ account.videos.first #=> #<Yt::Models::Video @id=...>
 
 account.upload_video 'my_video.mp4', title: 'My new video', privacy_status: 'private'
 account.upload_video 'http://example.com/remote.m4v', title: 'My other video', tags: ['music']
-
-account.subscribers.count #=> 2
-account.subscribers.first #=> #<Yt::Models::Channel @id=...>
-account.subscribers.first.title #=> 'Fullscreen'
 
 ```
 
@@ -139,7 +134,6 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * read the attributes of a channel
 * access the videos of a channel
 * access the playlists of a channel
-* access the channels that the channel is subscribed to
 * subscribe to and unsubscribe from a channel
 * create and delete playlists from a channel
 * retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a channel
@@ -167,9 +161,6 @@ channel.videos.first #=> #<Yt::Models::Video @id=...>
 
 channel.playlists.count #=> 2
 channel.playlists.first #=> #<Yt::Models::Playlist @id=...>
-
-channel.subscribed_channels.count #=> 132
-channel.subscribed_channels.first #=> #<Yt::Models::Channel @id=...>
 ```
 
 *The methods above do not require authentication.*

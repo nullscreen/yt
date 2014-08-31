@@ -21,15 +21,6 @@ describe Yt::Channel, :server_app do
     it { expect(channel.videos.first).to be_a Yt::Video }
     it { expect(channel.playlists).to be_a Yt::Collections::Playlists }
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
-
-    specify 'with a public list of subscriptions' do
-      expect(channel.subscribed_channels.first).to be_a Yt::Channel
-    end
-
-    context 'with a hidden list of subscriptions' do
-      let(:id) { 'UCG0hw7n_v0sr8MXgb6oel6w' }
-      it { expect{channel.subscribed_channels.size}.to raise_error Yt::Errors::Forbidden }
-    end
   end
 
   context 'given an unknown channel' do
