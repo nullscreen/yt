@@ -13,14 +13,8 @@ module Yt
         @auth = options[:auth]
       end
 
-      def delete(options = {})
-        begin
-          do_delete {@id = nil}
-        rescue Yt::Error => error
-          ignorable_errors = error.reasons & ['subscriptionNotFound']
-          raise error unless options[:ignore_errors] && ignorable_errors.any?
-          @id = nil
-        end
+      def delete(options = {}, &block)
+        do_delete {@id = nil}
         !exists?
       end
 

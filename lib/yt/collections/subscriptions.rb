@@ -6,7 +6,6 @@ module Yt
     class Subscriptions < Base
 
       def insert(options = {})
-        throttle
         do_insert
       rescue Yt::Error => error
         ignorable_error = error.reasons.include? 'subscriptionDuplicate'
@@ -14,32 +13,10 @@ module Yt
         raise error unless options[:ignore_errors] && ignorable_error
       end
 
-      def delete_all(params = {}, options = {})
-        throttle
-        do_delete_all params, options
-      end
-
     private
 
       def attributes_for_new_item(data)
         {id: data['id'], auth: @auth}
-      end
-
-      # @note Google API must have some caching layer by which if we try to
-      # delete a subscription that we just created, we encounter an error.
-      # To overcome this, if we have just updated the subscription, we must
-      # wait some time before requesting it again.
-      #
-      def throttle(seconds = 11)
-        @last_changed_at ||= Time.now - seconds
-        wait = [@last_changed_at - Time.now + seconds, 0].max
-        sleep wait
-        @last_changed_at = Time.now
-      end
-
-      def fetch_page(params = {})
-        throttle
-        super params
       end
 
       # @return [Hash] the parameters to submit to YouTube to list subscriptions.

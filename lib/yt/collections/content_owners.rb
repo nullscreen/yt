@@ -14,10 +14,6 @@ module Yt
         {owner_name: data['id'], authentication: @auth.authentication}
       end
 
-      def new_item(data)
-        Yt::ContentOwner.new owner_name: data['id'], authentication: @auth.authentication
-      end
-
       # @return [Hash] the parameters to submit to YouTube to list content
       #   owners administered by the account.
       # @see https://developers.google.com/youtube/partner/docs/v1/contentOwners/list

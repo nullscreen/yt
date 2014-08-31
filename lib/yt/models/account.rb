@@ -9,7 +9,8 @@ module Yt
       # @!attribute [r] channel
       #   @return [Yt::Models::Channel] the account’s channel.
       has_one :channel
-      delegate :playlists, :create_playlist, :delete_playlists, to: :channel
+      delegate :playlists, :create_playlist, :delete_playlists,
+        :subscribed_channels, to: :channel
 
       # @!attribute [r] user_info
       #   @return [Yt::Models::UserInfo] the account’s profile information.
@@ -20,6 +21,10 @@ module Yt
       # @!attribute [r] videos
       #   @return [Yt::Collections::Videos] the videos owned by the account.
       has_many :videos
+
+      # @!attribute [r] subscribers
+      #   @return [Yt::Collections::Subscribers] the channels subscribed to the account.
+      has_many :subscribers
 
       # @return [String] name of the CMS account, if the account is partnered.
       # @return [nil] if the account is not a partnered content owner.
