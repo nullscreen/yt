@@ -27,4 +27,30 @@ describe Yt::PlaylistItem, :device_app do
 
     it { expect{item.snippet}.to raise_error Yt::Errors::RequestError }
   end
+
+
+  context 'given one of my own playlist items that I want to update' do
+    before(:all) do
+      @my_playlist = $account.create_playlist title: "Yt Test Update Playlist Item #{rand}"
+      @my_playlist.add_video 'MESycYJytkU'
+      @my_playlist_item = @my_playlist.add_video 'MESycYJytkU'
+    end
+    after(:all) { @my_playlist.delete }
+
+    let(:id) { @my_playlist_item.id }
+    let!(:old_title) { @my_playlist_item.title }
+    let!(:old_privacy_status) { @my_playlist_item.privacy_status }
+    let(:update) { @my_playlist_item.update attrs }
+
+    context 'given I update the position' do
+      let(:attrs) { {position: 0} }
+
+      specify 'only updates the position' do
+        expect(update).to be true
+        expect(@my_playlist_item.position).to be 0
+        expect(@my_playlist_item.title).to eq old_title
+        expect(@my_playlist_item.privacy_status).to eq old_privacy_status
+      end
+    end
+  end
 end
