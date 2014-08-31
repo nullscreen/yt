@@ -3,6 +3,7 @@ require 'yt/models/subscription'
 
 describe Yt::Subscription do
   subject(:subscription) { Yt::Subscription.new id: id }
+  let(:msg) { {response_body: {error: {errors: [{reason: reason}]}}}.to_json }
 
   describe '#exists?' do
     context 'given a subscription with an id' do
@@ -25,6 +26,14 @@ describe Yt::Subscription do
 
       it { expect(subscription.delete).to be true }
       it { expect{subscription.delete}.to change{subscription.exists?} }
+    end
+
+    context 'given an unknown subscription' do
+      let(:reason) { 'subscriptionNotFound' }
+      let(:behave) { receive(:do_delete).and_raise Yt::Error, msg }
+
+      it { expect{subscription.delete}.to fail.with 'subscriptionNotFound' }
+      it { expect{subscription.delete ignore_errors: true}.not_to fail }
     end
   end
 end

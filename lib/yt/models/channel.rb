@@ -5,6 +5,10 @@ module Yt
     # A channel resource contains information about a YouTube channel.
     # @see https://developers.google.com/youtube/v3/docs/channels
     class Channel < Resource
+      # @!attribute [r] subscriptions
+      #   @return [Yt::Collections::Subscriptions] the channel’s subscriptions.
+      has_many :subscriptions
+
       # @!attribute [r] videos
       #   @return [Yt::Collections::Videos] the channel’s videos.
       has_many :videos
@@ -55,14 +59,6 @@ module Yt
       #     explicitly select the option to keep all subscriptions private.
       has_many :subscribed_channels
 
-      # @!attribute [r] subscription
-      #   @return [Yt::Models::Subscription] the channel’s subscription by auth.
-      #   @raise [Yt::Errors::NoItems] if {Resource#auth auth} is not
-      #     subscribed to the channel.
-      #   @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #     return an authenticated account.
-      has_one :subscription
-
       # Returns whether the authenticated account is subscribed to the channel.
       #
       # This method requires {Resource#auth auth} to return an
@@ -71,36 +67,18 @@ module Yt
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an authenticated account.
       def subscribed?
-        sleep [(@subscriptions_updated_at || Time.now) - Time.now, 0].max
-        subscription.exists?
-      rescue Errors::NoItems
-        false
+        subscriptions.any?{|s| s.exists?}
       end
 
-      # Unsubscribes the authenticated account from the channel.
-      # Raises an error if the account was not subscribed.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @raise [Yt::Errors::RequestError] if {Resource#auth auth} was not
-      #   subscribed to the channel.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def unsubscribe!
-        subscription.delete.tap{ throttle_subscriptions } if subscribed?
-      end
-
-      # Unsubscribes the authenticated account from the channel.
-      # Does not raise an error if the account was not subscribed.
+      # Subscribes the authenticated account to the channel.
+      # Does not raise an error if the account was already subscribed.
       #
       # This method requires {Resource#auth auth} to return an
       # authenticated instance of {Yt::Account}.
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an authenticated account.
-      def unsubscribe
-        unsubscribe!
-      rescue Errors::NoItems
-        false
+      def subscribe
+        subscriptions.insert ignore_errors: true
       end
 
       # Subscribes the authenticated account to the channel.
@@ -113,24 +91,31 @@ module Yt
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an authenticated account.
       def subscribe!
-        subscriptions.insert.tap do |subscription|
-          throttle_subscriptions
-          @subscription = subscription
-        end
+        subscriptions.insert
       end
 
-      # Subscribes the authenticated account to the channel.
-      # Does not raise an error if the account was already subscribed.
+      # Unsubscribes the authenticated account from the channel.
+      # Does not raise an error if the account was not subscribed.
       #
       # This method requires {Resource#auth auth} to return an
       # authenticated instance of {Yt::Account}.
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an authenticated account.
-      def subscribe
-        subscriptions.insert(ignore_errors: true).tap do |subscription|
-          throttle_subscriptions
-          @subscription = subscription
-        end
+      def unsubscribe
+        subscriptions.delete_all({}, ignore_errors: true)
+      end
+
+      # Unsubscribes the authenticated account from the channel.
+      # Raises an error if the account was not subscribed.
+      #
+      # This method requires {Resource#auth auth} to return an
+      # authenticated instance of {Yt::Account}.
+      # @raise [Yt::Errors::RequestError] if {Resource#auth auth} was not
+      #   subscribed to the channel.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
+      #   return an authenticated account.
+      def unsubscribe!
+        subscriptions.delete_all
       end
 
       def create_playlist(params = {})
@@ -170,15 +155,6 @@ module Yt
       # owners to check who is the content owner of a channel.
       def content_owner_details_params
         {on_behalf_of_content_owner: auth.owner_name || auth.id}
-      end
-
-      # @private
-      # @note Google API must have some caching layer by which if we try to
-      # delete a subscription that we just created, we encounter an error.
-      # To overcome this, if we have just updated the subscription, we must
-      # wait some time before requesting it again.
-      def throttle_subscriptions(seconds = 10)
-        @subscriptions_updated_at = Time.now + seconds
       end
     end
   end
