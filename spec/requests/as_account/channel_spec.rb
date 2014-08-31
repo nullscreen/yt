@@ -39,15 +39,37 @@ describe Yt::Channel, :device_app do
     # subscribing and unsubscribing to a channel, otherwise YouTube will show
     # wrong (cached) data, such as a user is subscribed when he is not.
     context 'that I am not subscribed to', :slow do
-      before { channel.unsubscribe }
+      let(:id) { 'UCCj956IF62FbT7Gouszaj9w' }
+      before { channel.throttle_subscriptions }
+
       it { expect(channel.subscribed?).to be false }
-      it { expect(channel.subscribe!).to be_truthy }
+      it { expect(channel.unsubscribe).to be_falsey }
+      it { expect{channel.unsubscribe!}.to raise_error Yt::Errors::RequestError }
+
+      context 'when I subscribe' do
+        before { channel.subscribe }
+        after { channel.unsubscribe }
+
+        it { expect(channel.subscribed?).to be true }
+        it { expect(channel.unsubscribe!).to be_truthy }
+      end
     end
 
     context 'that I am subscribed to', :slow do
-      before { channel.subscribe }
+      let(:id) { 'UCxO1tY8h1AhOz0T4ENwmpow' }
+      before { channel.throttle_subscriptions }
+
       it { expect(channel.subscribed?).to be true }
-      it { expect(channel.unsubscribe!).to be_truthy }
+      it { expect(channel.subscribe).to be_falsey }
+      it { expect{channel.subscribe!}.to raise_error Yt::Errors::RequestError }
+
+      context 'when I unsubscribe' do
+        before { channel.unsubscribe }
+        after { channel.subscribe }
+
+        it { expect(channel.subscribed?).to be false }
+        it { expect(channel.subscribe!).to be_truthy }
+      end
     end
 
     describe 'filtering by ID is ignored when listing videos' do

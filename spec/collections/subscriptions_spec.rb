@@ -4,7 +4,6 @@ require 'yt/collections/subscriptions'
 describe Yt::Collections::Subscriptions do
   subject(:collection) { Yt::Collections::Subscriptions.new }
   let(:msg) { {response_body: {error: {errors: [{reason: reason}]}}}.to_json }
-  before { expect(collection).to receive :throttle }
   before { expect(collection).to behave }
 
   describe '#insert' do
@@ -22,11 +21,5 @@ describe Yt::Collections::Subscriptions do
       it { expect{collection.insert}.to fail.with 'subscriptionDuplicate' }
       it { expect{collection.insert ignore_errors: true}.not_to fail }
     end
-  end
-
-  describe '#delete_all' do
-    let(:behave) { receive(:do_delete_all).and_return [true] }
-
-    it { expect(collection.delete_all).to eq [true] }
   end
 end
