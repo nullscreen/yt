@@ -21,6 +21,10 @@ module Yt
       #   @return [Yt::Collections::Videos] the videos owned by the account.
       has_many :videos
 
+      # @!attribute [r] subscribers
+      #   @return [Yt::Collections::Subscribers] the channels subscribed to the account.
+      has_many :subscribers
+
       # @return [String] name of the CMS account, if the account is partnered.
       # @return [nil] if the account is not a partnered content owner.
       attr_reader :owner_name

@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.11.7 - unreleased
+
+* [FEATURE] Add `subscribers` to Account (list which channels are subscribed to an account)
+
 ## 0.11.6 - 2014-08-28
 
 * [BUGFIX] Make Resource.new(url: url).title hit the right endpoint

@@ -61,4 +61,12 @@ describe Yt::Account, :device_app do
       it { expect(video).to be_a Yt::Video }
     end
   end
+
+  describe '.subscribers' do
+    let(:subscriber) { $account.subscribers.first }
+
+    specify 'returns the channels who are subscribed to me' do
+      expect(subscriber).to be_a Yt::Channel
+    end
+  end
 end
