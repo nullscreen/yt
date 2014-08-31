@@ -39,7 +39,7 @@ module Yt
       def build_insert_body_part(part, attributes = {})
         {}.tap do |body_part|
           part[:keys].map do |key|
-            body_part[camelize key] = attributes[key]
+            body_part[camelize key] = attributes[key] if attributes[key]
           end
         end
       end

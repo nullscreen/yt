@@ -380,7 +380,7 @@ playlist.playlist_items.first #=> #<Yt::Models::PlaylistItem @id=...>
 
 ```ruby
 playlist.update title: 'A <title> with angle brackets', description: 'desc', tags: ['new tag'], privacy_status: 'private'
-playlist.add_video 'MESycYJytkU'
+playlist.add_video 'MESycYJytkU', position: 2
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 ```

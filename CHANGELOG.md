@@ -8,6 +8,7 @@ For more information about changelogs, check
 
 ## 0.12.1 - unreleased
 
+* [ENHANCEMENT] Add `position` option to add_video (to specify where in a playlist to add a video)
 * [FEATURE] Add `update` to PlaylistItem (to change the position of the item in the playlist)
 
 ## 0.12.0 - 2014-08-31

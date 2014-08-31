@@ -35,20 +35,22 @@ module Yt
       # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
       #   return an account with permissions to update the playlist.
       # @return [Yt::PlaylistItem] the item added to the playlist.
-      def add_video(video_id)
-        playlist_items.insert video_params(video_id), ignore_errors: true
+      def add_video(video_id, attributes = {})
+        playlist_item_params = playlist_item_params(video_id, attributes)
+        playlist_items.insert playlist_item_params, ignore_errors: true
       end
 
-      def add_video!(video_id)
-        playlist_items.insert video_params(video_id)
+      def add_video!(video_id, attributes = {})
+        playlist_item_params = playlist_item_params(video_id, attributes)
+        playlist_items.insert playlist_item_params
       end
 
-      def add_videos(video_ids = [])
-        video_ids.map{|video_id| add_video video_id}
+      def add_videos(video_ids = [], attributes = {})
+        video_ids.map{|video_id| add_video video_id, attributes}
       end
 
-      def add_videos!(video_ids = [])
-        video_ids.map{|video_id| add_video! video_id}
+      def add_videos!(video_ids = [], attributes = {})
+        video_ids.map{|video_id| add_video! video_id, attributes}
       end
 
       def delete_playlist_items(attrs = {})
@@ -67,8 +69,10 @@ module Yt
 
       # @todo: extend camelize to also camelize the nested hashes, so we
       #   don’t have to write videoId
-      def video_params(video_id)
-        {resource_id: {kind: 'youtube#video', videoId: video_id}}
+      def playlist_item_params(video_id, params = {})
+        params.dup.tap do |params|
+          params[:resource_id] ||= {kind: 'youtube#video', videoId: video_id}
+        end
       end
     end
   end
