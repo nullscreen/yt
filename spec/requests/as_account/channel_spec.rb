@@ -38,16 +38,18 @@ describe Yt::Channel, :device_app do
     # NOTE: These tests are slow because we *must* wait some seconds between
     # subscribing and unsubscribing to a channel, otherwise YouTube will show
     # wrong (cached) data, such as a user is subscribed when he is not.
-    context 'that I am not subscribed to', :slow do
-      before { channel.unsubscribe }
-      it { expect(channel.subscribed?).to be false }
-      it { expect(channel.subscribe!).to be_truthy }
+    specify 'that I am not subscribed to', :slow do
+      channel.throttle_subscriptions
+      channel.unsubscribe
+      expect(channel.subscribed?).to be false
+      expect(channel.subscribe!).to be_truthy
     end
 
-    context 'that I am subscribed to', :slow do
-      before { channel.subscribe }
-      it { expect(channel.subscribed?).to be true }
-      it { expect(channel.unsubscribe!).to be_truthy }
+    specify 'that I am subscribed to', :slow do
+      channel.throttle_subscriptions
+      channel.subscribe
+      expect(channel.subscribed?).to be true
+      expect(channel.unsubscribe!).to be_truthy
     end
 
     describe 'filtering by ID is ignored when listing videos' do

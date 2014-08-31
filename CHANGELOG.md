@@ -6,8 +6,32 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.11.7 - unreleased
+## 0.12.0 - 2014-08-31
 
+**How to upgrade**
+
+If your code never calls the `delete` method directly on a Subscription
+object (to delete subscriptions by id), then you are good to go.
+
+If it does, then be aware that trying to delete an unknown subscription will
+now raise a RequestError, and will not accept `ignore_errors` as an option:
+
+    account = Yt::Account.new access_token: 'ya29...'
+    subscription = Yt::Subscription.new id: '--unknown-id--', auth: account
+    # old behavior
+    subscription.delete ignore_errors: true # => false
+    # new behavior
+    subscription.delete # => raises Yt::Errors::RequestError "subscriptionNotFound"
+
+Note that the `unsubscribe` and `unsubscribe!` methods of `Channel` have not
+changed, so you can still try to unsubscribe from a channel and not raise an
+error by using the `unsubscribe` method:
+
+    account = Yt::Account.new access_token: 'ya29...'
+    channel = Yt::Channel.new id: 'UC-CHANNEL-ID', auth: account
+    channel.unsubscribe # => simply returns false if you were not subscribed
+
+* [ENHANCEMENT] Replace `has_many :subscriptions` with `has_one :subscription` in Channel
 * [FEATURE] Add `subscribed_channels` to Channel (list which channels the channel is subscribed to)
 * [FEATURE] Add `subscribers` to Account (list which channels are subscribed to an account)
 
