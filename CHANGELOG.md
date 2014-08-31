@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.12.1 - unreleased
+
+* [FEATURE] Add `update` to PlaylistItem (to change the position of the item in the playlist)
+
 ## 0.12.0 - 2014-08-31
 
 **How to upgrade**

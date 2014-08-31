@@ -393,6 +393,7 @@ Yt::PlaylistItem
 Use [Yt::PlaylistItem](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/PlaylistItem) to:
 
 * read the attributes of a playlist item
+* update the position of an item inside a playlist
 * delete a playlist item
 
 ```ruby
@@ -415,6 +416,7 @@ item.video #=> #<Yt::Models::Video @id=...>
 *The methods above do not require authentication.*
 
 ```ruby
+item.update position: 3 #=> true
 item.delete #=> true
 ```
 
