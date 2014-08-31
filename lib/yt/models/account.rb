@@ -9,7 +9,8 @@ module Yt
       # @!attribute [r] channel
       #   @return [Yt::Models::Channel] the account’s channel.
       has_one :channel
-      delegate :playlists, :create_playlist, :delete_playlists, to: :channel
+      delegate :playlists, :create_playlist, :delete_playlists,
+        :subscribed_channels, to: :channel
 
       # @!attribute [r] user_info
       #   @return [Yt::Models::UserInfo] the account’s profile information.
