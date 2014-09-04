@@ -21,9 +21,7 @@ module Yt
       #   permissions to administer the channel.
       # @raise [Yt::Errors::Forbidden] if {Resource#auth auth} does not
       #   return an authenticated content owner.
-      def content_owner
-        @content_owner ||= @data['contentOwner']
-      end
+      has_attribute :content_owner
 
       # Returns the date and time of when the channel was linked to the content
       # owner.
@@ -37,11 +35,7 @@ module Yt
       #   permissions to administer the channel.
       # @raise [Yt::Errors::Forbidden] if {Resource#auth auth} does not
       #   return an authenticated content owner.
-      def linked_at
-        @linked_at ||= if @data['timeLinked']
-          Time.parse @data['timeLinked']
-        end
-      end
+      has_attribute :linked_at, type: Time, from: :time_linked
     end
   end
 end

@@ -12,30 +12,28 @@ module Yt
       end
 
       # @return [Integer] the duration of the video (in seconds).
-      def duration
-        @duration ||= to_seconds @data.fetch('duration', 0)
+      has_attribute :duration, default: 0 do |value|
+        to_seconds value
       end
 
       # @return [Boolean] whether the video is available in 3D.
-      def stereoscopic?
-        @stereoscopic ||= @data['dimension'] == '3d'
+      has_attribute :stereoscopic?, from: :dimension do |dimension|
+        dimension == '3d'
       end
 
       # @return [Boolean] whether the video is available in high definition.
-      def hd?
-        @hd ||= @data['definition'] == 'hd'
+      has_attribute :hd?, from: :definition do |definition|
+        definition == 'hd'
       end
 
       # @return [Boolean] whether captions are available for the video.
-      def captioned?
-        @hd ||= @data['caption'] == 'true'
+      has_attribute :captioned?, from: :caption do |caption|
+        caption == 'true'
       end
 
       # @return [Boolean] whether the video represents licensed content, which
       #   means that the content has been claimed by a YouTube content partner.
-      def licensed?
-        @licensed ||= @data.fetch 'licensedContent', false
-      end
+      has_attribute :licensed?, default: false, from: :licensed_content
 
     private
 

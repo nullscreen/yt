@@ -29,26 +29,26 @@ module Yt
       #   General  asset ownership is used for all types of assets and is the
       #   only type  of ownership data that can be provided for assets that are
       #   not compositions.
-      def general_owners
-        @general_owners ||= as_owners @data['general']
+      has_attribute :general_owners, from: :general do |data|
+        as_owners data
       end
 
       # @return [Array<RightOwner>] a list that identifies owners of the
       #   performance rights for a composition asset.
-      def performance_owners
-        @performance_owners ||= as_owners @data['performance']
+      has_attribute :performance_owners, from: :performance do |data|
+        as_owners data
       end
 
       # @return [Array<RightOwner>] a list that identifies owners of the
       #   synchronization rights for a composition asset.
-      def synchronization_owners
-        @synchronization_owners ||= as_owners @data['synchronization']
+      has_attribute :synchronization_owners, from: :synchronization do |data|
+        as_owners data
       end
 
       # @return [Array<RightOwner>] a list that identifies owners of the
       #   mechanical rights for a composition asset.
-      def mechanical_owners
-        @mechanical_owners ||= as_owners @data['mechanical']
+      has_attribute :mechanical_owners, from: :mechanical do |data|
+        as_owners data
       end
 
     private

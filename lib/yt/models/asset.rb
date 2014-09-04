@@ -42,9 +42,7 @@ module Yt
 
       # @return [String] the ID that YouTube assigns and uses to uniquely
       #   identify the asset.
-      def id
-        @id ||= @data['id']
-      end
+      has_attribute :id
 
       # @return [String] the asset’s type. This value determines the metadata
       #   fields that you can set for the asset. In addition, certain API
@@ -54,9 +52,7 @@ module Yt
       #   Valid values for this property are: art_track_video, composition,
       #   episode, general, movie, music_video, season, show, sound_recording,
       #   video_game, and web.
-      def type
-        @type ||= @data['type']
-      end
+      has_attribute :type
 
 # Status
 
@@ -68,9 +64,7 @@ module Yt
       #   the status of an asset, so it’s impossible to update, although the
       #   documentation says this should be the case. If YouTube ever fixes
       #   the API, then the following code can be uncommented.
-      # def status
-      #   @status ||= @data["status"]
-      # end
+      # has_attribute :status
       #
       # # @return [Boolean] whether the asset is active.
       # def active?
@@ -97,7 +91,6 @@ module Yt
           params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
         end
       end
-
     end
   end
 end

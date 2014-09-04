@@ -16,20 +16,6 @@ module Yt
         collection = "Yt::Collections::#{collection_name}".constantize
         define_memoized_method(attributes) { collection.of self }
       end
-
-    private
-
-      # A wrapper around Ruby’s +define_method+ that, in addition to adding an
-      # instance method called +name+, adds an instance variable called +@name+
-      # that stores the result of +name+ the first time is invoked, and returns
-      # it every other time. Especially useful if invoking +name+ takes a long
-      # time.
-      def define_memoized_method(name, &method)
-        define_method name do
-          ivar = instance_variable_get "@#{name}"
-          instance_variable_set "@#{name}", ivar || instance_eval(&method)
-        end
-      end
     end
   end
 end

@@ -2,6 +2,7 @@ require 'yt/actions/delete'
 require 'yt/actions/update'
 require 'yt/actions/patch'
 
+require 'yt/associations/has_attribute'
 require 'yt/associations/has_authentication'
 require 'yt/associations/has_many'
 require 'yt/associations/has_one'
@@ -17,6 +18,7 @@ module Yt
       include Actions::Update
       include Actions::Patch
 
+      include Associations::HasAttribute
       extend Associations::HasReports
       extend Associations::HasViewerPercentages
       extend Associations::HasOne

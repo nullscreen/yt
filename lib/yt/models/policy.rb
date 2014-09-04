@@ -14,31 +14,27 @@ module Yt
 
       # @return [String] the ID that YouTube assigns and uses to uniquely
       #   identify the policy.
-      def id
-        @id ||= @data['id']
-      end
+      has_attribute :id
 
       # @return [String] the policy’s name.
-      def name
-        @name ||= @data['name']
-      end
+      has_attribute :name
 
       # @return [String] the policy’s description.
-      def description
-        @name ||= @data['description']
-      end
+      has_attribute :description
 
       # @return [String] the time the policy was updated.
-      def updated_at
-        @updated_at ||= Time.parse @data['timeUpdated']
+      has_attribute :updated_at, type: Time, from: :time_updated
+
+      # @deprecated Use {#updated_at} instead.
+      def time_updated
+        updated_at
       end
-      alias time_updated updated_at
 
       # @return [Array<PolicyRule>] a list of rules that specify the action
       #   that YouTube should take and may optionally specify the conditions
       #   under which that action is enforced.
-      def rules
-        @rules ||= @data['rules'].map{|rule| PolicyRule.new data: rule}
+      has_attribute :rules do |rules|
+        rules.map{|rule| PolicyRule.new data: rule}
       end
     end
   end

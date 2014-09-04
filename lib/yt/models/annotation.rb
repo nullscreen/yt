@@ -4,7 +4,7 @@ module Yt
     # @note YouTube API V3 does not provide access to video annotations,
     #   therefore a legacy XML endpoint is used to retrieve annotations.
     # @see https://www.youtube.com/yt/playbook/annotations.html
-    class Annotation
+    class Annotation < Base
       # @param [Hash] options the options to initialize an Annotation.
       # @option options [String] :data The XML representation of an annotation
       def initialize(options = {})
@@ -77,9 +77,7 @@ module Yt
         @text ||= @data['TEXT'] || ''
       end
 
-      def type
-        @type ||= @data.fetch 'type', ''
-      end
+      has_attribute :type, default: ''
 
       def link_class
         @link_class ||= url['link_class']
@@ -93,9 +91,7 @@ module Yt
         @url ||= action.fetch 'url', {}
       end
 
-      def action
-        @action ||= @data.fetch 'action', {}
-      end
+      has_attribute :action, default: {}
 
       def top
         @top ||= positions.map{|pos| pos['y'].to_f}.max
@@ -129,9 +125,7 @@ module Yt
         @region ||= segment.fetch 'movingRegion', {}
       end
 
-      def segment
-        @segment ||= (@data['segment'] || {})
-      end
+      has_attribute :segment, type: Hash
     end
   end
 end

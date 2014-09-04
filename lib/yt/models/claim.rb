@@ -24,21 +24,15 @@ module Yt
 
       # @return [String] the ID that YouTube assigns and uses to uniquely
       #   identify the claim.
-      def id
-        @id ||= @data['id']
-      end
+      has_attribute :id
 
       # @return [String] the unique YouTube asset ID that identifies the asset
       #   associated with the claim.
-      def asset_id
-        @asset_id ||= @data["assetId"]
-      end
+      has_attribute :asset_id
 
       # @return [String] the unique YouTube video ID that identifies the video
       #   associated with the claim.
-      def video_id
-        @video_id ||= @data["videoId"]
-      end
+      has_attribute :video_id
 
 # Status
 
@@ -50,9 +44,7 @@ module Yt
       # @note When updating a claim, you can update its status from active to
       #   inactive to effectively release the claim, but the API does not
       #   support other updates to a claim’s status.
-      def status
-        @status ||= @data["status"]
-      end
+      has_attribute :status
 
       # @return [Boolean] whether the claim is active.
       def active?
@@ -101,9 +93,7 @@ module Yt
       # @return [String] whether the claim covers the audio, video, or
       #   audiovisual portion of the claimed content. Valid values are: audio,
       #   audiovisual, video.
-      def content_type
-        @content_type ||= @data["contentType"]
-      end
+      has_attribute :content_type
 
       # @return [Boolean] whether the covers the audio of the content.
       def audio?
@@ -121,13 +111,11 @@ module Yt
       end
 
       # @return [Time] the date and time that the claim was created.
-      def created_at
-        @created_at ||= Time.parse @data["timeCreated"]
-      end
+      has_attribute :created_at, type: Time, from: :time_created
 
       # @return [Boolean] whether a third party created the claim.
-      def third_party?
-        @third_party_claim ||= @data['thirdPartyClaim'] == true
+      has_attribute :third_party?, from: :third_party_claim do |value|
+        value == true
       end
 
       # Return whether the video should be blocked where not explicitly owned.
@@ -141,15 +129,15 @@ module Yt
       #   though it will not be monetized in those countries. However, if you
       #   set this property to true, then the video will be monetized in the
       #   United States and Canada and blocked in all other countries.
-      def block_outside_ownership?
-        @block_outside_ownership ||= @data["blockOutsideOwnership"]
-      end
+      has_attribute :block_outside_ownership?, from: :block_outside_ownership
 
       # @return [String] The unique ID that YouTube uses to identify the
       #   reference that generated the match.
-      def match_reference_id
-        @match_reference_id ||= @data.fetch('matchInfo', {})['referenceId']
+      has_attribute :match_reference_id, from: :match_info do |match_info|
+        (match_info || {})['referenceId']
       end
+
+    private
 
       # @see https://developers.google.com/youtube/partner/docs/v1/claims/update
       def patch_params

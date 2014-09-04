@@ -7,17 +7,9 @@ module Yt
         @data = options[:data]
       end
 
-      def device_code
-        @device_code ||= @data['device_code']
-      end
-
-      def user_code
-        @user_code ||= @data['user_code']
-      end
-
-      def verification_url
-        @verification_url ||= @data['verification_url']
-      end
+      has_attribute :device_code, camelize: false
+      has_attribute :user_code, camelize: false
+      has_attribute :verification_url, camelize: false
     end
   end
 end
