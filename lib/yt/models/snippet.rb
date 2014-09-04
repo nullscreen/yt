@@ -11,7 +11,7 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
     # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
-    class Snippet
+    class Snippet < Base
       def initialize(options = {})
         @data = options[:data]
         @auth = options[:auth]
@@ -23,9 +23,7 @@ module Yt
       # @return [String] if the resource is a video, the video’s title. Has a
       #   maximum of 100 characters and may contain all valid UTF-8 characters
       #   except < and >.
-      def title
-        @title ||= @data.fetch 'title', ''
-      end
+      has_attribute :title, default: ''
 
       # @return [Yt::Models::Description] if the resource is a channel, the
       #   channel’s description. Has a maximum of 1000 characters.
@@ -36,8 +34,8 @@ module Yt
       # @return [Yt::Models::Description] if the resource is a video, the
       #   video’s description. Has a maximum of 5000 bytes and may contain all
       #   valid UTF-8 characters except < and >.
-      def description
-        @description ||= Description.new @data.fetch('description', '')
+      has_attribute :description, default: '' do |description_text|
+        Description.new description_text
       end
 
       # @return [Time] if the resource is a channel, the date and time that the
@@ -48,9 +46,7 @@ module Yt
       #   that the item was added to the playlist.
       # @return [Time] if the resource is a video, the date and time that the
       #   video was published.
-      def published_at
-        @published_at ||= Time.parse @data['publishedAt']
-      end
+      has_attribute :published_at, type: Time
 
       # @param [Symbol, String] size The size of the thumbnail to retrieve.
       # @return [String] if the resource is a channel and +size+ is +default+,
@@ -67,8 +63,7 @@ module Yt
       #    Video and +size+ is +high+, the URL of an 480x360px image.
       # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       def thumbnail_url(size = :default)
-        @thumbnails ||= @data.fetch 'thumbnails', {}
-        @thumbnails.fetch(size.to_s, {})['url']
+        thumbnails.fetch(size.to_s, {})['url']
       end
 
       # @return [String] if the resource is a playlist, the ID that YouTube
@@ -78,9 +73,7 @@ module Yt
       # @return [String] if the resource is a video, the ID that YouTube uses
       #   to uniquely identify the channel that the video was uploaded to.
       # @return [nil] if the resource is a channel.
-      def channel_id
-        @channel_id ||= @data['channelId']
-      end
+      has_attribute :channel_id
 
       # @return [String] if the resource is a playlist, the title of the
       #   channel that the playlist belongs to.
@@ -89,9 +82,7 @@ module Yt
       # @return [String] if the resource is a video, the title of the channel
       #   that the video was uploaded to.
       # @return [nil] if the resource is a channel.
-      def channel_title
-        @channel_title ||= @data['channelTitle']
-      end
+      has_attribute :channel_title
 
       # @return [Array<Yt::Models::Tag>] if the resource is a channel, an
       #   empty array.
@@ -101,9 +92,7 @@ module Yt
       #   an empty array.
       # @return [Array<Yt::Models::Tag>] if the resource is a video, the list
       #   of keyword tags associated with the video.
-      def tags
-        @tags ||= @data.fetch 'tags', []
-      end
+      has_attribute :tags, default: []
 
       # @return [String] if the resource is a video, the YouTube video
       #   category associated with the video.
@@ -111,9 +100,7 @@ module Yt
       # @return [nil] if the resource is a playlist.
       # @return [nil] if the resource is a playlist item.
       # @see https://developers.google.com/youtube/v3/docs/videoCategories/list
-      def category_id
-        @category_id ||= @data['categoryId']
-      end
+      has_attribute :category_id
 
       BROADCAST_TYPES = %q(live none upcoming)
 
@@ -122,18 +109,14 @@ module Yt
       # @return [nil] if the resource is a channel.
       # @return [nil] if the resource is a playlist.
       # @return [nil] if the resource is a playlist item.
-      def live_broadcast_content
-        @live_broadcast_content ||= @data['liveBroadcastContent']
-      end
+      has_attribute :live_broadcast_content
 
       # @return [String] if the resource is a playlist item, the ID that
       #   YouTube uses to uniquely identify the playlist that the item is in.
       # @return [nil] if the resource is a channel.
       # @return [nil] if the resource is a playlist.
       # @return [nil] if the resource is a video.
-      def playlist_id
-        @playlist_id ||= @data['playlistId']
-      end
+      has_attribute :playlist_id
 
       # @return [Integer] if the resource is a playlist item, the order in
       #   which the item appears in a playlist. The value is zero-based, so the
@@ -141,9 +124,7 @@ module Yt
       # @return [nil] if the resource is a channel.
       # @return [nil] if the resource is a playlist.
       # @return [nil] if the resource is a video.
-      def position
-        @position ||= @data['position'].to_i
-      end
+      has_attribute :position, type: Integer
 
       # @return [String] if the resource is a playlist item, the ID of the
       #   video the playlist item represents in the playlist.
@@ -151,7 +132,7 @@ module Yt
       # @return [nil] if the resource is a playlist.
       # @return [nil] if the resource is a video.
       def video_id
-        @video_id ||= @data.fetch('resourceId', {})['videoId']
+        resource_id['videoId']
       end
 
       # @return [Yt::Models::Video] the video the playlist item represents in
@@ -174,6 +155,11 @@ module Yt
       def includes_tags
         @includes_tags ||= @data.fetch :includes_tags, true
       end
+
+    private
+
+      has_attribute :thumbnails, default: {}
+      has_attribute :resource_id, default: {}
     end
   end
 end

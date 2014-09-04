@@ -11,44 +11,30 @@ module Yt
       end
 
       # @return [Integer] the number of times the resource has been viewed.
-      def view_count
-        @view_count ||= @data['viewCount'].to_i
-      end
+      has_attribute :view_count, type: Integer
 
       # @return [Integer] the number of comments for the resource.
-      def comment_count
-        @comment_count ||= @data['commentCount'].to_i
-      end
+      has_attribute :comment_count, type: Integer
 
       # @return [Integer] the number of users who liked the resource.
-      def like_count
-        @like_count ||= @data['likeCount'].to_i
-      end
+      has_attribute :like_count, type: Integer
 
       # @return [Integer] the number of users who disliked the resource.
-      def dislike_count
-        @dislike_count ||= @data['dislikeCount'].to_i
-      end
+      has_attribute :dislike_count, type: Integer
 
       # @return [Integer] the number of users who currently have the resource
       #   marked as a favorite resource.
-      def favorite_count
-        @favorite_count ||= @data['favoriteCount'].to_i
-      end
+      has_attribute :favorite_count, type: Integer
 
       # @return [Integer] the number of videos updated to the resource.
-      def video_count
-        @video_count ||= @data['videoCount'].to_i
-      end
+      has_attribute :video_count, type: Integer
 
       # @return [Integer] the number of subscriber the resource has.
-      def subscriber_count
-        @subscriber_count ||= @data['subscriberCount'].to_i
-      end
+      has_attribute :subscriber_count, type: Integer
 
       # @return [Boolean] whether the number of subscribers is publicly visible.
-      def subscriber_count_visible?
-        @subscriber_count_visible ||= @data['hiddenSubscriberCount'] == false
+      has_attribute :subscriber_count_visible?, from: :hidden_subscriber_count do |hidden|
+        hidden == false
       end
     end
   end

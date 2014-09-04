@@ -10,61 +10,39 @@ module Yt
       end
 
       # @return [String] the user’s ID.
-      def id
-        @id ||= @data.fetch 'id', ''
-      end
+      has_attribute :id, default: ''
 
       # @return [String] the user’s email address.
-      def email
-        @email ||= @data.fetch 'email', ''
-      end
+      has_attribute :email, default: ''
 
       # @return [Boolean] whether the email address is verified.
-      def has_verified_email?
-        @verified_email ||= @data.fetch 'verified_email', false
-      end
+      has_attribute :has_verified_email?, from: :verified_email, default: false, camelize: false
 
       # @return [String] the user's full name.
-      def name
-        @name ||= @data.fetch 'name', ''
-      end
+      has_attribute :name, default: ''
 
       # @return [String] the user’s given (first) name.
-      def given_name
-        @given_name ||= @data.fetch 'given_name', ''
-      end
+      has_attribute :given_name, default: '', camelize: false
 
       # @return [String] the user’s family (last) name.
-      def family_name
-        @family_name ||= @data.fetch 'family_name', ''
-      end
+      has_attribute :family_name, default: '', camelize: false
 
       # @return [String] the URL of the user’s profile page.
-      def profile_url
-        @profile_url ||= @data.fetch 'link', ''
-      end
+      has_attribute :profile_url, from: :link, default: ''
 
       # @return [String] the URL of the user’s profile picture.
-      def avatar_url
-        @avatar_url ||= @data.fetch 'picture', ''
-      end
+      has_attribute :avatar_url, from: :picture, default: ''
 
       # @return [String] the person’s gender. Possible values include, but
       #   are not limited to, "male", "female", "other".
-      def gender
-        @gender ||= @data.fetch 'gender', ''
-      end
+      has_attribute :gender, default: ''
 
       # @return [String] the user’s preferred locale.
-      def locale
-        @locale ||= @data.fetch 'locale', ''
-      end
+      has_attribute :locale, default: ''
 
       # @return [String] the hosted domain name for the user’s Google Apps
       #   account. For instance, example.com.
-      def hd
-        @hd ||= @data.fetch 'hd', ''
-      end
+      has_attribute :hd, default: ''
     end
   end
 end

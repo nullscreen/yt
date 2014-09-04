@@ -4,7 +4,7 @@ module Yt
   module Models
     # Encapsulates information about the various types of owners of an asset.
     # @see https://developers.google.com/youtube/partner/docs/v1/ownership#resource
-    class RightOwner
+    class RightOwner < Base
       def initialize(options = {})
         @data = options[:data]
       end
@@ -15,22 +15,16 @@ module Yt
       #   values are 100, which indicates that the owner completely owns the
       #   asset in the specified territories, and 0, which indicates that you
       #   are removing ownership of the asset in the specified territories.
-      def ratio
-        @ratio ||= @data['ratio'].to_f
-      end
+      has_attribute :ratio, type: Float
 
       # @return [String] the name of the asset’s owner or rights administrator.
-      def owner
-        @owner ||= @data['owner']
-      end
+      has_attribute :owner
 
       # @return [String] if the asset is a composition asset and the asset
       #   owner is not known to have a formal relationship established with
       #   YouTube, the name of the asset’s publisher or rights administrator.
       # @return [nil] otherwise.
-      def publisher
-        @publisher ||= @data['publisher']
-      end
+      has_attribute :publisher
 
       # Return the list of territories where the owner owns the asset.
       # Each territory is an ISO 3166 two-letter country code.
@@ -57,13 +51,8 @@ module Yt
 
     private
 
-      def type
-        @type ||= @data['type']
-      end
-
-      def territories
-        @territories ||= @data.fetch 'territories', []
-      end
+      has_attribute :type
+      has_attribute :territories, default: []
     end
   end
 end

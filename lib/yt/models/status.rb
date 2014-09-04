@@ -11,7 +11,7 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
     # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
-    class Status
+    class Status < Base
       def initialize(options = {})
         @data = options[:data]
       end
@@ -22,9 +22,7 @@ module Yt
 
       # @return [String] the privacy status of the resource. Valid values are:
       #   private, public, unlisted.
-      def privacy_status
-        @privacy_status ||= @data['privacyStatus']
-      end
+      has_attribute :privacy_status
 
       # @return [Boolean] whether the resource is public.
       def public?
@@ -48,9 +46,7 @@ module Yt
       #   uploaded video. Valid values are: deleted, failed, processed,
       #   rejected, uploaded.
       # @return [nil] if the resource is not a video.
-      def upload_status
-        @upload_status ||= @data['uploadStatus']
-      end
+      has_attribute :upload_status
 
       # Returns whether an uploaded video was deleted.
       # @return [Boolean] if the resource is a video, whether the uploaded
@@ -101,9 +97,7 @@ module Yt
       #   the reason why the video failed to upload. Valid values are: codec,
       #   conversion, emptyFile, invalidFile, tooSmall, uploadAborted.
       # @return [nil] if the resource is not a video or upload has not failed.
-      def failure_reason
-        @failure_reason ||= @data['failureReason']
-      end
+      has_attribute :failure_reason
 
       # Returns whether a video upload failed because of the codec.
       # @return [Boolean] if the resource is a video, whether the video uses
@@ -163,9 +157,7 @@ module Yt
       #   claim, copyright, duplicate, inappropriate, length, termsOfUse,
       #   trademark, uploaderAccountClosed, uploaderAccountSuspended.
       # @return [nil] if the resource is not a rejected video.
-      def rejection_reason
-        @rejection_reason ||= @data['rejectionReason']
-      end
+      has_attribute :rejection_reason
 
       # Returns whether a video was rejected because it was claimed.
       # @return [Boolean] if the resource is a rejected video, whether the
@@ -249,16 +241,15 @@ module Yt
       # @return [nil] if the resource is not a private video scheduled to be
       #   published.
       def scheduled_at
-        @scheduled_at ||= Yt::Timestamp.parse @data['publishAt'] if scheduled?
+        publish_at if scheduled?
       end
-      alias publish_at scheduled_at
 
       # Returns whether the video is scheduled to be published.
       # @return [Boolean] if the resource is a video, whether it is currently
       #   private and is scheduled to become public in the future.
       # @return [nil] if the resource is not a video.
       def scheduled?
-        private? && @data['publishAt'] if video?
+        private? && publish_at if video?
       end
 
 # License (Video only)
@@ -267,9 +258,7 @@ module Yt
       # @return [String] if resource is a video, its license. Valid values are:
       #   creativeCommon, youtube.
       # @return [nil] if the resource is not a video.
-      def license
-        @license ||= @data['license']
-      end
+      has_attribute :license
 
       # Returns whether the video uses a Creative Commons license.
       # @return [Boolean] if the resource is a video, whether it uses a
@@ -295,10 +284,12 @@ module Yt
       # @return [Boolean] if the resource is a video, whether it can be
       #   embedded on another website.
       # @return [nil] if the resource is not a video.
-      def embeddable?
-        @embeddable ||= @data['embeddable']
+      has_attribute :embeddable?, from: :embeddable
+
+      # @deprecated Use {#embeddable?} instead.
+      def embeddable
+        embeddable?
       end
-      alias embeddable embeddable?
 
 # Public stats (Video only)
 
@@ -309,12 +300,16 @@ module Yt
       #   video’s viewcount and ratings will still be publicly visible even
       #   if this property’s value is set to false.
       # @return [nil] if the resource is not a video.
-      def has_public_stats_viewable?
-        @public_stats_viewable ||= @data['publicStatsViewable']
+      has_attribute :has_public_stats_viewable?, from: :public_stats_viewable
+
+      # @deprecated Use {#has_public_stats_viewable?} instead.
+      def public_stats_viewable
+        has_public_stats_viewable?
       end
-      alias public_stats_viewable has_public_stats_viewable?
 
     private
+
+      has_attribute :publish_at, type: Time
 
       def video?
         upload_status.present?
