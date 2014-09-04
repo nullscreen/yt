@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.12.1 - unreleased
+## 0.12.1 - 2014-09-04
 
 * [ENHANCEMENT] Add `position` option to add_video (to specify where in a playlist to add a video)
 * [FEATURE] Add `update` to PlaylistItem (to change the position of the item in the playlist)
