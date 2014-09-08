@@ -12,9 +12,14 @@ module Yt
     private
 
       def attributes_for_new_item(data)
-        id = use_list_endpoint? ? data['id'] : data['id']['videoId']
-        snippet = data.fetch('snippet', {}).merge includes_tags: false
-        {id: id, snippet: snippet, auth: @auth}
+        {}.tap do |attributes|
+          attributes[:id] = use_list_endpoint? ? data['id'] : data['id']['videoId']
+          attributes[:snippet] = data.fetch('snippet', {}).merge includes_tags: false
+          attributes[:status] = data['status']
+          attributes[:content_details] = data['contentDetails']
+          attributes[:statistics] = data['statistics']
+          attributes[:auth] = @auth
+        end
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.
@@ -45,12 +50,18 @@ module Yt
         {}.tap do |params|
           params[:type] = :video
           params[:max_results] = 50
-          params[:part] = 'snippet'
+          params[:part] = videos_parts.join(',')
           params[:order] = 'date'
           params[:published_before] = @published_before if @published_before
           params.merge! @parent.videos_params if @parent
           apply_where_params! params
         end
+      end
+
+      def videos_parts
+        @included_parts.push(:snippet).map do |part|
+          part.to_s.camelize :lower
+        end.uniq
       end
 
       def videos_path
@@ -65,7 +76,6 @@ module Yt
       # @todo: This is one of two places outside of base.rb where @where_params
       #   is accessed; it should be replaced with a filter on params instead.
       def use_list_endpoint?
-        @where_params ||= {}
         @parent.nil? && (@where_params.keys & [:id, :chart]).any?
       end
     end

@@ -22,6 +22,8 @@ module Yt
         @auth = options[:auth]
         @snippet = Snippet.new(data: options[:snippet]) if options[:snippet]
         @status = Status.new(data: options[:status]) if options[:status]
+        @statistics_set = StatisticsSet.new(data: options[:statistics]) if options[:statistics]
+        @content_detail = ContentDetail.new(data: options[:content_details]) if options[:content_details]
       end
 
       def kind

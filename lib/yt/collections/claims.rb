@@ -44,7 +44,6 @@ module Yt
       # @todo: This is one of two places outside of base.rb where @where_params
       #   is accessed; it should be replaced with a filter on params instead.
       def claims_path
-        @where_params ||= {}
         if @where_params.empty? || @where_params.key?(:id)
           '/youtube/partner/v1/claims'
         else

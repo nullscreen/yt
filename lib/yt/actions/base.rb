@@ -10,6 +10,7 @@ module Yt
       # invoke transform_keys!{|key| key.to_s.underscore.to_sym}
       def underscore_keys!(hash)
         hash.dup.each_key{|key| hash[underscore key] = hash.delete key}
+        hash
       end
 
       def underscore(value)
