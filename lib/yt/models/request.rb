@@ -185,7 +185,6 @@ module Yt
           when Errno::ETIMEDOUT then true
           when Errno::ENETUNREACH then true
           when Net::HTTPServerError then true
-          when Net::HTTPBadRequest then response.body =~ /did not conform/
           else false
         end
       end
