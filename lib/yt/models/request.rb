@@ -26,6 +26,7 @@ module Yt
         @body = options[:body]
         camelize_keys! @body if options.fetch(:camelize_body, true)
         params = options.fetch :params, {}
+        params.merge! key: options[:api_key] if options[:api_key]
         camelize_keys! params if options.fetch(:camelize_params, true)
         @query = params.to_param
       end
@@ -126,10 +127,6 @@ module Yt
       def add_authorization!
         if @auth.respond_to? :access_token
           @headers['Authorization'] = "Bearer #{@auth.access_token}"
-        elsif Yt.configuration.api_key
-          params = URI.decode_www_form @query || ''
-          params << [:key, Yt.configuration.api_key]
-          @query = URI.encode_www_form params
         end
       end
 

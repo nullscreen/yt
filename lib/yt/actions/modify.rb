@@ -1,5 +1,6 @@
 require 'yt/models/request'
 require 'yt/actions/base'
+require 'yt/config'
 
 module Yt
   module Actions
@@ -22,6 +23,7 @@ module Yt
           params[:path] = path
           params[:auth] = @auth
           params[:expected_response] = Net::HTTPNoContent
+          params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key
         end
       end
     end
