@@ -39,14 +39,6 @@ module Yt
         end
       end
 
-      def request_error_message
-        {}.tap do |message|
-          message[:request_curl] = as_curl
-          message[:response_body] = JSON(response.body) rescue response.inspect
-        end.to_json
-      end
-
-
       def as_curl
         'curl'.tap do |curl|
           curl <<  " -X #{http_request.method}"
@@ -200,6 +192,13 @@ module Yt
         end if @auth.respond_to? :refresh
       rescue Errors::MissingAuth
         false
+      end
+
+      def request_error_message
+        {}.tap do |message|
+          message[:request_curl] = as_curl
+          message[:response_body] = JSON(response.body) rescue response.inspect
+        end.to_json
       end
 
       def response_error

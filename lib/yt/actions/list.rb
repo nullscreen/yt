@@ -10,7 +10,7 @@ module Yt
         :size, to: :list
 
       def first!
-        first.tap{|item| raise Errors::NoItems, last_request unless item}
+        first.tap{|item| raise Errors::NoItems, error_message unless item}
       end
 
     private
@@ -88,20 +88,23 @@ module Yt
       end
 
       def fetch_page(params = {})
-        response = list_request(params).run
-        token = response.body['nextPageToken']
-        items = response.body.fetch items_key, []
+        @last_response = list_request(params).run
+        token = @last_response.body['nextPageToken']
+        items = @last_response.body.fetch items_key, []
         {items: items, token: token}
       end
 
       def list_request(params = {})
-        @last_request = Yt::Request.new(params).tap do |request|
+        @list_request = Yt::Request.new(params).tap do |request|
           print "#{request.as_curl}\n" if Yt.configuration.developing?
         end
       end
 
-      def last_request
-        @last_request.request_error_message if @last_request
+      def error_message
+        {}.tap do |message|
+          message[:request_curl] = @list_request.as_curl
+          message[:response_body] = JSON(@last_response.body)
+        end.to_json if @list_request && @last_response
       end
 
       def list_params
