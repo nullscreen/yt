@@ -67,6 +67,18 @@ module Yt
       delegate :view_count, :like_count, :dislike_count, :favorite_count,
         :comment_count, to: :statistics_set
 
+      # Override Resource's new to set statistics and content details as well
+      # if the response includes them
+      def initialize(options = {})
+        super options
+        if options[:statistics]
+          @statistics_set = StatisticsSet.new data: options[:statistics]
+        end
+        if options[:content_details]
+          @content_detail = ContentDetail.new data: options[:content_details]
+        end
+      end
+
       # Returns the list of keyword tags associated with the video.
       # Since YouTube API only returns tags on Videos#list, the memoized
       # @snippet is erased if the video was instantiated through Video#search

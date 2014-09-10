@@ -11,6 +11,20 @@ describe Yt::Video do
     end
   end
 
+  describe '#statistics_set' do
+    context 'given fetching a video returns statistics' do
+      let(:attrs) { {statistics: {"viewCount"=>"202"}} }
+      it { expect(video.statistics_set).to be_a Yt::StatisticsSet }
+    end
+  end
+
+  describe '#content_details' do
+    context 'given fetching a video returns content details' do
+      let(:attrs) { {content_details: {"definition"=>"hd"}} }
+      it { expect(video.content_detail).to be_a Yt::ContentDetail }
+    end
+  end
+
   describe '#update' do
     let(:attrs) { {id: 'MESycYJytkU', snippet: {'title'=>'old'}} }
     before { expect(video).to receive(:do_update).and_yield 'snippet'=>{'title'=>'new'} }

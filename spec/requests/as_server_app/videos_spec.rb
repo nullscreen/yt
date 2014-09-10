@@ -24,4 +24,17 @@ describe Yt::Collections::Videos, :server_app do
   specify 'with a chart parameter, only returns videos of that chart', :ruby2 do
     expect(videos.where(chart: 'mostPopular').size).to be 200
   end
+
+  context 'with a list of parts' do
+    let(:video_id) { 'MESycYJytkU' }
+    let(:part) { 'statistics,contentDetails' }
+    let(:video) { videos.where(id: 'MESycYJytkU', part: part).first }
+
+    specify 'load ONLY the specified parts of the videos' do
+      expect(video.instance_variable_defined? :@snippet).to be false
+      expect(video.instance_variable_defined? :@status).to be false
+      expect(video.instance_variable_defined? :@statistics_set).to be true
+      expect(video.instance_variable_defined? :@content_detail).to be true
+    end
+  end
 end
