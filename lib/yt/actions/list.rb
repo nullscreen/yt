@@ -112,6 +112,7 @@ module Yt
 
         {}.tap do |params|
           params[:method] = :get
+          params[:host] = 'www.googleapis.com'
           params[:auth] = @auth
           params[:path] = path
           params[:exptected_response] = Net::HTTPOK

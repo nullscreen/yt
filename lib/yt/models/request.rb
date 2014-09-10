@@ -19,7 +19,7 @@ module Yt
         @expected_response = options.fetch :expected_response, Net::HTTPSuccess
         @format = options.fetch :format, :json
         @headers = options.fetch :headers, gzip_headers
-        @host = options.fetch :host, google_api_host
+        @host = options[:host]
         @method = options.fetch :method, :get
         @path = options[:path]
         @body = options[:body]
@@ -29,7 +29,6 @@ module Yt
         camelize_keys! params if options.fetch(:camelize_params, true)
         @query = params.to_param
       end
-
 
       def run
         if response.is_a? @expected_response
@@ -85,6 +84,7 @@ module Yt
           request.initialize_http_header 'Content-Length' => @body.size.to_s
           request.initialize_http_header 'Transfer-Encoding' => 'chunked'
         end
+        @headers['Authorization'] = "Bearer #{@auth.access_token}" if @auth
         @headers.each{|name, value| request.add_field name, value}
       end
 
@@ -118,22 +118,7 @@ module Yt
       end
 
       def uri
-        @uri ||= build_uri
-      end
-
-      def build_uri
-        add_authorization! if @host == google_api_host
-        URI::HTTPS.build host: @host, path: @path, query: @query
-      end
-
-      def add_authorization!
-        if @auth.respond_to? :access_token
-          @headers['Authorization'] = "Bearer #{@auth.access_token}"
-        end
-      end
-
-      def google_api_host
-        'www.googleapis.com'
+        @uri ||= URI::HTTPS.build host: @host, path: @path, query: @query
       end
 
       def parse_format(body)

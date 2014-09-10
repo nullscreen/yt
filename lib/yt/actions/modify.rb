@@ -27,6 +27,7 @@ module Yt
         {}.tap do |params|
           params[:path] = path
           params[:auth] = @auth
+          params[:host] = 'www.googleapis.com'
           params[:expected_response] = Net::HTTPNoContent
           params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key
         end
