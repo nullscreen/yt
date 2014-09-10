@@ -13,8 +13,15 @@ module Yt
 
       def attributes_for_new_item(data)
         id = use_list_endpoint? ? data['id'] : data['id']['videoId']
-        snippet = data.fetch('snippet', {}).merge includes_tags: false
-        {id: id, snippet: snippet, auth: @auth}
+        snippet = data['snippet'].merge includes_tags: false if data['snippet']
+        {}.tap do |attributes|
+          attributes[:id] = id
+          attributes[:snippet] = snippet
+          attributes[:status] = data['status']
+          attributes[:content_details] = data['contentDetails']
+          attributes[:statistics] = data['statistics']
+          attributes[:auth] = @auth
+        end
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.
