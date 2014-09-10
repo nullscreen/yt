@@ -39,7 +39,7 @@ module Yt
       # iterate through all the pages, which can results in many requests.
       # To avoid this, +total_results+ is provided as a good size estimation.
       def total_results
-        response = request(list_params).run
+        response = list_request(list_params).run
         total_results = response.body.fetch('pageInfo', {})['totalResults']
         total_results ||= response.body.fetch(items_key, []).size
       end
@@ -88,14 +88,16 @@ module Yt
       end
 
       def fetch_page(params = {})
-        response = request(params).run
+        response = list_request(params).run
         token = response.body['nextPageToken']
         items = response.body.fetch items_key, []
         {items: items, token: token}
       end
 
-      def request(params = {})
-        @last_request = Yt::Request.new params
+      def list_request(params = {})
+        @last_request = Yt::Request.new(params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
       end
 
       def last_request

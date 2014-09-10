@@ -10,10 +10,15 @@ module Yt
     private
 
       def do_insert(extra_insert_params = {})
-        request = Yt::Request.new insert_params.deep_merge(extra_insert_params)
-        response = request.run
+        response = insert_request(extra_insert_params).run
         @items = []
         new_item extract_data_from(response)
+      end
+
+      def insert_request(params = {})
+        Yt::Request.new(insert_params.deep_merge params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
       end
 
       def insert_params

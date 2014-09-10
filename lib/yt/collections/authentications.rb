@@ -30,7 +30,9 @@ module Yt
       end
 
       def next_page
-        request = Yt::Request.new list_params
+        request = Yt::Request.new(list_params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
         Array.wrap request.run.body
       rescue Yt::Error => error
         expected?(error) ? [] : raise(error)

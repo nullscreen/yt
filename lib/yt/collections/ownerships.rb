@@ -26,7 +26,7 @@ module Yt
       # @private
       # @note Ownerships overwrites +fetch_page+ since it’s a get.
       def fetch_page(params = {})
-        response = request(params).run
+        response = list_request(params).run
         {items: [response.body], token: nil}
       end
     end

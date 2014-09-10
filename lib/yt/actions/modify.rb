@@ -11,9 +11,14 @@ module Yt
     private
 
       def do_modify(params = {})
-        request = Yt::Request.new params
-        response = request.run
+        response = modify_request(params).run
         yield response.body if block_given?
+      end
+
+      def modify_request(params = {})
+        Yt::Request.new(params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
       end
 
       def modify_params

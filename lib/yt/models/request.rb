@@ -4,7 +4,6 @@ require 'json' # for JSON.parse
 require 'active_support' # does not load anything by default  but is required
 require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
 
-require 'yt/config'
 require 'yt/errors/unauthorized'
 require 'yt/errors/request_error'
 require 'yt/errors/server_error'
@@ -33,8 +32,6 @@ module Yt
 
 
       def run
-        p as_curl if Yt.configuration.developing?
-
         if response.is_a? @expected_response
           response.tap{|response| response.body = parse_format response.body}
         else
@@ -47,6 +44,19 @@ module Yt
           message[:request_curl] = as_curl
           message[:response_body] = JSON(response.body) rescue response.inspect
         end.to_json
+      end
+
+
+      def as_curl
+        'curl'.tap do |curl|
+          curl <<  " -X #{http_request.method}"
+          http_request.each_header do |name, value|
+            next if gzip_headers.has_key? name
+            curl << %Q{ -H "#{name}: #{value}"}
+          end
+          curl << %Q{ -d '#{http_request.body}'} if http_request.body
+          curl << %Q{ "#{@uri.to_s}"}
+        end
       end
 
     private
@@ -201,18 +211,6 @@ module Yt
           when Net::HTTPForbidden then Errors::Forbidden
           else Errors::RequestError
           end
-        end
-      end
-
-      def as_curl
-        'curl'.tap do |curl|
-          curl <<  " -X #{http_request.method}"
-          http_request.each_header do |name, value|
-            next if gzip_headers.has_key? name
-            curl << %Q{ -H "#{name}: #{value}"}
-          end
-          curl << %Q{ -d '#{http_request.body}'} if http_request.body
-          curl << %Q{ "#{@uri.to_s}"}
         end
       end
     end
