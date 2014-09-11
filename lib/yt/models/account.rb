@@ -9,7 +9,7 @@ module Yt
       # @!attribute [r] channel
       #   @return [Yt::Models::Channel] the account’s channel.
       has_one :channel
-      delegate :playlists, :create_playlist, :delete_playlists,
+      delegate :playlists, :delete_playlists,
         :subscribed_channels, to: :channel
 
       # @!attribute [r] user_info
@@ -42,6 +42,10 @@ module Yt
       #     by the account.
       has_many :content_owners
 
+      # @!attribute [r] playlists
+      #   @return [Yt::Collections::Playlists] the account’s playlists.
+      has_many :playlists
+
       # Uploads a video
       # @param [String] path_or_url the video to upload. Can either be the
       #   path of a local file or the URL of a remote file.
@@ -55,6 +59,10 @@ module Yt
         file = open path_or_url, 'rb'
         session = resumable_sessions.insert file.size, params
         session.upload_video file
+      end
+
+      def create_playlist(params = {})
+        playlists.insert params
       end
 
       # @private

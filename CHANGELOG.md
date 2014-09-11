@@ -6,8 +6,18 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.12.3 - unreleased
+## 0.13.0 - 2014-09-11
 
+**How to upgrade**
+
+If your code never calls the `create_playlist` on a Channel object, then you
+are good to go.
+
+If it does, then replace your calls to `channel.create_playlist` with
+`account.create_playlist`, that is, call `create_playlist` on the channel’s
+account instead.
+
+* [ENHANCEMENT] Remove `create_playlist` from Channel (still exists on Account)
 * [ENHANCEMENT] Accept `category_id` in `upload_video`.
 
 ## 0.12.2 - 2014-09-09
