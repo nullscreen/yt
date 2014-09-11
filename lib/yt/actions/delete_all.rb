@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'yt/actions/list'
-require 'yt/models/request'
+require 'yt/request'
 
 module Yt
   module Actions

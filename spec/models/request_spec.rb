@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'yt/models/request'
+require 'yt/request'
 
 
 describe Yt::Request do

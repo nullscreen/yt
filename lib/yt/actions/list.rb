@@ -1,4 +1,4 @@
-require 'yt/models/request'
+require 'yt/request'
 require 'yt/models/iterator'
 require 'yt/errors/no_items'
 require 'yt/config'

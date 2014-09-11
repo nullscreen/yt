@@ -1,4 +1,4 @@
-require 'yt/models/request'
+require 'yt/request'
 require 'yt/actions/base'
 require 'yt/config'
 
