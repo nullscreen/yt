@@ -23,7 +23,6 @@ describe Yt::Channel, :device_app do
 
     it { expect(channel.videos.first).to be_a Yt::Video }
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
-    it { expect{channel.create_playlist}.to raise_error Yt::Errors::RequestError }
     it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
 
     specify 'with a public list of subscriptions' do
@@ -105,15 +104,9 @@ describe Yt::Channel, :device_app do
       expect(channel.subscriptions.size).to be
     end
 
-    describe 'playlists can be added' do
-      after { channel.delete_playlists params }
-      it { expect(channel.create_playlist params).to be_a Yt::Playlist }
-      it { expect{channel.create_playlist params}.to change{channel.playlists.count}.by(1) }
-    end
-
     describe 'playlists can be deleted' do
       let(:title) { "Yt Test Delete All Playlists #{rand}" }
-      before { channel.create_playlist params }
+      before { $account.create_playlist params }
 
       it { expect(channel.delete_playlists title: %r{#{params[:title]}}).to eq [true] }
       it { expect(channel.delete_playlists params).to eq [true] }
