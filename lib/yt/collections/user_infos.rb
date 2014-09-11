@@ -22,7 +22,9 @@ module Yt
       # so @page_token has to be explcitly set to nil, and the result wrapped
       # in an Array.
       def next_page
-        request = Yt::Request.new list_params
+        request = Yt::Request.new(list_params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
         response = request.run
         @page_token = nil
 

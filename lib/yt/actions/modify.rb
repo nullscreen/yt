@@ -1,5 +1,6 @@
-require 'yt/models/request'
+require 'yt/request'
 require 'yt/actions/base'
+require 'yt/config'
 
 module Yt
   module Actions
@@ -10,9 +11,14 @@ module Yt
     private
 
       def do_modify(params = {})
-        request = Yt::Request.new params
-        response = request.run
+        response = modify_request(params).run
         yield response.body if block_given?
+      end
+
+      def modify_request(params = {})
+        Yt::Request.new(params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
       end
 
       def modify_params
@@ -21,7 +27,9 @@ module Yt
         {}.tap do |params|
           params[:path] = path
           params[:auth] = @auth
+          params[:host] = 'www.googleapis.com'
           params[:expected_response] = Net::HTTPNoContent
+          params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key
         end
       end
     end

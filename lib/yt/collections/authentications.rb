@@ -17,7 +17,7 @@ module Yt
         super.tap do |params|
           params[:host] = 'accounts.google.com'
           params[:path] = '/o/oauth2/token'
-          params[:body_type] = :form
+          params[:request_format] = :form
           params[:method] = :post
           params[:auth] = nil
           params[:body] = auth_params
@@ -30,7 +30,9 @@ module Yt
       end
 
       def next_page
-        request = Yt::Request.new list_params
+        request = Yt::Request.new(list_params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
         Array.wrap request.run.body
       rescue Yt::Error => error
         expected?(error) ? [] : raise(error)

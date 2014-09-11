@@ -1,6 +1,7 @@
-require 'yt/models/request'
+require 'yt/request'
 require 'yt/models/iterator'
 require 'yt/errors/no_items'
+require 'yt/config'
 
 module Yt
   module Actions
@@ -9,7 +10,7 @@ module Yt
         :size, to: :list
 
       def first!
-        first.tap{|item| raise Errors::NoItems, last_request unless item}
+        first.tap{|item| raise Errors::NoItems, error_message unless item}
       end
 
     private
@@ -38,7 +39,7 @@ module Yt
       # iterate through all the pages, which can results in many requests.
       # To avoid this, +total_results+ is provided as a good size estimation.
       def total_results
-        response = request(list_params).run
+        response = list_request(list_params).run
         total_results = response.body.fetch('pageInfo', {})['totalResults']
         total_results ||= response.body.fetch(items_key, []).size
       end
@@ -87,18 +88,23 @@ module Yt
       end
 
       def fetch_page(params = {})
-        response = request(params).run
-        token = response.body['nextPageToken']
-        items = response.body.fetch items_key, []
+        @last_response = list_request(params).run
+        token = @last_response.body['nextPageToken']
+        items = @last_response.body.fetch items_key, []
         {items: items, token: token}
       end
 
-      def request(params = {})
-        @last_request = Yt::Request.new params
+      def list_request(params = {})
+        @list_request = Yt::Request.new(params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
       end
 
-      def last_request
-        @last_request.request_error_message if @last_request
+      def error_message
+        {}.tap do |message|
+          message[:request_curl] = @list_request.as_curl
+          message[:response_body] = JSON(@last_response.body)
+        end.to_json if @list_request && @last_response
       end
 
       def list_params
@@ -106,9 +112,11 @@ module Yt
 
         {}.tap do |params|
           params[:method] = :get
+          params[:host] = 'www.googleapis.com'
           params[:auth] = @auth
           params[:path] = path
           params[:exptected_response] = Net::HTTPOK
+          params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key
         end
       end
 

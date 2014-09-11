@@ -17,7 +17,7 @@ module Yt
       #   a video, so we use an "old-style" URL that YouTube still maintains.
       def list_params
         super.tap do |params|
-          params[:format] = :xml
+          params[:response_format] = :xml
           params[:host] = 'www.youtube.com'
           params[:path] = '/annotations_invideo'
           params[:params] = {video_id: @parent.id}
@@ -30,7 +30,9 @@ module Yt
       # @note Annotations overwrites +next_page+ since the list of annotations
       #   is not paginated API-style, but in its own custom way.
       def next_page
-        request = Yt::Request.new list_params
+        request = Yt::Request.new(list_params).tap do |request|
+          print "#{request.as_curl}\n" if Yt.configuration.developing?
+        end
         response = request.run
         @page_token = nil
 
