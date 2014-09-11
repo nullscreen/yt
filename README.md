@@ -688,8 +688,10 @@ Why you should use Yt…
 ======================
 
 … and not [youtube_it](https://github.com/kylejginavan/youtube_it)?
-Because youtube_it does not support Google API V3 and the previous version
-has already been deprecated by Google and will soon be dropped.
+Because youtube_it does not support YouTube API V3, and the YouTube API V2 has
+been [officially deprecated as of March 4, 2014](https://developers.google.com/youtube/2.0/developers_guide_protocol_audience).
+If you need help upgrading your code, check [YOUTUBE_IT.md](https://github.com/Fullscreen/yt/blob/master/YOUTUBE_IT.md),
+a step-by-step comparison between youtube_it and Yt to make upgrade easier.
 
 … and not [Google Api Client](https://github.com/google/google-api-ruby-client)?
 Because Google Api Client is poorly coded, poorly documented and adds many
