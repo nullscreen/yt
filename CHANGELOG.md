@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.12.3 - unreleased
+
+* [ENHANCEMENT] Accept `category_id` in `upload_video`.
+
 ## 0.12.2 - 2014-09-09
 
 * [ENHANCEMENT] Accept `part` in the `where` clause of Videos, so statistics and content details can be eagerly loaded.

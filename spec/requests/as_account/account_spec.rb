@@ -45,7 +45,7 @@ describe Yt::Account, :device_app do
   end
 
   describe '.upload_video' do
-    let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private'} }
+    let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private', category_id: 17} }
     let(:video) { $account.upload_video path_or_url, video_params }
     after { video.delete }
 
