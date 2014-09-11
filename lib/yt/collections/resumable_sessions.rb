@@ -18,12 +18,14 @@ module Yt
       # @option options [String] :title The video’s title.
       # @option options [String] :description The video’s description.
       # @option options [Array<String>] :title The video’s tags.
+      # @option options [Integer] :category_id The video’s category ID.
       # @option options [String] :privacy_status The video’s privacy status.
       def insert(content_length, options = {})
         @headers = headers_for content_length
         body = {}
 
-        snippet = options.slice :title, :description, :tags
+        snippet = options.slice :title, :description, :tags, :category_id
+        snippet[:categoryId] = snippet.delete(:category_id) if snippet[:category_id]
         body[:snippet] = snippet if snippet.any?
 
         status = options[:privacy_status]
