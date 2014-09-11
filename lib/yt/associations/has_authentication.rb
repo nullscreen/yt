@@ -51,7 +51,7 @@ module Yt
 
       # Obtains a new access token.
       # Returns true if the new access token is different from the previous one
-      def refresh
+      def refreshed_access_token?
         old_access_token = authentication.access_token
         @authentication = @access_token = @refreshed_authentications = nil
         old_access_token != authentication.access_token

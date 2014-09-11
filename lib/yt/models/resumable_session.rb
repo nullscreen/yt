@@ -34,7 +34,7 @@ module Yt
       #   To be sure to include both cases, HTTPSuccess is used
       def update_params
         super.tap do |params|
-          params[:body_type] = :file
+          params[:request_format] = :file
           params[:host] = @uri.host
           params[:path] = @uri.path
           params[:expected_response] = Net::HTTPSuccess

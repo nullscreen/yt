@@ -40,7 +40,7 @@ module Yt
 
       def insert_params
         super.tap do |params|
-          params[:format] = nil
+          params[:response_format] = nil
           params[:path] = '/upload/youtube/v3/videos'
           params[:params] = {part: 'snippet,status', uploadType: 'resumable'}
         end

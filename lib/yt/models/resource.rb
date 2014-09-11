@@ -52,7 +52,7 @@ module Yt
       # @see https://developers.google.com/youtube/v3/docs/videos/update
       def update_params
         super.tap do |params|
-          params[:body_type] = :json
+          params[:request_format] = :json
           params[:expected_response] = Net::HTTPOK
         end
       end

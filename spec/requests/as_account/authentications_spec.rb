@@ -13,7 +13,7 @@ describe Yt::Account, :device_app do
       # same second, refreshing the token returns the same token. Still,
       # testing that *expires_at* changes is a guarantee that we attempted
       # to get a new token, which is what refresh is meant to do.
-      it { expect{account.refresh}.to change{account.expires_at} }
+      it { expect{account.refreshed_access_token?}.to change{account.expires_at} }
     end
   end
 

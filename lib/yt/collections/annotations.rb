@@ -17,7 +17,7 @@ module Yt
       #   a video, so we use an "old-style" URL that YouTube still maintains.
       def list_params
         super.tap do |params|
-          params[:format] = :xml
+          params[:response_format] = :xml
           params[:host] = 'www.youtube.com'
           params[:path] = '/annotations_invideo'
           params[:params] = {video_id: @parent.id}
