@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.1 - 2014-09-18
+
+* [BUGFIX] Make list videos by id work for exactly 50 ids.
+
 ## 0.13.0 - 2014-09-11
 
 **How to upgrade**
