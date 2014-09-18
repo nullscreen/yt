@@ -34,7 +34,9 @@ module Yt
       end
 
       def next_page
-        super.tap{|items| add_offset_to(items) if @page_token.nil?}
+        super.tap do |items|
+          add_offset_to(items) if !use_list_endpoint? && @page_token.nil?
+        end
       end
 
       # According to http://stackoverflow.com/a/23256768 YouTube does not
