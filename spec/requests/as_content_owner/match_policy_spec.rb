@@ -5,6 +5,7 @@ describe Yt::MatchPolicy, :partner do
   subject(:match_policy) { Yt::MatchPolicy.new asset_id: asset_id, auth: $content_owner }
 
   context 'given an asset managed by the authenticated Content Owner' do
+    before { Yt::Ownership.new(asset_id: asset_id, auth: $content_owner).obtain! }
     let(:asset_id) { ENV['YT_TEST_PARTNER_ASSET_ID'] }
 
     describe 'the asset match policy can be updated' do
