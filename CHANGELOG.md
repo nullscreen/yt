@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.2 - 2014-10-01
+
+* [FEATURE] Add `release!` to Ownership.
+
 ## 0.13.1 - 2014-09-18
 
 * [BUGFIX] Make list videos by id work for exactly 50 ids.

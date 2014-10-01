@@ -15,5 +15,9 @@ describe Yt::Ownership, :partner do
     describe 'the complete ownership can be obtained' do
       it { expect(ownership.obtain!).to be true }
     end
+
+    describe 'the complete ownership can be released' do
+      it { expect(ownership.release!).to be true }
+    end
   end
 end
