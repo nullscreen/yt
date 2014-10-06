@@ -9,7 +9,7 @@ module Yt
     class Claims < Base
       def insert(attributes = {})
         underscore_keys! attributes
-        body = attributes.slice :asset_id, :video_id, :content_type
+        body = attributes.slice :asset_id, :video_id, :content_type, :policy
         body[:policy] = {id: attributes[:policy_id]} if attributes[:policy_id]
         params = {on_behalf_of_content_owner: @auth.owner_name}
         do_insert(params: params, body: body)
