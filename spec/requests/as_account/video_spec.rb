@@ -305,6 +305,7 @@ describe Yt::Video, :device_app do
       expect{video.shares}.not_to raise_error
       expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions}.to raise_error Yt::Errors::Unauthorized
+      expect{video.advertising_options_set}.to raise_error Yt::Errors::Forbidden
 
       expect{video.views_on 3.days.ago}.not_to raise_error
       expect{video.comments_on 3.days.ago}.not_to raise_error
