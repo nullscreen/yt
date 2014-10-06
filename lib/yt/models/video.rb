@@ -23,6 +23,9 @@ module Yt
       delegate :duration, :hd?, :stereoscopic?, :captioned?, :licensed?,
         to: :content_detail
 
+      has_one :advertising_options_set
+      delegate :ad_formats, to: :advertising_options_set
+
       # @!attribute [r] rating
       #   @return [Yt::Models::Rating] the video’s rating.
       has_one :rating

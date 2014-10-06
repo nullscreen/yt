@@ -9,6 +9,10 @@ describe Yt::Video, :partner do
     context 'managed by the authenticated Content Owner' do
       let(:id) { ENV['YT_TEST_VIDEO_CHANNEL_ID'] }
 
+      describe 'advertising options can be retrieved' do
+        it { expect{video.advertising_options_set}.not_to raise_error }
+      end
+
       describe 'earnings can be retrieved for a specific day' do
         context 'in which the video made any money' do
           let(:earnings) {video.earnings_on 5.days.ago}
@@ -249,6 +253,18 @@ describe Yt::Video, :partner do
 
         expect(video.viewer_percentage(gender: :male)).to be_a Float
         expect(video.viewer_percentage(gender: :female)).to be_a Float
+      end
+    end
+
+    context 'given a video claimable by the authenticated Content Owner' do
+      let(:id) { ENV['YT_TEST_PARTNER_CLAIMABLE_VIDEO_ID'] }
+
+      describe 'the advertising formats can be updated and retrieved' do
+        let!(:old_formats) { video.ad_formats }
+        let!(:new_formats) { %w(standard_instream overlay trueview_instream).sample(2) }
+        before { video.advertising_options_set.update ad_formats: new_formats }
+        it { expect(video.ad_formats).to match_array new_formats }
+        after { video.advertising_options_set.update ad_formats: old_formats }
       end
     end
   end

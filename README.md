@@ -239,6 +239,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a video
 * retrieve the viewer percentage of a video by gender and age group
 * retrieve data about live-streaming videos
+* retrieve the advertising options of a video
 
 ```ruby
 # Videos can be initialized with ID or URL
@@ -345,6 +346,8 @@ video.impressions_on 5.days.ago #=> 157.0
 
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 video.viewer_percentage(gender: :female) #=> 49.12
+
+video.ad_formats #=> ["standard_instream", "trueview_instream"]
 ```
 
 *The methods above require to be authenticated as the video’s content owner (see below).*
@@ -490,6 +493,7 @@ asset.ownership #=> #<Yt::Models::Ownership @general=...>
 asset.ownership.obtain! #=> true
 asset.general_owners.first.owner #=> 'CMSname'
 asset.general_owners.first.everywhere? #=> true
+asset.ownership.release! #=> true
 
 asset.update metadata_mine: {notes: 'Some notes'} #=> true
 ```

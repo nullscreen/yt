@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.5 - 2014-10-06
+
+* [ENHANCEMENT] Add `advertising_options_set` and `ad_formats` to video
+
 ## 0.13.4 - 2014-10-01
 
 * [ENHANCEMENT] Accept `policy` (with custom set of rules) in `content_owner.create_claim`
