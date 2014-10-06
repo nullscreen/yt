@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.3 - 2014-10-01
+
+* [BUGFIX] Rescue OpenSSL::SSL::SSLErrorWaitReadable raised by YouTube servers.
+
 ## 0.13.2 - 2014-10-01
 
 * [FEATURE] Add `release!` to Ownership.

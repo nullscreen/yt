@@ -202,6 +202,7 @@ module Yt
     def server_errors
       [
         OpenSSL::SSL::SSLError,
+        OpenSSL::SSL::SSLErrorWaitReadable,
         Errno::ETIMEDOUT,
         Errno::ENETUNREACH,
         Errno::ECONNRESET,
