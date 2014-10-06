@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.4 - 2014-10-01
+
+* [ENHANCEMENT] Accept `policy` (with custom set of rules) in `content_owner.create_claim`
+
 ## 0.13.3 - 2014-10-01
 
 * [BUGFIX] Rescue OpenSSL::SSL::SSLErrorWaitReadable raised by YouTube servers.

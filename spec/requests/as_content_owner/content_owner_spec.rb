@@ -12,23 +12,47 @@ describe Yt::ContentOwner, :partner do
 
   describe 'claims' do
     let(:asset_id) { ENV['YT_TEST_PARTNER_ASSET_ID'] }
-    let(:policy_id) { ENV['YT_TEST_PARTNER_POLICY_ID'] }
     let(:video_id) { ENV['YT_TEST_PARTNER_CLAIMABLE_VIDEO_ID'] }
-    let(:params) { {asset_id: asset_id, video_id: video_id, policy_id: policy_id, content_type: 'audiovisual'} }
+    let(:options) { {asset_id: asset_id, video_id: video_id, content_type: 'audiovisual'} }
 
-    specify 'can be added' do
-      begin
-        expect($content_owner.create_claim params).to be_a Yt::Claim
-      rescue Yt::Errors::RequestError => e
-        # @note: Every time this test runs, a claim is inserted for the same
-        #   video and asset, but YouTube does not allow this, and responds with
-        #   an error message like "Video is already claimed. Existing claims
-        #   on this video: AbCdEFg1234".
-        #   For the sake of testing, we delete the duplicate and try again.
-        raise unless e.reasons.include? 'alreadyClaimed'
-        id = e.kind['message'].match(/this video: (.*?)$/) {|re| re[1]}
-        Yt::Claim.new(id: id, auth: $content_owner).delete
-        expect($content_owner.create_claim params).to be_a Yt::Claim
+    context 'given an existing policy ID' do
+      let(:policy_id) { ENV['YT_TEST_PARTNER_POLICY_ID'] }
+      let(:params) { options.merge policy_id: policy_id }
+
+      specify 'can be added' do
+        begin
+          expect($content_owner.create_claim params).to be_a Yt::Claim
+        rescue Yt::Errors::RequestError => e
+          # @note: Every time this test runs, a claim is inserted for the same
+          #   video and asset, but YouTube does not allow this, and responds with
+          #   an error message like "Video is already claimed. Existing claims
+          #   on this video: AbCdEFg1234".
+          #   For the sake of testing, we delete the duplicate and try again.
+          raise unless e.reasons.include? 'alreadyClaimed'
+          id = e.kind['message'].match(/this video: (.*?)$/) {|re| re[1]}
+          Yt::Claim.new(id: id, auth: $content_owner).delete
+          expect($content_owner.create_claim params).to be_a Yt::Claim
+        end
+      end
+    end
+
+    context 'given a new policy' do
+      let(:params) { options.merge policy: {rules: [action: :block]} }
+
+      specify 'can be added' do
+        begin
+          expect($content_owner.create_claim params).to be_a Yt::Claim
+        rescue Yt::Errors::RequestError => e
+          # @note: Every time this test runs, a claim is inserted for the same
+          #   video and asset, but YouTube does not allow this, and responds with
+          #   an error message like "Video is already claimed. Existing claims
+          #   on this video: AbCdEFg1234".
+          #   For the sake of testing, we delete the duplicate and try again.
+          raise unless e.reasons.include? 'alreadyClaimed'
+          id = e.kind['message'].match(/this video: (.*?)$/) {|re| re[1]}
+          Yt::Claim.new(id: id, auth: $content_owner).delete
+          expect($content_owner.create_claim params).to be_a Yt::Claim
+        end
       end
     end
   end
