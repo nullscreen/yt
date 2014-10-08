@@ -446,6 +446,21 @@ videos.where(id: 'MESycYJytkU,invalid').map(&:title) #=> ["Fullscreen Creator Pl
 
 *The methods above do not require authentication.*
 
+Yt::Collections::ViewerPercentages
+----------------------------------
+
+Use [Yt::Collections::ViewerPercentages](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Collections/ViewerPercentages) to:
+
+* retrieve the viewer percentage of a set of channels
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+viewer_percentages = Yt::Collections::ViewerPercentages.new(auth: content_owner).where filters: 'channel==UCxO1tY8h1AhOz0T4ENwmpow,UCggO99g88eUDPcqkTShOPvw', ids: 'contentOwner==CMSname'
+viewer_percentages['UCxO1tY8h1AhOz0T4ENwmpow'] #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+viewer_percentages['UCggO99g88eUDPcqkTShOPvw'] #=> {female: {'18-24' => 40.12, '25-34' => 13.57,…}…}
+```
+
+*The methods above require to be authenticated as the channels’ content owner (see below).*
 
 Yt::Annotation
 --------------

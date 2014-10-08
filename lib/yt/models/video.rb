@@ -167,11 +167,11 @@ module Yt
       def reports_params
         {}.tap do |params|
           if auth.owner_name
-            params['ids'] = "contentOwner==#{auth.owner_name}"
+            params[:ids] = "contentOwner==#{auth.owner_name}"
           else
-            params['ids'] = "channel==#{channel_id}"
+            params[:ids] = "channel==#{channel_id}"
           end
-          params['filters'] = "video==#{id}"
+          params[:filters] = "video==#{id}"
         end
       end
 

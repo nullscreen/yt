@@ -8,6 +8,7 @@ For more information about changelogs, check
 
 ## 0.13.6 - unreleased
 
+* [ENHANCEMENT] Accept `where` in ViewerPercentages to collect data for multiple channels at once.
 * [ENHANCEMENT] Accept `part` in the `where` clause of Channels, so statistics can be loaded at once.
 
 ## 0.13.5 - 2014-10-06
