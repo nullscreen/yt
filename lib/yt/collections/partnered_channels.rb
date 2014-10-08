@@ -13,7 +13,7 @@ module Yt
         super.tap do |params|
           params.delete :mine
           params[:managed_by_me] = true
-          params[:on_behalf_of_content_owner] = @parent.owner_name
+          params[:on_behalf_of_content_owner] = @auth.owner_name
         end
       end
 

@@ -63,6 +63,15 @@ module Yt
       #     return an authenticated account.
       has_one :subscription
 
+      # Override Resource's new to set statistics as well
+      # if the response includes them
+      def initialize(options = {})
+        super options
+        if options[:statistics]
+          @statistics_set = StatisticsSet.new data: options[:statistics]
+        end
+      end
+
       # Returns whether the authenticated account is subscribed to the channel.
       #
       # This method requires {Resource#auth auth} to return an

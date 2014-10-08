@@ -113,7 +113,8 @@ Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
 
 content_owner.partnered_channels.count #=> 12
-content_owner.partnered_channels.first #=> #<Yt::Models::Channel @id=...>
+content_owner.partnered_channels.map &:title #=> ["Fullscreen", "Best of Fullscreen", ...]
+content_owner.partnered_channels.where(part: 'statistics').map &:subscriber_count #=> [136925, 56945, ...]
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
