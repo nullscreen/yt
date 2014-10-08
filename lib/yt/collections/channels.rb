@@ -22,7 +22,8 @@ module Yt
       end
 
       def channels_params
-        params = resources_params.merge mine: true
+        params = resources_params
+        params.merge! mine: true if @parent
         apply_where_params! params
       end
     end
