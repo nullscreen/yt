@@ -6,8 +6,9 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.13.6 - unreleased
+## 0.13.6 - 2014-10-08
 
+* [ENHANCEMENT] Accept `includes(:viewer_percentages)` in `.partnered_channels` to eager-load multiple viewer percentages at once.
 * [ENHANCEMENT] Accept `where` in ViewerPercentages to collect data for multiple channels at once.
 * [ENHANCEMENT] Accept `part` in the `where` clause of Channels, so statistics can be loaded at once.
 

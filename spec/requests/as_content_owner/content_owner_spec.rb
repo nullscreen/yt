@@ -2,12 +2,24 @@ require 'spec_helper'
 require 'yt/models/content_owner'
 
 describe Yt::ContentOwner, :partner do
-  describe '.partnered_channels.first' do
-    it { expect($content_owner.partnered_channels.first).to be_a Yt::Channel }
-  end
+  describe '.partnered_channels' do
+    let(:partnered_channels) { $content_owner.partnered_channels }
 
-  describe '.partnered_channels.size', :ruby2 do
-    it { expect($content_owner.partnered_channels.size).to be > 0 }
+    specify '.first' do
+      expect(partnered_channels.first).to be_a Yt::Channel
+    end
+
+    specify '.size', :ruby2 do
+      expect(partnered_channels.size).to be > 0
+    end
+
+    context 'with includes(:viewer_percentages)' do
+      let(:channel) { partnered_channels.includes(:viewer_percentages).first }
+
+      specify 'eager-loads the viewer percentages of each channel' do
+        expect(channel.instance_variable_defined? :@viewer_percentages).to be true
+      end
+    end
   end
 
   describe 'claims' do

@@ -84,7 +84,11 @@ module Yt
         params[:params][:page_token] = @page_token if @page_token
         next_page = fetch_page params
         @page_token = next_page[:token]
-        next_page[:items]
+        eager_load_items_from next_page[:items]
+      end
+
+      def eager_load_items_from(items)
+        items
       end
 
       def fetch_page(params = {})
