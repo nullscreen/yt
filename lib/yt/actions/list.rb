@@ -6,8 +6,8 @@ require 'yt/config'
 module Yt
   module Actions
     module List
-      delegate :count, :first, :any?, :each, :map, :flat_map, :find,
-        :size, to: :list
+      delegate :any?, :count, :each, :each_cons, :each_slice, :find, :first,
+        :flat_map, :map, :size, to: :list
 
       def first!
         first.tap{|item| raise Errors::NoItems, error_message unless item}
@@ -84,7 +84,11 @@ module Yt
         params[:params][:page_token] = @page_token if @page_token
         next_page = fetch_page params
         @page_token = next_page[:token]
-        next_page[:items]
+        eager_load_items_from next_page[:items]
+      end
+
+      def eager_load_items_from(items)
+        items
       end
 
       def fetch_page(params = {})

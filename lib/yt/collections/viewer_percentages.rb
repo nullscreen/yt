@@ -3,10 +3,13 @@ require 'yt/collections/base'
 module Yt
   module Collections
     class ViewerPercentages < Base
+      delegate :[], to: :all
 
       def all
-        Hash.new{|h,k| h[k] = Hash.new(0.0)}.tap do |hash|
-          each{|item| hash[item.gender][item.age_range] = item.value}
+        Hash.new{|h,k| h[k] = Hash.new{|h,k| h[k] = Hash.new 0.0}}.tap do |hash|
+          each do |item|
+            hash[item.id][item.gender][item.age_range] = item.value
+          end
         end
       end
 
@@ -14,9 +17,10 @@ module Yt
 
       # @note could use column headers to be more precise
       def new_item(data)
-        Struct.new(:gender, :age_range, :value).new.tap do |item|
-          item.gender = data.first.to_sym
-          item.age_range = data.second.gsub /^age/, ''
+        Struct.new(:id, :gender, :age_range, :value).new.tap do |item|
+          item.id = data.first
+          item.gender = data.second.to_sym
+          item.age_range = data.third.gsub /^age/, ''
           item.value = data.last
         end
       end
@@ -30,12 +34,16 @@ module Yt
       end
 
       def reports_params
-        @parent.reports_params.tap do |params|
+        {}.tap do |params|
           params['start-date'] = 3.months.ago.to_date
           params['end-date'] = Date.today.to_date
           params['metrics'] = :viewerPercentage
-          params['dimensions'] = 'gender,ageGroup'
           params['sort'] = 'gender,ageGroup'
+          params.merge! @parent.reports_params if @parent
+          apply_where_params! params
+          main_dimension = params.fetch(:filters, '').split('==').first
+          main_dimension ||= params.fetch(:ids, '').split('==').first
+          params['dimensions'] = "#{main_dimension},#{params['sort']}"
         end
       end
 

@@ -38,7 +38,7 @@ module Yt
       def define_viewer_percentages_method
         # @todo: add options like start and end date
         define_method :viewer_percentages do
-          @viewer_percentages ||= Collections::ViewerPercentages.of(self).all
+          @viewer_percentages ||= Collections::ViewerPercentages.of(self)[id]
         end
       end
 

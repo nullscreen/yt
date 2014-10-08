@@ -63,6 +63,18 @@ module Yt
       #     return an authenticated account.
       has_one :subscription
 
+      # Override Resource's new to set statistics as well
+      # if the response includes them
+      def initialize(options = {})
+        super options
+        if options[:statistics]
+          @statistics_set = StatisticsSet.new data: options[:statistics]
+        end
+        if options[:viewer_percentages]
+          @viewer_percentages = options[:viewer_percentages]
+        end
+      end
+
       # Returns whether the authenticated account is subscribed to the channel.
       #
       # This method requires {Resource#auth auth} to return an
@@ -149,10 +161,10 @@ module Yt
       def reports_params
         {}.tap do |params|
           if auth.owner_name
-            params['ids'] = "contentOwner==#{auth.owner_name}"
-            params['filters'] = "channel==#{id}"
+            params[:ids] = "contentOwner==#{auth.owner_name}"
+            params[:filters] = "channel==#{id}"
           else
-            params['ids'] = "channel==#{id}"
+            params[:ids] = "channel==#{id}"
           end
         end
       end
