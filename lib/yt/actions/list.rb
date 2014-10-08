@@ -6,8 +6,8 @@ require 'yt/config'
 module Yt
   module Actions
     module List
-      delegate :count, :first, :any?, :each, :map, :flat_map, :find,
-        :size, to: :list
+      delegate :any?, :count, :each, :each_cons, :each_slice, :find, :first,
+        :flat_map, :map, :size, to: :list
 
       def first!
         first.tap{|item| raise Errors::NoItems, error_message unless item}
