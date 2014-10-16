@@ -1,4 +1,5 @@
 require 'yt/models/base'
+require 'yt/models/asset_metadata'
 
 module Yt
   module Models
@@ -8,7 +9,7 @@ module Yt
       attr_reader :auth
 
       def initialize(options = {})
-        @data = options[:data]
+        @data = options.fetch(:data, {})
         @id = options[:id]
         @auth = options[:auth]
       end
@@ -24,6 +25,14 @@ module Yt
       has_one :ownership
       delegate :general_owners, :performance_owners, :synchronization_owners,
         :mechanical_owners, to: :ownership
+
+      def metadata_mine
+        @metadata_mine ||= Yt::Models::AssetMetadata.new data: @data.fetch('metadataMine', {})
+      end
+
+      def metadata_effective
+        @metadata_effective ||= Yt::Models::AssetMetadata.new data: @data.fetch('metadataEffective', {})
+      end
 
       # Soft-deletes the asset.
       # @note YouTube API does not provide a +delete+ method for the Asset
@@ -53,6 +62,12 @@ module Yt
       #   episode, general, movie, music_video, season, show, sound_recording,
       #   video_game, and web.
       has_attribute :type
+
+      # @return [Array<Yt::Models::Tag>] the list of asset labels associated
+      #   with the asset. You can apply a label to multiple assets to group
+      #   them. You can use the labels as search filters to perform bulk updates,
+      #   to download reports, or to filter YouTube Analytics.
+      has_attribute :label
 
 # Status
 

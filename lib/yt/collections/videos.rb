@@ -71,7 +71,7 @@ module Yt
       # /videos should be used when the query specifies video IDs or a chart,
       # /search otherwise.
       # @return [Boolean] whether to use the /videos endpoint.
-      # @todo: This is one of two places outside of base.rb where @where_params
+      # @todo: This is one of three places outside of base.rb where @where_params
       #   is accessed; it should be replaced with a filter on params instead.
       def use_list_endpoint?
         @where_params ||= {}
