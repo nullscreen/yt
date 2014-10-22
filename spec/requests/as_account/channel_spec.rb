@@ -79,16 +79,19 @@ describe Yt::Channel, :device_app do
       it { expect(channel.videos.where(chart: 'invalid').first).to be_a Yt::Video }
     end
 
-    # @note: these tests are slow because they go through multiple pages of
-    #   results and do so to test that we can overcome YouTube’s limitation of
-    #   only returning the first 500 results for each query.
-    # @note: in principle, the following three counters should match, but in
-    #   reality +video_count+ and +size+ are only approximations.
     context 'with more than 500 videos' do
       let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
+      # @note: in principle, the following three counters should match, but in
+      #   reality +video_count+ and +size+ are only approximations.
       it { expect(channel.video_count).to be > 500 }
       it { expect(channel.videos.size).to be > 500 }
-      it { expect(channel.videos.count).to be > 500 }
+      context 'with default order (by date)' do
+        # @note: these tests are slow because they go through multiple pages of
+        # results and do so to test that we can overcome YouTube’s limitation of
+        # only returning the first 500 results when ordered by date.
+        it { expect(channel.videos.count).to be > 500 }
+        it { expect(channel.videos.where(order: 'viewCount').count).to be 500 }
+      end
     end
   end
 

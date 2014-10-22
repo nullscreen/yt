@@ -35,7 +35,7 @@ module Yt
 
       def next_page
         super.tap do |items|
-          add_offset_to(items) if !use_list_endpoint? && @page_token.nil?
+          add_offset_to(items) if !use_list_endpoint? && @page_token.nil? && videos_params[:order] == 'date'
         end
       end
 
