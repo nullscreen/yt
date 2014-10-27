@@ -237,6 +237,38 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'monetized playbacks can be retrieved for a specific day' do
+        context 'in which the video was partnered' do
+          let(:monetized_playbacks) { video.monetized_playbacks_on 20.days.ago}
+          it { expect(monetized_playbacks).to be_a Float }
+        end
+
+        context 'in which the video was not partnered' do
+          let(:monetized_playbacks) { video.monetized_playbacks_on 20.years.ago}
+          it { expect(monetized_playbacks).to be_nil }
+        end
+      end
+
+      describe 'monetized playbacks can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.monetized_playbacks(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.monetized_playbacks(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.monetized_playbacks(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.monetized_playbacks(to: date).keys.max).to eq date.to_date
+        end
+      end
+
       specify 'viewer percentages by gender and age range can be retrieved' do
         expect(video.viewer_percentages[:female]['18-24']).to be_a Float
         expect(video.viewer_percentages[:female]['25-34']).to be_a Float

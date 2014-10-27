@@ -37,7 +37,7 @@ module Yt
         @parent.reports_params.tap do |params|
           params['start-date'] = @days_range.begin
           params['end-date'] = @days_range.end
-          params['metrics'] = @metric
+          params['metrics'] = @metric.to_s.camelize(:lower)
           params['dimensions'] = :day
         end
       end

@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.7 - 2014-10-27
+
+* [FEATURE] New video reports: monetized playbacks.
+
 ## 0.13.6 - 2014-10-08
 
 * [ENHANCEMENT] Accept `includes(:viewer_percentages)` in `.partnered_channels` to eager-load multiple viewer percentages at once.
