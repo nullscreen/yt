@@ -11,7 +11,7 @@ module Yt
         underscore_keys! attributes
         body = attributes.slice :asset_id, :video_id, :content_type, :policy
         body[:policy] = {id: attributes[:policy_id]} if attributes[:policy_id]
-        params = {on_behalf_of_content_owner: @auth.owner_name}
+        params = attributes.slice(:is_manual_claim).merge({on_behalf_of_content_owner: @auth.owner_name})
         do_insert(params: params, body: body)
       end
 
