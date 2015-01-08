@@ -23,6 +23,11 @@ module Yt
       delegate :duration, :hd?, :stereoscopic?, :captioned?, :licensed?,
         to: :content_detail
 
+      # @!attribute [r] file_detail
+      #   @return [Yt::Models::FileDetail] the video’s file details.
+      has_one :file_detail
+      delegate :file_name, :file_size, :file_type, :container, to: :file_detail
+
       has_one :advertising_options_set
       delegate :ad_formats, to: :advertising_options_set
 
@@ -82,6 +87,9 @@ module Yt
         end
         if options[:content_details]
           @content_detail = ContentDetail.new data: options[:content_details]
+        end
+        if options[:file_details]
+          @file_detail = FileDetail.new data: options[:file_details]
         end
       end
 
