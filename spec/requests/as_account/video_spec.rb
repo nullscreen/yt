@@ -134,6 +134,8 @@ describe Yt::Video, :device_app do
     let!(:old_privacy_status) { video.privacy_status }
     let(:update) { video.update attrs }
 
+    it { expect(video.file_detail).to be_a Yt::FileDetail }
+
     context 'given I update the title' do
       # NOTE: The use of UTF-8 characters is to test that we can pass up to
       # 50 characters, independently of their representation

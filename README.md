@@ -310,6 +310,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
 * retrieve the HTML code of the video player
+* retrieve the file details of a video
 
 ```ruby
 # Videos can be initialized with ID or URL
@@ -420,6 +421,11 @@ video.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male:
 video.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
 video.delete #=> true
+
+video.file_name #=> "a_video.mov"
+video.file_size #=> 8000000 # in bytes
+video.file_type #=> "video"
+video.container #=> "mov"
 ```
 
 *The methods above require to be authenticated as the video’s owner (see below).*
