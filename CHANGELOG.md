@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.8 - 2015-01-15
+
+* [FEATURE] AssetSearch resources available.
+* [FEATURE] Access asset metadata (`effective` and `mine`) via the asset object.
+* [ENHANCEMENT] Support `isManualClaim` parameter in claims#insert.
+
 ## 0.13.7 - 2014-10-27
 
 * [FEATURE] New video reports: monetized playbacks.
