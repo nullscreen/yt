@@ -74,7 +74,6 @@ module Yt
         {data: data, auth: @auth}
       end
 
-
       def more_pages?
         @last_index.zero? || !@page_token.nil?
       end
