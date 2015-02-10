@@ -28,6 +28,9 @@ module Yt
         @redirect_uri = options[:redirect_uri]
         @scopes = options[:scopes]
         @authentication = options[:authentication]
+        @approval_prompt = options[:approval_prompt]
+        @login_hint = options[:login_hint]
+        @state = options[:state]
       end
 
       def auth
@@ -153,6 +156,9 @@ module Yt
           params[:redirect_uri] = @redirect_uri
           params[:response_type] = :code
           params[:access_type] = :offline
+          params[:approval_prompt] = @approval_prompt if @approval_prompt
+          params[:login_hint] = @login_hint if @login_hint
+          params[:state] = @state if @state
           # params[:include_granted_scopes] = true
         end
       end
