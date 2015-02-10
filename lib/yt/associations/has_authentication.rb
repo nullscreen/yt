@@ -29,6 +29,8 @@ module Yt
         @force = options[:force]
         @scopes = options[:scopes]
         @authentication = options[:authentication]
+        @login_hint = options[:login_hint]
+        @state = options[:state]
       end
 
       def auth
@@ -155,6 +157,8 @@ module Yt
           params[:response_type] = :code
           params[:access_type] = :offline
           params[:approval_prompt] = @force ? :force : :auto
+          params[:login_hint] = @login_hint if @login_hint
+          params[:state] = @state if @state
           # params[:include_granted_scopes] = true
         end
       end
