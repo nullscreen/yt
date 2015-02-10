@@ -30,6 +30,12 @@ module Yt
       #   @return [Yt::Models::Rating] the video’s rating.
       has_one :rating
 
+      # Fetch the video category for the video - only works when category_id is
+      # present, which is only the case when fetching an indiviual video
+      # @!attribute [r] video_category
+      #   @return [Yt::Models::VideoCategory] the video’s category.
+      has_one :video_category
+
       # @!attribute [r] live_streaming_detail
       #   @return [Yt::Models::LiveStreamingDetail] live streaming detail.
       has_one :live_streaming_detail
