@@ -156,6 +156,14 @@ module Yt
         @includes_tags ||= @data.fetch :includes_tags, true
       end
 
+      # @return [Boolean] if the resource is a video category, whether the
+      #   category is assignable based on the given filters.
+      # @return [nil] if the resource is a channel.
+      # @return [nil] if the resource is a playlist.
+      # @return [nil] if the resource is a video.
+      # @return [nil] if the resource is a playlist item.
+      has_attribute :assignable
+
     private
 
       has_attribute :thumbnails, default: {}
