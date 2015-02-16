@@ -128,9 +128,15 @@ describe Yt::Account, :device_app do
   end
 
   describe '#authentication_url' do
+    let(:auth_attrs) { {redirect_uri: 'http://localhost/', scopes: ['userinfo.email', 'userinfo.profile']} }
     context 'given a redirect URI and scopes' do
-      let(:attrs) { {redirect_uri: 'http://localhost/', scopes: ['userinfo.email', 'userinfo.profile']} }
+      let(:attrs) { auth_attrs }
       it { expect(account.authentication_url).to match 'access_type=offline' }
+
+      context 'given a forced approval prompt' do
+        let(:attrs) { auth_attrs.merge force: true }
+        it { expect(account.authentication_url).to match 'approval_prompt=force' }
+      end
     end
   end
 end

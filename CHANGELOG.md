@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.9 - 2015-02-16
+
+* [ENHANCEMENT] Accept `force: true` in `authentication_url` to force approval prompt.
+
 ## 0.13.8 - 2015-01-15
 
 * [FEATURE] AssetSearch resources available.
