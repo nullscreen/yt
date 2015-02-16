@@ -184,7 +184,14 @@ module Yt
       # @return the new thumbnail resource for the given image.
       # @see https://developers.google.com/youtube/v3/docs/thumbnails#resource
       def upload_thumbnail(path_or_url)
-        file = open path_or_url, 'rb'
+        if path_or_url.is_a?(String) && path_or_url =~ /^(https?|ftp)/i
+          file = fetch_remote_file path_or_url
+        elsif path_or_url.is_a?(Tempfile)
+          file = path_or_url
+        else
+          file = open path_or_url, 'rb'
+        end
+
         session = resumable_sessions.insert file.size
 
         session.update(body: file) do |data|

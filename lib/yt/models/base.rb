@@ -24,6 +24,28 @@ module Yt
       extend Associations::HasOne
       extend Associations::HasMany
       extend Associations::HasAuthentication
+
+      # @private
+      # Fetches a remote file in chunks to prevent memory bloat
+      def fetch_remote_file(url)
+        extension = File.extname(url)
+        filename = File.basename(url, extension)
+
+        file = Tempfile.new(["#{filename}-", ".#{extension}"])
+        file.binmode # Switch to binary mode
+
+        uri = URI(url)
+        Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+          http.request_get(uri.request_uri) do |response|
+            response.read_body do |chunk|
+              file.write(chunk)
+            end
+          end
+        end
+
+        file.rewind # Read from the beginning
+        file
+      end
     end
   end
 

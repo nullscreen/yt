@@ -56,7 +56,14 @@ module Yt
       # @option params [String] :privacy_status The video’s privacy status.
       # @return [Yt::Models::Video] the newly uploaded video.
       def upload_video(path_or_url, params = {})
-        file = open path_or_url, 'rb'
+        if path_or_url.is_a?(String) && path_or_url =~ /^(https?|ftp)/i
+          file = fetch_remote_file path_or_url
+        elsif path_or_url.is_a?(Tempfile)
+          file = path_or_url
+        else
+          file = open path_or_url, 'rb'
+        end
+
         session = resumable_sessions.insert file.size, upload_body(params)
 
         session.update(body: file) do |data|
