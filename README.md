@@ -319,7 +319,8 @@ video.like #=> true
 account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
 video = Yt::Video.new id: 'MESycYJytkU', auth: account
 
-video.update title: 'A title', description: 'A description <with angle brackets>', tags: ['a tag'], categoryId: '21'
+video.update title: 'A title', description: 'A description <with angle brackets>'
+video.update tags: ['a tag'], categoryId: '21', license: 'creativeCommon'
 
 video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
 video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
