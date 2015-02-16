@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.13.8'
+    gem 'yt', '~> 0.13.9'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -319,7 +319,8 @@ video.like #=> true
 account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
 video = Yt::Video.new id: 'MESycYJytkU', auth: account
 
-video.update title: 'A title', description: 'A description <with angle brackets>', tags: ['a tag'], categoryId: '21'
+video.update title: 'A title', description: 'A description <with angle brackets>'
+video.update tags: ['a tag'], categoryId: '21', license: 'creativeCommon'
 
 video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
 video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}

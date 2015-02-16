@@ -250,24 +250,6 @@ describe Yt::Video, :device_app do
       end
     end
 
-    context 'given I update the license' do
-      let!(:old_license) { video.license }
-      let!(:new_license) { old_license == 'youtube' ? 'creativeCommon' : 'youtube' }
-      let(:attrs) { {license: new_license} }
-
-      # @note: This test is a reflection of another irrational behavior of
-      #   YouTube API. Although 'license' can be passed as an 'update'
-      #   attribute according to the documentation, it simply does not work.
-      #   The day YouTube fixes it, then this test will finally fail and will
-      #   be removed, documenting how to update 'embeddable' too.
-      # @see https://developers.google.com/youtube/v3/docs/videos/update
-      # @see https://code.google.com/p/gdata-issues/issues/detail?id=4861
-      specify 'does not update the embeddable status' do
-        expect(update).to be true
-        expect(video.license).to eq old_license
-      end
-    end
-
     context 'given I update the public stats viewable setting' do
       let!(:old_public_stats_viewable) { video.has_public_stats_viewable? }
       let!(:new_public_stats_viewable) { !old_public_stats_viewable }

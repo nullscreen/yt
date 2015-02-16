@@ -26,6 +26,7 @@ module Yt
         @expires_at = options[:expires_at]
         @authorization_code = options[:authorization_code]
         @redirect_uri = options[:redirect_uri]
+        @force = options[:force]
         @scopes = options[:scopes]
         @authentication = options[:authentication]
       end
@@ -153,6 +154,7 @@ module Yt
           params[:redirect_uri] = @redirect_uri
           params[:response_type] = :code
           params[:access_type] = :offline
+          params[:approval_prompt] = @force ? :force : :auto
           # params[:include_granted_scopes] = true
         end
       end
