@@ -46,7 +46,7 @@ module Yt
       #   @return [Yt::Collections::Playlists] the account’s playlists.
       has_many :playlists
 
-      # Uploads a video
+      # Uploads a video using resumable sessions
       # @param [String] path_or_url the video to upload. Can either be the
       #   path of a local file or the URL of a remote file.
       # @param [Hash] params the metadata to add to the uploaded video.
@@ -57,8 +57,11 @@ module Yt
       # @return [Yt::Models::Video] the newly uploaded video.
       def upload_video(path_or_url, params = {})
         file = open path_or_url, 'rb'
-        session = resumable_sessions.insert file.size, params
-        session.upload_video file
+        session = resumable_sessions.insert file.size, upload_body(params)
+
+        session.update(body: file) do |data|
+          Yt::Video.new id: data['id'], snippet: data['snippet'], status: data['privacyStatus'], auth: self
+        end
       end
 
       def create_playlist(params = {})
@@ -70,6 +73,38 @@ module Yt
       # videos *owned by* the account (public, private, unlisted).
       def videos_params
         {for_mine: true}
+      end
+
+      # @private
+      # Tells `has_many :resumable_sessions` what path to hit to upload a file.
+      def upload_path
+        '/upload/youtube/v3/videos'
+      end
+      # @private
+      # Tells `has_many :resumable_sessions` what params are set for the object
+      # associated to the uploaded file.
+      def upload_params
+        {part: 'snippet,status'}
+      end
+
+      # @private
+      # Tells `has_many :resumable_sessions` what metadata to set in the object
+      # associated to the uploaded file.
+      def upload_body(params = {})
+        {}.tap do |body|
+          snippet = params.slice :title, :description, :tags, :category_id
+          snippet[:categoryId] = snippet.delete(:category_id) if snippet[:category_id]
+          body[:snippet] = snippet if snippet.any?
+
+          status = params[:privacy_status]
+          body[:status] = {privacyStatus: status} if status
+        end
+      end
+
+      # @private
+      # Tells `has_many :resumable_sessions` what type of file can be uploaded.
+      def upload_content_type
+        'video/*'
       end
     end
   end

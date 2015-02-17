@@ -13,14 +13,17 @@ module Yt
         @headers = options[:headers]
       end
 
-      # Uploads a video using the current resumable session
-      # @param [#read] file A binary object that contains the video content.
+      def update(params = {})
+        do_update(params) {|data| yield data}
+      end
+
+      # Uploads a thumbnail using the current resumable session
+      # @param [#read] file A binary object that contains the image content.
       #   Can either be a File, a StringIO (for instance using open-uri), etc.
-      # @return [Yt::Models::Video] the newly uploaded video.
-      def upload_video(file)
-        do_update(body: file) do |data|
-          Yt::Video.new id: data['id'], snippet: data['snippet'], status: data['privacyStatus'], auth: @auth
-        end
+      # @return the new thumbnail resource for the given image.
+      # @see https://developers.google.com/youtube/v3/docs/thumbnails#resource
+      def upload_thumbnail(file)
+        do_update(body: file) {|data| data['items'].first}
       end
 
     private
