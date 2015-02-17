@@ -73,6 +73,11 @@ module Yt
       delegate :view_count, :like_count, :dislike_count, :favorite_count,
         :comment_count, to: :statistics_set
 
+      # @!attribute [r] resumable_sessions
+      #   @return [Yt::Collections::ResumableSessions] the sessions used to
+      #     upload thumbnails using the resumable upload protocol.
+      has_many :resumable_sessions
+
       # Override Resource's new to set statistics and content details as well
       # if the response includes them
       def initialize(options = {})
@@ -163,6 +168,20 @@ module Yt
         !liked?
       end
 
+      # Uploads a thumbnail
+      # @param [String] path_or_url the image to upload. Can either be the
+      #   path of a local file or the URL of a remote file.
+      # @return the new thumbnail resource for the given image.
+      # @see https://developers.google.com/youtube/v3/docs/thumbnails#resource
+      def upload_thumbnail(path_or_url)
+        file = open path_or_url, 'rb'
+        session = resumable_sessions.insert file.size
+
+        session.update(body: file) do |data|
+          snippet.instance_variable_set :@thumbnails, data['items'].first
+        end
+      end
+
       # @private
       # Tells `has_reports` to retrieve the reports from YouTube Analytics API
       # either as a Channel or as a Content Owner.
@@ -176,6 +195,24 @@ module Yt
           end
           params[:filters] = "video==#{id}"
         end
+      end
+
+      # @private
+      # Tells `has_many :resumable_sessions` what path to hit to upload a file.
+      def upload_path
+        '/upload/youtube/v3/thumbnails/set'
+      end
+      # @private
+      # Tells `has_many :resumable_sessions` what params are set for the object
+      # associated to the uploaded file.
+      def upload_params
+        {video_id: id}
+      end
+
+      # @private
+      # Tells `has_many :resumable_sessions` what type of file can be uploaded.
+      def upload_content_type
+        'application/octet-stream'
       end
 
     private

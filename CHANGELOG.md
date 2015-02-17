@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.9 - 2015-02-17
+
+* [FEATURE] New `video.upload_thumbnail` to upload the thumbnail for a video.
+
 ## 0.13.9 - 2015-02-16
 
 * [ENHANCEMENT] Accept `force: true` in `authentication_url` to force approval prompt.

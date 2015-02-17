@@ -342,4 +342,26 @@ describe Yt::Video, :device_app do
       end
     end
   end
+
+  # @note: This should somehow test that the thumbnail *changes*. However,
+  #   YouTube does not change the URL of the thumbnail even though the content
+  #   changes. A full test would have to *download* the thumbnails before and
+  #   after, and compare the files. For now, not raising error is enough.
+  #   Eventually, change to `expect{update}.to change{video.thumbnail_url}`
+  context 'given one of my own videos for which I want to upload a thumbnail' do
+    let(:id) { $account.videos.where(order: 'viewCount').first.id }
+    let(:update) { video.upload_thumbnail path_or_url }
+
+    context 'given the path to a local JPG image file' do
+      let(:path_or_url) { File.expand_path '../thumbnail.jpg', __FILE__ }
+
+      it { expect{update}.not_to raise_error }
+    end
+
+    context 'given the path to a remote PNG image file' do
+      let(:path_or_url) { 'https://bit.ly/yt_thumbnail' }
+
+      it { expect{update}.not_to raise_error }
+    end
+  end
 end

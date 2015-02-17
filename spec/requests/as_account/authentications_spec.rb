@@ -109,15 +109,9 @@ describe Yt::Account, :device_app do
         it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
       end
 
-      # @note: This test is a reflection of another irrational behavior of
-      #   YouTube API. When passing a wrong 'device_code', YouTube crashes and
-      #   raises 500, instead of an expected MissingAuth.
-      #   The day YouTube fixes it, then this test will finally fail and the
-      #   commented line will be restored.
       context 'and an invalid device code' do
         before { attrs[:device_code] = '--not-a-valid-device-code--' }
-        # it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
-        it { expect{account.authentication}.to raise_error Yt::Errors::ServerError }
+        it { expect{account.authentication}.to raise_error Yt::Errors::MissingAuth }
       end
     end
 
