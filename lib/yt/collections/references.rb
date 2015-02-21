@@ -9,7 +9,7 @@ module Yt
     class References < Base
       def insert(attributes = {})
         underscore_keys! attributes
-        body = {content_type: attributes[:content_type] }
+        body = attributes.slice(*body_params)
         params = {claim_id: attributes[:claim_id], on_behalf_of_content_owner: @auth.owner_name}
         do_insert(params: params, body: body)
       end
@@ -36,6 +36,10 @@ module Yt
 
       def references_params
         apply_where_params! on_behalf_of_content_owner: @parent.owner_name
+      end
+
+      def body_params
+        [:content_type, :audioswap_enabled, :ignore_fps_match, :excluded_intervals]
       end
     end
   end
