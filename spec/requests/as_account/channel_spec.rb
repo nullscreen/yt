@@ -132,6 +132,9 @@ describe Yt::Channel, :device_app do
       expect{channel.shares}.not_to raise_error
       expect{channel.subscribers_gained}.not_to raise_error
       expect{channel.subscribers_lost}.not_to raise_error
+      expect{channel.estimated_minutes_watched}.not_to raise_error
+      expect{channel.average_view_duration}.not_to raise_error
+      expect{channel.average_view_percentage}.not_to raise_error
       expect{channel.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{channel.impressions}.to raise_error Yt::Errors::Unauthorized
 
@@ -142,6 +145,9 @@ describe Yt::Channel, :device_app do
       expect{channel.shares_on 3.days.ago}.not_to raise_error
       expect{channel.subscribers_gained_on 3.days.ago}.not_to raise_error
       expect{channel.subscribers_lost_on 3.days.ago}.not_to raise_error
+      expect{channel.estimated_minutes_watched_on 3.days.ago}.not_to raise_error
+      expect{channel.average_view_duration_on 3.days.ago}.not_to raise_error
+      expect{channel.average_view_percentage_on 3.days.ago}.not_to raise_error
       expect{channel.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
       expect{channel.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end

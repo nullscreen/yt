@@ -10,6 +10,7 @@ For more information about changelogs, check
 
 * [FEATURE] New channel reports: `subscribers_gained`, `subscribers_lost`.
 * [FEATURE] New video reports: `subscribers_gained`, `subscribers_lost`.
+* [FEATURE] New channel reports: `estimated_minutes_watched`, `average_view_duration`, `average_view_percentage`.
 
 ## 0.13.10 - 2015-02-17
 

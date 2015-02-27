@@ -278,6 +278,102 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:estimated_minutes_watched) { channel.estimated_minutes_watched_on 5.days.ago}
+          it { expect(estimated_minutes_watched).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:estimated_minutes_watched) { channel.estimated_minutes_watched_on 20.years.ago}
+          it { expect(estimated_minutes_watched).to be_nil }
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(channel.estimated_minutes_watched(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(channel.estimated_minutes_watched(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(channel.estimated_minutes_watched(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(channel.estimated_minutes_watched(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'average view duration can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:average_view_duration) { channel.average_view_duration_on 5.days.ago}
+          it { expect(average_view_duration).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:average_view_duration) { channel.average_view_duration_on 20.years.ago}
+          it { expect(average_view_duration).to be_nil }
+        end
+      end
+
+      describe 'average view duration can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(channel.average_view_duration(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(channel.average_view_duration(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(channel.average_view_duration(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(channel.average_view_duration(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'average view percentage can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:average_view_percentage) { channel.average_view_percentage_on 5.days.ago}
+          it { expect(average_view_percentage).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:average_view_percentage) { channel.average_view_percentage_on 20.years.ago}
+          it { expect(average_view_percentage).to be_nil }
+        end
+      end
+
+      describe 'average view percentage can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(channel.average_view_percentage(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(channel.average_view_percentage(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(channel.average_view_percentage(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(channel.average_view_percentage(to: date).keys.max).to eq date.to_date
+        end
+      end
+
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:impressions) { channel.impressions_on 20.days.ago}
