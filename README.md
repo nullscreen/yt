@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.13.9'
+    gem 'yt', '~> 0.13.11'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -148,7 +148,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * access the channels that the channel is subscribed to
 * subscribe to and unsubscribe from a channel
 * delete playlists from a channel
-* retrieve the daily earnings, views, comments, likes, dislikes, shares and impressions of a channel
+* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, estimated/average video watch and impressions of a channel
 * retrieve the viewer percentage of a channel by gender and age group
 
 ```ruby
@@ -201,7 +201,11 @@ channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 201
 channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
 channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-
+channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
+channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
+channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 channel.viewer_percentage(gender: :male) #=> 49.12
 ```
@@ -219,7 +223,11 @@ channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 =>
 channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 channel.impressions_on 5.days.ago #=> 157.0
-
+channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
+channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
+channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 channel.viewer_percentage(gender: :female) #=> 49.12
 
@@ -240,7 +248,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * access the annotations of a video
 * delete a video
 * like and dislike a video
-* retrieve the daily earnings, views, comments, likes, dislikes, shares, impressions and monetized playbacks of a video
+* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions and monetized playbacks of a video
 * retrieve the viewer percentage of a video by gender and age group
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
@@ -331,7 +339,8 @@ video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 
 video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
 video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-
+video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
+video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 video.viewer_percentage(gender: :female) #=> 49.12
 
@@ -350,6 +359,8 @@ video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 
 video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
 video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
 video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
+video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
+video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
 video.impressions_on 5.days.ago #=> 157.0
 video.monetized_playbacks_on 5.days.ago #=> 123.0
 

@@ -59,6 +59,16 @@ module Yt
       has_report :shares
 
       # @macro has_report
+      # @note: This is not the total number of subscribers gained by the video’s
+      #        channel, but the subscribers gained *from* the video’s page.
+      has_report :subscribers_gained
+
+      # @macro has_report
+      # @note: This is not the total number of subscribers lost by the video’s
+      #        channel, but the subscribers lost *from* the video’s page.
+      has_report :subscribers_lost
+
+      # @macro has_report
       has_report :impressions
 
       # @macro has_report
