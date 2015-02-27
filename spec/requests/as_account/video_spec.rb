@@ -285,6 +285,8 @@ describe Yt::Video, :device_app do
       expect{video.likes}.not_to raise_error
       expect{video.dislikes}.not_to raise_error
       expect{video.shares}.not_to raise_error
+      expect{video.subscribers_gained}.not_to raise_error
+      expect{video.subscribers_lost}.not_to raise_error
       expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions}.to raise_error Yt::Errors::Unauthorized
       expect{video.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
@@ -295,6 +297,8 @@ describe Yt::Video, :device_app do
       expect{video.likes_on 3.days.ago}.not_to raise_error
       expect{video.dislikes_on 3.days.ago}.not_to raise_error
       expect{video.shares_on 3.days.ago}.not_to raise_error
+      expect{video.subscribers_gained_on 3.days.ago}.not_to raise_error
+      expect{video.subscribers_lost_on 3.days.ago}.not_to raise_error
       expect{video.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end

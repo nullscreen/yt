@@ -6,7 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.13.9 - 2015-02-17
+## 0.13.11 - 2015-02-27
+
+* [FEATURE] New channel reports: `subscribers_gained`, `subscribers_lost`.
+* [FEATURE] New video reports: `subscribers_gained`, `subscribers_lost`.
+
+## 0.13.10 - 2015-02-17
 
 * [FEATURE] New `video.upload_thumbnail` to upload the thumbnail for a video.
 

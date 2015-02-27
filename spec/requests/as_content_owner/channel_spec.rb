@@ -214,6 +214,70 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'gained subscribers can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:subscribers_gained) { channel.subscribers_gained_on 5.days.ago}
+          it { expect(subscribers_gained).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:subscribers_gained) { channel.subscribers_gained_on 20.years.ago}
+          it { expect(subscribers_gained).to be_nil }
+        end
+      end
+
+      describe 'gained subscribers can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(channel.subscribers_gained(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(channel.subscribers_gained(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(channel.subscribers_gained(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(channel.subscribers_gained(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'lost subscribers can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:subscribers_lost) { channel.subscribers_lost_on 5.days.ago}
+          it { expect(subscribers_lost).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:subscribers_lost) { channel.subscribers_lost_on 20.years.ago}
+          it { expect(subscribers_lost).to be_nil }
+        end
+      end
+
+      describe 'lost subscribers can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(channel.subscribers_lost(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(channel.subscribers_lost(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(channel.subscribers_lost(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(channel.subscribers_lost(to: date).keys.max).to eq date.to_date
+        end
+      end
+
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:impressions) { channel.impressions_on 20.days.ago}

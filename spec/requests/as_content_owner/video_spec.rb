@@ -205,6 +205,70 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'gained subscribers can be retrieved for a specific day' do
+        context 'in which the video was partnered' do
+          let(:subscribers_gained) { video.subscribers_gained_on 5.days.ago}
+          it { expect(subscribers_gained).to be_a Float }
+        end
+
+        context 'in which the video was not partnered' do
+          let(:subscribers_gained) { video.subscribers_gained_on 20.years.ago}
+          it { expect(subscribers_gained).to be_nil }
+        end
+      end
+
+      describe 'gained subscribers can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.subscribers_gained(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.subscribers_gained(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.subscribers_gained(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.subscribers_gained(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'lost subscribers can be retrieved for a specific day' do
+        context 'in which the video was partnered' do
+          let(:subscribers_lost) { video.subscribers_lost_on 5.days.ago}
+          it { expect(subscribers_lost).to be_a Float }
+        end
+
+        context 'in which the video was not partnered' do
+          let(:subscribers_lost) { video.subscribers_lost_on 20.years.ago}
+          it { expect(subscribers_lost).to be_nil }
+        end
+      end
+
+      describe 'lost subscribers can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.subscribers_lost(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.subscribers_lost(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.subscribers_lost(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.subscribers_lost(to: date).keys.max).to eq date.to_date
+        end
+      end
+
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:impressions) { video.impressions_on 20.days.ago}
