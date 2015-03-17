@@ -24,6 +24,7 @@ module Yt
           when String then source.gsub('<', '‹').gsub('>', '›')
           when Array then source.map{|string| sanitize_brackets! string}
           when Hash then source.each{|k,v| source[k] = sanitize_brackets! v}
+          else source
         end
       end
     end
