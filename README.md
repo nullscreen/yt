@@ -350,6 +350,9 @@ video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 
 video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
 video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+video.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
+video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 video.viewer_percentage(gender: :female) #=> 49.12
 
@@ -372,6 +375,9 @@ video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 
 video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
 video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
 video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+video.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
+video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 video.impressions_on 5.days.ago #=> 157.0
 video.monetized_playbacks_on 5.days.ago #=> 123.0
 

@@ -75,6 +75,9 @@ module Yt
       has_report :favorites_removed
 
       # @macro has_report
+      has_report :estimated_minutes_watched
+
+      # @macro has_report
       has_report :impressions
 
       # @macro has_report
