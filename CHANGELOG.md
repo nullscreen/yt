@@ -8,7 +8,8 @@ For more information about changelogs, check
 
 ## 0.14.0 - 2015-03-25
 
-* [FEATURE] New `:by` option for reports, to return results (e.g. `views`) either by day (default) or by traffic source.
+* [FEATURE] New `by: :traffic_source` option for reports, to return views (channels/videos) and estimated watched minutes (channels) by traffic source.
+* [FEATURE] New `by: :video` option for reports, to return views and estimated watched minutes (channels) by video.
 
 ## 0.13.12 - 2015-03-23
 

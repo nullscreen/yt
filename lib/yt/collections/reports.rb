@@ -5,6 +5,7 @@ module Yt
     class Reports < Base
       DIMENSIONS = Hash.new({name: 'day', parse: -> (day) {Date.iso8601 day} }).tap do |hash|
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: -> (type) {TRAFFIC_SOURCES.key type} }
+        hash[:video] = {name: 'video', parse: -> (video_id) { Yt::Video.new id: video_id, auth: @auth } }
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Traffic_Source_Dimensions
@@ -62,6 +63,8 @@ module Yt
           params['end-date'] = @days_range.end
           params['metrics'] = @metric.to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name]
+          params['max-results'] = 10 if @dimension == :video
+          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension == :video
         end
       end
 
