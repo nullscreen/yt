@@ -238,6 +238,7 @@ channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}
 channel.viewer_percentage(gender: :female) #=> 49.12
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
+channel.monetized_playbacks_on 5.days.ago #=> 123.0
 
 channel.content_owner #=> 'CMSname'
 channel.linked_at #=> Wed, 28 May 2014

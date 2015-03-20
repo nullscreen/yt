@@ -139,6 +139,7 @@ describe Yt::Channel, :device_app do
       expect{channel.average_view_percentage}.not_to raise_error
       expect{channel.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{channel.impressions}.to raise_error Yt::Errors::Unauthorized
+      expect{channel.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
 
       expect{channel.views_on 3.days.ago}.not_to raise_error
       expect{channel.comments_on 3.days.ago}.not_to raise_error
