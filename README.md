@@ -148,7 +148,8 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * access the channels that the channel is subscribed to
 * subscribe to and unsubscribe from a channel
 * delete playlists from a channel
-* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, estimated/average video watch and impressions of a channel
+* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, estimated/average video watch and impressions of a channel by day
+* retrieve the views and estimated minutes watched by traffic source
 * retrieve the viewer percentage of a channel by gender and age group
 
 ```ruby
@@ -210,6 +211,9 @@ channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>3
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 channel.viewer_percentage(gender: :male) #=> 49.12
+
+channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
 ```
 
 *The methods above require to be authenticated as the channel’s account (see below).*
@@ -232,6 +236,8 @@ channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>3
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 channel.viewer_percentage(gender: :female) #=> 49.12
+channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
 
 channel.content_owner #=> 'CMSname'
 channel.linked_at #=> Wed, 28 May 2014
@@ -250,7 +256,8 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * access the annotations of a video
 * delete a video
 * like and dislike a video
-* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions and monetized playbacks of a video
+* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions and monetized playbacks of a video by day
+* retrieve the views of a video by traffic source
 * retrieve the viewer percentage of a video by gender and age group
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
@@ -346,6 +353,8 @@ video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 201
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 video.viewer_percentage(gender: :female) #=> 49.12
 
+video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
+
 video.delete #=> true
 ```
 
@@ -368,6 +377,8 @@ video.monetized_playbacks_on 5.days.ago #=> 123.0
 
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 video.viewer_percentage(gender: :female) #=> 49.12
+
+video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 
 video.ad_formats #=> ["standard_instream", "trueview_instream"]
 ```

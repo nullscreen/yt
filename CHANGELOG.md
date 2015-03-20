@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.0 - 2015-03-25
+
+* [FEATURE] New `:by` option for reports, to return results (e.g. `views`) either by day (default) or by traffic source.
+
 ## 0.13.12 - 2015-03-23
 
 * [FEATURE] New channel/video reports: `favorites_added`, `favorites_removed`.

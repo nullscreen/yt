@@ -3,10 +3,33 @@ require 'yt/collections/base'
 module Yt
   module Collections
     class Reports < Base
+      DIMENSIONS = Hash.new({name: 'day', parse: -> (day) {Date.iso8601 day} }).tap do |hash|
+        hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: -> (type) {TRAFFIC_SOURCES.key type} }
+      end
+
+      # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Traffic_Source_Dimensions
+      # @note EXT_APP is also returned but it’s not in the documentation above!
+      TRAFFIC_SOURCES = {
+        advertising: 'ADVERTISING',
+        annotation: 'ANNOTATION',
+        external_app: 'EXT_APP',
+        external_url: 'EXT_URL',
+        embedded: 'NO_LINK_EMBEDDED',
+        other: 'NO_LINK_OTHER',
+        playlist: 'PLAYLIST',
+        promoted: 'PROMOTED',
+        related_video: 'RELATED_VIDEO',
+        subscriber: 'SUBSCRIBER',
+        channel: 'YT_CHANNEL',
+        other_page: 'YT_OTHER_PAGE',
+        search: 'YT_SEARCH',
+      }
+
       attr_writer :metric
 
-      def within(days_range, try_again = true)
+      def within(days_range, dimension, try_again = true)
         @days_range = days_range
+        @dimension = dimension
         Hash[*flat_map{|daily_value| daily_value}]
       # NOTE: Once in a while, YouTube responds with 400 Error and the message
       # "Invalid query. Query did not conform to the expectations."; in this
@@ -15,13 +38,13 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        try_again && rescue?(e) ? sleep(3) && within(days_range, false) : raise
+        try_again && rescue?(e) ? sleep(3) && within(days_range, dimension, false) : raise
       end
 
     private
 
       def new_item(data)
-        [day_of(data), value_of(data)]
+        [instance_exec(data.first, &DIMENSIONS[@dimension][:parse]), data.last]
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/content_owner_reports
@@ -38,18 +61,8 @@ module Yt
           params['start-date'] = @days_range.begin
           params['end-date'] = @days_range.end
           params['metrics'] = @metric.to_s.camelize(:lower)
-          params['dimensions'] = :day
+          params['dimensions'] = DIMENSIONS[@dimension][:name]
         end
-      end
-
-      def day_of(data)
-        # NOTE: could use column headers to be more precise
-        Date.iso8601 data.first
-      end
-
-      def value_of(data)
-        # NOTE: could use column headers to be more precise
-        data.last
       end
 
       def items_key

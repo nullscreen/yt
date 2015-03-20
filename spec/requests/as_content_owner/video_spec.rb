@@ -77,6 +77,31 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          views = video.views range
+          expect(views.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          views = video.views range.merge by: :day
+          expect(views.keys).to eq range.values
+        end
+      end
+
+      describe 'views can be grouped by traffic source' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::TRAFFIC_SOURCES.keys }
+
+        specify 'with the :by option set to :traffic_source' do
+          views = video.views range.merge by: :traffic_source
+          expect(views.keys - keys).to be_empty
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:comments) { video.comments_on 5.days.ago}
@@ -106,6 +131,21 @@ describe Yt::Video, :partner do
 
         specify 'with a given end (:to option)' do
           expect(video.comments(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'comments can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          comments = video.comments range
+          expect(comments.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          comments = video.comments range.merge by: :day
+          expect(comments.keys).to eq range.values
         end
       end
 
@@ -141,6 +181,21 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'likes can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          likes = video.likes range
+          expect(likes.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          likes = video.likes range.merge by: :day
+          expect(likes.keys).to eq range.values
+        end
+      end
+
       describe 'dislikes can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:dislikes) { video.dislikes_on 5.days.ago}
@@ -170,6 +225,21 @@ describe Yt::Video, :partner do
 
         specify 'with a given end (:to option)' do
           expect(video.dislikes(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'dislikes can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          dislikes = video.dislikes range
+          expect(dislikes.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          dislikes = video.dislikes range.merge by: :day
+          expect(dislikes.keys).to eq range.values
         end
       end
 
@@ -205,6 +275,21 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'shares can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          shares = video.shares range
+          expect(shares.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          shares = video.shares range.merge by: :day
+          expect(shares.keys).to eq range.values
+        end
+      end
+
       describe 'gained subscribers can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:subscribers_gained) { video.subscribers_gained_on 5.days.ago}
@@ -234,6 +319,21 @@ describe Yt::Video, :partner do
 
         specify 'with a given end (:to option)' do
           expect(video.subscribers_gained(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'gained subscribers can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          subscribers_gained = video.subscribers_gained range
+          expect(subscribers_gained.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          subscribers_gained = video.subscribers_gained range.merge by: :day
+          expect(subscribers_gained.keys).to eq range.values
         end
       end
 
@@ -269,6 +369,21 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'lost subscribers can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          subscribers_lost = video.subscribers_lost range
+          expect(subscribers_lost.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          subscribers_lost = video.subscribers_lost range.merge by: :day
+          expect(subscribers_lost.keys).to eq range.values
+        end
+      end
+
       describe 'added favorites can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:favorites_added) { video.favorites_added_on 5.days.ago}
@@ -298,6 +413,21 @@ describe Yt::Video, :partner do
 
         specify 'with a given end (:to option)' do
           expect(video.favorites_added(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'added favorites can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          favorites_added = video.favorites_added range
+          expect(favorites_added.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          favorites_added = video.favorites_added range.merge by: :day
+          expect(favorites_added.keys).to eq range.values
         end
       end
 
@@ -333,6 +463,21 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'removed favorites can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          favorites_removed = video.favorites_removed range
+          expect(favorites_removed.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          favorites_removed = video.favorites_removed range.merge by: :day
+          expect(favorites_removed.keys).to eq range.values
+        end
+      end
+
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:impressions) { video.impressions_on 20.days.ago}
@@ -365,6 +510,21 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'impressions can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          impressions = video.impressions range
+          expect(impressions.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          impressions = video.impressions range.merge by: :day
+          expect(impressions.keys).to eq range.values
+        end
+      end
+
       describe 'monetized playbacks can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:monetized_playbacks) { video.monetized_playbacks_on 20.days.ago}
@@ -394,6 +554,21 @@ describe Yt::Video, :partner do
 
         specify 'with a given end (:to option)' do
           expect(video.monetized_playbacks(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'monetized_playbacks can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          monetized_playbacks = video.monetized_playbacks range
+          expect(monetized_playbacks.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          monetized_playbacks = video.monetized_playbacks range.merge by: :day
+          expect(monetized_playbacks.keys).to eq range.values
         end
       end
 
