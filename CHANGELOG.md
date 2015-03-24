@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.13.12 - 2015-03-23
+
+* [FEATURE] New channel/video reports: `favorites_added`, `favorites_removed`.
+
 ## 0.13.11 - 2015-02-27
 
 * [FEATURE] New channel reports: `subscribers_gained`, `subscribers_lost`.

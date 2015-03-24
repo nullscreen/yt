@@ -278,6 +278,70 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'added favorites can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:favorites_added) { channel.favorites_added_on 5.days.ago}
+          it { expect(favorites_added).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:favorites_added) { channel.favorites_added_on 20.years.ago}
+          it { expect(favorites_added).to be_nil }
+        end
+      end
+
+      describe 'added favorites can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(channel.favorites_added(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(channel.favorites_added(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(channel.favorites_added(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(channel.favorites_added(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'removed favorites can be retrieved for a specific day' do
+        context 'in which the channel was partnered' do
+          let(:favorites_removed) { channel.favorites_removed_on 5.days.ago}
+          it { expect(favorites_removed).to be_a Float }
+        end
+
+        context 'in which the channel was not partnered' do
+          let(:favorites_removed) { channel.favorites_removed_on 20.years.ago}
+          it { expect(favorites_removed).to be_nil }
+        end
+      end
+
+      describe 'removed favorites can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(channel.favorites_removed(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(channel.favorites_removed(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(channel.favorites_removed(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(channel.favorites_removed(to: date).keys.max).to eq date.to_date
+        end
+      end
+
       describe 'estimated minutes watched can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:estimated_minutes_watched) { channel.estimated_minutes_watched_on 5.days.ago}
