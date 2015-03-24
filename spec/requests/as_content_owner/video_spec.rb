@@ -269,6 +269,70 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'added favorites can be retrieved for a specific day' do
+        context 'in which the video was partnered' do
+          let(:favorites_added) { video.favorites_added_on 5.days.ago}
+          it { expect(favorites_added).to be_a Float }
+        end
+
+        context 'in which the video was not partnered' do
+          let(:favorites_added) { video.favorites_added_on 20.years.ago}
+          it { expect(favorites_added).to be_nil }
+        end
+      end
+
+      describe 'added favorites can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.favorites_added(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.favorites_added(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.favorites_added(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.favorites_added(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'removed favorites can be retrieved for a specific day' do
+        context 'in which the video was partnered' do
+          let(:favorites_removed) { video.favorites_removed_on 5.days.ago}
+          it { expect(favorites_removed).to be_a Float }
+        end
+
+        context 'in which the video was not partnered' do
+          let(:favorites_removed) { video.favorites_removed_on 20.years.ago}
+          it { expect(favorites_removed).to be_nil }
+        end
+      end
+
+      describe 'removed favorites can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.favorites_removed(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.favorites_removed(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.favorites_removed(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.favorites_removed(to: date).keys.max).to eq date.to_date
+        end
+      end
+
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:impressions) { video.impressions_on 20.days.ago}

@@ -38,6 +38,12 @@ module Yt
       has_report :subscribers_lost
 
       # @macro has_report
+      has_report :favorites_added
+
+      # @macro has_report
+      has_report :favorites_removed
+
+      # @macro has_report
       has_report :estimated_minutes_watched
 
       # @macro has_report
