@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.0 - 2015-03-25
+
+* [FEATURE] New `by: :traffic_source` option for reports, to return views (channels/videos) and estimated watched minutes (channels) by traffic source.
+* [FEATURE] New `by: :video` option for reports, to return views and estimated watched minutes (channels) by video.
+
 ## 0.13.12 - 2015-03-23
 
 * [FEATURE] New channel/video reports: `favorites_added`, `favorites_removed`.

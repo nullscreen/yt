@@ -46,21 +46,27 @@ module Yt
           from = options[:since] || options[:from] || 5.days.ago
           to = options[:until] || options[:to] || 1.day.ago
           range = Range.new *[from, to].map(&:to_date)
+          dimension = options[:by] || :day
 
-          ivar = instance_variable_get "@#{metric}"
-          instance_variable_set "@#{metric}", ivar || {}
+          ivar = instance_variable_get "@#{metric}_#{dimension}"
+          instance_variable_set "@#{metric}_#{dimension}", ivar || {}
 
-          Hash[*range.flat_map do |date|
-            [date, instance_variable_get("@#{metric}")[date] ||= send("range_#{metric}", range)[date]]
-          end]
+          case dimension
+          when :day
+            Hash[*range.flat_map do |date|
+              [date, instance_variable_get("@#{metric}_#{dimension}")[date] ||= send("range_#{metric}", range, dimension)[date]]
+            end]
+          else
+            instance_variable_get("@#{metric}_#{dimension}")[range] ||= send("range_#{metric}", range, dimension)
+          end
         end
       end
 
       def define_range_metric_method(metric)
-        define_method "range_#{metric}" do |date_range|
-          ivar = instance_variable_get "@range_#{metric}"
-          instance_variable_set "@range_#{metric}", ivar || {}
-          instance_variable_get("@range_#{metric}")[date_range] ||= send("all_#{metric}").within date_range
+        define_method "range_#{metric}" do |date_range, dimension|
+          ivar = instance_variable_get "@range_#{metric}_#{dimension}"
+          instance_variable_set "@range_#{metric}_#{dimension}", ivar || {}
+          instance_variable_get("@range_#{metric}_#{dimension}")[date_range] ||= send("all_#{metric}").within date_range, dimension
         end
         private "range_#{metric}"
       end
