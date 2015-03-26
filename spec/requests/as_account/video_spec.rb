@@ -289,6 +289,7 @@ describe Yt::Video, :device_app do
       expect{video.subscribers_lost}.not_to raise_error
       expect{video.favorites_added}.not_to raise_error
       expect{video.favorites_removed}.not_to raise_error
+      expect{video.estimated_minutes_watched}.not_to raise_error
       expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions}.to raise_error Yt::Errors::Unauthorized
       expect{video.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized

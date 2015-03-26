@@ -478,6 +478,63 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be retrieved for a specific day' do
+        context 'in which the video was partnered' do
+          let(:estimated_minutes_watched) { video.estimated_minutes_watched_on 5.days.ago}
+          it { expect(estimated_minutes_watched).to be_a Float }
+        end
+
+        context 'in which the video was not partnered' do
+          let(:estimated_minutes_watched) { video.estimated_minutes_watched_on 20.years.ago}
+          it { expect(estimated_minutes_watched).to be_nil }
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.estimated_minutes_watched(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.estimated_minutes_watched(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.estimated_minutes_watched(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.estimated_minutes_watched(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          estimated_minutes_watched = video.estimated_minutes_watched range
+          expect(estimated_minutes_watched.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :day
+          expect(estimated_minutes_watched.keys).to eq range.values
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by traffic source' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::TRAFFIC_SOURCES.keys }
+
+        specify 'with the :by option set to :traffic_source' do
+          estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :traffic_source
+          expect(estimated_minutes_watched.keys - keys).to be_empty
+        end
+      end
+
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:impressions) { video.impressions_on 20.days.ago}

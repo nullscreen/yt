@@ -55,6 +55,9 @@ module Yt
       # @macro has_report
       has_report :impressions
 
+      # @macro has_report
+      has_report :monetized_playbacks
+
       # @macro has_viewer_percentages
       has_viewer_percentages
 

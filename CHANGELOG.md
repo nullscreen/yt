@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.1 - unreleased
+
+* [FEATURE] New `monetized playbacks` report for channels
+* [FEATURE] New `estimated watched minutes` report for videos
+
 ## 0.14.0 - 2015-03-25
 
 * [FEATURE] New `by: :traffic_source` option for reports, to return views (channels/videos) and estimated watched minutes (channels) by traffic source.
