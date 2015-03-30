@@ -535,6 +535,53 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'average view duration can be retrieved for a specific day' do
+        context 'in which the video was partnered' do
+          let(:average_view_duration) { video.average_view_duration_on 5.days.ago}
+          it { expect(average_view_duration).to be_a Float }
+        end
+
+        context 'in which the video was not partnered' do
+          let(:average_view_duration) { video.average_view_duration_on 20.years.ago}
+          it { expect(average_view_duration).to be_nil }
+        end
+      end
+
+      describe 'average view duration can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.average_view_duration(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.average_view_duration(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.average_view_duration(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.average_view_duration(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'average view duration can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          average_view_duration = video.average_view_duration range
+          expect(average_view_duration.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          average_view_duration = video.average_view_duration range.merge by: :day
+          expect(average_view_duration.keys).to eq range.values
+        end
+      end
+
       describe 'average view percentage can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:average_view_percentage) { video.average_view_percentage_on 5.days.ago}
