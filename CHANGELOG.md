@@ -10,6 +10,7 @@ For more information about changelogs, check
 
 * [FEATURE] New `monetized playbacks` report for channels
 * [FEATURE] New `estimated watched minutes` report for videos
+* [FEATURE] New video report: `average_view_percentage`.
 
 ## 0.14.0 - 2015-03-25
 
