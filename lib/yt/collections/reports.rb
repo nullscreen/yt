@@ -67,7 +67,7 @@ module Yt
           params['max-results'] = 10 if @dimension == :video
           params['max-results'] = 200 if @dimension == :playlist
           params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist]
-          params[:filters] = [params[:filters], 'isCurated==1'].compact.join(';') if @dimension == :playlist
+          params[:filters] = ((params[:filters] || '').split(';') + ['isCurated==1']).compact.uniq.join(';') if @dimension == :playlist
         end
       end
 

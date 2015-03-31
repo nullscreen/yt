@@ -402,6 +402,7 @@ Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Pla
 * access the items of a playlist
 * add one or multiple videos to a playlist
 * delete items from a playlist
+* retrieve the playlist starts of a playlist by day
 
 ```ruby
 # Playlists can be initialized with ID or URL
@@ -428,6 +429,10 @@ playlist.update title: 'A <title> with angle brackets', description: 'desc', tag
 playlist.add_video 'MESycYJytkU', position: 2
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
+
+playlist.playlist_starts_on 5.days.ago #=> 12.23
+playlist.playlist_starts since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+
 ```
 
 *The methods above require to be authenticated as the playlist’s owner (see below).*

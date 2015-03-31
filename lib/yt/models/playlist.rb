@@ -11,6 +11,9 @@ module Yt
       #   @return [Yt::Collections::PlaylistItems] the playlist’s items.
       has_many :playlist_items
 
+      # @macro has_report
+      has_report :playlist_starts
+
       # Deletes the playlist.
       #
       # This method requires {Resource#auth auth} to return an authenticated
@@ -55,6 +58,21 @@ module Yt
 
       def delete_playlist_items(attrs = {})
         playlist_items.delete_all attrs
+      end
+
+      # @private
+      # Tells `has_reports` to retrieve the reports from YouTube Analytics API
+      # either as a Channel or as a Content Owner.
+      # @see https://developers.google.com/youtube/analytics/v1/reports
+      def reports_params
+        {}.tap do |params|
+          if auth.owner_name
+            params[:ids] = "contentOwner==#{auth.owner_name}"
+          else
+            params[:ids] = "channel==#{channel_id}"
+          end
+          params[:filters] = "playlist==#{id};isCurated==1"
+        end
       end
 
     private

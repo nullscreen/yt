@@ -7,7 +7,7 @@ describe Yt::Video, :partner do
 
   context 'given a video of a partnered channel', :partner do
     context 'managed by the authenticated Content Owner' do
-      let(:id) { ENV['YT_TEST_VIDEO_CHANNEL_ID'] }
+      let(:id) { ENV['YT_TEST_PARTNER_VIDEO_ID'] }
 
       describe 'advertising options can be retrieved' do
         it { expect{video.advertising_options_set}.not_to raise_error }
