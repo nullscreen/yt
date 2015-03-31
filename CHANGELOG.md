@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.14.1 - unreleased
+## 0.14.1 - 2015-03-30
 
 * [FEATURE] New `monetized playbacks` report for channels.
 * [FEATURE] New `estimated watched minutes` report for videos.
