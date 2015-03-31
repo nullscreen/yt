@@ -78,6 +78,12 @@ module Yt
       has_report :estimated_minutes_watched
 
       # @macro has_report
+      has_report :average_view_duration
+
+      # @macro has_report
+      has_report :average_view_percentage
+
+      # @macro has_report
       has_report :impressions
 
       # @macro has_report

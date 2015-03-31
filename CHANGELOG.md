@@ -6,10 +6,14 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.14.1 - unreleased
+## 0.14.1 - 2015-03-30
 
-* [FEATURE] New `monetized playbacks` report for channels
-* [FEATURE] New `estimated watched minutes` report for videos
+* [FEATURE] New `monetized playbacks` report for channels.
+* [FEATURE] New `estimated watched minutes` report for videos.
+* [FEATURE] New video reports: `average_view_duration`, `average_view_percentage`.
+* [FEATURE] New `by: :playlist` option for reports, to return views and estimated watched minutes (channels) by playlist.
+* [FEATURE] New playlist reports: `views`, `playlist_starts`, `average_time_in_playlist`, `views_per_playlist_start`.
+
 
 ## 0.14.0 - 2015-03-25
 

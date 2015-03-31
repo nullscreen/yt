@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 require 'yt/models/channel'
+require 'yt/models/playlist'
 
 describe Yt::Channel, :partner do
   subject(:channel) { Yt::Channel.new id: id, auth: $content_owner }
@@ -117,6 +118,15 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :video' do
           views = channel.views range.merge by: :video
           expect(views.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'views can be grouped by playlist' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :playlist' do
+          views = channel.views range.merge by: :playlist
+          expect(views.keys).to all(be_instance_of Yt::Playlist)
         end
       end
 
@@ -559,6 +569,15 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :video' do
           estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :video
           expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by playlist' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :playlist' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :playlist
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Playlist)
         end
       end
 

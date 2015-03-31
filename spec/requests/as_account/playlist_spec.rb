@@ -175,4 +175,20 @@ describe Yt::Playlist, :device_app do
       end
     end
   end
+
+  context 'given one of my own playlists that I want to get reports for' do
+    let(:id) { $account.channel.playlists.first.id }
+
+    it 'returns valid reports for playlist-related metrics' do
+      expect{playlist.views}.not_to raise_error
+      expect{playlist.playlist_starts}.not_to raise_error
+      expect{playlist.average_time_in_playlist}.not_to raise_error
+      expect{playlist.views_per_playlist_start}.not_to raise_error
+
+      expect{playlist.views_on 3.days.ago}.not_to raise_error
+      expect{playlist.playlist_starts_on 3.days.ago}.not_to raise_error
+      expect{playlist.average_time_in_playlist_on 3.days.ago}.not_to raise_error
+      expect{playlist.views_per_playlist_start_on 3.days.ago}.not_to raise_error
+    end
+  end
 end
