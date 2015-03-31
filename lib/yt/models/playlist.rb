@@ -17,6 +17,9 @@ module Yt
       # @macro has_report
       has_report :playlist_starts
 
+      # @macro has_report
+      has_report :average_time_in_playlist
+
       # Deletes the playlist.
       #
       # This method requires {Resource#auth auth} to return an authenticated

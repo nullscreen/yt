@@ -402,7 +402,7 @@ Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Pla
 * access the items of a playlist
 * add one or multiple videos to a playlist
 * delete items from a playlist
-* retrieve the views and playlist starts of a playlist by day
+* retrieve the views, playlist starts and average time in playlist of a playlist by day
 
 ```ruby
 # Playlists can be initialized with ID or URL
@@ -435,6 +435,9 @@ playlist.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014
 
 playlist.playlist_starts_on 5.days.ago #=> 12.0
 playlist.playlist_starts since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+
+playlist.average_time_in_playlist_on 5.days.ago #=> 12.0
+playlist.average_time_in_playlist since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
 
 ```
 
