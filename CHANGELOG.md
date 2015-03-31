@@ -12,7 +12,7 @@ For more information about changelogs, check
 * [FEATURE] New `estimated watched minutes` report for videos.
 * [FEATURE] New video reports: `average_view_duration`, `average_view_percentage`.
 * [FEATURE] New `by: :playlist` option for reports, to return views and estimated watched minutes (channels) by playlist.
-* [FEATURE] New playlist report: `playlist_starts`.
+* [FEATURE] New playlist reports: `views`, `playlist_starts`.
 
 
 ## 0.14.0 - 2015-03-25

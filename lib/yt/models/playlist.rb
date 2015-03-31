@@ -12,6 +12,9 @@ module Yt
       has_many :playlist_items
 
       # @macro has_report
+      has_report :views
+
+      # @macro has_report
       has_report :playlist_starts
 
       # Deletes the playlist.
