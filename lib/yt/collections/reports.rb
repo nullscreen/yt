@@ -6,6 +6,7 @@ module Yt
       DIMENSIONS = Hash.new({name: 'day', parse: -> (day) {Date.iso8601 day} }).tap do |hash|
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: -> (type) {TRAFFIC_SOURCES.key type} }
         hash[:video] = {name: 'video', parse: -> (video_id) { Yt::Video.new id: video_id, auth: @auth } }
+        hash[:playlist] = {name: 'playlist', parse: -> (playlist_id) { Yt::Playlist.new id: playlist_id, auth: @auth } }
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Traffic_Source_Dimensions
@@ -64,7 +65,9 @@ module Yt
           params['metrics'] = @metric.to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name]
           params['max-results'] = 10 if @dimension == :video
-          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension == :video
+          params['max-results'] = 200 if @dimension == :playlist
+          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist]
+          params[:filters] = [params[:filters], 'isCurated==1'].compact.join(';') if @dimension == :playlist
         end
       end
 
