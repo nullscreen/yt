@@ -3,10 +3,10 @@ require 'yt/collections/base'
 module Yt
   module Collections
     class Reports < Base
-      DIMENSIONS = Hash.new({name: 'day', parse: -> (day) {Date.iso8601 day} }).tap do |hash|
-        hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: -> (type) {TRAFFIC_SOURCES.key type} }
-        hash[:video] = {name: 'video', parse: -> (video_id) { Yt::Video.new id: video_id, auth: @auth } }
-        hash[:playlist] = {name: 'playlist', parse: -> (playlist_id) { Yt::Playlist.new id: playlist_id, auth: @auth } }
+      DIMENSIONS = Hash.new({name: 'day', parse: ->(day) {Date.iso8601 day} }).tap do |hash|
+        hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(type) {TRAFFIC_SOURCES.key type} }
+        hash[:video] = {name: 'video', parse: ->(video_id) { Yt::Video.new id: video_id, auth: @auth } }
+        hash[:playlist] = {name: 'playlist', parse: ->(playlist_id) { Yt::Playlist.new id: playlist_id, auth: @auth } }
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Traffic_Source_Dimensions
