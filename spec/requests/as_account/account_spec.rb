@@ -49,6 +49,33 @@ describe Yt::Account, :device_app do
       let(:other_video) { $account.videos.where(order: 'viewCount', chart: 'invalid').first }
       it { expect(other_video.id).to eq video.id }
     end
+
+    describe '.includes(:snippet)' do
+      let(:video) { $account.videos.includes(:snippet).first }
+
+      specify 'eager-loads the *full* snippet of each video' do
+        expect(video.instance_variable_defined? :@snippet).to be true
+        expect(video.channel_title).to be
+        expect(video.snippet.includes_tags).to be true
+      end
+    end
+
+    describe '.includes(:statistics, :status)' do
+      let(:video) { $account.videos.includes(:statistics, :status).first }
+
+      specify 'eager-loads the statistics and status of each video' do
+        expect(video.instance_variable_defined? :@statistics_set).to be true
+        expect(video.instance_variable_defined? :@status).to be true
+      end
+    end
+
+    describe '.includes(:content_details)' do
+      let(:video) { $account.videos.includes(:content_details).first }
+
+      specify 'eager-loads the statistics of each video' do
+        expect(video.instance_variable_defined? :@content_detail).to be true
+      end
+    end
   end
 
   describe '.upload_video' do

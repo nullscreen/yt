@@ -4,13 +4,6 @@ module Yt
   module Collections
     class PartneredChannels < Channels
 
-      def includes(relationship)
-        self.tap do
-          @items = []
-          @includes_relationship = relationship
-        end
-      end
-
     private
 
       def attributes_for_new_item(data)
@@ -20,7 +13,7 @@ module Yt
       end
 
       def eager_load_items_from(items)
-        if @includes_relationship == :viewer_percentages
+        if included_relationships.include? :viewer_percentages
           filters = "channel==#{items.map{|item| item['id']}.join(',')}"
           ids = "contentOwner==#{@auth.owner_name}"
           conditions = {ids: ids, filters: filters}
@@ -30,7 +23,7 @@ module Yt
             item['viewerPercentages'] = viewer_percentages[item['id']]
           end
         end
-        items
+        super
       end
 
       # @private

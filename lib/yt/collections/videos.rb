@@ -8,7 +8,6 @@ module Yt
     # Resources with videos are: {Yt::Models::Channel channels} and
     # {Yt::Models::Account accounts}.
     class Videos < Base
-
       def where(requirements = {})
         @published_before = nil
         super
@@ -18,7 +17,7 @@ module Yt
 
       def attributes_for_new_item(data)
         id = use_list_endpoint? ? data['id'] : data['id']['videoId']
-        snippet = data['snippet'].merge includes_tags: false if data['snippet']
+        snippet = data['snippet'].reverse_merge includes_tags: false if data['snippet']
         {}.tap do |attributes|
           attributes[:id] = id
           attributes[:snippet] = snippet
@@ -27,6 +26,28 @@ module Yt
           attributes[:statistics] = data['statistics']
           attributes[:auth] = @auth
         end
+      end
+
+      def eager_load_items_from(items)
+        if included_relationships.any?
+          ids = items.map{|item| item['id']['videoId']}
+          parts = included_relationships.map{|r| r.to_s.camelize(:lower)}
+          conditions = {id: ids.join(','), part: parts.join(',')}
+          videos = Collections::Videos.new(auth: @auth).where conditions
+
+          items.each do |item|
+            video = videos.find{|v| v.id == item['id']['videoId']}
+            parts.each do |part|
+              item[part] = case part
+                when 'snippet' then video.snippet.data.merge includes_tags: true
+                when 'status' then video.status.data
+                when 'statistics' then video.statistics_set.data
+                when 'contentDetails' then video.content_detail.data
+              end
+            end
+          end
+        end
+        super
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.

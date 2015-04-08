@@ -10,6 +10,7 @@ For more information about changelogs, check
 
 * [FEATURE] Make `Annotation#text` a public method.
 * [FEATURE] Make `data` a public method for Snippet, Status, ContentDetail and StatisticsSet.
+* [FEATURE] Add .includes to .videos, so you can eager load snippet, status, statistics and content details for a collection of videos
 
 ## 0.14.1 - 2015-03-30
 

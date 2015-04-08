@@ -45,6 +45,24 @@ describe Yt::Channel, :device_app do
         end
       end
 
+      describe '.includes(:statistics, :status)' do
+        let(:video) { channel.videos.includes(:statistics, :status).first }
+
+        specify 'eager-loads the statistics and status of each video' do
+          expect(video.instance_variable_defined? :@statistics_set).to be true
+          expect(video.instance_variable_defined? :@status).to be true
+        end
+      end
+
+      describe '.includes(:content_details)' do
+        let(:video) { channel.videos.includes(:content_details).first }
+
+        specify 'eager-loads the statistics of each video' do
+          expect(video.instance_variable_defined? :@content_detail).to be true
+        end
+      end
+
+
       describe 'when the channel has more than 500 videos' do
         let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
 
