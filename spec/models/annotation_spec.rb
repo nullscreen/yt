@@ -43,6 +43,13 @@ describe Yt::Annotation do
     end
   end
 
+  describe '#text' do
+    context 'given an annotation with text' do
+      let(:xml) { '<TEXT>Hello, world!</TEXT>' }
+      it { expect(annotation.text).to eq 'Hello, world!' }
+    end
+  end
+
   describe '#has_link_to_subscribe?' do
     context 'given an annotation with a link of class 5' do
       let(:xml) { '<action type="openUrl"><url link_class="5"/></action>' }

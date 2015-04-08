@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.2 - unreleased
+
+* [FEATURE] Make `Annotation#text` a public method.
+
 ## 0.14.1 - 2015-03-30
 
 * [FEATURE] New `monetized playbacks` report for channels.

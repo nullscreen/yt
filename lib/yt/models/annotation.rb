@@ -71,11 +71,11 @@ module Yt
         timestamps.first < seconds if timestamps.any?
       end
 
-    private
-
       def text
         @text ||= @data['TEXT'] || ''
       end
+
+    private
 
       has_attribute :type, default: ''
 
