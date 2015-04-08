@@ -5,6 +5,13 @@ describe Yt::Snippet do
   subject(:snippet) { Yt::Snippet.new data: data }
   let(:data) { {} }
 
+  describe '#data' do
+    let(:data) { {"key"=>"value"} }
+    specify 'returns the data the snippet was initialized with' do
+      expect(snippet.data).to eq data
+    end
+  end
+
   describe '#title' do
     context 'given a snippet with a title' do
       let(:data) { {"title"=>"Fullscreen"} }

@@ -6,6 +6,7 @@ module Yt
     # of the video and an indication of whether captions are available.
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     class ContentDetail < Base
+      attr_reader :data
 
       def initialize(options = {})
         @data = options[:data]
