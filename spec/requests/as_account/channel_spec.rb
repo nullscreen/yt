@@ -21,7 +21,50 @@ describe Yt::Channel, :device_app do
       expect(channel.subscriber_count_visible?).to be_in [true, false]
     end
 
-    it { expect(channel.videos.first).to be_a Yt::Video }
+    describe '.videos' do
+      let(:video) { channel.videos.first }
+
+      specify 'returns the videos in the channel without their tags' do
+        expect(video).to be_a Yt::Video
+        expect(video.snippet.includes_tags).to be false
+      end
+
+      describe '.where(id: *anything*)' do
+        let(:video) { channel.videos.where(id: 'invalid').first }
+
+        specify 'is ignored (all the channel’s videos are returned)' do
+          expect(video).to be_a Yt::Video
+        end
+      end
+
+      describe '.where(chart: *anything*)' do
+        let(:video) { channel.videos.where(chart: 'invalid').first }
+
+        specify 'is ignored (all the channel’s videos are returned)' do
+          expect(video).to be_a Yt::Video
+        end
+      end
+
+      describe 'when the channel has more than 500 videos' do
+        let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
+
+        specify 'the estimated and actual number of videos can be retrieved' do
+          # @note: in principle, the following three counters should match, but
+          #   in reality +video_count+ and +size+ are only approximations.
+          expect(channel.video_count).to be > 500
+          expect(channel.videos.size).to be > 500
+        end
+
+        specify 'over 500 videos can only be retrieved when sorting by date' do
+          # @note: these tests are slow because they go through multiple pages
+          # of results to test that we can overcome YouTube’s limitation of only
+          # returning the first 500 results when ordered by date.
+          expect(channel.videos.count).to be > 500
+          expect(channel.videos.where(order: 'viewCount').count).to be 500
+        end
+      end
+    end
+
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
     it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
 
@@ -68,29 +111,6 @@ describe Yt::Channel, :device_app do
 
         it { expect(channel.subscribed?).to be false }
         it { expect(channel.subscribe!).to be_truthy }
-      end
-    end
-
-    describe 'filtering by ID is ignored when listing videos' do
-      it { expect(channel.videos.where(id: 'invalid').first).to be_a Yt::Video }
-    end
-
-    describe 'filtering by chart is ignored when listing videos' do
-      it { expect(channel.videos.where(chart: 'invalid').first).to be_a Yt::Video }
-    end
-
-    context 'with more than 500 videos' do
-      let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
-      # @note: in principle, the following three counters should match, but in
-      #   reality +video_count+ and +size+ are only approximations.
-      it { expect(channel.video_count).to be > 500 }
-      it { expect(channel.videos.size).to be > 500 }
-      context 'with default order (by date)' do
-        # @note: these tests are slow because they go through multiple pages of
-        # results and do so to test that we can overcome YouTube’s limitation of
-        # only returning the first 500 results when ordered by date.
-        it { expect(channel.videos.count).to be > 500 }
-        it { expect(channel.videos.where(order: 'viewCount').count).to be 500 }
       end
     end
   end

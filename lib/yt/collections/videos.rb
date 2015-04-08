@@ -9,6 +9,11 @@ module Yt
     # {Yt::Models::Account accounts}.
     class Videos < Base
 
+      def where(requirements = {})
+        @published_before = nil
+        super
+      end
+
     private
 
       def attributes_for_new_item(data)
