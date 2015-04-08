@@ -41,10 +41,21 @@ module Yt
         end
       end
 
+      def includes(*relationships)
+        self.tap do
+          @items = []
+          @included_relationships = relationships
+        end
+      end
+
     private
 
       def apply_where_params!(params = {})
         params.merge!(@where_params ||= {})
+      end
+
+      def included_relationships
+        @included_relationships || []
       end
     end
   end

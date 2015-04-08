@@ -7,100 +7,24 @@ rescue LoadError
   require 'yt'
 end
 
-############################
+Yt.configuration.log_level = :debug
+id = ARGV[1] || 'BPNYv0vd78A'
 
-# account = Yt::Account.new refresh_token: ENV['YT_TEST_DEVICE_REFRESH_TOKEN']
-
-# youtube.readonly and yt-analytics.readonly are not available with device :(
-account = Yt::Account.new scopes: %w(userinfo.email userinfo.profile youtube)
-0.upto(60) do |i|
-  begin
-    break if account.authentication
-  rescue Yt::Errors::MissingAuth => e
-    puts e.more_details if i.zero?
-    5.times {print '.'; sleep 1}
+case ARGV[0]
+when 'info'
+  puts "Yt version #{Yt::VERSION}"
+  video = Yt::Video.new id: id
+  puts video.annotations.first.text
+when 'annotations'
+  video = Yt::Video.new id: id
+  count = video.annotations.size
+  puts "Video #{id} has #{count} #{'annotation'.pluralize count}"
+  video.annotations.each.with_index do |annotation, i|
+    puts "#{i+1}) #{annotation.text}"
   end
-end
-
-puts "\nACCOUNT:\n"
-puts "  ID: #{account.id}"
-puts "  Email: #{account.email}"
-puts "  Email verified? #{account.has_verified_email?}"
-puts "  Gender: #{account.gender}"
-puts "  Name: #{account.name}"
-puts "  Given Name: #{account.given_name}"
-puts "  Family Name: #{account.family_name}"
-puts "  Profile URL: #{account.profile_url}"
-puts "  Avatar URL: #{account.avatar_url}"
-puts "  Locale: #{account.locale}"
-puts "  Hd? #{account.hd}"
-
-puts "\nCHANNEL:\n"
-channel = account.channel
-puts "  Title: #{channel.title}"
-puts "  Description: #{channel.description.truncate(30)}"
-puts "  Thumbnail URL: #{channel.thumbnail_url}"
-puts "  Published at: #{channel.published_at}"
-puts "  Public? #{channel.public?}"
-puts "  Views: #{channel.view_count}"
-puts "  Comments: #{channel.comment_count}"
-puts "  Videos: #{channel.video_count}"
-puts "  Subscribers: #{channel.subscriber_count}"
-puts "  Subscribers are visible? #{channel.subscriber_count_visible?}"
-# These are not available with a device auth :(
-# puts "  Views: #{channel.views}"
-# puts "  Comments: #{channel.comments}"
-# puts "  Likes: #{channel.likes}"
-# puts "  Dislikes: #{channel.dislikes}"
-# puts "  Shares: #{channel.shares}"
-# puts "  Viewers: #{channel.viewer_percentages}"
-
-account.videos.first(5).each.with_index do |video, i|
-  puts "\nVIDEO #{i+1}:\n"
-  puts "  Title: #{video.title}"
-  puts "  Description: #{video.description.truncate(30)}"
-  puts "  Thumbnail URL: #{video.thumbnail_url}"
-  puts "  Published at: #{video.published_at}"
-  puts "  Tags: #{video.tags}"
-  puts "  Channel ID: #{video.channel_id}"
-  puts "  Channel Title: #{video.channel_title}"
-  puts "  Category ID: #{video.category_id}"
-  puts "  Live content? #{video.live_broadcast_content}"
-  puts "  Public? #{video.public?}"
-  puts "  Views: #{video.view_count}"
-  puts "  Comments: #{video.comment_count}"
-  puts "  Likes: #{video.like_count}"
-  puts "  Dislikes: #{video.dislike_count}"
-  puts "  Favorites: #{video.favorite_count}"
-  puts "  Duration: #{video.duration}s"
-  puts "  HD: #{video.hd?}"
-  puts "  stereoscopic? #{video.stereoscopic?}"
-  puts "  captioned? #{video.captioned?}"
-  puts "  licensed? #{video.licensed?}"
-  # These are not available with a device auth :(
-  # puts "  Views: #{video.views}"
-  # puts "  Comments: #{video.comments}"
-  # puts "  Likes: #{video.likes}"
-  # puts "  Dislikes: #{video.dislikes}"
-  # puts "  Shares: #{video.shares}"
-  # puts "  Viewers: #{video.viewer_percentages}"
-  puts "  Annotations: #{video.annotations.count}"
-end
-
-account.playlists.first(5).each.with_index do |playlist, i|
-  puts "\nPLAYLIST #{i+1}:\n"
-  puts "  Title: #{playlist.title}"
-  puts "  Description: #{playlist.description.truncate(30)}"
-  puts "  Thumbnail URL: #{playlist.thumbnail_url}"
-  puts "  Published at: #{playlist.published_at}"
-  puts "  Tags: #{playlist.tags}"
-  puts "  Channel ID: #{playlist.channel_id}"
-  puts "  Channel Title: #{playlist.channel_title}"
-  puts "  Public? #{playlist.public?}"
-  puts "  Playlist items: #{playlist.playlist_items.count}"
-  playlist.playlist_items.first(5).each.with_index do |playlist_item, j|
-    puts "    \nPLAYLIST ITEM #{j+1}:\n"
-    puts "    Position: #{playlist_item.position + 1}"
-    puts "    Video ID: #{playlist_item.video_id}"
-  end
+when 'video'
+  video = Yt::Video.new id: id
+  views = "#{video.view_count} #{'view'.pluralize video.view_count}"
+  likes = "#{video.like_count} #{'like'.pluralize video.like_count}"
+  puts "'#{video.title}' by #{video.channel_title} has #{views} and #{likes}"
 end

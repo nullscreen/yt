@@ -6,6 +6,8 @@ module Yt
     # the resource has been viewed or liked.
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     class StatisticsSet < Base
+      attr_reader :data
+
       def initialize(options = {})
         @data = options[:data]
       end

@@ -12,6 +12,8 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
     # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
     class Snippet < Base
+      attr_reader :data
+
       def initialize(options = {})
         @data = options[:data]
         @auth = options[:auth]
@@ -153,7 +155,7 @@ module Yt
       # @see https://developers.google.com/youtube/v3/docs/videos
       # @return [Boolean] whether YouTube API includes tags in this snippet.
       def includes_tags
-        @includes_tags ||= @data.fetch :includes_tags, true
+        @includes_tags ||= data.fetch :includes_tags, true
       end
 
     private

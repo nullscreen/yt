@@ -4,6 +4,13 @@ require 'yt/models/content_detail'
 describe Yt::ContentDetail do
   subject(:content_detail) { Yt::ContentDetail.new data: data }
 
+  describe '#data' do
+    let(:data) { {"key"=>"value"} }
+    specify 'returns the data the content detail was initialized with' do
+      expect(content_detail.data).to eq data
+    end
+  end
+
   describe '#duration' do
     context 'given a content_detail with duration in weeks, days, hours, minutes' do
       let(:data) { {"duration"=>"P1W2DT6H21M32S"}}

@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.2 - 2015-04-08
+
+* [FEATURE] Make `Annotation#text` a public method.
+* [FEATURE] Make `data` a public method for Snippet, Status, ContentDetail and StatisticsSet.
+* [FEATURE] Add .includes to .videos, so you can eager load snippet, status, statistics and content details for a collection of videos
+
 ## 0.14.1 - 2015-03-30
 
 * [FEATURE] New `monetized playbacks` report for channels.
