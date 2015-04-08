@@ -5,11 +5,17 @@ module Yt
     # Provides methods to interact with YouTube ContentID claims.
     # @see https://developers.google.com/youtube/partner/docs/v1/claims
     class Claim < Base
+      attr_reader :auth
+
       def initialize(options = {})
         @data = options[:data]
         @id = options[:id]
         @auth = options[:auth]
       end
+
+      # @!attribute [r] claim_history
+      #   @return [Yt::Collections::ClaimHistories] the claim's history.
+      has_one :claim_history
 
       # Soft-deletes the claim.
       # @note YouTube API does not provide a +delete+ method for the Asset
@@ -136,6 +142,7 @@ module Yt
       has_attribute :match_reference_id, from: :match_info do |match_info|
         (match_info || {})['referenceId']
       end
+
 
     private
 
