@@ -202,12 +202,11 @@ module Yt
     def server_errors
       [
         OpenSSL::SSL::SSLError,
-        OpenSSL::SSL::SSLErrorWaitReadable,
         Errno::ETIMEDOUT,
         Errno::ENETUNREACH,
         Errno::ECONNRESET,
         Net::HTTPServerError
-      ]
+      ] + (RUBY_VERSION < '2' ? [] : [OpenSSL::SSL::SSLErrorWaitReadable])
     end
 
     # Sleeps for a while and returns true for the first +max_retries+ times,
