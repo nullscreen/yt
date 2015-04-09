@@ -568,6 +568,30 @@ asset.ownership.release! #=> true
 asset.update metadata_mine: {notes: 'Some notes'} #=> true
 ```
 
+Yt::Claim
+---------
+
+Use [Yt::Claim](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Claim) to:
+
+* read the attributes of a claim
+* view the history of a claim
+* update the attributes of an claim
+
+```ruby
+
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+claim = Yt::Claim.new id: 'ABCD12345678', auth: content_owner
+claim.video_id #=> 'va141cJga2'
+claim.asset_id #=> 'A1234'
+claim.content_type #=> 'audiovisual'
+claim.active? #=> true
+
+claim.claim_history #=> #<Yt::Models::ClaimHistory ...>
+claim.claim_history.events[0].type #=> "claim_create"
+
+claim.delete #=> true
+```
+
 *The methods above require to be authenticated as the video’s content owner (see below).*
 
 Yt::Ownership
