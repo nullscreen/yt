@@ -112,6 +112,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'views can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          views = channel.views range.merge by: :playback_location
+          expect(views.keys - keys).to be_empty
+        end
+      end
+
       describe 'views can be grouped by video' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
@@ -559,6 +569,16 @@ describe Yt::Channel, :partner do
 
         specify 'with the :by option set to :traffic_source' do
           estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :traffic_source
+          expect(estimated_minutes_watched.keys - keys).to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :playback_location
           expect(estimated_minutes_watched.keys - keys).to be_empty
         end
       end

@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.4 - unreleased
+
+* [FEATURE] New `by: :playback_location` option for reports, to return views and estimated watched minutes (channels) by watch/embedded/channel/external app/mobile.
+
 ## 0.14.3 - 2015-04-09
 
 * [BUGFIX] Don't let request errors crash Yt in Ruby 1.9.3.

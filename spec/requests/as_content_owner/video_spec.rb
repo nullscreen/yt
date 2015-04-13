@@ -102,6 +102,16 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          views = video.views range.merge by: :playback_location
+          expect(views.keys - keys).to be_empty
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:comments) { video.comments_on 5.days.ago}
