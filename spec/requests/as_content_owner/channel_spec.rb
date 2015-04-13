@@ -122,6 +122,15 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'views can be grouped by embedded player location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :embedded_player_location' do
+          views = channel.views range.merge by: :embedded_player_location
+          expect(views).not_to be_empty
+        end
+      end
+
       describe 'views can be grouped by video' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
@@ -580,6 +589,15 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :playback_location' do
           estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :playback_location
           expect(estimated_minutes_watched.keys - keys).to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by embedded player location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :embedded_player_location' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :embedded_player_location
+          expect(estimated_minutes_watched).not_to be_empty
         end
       end
 

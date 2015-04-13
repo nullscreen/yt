@@ -151,6 +151,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, estimated/average video watch and impressions of a channel by day
 * retrieve the views and estimated minutes watched by traffic source
 * retrieve the views and estimated minutes watched by playback location
+* retrieve the views and estimated minutes watched by embedded player location
 * retrieve the views and estimated minutes watched by video
 * retrieve the views and estimated minutes watched by playlist
 * retrieve the viewer percentage of a channel by gender and age group
@@ -221,6 +222,9 @@ channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {an
 channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
 
+channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+
 channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 
@@ -252,6 +256,8 @@ channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, rel
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
 channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
+channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
 channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
@@ -278,6 +284,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions and monetized playbacks of a video by day
 * retrieve the views of a video by traffic source
 * retrieve the views of a video by playback location
+* retrieve the views of a video by embedded player location
 * retrieve the viewer percentage of a video by gender and age group
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
@@ -380,6 +387,7 @@ video.viewer_percentage(gender: :female) #=> 49.12
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
+video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
 
 video.delete #=> true
 ```

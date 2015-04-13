@@ -112,6 +112,15 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by embedded player location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :embedded_player_location' do
+          views = video.views range.merge by: :embedded_player_location
+          expect(views).not_to be_empty
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:comments) { video.comments_on 5.days.ago}
