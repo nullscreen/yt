@@ -7,6 +7,7 @@ module Yt
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(type) {TRAFFIC_SOURCES.key type} }
         hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(type) {PLAYBACK_LOCATIONS.key type} }
         hash[:embedded_player_location] = {name: 'insightPlaybackLocationDetail', parse: ->(url) {url} }
+        hash[:related_video] = {name: 'insightTrafficSourceDetail', parse: ->(video_id) { Yt::Video.new id: video_id, auth: @auth } }
         hash[:video] = {name: 'video', parse: ->(video_id) { Yt::Video.new id: video_id, auth: @auth } }
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id) { Yt::Playlist.new id: playlist_id, auth: @auth } }
       end
@@ -79,9 +80,11 @@ module Yt
           params['max-results'] = 10 if @dimension == :video
           params['max-results'] = 200 if @dimension == :playlist
           params['max-results'] = 25 if @dimension == :embedded_player_location
-          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location]
+          params['max-results'] = 25 if @dimension == :related_video
+          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video]
           params[:filters] = ((params[:filters] || '').split(';') + ['isCurated==1']).compact.uniq.join(';') if @dimension == :playlist
           params[:filters] = ((params[:filters] || '').split(';') + ['insightPlaybackLocationType==EMBEDDED']).compact.uniq.join(';') if @dimension == :embedded_player_location
+          params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==RELATED_VIDEO']).compact.uniq.join(';') if @dimension == :related_video
         end
       end
 

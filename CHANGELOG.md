@@ -10,6 +10,7 @@ For more information about changelogs, check
 
 * [FEATURE] New `by: :embedded_player_location` option for reports, to return views and estimated watched minutes (channels) by URL where the player was embedded
 * [FEATURE] New `by: :playback_location` option for reports, to return views and estimated watched minutes (channels) by watch/embedded/channel/external app/mobile.
+* [FEATURE] New `by: :related_video` option for reports, to return views and estimated watched minutes (channels) by the video that linked there.
 
 ## 0.14.3 - 2015-04-09
 
