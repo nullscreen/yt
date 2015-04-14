@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.14.3'
+    gem 'yt', '~> 0.14.4'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -150,6 +150,9 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * delete playlists from a channel
 * retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, estimated/average video watch and impressions of a channel by day
 * retrieve the views and estimated minutes watched by traffic source
+* retrieve the views and estimated minutes watched by playback location
+* retrieve the views and estimated minutes watched by embedded player location
+* retrieve the views and estimated minutes watched by related video
 * retrieve the views and estimated minutes watched by video
 * retrieve the views and estimated minutes watched by playlist
 * retrieve the viewer percentage of a channel by gender and age group
@@ -217,6 +220,15 @@ channel.viewer_percentage(gender: :male) #=> 49.12
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
 
+channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
+
+channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+
+channel.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
+
 channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 
@@ -246,6 +258,12 @@ channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}
 channel.viewer_percentage(gender: :female) #=> 49.12
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
+channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
+channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+channel.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
@@ -271,6 +289,9 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * like and dislike a video
 * retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions and monetized playbacks of a video by day
 * retrieve the views of a video by traffic source
+* retrieve the views of a video by playback location
+* retrieve the views of a video by embedded player location
+* retrieve the views of a video by related video
 * retrieve the viewer percentage of a video by gender and age group
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
@@ -372,6 +393,9 @@ video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}�
 video.viewer_percentage(gender: :female) #=> 49.12
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
+video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
+video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 
 video.delete #=> true
 ```
@@ -402,6 +426,7 @@ video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}�
 video.viewer_percentage(gender: :female) #=> 49.12
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
+video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
 
 video.ad_formats #=> ["standard_instream", "trueview_instream"]
 ```
