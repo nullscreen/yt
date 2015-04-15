@@ -377,5 +377,11 @@ describe Yt::Video, :device_app do
 
       it { expect{update}.not_to raise_error }
     end
+
+    context 'given an invalid URL' do
+      let(:path_or_url) { 'this-is-not-a-url' }
+
+      it { expect{update}.to raise_error Yt::Errors::RequestError }
+    end
   end
 end
