@@ -55,12 +55,13 @@ module Yt
       # @option params [Array<String>] :title The video’s tags.
       # @option params [String] :privacy_status The video’s privacy status.
       # @return [Yt::Models::Video] the newly uploaded video.
-      def upload_video(path_or_url, params = {})
+      def upload_video(path_or_url, params = {}, content_owner_details = {})
         file = open path_or_url, 'rb'
-        session = resumable_sessions.insert file.size, upload_body(params)
+        session = resumable_sessions.insert file.size, upload_body(params), upload_content_owner(content_owner_details)
 
         session.update(body: file) do |data|
           Yt::Video.new id: data['id'], snippet: data['snippet'], status: data['privacyStatus'], auth: self
+          
         end
       end
 
@@ -85,6 +86,21 @@ module Yt
       # associated to the uploaded file.
       def upload_params
         {part: 'snippet,status'}
+      end
+
+      # @private
+      # Tells `has_many :resumable_sessions` what content owner data to set in the object
+      # associated to the uploaded file.
+      def upload_content_owner(content_owner_details = {})
+        {}.tap do |content_owner_params|
+          owner = content_owner_details[:content_owner]
+          content_owner_params[:onBehalfOfContentOwner] = owner if owner
+
+          channel = content_owner_details[:channel]
+          content_owner_params[:onBehalfOfContentOwnerChannel] = channel if channel
+          @content_owner_params = content_owner_params
+        end
+        @content_owner_params
       end
 
       # @private

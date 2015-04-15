@@ -15,7 +15,7 @@ module Yt
       # URL to upload the object file (and eventually resume the upload).
       # @param [Integer] content_length the size (bytes) of the object to upload.
       # @param [Hash] options the metadata to add to the uploaded object.
-      def insert(content_length, body = {})
+      def insert(content_length, body = {}, content_owner_params = {})
         @headers = headers_for content_length
         do_insert body: body, headers: @headers
       end
@@ -29,8 +29,14 @@ module Yt
       def insert_params
         super.tap do |params|
           params[:response_format] = nil
-          params[:path] = @parent.upload_path
-          params[:params] = @parent.upload_params.merge uploadType: 'resumable'
+          params[:path] = @parent.upload_path 
+          content_owner_params = @parent.instance_variable_get( '@content_owner_params' )        
+          unless content_owner_params.nil?
+            all_params = content_owner_params.merge uploadType: 'resumable'
+            params[:params] = @parent.upload_params.merge all_params
+          else
+            params[:params] = @parent.upload_params.merge uploadType: 'resumable'
+          end
         end
       end
 
