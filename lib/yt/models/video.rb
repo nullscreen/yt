@@ -197,9 +197,11 @@ module Yt
       # @param [String] path_or_url the image to upload. Can either be the
       #   path of a local file or the URL of a remote file.
       # @return the new thumbnail resource for the given image.
+      # @raise [Yt::Errors::RequestError] if path_or_url is not a valid path
+      #   or URL.
       # @see https://developers.google.com/youtube/v3/docs/thumbnails#resource
       def upload_thumbnail(path_or_url)
-        file = open path_or_url, 'rb'
+        file = open(path_or_url, 'rb') rescue StringIO.new
         session = resumable_sessions.insert file.size
 
         session.update(body: file) do |data|

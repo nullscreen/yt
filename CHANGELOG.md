@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.5 - 2015-04-15
+
+* [BUGFIX] Raise `Yt::Errors::RequestError` when passing an invalid path or URL to `upload_thumbnail`
+
 ## 0.14.4 - 2015-04-14
 
 * [FEATURE] New `by: :embedded_player_location` option for reports, to return views and estimated watched minutes (channels) by URL where the player was embedded
