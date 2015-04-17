@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.6 - 2015-04-17
+
+* [BUGFIX] Rescue OpenSSL::SSL::SSLErrorWaitReadable only on version of Ruby that define it.
+
 ## 0.14.5 - 2015-04-15
 
 * [BUGFIX] Raise `Yt::Errors::RequestError` when passing an invalid path or URL to `upload_thumbnail`
