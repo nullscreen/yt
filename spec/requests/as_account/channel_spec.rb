@@ -195,9 +195,9 @@ describe Yt::Channel, :device_app do
       expect{channel.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end
 
+    # @deprecated, use channel.viewer_percentage instead
     it 'returns valid reports for channel-related demographics' do
       expect{channel.viewer_percentages}.not_to raise_error
-      expect{channel.viewer_percentage}.not_to raise_error
     end
 
     it 'cannot give information about its content owner' do

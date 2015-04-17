@@ -216,7 +216,6 @@ channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-channel.viewer_percentage(gender: :male) #=> 49.12
 
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
@@ -259,7 +258,6 @@ channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-channel.viewer_percentage(gender: :female) #=> 49.12
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
 channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
@@ -397,7 +395,6 @@ video.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326
 video.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-video.viewer_percentage(gender: :female) #=> 49.12
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
@@ -431,7 +428,6 @@ video.impressions_on 5.days.ago #=> 157.0
 video.monetized_playbacks_on 5.days.ago #=> 123.0
 
 video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-video.viewer_percentage(gender: :female) #=> 49.12
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}

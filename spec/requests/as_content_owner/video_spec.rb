@@ -761,6 +761,7 @@ describe Yt::Video, :partner do
         end
       end
 
+      # @deprecated, use video.viewer_percentage instead
       specify 'viewer percentages by gender and age range can be retrieved' do
         expect(video.viewer_percentages[:female]['18-24']).to be_a Float
         expect(video.viewer_percentages[:female]['25-34']).to be_a Float
@@ -774,9 +775,6 @@ describe Yt::Video, :partner do
         expect(video.viewer_percentages[:male]['45-54']).to be_a Float
         expect(video.viewer_percentages[:male]['55-64']).to be_a Float
         expect(video.viewer_percentages[:male]['65-']).to be_a Float
-
-        expect(video.viewer_percentage(gender: :male)).to be_a Float
-        expect(video.viewer_percentage(gender: :female)).to be_a Float
       end
     end
 
