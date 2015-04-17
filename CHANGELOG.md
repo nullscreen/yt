@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.14.7 - 2015-04-17
+
+* [FEATURE] New `by: :device_type` option for reports, to return views and estimated watched minutes (channels) by device
+
 ## 0.14.6 - 2015-04-17
 
 * [BUGFIX] Rescue OpenSSL::SSL::SSLErrorWaitReadable only on version of Ruby that define it.

@@ -10,6 +10,7 @@ module Yt
         hash[:related_video] = {name: 'insightTrafficSourceDetail', parse: ->(video_id) { Yt::Video.new id: video_id, auth: @auth } }
         hash[:video] = {name: 'video', parse: ->(video_id) { Yt::Video.new id: video_id, auth: @auth } }
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id) { Yt::Playlist.new id: playlist_id, auth: @auth } }
+        hash[:device_type] = {name: 'deviceType', parse: ->(type) { type.downcase.to_sym } }
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Traffic_Source_Dimensions

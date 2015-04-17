@@ -158,6 +158,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'views can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          views = channel.views range.merge by: :device_type
+          expect(views.keys).to all(be_instance_of Symbol)
+          expect(views.values).to all(be_instance_of Float)
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:comments) { channel.comments_on 5.days.ago}
@@ -634,6 +644,16 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :playlist' do
           estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :playlist
           expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Playlist)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :device_type
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Symbol)
+          expect(estimated_minutes_watched.values).to all(be_instance_of Float)
         end
       end
 

@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.14.6'
+    gem 'yt', '~> 0.14.7'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -155,6 +155,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * retrieve the views and estimated minutes watched by related video
 * retrieve the views and estimated minutes watched by video
 * retrieve the views and estimated minutes watched by playlist
+* retrieve the views and estimated minutes watched by device type
 * retrieve the viewer percentage of a channel by gender and age group
 
 ```ruby
@@ -234,6 +235,9 @@ channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Model
 
 channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
 channel.estimated_minutes_watched since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
+
+channel.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
 ```
 
 *The methods above require to be authenticated as the channel’s account (see below).*
@@ -268,6 +272,8 @@ channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 1
 channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
 channel.estimated_minutes_watched since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
+channel.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
+channel.estimated_minutes_watched since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
 channel.monetized_playbacks_on 5.days.ago #=> 123.0
 
 channel.content_owner #=> 'CMSname'
@@ -292,6 +298,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the views of a video by playback location
 * retrieve the views of a video by embedded player location
 * retrieve the views of a video by related video
+* retrieve the views of a video by device type
 * retrieve the viewer percentage of a video by gender and age group
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
@@ -396,6 +403,7 @@ video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, relat
 video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
 video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
 video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
+video.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
 
 video.delete #=> true
 ```
