@@ -130,6 +130,16 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          views = video.views range.merge by: :device_type
+          expect(views.keys).to all(be_instance_of Symbol)
+          expect(views.values).to all(be_instance_of Float)
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:comments) { video.comments_on 5.days.ago}
