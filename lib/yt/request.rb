@@ -206,7 +206,18 @@ module Yt
         Errno::ENETUNREACH,
         Errno::ECONNRESET,
         Net::HTTPServerError
-      ] + (RUBY_VERSION < '2' ? [] : [OpenSSL::SSL::SSLErrorWaitReadable])
+      ] + extra_server_errors
+    end
+
+    # Returns the list of server errors that are only raised (and therefore
+    # can only be rescued) by specific versions of Ruby.
+    # @see: https://github.com/Fullscreen/yt/pull/110
+    def extra_server_errors
+      if defined? OpenSSL::SSL::SSLErrorWaitReadable
+        [OpenSSL::SSL::SSLErrorWaitReadable]
+      else
+        []
+      end
     end
 
     # Sleeps for a while and returns true for the first +max_retries+ times,

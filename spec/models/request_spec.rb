@@ -120,7 +120,7 @@ describe Yt::Request do
       # NOTE: This test is just a reflection of YouTube irrational behavior of
       # being unavailable once in a while, and therefore causing Net::HTTP to
       # fail, although retrying after some seconds works.
-      context 'an OpenSSL::SSL::SSLErrorWaitReadable', ruby2: true do
+      context 'an OpenSSL::SSL::SSLErrorWaitReadable', ruby21: true do
         let(:http_error) { OpenSSL::SSL::SSLErrorWaitReadable.new }
 
         context 'every time' do
