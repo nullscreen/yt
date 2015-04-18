@@ -5,7 +5,7 @@ describe Yt::Playlist, :server_app do
   subject(:playlist) { Yt::Playlist.new id: id }
 
   context 'given an existing playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+    let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
 
     it 'returns valid snippet data' do
       expect(playlist.snippet).to be_a Yt::Snippet

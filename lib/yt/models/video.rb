@@ -128,7 +128,7 @@ module Yt
       # @return [Array<Yt::Models::Tag>] the list of keyword tags associated
       #   with the video.
       def tags
-        unless snippet.tags.any? || snippet.includes_tags || @auth.nil?
+        unless snippet.tags.any? || snippet.complete? || @auth.nil?
           @snippet = nil
         end
         snippet.tags

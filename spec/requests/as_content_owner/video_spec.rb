@@ -15,7 +15,7 @@ describe Yt::Video, :partner do
 
       describe 'earnings can be retrieved for a specific day' do
         context 'in which the video made any money' do
-          let(:earnings) {video.earnings_on 5.days.ago}
+          let(:earnings) {video.earnings_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(earnings).to be_a Float }
         end
 
@@ -26,22 +26,14 @@ describe Yt::Video, :partner do
       end
 
       describe 'earnings can be retrieved for a range of days' do
-        let(:date) { 4.days.ago }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
-        specify 'with a given start (:since option)' do
-          expect(video.earnings(since: date).keys.min).to eq date.to_date
+        specify 'with a given start and end (:since / :until option)' do
+          expect(video.earnings(since: date, until: date).keys.min).to eq date.to_date
         end
 
-        specify 'with a given end (:until option)' do
-          expect(video.earnings(until: date).keys.max).to eq date.to_date
-        end
-
-        specify 'with a given start (:from option)' do
-          expect(video.earnings(from: date).keys.min).to eq date.to_date
-        end
-
-        specify 'with a given end (:to option)' do
-          expect(video.earnings(to: date).keys.max).to eq date.to_date
+        specify 'with a given start and end (:from / :to option)' do
+          expect(video.earnings(from: date, to: date).keys.min).to eq date.to_date
         end
       end
 
@@ -113,7 +105,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'views can be grouped by embedded player location' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: 3.days.ago} }
 
         specify 'with the :by option set to :embedded_player_location' do
           views = video.views range.merge by: :embedded_player_location
@@ -142,7 +134,7 @@ describe Yt::Video, :partner do
 
       describe 'comments can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:comments) { video.comments_on 5.days.ago}
+          let(:comments) { video.comments_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(comments).to be_a Float }
         end
 
@@ -189,7 +181,7 @@ describe Yt::Video, :partner do
 
       describe 'likes can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:likes) { video.likes_on 5.days.ago}
+          let(:likes) { video.likes_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(likes).to be_a Float }
         end
 
@@ -236,7 +228,7 @@ describe Yt::Video, :partner do
 
       describe 'dislikes can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:dislikes) { video.dislikes_on 5.days.ago}
+          let(:dislikes) { video.dislikes_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(dislikes).to be_a Float }
         end
 
@@ -283,7 +275,7 @@ describe Yt::Video, :partner do
 
       describe 'shares can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:shares) { video.shares_on 5.days.ago}
+          let(:shares) { video.shares_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(shares).to be_a Float }
         end
 
@@ -330,7 +322,7 @@ describe Yt::Video, :partner do
 
       describe 'gained subscribers can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:subscribers_gained) { video.subscribers_gained_on 5.days.ago}
+          let(:subscribers_gained) { video.subscribers_gained_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(subscribers_gained).to be_a Float }
         end
 
@@ -377,7 +369,7 @@ describe Yt::Video, :partner do
 
       describe 'lost subscribers can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:subscribers_lost) { video.subscribers_lost_on 5.days.ago}
+          let(:subscribers_lost) { video.subscribers_lost_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(subscribers_lost).to be_a Float }
         end
 
@@ -424,7 +416,7 @@ describe Yt::Video, :partner do
 
       describe 'added favorites can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:favorites_added) { video.favorites_added_on 5.days.ago}
+          let(:favorites_added) { video.favorites_added_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(favorites_added).to be_a Float }
         end
 
@@ -471,7 +463,7 @@ describe Yt::Video, :partner do
 
       describe 'removed favorites can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:favorites_removed) { video.favorites_removed_on 5.days.ago}
+          let(:favorites_removed) { video.favorites_removed_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(favorites_removed).to be_a Float }
         end
 

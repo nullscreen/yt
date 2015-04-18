@@ -311,7 +311,7 @@ describe Yt::Channel, :partner do
 
       describe 'shares can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
-          let(:shares) { channel.shares_on 5.days.ago}
+          let(:shares) { channel.shares_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(shares).to be_a Float }
         end
 

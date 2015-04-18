@@ -5,7 +5,7 @@ module Yt
     # Provides methods to interact with YouTube playlist items.
     # @see https://developers.google.com/youtube/v3/docs/playlistItems
     class PlaylistItem < Resource
-      delegate :channel_id, :channel_title, :playlist_id, :position, :video_id,
+      delegate :channel_id, :channel_title, :playlist_id, :video_id,
         :video, to: :snippet
 
       def delete(options = {})
@@ -15,6 +15,20 @@ module Yt
 
       def exists?
         !@id.nil?
+      end
+
+      # Returns the position of the item in the playlist.
+      # Since YouTube API does not return the position on PlaylistItem#create,
+      # the memoized @snippet is erased if the video was instantiated like that,
+      # so that the full snippet (with position) is loaded, rather than the
+      # partial one.
+      # @see https://developers.google.com/youtube/v3/docs/playlistItems
+      # @return [Integer] the order in which the item appears in a playlist.
+      def position
+        unless snippet.position || snippet.complete? || @auth.nil?
+          @snippet = nil
+        end
+        snippet.position
       end
 
     private

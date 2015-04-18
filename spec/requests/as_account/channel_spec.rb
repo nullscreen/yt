@@ -26,7 +26,7 @@ describe Yt::Channel, :device_app do
 
       specify 'returns the videos in the channel without their tags' do
         expect(video).to be_a Yt::Video
-        expect(video.snippet.includes_tags).to be false
+        expect(video.snippet).not_to be_complete
       end
 
       describe '.where(id: *anything*)' do

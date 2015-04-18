@@ -13,6 +13,12 @@ module Yt
 
     private
 
+      def attributes_for_new_item(data)
+        snippet = data.fetch 'snippet', {}
+        data['snippet'].reverse_merge! complete: snippet.key?('position')
+        super(data)
+      end
+
       # @return [Hash] the parameters to submit to YouTube to list playlist items.
       # @see https://developers.google.com/youtube/v3/docs/playlistItems/list
       def list_params

@@ -7,7 +7,7 @@ describe Yt::Playlist, :device_app do
   subject(:playlist) { Yt::Playlist.new id: id, auth: $account }
 
   context 'given an existing playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+    let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
 
     it 'returns valid metadata' do
       expect(playlist.title).to be_a String
@@ -21,6 +21,8 @@ describe Yt::Playlist, :device_app do
     end
 
     it { expect(playlist.playlist_items.first).to be_a Yt::PlaylistItem }
+    it { expect(playlist.playlist_items.first.snippet).to be_complete }
+    it { expect(playlist.playlist_items.first.position).not_to be_nil }
   end
 
   context 'given an unknown playlist' do
@@ -31,7 +33,7 @@ describe Yt::Playlist, :device_app do
   end
 
   context 'given someone else’s playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+    let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
     let(:video_id) { 'MESycYJytkU' }
 
     it { expect{playlist.delete}.to fail.with 'forbidden' }
@@ -135,6 +137,20 @@ describe Yt::Playlist, :device_app do
         it { expect(playlist.add_video! video_id).to be_a Yt::PlaylistItem }
         it { expect{playlist.add_video! video_id}.to change{playlist.playlist_items.count}.by(1) }
         it { expect(playlist.add_video(video_id, position: 0).position).to be 0 }
+      end
+
+      # NOTE: This test sounds redundant, but it’s actually a reflection of
+      # another irrational behavior of YouTube API. In short, if you add a new
+      # video to a playlist, the returned item does not have the "position"
+      # information. You need an extra call to get it. When YouTube fixes this
+      # behavior, this test (and related code) will go away.
+      describe 'adding the video' do
+        let(:item) { playlist.add_video video_id }
+
+        specify 'returns an item without its position' do
+          expect(item.snippet).not_to be_complete
+          expect(item.position).not_to be_nil # after reloading
+        end
       end
 
       describe 'can be removed' do

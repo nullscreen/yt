@@ -17,7 +17,7 @@ module Yt
 
       def attributes_for_new_item(data)
         id = use_list_endpoint? ? data['id'] : data['id']['videoId']
-        snippet = data['snippet'].reverse_merge includes_tags: false if data['snippet']
+        snippet = data['snippet'].reverse_merge complete: false if data['snippet']
         {}.tap do |attributes|
           attributes[:id] = id
           attributes[:snippet] = snippet
@@ -39,7 +39,7 @@ module Yt
             video = videos.find{|v| v.id == item['id']['videoId']}
             parts.each do |part|
               item[part] = case part
-                when 'snippet' then video.snippet.data.merge includes_tags: true
+                when 'snippet' then video.snippet.data.merge complete: true
                 when 'status' then video.status.data
                 when 'statistics' then video.statistics_set.data
                 when 'contentDetails' then video.content_detail.data
