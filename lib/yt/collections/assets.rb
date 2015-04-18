@@ -10,7 +10,8 @@ module Yt
     class Assets < Base
       def insert(attributes = {})
         underscore_keys! attributes
-        body = {type: attributes[:type]}
+        # body = {type: attributes[:type]}
+        body = {metadataMine:{customId: attributes[:custom_id], title: attributes[:title]}, type: attributes[:type]}
         params = {on_behalf_of_content_owner: @auth.owner_name}
         do_insert(params: params, body: body)
       end
