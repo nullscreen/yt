@@ -43,10 +43,10 @@ module Yt
 
       def define_metric_method(metric)
         define_method metric do |options = {}|
-          from = options[:since] || options[:from] || 5.days.ago
-          to = options[:until] || options[:to] || 1.day.ago
+          from = options[:since] || options[:from] || (metric == :viewer_percentage ? 3.months.ago : 5.days.ago)
+          to = options[:until] || options[:to] || (metric == :viewer_percentage ? Date.today : 1.day.ago)
           range = Range.new *[from, to].map(&:to_date)
-          dimension = options[:by] || :day
+          dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :day)
 
           ivar = instance_variable_get "@#{metric}_#{dimension}"
           instance_variable_set "@#{metric}_#{dimension}", ivar || {}

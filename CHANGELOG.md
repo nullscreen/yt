@@ -6,6 +6,25 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.15.0 - unreleased
+
+**How to upgrade**
+
+If your code never calls the `viewer_percentage(gender: [:female|:male])` method
+on a Channel or Video object, then you are good to go.
+
+If it does, then replace your calls to `viewer_percentage(gender: :female)`
+with `viewer_percentage(by: gender)[:female]`, and do the same for `:male`.
+
+Note that the _plural_ `viewer_percentages` method still works but it’s
+deprecated: you should use `viewer_percentage` instead.
+
+* [ENHANCEMENT] Remove `:gender` option in `viewer_percentage` in favor of a more generic `:by`
+* [FEATURE] New `by: :gender` option for reports, to return viewer percentage by gender
+* [FEATURE] New `by: :age_group` option for reports, to return viewer percentage by age group
+* [ENHANCEMENT] The viewer percentage report now accepts start/end date options (like any other report)
+* [DEPRECATION] Deprecate `viewer_percentages` in favor of `viewer_percentage`.
+
 ## 0.14.7 - 2015-04-17
 
 * [FEATURE] New `by: :device_type` option for reports, to return views and estimated watched minutes (channels) by device

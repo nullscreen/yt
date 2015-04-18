@@ -156,7 +156,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * retrieve the views and estimated minutes watched by video
 * retrieve the views and estimated minutes watched by playlist
 * retrieve the views and estimated minutes watched by device type
-* retrieve the viewer percentage of a channel by gender and age group
+* retrieve the viewer percentage of a channel by gender, by age group or by both
 
 ```ruby
 # Channels can be initialized with ID or URL
@@ -215,7 +215,7 @@ channel.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 
 channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
-channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+channel.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
@@ -257,7 +257,8 @@ channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2
 channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
-channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+channel.viewer_percentage since: 7.days.ago #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
 channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
@@ -273,6 +274,8 @@ channel.estimated_minutes_watched since: 7.days.ago, by: :playlist #=> {#<Yt::Mo
 channel.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
 channel.estimated_minutes_watched since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
 channel.monetized_playbacks_on 5.days.ago #=> 123.0
+channel.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male: 50.88}
+channel.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
 channel.content_owner #=> 'CMSname'
 channel.linked_at #=> Wed, 28 May 2014
@@ -297,7 +300,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the views of a video by embedded player location
 * retrieve the views of a video by related video
 * retrieve the views of a video by device type
-* retrieve the viewer percentage of a video by gender and age group
+* retrieve the viewer percentage of a video by gender, by age group or by both
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
 
@@ -394,13 +397,15 @@ video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 20
 video.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 video.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
-video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+video.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
 video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
 video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
 video.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
+video.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male: 50.88}
+video.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
 video.delete #=> true
 ```
@@ -426,11 +431,15 @@ video.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 F
 video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 video.impressions_on 5.days.ago #=> 157.0
 video.monetized_playbacks_on 5.days.ago #=> 123.0
-
-video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
+video.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
 video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
+video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
+video.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
+video.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male: 50.88}
+video.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
 video.ad_formats #=> ["standard_instream", "trueview_instream"]
 ```

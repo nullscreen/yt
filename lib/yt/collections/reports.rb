@@ -11,6 +11,9 @@ module Yt
         hash[:video] = {name: 'video', parse: ->(video_id) { Yt::Video.new id: video_id, auth: @auth } }
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id) { Yt::Playlist.new id: playlist_id, auth: @auth } }
         hash[:device_type] = {name: 'deviceType', parse: ->(type) { type.downcase.to_sym } }
+        hash[:gender_age_group] = {name: 'gender,ageGroup', parse: ->(gender) { gender.downcase.to_sym }}
+        hash[:gender] = {name: 'gender', parse: ->(gender) { gender.downcase.to_sym } }
+        hash[:age_group] = {name: 'ageGroup', parse: ->(age_group) { age_group[3..-1] } }
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Traffic_Source_Dimensions
@@ -46,7 +49,13 @@ module Yt
       def within(days_range, dimension, try_again = true)
         @days_range = days_range
         @dimension = dimension
-        Hash[*flat_map{|daily_value| daily_value}]
+        if dimension == :gender_age_group # array of array
+          Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
+            each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
+          end
+        else
+          Hash[*flat_map{|value| [value.first, value.last]}]
+        end
       # NOTE: Once in a while, YouTube responds with 400 Error and the message
       # "Invalid query. Query did not conform to the expectations."; in this
       # case running the same query after one second fixes the issue. This is
@@ -60,7 +69,7 @@ module Yt
     private
 
       def new_item(data)
-        [instance_exec(data.first, &DIMENSIONS[@dimension][:parse]), data.last]
+        [instance_exec(data.first, &DIMENSIONS[@dimension][:parse]), *data[1..-1]]
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/content_owner_reports
