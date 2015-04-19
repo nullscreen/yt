@@ -59,6 +59,15 @@ module Yt
       has_report :monetized_playbacks
 
       # @macro has_report
+      has_report :annotation_clicks
+
+      # @macro has_report
+      has_report :annotation_click_through_rate
+
+      # @macro has_report
+      has_report :annotation_close_rate
+
+      # @macro has_report
       has_report :viewer_percentage
 
       # @deprecated Use {#has_report :viewer_percentage}.

@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.15.0'
+    gem 'yt', '~> 0.15.1'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -148,7 +148,7 @@ Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Chan
 * access the channels that the channel is subscribed to
 * subscribe to and unsubscribe from a channel
 * delete playlists from a channel
-* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, estimated/average video watch and impressions of a channel by day
+* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, annotation clicks, annotation click-through rate, annotation close rate, estimated/average video watch and impressions of a channel by day
 * retrieve the views and estimated minutes watched by traffic source
 * retrieve the views and estimated minutes watched by playback location
 * retrieve the views and estimated minutes watched by embedded player location
@@ -215,6 +215,9 @@ channel.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 
 channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
+channel.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+channel.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
+channel.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 channel.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
@@ -257,6 +260,9 @@ channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2
 channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
+channel.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+channel.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
+channel.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 channel.viewer_percentage since: 7.days.ago #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
 channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
@@ -294,7 +300,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * access the annotations of a video
 * delete a video
 * like and dislike a video
-* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions and monetized playbacks of a video by day
+* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions, annotation clicks, annotation click-through rate, annotation close rate and monetized playbacks of a video by day
 * retrieve the views of a video by traffic source
 * retrieve the views of a video by playback location
 * retrieve the views of a video by embedded player location
@@ -397,6 +403,9 @@ video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 20
 video.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 video.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
+video.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+video.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
+video.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 video.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
@@ -431,6 +440,9 @@ video.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 F
 video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 video.impressions_on 5.days.ago #=> 157.0
 video.monetized_playbacks_on 5.days.ago #=> 123.0
+video.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+video.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
+video.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 video.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
 video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
