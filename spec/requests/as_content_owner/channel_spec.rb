@@ -845,6 +845,87 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'annotation clicks can be retrieved for a range of days' do
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+        let(:date_to) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
+
+        specify 'with a given start (:since option) and a given end (:until option)' do
+          expect(channel.annotation_clicks(since: date, until: date_to).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option) and a given end (:to option)' do
+          expect(channel.annotation_clicks(from: date, to: date_to).keys.min).to eq date.to_date
+        end
+      end
+
+      describe 'annotation clicks can be grouped by day' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'without a :by option (default)' do
+          annotation_clicks = channel.annotation_clicks range
+          expect(annotation_clicks.values).to all(be_instance_of Float)
+        end
+
+        specify 'with the :by option set to :day' do
+          annotation_clicks = channel.annotation_clicks range.merge by: :day
+          expect(annotation_clicks.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'annotation click-through rate can be retrieved for a range of days' do
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+        let(:date_to) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
+
+        specify 'with a given start (:since option) and a given end (:until option)' do
+          expect(channel.annotation_click_through_rate(since: date, until: date_to).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option) and a given end (:to option)' do
+          expect(channel.annotation_click_through_rate(from: date, to: date_to).keys.min).to eq date.to_date
+        end
+      end
+
+      describe 'annotation click-through rate can be grouped by day' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'without a :by option (default)' do
+          annotation_click_through_rate = channel.annotation_click_through_rate range
+          expect(annotation_click_through_rate.values).to all(be_instance_of Float)
+        end
+
+        specify 'with the :by option set to :day' do
+          annotation_click_through_rate = channel.annotation_click_through_rate range.merge by: :day
+          expect(annotation_click_through_rate.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'annotation close rate can be retrieved for a range of days' do
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+        let(:date_to) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
+
+        specify 'with a given start (:since option) and a given end (:until option)' do
+          expect(channel.annotation_close_rate(since: date, until: date_to).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option) and a given end (:to option)' do
+          expect(channel.annotation_close_rate(from: date, to: date_to).keys.min).to eq date.to_date
+        end
+      end
+
+      describe 'annotation close rate can be grouped by day' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'without a :by option (default)' do
+          annotation_close_rate = channel.annotation_close_rate range
+          expect(annotation_close_rate.values).to all(be_instance_of Float)
+        end
+
+        specify 'with the :by option set to :day' do
+          annotation_close_rate = channel.annotation_close_rate range.merge by: :day
+          expect(annotation_close_rate.values).to all(be_instance_of Float)
+        end
+      end
+
       describe 'viewer percentage can be retrieved for a range of days' do
         let(:viewer_percentage) { channel.viewer_percentage since: 1.year.ago, until: 10.days.ago}
         it { expect(viewer_percentage).to be_a Hash }

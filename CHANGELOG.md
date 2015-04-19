@@ -6,6 +6,13 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+
+## 0.15.1 - 2015-04-19
+
+* [FEATURE] New `annotation clicks` report for videos and channels.
+* [FEATURE] New `annotation click-through rate` report for videos and channels.
+* [FEATURE] New `annotation close rate` report for videos and channels.
+
 ## 0.15.0 - 2015-04-19
 
 **How to upgrade**
