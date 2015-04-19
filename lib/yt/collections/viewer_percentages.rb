@@ -2,6 +2,7 @@ require 'yt/collections/base'
 
 module Yt
   module Collections
+    # @deprecated Use {Yt::Collections::Reports} instead.
     class ViewerPercentages < Base
       delegate :[], to: :all
 

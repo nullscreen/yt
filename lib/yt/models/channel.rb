@@ -58,6 +58,10 @@ module Yt
       # @macro has_report
       has_report :monetized_playbacks
 
+      # @macro has_report
+      has_report :viewer_percentage
+
+      # @deprecated Use {#has_report :viewer_percentage}.
       # @macro has_viewer_percentages
       has_viewer_percentages
 

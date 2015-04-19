@@ -51,12 +51,12 @@ describe Yt::Account, :device_app do
     end
 
     describe '.includes(:snippet)' do
-      let(:video) { $account.videos.includes(:snippet).first }
+      let(:video) { $account.videos.first }
 
       specify 'eager-loads the *full* snippet of each video' do
         expect(video.instance_variable_defined? :@snippet).to be true
         expect(video.channel_title).to be
-        expect(video.snippet.includes_tags).to be true
+        expect(video.snippet).to be_complete
       end
     end
 

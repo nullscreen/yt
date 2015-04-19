@@ -89,6 +89,10 @@ module Yt
       # @macro has_report
       has_report :monetized_playbacks
 
+      # @macro has_report
+      has_report :viewer_percentage
+
+      # @deprecated Use {#has_report :viewer_percentage}.
       # @macro has_viewer_percentages
       has_viewer_percentages
 
@@ -124,7 +128,7 @@ module Yt
       # @return [Array<Yt::Models::Tag>] the list of keyword tags associated
       #   with the video.
       def tags
-        unless snippet.tags.any? || snippet.includes_tags || @auth.nil?
+        unless snippet.tags.any? || snippet.complete? || @auth.nil?
           @snippet = nil
         end
         snippet.tags

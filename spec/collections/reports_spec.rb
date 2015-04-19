@@ -9,7 +9,7 @@ describe Yt::Collections::Reports do
   let(:msg) { {response_body: {error: {errors: [error]}}}.to_json }
 
   describe '#within' do
-    let(:result) { reports.within Range.new(5.days.ago, 4.days.ago) }
+    let(:result) { reports.within Range.new(5.days.ago, 4.days.ago), :day }
     context 'given the request raises error 400 with "Invalid Query" message' do
       let(:reason) { 'badRequest' }
       let(:message) { 'Invalid query. Query did not conform to the expectations' }
@@ -22,7 +22,7 @@ describe Yt::Collections::Reports do
       end
 
       context 'but returns a success code 2XX the second time' do
-        before { try_again.and_return [1,2] }
+        before { try_again.and_return [[1,2]] }
         it { expect{result}.not_to fail }
       end
     end

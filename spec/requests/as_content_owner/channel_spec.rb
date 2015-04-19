@@ -311,7 +311,7 @@ describe Yt::Channel, :partner do
 
       describe 'shares can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
-          let(:shares) { channel.shares_on 5.days.ago}
+          let(:shares) { channel.shares_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
           it { expect(shares).to be_a Float }
         end
 
@@ -845,6 +845,58 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'viewer percentage can be retrieved for a range of days' do
+        let(:viewer_percentage) { channel.viewer_percentage since: 1.year.ago, until: 10.days.ago}
+        it { expect(viewer_percentage).to be_a Hash }
+      end
+
+      describe 'viewer_percentage can be grouped by gender and age group' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          viewer_percentage = channel.viewer_percentage range
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:female].values).to all(be_instance_of Float)
+          expect(viewer_percentage[:male].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:male].values).to all(be_instance_of Float)
+        end
+
+        specify 'with the :by option set to :gender_age_group' do
+          viewer_percentage = channel.viewer_percentage range.merge by: :gender_age_group
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:female].values).to all(be_instance_of Float)
+          expect(viewer_percentage[:male].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:male].values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'viewer_percentage can be grouped by gender' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :gender' do
+          viewer_percentage = channel.viewer_percentage range.merge by: :gender
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female]).to be_a Float
+          expect(viewer_percentage[:male]).to be_a Float
+        end
+      end
+
+      describe 'viewer_percentage can be grouped by age group' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :age_group' do
+          viewer_percentage = channel.viewer_percentage range.merge by: :age_group
+          expect(viewer_percentage.keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage.values).to all(be_instance_of Float)
+        end
+      end
+
+      # @deprecated, use channel.viewer_percentage instead
       specify 'viewer percentages by gender and age range can be retrieved' do
         expect(channel.viewer_percentages[:female]['18-24']).to be_a Float
         expect(channel.viewer_percentages[:female]['25-34']).to be_a Float
@@ -858,9 +910,6 @@ describe Yt::Channel, :partner do
         expect(channel.viewer_percentages[:male]['45-54']).to be_a Float
         expect(channel.viewer_percentages[:male]['55-64']).to be_a Float
         expect(channel.viewer_percentages[:male]['65-']).to be_a Float
-
-        expect(channel.viewer_percentage(gender: :male)).to be_a Float
-        expect(channel.viewer_percentage(gender: :female)).to be_a Float
       end
 
       specify 'information about its content owner can be retrieved' do

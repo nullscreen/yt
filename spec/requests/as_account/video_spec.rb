@@ -292,6 +292,7 @@ describe Yt::Video, :device_app do
       expect{video.estimated_minutes_watched}.not_to raise_error
       expect{video.average_view_duration}.not_to raise_error
       expect{video.average_view_percentage}.not_to raise_error
+      expect{video.viewer_percentage}.not_to raise_error
       expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions}.to raise_error Yt::Errors::Unauthorized
       expect{video.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
@@ -313,9 +314,9 @@ describe Yt::Video, :device_app do
       expect{video.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end
 
+    # @deprecated, use video.viewer_percentage instead
     it 'returns valid reports for video-related demographics' do
       expect{video.viewer_percentages}.not_to raise_error
-      expect{video.viewer_percentage}.not_to raise_error
     end
   end
 

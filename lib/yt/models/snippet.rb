@@ -146,16 +146,17 @@ module Yt
         @video ||= Video.new id: video_id, auth: @auth if video_id
       end
 
-      # Returns whether YouTube API includes tags in this snippet.
-      # YouTube API only returns tags on Videos#list, not on Videos#search.
+      # Returns whether YouTube API includes all attributes in this snippet.
+      # For instance, YouTube API only returns tags on Videos#list, not on
+      # Videos#search. And returns position on PlaylistItems#list, not on
+      # PlaylistItems#insert.
       # This method is used to guarantee that, when a video was instantiated
-      # by calling account.videos or channel.videos, then video.tags is not
-      # simply returned as empty, but an additional call to Videos#list is
-      # made to retrieve the correct tags.
+      # by one of the methods above, an additional call to is made to retrieve
+      # the full snippet in case an attribute is missing.
       # @see https://developers.google.com/youtube/v3/docs/videos
-      # @return [Boolean] whether YouTube API includes tags in this snippet.
-      def includes_tags
-        @includes_tags ||= data.fetch :includes_tags, true
+      # @return [Boolean] whether YouTube API includes the complete snippet.
+      def complete?
+        @complete ||= data.fetch :complete, true
       end
 
     private

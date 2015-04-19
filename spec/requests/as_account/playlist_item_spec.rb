@@ -5,7 +5,7 @@ describe Yt::PlaylistItem, :device_app do
   subject(:item) { Yt::PlaylistItem.new id: id, auth: $account }
 
   context 'given an existing playlist item' do
-    let(:id) { 'PLjW_GNR5Ir0GWEP_oveGBNjTvKkYyZfsna1TZDCBP-Z8' }
+    let(:id) { 'PLjW_GNR5Ir0GMlbJzA-aW0UV8TchJFb8p3uzrLNcZKPY' }
 
     it 'returns valid metadata' do
       expect(item.title).to be_a String

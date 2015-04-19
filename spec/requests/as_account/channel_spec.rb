@@ -26,7 +26,7 @@ describe Yt::Channel, :device_app do
 
       specify 'returns the videos in the channel without their tags' do
         expect(video).to be_a Yt::Video
-        expect(video.snippet.includes_tags).to be false
+        expect(video.snippet).not_to be_complete
       end
 
       describe '.where(id: *anything*)' do
@@ -175,6 +175,7 @@ describe Yt::Channel, :device_app do
       expect{channel.estimated_minutes_watched}.not_to raise_error
       expect{channel.average_view_duration}.not_to raise_error
       expect{channel.average_view_percentage}.not_to raise_error
+      expect{channel.viewer_percentage}.not_to raise_error
       expect{channel.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{channel.impressions}.to raise_error Yt::Errors::Unauthorized
       expect{channel.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
@@ -195,9 +196,9 @@ describe Yt::Channel, :device_app do
       expect{channel.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end
 
+    # @deprecated, use channel.viewer_percentage instead
     it 'returns valid reports for channel-related demographics' do
       expect{channel.viewer_percentages}.not_to raise_error
-      expect{channel.viewer_percentage}.not_to raise_error
     end
 
     it 'cannot give information about its content owner' do
