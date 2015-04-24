@@ -241,7 +241,7 @@ describe Yt::ContentOwner, :partner do
   #   Therefore, the test is commented out, otherwise a new asset would
   #   be created every time the test is run.
   # describe 'assets can be added' do
-  #   let(:params) { {type: 'web'} }
+  #   let(:params) { {type: 'web', metadata_mine: {title: "Test Asset Title"}} }
   #   before { @asset = $content_owner.create_asset params }
   #   after { @asset.delete } # This does not seem to work
   #   it { expect(@asset).to be_a Yt::Asset }
