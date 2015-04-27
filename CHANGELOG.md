@@ -7,6 +7,10 @@ For more information about changelogs, check
 [Vandamme](http://tech-angels.github.io/vandamme).
 
 
+## 0.15.2 - 2015-04-27
+
+* [FEATURE] New `embed_html` method for Yt::Video.
+
 ## 0.15.1 - 2015-04-19
 
 * [FEATURE] New `annotation clicks` report for videos and channels.

@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.15.1'
+    gem 'yt', '~> 0.15.2'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -309,6 +309,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the viewer percentage of a video by gender, by age group or by both
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
+* retrieve the HTML code of the video player
 
 ```ruby
 # Videos can be initialized with ID or URL
@@ -364,6 +365,8 @@ video.actual_end_time #=> Tue, 27 May 2014 12:54:00
 video.scheduled_start_time #=> Tue, 27 May 2014 12:49:00
 video.scheduled_end_time #=> Tue, 27 May 2014 12:55:00
 video.concurrent_viewers #=> 0
+
+video.embed_html #=> "<iframe type='text/html' src='http://www.youtube.com/embed/BPNYv0vd78A' width='640' height='360' frameborder='0' allowfullscreen='true'/>"
 
 video.annotations.count #=> 1
 video.annotations.first #=> #<Yt::Models::Annotation @id=...>
