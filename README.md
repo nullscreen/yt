@@ -921,9 +921,3 @@ the [YouTube Analytics API](https://developers.google.com/youtube/analytics).
 If you find that a method is missing, fork the project, add the missing code,
 write the appropriate tests, then submit a pull request, and it will gladly
 be merged!
-
-Don’t hesitate to send code comments, issues or pull requests through GitHub
-and to spread the love on Twitter by following [@ytgem](https://twitter.com/intent/user?screen_name=ytgem) – 
-all feedback is appreciated.
-
-![yt4](https://cloud.githubusercontent.com/assets/7408595/3638115/0ef9d6bc-1037-11e4-831a-787204e9b979.png)
