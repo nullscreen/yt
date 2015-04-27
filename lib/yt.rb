@@ -1,4 +1,5 @@
 require 'yt/config'
+require 'yt/version'
 require 'yt/models/account'
 require 'yt/models/channel'
 require 'yt/models/claim'
