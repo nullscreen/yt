@@ -6,3 +6,5 @@ at [http://fullscreen.github.io/yt](http://fullscreen.github.io/yt).
 
 If you find any typo or want to suggest an improvement to the GitHub Page,
 please submit a pull request against this branch.
+
+To run locally, install [jekyll](http://jekyllrb.com), then type `jekyll serve --baseurl ""`.
