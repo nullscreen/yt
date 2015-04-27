@@ -77,7 +77,8 @@ video.earnings since: 3.days.ago
 {% include doc.html link="Models/Snippet#description" %}{% include example.html method='description' result='"A test video for the Yt gem"' %}
 {% include doc.html link="Models/Snippet#published_at" %}{% include example.html method='published_at' result='2015-03-31 06:46:46 UTC' %}
 {% include doc.html link="Models/Snippet#thumbnail_url" %}{% include example.html method='thumbnail_url' result='"https://i.ytimg.com/vi/BPNYv0vd78A/default.jpg"' %}
-{% include doc.html link="Models/Snippet#category_id" %}{% include example.html method='category_id' result='"22"' %}</pre>
+{% include doc.html link="Models/Snippet#category_id" %}{% include example.html method='category_id' result='"22"' %}
+{% include doc.html link="Models/Snippet#category_title" %}{% include example.html method='category_title' result='"People &amp; Blogs"' %}</pre>
   </div></dd>
 
   {% include dt.html title="Video’s Tags" label="warning" auth="must authenticate as the video’s account" %}
@@ -137,6 +138,18 @@ video.earnings since: 3.days.ago
 {% include doc.html link="Models/ContentDetail#hd%3F" %}{% include example.html method='hd?' result='false' %}
 {% include doc.html link="Models/ContentDetail#captioned%3F" %}{% include example.html method='captioned?' result='true' %}
 {% include doc.html link="Models/ContentDetail#licensed%3F" %}{% include example.html method='licensed?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s File Details" label="warning" auth="must authenticate as the video’s account" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/FileDetail#file_size" %}{% include example.html method='file_size' result='8000000' %}
+{% include doc.html link="Models/FileDetail#file_type" %}{% include example.html method='file_type' result='"video"' %}
+{% include doc.html link="Models/FileDetail#container" %}{% include example.html method='container' result='"mov"' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Player" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Player#embed_html" %}{% include example.html method='embed_html' result='"&lt;iframe type=\'text/html\' src=\'https://www.youtube…&gt;"' %}</pre>
   </div></dd>
 
   {% include dt.html title="Video’s Live Broadcast Details" label="success" auth="any authentication works" %}
