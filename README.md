@@ -369,6 +369,10 @@ video.concurrent_viewers #=> 0
 
 video.embed_html #=> "<iframe type='text/html' src='http://www.youtube.com/embed/BPNYv0vd78A' width='640' height='360' frameborder='0' allowfullscreen='true'/>"
 
+video.file_size #=> 8000000
+video.file_type #=> "video"
+video.container #=> "mov"
+
 video.annotations.count #=> 1
 video.annotations.first #=> #<Yt::Models::Annotation @id=...>
 ```
@@ -421,11 +425,6 @@ video.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male:
 video.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
 video.delete #=> true
-
-video.file_name #=> "a_video.mov"
-video.file_size #=> 8000000 # in bytes
-video.file_type #=> "video"
-video.container #=> "mov"
 ```
 
 *The methods above require to be authenticated as the video’s owner (see below).*

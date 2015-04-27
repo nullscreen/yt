@@ -26,7 +26,7 @@ module Yt
       # @!attribute [r] file_detail
       #   @return [Yt::Models::FileDetail] the video’s file details.
       has_one :file_detail
-      delegate :file_name, :file_size, :file_type, :container, to: :file_detail
+      delegate :file_size, :file_type, :container, to: :file_detail
 
       has_one :advertising_options_set
       delegate :ad_formats, to: :advertising_options_set

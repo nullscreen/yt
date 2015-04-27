@@ -7,7 +7,7 @@ describe Yt::Player do
 
   describe '#data' do
     let(:data) { {"key"=>"value"} }
-    specify 'returns the data the statistics set was initialized with' do
+    specify 'returns the data the player was initialized with' do
       expect(player.data).to eq data
     end
   end

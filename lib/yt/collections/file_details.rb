@@ -13,7 +13,7 @@ module Yt
 
       # @return [Hash] the parameters to submit to YouTube to get the
       #   file detail of a video.
-      # @see https://developers.google.com/youtube/v3/docs/videos#resource
+      # @see https://developers.google.com/youtube/v3/docs/videos#fileDetails
       def list_params
         super.tap do |params|
           params[:params] = file_details_params
