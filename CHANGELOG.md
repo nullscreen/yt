@@ -7,7 +7,7 @@ For more information about changelogs, check
 [Vandamme](http://tech-angels.github.io/vandamme).
 
 
-## 0.15.3 - unreleased
+## 0.15.3 - 2015-04-27
 
 * [FEATURE] New `file_size`, `file_type`, `container` methods for Yt::Video.
 * [BUGFIX] Retrieve `category_id` also for videos obtained through a search.
