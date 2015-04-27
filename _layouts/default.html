@@ -9,19 +9,19 @@
           <div class="hidden-xs hidden-print col-sm-3" role="complementary">
             <ol start="0" class="sidebar" data-spy="affix">
               {% if page.url == '/index.html' %}
-                <li><a href="{{ '/index.html' | prepend: site.baseurl }}" class="active">Installing Yt</a></li>
+                <li><a href="{{ site.baseurl }}/index.html" class="active">Installing Yt</a></li>
               {% else %}
-                <li><a href="{{ '/index.html' | prepend: site.baseurl }}">Installing Yt</a></li>
+                <li><a href="{{ site.baseurl }}/index.html">Installing Yt</a></li>
               {% endif %}
               {% if page.url == '/videos.html' %}
-                <li><a href="{{ '/videos.html' | prepend: site.baseurl }}" class="active">Videos</a></li>
+                <li><a href="{{ site.baseurl }}/videos.html" class="active">Videos</a></li>
               {% else %}
-                <li><a href="{{ '/videos.html' | prepend: site.baseurl }}">Videos</a></li>
+                <li><a href="{{ site.baseurl }}/videos.html">Videos</a></li>
               {% endif %}
               {% if page.url == '/annotations.html' %}
-                <li><a href="{{ '/annotations.html' | prepend: site.baseurl }}" class="active">Annotations</a></li>
+                <li><a href="{{ site.baseurl }}/annotations.html" class="active">Annotations</a></li>
               {% else %}
-                <li><a href="{{ '/annotations.html' | prepend: site.baseurl }}">Annotations</a></li>
+                <li><a href="{{ site.baseurl }}/annotations.html">Annotations</a></li>
               {% endif %}
             </ol>
 

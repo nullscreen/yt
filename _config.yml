@@ -1,7 +1,6 @@
 markdown: kramdown
-
 permalink: none
-
+baseurl: /yt
 defaults:
   -
     scope:

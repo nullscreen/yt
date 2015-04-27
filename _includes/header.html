@@ -1,6 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
-    <style>body {padding-top: 70px}</style>
     <div class="navbar-header">
       <button class="navbar-toggle" data-target="#navbar-collapse-1" data-toggle="collapse" type="button">
         <span class="sr-only">Toggle navigation</span>
@@ -9,8 +8,8 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a class="navbar-brand" href="{{ "/" | prepend: site.baseurl }}">
-        <img alt="Yt" style="display: inline; height: 39px" src="{{ "images/robot.png" | prepend: site.baseurl }}">
+      <a class="navbar-brand" href="{{ site.baseurl }}/">
+        <img alt="Yt" src="{{ site.baseurl }}/images/robot.png">
         Yt · The reliable YouTube API Ruby client
       </a>
     </div>
@@ -19,7 +18,7 @@
       <ul class="nav navbar-nav navbar-right visible-xs-block">
         {% for page in site.posts reversed %}
           {% if page.title %}
-          <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+          <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
           {% endif %}
         {% endfor %}
       </ul>

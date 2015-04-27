@@ -33,7 +33,7 @@ video.description
 
 <p>
   Other methods <strong>acts on behalf of YouTube accounts</strong> (e.g.: like a video, mark a video as private).<br />
-  To use these methods (marked with  <span class="label label-warning">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the account you want to act as</a>, and pass the account as the <code>:auth</code> parameter:
+  To use these methods (marked with  <span class="label label-warning">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the account you want to act as, and pass the account as the <code>:auth</code> parameter:
 </p>
 
 {% highlight ruby %}
@@ -48,7 +48,7 @@ video.like
 
 <p>
   Lastly, some methods <strong>acts on behalf of YouTube content owners</strong> (e.g.: fetch the earnings of a video).<br />
-  To use these methods (marked with  <span class="label label-danger">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the content owner</a>, and pass the content owner as the <code>:auth</code> parameter:
+  To use these methods (marked with  <span class="label label-danger">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the content owner, and pass the content owner as the <code>:auth</code> parameter:
 </p>
 
 {% highlight ruby %}
@@ -118,7 +118,7 @@ video.earnings since: 3.days.ago
 
   {% include dt.html title="Video’s Updates" label="warning" auth="must authenticate as the video’s account or content owner" %}
   <dd><div class="highlight"><pre>
-{% include doc.html link="Models/Resource#update" %}{% include example.html method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"New title"</span><span class="p">,</span> <span class="ss">license</span><span class="p">:</span> <span class="s2">"youtube"</span><span class="p">,</span> <span class="ss">tags</span><span class="p">:</span> <span class="o">[</span><span class="s2">"new"</span><span class="p"><span class="o">]</span>' result='true' %}
+{% include doc.html link="Models/Resource#update" %}{% include example.html method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"New title"</span><span class="p">,</span> <span class="ss">license</span><span class="p">:</span> <span class="s2">"youtube"</span><span class="p">,</span> <span class="ss">tags</span><span class="p">:</span> <span class="o">[</span><span class="s2">"new"</span><span class="o">]</span>' result='true' %}
 {% include doc.html link="Models/Video#upload_thumbnail" %}{% include example.html method='upload_thumbnail' params=' <span class="s2">"http://example.com/new_thumbnail.jpg"</span>' result='true' %}
 {% include doc.html link="Models/Video#delete" %}{% include example.html method='delete' result='false' %}</pre>
   </div></dd>
