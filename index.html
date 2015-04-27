@@ -1,1 +1,21 @@
-<script>window.location.href = "http://github.com/fullscreen/yt";</script>
+---
+title:  "Installing Yt"
+h2: "Installing Yt"
+---
+
+<p>Add Yt to any bundled Ruby project by adding the line <code>gem 'yt', '~> {{ page.version }}'</code> to its Gemfile.</p>
+<p>You can also install Yt in your system by opening the Terminal and typing <code>gem install yt</code>.</p>
+<p>If you need to update version, type <code>gem update yt</code>, or run <code>bundle update</code> if inside a Ruby project.</p>
+
+<hr/>
+
+<p>Once Yt is installed, you can open the Terminal and type:</p>
+{% highlight sh %}
+yt info
+{% endhighlight %}
+<p>This will print out the version number and the annotation fetched from <a href='https://youtu.be/BPNYv0vd78A'>this YouTube video</a>.</p>
+<p>If you see the following message, congratulations! You are ready to start the tutorial.</p>
+{% highlight sh %}
+Yt version <VERSION NUMBER>
+Hello, world!
+{% endhighlight %}

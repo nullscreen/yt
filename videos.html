@@ -1,0 +1,233 @@
+---
+title:  "Yt::Video"
+h2: "Videos"
+---
+
+<p>
+  <code>Yt::Video</code> represents a YouTube video.
+  Initialize a <code>Yt::Video</code> object using either the YouTube ID or URL:
+</p>
+
+{% highlight ruby %}
+video = Yt::Video.new id:  'BPNYv0vd78A'
+video = Yt::Video.new url: 'http://youtube.com/watch?v=BPNYv0vd78A'
+video = Yt::Video.new url: 'https://youtu.be/BPNYv0vd78A'
+# => All these methods return #<Yt::Video:0x... @id="BPNYv0vd78A">
+{% endhighlight %}
+
+<hr />
+<h4>Authentication</h4>
+
+<p>
+  Most methods of <code>Yt::Video</code> <strong>retrieve public data</strong> from YouTube (e.g.: fetch a video’s title and description).<br />
+  To use these methods (marked with <span class="label label-success">&nbsp;</span> below), you only need to <a href="https://github.com/Fullscreen/yt#apps-that-do-not-require-user-interactions">get a Server API key from Google</a> and configure:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.api_key = "<your api key>" ## replace with your API key
+
+video = Yt::Video.new id: 'BPNYv0vd78A'     ## use any public video ID
+video.description
+# => "A test video for the Yt gem"
+{% endhighlight %}
+
+<p>
+  Other methods <strong>acts on behalf of YouTube accounts</strong> (e.g.: like a video, mark a video as private).<br />
+  To use these methods (marked with  <span class="label label-warning">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the account you want to act as</a>, and pass the account as the <code>:auth</code> parameter:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.client_id = "<your ID>"           ## replace with your client ID
+Yt.configuration.client_secret = "<your secret>"   ## replace with your client secret
+account = Yt::Account.new refresh_token: "<token>" ## use the account’s refresh token
+
+video = Yt::Video.new id: 'BPNYv0vd78A', auth: account
+video.like
+# => true (the video was liked on on behalf of the account)
+{% endhighlight %}
+
+<p>
+  Lastly, some methods <strong>acts on behalf of YouTube content owners</strong> (e.g.: fetch the earnings of a video).<br />
+  To use these methods (marked with  <span class="label label-danger">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the content owner</a>, and pass the content owner as the <code>:auth</code> parameter:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.client_id = "<your ID>"           ## replace with your client ID
+Yt.configuration.client_secret = "<your secret>"   ## replace with your client secret
+owner = Yt::ContentOwner.new owner_name: "<name>", ## replace with owner’s credentials
+                             refresh_token: "<token>"
+
+video = Yt::Video.new id: 'BPNYv0vd78A', auth: owner
+video.earnings since: 3.days.ago
+# => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 3.0, Fri, 10 May 2014 => …}
+{% endhighlight %}
+
+<hr />
+<h4>List of <code>Yt::Video</code> methods</h4>
+<dl>
+
+  {% include dt.html title="Video’s ID" label="success" auth="no authentication required" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Resource#id" %}{% include example.html method='id' result='"BPNYv0vd78A"' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Snippet" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Snippet#title" %}{% include example.html method='title' result='"Yt info"' %}
+{% include doc.html link="Models/Snippet#description" %}{% include example.html method='description' result='"A test video for the Yt gem"' %}
+{% include doc.html link="Models/Snippet#published_at" %}{% include example.html method='published_at' result='2015-03-31 06:46:46 UTC' %}
+{% include doc.html link="Models/Snippet#thumbnail_url" %}{% include example.html method='thumbnail_url' result='"https://i.ytimg.com/vi/BPNYv0vd78A/default.jpg"' %}
+{% include doc.html link="Models/Snippet#category_id" %}{% include example.html method='category_id' result='"22"' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Tags" label="warning" auth="must authenticate as the video’s account" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Snippet#tags" %}{% include example.html method='tags' result='["test", "video"]' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Channel" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Snippet#channel_id" %}{% include example.html method='channel_id' result='"UCwCnUcLcb9-eSrHa_RQGkQQ"' %}
+{% include doc.html link="Models/Snippet#channel_title" %}{% include example.html method='channel_title' result='"Yt test Channel"' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Statistics" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/StatisticsSet#view_count" %}{% include example.html method='view_count' result='9' %}
+{% include doc.html link="Models/StatisticsSet#like_count" %}{% include example.html method='like_count' result='1' %}
+{% include doc.html link="Models/StatisticsSet#dislike_count" %}{% include example.html method='dislike_count' result='0' %}
+{% include doc.html link="Models/StatisticsSet#favorite_count" %}{% include example.html method='favorite_count' result='3' %}
+{% include doc.html link="Models/StatisticsSet#comment_count" %}{% include example.html method='comment_count' result='1' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Privacy Status" label="success" auth="any authentication works (for public videos)" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Status#privacy_status" %}{% include example.html method='privacy_status' result='"public"' %}
+{% include doc.html link="Models/Status#public%3F" %}{% include example.html method='public?' result='true' %}
+{% include doc.html link="Models/Status#unlisted%3F" %}{% include example.html method='unlisted?' result='false' %}
+{% include doc.html link="Models/Status#private%3F" %}{% include example.html method='private?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Rating" label="warning" auth="must authenticate as a YouTube account" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Video#like" %}{% include example.html method='like' result='true' %}
+{% include doc.html link="Models/Video#dislike" %}{% include example.html method='dislike' result='true' %}
+{% include doc.html link="Models/Video#unlike" %}{% include example.html method='unlike' result='true' %}
+{% include doc.html link="Models/Video#liked%3F" %}{% include example.html method='liked?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Updates" label="warning" auth="must authenticate as the video’s account or content owner" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Resource#update" %}{% include example.html method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"New title"</span><span class="p">,</span> <span class="ss">license</span><span class="p">:</span> <span class="s2">"youtube"</span><span class="p">,</span> <span class="ss">tags</span><span class="p">:</span> <span class="o">[</span><span class="s2">"new"</span><span class="p"><span class="o">]</span>' result='true' %}
+{% include doc.html link="Models/Video#upload_thumbnail" %}{% include example.html method='upload_thumbnail' params=' <span class="s2">"http://example.com/new_thumbnail.jpg"</span>' result='true' %}
+{% include doc.html link="Models/Video#delete" %}{% include example.html method='delete' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s License" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Status#license" %}{% include example.html method='license' result='"youtube"' %}
+{% include doc.html link="Models/Status#licensed_as_creative_commons%3F" %}{% include example.html method='licensed_as_creative_commons?' result='false' %}
+{% include doc.html link="Models/Status#licensed_as_standard_youtube%3F" %}{% include example.html method='licensed_as_standard_youtube?' result='true' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Content Details" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/ContentDetail#duration" %}{% include example.html method='duration' result='321' %}
+{% include doc.html link="Models/ContentDetail#stereoscopic%3F" %}{% include example.html method='stereoscopic?' result='false' %}
+{% include doc.html link="Models/ContentDetail#hd%3F" %}{% include example.html method='hd?' result='false' %}
+{% include doc.html link="Models/ContentDetail#captioned%3F" %}{% include example.html method='captioned?' result='true' %}
+{% include doc.html link="Models/ContentDetail#licensed%3F" %}{% include example.html method='licensed?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Live Broadcast Details" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Snippet#live_broadcast_content" %}{% include example.html method='live_broadcast_content' result='"live"' %}
+{% include doc.html link="Models/LiveStreamingDetail#scheduled_start_time" %}{% include example.html method='scheduled_start_time' result='2015-03-31 06:16:46 UTC' %}
+{% include doc.html link="Models/LiveStreamingDetail#scheduled_end_time" %}{% include example.html method='scheduled_end_time' result='2015-03-31 07:16:46 UTC' %}
+{% include doc.html link="Models/LiveStreamingDetail#actual_start_time" %}{% include example.html method='actual_start_time' result='2015-03-31 06:16:48 UTC' %}
+{% include doc.html link="Models/LiveStreamingDetail#actual_end_time" %}{% include example.html method='actual_end_time' result='nil' %}
+{% include doc.html link="Models/LiveStreamingDetail#concurrent_viewers" %}{% include example.html method='concurrent_viewers' result='12' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Upload Details" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Status#deleted%3F" %}{% include example.html method='deleted?' result='false' %}
+{% include doc.html link="Models/Status#failed%3F" %}{% include example.html method='failed?' result='false' %}
+{% include doc.html link="Models/Status#processed%3F" %}{% include example.html method='processed?' result='true' %}
+{% include doc.html link="Models/Status#rejected%3F" %}{% include example.html method='rejected?' result='false' %}
+{% include doc.html link="Models/Status#uploaded%3F" %}{% include example.html method='uploaded?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Failure Reasons" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Status#uses_unsupported_codec%3F" %}{% include example.html method='uses_unsupported_codec?' result='false' %}
+{% include doc.html link="Models/Status#has_failed_conversion%3F" %}{% include example.html method='has_failed_conversion?' result='false' %}
+{% include doc.html link="Models/Status#empty%3F" %}{% include example.html method='empty?' result='false' %}
+{% include doc.html link="Models/Status#invalid%3F" %}{% include example.html method='invalid?' result='false' %}
+{% include doc.html link="Models/Status#too_small%3F" %}{% include example.html method='too_small?' result='false' %}
+{% include doc.html link="Models/Status#aborted%3F" %}{% include example.html method='aborted?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Rejection Reasons" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Status#claimed%3F" %}{% include example.html method='claimed?' result='false' %}
+{% include doc.html link="Models/Status#infringes_copyright%3F" %}{% include example.html method='infringes_copyright?' result='false' %}
+{% include doc.html link="Models/Status#duplicate%3F" %}{% include example.html method='duplicate?' result='false' %}
+{% include doc.html link="Models/Status#too_long%3F" %}{% include example.html method='too_long?' result='false' %}
+{% include doc.html link="Models/Status#violates_terms_of_use%3F" %}{% include example.html method='violates_terms_of_use?' result='false' %}
+{% include doc.html link="Models/Status#inappropriate%3F" %}{% include example.html method='inappropriate?' result='false' %}
+{% include doc.html link="Models/Status#infringes_trademark%3F" %}{% include example.html method='infringes_trademark?' result='false' %}
+{% include doc.html link="Models/Status#belongs_to_closed_account%3F" %}{% include example.html method='belongs_to_closed_account?' result='false' %}
+{% include doc.html link="Models/Status#belongs_to_suspended_account%3F" %}{% include example.html method='belongs_to_suspended_account?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Visibility Status" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Status#scheduled%3F" %}{% include example.html method='scheduled?' result='true' %}
+{% include doc.html link="Models/Status#scheduled_at" %}{% include example.html method='scheduled_at' result='2015-03-31 06:46:46 UTC' %}
+{% include doc.html link="Models/Status#embeddable%3F" %}{% include example.html method='embeddable?' result='true' %}
+{% include doc.html link="Models/Status#has_public_stats_viewable%3F" %}{% include example.html method='has_public_stats_viewable?' result='true' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Associations" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Video#annotations" %}{% include example.html method='annotations' result='#&lt;Yt::Collections::Associations …&gt;' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Analytics" label="warning" auth="must authenticate as the video’s account or content owner" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Video#views" %}{% include example.html method='views' result='{Wed, 8 May 2014 =&gt; 12.0, Thu, 9 May 2014 => …}' %}
+{% include doc.html link="Models/Video#comments" %}{% include example.html method='comments' result='{Wed, 8 May 2014 =&gt; 7.0, Thu, 9 May 2014 => …}' %}
+{% include doc.html link="Models/Video#likes" %}{% include example.html method='likes' result='{Wed, 8 May 2014 =&gt; 32.0, Thu, 9 May 2014 => …}' %}
+{% include doc.html link="Models/Video#dislikes" %}{% include example.html method='dislikes' result='{Wed, 8 May 2014 =&gt; 87.0, Thu, 9 May 2014 => …}' %}
+{% include doc.html link="Models/Video#shares" %}{% include example.html method='shares' result='{Wed, 8 May 2014 =&gt; 44.0, Thu, 9 May 2014 => …}' %}
+{% include doc.html link="Models/Video#subscribers_gained" %}{% include example.html method='subscribers_gained' result='{Wed, 8 May 2014 =&gt; 32.0, …}' %}
+{% include doc.html link="Models/Video#subscribers_lost" %}{% include example.html method='subscribers_lost' result='{Wed, 8 May 2014 =&gt; 1.0, …}' %}
+{% include doc.html link="Models/Video#favorites_added" %}{% include example.html method='favorites_added' result='{Wed, 8 May 2014 =&gt; 181.0, …}' %}
+{% include doc.html link="Models/Video#favorites_removed" %}{% include example.html method='favorites_removed' result='{Wed, 8 May 2014 =&gt; 0.0, …}' %}
+{% include doc.html link="Models/Video#average_view_duration" %}{% include example.html method='average_view_duration' result='{Wed, 8 May 2014 =&gt; 456.0, …}' %}
+{% include doc.html link="Models/Video#average_view_percentage" %}{% include example.html method='average_view_percentage' result='{Wed, 8 May 2014 =&gt; 38.85, …}' %}
+{% include doc.html link="Models/Video#estimated_minutes_watched" %}{% include example.html method='estimated_minutes_watched' result='{Wed, 8 May 2014 =&gt; 124.0, …}' %}
+{% include doc.html link="Models/Video#annotation_clicks" %}{% include example.html method='annotation_clicks' result='{Wed, 8 May 2014 =&gt; 329.0, …}' %}
+{% include doc.html link="Models/Video#annotation_click_through_rate" %}{% include example.html method='annotation_click_through_rate' result='{Wed, 8 May 2014 =&gt; 0.3, …}' %}
+{% include doc.html link="Models/Video#annotation_close_rate" %}{% include example.html method='annotation_close_rate' result='{Wed, 8 May 2014 =&gt; 0.1, …}' %}
+
+{% include doc.html link="Models/Video#views" %}{% include example.html method='views' param=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:traffic_source</span>' result='{advertising: 53.0, channel: 7.0, …}' %}
+{% include doc.html link="Models/Video#views" %}{% include example.html method='views' param=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:playback_location</span>' result='{embedded: 53.0, watch: 467.0, …}' %}
+{% include doc.html link="Models/Video#views" %}{% include example.html method='views' param=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:embedded_player_location</span>' result='{"fullscreen.net" =&gt; 92.0, …}' %}
+{% include doc.html link="Models/Video#views" %}{% include example.html method='views' param=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:related_video</span>' result='{#&lt;Yt::Video @id=…&gt; =&gt; 7.0, …}' %}
+
+{% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html method='viewer_percentage' result="{female: {'18-24' =&gt; 4.12, '25-34' =&gt; …}, …}" %}
+{% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html method='viewer_percentage' param=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:gender</span>' result="{female: 12.3, male: 87.7}" %}
+{% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html method='viewer_percentage' param=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Video’s Analytics" label="danger" auth="must authenticate as the video’s content owner" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/AdvertisingOptionsSet#ad_formats" %}{% include example.html method='ad_formats' result='["standard_instream", "trueview_instream"]' %}
+{% include doc.html link="Models/Video#earnings" %}{% include example.html method='earnings' result='{Wed, 8 May 2014 => 455.0, Thu, 9 May 2014 => 312.0, …}' %}
+{% include doc.html link="Models/Video#impressions" %}{% include example.html method='impressions' result='{Wed, 8 May 2014 => 84734.0, Thu, 9 May 2014 => …}' %}
+{% include doc.html link="Models/Video#monetized_playbacks" %}{% include example.html method='monetized_playbacks' result='{Wed, 8 May 2014 => 53345.0, …}' %}</pre>
+  </div></dd>
+
+</dl>

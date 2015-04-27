@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+  <body>
+    {% include header.html %}
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="hidden-xs hidden-print col-sm-3" role="complementary">
+            <ol start="0" class="sidebar" data-spy="affix">
+              {% if page.url == '/index.html' %}
+                <li><a href="{{ '/index.html' | prepend: site.baseurl }}" class="active">Installing Yt</a></li>
+              {% else %}
+                <li><a href="{{ '/index.html' | prepend: site.baseurl }}">Installing Yt</a></li>
+              {% endif %}
+              {% if page.url == '/videos.html' %}
+                <li><a href="{{ '/videos.html' | prepend: site.baseurl }}" class="active">Videos</a></li>
+              {% else %}
+                <li><a href="{{ '/videos.html' | prepend: site.baseurl }}">Videos</a></li>
+              {% endif %}
+              {% if page.url == '/annotations.html' %}
+                <li><a href="{{ '/annotations.html' | prepend: site.baseurl }}" class="active">Annotations</a></li>
+              {% else %}
+                <li><a href="{{ '/annotations.html' | prepend: site.baseurl }}">Annotations</a></li>
+              {% endif %}
+            </ol>
+
+          </div>
+          <div class="col-xs-12 col-sm-9" role="main">
+            <h2>{{ page.h2 }}</h2>
+            {{ content }}
+          </div>
+        </div>
+      </div>
+    </main>
+    {% include footer.html %}
+  </body>
+</html>

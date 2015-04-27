@@ -1,0 +1,10 @@
+markdown: kramdown
+
+permalink: none
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout:  "default"
