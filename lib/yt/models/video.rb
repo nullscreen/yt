@@ -156,6 +156,20 @@ module Yt
         snippet.tags
       end
 
+      # Returns the category ID associated with the video.
+      # Since YouTube API only returns categoryID on Videos#list, the memoized
+      # @snippet is erased if the video was instantiated through Video#search
+      # (e.g., by calling account.videos or channel.videos), so that the full
+      # snippet (with categoryID) is loaded, rather than the partial one.
+      # @see https://developers.google.com/youtube/v3/docs/videos
+      # @return [String] ID of the YouTube category associated with the video.
+      def category_id
+        unless snippet.category_id.present? || snippet.complete?
+          @snippet = nil
+        end
+        snippet.category_id
+      end
+
       # Deletes the video.
       #
       # This method requires {Resource#auth auth} to return an authenticated

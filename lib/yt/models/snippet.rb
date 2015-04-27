@@ -147,9 +147,9 @@ module Yt
       end
 
       # Returns whether YouTube API includes all attributes in this snippet.
-      # For instance, YouTube API only returns tags on Videos#list, not on
-      # Videos#search. And returns position on PlaylistItems#list, not on
-      # PlaylistItems#insert.
+      # For instance, YouTube API only returns tags and categoryId on
+      # Videos#list, not on Videos#search. And returns position on
+      # PlaylistItems#list, not on PlaylistItems#insert.
       # This method is used to guarantee that, when a video was instantiated
       # by one of the methods above, an additional call to is made to retrieve
       # the full snippet in case an attribute is missing.

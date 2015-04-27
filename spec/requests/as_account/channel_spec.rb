@@ -24,7 +24,7 @@ describe Yt::Channel, :device_app do
     describe '.videos' do
       let(:video) { channel.videos.first }
 
-      specify 'returns the videos in the channel without their tags' do
+      specify 'returns the videos in the channel without tags or category ID' do
         expect(video).to be_a Yt::Video
         expect(video.snippet).not_to be_complete
       end
