@@ -8,7 +8,7 @@ body                          {padding-top: 70px}
 
 h4, .sidebar                  {margin-top: 20px}
 h5                            {margin-top: 15px}
-pre                           {margin-bottom: 20px}
+pre                           {margin-bottom: 25px}
 dl                            {margin-top: 30px}
 dt                            {margin-bottom: 3px}
 
@@ -20,9 +20,12 @@ dt                            {margin-bottom: 3px}
 @font-face                    {font-family: 'proxima_nova_cond_bold';    font-weight: normal; font-style: normal; src: url('../fonts/ProximaNovaCond-Bold.eot');     src: url('../fonts/ProximaNovaCond-Bold.eot?#iefix')     format('embedded-opentype'), url('../fonts/ProximaNovaCond-Bold.otf')      format('opentype'), url('../fonts/ProximaNovaCond-Bold.woff') format('woff'),        url('../fonts/ProximaNovaCond-Bold.ttf') format('truetype'),          url('../fonts/ProximaNovaCond-Bold.svg#ProximaNovaCond-Bold') format('svg'); }
 @font-face                    {font-family: 'proxima_nova_cond_regular'; font-weight: normal; font-style: normal; src: url('../fonts/ProximaNovaCond-Regular.eot');  src: url('../fonts/ProximaNovaCond-Regular.eot?#iefix')  format('embedded-opentype'), url('../fonts/ProximaNovaCond-Regular.otf')   format('opentype'), url('../fonts/ProximaNovaCond-Regular.woff') format('woff'),     url('../fonts/ProximaNovaCond-Regular.ttf') format('truetype'),          url('../fonts/ProximaNovaCond-Regular.svg#ProximaNovaCond-Regular') format('svg'); }
 body                          {font-family: 'proxima_nova',Helvetica,Arial,sans-serif}
-.sidebar                      {font-family: 'proxima_nova_cond_regular',Helvetica,Arial,sans-serif; font-size: 1.3em}
+.sidebar                      {font-family: 'proxima_nova_cond_regular',Helvetica,Arial,sans-serif}
 .sidebar .active              {font-family: 'proxima_nova_cond_bold',Helvetica,Arial,sans-serif}
 pre, .sidebar                 {line-height: 1.8em}
+
+.sidebar                      {font-size: 1.3em}
+dt                            {font-size: 1.1em}
 
 /* COLORS */
 .navbar-default .navbar-brand {color: #10a17c}
