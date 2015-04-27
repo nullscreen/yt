@@ -111,6 +111,11 @@ module Yt
       delegate :view_count, :like_count, :dislike_count, :favorite_count,
         :comment_count, to: :statistics_set
 
+      # @!attribute [r] player
+      #   @return [Yt::Models::Player] the player for the video.
+      has_one :player
+      delegate :embed_html, to: :player
+
       # @!attribute [r] resumable_sessions
       #   @return [Yt::Collections::ResumableSessions] the sessions used to
       #     upload thumbnails using the resumable upload protocol.

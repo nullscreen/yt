@@ -63,6 +63,7 @@ describe Yt::Video, :device_app do
       expect(video.scheduled_start_time).to be_nil
       expect(video.scheduled_end_time).to be_nil
       expect(video.concurrent_viewers).to be_nil
+      expect(video.embed_html).to be_a String
     end
 
     it { expect{video.update}.to fail }
