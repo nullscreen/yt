@@ -24,12 +24,16 @@ module Yt
           attributes[:status] = data['status']
           attributes[:content_details] = data['contentDetails']
           attributes[:statistics] = data['statistics']
+          attributes[:video_category] = data['videoCategory']
           attributes[:auth] = @auth
         end
       end
 
       def eager_load_items_from(items)
         if included_relationships.any?
+          include_category = included_relationships.delete(:category)
+          included_relationships.append(:snippet).uniq! if include_category
+
           ids = items.map{|item| item['id']['videoId']}
           parts = included_relationships.map{|r| r.to_s.camelize(:lower)}
           conditions = {id: ids.join(','), part: parts.join(',')}
@@ -44,6 +48,17 @@ module Yt
                 when 'statistics' then video.statistics_set.data
                 when 'contentDetails' then video.content_detail.data
               end
+            end
+          end
+
+          if include_category
+            category_ids = items.map{|item| item['snippet']['categoryId']}.uniq
+            conditions = {id: category_ids.join(',')}
+            video_categories = Collections::VideoCategories.new(auth: @auth).where conditions
+
+            items.each do |item|
+              video_category = video_categories.find{|v| v.id == item['snippet']['categoryId']}
+              item['videoCategory'] = video_category.data
             end
           end
         end

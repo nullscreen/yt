@@ -35,6 +35,11 @@ module Yt
       #   @return [Yt::Models::Rating] the video’s rating.
       has_one :rating
 
+      # @!attribute [r] video_category
+      #   @return [Yt::Models::VideoCategory] the video’s category.
+      has_one :video_category
+      delegate :title, to: :video_category, prefix: :category
+
       # @!attribute [r] live_streaming_detail
       #   @return [Yt::Models::LiveStreamingDetail] live streaming detail.
       has_one :live_streaming_detail
@@ -139,6 +144,9 @@ module Yt
         if options[:file_details]
           @file_detail = FileDetail.new data: options[:file_details]
         end
+        if options[:video_category]
+          @video_category = VideoCategory.new data: options[:video_category]
+        end
       end
 
       # Returns the list of keyword tags associated with the video.
@@ -154,6 +162,20 @@ module Yt
           @snippet = nil
         end
         snippet.tags
+      end
+
+      # Returns the category ID associated with the video.
+      # Since YouTube API only returns categoryID on Videos#list, the memoized
+      # @snippet is erased if the video was instantiated through Video#search
+      # (e.g., by calling account.videos or channel.videos), so that the full
+      # snippet (with categoryID) is loaded, rather than the partial one.
+      # @see https://developers.google.com/youtube/v3/docs/videos
+      # @return [String] ID of the YouTube category associated with the video.
+      def category_id
+        unless snippet.category_id.present? || snippet.complete?
+          @snippet = nil
+        end
+        snippet.category_id
       end
 
       # Deletes the video.

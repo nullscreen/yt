@@ -21,9 +21,10 @@ describe Yt::Account, :device_app do
   describe '.videos' do
     let(:video) { $account.videos.where(order: 'viewCount').first }
 
-    specify 'returns the videos uploaded by the account with their tags' do
+    specify 'returns the videos uploaded by the account with their tags and category ID' do
       expect(video).to be_a Yt::Video
       expect(video.tags).not_to be_empty
+      expect(video.category_id).not_to be_nil
     end
 
     describe '.where(q: query_string)' do

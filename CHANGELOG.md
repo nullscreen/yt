@@ -10,6 +10,8 @@ For more information about changelogs, check
 ## 0.15.3 - unreleased
 
 * [FEATURE] New `file_size`, `file_type`, `container` methods for Yt::Video.
+* [BUGFIX] Retrieve `category_id` also for videos obtained through a search.
+* [FEATURE] Add .includes(:category) to .videos in order to eager-load category title and ID of a collection of videos
 
 ## 0.15.2 - 2015-04-27
 

@@ -24,7 +24,7 @@ describe Yt::Channel, :device_app do
     describe '.videos' do
       let(:video) { channel.videos.first }
 
-      specify 'returns the videos in the channel without their tags' do
+      specify 'returns the videos in the channel without tags or category ID' do
         expect(video).to be_a Yt::Video
         expect(video.snippet).not_to be_complete
       end
@@ -62,6 +62,14 @@ describe Yt::Channel, :device_app do
         end
       end
 
+      describe '.includes(:category)' do
+        let(:video) { channel.videos.includes(:category, :status).first }
+
+        specify 'eager-loads the category (id and title) of each video' do
+          expect(video.instance_variable_defined? :@snippet).to be true
+          expect(video.instance_variable_defined? :@video_category).to be true
+        end
+      end
 
       describe 'when the channel has more than 500 videos' do
         let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
