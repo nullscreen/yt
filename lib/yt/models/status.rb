@@ -46,7 +46,7 @@ module Yt
       # Returns the upload status of a video.
       # @return [String] if the resource is a video, the status of the
       #   uploaded video. Valid values are: deleted, failed, processed,
-      #   rejected, uploaded.
+      #   rejected, uploading.
       # @return [nil] if the resource is not a video.
       has_attribute :upload_status
 
@@ -84,12 +84,17 @@ module Yt
         upload_status == 'rejected' if video?
       end
 
-      # Returns whether a video was successfully uploaded to YouTube.
-      # @return [Boolean] if the resource is a video, whether the video was
-      #   successfully uploaded.
+      # Returns whether a video is being uploaded to YouTube.
+      # @return [Boolean] if the resource is a video, whether the video is
+      #   being uploaded.
       # @return [nil] if the resource is not a video.
-      def uploaded?
+      def uploading?
         upload_status == 'uploaded' if video?
+      end
+
+      # @deprecated Use {uploading?} instead.
+      def uploaded?
+        uploading?
       end
 
 # Failure reason (Video only)

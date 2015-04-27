@@ -6,6 +6,17 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.16.0 - 2015-04-27
+
+**How to upgrade**
+
+If your code never calls `video.uploaded?`, then you are good to go.
+
+If it does, then replace your calls with `video.uploading?`.
+In fact, the YouTube constant `uploaded` identifies the status where a
+video is **being uploaded**.
+
+* [ENHANCEMENT] Rename `uploaded?` to `uploading?` to avoid confusion.
 
 ## 0.15.3 - 2015-04-27
 

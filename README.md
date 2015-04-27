@@ -329,7 +329,7 @@ video.category_id #=> "22"
 video.live_broadcast_content #=> "none"
 
 video.public? #=> true
-video.uploaded? #=> false
+video.uploading? #=> false
 video.rejected? #=> false
 video.failed? #=> true
 video.processed? #=> false
