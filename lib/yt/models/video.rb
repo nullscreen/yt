@@ -144,6 +144,9 @@ module Yt
         if options[:file_details]
           @file_detail = FileDetail.new data: options[:file_details]
         end
+        if options[:video_category]
+          @video_category = VideoCategory.new data: options[:video_category]
+        end
       end
 
       # Returns the list of keyword tags associated with the video.

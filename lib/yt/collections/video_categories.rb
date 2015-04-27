@@ -27,6 +27,7 @@ module Yt
         {}.tap do |params|
           params[:part] = 'snippet'
           params[:id] = @parent.category_id if @parent
+          apply_where_params! params
         end
       end
     end
