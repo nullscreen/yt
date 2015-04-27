@@ -11,6 +11,7 @@ For more information about changelogs, check
 
 * [FEATURE] New `file_size`, `file_type`, `container` methods for Yt::Video.
 * [BUGFIX] Retrieve `category_id` also for videos obtained through a search.
+* [FEATURE] New `category_title` method for Yt::Video.
 
 ## 0.15.2 - 2015-04-27
 

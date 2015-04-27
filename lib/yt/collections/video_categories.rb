@@ -1,8 +1,8 @@
 require 'yt/collections/base'
+require 'yt/models/video_category'
 
 module Yt
   module Collections
-    # Provides methods to interact with a collection of YouTube video categories.
     class VideoCategories < Base
 
     private
@@ -19,18 +19,16 @@ module Yt
       # @see https://developers.google.com/youtube/v3/docs/videoCategories/list
       def list_params
         super.tap do |params|
-          params[:params] = video_category_params
+          params[:params] = video_categories_params
         end
       end
 
-      def video_category_params
+      def video_categories_params
         {}.tap do |params|
           params[:part] = 'snippet'
           params[:id] = @parent.category_id if @parent
-          apply_where_params! params
         end
       end
-
     end
   end
 end

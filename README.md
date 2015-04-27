@@ -311,6 +311,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve the advertising options of a video
 * retrieve the HTML code of the video player
 * retrieve the file details of a video
+* retrieve the category title of a video
 
 ```ruby
 # Videos can be initialized with ID or URL
@@ -372,6 +373,8 @@ video.embed_html #=> "<iframe type='text/html' src='http://www.youtube.com/embed
 video.file_size #=> 8000000
 video.file_type #=> "video"
 video.container #=> "mov"
+
+video.category_title #=> "People & Blogs"
 
 video.annotations.count #=> 1
 video.annotations.first #=> #<Yt::Models::Annotation @id=...>
