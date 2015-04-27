@@ -98,12 +98,12 @@ describe Yt::Status do
   describe '#uploaded?' do
     context 'given fetching a status returns uploadStatus "uploaded"' do
       let(:data) { {"uploadStatus"=>"uploaded"} }
-      it { expect(status).to be_uploaded }
+      it { expect(status).to be_uploading }
     end
 
     context 'given fetching a status does not return uploadStatus "uploaded"' do
       let(:data) { {"uploadStatus"=>"failed"} }
-      it { expect(status).not_to be_uploaded }
+      it { expect(status).not_to be_uploading }
     end
   end
 

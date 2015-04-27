@@ -14,7 +14,7 @@ module Yt
         :scheduled_at, :publish_at, :scheduled?, :too_long?, :violates_terms_of_use?,
         :inappropriate?, :infringes_trademark?, :belongs_to_closed_account?,
         :belongs_to_suspended_account?, :licensed_as_creative_commons?,
-        :licensed_as_standard_youtube?, :has_public_stats_viewable?,
+        :licensed_as_standard_youtube?, :has_public_stats_viewable?, :uploading?,
         :public_stats_viewable, :embeddable, :embeddable?, :license, to: :status
 
       # @!attribute [r] content_detail

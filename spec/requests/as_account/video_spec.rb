@@ -36,7 +36,7 @@ describe Yt::Video, :device_app do
       expect(video.failed?).to be_in [true, false]
       expect(video.processed?).to be_in [true, false]
       expect(video.rejected?).to be_in [true, false]
-      expect(video.uploaded?).to be_in [true, false]
+      expect(video.uploading?).to be_in [true, false]
       expect(video.uses_unsupported_codec?).to be_in [true, false]
       expect(video.has_failed_conversion?).to be_in [true, false]
       expect(video.empty?).to be_in [true, false]
