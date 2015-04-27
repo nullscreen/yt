@@ -119,6 +119,7 @@ describe Yt::Video, :device_app do
     it { expect{video.rating}.to raise_error Yt::Errors::NoItems }
     it { expect{video.status}.to raise_error Yt::Errors::NoItems }
     it { expect{video.statistics_set}.to raise_error Yt::Errors::NoItems }
+    it { expect{video.file_detail}.to raise_error Yt::Errors::NoItems }
   end
 
   context 'given one of my own videos that I want to delete' do
@@ -280,7 +281,7 @@ describe Yt::Video, :device_app do
 
     it 'returns valid reports for video-related metrics' do
       # Some reports are only available to Content Owners.
-      # See content ownere test for more details about what the methods return.
+      # See content owner test for more details about what the methods return.
       expect{video.views}.not_to raise_error
       expect{video.comments}.not_to raise_error
       expect{video.likes}.not_to raise_error
@@ -387,6 +388,24 @@ describe Yt::Video, :device_app do
       let(:path_or_url) { 'this-is-not-a-url' }
 
       it { expect{update}.to raise_error Yt::Errors::RequestError }
+    end
+  end
+
+  # @note: This test is separated from the block above because YouTube only
+  #   returns file details for *some videos*: "The fileDetails object will
+  #   only be returned if the processingDetails.fileAvailability property
+  #   has a value of available.". Therefore, just to test fileDetails, we use a
+  #   different video that (for some unknown reason) is marked as 'available'.
+  #   Also note that I was not able to find a single video returning fileName,
+  #   therefore video.file_name is not returned by Yt, until it can be tested.
+  # @see https://developers.google.com/youtube/v3/docs/videos#processingDetails.fileDetailsAvailability
+  context 'given one of my own *available* videos' do
+    let(:id) { 'yCmaOvUFhlI' }
+
+    it 'returns valid file details' do
+      expect(video.file_size).to be_an Integer
+      expect(video.file_type).to be_a String
+      expect(video.container).to be_a String
     end
   end
 end

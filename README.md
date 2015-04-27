@@ -310,6 +310,7 @@ Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video)
 * retrieve data about live-streaming videos
 * retrieve the advertising options of a video
 * retrieve the HTML code of the video player
+* retrieve the file details of a video
 
 ```ruby
 # Videos can be initialized with ID or URL
@@ -367,6 +368,10 @@ video.scheduled_end_time #=> Tue, 27 May 2014 12:55:00
 video.concurrent_viewers #=> 0
 
 video.embed_html #=> "<iframe type='text/html' src='http://www.youtube.com/embed/BPNYv0vd78A' width='640' height='360' frameborder='0' allowfullscreen='true'/>"
+
+video.file_size #=> 8000000
+video.file_type #=> "video"
+video.container #=> "mov"
 
 video.annotations.count #=> 1
 video.annotations.first #=> #<Yt::Models::Annotation @id=...>
