@@ -372,6 +372,8 @@ module Yt
       #   hidden the viewcount for the video or the video is not live.
       delegate :concurrent_viewers, to: :live_streaming_detail
 
+    ### ANNOTATIONS ###
+
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
