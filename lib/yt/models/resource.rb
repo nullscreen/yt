@@ -70,17 +70,17 @@ module Yt
         {}.tap do |body|
           update_parts.each do |name, part|
             if should_include_part_in_update? part, attributes
-              body[name] = build_update_body_part part, attributes
+              body[name] = build_update_body_part name, part, attributes
               sanitize_brackets! body[name] if part[:sanitize_brackets]
             end
           end
         end
       end
 
-      def build_update_body_part(part, attributes = {})
+      def build_update_body_part(name, part, attributes = {})
         {}.tap do |body_part|
           part[:keys].map do |key|
-            body_part[camelize key] = attributes.fetch key, send(key)
+            body_part[camelize key] = attributes.fetch key, public_send(name).public_send(key)
           end
         end
       end
