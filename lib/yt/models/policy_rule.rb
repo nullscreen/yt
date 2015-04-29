@@ -15,14 +15,13 @@ module Yt
 
       # Return the policy that YouTube should enforce if the rule’s conditions
       # are all valid for an asset or for an attempt to view that asset on
-      # YouTube. Valid values for this property are: block, monetize, takedown,
-      # track.
+      # YouTube. Possible values are: +'block'+, +'monetize'+, +'takedown'+,
+      # +'track'+.
       # @return [String] the policy that YouTube should enforce.
       has_attribute :action
 
-      # @return [Array] A list of additional actions that YouTube should take
-      #   if the conditions in the rule are met. Valid values for this property
-      #   are: review.
+      # @return [Array] A list of additional actions that YouTube should take if
+      #   the conditions in the rule are met. Possible values are: +'review'+.
       has_attribute :subaction
 
       # Return the list of territories where the policy applies.

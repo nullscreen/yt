@@ -8,16 +8,38 @@ module Yt
     class Resource < Base
       attr_reader :auth
 
+    ### ID ###
+
       # @!attribute [r] id
       #   @return [String] the ID that YouTube uses to identify each resource.
       has_one :id
 
+    ### STATUS ###
+
+      has_one :status
+
+      # @return [String] the privacy status of the resource. Possible values
+      #   are: +'private'+, +'public'+, +'unlisted'+.
+      delegate :privacy_status, to: :status
+
+      # @return [Boolean] whether the resource is public.
+      def public?
+        privacy_status == 'public'
+      end
+
+      # @return [Boolean] whether the resource is private.
+      def private?
+        privacy_status == 'private'
+      end
+
+      # @return [Boolean] whether the resource is unlisted.
+      def unlisted?
+        privacy_status == 'unlisted'
+      end
+
       has_one :snippet
       delegate :title, :description, :thumbnail_url, :published_at,
         to: :snippet
-
-      has_one :status
-      delegate :privacy_status, :public?, :private?, :unlisted?, to: :status
 
       def initialize(options = {})
         @url = URL.new(options[:url]) if options[:url]
@@ -47,9 +69,11 @@ module Yt
         end
       end
 
-
     private
 
+      # TODO: instead of having Video, Playlist etc override this method,
+      #       they should define *what* can be updated in their own *update*
+      #       method.
       # @return [Hash] the parameters to submit to YouTube to update a playlist.
       # @see https://developers.google.com/youtube/v3/docs/playlists/update
       # @see https://developers.google.com/youtube/v3/docs/videos/update

@@ -22,25 +22,7 @@ module Yt
 
       PRIVACY_STATUSES = %q(private public unlisted)
 
-      # @return [String] the privacy status of the resource. Valid values are:
-      #   private, public, unlisted.
       has_attribute :privacy_status
-
-      # @return [Boolean] whether the resource is public.
-      def public?
-        privacy_status == 'public'
-      end
-
-      # @return [Boolean] whether the resource is private.
-      def private?
-        privacy_status == 'private'
-      end
-
-      # @return [Boolean] whether the resource is unlisted.
-      def unlisted?
-        privacy_status == 'unlisted'
-      end
-
       has_attribute :upload_status
       has_attribute :failure_reason
       has_attribute :rejection_reason

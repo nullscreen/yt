@@ -16,7 +16,7 @@ module Yt
 
       # @!macro [new] daily_report
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Valid values are: +:day+.
+      #     Accepted values are: +:day+.
       #   @return [Hash<Date, Float>] if grouped by day, the $1 of the video
       #     for each day in the time-range.
       #   @example Get the video’s $1 for each day of last week:
@@ -26,8 +26,8 @@ module Yt
 
       # @!macro [new] views_report
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Valid values are: +:day+, +:traffic_source+, +:playback_location+,
-      #     +:embedded_player_location+, +:related_video+.
+      #     Accepted values are: +:day+, +:traffic_source+,
+      #     +:playback_location+,+:embedded_player_location+, +:related_video+.
       #   @return [Hash<Date, Float>] if grouped by day, the $1 of the video
       #     for each day in the time-range.
       #   @example Get the video’s $1 for each day of last week:
@@ -58,7 +58,7 @@ module Yt
       # @!macro [new] demographics_report
       #   @option options [Symbol] :by (:gender_age_group) The dimension to
       #     show viewer percentage by.
-      #     Valid values are: +:gender+, +:age_group+, +:gender_age_group+.
+      #     Accepted values are: +:gender+, +:age_group+, +:gender_age_group+.
       #   @return [Hash<Symbol, Float>] if grouped by gender, the video’s
       #     viewer percentage by gender.
       #   @example Get yesterday’s video’s viewer percentage by gender:
