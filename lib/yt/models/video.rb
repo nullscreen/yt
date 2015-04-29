@@ -256,10 +256,22 @@ module Yt
         content_detail.licensed_content || false
       end
 
-      # @!attribute [r] file_detail
-      #   @return [Yt::Models::FileDetail] the video’s file details.
+    ### FILE DETAILS ###
+
       has_one :file_detail
-      delegate :file_size, :file_type, :container, to: :file_detail
+
+      # @!attribute [r] file_size
+      # @return [Integer] the size of the uploaded file (in bytes).
+      delegate :file_size, to: :file_detail
+
+      # @!attribute [r] file_type
+      # @return [String] the type of file uploaded. May be one of:
+      #   archive, audio, document, image, other, project, video.
+      delegate :file_type, to: :file_detail
+
+      # @!attribute [r] container
+      # @return [String] the video container of the uploaded file. (e.g. 'mov').
+      delegate :container, to: :file_detail
 
       has_one :advertising_options_set
       delegate :ad_formats, to: :advertising_options_set

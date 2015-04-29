@@ -361,6 +361,27 @@ describe Yt::Video do
     end
   end
 
+  describe '#file_size' do
+    context 'given a video with fileSize' do
+      let(:attrs) { {file_details: {"fileSize"=>"8000000"}} }
+      it { expect(video.file_size).to be 8_000_000 }
+    end
+  end
+
+  describe '#file_type' do
+    context 'given a video with fileType' do
+      let(:attrs) { {file_details: {"fileType"=>"video"}} }
+      it { expect(video.file_type).to eq 'video' }
+    end
+  end
+
+  describe '#container' do
+    context 'given a video with container' do
+      let(:attrs) { {file_details: {"container"=>"mov"}} }
+      it { expect(video.container).to eq 'mov' }
+    end
+  end
+
   describe '#statistics_set' do
     context 'given fetching a video returns statistics' do
       let(:attrs) { {statistics: {"viewCount"=>"202"}} }
