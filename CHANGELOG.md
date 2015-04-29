@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.18.0 - unreleased
+## 0.18.0 - 2015-04-28
 
 **How to upgrade**
 
