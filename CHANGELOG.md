@@ -6,6 +6,19 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.18.0 - unreleased
+
+**How to upgrade**
+
+If your code never calls `public?`, `private?` or `unlisted?` on a Status
+object, then you are
+good to go.
+
+If it does, then call the same methods on the parent Resource object instead.
+For instance, replace `video.status.private?` with `video.private?`.
+
+* [ENHANCEMENT] Don’t over-delegate privacy status methods of Resource.
+
 ## 0.17.0 - 2015-04-28
 
 **How to upgrade**
