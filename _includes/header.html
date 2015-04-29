@@ -31,6 +31,11 @@
         {% else %}
           <li><a href="{{ site.baseurl }}/channels.html">Channels</a></li>
         {% endif %}
+        {% if page.url == '/playlists.html' %}
+          <li class="active"><a href="{{ site.baseurl }}/playlists.html">Playlists</a></li>
+        {% else %}
+          <li><a href="{{ site.baseurl }}/playlists.html">Playlists</a></li>
+        {% endif %}
         {% if page.url == '/annotations.html' %}
           <li class="active"><a href="{{ site.baseurl }}/annotations.html">Annotations</a></li>
         {% else %}

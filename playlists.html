@@ -1,0 +1,113 @@
+---
+title:  "Yt::Playlist"
+h2: "Playlists"
+---
+
+<p>
+  <code>Yt::Playlist</code> represents a YouTube playlist.
+  Initialize using either the YouTube ID or URL:
+</p>
+
+{% highlight ruby %}
+playlist = Yt::Playlist.new id:  'PLSWYkYzOrPMRUYaLE6C9'
+playlist = Yt::Playlist.new url: 'youtube.com/playlist?list=PLSWYkYzOrPMRUYaLE6C9'
+# => All these methods return #<Yt::Playlist:0x... @id="PLSWYkYzOrPMRUYaLE6C9">
+{% endhighlight %}
+
+<hr />
+<h4>Authentication</h4>
+
+
+<p>
+  Most methods of <code>Yt::Playlist</code> <strong>retrieve public data</strong> from YouTube (e.g.: fetch a playlist’s title and items).<br />
+  To use these methods (marked with <span class="label label-success">&nbsp;</span> below), you only need to <a href="https://github.com/Fullscreen/yt#apps-that-do-not-require-user-interactions">get a Server API key from Google</a> and configure:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.api_key = "<your api key>"             ## replace with your API key
+
+playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRUYaLE6C9' ## use any playlist ID
+playlist.title
+# => "Fullscreen Arcade"
+{% endhighlight %}
+
+<p>
+  Other methods <strong>acts on behalf of YouTube accounts</strong> (e.g.: add videos to a playlist).<br />
+  To use these methods (marked with  <span class="label label-warning">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the account you want to act as, and pass the account as the <code>:auth</code> parameter:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.client_id = "<your ID>"           ## replace with your client ID
+Yt.configuration.client_secret = "<your secret>"   ## replace with your client secret
+account = Yt::Account.new refresh_token: "<token>" ## use the account’s refresh token
+
+playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRUYaLE6C9', auth: account
+playlist.add_video "BPNYv0vd78A"
+# => #&lt;Yt::PlaylistItem …&gt; (the newly added playlist item)
+{% endhighlight %}
+
+
+<hr />
+<h4>List of <code>Yt::Playlist</code> methods</h4>
+<dl>
+
+  {% include dt.html title="Playlist’s Snippet" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Resource#id" %}{% include example.html object='playlist' method='id' result='"PLSWYkYzOrPMRUYaLE6C9"' %}
+{% include doc.html link="Models/Playlist#title" %}{% include example.html object='playlist' method='title' result='"Fullscreen Arcade"' %}
+{% include doc.html link="Models/Playlist#description" %}{% include example.html object='playlist' method='description' result='"Retro games!"' %}
+{% include doc.html link="Models/Playlist#published_at" %}{% include example.html object='playlist' method='published_at' result='2013-08-14 19:14:21 UTC' %}
+{% include doc.html link="Models/Playlist#thumbnail_url" %}{% include example.html object='playlist' method='thumbnail_url' result='"https://i.ytimg.com/vi/7gyM4Ue9nGY/default.jpg"' %}
+{% include doc.html link="Models/Playlist#channel_id" %}{% include example.html object='playlist' method='channel_id' result='"UCxO1tY8h1AhOz0T4ENwmpow"' %}
+{% include doc.html link="Models/Playlist#channel_title" %}{% include example.html object='playlist' method='channel_title' result='"Fullscreen"' %}
+{% include doc.html link="Models/Playlist#tags" %}{% include example.html object='playlist' method='tags' result='["arcade", "games"]' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Playlist’s Privacy Status" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Resource#privacy_status" %}{% include example.html object='playlist' method='privacy_status' result='"public"' %}
+{% include doc.html link="Models/Resource#public%3F" %}{% include example.html object='playlist' method='public?' result='true' %}
+{% include doc.html link="Models/Resource#unlisted%3F" %}{% include example.html object='playlist' method='unlisted?' result='false' %}
+{% include doc.html link="Models/Resource#private%3F" %}{% include example.html object='playlist' method='private?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Playlist’s Updates" label="warning" auth="must authenticate as the playlist’s account or content owner" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Playlist#add_video" %}{% include example.html object='playlist' method='add_video' params=' <span class="s2">"BPNYv0vd78A"</span>' result='#&lt;Yt::PlaylistItem …&gt;' %}
+{% include doc.html link="Models/Playlist#add_videos" %}{% include example.html object='playlist' method='add_videos' params=' <span class="o">%w{</span><span class="s2">BPNYv0vd78A 2NW_AqhkYZZ</span><span class="o">}</span>' result='[#&lt;Yt::PlaylistItem …&gt;]' %}
+{% include doc.html link="Models/Playlist#delete_playlist_items" %}{% include example.html object='playlist' method='delete_playlist_items' params=' <span class="ss">video_id</span><span class="p">:</span> <span class="s2">"BPNYv0vd78A"</span>' result='[true, false]' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Playlist’s Associations" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Playlist#playlist_items" %}{% include example.html object='playlist' method='playlist_items' result='#&lt;Yt::Collections::PlaylistItems …&gt;' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Playlist’s Analytics" label="warning" auth="must authenticate as the playlist’s account or content owner" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 456.0, …}' %}
+{% include doc.html link="Models/Playlist#playlist_starts" %}{% include example.html object='playlist' method='playlist_starts' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 7.0, …}' %}
+{% include doc.html link="Models/Playlist#average_time_in_playlist" %}{% include example.html object='playlist' method='average_time_in_playlist' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 32.0, …}' %}
+{% include doc.html link="Models/Playlist#views_per_playlist_start" %}{% include example.html object='playlist' method='views_per_playlist_start' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 87.0, …}' %}
+
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:video</span>' result='{#&lt;Yt::Video @id=…&gt; =&gt; 9.0, …}' %}
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:playlist</span>' result='{#&lt;Yt::Playlist @id=…&gt; =&gt; 4.0, …}' %}
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 12.0, Thu, 9 May 2014 => …}' %}
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:traffic_source</span>' result='{channel: 7.0, …}' %}
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:playback_location</span>' result='{embedded: 53.0, watch: 467.0, …}' %}
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:device_type</span>' result='{mobile: 457.0, tv: 954.0, …}' %}
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:related_video</span>' result='{#&lt;Yt::Video @id=…&gt; =&gt; 7.0, …}' %}
+
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:video</span>' result='{#&lt;Yt::Video&gt; =&gt; 9.0, …}' %}
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:playlist</span>' result='{#&lt;Yt::Playlist&gt; =&gt; …}' %}
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 12.0, …}' %}
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:traffic_source</span>' result='{channel: 7.0, …}' %}
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:playback_location</span>' result='{watch: …}' %}
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:device_type</span>' result='{tv: 954.0, …}' %}
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:related_video</span>' result='{#&lt;Yt::Video&gt;…}' %}
+
+{% include doc.html link="Models/Playlist#viewer_percentage" %}{% include example.html object='playlist' method='viewer_percentage' result="{female: {'18-24' =&gt; 4.12, '25-34' =&gt; …}, …}" %}
+{% include doc.html link="Models/Playlist#viewer_percentage" %}{% include example.html object='playlist' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:gender</span>' result="{female: 12.3, male: 87.7}" %}
+{% include doc.html link="Models/Playlist#viewer_percentage" %}{% include example.html object='playlist' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}</pre>
+  </div></dd>
+</dl>
