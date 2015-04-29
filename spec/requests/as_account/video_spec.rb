@@ -21,7 +21,7 @@ describe Yt::Video, :device_app do
       expect(video.channel_id).to be_a String
       expect(video.channel_title).to be_a String
       expect(video.category_id).to be_a String
-      expect(video.live_broadcast_content).to be_in Yt::Snippet::BROADCAST_TYPES
+      expect(video.live_broadcast_content).to be_a String
       expect(video.view_count).to be_an Integer
       expect(video.like_count).to be_an Integer
       expect(video.dislike_count).to be_an Integer
