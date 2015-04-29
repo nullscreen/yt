@@ -478,11 +478,39 @@ module Yt
       #   player that will play the video.
       delegate :embed_html, to: :player
 
-      # @!attribute [r] resumable_sessions
-      #   @return [Yt::Collections::ResumableSessions] the sessions used to
-      #     upload thumbnails using the resumable upload protocol.
+
+    ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
+
       has_many :resumable_sessions
 
+      # Uploads a thumbnail
+      # @param [String] path_or_url the image to upload. Can either be the
+      #   path of a local file or the URL of a remote file.
+      # @return the new thumbnail resource for the given image.
+      # @raise [Yt::Errors::RequestError] if path_or_url is not a valid path
+      #   or URL.
+      def upload_thumbnail(path_or_url)
+        file = open(path_or_url, 'rb') rescue StringIO.new
+        session = resumable_sessions.insert file.size
+
+        session.update(body: file) do |data|
+          snippet.instance_variable_set :@thumbnails, data['items'].first
+        end
+      end
+
+      # Deletes the video on behalf of the authenticated account.
+      # @return [Boolean] whether the video does not exist anymore.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account with permissions to delete the video.
+      def delete(options = {})
+        do_delete {@id = nil}
+        !exists?
+      end
+
+
+    ### PRIVATE API ###
+
+      # @private
       # Override Resource's new to set statistics and content details as well
       # if the response includes them
       def initialize(options = {})
@@ -507,37 +535,9 @@ module Yt
         end
       end
 
-      # Deletes the video.
-      #
-      # This method requires {Resource#auth auth} to return an authenticated
-      # instance of {Yt::Account} with permissions to delete the video.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an account with permissions to delete the video.
-      # @return [Boolean] whether the video does not exist anymore.
-      def delete(options = {})
-        do_delete {@id = nil}
-        !exists?
-      end
-
+      # @private
       def exists?
         !@id.nil?
-      end
-
-
-      # Uploads a thumbnail
-      # @param [String] path_or_url the image to upload. Can either be the
-      #   path of a local file or the URL of a remote file.
-      # @return the new thumbnail resource for the given image.
-      # @raise [Yt::Errors::RequestError] if path_or_url is not a valid path
-      #   or URL.
-      # @see https://developers.google.com/youtube/v3/docs/thumbnails#resource
-      def upload_thumbnail(path_or_url)
-        file = open(path_or_url, 'rb') rescue StringIO.new
-        session = resumable_sessions.insert file.size
-
-        session.update(body: file) do |data|
-          snippet.instance_variable_set :@thumbnails, data['items'].first
-        end
       end
 
       # @private
@@ -560,6 +560,7 @@ module Yt
       def upload_path
         '/upload/youtube/v3/thumbnails/set'
       end
+
       # @private
       # Tells `has_many :resumable_sessions` what params are set for the object
       # associated to the uploaded file.
