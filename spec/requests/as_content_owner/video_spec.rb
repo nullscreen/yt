@@ -565,6 +565,44 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :playback_location
+          expect(estimated_minutes_watched.keys - keys).to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by embedded player location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :embedded_player_location' do
+          estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :embedded_player_location
+          expect(estimated_minutes_watched).not_to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by related video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :related_video' do
+          estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :related_video
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :device_type
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Symbol)
+          expect(estimated_minutes_watched.values).to all(be_instance_of Float)
+        end
+      end
+
       describe 'average view duration can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:average_view_duration) { video.average_view_duration_on 5.days.ago}

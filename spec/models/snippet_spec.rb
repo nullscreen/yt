@@ -12,6 +12,7 @@ describe Yt::Snippet do
     end
   end
 
+  # TODO: Remove when added to every Resource
   describe '#title' do
     context 'given a snippet with a title' do
       let(:data) { {"title"=>"Fullscreen"} }
@@ -89,28 +90,6 @@ describe Yt::Snippet do
 
     context 'given a snippet without a channel title' do
       it { expect(snippet.channel_title).to be_nil }
-    end
-  end
-
-  describe '#category_id' do
-    context 'given a snippet with a category ID' do
-      let(:data) { {"categoryId"=>"22"} }
-      it { expect(snippet.category_id).to eq '22' }
-    end
-
-    context 'given a snippet without a category ID' do
-      it { expect(snippet.category_id).to be_nil }
-    end
-  end
-
-  describe '#live_broadcast_content' do
-    context 'given a snippet with live broadcast content' do
-      let(:data) { {"liveBroadcastContent"=>"live"} }
-      it { expect(snippet.live_broadcast_content).to eq 'live' }
-    end
-
-    context 'given a snippet without live broadcast content' do
-      it { expect(snippet.live_broadcast_content).to be_nil }
     end
   end
 

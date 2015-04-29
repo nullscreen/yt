@@ -11,6 +11,118 @@ describe Yt::Video do
     end
   end
 
+
+  describe '#title' do
+    context 'given a snippet with a title' do
+      let(:attrs) { {snippet: {"title"=>"Fullscreen Creator Platform"}} }
+      it { expect(video.title).to eq 'Fullscreen Creator Platform' }
+    end
+
+    context 'given a snippet without a title' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.title).to eq '' }
+    end
+  end
+
+  describe '#description' do
+    context 'given a snippet with a description' do
+      let(:attrs) { {snippet: {"description"=>"A cool video."}} }
+      it { expect(video.description).to eq 'A cool video.' }
+    end
+
+    context 'given a snippet without a description' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.description).to eq '' }
+    end
+  end
+
+  describe '#thumbnail_url' do
+    context 'given a snippet with thumbnails' do
+      let(:attrs) { {snippet: {"thumbnails"=>{
+        "default"=>{"url"=> "http://example.com/120x90.jpg"},
+        "medium"=>{"url"=> "http://example.com/320x180.jpg"},
+      }}} }
+      it { expect(video.thumbnail_url).to eq 'http://example.com/120x90.jpg' }
+      it { expect(video.thumbnail_url 'default').to eq 'http://example.com/120x90.jpg' }
+      it { expect(video.thumbnail_url :default).to eq 'http://example.com/120x90.jpg' }
+      it { expect(video.thumbnail_url :medium).to eq 'http://example.com/320x180.jpg' }
+      it { expect(video.thumbnail_url :high).to be_nil }
+    end
+
+    context 'given a snippet without thumbnails' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.thumbnail_url).to be_nil }
+    end
+  end
+
+  describe '#published_at' do
+    context 'given a snippet with a timestamp' do
+      let(:attrs) { {snippet: {"publishedAt"=>"2014-04-22T19:14:49.000Z"}} }
+      it { expect(video.published_at.year).to be 2014 }
+    end
+  end
+
+  describe '#channel_id' do
+    context 'given a snippet with a channel ID' do
+      let(:attrs) { {snippet: {"channelId"=>"UCxO1tY8h1AhOz0T4ENwmpow"}} }
+      it { expect(video.channel_id).to eq 'UCxO1tY8h1AhOz0T4ENwmpow' }
+    end
+
+    context 'given a snippet without a channel ID' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.channel_id).to be_nil }
+    end
+  end
+
+  describe '#channel_title' do
+    context 'given a snippet with a channel title' do
+      let(:attrs) { {snippet: {"channelTitle"=>"Fullscreen"}} }
+      it { expect(video.channel_title).to eq 'Fullscreen' }
+    end
+
+    context 'given a snippet without a channel title' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.channel_title).to be_nil }
+    end
+  end
+
+  describe '#live_broadcast_content' do
+    context 'given a snippet with live broadcast content' do
+      let(:attrs) { {snippet: {"liveBroadcastContent"=>"live"}} }
+      it { expect(video.live_broadcast_content).to eq 'live' }
+    end
+
+    context 'given a snippet without live broadcast content' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.live_broadcast_content).to be_nil }
+    end
+  end
+
+  describe '#tags' do
+    context 'given a snippet with tags' do
+      let(:attrs) { {snippet: {"tags"=>["promotion", "new media"]}} }
+      it { expect(video.tags).to eq ["promotion", "new media"] }
+    end
+
+    context 'given a snippet without tags' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.tags).to eq [] }
+    end
+  end
+
+  describe '#category_id' do
+    context 'given a snippet with a category ID' do
+      let(:attrs) { {snippet: {"categoryId"=>"22"}} }
+      it { expect(video.category_id).to eq '22' }
+    end
+
+    context 'given a snippet without a category ID' do
+      let(:attrs) { {snippet: {}} }
+      it { expect(video.category_id).to be_nil }
+    end
+  end
+
+
   describe '#deleted?' do
     context 'given fetching a status returns uploadStatus "deleted"' do
       let(:attrs) { {status: {"uploadStatus"=>"deleted"}} }

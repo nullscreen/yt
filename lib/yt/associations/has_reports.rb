@@ -6,7 +6,7 @@ module Yt
     # {Yt::Models::Channel videos}.
     module HasReports
       # @!macro [new] report
-      #   Returns the $1 of the video grouped by the given dimension.
+      #   Returns the $1 grouped by the given dimension.
       #   @!method $1(options = {})
       #   @param [Hash] options the time-range and dimensions for the $1.
       #   @option options [#to_date] :since The first day of the time-range.
@@ -14,48 +14,62 @@ module Yt
       #   @option options [#to_date] :until The last day of the time-range.
       #     Also aliased as +:to+.
 
-      # @!macro [new] daily_report
-      #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+.
-      #   @return [Hash<Date, Float>] if grouped by day, the $1 of the video
+      # @!macro [new] report_with_day
+      #   @return [Hash<Date, Float>] if grouped by day, the $1
       #     for each day in the time-range.
-      #   @example Get the video’s $1 for each day of last week:
+      #   @example Get the $1 for each day of last week:
       #     video.$1 since: 2.weeks.ago, until: 1.week.ago, by: :day
       #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.2, …}
       #   @macro report
 
-      # @!macro [new] views_report
+      # @!macro [new] report_by_day
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:traffic_source+,
-      #     +:playback_location+,+:embedded_player_location+, +:related_video+.
-      #   @return [Hash<Date, Float>] if grouped by day, the $1 of the video
-      #     for each day in the time-range.
-      #   @example Get the video’s $1 for each day of last week:
-      #     video.$1 since: 2.weeks.ago, until: 1.week.ago, by: :day
-      #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.2, …}
-      #   @return [Hash<Symbol, Float>] if grouped by traffic source, the
-      #     $1 of the video for each traffic source.
-      #   @example Get yesterday’s video’s $1 grouped by traffic source:
-      #     video.$1 from: 1.day.ago, to: 1.day.ago, by: :traffic_source
-      #     # => {advertising: 53.0, channel: 7.0, …}
+      #     Accepted values are: +:day+.
+      #   @macro report_with_day
+
+      # @!macro [new] report_with_video_dimensions
       #   @return [Hash<Symbol, Float>] if grouped by playback location, the
-      #     $1 of the video for each traffic playback location.
-      #   @example Get yesterday’s video’s $1 grouped by playback location:
+      #     $1 for each traffic playback location.
+      #   @example Get yesterday’s $1 grouped by playback location:
       #     video.$1 from: 1.day.ago, to: 1.day.ago, by: :playback_location
       #     # => {embedded: 53.0, watch: 467.0, …}
       #   @return [Hash<Symbol, Float>] if grouped by embedded player location,
-      #     the $1 of the video for each embedded player location.
-      #   @example Get yesterday’s video’s $1 by embedded player location:
+      #     the $1 for each embedded player location.
+      #   @example Get yesterday’s $1 by embedded player location:
       #     video.$1 from: 1.day.ago, to: 1.day.ago, by: :embedded_player_location
       #     # => {"fullscreen.net" => 92.0, "yahoo.com" => 14.0, …}
       #   @return [Hash<Yt::Video, Float>] if grouped by related video, the
-      #     $1 of the video for each related video.
-      #   @example Get yesterday’s video’s $1 by related video:
+      #     $1 for each related video.
+      #   @example Get yesterday’s $1 by related video:
       #     video.$1 from: 1.day.ago, to: 1.day.ago, by: :related_video
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
-      #   @macro report
+      #   @return [Hash<Yt::Video, Float>] if grouped by device type, the
+      #     $1 for each device type.
+      #   @example Get yesterday’s $1 by device type:
+      #     video.$1 from: 1.day.ago, to: 1.day.ago, by: :device_type
+      #     # => {mobile: 133.0, tv: 412.0, …}
+      #   @macro report_with_day
 
-      # @!macro [new] demographics_report
+      # @!macro [new] report_by_video_dimensions
+      #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
+      #     Accepted values are: +:day+, +:traffic_source+,
+      #     +:playback_location+,+:embedded_player_location+, +:related_video+.
+      #   @macro report_with_video_dimensions
+
+      # @!macro [new] report_by_channel_dimensions
+      #   @return [Hash<Yt::Video, Float>] if grouped by video, the
+      #     $1 for each video.
+      #   @example Get yesterday’s $1 by video:
+      #     video.$1 from: 1.day.ago, to: 1.day.ago, by: :video
+      #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
+      #   @return [Hash<Yt::Video, Float>] if grouped by playlist, the
+      #     $1 for each playlist.
+      #   @example Get yesterday’s $1 by playlist:
+      #     playlist.$1 from: 1.day.ago, to: 1.day.ago, by: :playlist
+      #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
+      #   @macro report_with_video_dimensions
+
+      # @!macro [new] report_by_gender_and_age_group
       #   @option options [Symbol] :by (:gender_age_group) The dimension to
       #     show viewer percentage by.
       #     Accepted values are: +:gender+, +:age_group+, +:gender_age_group+.
