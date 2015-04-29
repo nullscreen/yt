@@ -52,6 +52,30 @@ module Yt
         !exists?
       end
 
+      # Updates the attributes of a playlist.
+      # @return [Boolean] whether the playlist was successfully updated.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account with permissions to update the playlist.
+      # @param [Hash] attributes the attributes to update.
+      # @option attributes [String] :title The new playlist’s title.
+      #   Cannot have more than 100 characters. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option attributes [String] :description The new playlist’s description.
+      #   Cannot have more than 5000 bytes. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option attributes [Array<String>] :tags The new playlist’s tags.
+      #   Cannot have more than 500 characters. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option attributes [String] :privacy_status The new playlist’s privacy
+      #   status. Must be one of: private, unscheduled, public.
+      # @example Update title and description of a playlist.
+      #   playlist.update title: 'New title', description: 'New description'
+      # @example Update tags and status of a playlist.
+      #   playlist.update tags: ['new', 'tags'], privacy_status: 'public'
+      def update(attributes = {})
+        super
+      end
+
       # Adds a video to the playlist.
       # Unlike {#add_video!}, does not raise an error if video can’t be added.
       # @param [String] video_id the video to add to the playlist.
