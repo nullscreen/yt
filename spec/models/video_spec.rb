@@ -497,6 +497,14 @@ describe Yt::Video do
     end
   end
 
+  describe '#embed_html' do
+    context 'given a video with embedHtml' do
+      let(:html) { "<iframe type='text/html' src='http://www.youtube.com/embed/BPNYv0vd78A' width='640' height='360' frameborder='0' allowfullscreen='true'/>" }
+      let(:attrs) { {player: {"embedHtml"=>html}} }
+      it { expect(video.embed_html).to be html }
+    end
+  end
+
   describe '#statistics_set' do
     context 'given fetching a video returns statistics' do
       let(:attrs) { {statistics: {"viewCount"=>"202"}} }

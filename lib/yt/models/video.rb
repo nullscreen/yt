@@ -469,9 +469,13 @@ module Yt
       # @return [Integer] the number of comments for the video.
       delegate :comment_count, to: :statistics_set
 
-      # @!attribute [r] player
-      #   @return [Yt::Models::Player] the player for the video.
+    ### PLAYER ###
+
       has_one :player
+
+      # @!attribute [r] embed_html
+      # @return [String] the HTML code of an <iframe> tag that embeds a
+      #   player that will play the video.
       delegate :embed_html, to: :player
 
       # @!attribute [r] resumable_sessions
@@ -497,6 +501,9 @@ module Yt
         end
         if options[:video_category]
           @video_category = VideoCategory.new data: options[:video_category]
+        end
+        if options[:player]
+          @player = Player.new data: options[:player]
         end
       end
 

@@ -11,8 +11,6 @@ module Yt
         @data = options[:data]
       end
 
-      # @return [String] the HTML code of an <iframe> tag that embeds a
-      #   player that will play the video.
       has_attribute :embed_html
     end
   end
