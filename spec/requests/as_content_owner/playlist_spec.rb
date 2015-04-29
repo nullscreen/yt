@@ -57,6 +57,265 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views can be grouped by traffic source' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::TRAFFIC_SOURCES.keys }
+
+        specify 'with the :by option set to :traffic_source' do
+          views = playlist.views range.merge by: :traffic_source
+          expect(views.keys - keys).to be_empty
+        end
+      end
+
+      describe 'views can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          views = playlist.views range.merge by: :playback_location
+          expect(views.keys - keys).to be_empty
+        end
+      end
+
+      describe 'views can be grouped by related video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :related_video' do
+          views = playlist.views range.merge by: :related_video
+          expect(views.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'views can be grouped by video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :video' do
+          views = playlist.views range.merge by: :video
+          expect(views.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'views can be grouped by playlist' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :playlist' do
+          views = playlist.views range.merge by: :playlist
+          expect(views.keys).to all(be_instance_of Yt::Playlist)
+        end
+      end
+
+      describe 'views can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          views = playlist.views range.merge by: :device_type
+          expect(views.keys).to all(be_instance_of Symbol)
+          expect(views.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a specific day' do
+        context 'in which the playlist was viewed' do
+          let(:views) { playlist.estimated_minutes_watched_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
+          it { expect(views).to be_a Float }
+        end
+
+        context 'in which the playlist was not viewed' do
+          let(:views) { playlist.estimated_minutes_watched_on 20.years.ago}
+          it { expect(views).to be_nil }
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(playlist.estimated_minutes_watched(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(playlist.estimated_minutes_watched(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(playlist.estimated_minutes_watched(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(playlist.estimated_minutes_watched(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          minutes = playlist.estimated_minutes_watched range
+          expect(minutes.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :day
+          expect(minutes.keys).to eq range.values
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by traffic source' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::TRAFFIC_SOURCES.keys }
+
+        specify 'with the :by option set to :traffic_source' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :traffic_source
+          expect(minutes.keys - keys).to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :playback_location
+          expect(minutes.keys - keys).to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by related video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :related_video' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :related_video
+          expect(minutes.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :video' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :video
+          expect(minutes.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by playlist' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :playlist' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :playlist
+          expect(minutes.keys).to all(be_instance_of Yt::Playlist)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :device_type
+          expect(minutes.keys).to all(be_instance_of Symbol)
+          expect(minutes.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'viewer percentage can be retrieved for a range of days' do
+        let(:viewer_percentage) { playlist.viewer_percentage since: 1.year.ago, until: 10.days.ago}
+        it { expect(viewer_percentage).to be_a Hash }
+      end
+
+      describe 'viewer_percentage can be grouped by gender and age group' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          viewer_percentage = playlist.viewer_percentage range
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:female].values).to all(be_instance_of Float)
+          expect(viewer_percentage[:male].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:male].values).to all(be_instance_of Float)
+        end
+
+        specify 'with the :by option set to :gender_age_group' do
+          viewer_percentage = playlist.viewer_percentage range.merge by: :gender_age_group
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:female].values).to all(be_instance_of Float)
+          expect(viewer_percentage[:male].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:male].values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'viewer_percentage can be grouped by gender' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :gender' do
+          viewer_percentage = playlist.viewer_percentage range.merge by: :gender
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female]).to be_a Float
+          expect(viewer_percentage[:male]).to be_a Float
+        end
+      end
+
+      describe 'viewer_percentage can be grouped by age group' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :age_group' do
+          viewer_percentage = playlist.viewer_percentage range.merge by: :age_group
+          expect(viewer_percentage.keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'average view duration can be retrieved for a specific day' do
+        context 'in which the playlist was partnered' do
+          let(:average_view_duration) { playlist.average_view_duration_on 5.days.ago}
+          it { expect(average_view_duration).to be_a Float }
+        end
+
+        context 'in which the playlist was not partnered' do
+          let(:average_view_duration) { playlist.average_view_duration_on 20.years.ago}
+          it { expect(average_view_duration).to be_nil }
+        end
+      end
+
+      describe 'average view duration can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(playlist.average_view_duration(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(playlist.average_view_duration(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(playlist.average_view_duration(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(playlist.average_view_duration(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'average view duration can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          average_view_duration = playlist.average_view_duration range
+          expect(average_view_duration.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          average_view_duration = playlist.average_view_duration range.merge by: :day
+          expect(average_view_duration.keys).to eq range.values
+        end
+      end
+
       describe 'playlist starts can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:playlist_starts) { playlist.playlist_starts_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}

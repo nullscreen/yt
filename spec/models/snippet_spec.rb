@@ -42,17 +42,6 @@ describe Yt::Snippet do
     end
   end
 
-  describe '#tags' do
-    context 'given a snippet with tags' do
-      let(:data) { {"tags"=>["promotion", "new media"]} }
-      it { expect(snippet.tags).to eq ["promotion", "new media"] }
-    end
-
-    context 'given a snippet without tags' do
-      it { expect(snippet.tags).to eq [] }
-    end
-  end
-
   describe '#thumbnail_url' do
     context 'given a snippet with thumbnails' do
       let(:data) { {"thumbnails"=>{
