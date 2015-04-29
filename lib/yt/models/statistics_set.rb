@@ -15,24 +15,13 @@ module Yt
       # @return [Integer] the number of times the resource has been viewed.
       has_attribute :view_count, type: Integer
 
-      # @return [Integer] the number of comments for the resource.
       has_attribute :comment_count, type: Integer
-
-      # @return [Integer] the number of users who liked the resource.
       has_attribute :like_count, type: Integer
-
-      # @return [Integer] the number of users who disliked the resource.
       has_attribute :dislike_count, type: Integer
-
-      # @return [Integer] the number of users who currently have the resource
-      #   marked as a favorite resource.
       has_attribute :favorite_count, type: Integer
-
-      # @return [Integer] the number of videos updated to the resource.
       has_attribute :video_count, type: Integer
-
-      # @return [Integer] the number of subscriber the resource has.
       has_attribute :subscriber_count, type: Integer
+      has_attribute :hidden_subscriber_count
 
       # @return [Boolean] whether the number of subscribers is publicly visible.
       has_attribute :subscriber_count_visible?, from: :hidden_subscriber_count do |hidden|

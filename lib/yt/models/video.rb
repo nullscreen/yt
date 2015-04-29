@@ -16,7 +16,7 @@ module Yt
       # @return [String] the video’s description.
       delegate :description, to: :snippet
 
-      # Return the URL of the video’s thumbnail.
+      # Returns the URL of the video’s thumbnail.
       # @!method thumbnail_url(size = :default)
       # @param [Symbol, String] size The size of the video’s thumbnail.
       # @return [String] if +size+ is +default+, the URL of a 120x90px image.
@@ -364,7 +364,7 @@ module Yt
       #   hidden the viewcount for the video or the video is not live.
       delegate :concurrent_viewers, to: :live_streaming_detail
 
-    ### ANNOTATIONS ###
+    ### ASSOCIATIONS ###
 
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
@@ -372,65 +372,65 @@ module Yt
 
     ### ANALYTICS ###
 
-      # @macro views_report
+      # @macro report_by_video_dimensions
       has_report :views
 
-      # @macro demographics_report
+      # @macro report_by_video_dimensions
+      has_report :estimated_minutes_watched
+
+      # @macro report_by_gender_and_age_group
       has_report :viewer_percentage
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :comments
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :likes
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :dislikes
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :shares
 
       # @note This is not the total number of subscribers gained by the video’s
       #   channel, but the subscribers gained *from* the video’s page.
-      # @macro daily_report
+      # @macro report_by_day
       has_report :subscribers_gained
 
       # @note This is not the total number of subscribers lost by the video’s
       #   channel, but the subscribers lost *from* the video’s page.
-      # @macro daily_report
+      # @macro report_by_day
       has_report :subscribers_lost
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :favorites_added
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :favorites_removed
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :average_view_duration
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :average_view_percentage
 
-      # @macro daily_report
-      has_report :estimated_minutes_watched
-
-      # @macro daily_report
+      # @macro report_by_day
       has_report :annotation_clicks
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :annotation_click_through_rate
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :annotation_close_rate
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :earnings
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :impressions
 
-      # @macro daily_report
+      # @macro report_by_day
       has_report :monetized_playbacks
 
     ### STATISTICS ###
@@ -465,7 +465,6 @@ module Yt
       # @return [String] the HTML code of an <iframe> tag that embeds a
       #   player that will play the video.
       delegate :embed_html, to: :player
-
 
     ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
 

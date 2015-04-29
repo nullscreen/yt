@@ -5,6 +5,87 @@ module Yt
     # A channel resource contains information about a YouTube channel.
     # @see https://developers.google.com/youtube/v3/docs/channels
     class Channel < Resource
+
+  ### SNIPPET ###
+
+      # @!attribute [r] title
+      # @return [String] the channel’s title.
+      delegate :title, to: :snippet
+
+      # @!attribute [r] description
+      # @return [String] the channel’s description.
+      delegate :description, to: :snippet
+
+      # Returns the URL of the channel’s thumbnail.
+      # @!method thumbnail_url(size = :default)
+      # @param [Symbol, String] size The size of the channel’s thumbnail.
+      # @return [String] if +size+ is +default+, the URL of a 88x88px image.
+      # @return [String] if +size+ is +medium+, the URL of a 240x240px image.
+      # @return [String] if +size+ is +high+, the URL of a 800x800px image.
+      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      delegate :thumbnail_url, to: :snippet
+
+      # @!attribute [r] published_at
+      # @return [Time] the date and time that the channel was created.
+      delegate :published_at, to: :snippet
+
+    ### SUBSCRIPTION ###
+
+      has_one :subscription
+
+      # @return [Boolean] whether the account is subscribed to the channel.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def subscribed?
+        sleep [(@subscriptions_updated_at || Time.now) - Time.now, 0].max
+        subscription.exists?
+      rescue Errors::NoItems
+        false
+      end
+
+      # Subscribes the authenticated account to the channel.
+      # Unlike {#subscribe!}, does not raise an error if already subscribed.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def subscribe
+        subscriptions.insert(ignore_errors: true).tap do |subscription|
+          throttle_subscriptions
+          @subscription = subscription
+        end
+      end
+
+      # Subscribes the authenticated account to the channel.
+      # Unlike {#subscribe}, raises an error if already subscribed.
+      # @raise [Yt::Errors::RequestError] if already subscribed.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def subscribe!
+        subscriptions.insert.tap do |subscription|
+          throttle_subscriptions
+          @subscription = subscription
+        end
+      end
+
+      # Unsubscribes the authenticated account from the channel.
+      # Unlike {#unsubscribe!}, does not raise an error if already unsubscribed.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def unsubscribe
+        unsubscribe! if subscribed?
+      end
+
+      # Unsubscribes the authenticated account from the channel.
+      # Unlike {#unsubscribe}, raises an error if already unsubscribed.
+      #
+      # @raise [Yt::Errors::RequestError] if already unsubscribed.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def unsubscribe!
+        subscription.delete.tap{ throttle_subscriptions }
+      end
+
+    ### ASSOCIATIONS ###
+
       # @!attribute [r] videos
       #   @return [Yt::Collections::Videos] the channel’s videos.
       has_many :videos
@@ -13,89 +94,144 @@ module Yt
       #   @return [Yt::Collections::Playlists] the channel’s playlists.
       has_many :playlists
 
-      # @macro has_report
-      has_report :earnings
-
-      # @macro has_report
-      has_report :views
-
-      # @macro has_report
-      has_report :comments
-
-      # @macro has_report
-      has_report :likes
-
-      # @macro has_report
-      has_report :dislikes
-
-      # @macro has_report
-      has_report :shares
-
-      # @macro has_report
-      has_report :subscribers_gained
-
-      # @macro has_report
-      has_report :subscribers_lost
-
-      # @macro has_report
-      has_report :favorites_added
-
-      # @macro has_report
-      has_report :favorites_removed
-
-      # @macro has_report
-      has_report :estimated_minutes_watched
-
-      # @macro has_report
-      has_report :average_view_duration
-
-      # @macro has_report
-      has_report :average_view_percentage
-
-      # @macro has_report
-      has_report :impressions
-
-      # @macro has_report
-      has_report :monetized_playbacks
-
-      # @macro has_report
-      has_report :annotation_clicks
-
-      # @macro has_report
-      has_report :annotation_click_through_rate
-
-      # @macro has_report
-      has_report :annotation_close_rate
-
-      # @macro has_report
-      has_report :viewer_percentage
-
-      # @!attribute [r] statistics_set
-      #   @return [Yt::Models::StatisticsSet] the statistics for the video.
-      has_one :statistics_set
-      delegate :view_count, :comment_count, :video_count, :subscriber_count,
-        :subscriber_count_visible?, to: :statistics_set
-
-      # @!attribute [r] content_owner_detail
-      #   @return [Yt::Models::ContentOwnerDetail] the video’s content owner
-      #     details.
-      has_one :content_owner_detail
-      delegate :content_owner, :linked_at, to: :content_owner_detail
-
       # @!attribute [r] subscribed_channels
-      #   @return [Yt::Collections::SubscribedChannels] the channels that the channel is subscribed to.
+      #   @return [Yt::Collections::SubscribedChannels] the channels that this
+      #     channel is subscribed to.
       #   @raise [Yt::Errors::Forbidden] if the owner of the channel has
       #     explicitly select the option to keep all subscriptions private.
       has_many :subscribed_channels
 
-      # @!attribute [r] subscription
-      #   @return [Yt::Models::Subscription] the channel’s subscription by auth.
-      #   @raise [Yt::Errors::NoItems] if {Resource#auth auth} is not
-      #     subscribed to the channel.
-      #   @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #     return an authenticated account.
-      has_one :subscription
+    ### ANALYTICS ###
 
+      # @macro report_by_channel_dimensions
+      has_report :views
+
+      # @macro report_by_channel_dimensions
+      has_report :estimated_minutes_watched
+
+      # @macro report_by_gender_and_age_group
+      has_report :viewer_percentage
+
+      # @macro report_by_day
+      has_report :comments
+
+      # @macro report_by_day
+      has_report :likes
+
+      # @macro report_by_day
+      has_report :dislikes
+
+      # @macro report_by_day
+      has_report :shares
+
+      # @macro report_by_day
+      has_report :subscribers_gained
+
+      # @macro report_by_day
+      has_report :subscribers_lost
+
+      # @macro report_by_day
+      has_report :favorites_added
+
+      # @macro report_by_day
+      has_report :favorites_removed
+
+      # @macro report_by_day
+      has_report :average_view_duration
+
+      # @macro report_by_day
+      has_report :average_view_percentage
+
+      # @macro report_by_day
+      has_report :annotation_clicks
+
+      # @macro report_by_day
+      has_report :annotation_click_through_rate
+
+      # @macro report_by_day
+      has_report :annotation_close_rate
+
+      # @macro report_by_day
+      has_report :earnings
+
+      # @macro report_by_day
+      has_report :impressions
+
+      # @macro report_by_day
+      has_report :monetized_playbacks
+
+    ### STATISTICS ###
+
+      has_one :statistics_set
+
+      # @!attribute [r] view_count
+      # @return [Integer] the number of times the channel has been viewed.
+      delegate :view_count, to: :statistics_set
+
+      # @!attribute [r] comment_count
+      # @return [Integer] the number of comments for the channel.
+      delegate :comment_count, to: :statistics_set
+
+      # @!attribute [r] video_count
+      # @return [Integer] the number of videos uploaded to the channel.
+      delegate :video_count, to: :statistics_set
+
+      # @!attribute [r] subscriber_count
+      # @return [Integer] the number of subscriber the channel has.
+      delegate :subscriber_count, to: :statistics_set
+
+      # @return [Boolean] whether the number of subscribers is publicly visible.
+      def subscriber_count_visible?
+        statistics_set.hidden_subscriber_count == false
+      end
+
+    ### CONTENT OWNER DETAILS ###
+
+      has_one :content_owner_detail
+
+      # The name of the content owner linked to the channel.
+      # @!attribute [r] content_owner
+      # @return [String] if the channel is partnered, its content owner’s name.
+      # @return [nil] if the channel is not partnered or if {Resource#auth auth}
+      #   is a content owner without permissions to administer the channel.
+      # @raise [Yt::Errors::Forbidden] if {Resource#auth auth} does not
+      #   return an authenticated content owner.
+      delegate :content_owner, to: :content_owner_detail
+
+      # Returns the time the channel was partnered to a content owner.
+      # @return [Time] if the channel is partnered, the time when it was linked
+      #   to its content owner.
+      # @return [nil] if the channel is not partnered or if {Resource#auth auth}
+      #   is a content owner without permissions to administer the channel.
+      # @raise [Yt::Errors::Forbidden] if {Resource#auth auth} does not
+      #   return an authenticated content owner.
+      def linked_at
+        content_owner_detail.time_linked
+      end
+
+    ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
+
+      # Deletes the channel’s playlists matching all the given attributes.
+      # @return [Array<Boolean>] whether each playlist matching the given
+      #   attributes was deleted.
+      # @raise [Yt::Errors::RequestError] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account with permissions to update the channel.
+      # @param [Hash] attributes the attributes to match the playlists by.
+      # @option attributes [<String, Regexp>] :title The playlist’s title.
+      #   Pass a String for perfect match or a Regexp for advanced match.
+      # @option attributes [<String, Regexp>] :description The playlist’s
+      #   description. Pass a String (perfect match) or a Regexp (advanced).
+      # @option attributes [Array<String>] :tags The playlist’s tags.
+      #   All tags must match exactly.
+      # @option attributes [String] :privacy_status The playlist’s privacy
+      #   status.
+      def delete_playlists(attributes = {})
+        playlists.delete_all attributes
+      end
+
+    ### PRIVATE API ###
+
+      # @private
       # Override Resource's new to set statistics as well
       # if the response includes them
       def initialize(options = {})
@@ -103,78 +239,9 @@ module Yt
         if options[:statistics]
           @statistics_set = StatisticsSet.new data: options[:statistics]
         end
-      end
-
-      # Returns whether the authenticated account is subscribed to the channel.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @return [Boolean] whether the account is subscribed to the channel.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def subscribed?
-        sleep [(@subscriptions_updated_at || Time.now) - Time.now, 0].max
-        subscription.exists?
-      rescue Errors::NoItems
-        false
-      end
-
-      # Unsubscribes the authenticated account from the channel.
-      # Raises an error if the account was not subscribed.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @raise [Yt::Errors::RequestError] if {Resource#auth auth} was not
-      #   subscribed to the channel.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def unsubscribe!
-        subscription.delete.tap{ throttle_subscriptions }
-      end
-
-      # Unsubscribes the authenticated account from the channel.
-      # Does not raise an error if the account was not subscribed.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def unsubscribe
-        unsubscribe! if subscribed?
-      end
-
-      # Subscribes the authenticated account to the channel.
-      # Raises an error if the account was already subscribed.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @raise [Yt::Errors::RequestError] if {Resource#auth auth} was already
-      #   subscribed to the channel.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def subscribe!
-        subscriptions.insert.tap do |subscription|
-          throttle_subscriptions
-          @subscription = subscription
+        if options[:content_owner_details]
+          @content_owner_detail = ContentOwnerDetail.new data: options[:content_owner_details]
         end
-      end
-
-      # Subscribes the authenticated account to the channel.
-      # Does not raise an error if the account was already subscribed.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def subscribe
-        subscriptions.insert(ignore_errors: true).tap do |subscription|
-          throttle_subscriptions
-          @subscription = subscription
-        end
-      end
-
-      def delete_playlists(attrs = {})
-        playlists.delete_all attrs
       end
 
       # @private
