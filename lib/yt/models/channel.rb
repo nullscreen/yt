@@ -107,9 +107,6 @@ module Yt
         if options[:statistics]
           @statistics_set = StatisticsSet.new data: options[:statistics]
         end
-        if options[:viewer_percentages]
-          @viewer_percentages = options[:viewer_percentages]
-        end
       end
 
       # Returns whether the authenticated account is subscribed to the channel.

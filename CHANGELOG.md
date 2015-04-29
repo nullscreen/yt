@@ -6,6 +6,20 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.19.0 - unreleased
+
+**How to upgrade**
+
+If your code never calls `partnered_channels.includes(:viewer_percentages)` on
+a Yt::ContentOwner, then you are good to go.
+
+If it does, then be aware that viewer percentage is not anymore eager-loaded,
+so the call above is equivalent to `partenered_channels`. The reason is that
+viewer percentage *requires* a time-range, and using a default range of the
+last 3 months can generate more confusion than added value.
+
+* [REMOVAL] Remove `.includes(:viewer_percentages)` on `content_owner.partnered_channels`.
+
 ## 0.18.0 - 2015-04-28
 
 **How to upgrade**

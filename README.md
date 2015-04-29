@@ -3,7 +3,7 @@ Yt - a Ruby client for the YouTube API
 
 Yt helps you write apps that need to interact with YouTube.
 
-The **full documentation** is available at [rubydoc.info](http://www.rubydoc.info/gems/yt/frames).
+The **source code** is available on [GitHub](https://github.com/Fullscreen/yt) and the **documentation** on [RubyDoc](http://www.rubydoc.info/gems/yt/frames).
 
 [![Build Status](http://img.shields.io/travis/Fullscreen/yt/master.svg)](https://travis-ci.org/Fullscreen/yt)
 [![Coverage Status](http://img.shields.io/coveralls/Fullscreen/yt/master.svg)](https://coveralls.io/r/Fullscreen/yt)
@@ -115,8 +115,6 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 content_owner.partnered_channels.count #=> 12
 content_owner.partnered_channels.map &:title #=> ["Fullscreen", "Best of Fullscreen", ...]
 content_owner.partnered_channels.where(part: 'statistics').map &:subscriber_count #=> [136925, 56945, ...]
-content_owner.partnered_channels.includes(:viewer_percentages).map &:viewer_percentages #=> [{female: {'18-24' => 12.12,…}…}, {female: {'18-24' => 40.12,…}…}, …]
-
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
