@@ -71,6 +71,7 @@ playlist.add_video "BPNYv0vd78A"
 
   {% include dt.html title="Playlist’s Updates" label="warning" auth="must authenticate as the playlist’s account or content owner" %}
   <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Playlist#update" %}{% include example.html object='playlist' method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"Videos I like"</span><span class="p">,</span> <span class="ss">privacy_status</span><span class="p">:</span> <span class="s2">"public"</span><span class="p">' result='true' %}
 {% include doc.html link="Models/Playlist#add_video" %}{% include example.html object='playlist' method='add_video' params=' <span class="s2">"BPNYv0vd78A"</span>' result='#&lt;Yt::PlaylistItem …&gt;' %}
 {% include doc.html link="Models/Playlist#add_videos" %}{% include example.html object='playlist' method='add_videos' params=' <span class="o">%w{</span><span class="s2">BPNYv0vd78A 2NW_AqhkYZZ</span><span class="o">}</span>' result='[#&lt;Yt::PlaylistItem …&gt;]' %}
 {% include doc.html link="Models/Playlist#delete_playlist_items" %}{% include example.html object='playlist' method='delete_playlist_items' params=' <span class="ss">video_id</span><span class="p">:</span> <span class="s2">"BPNYv0vd78A"</span>' result='[true, false]' %}</pre>

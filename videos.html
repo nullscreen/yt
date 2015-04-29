@@ -112,7 +112,7 @@ video.earnings since: 3.days.ago
 
   {% include dt.html title="Video’s Updates" label="warning" auth="must authenticate as the video’s account or content owner" %}
   <dd><div class="highlight"><pre>
-{% include doc.html link="Models/Resource#update" %}{% include example.html object='video' method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"New title"</span><span class="p">,</span> <span class="ss">license</span><span class="p">:</span> <span class="s2">"youtube"</span><span class="p">,</span> <span class="ss">tags</span><span class="p">:</span> <span class="o">[</span><span class="s2">"new"</span><span class="o">]</span>' result='true' %}
+{% include doc.html link="Models/Video#update" %}{% include example.html object='video' method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"New title"</span><span class="p">,</span> <span class="ss">license</span><span class="p">:</span> <span class="s2">"youtube"</span><span class="p">,</span> <span class="ss">tags</span><span class="p">:</span> <span class="o">[</span><span class="s2">"new"</span><span class="o">]</span>' result='true' %}
 {% include doc.html link="Models/Video#upload_thumbnail" %}{% include example.html object='video' method='upload_thumbnail' params=' <span class="s2">"http://example.com/new_thumbnail.jpg"</span>' result='true' %}
 {% include doc.html link="Models/Video#delete" %}{% include example.html object='video' method='delete' result='false' %}</pre>
   </div></dd>

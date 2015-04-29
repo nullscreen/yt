@@ -73,6 +73,7 @@ item.delete
 
   {% include dt.html title="Playlist Item’s Updates" label="warning" auth="must authenticate as the playlist item’s account or content owner" %}
   <dd><div class="highlight"><pre>
+{% include doc.html link="Models/PlaylistItem#update" %}{% include example.html object='item' method='update' params=' <span class="ss">position</span><span class="p">:</span> <span class="mi">0</span>' result='true' %}
 {% include doc.html link="Models/PlaylistItem#delete" %}{% include example.html object='item' method='delete' result='true' %}</pre>
   </div></dd>
 
