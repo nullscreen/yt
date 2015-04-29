@@ -228,7 +228,7 @@ video.earnings since: 3.days.ago
 {% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}</pre>
   </div></dd>
 
-  {% include dt.html title="Video’s Analytics" label="danger" auth="must authenticate as the video’s content owner" %}
+  {% include dt.html title="Video’s Monetization" label="danger" auth="must authenticate as the video’s content owner" %}
   <dd><div class="highlight"><pre>
 {% include doc.html link="Models/Video#ad_formats" %}{% include example.html method='ad_formats' result='["standard_instream", "trueview_instream"]' %}
 {% include doc.html link="Models/Video#earnings" %}{% include example.html method='earnings' result='{Wed, 8 May 2014 => 455.0, Thu, 9 May 2014 => 312.0, …}' %}
