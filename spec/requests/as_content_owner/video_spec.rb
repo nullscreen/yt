@@ -884,22 +884,6 @@ describe Yt::Video, :partner do
           expect(viewer_percentage.values).to all(be_instance_of Float)
         end
       end
-
-      # @deprecated, use video.viewer_percentage instead
-      specify 'viewer percentages by gender and age range can be retrieved' do
-        expect(video.viewer_percentages[:female]['18-24']).to be_a Float
-        expect(video.viewer_percentages[:female]['25-34']).to be_a Float
-        expect(video.viewer_percentages[:female]['35-44']).to be_a Float
-        expect(video.viewer_percentages[:female]['45-54']).to be_a Float
-        expect(video.viewer_percentages[:female]['55-64']).to be_a Float
-        expect(video.viewer_percentages[:female]['65-']).to be_a Float
-        expect(video.viewer_percentages[:male]['18-24']).to be_a Float
-        expect(video.viewer_percentages[:male]['25-34']).to be_a Float
-        expect(video.viewer_percentages[:male]['35-44']).to be_a Float
-        expect(video.viewer_percentages[:male]['45-54']).to be_a Float
-        expect(video.viewer_percentages[:male]['55-64']).to be_a Float
-        expect(video.viewer_percentages[:male]['65-']).to be_a Float
-      end
     end
 
     context 'given a video claimable by the authenticated Content Owner' do

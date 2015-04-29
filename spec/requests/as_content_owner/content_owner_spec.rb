@@ -12,14 +12,6 @@ describe Yt::ContentOwner, :partner do
     specify '.size', :ruby2 do
       expect(partnered_channels.size).to be > 0
     end
-
-    context 'with includes(:viewer_percentages)' do
-      let(:channel) { partnered_channels.includes(:viewer_percentages).first }
-
-      specify 'eager-loads the viewer percentages of each channel' do
-        expect(channel.instance_variable_defined? :@viewer_percentages).to be true
-      end
-    end
   end
 
   describe 'claims' do

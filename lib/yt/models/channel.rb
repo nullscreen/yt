@@ -70,10 +70,6 @@ module Yt
       # @macro has_report
       has_report :viewer_percentage
 
-      # @deprecated Use {#has_report :viewer_percentage}.
-      # @macro has_viewer_percentages
-      has_viewer_percentages
-
       # @!attribute [r] statistics_set
       #   @return [Yt::Models::StatisticsSet] the statistics for the video.
       has_one :statistics_set
@@ -106,9 +102,6 @@ module Yt
         super options
         if options[:statistics]
           @statistics_set = StatisticsSet.new data: options[:statistics]
-        end
-        if options[:viewer_percentages]
-          @viewer_percentages = options[:viewer_percentages]
         end
       end
 

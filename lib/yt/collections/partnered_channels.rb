@@ -6,26 +6,6 @@ module Yt
 
     private
 
-      def attributes_for_new_item(data)
-        super(data).tap do |attributes|
-          attributes[:viewer_percentages] = data['viewerPercentages']
-        end
-      end
-
-      def eager_load_items_from(items)
-        if included_relationships.include? :viewer_percentages
-          filters = "channel==#{items.map{|item| item['id']}.join(',')}"
-          ids = "contentOwner==#{@auth.owner_name}"
-          conditions = {ids: ids, filters: filters}
-          viewer_percentages = Collections::ViewerPercentages.new auth: @auth
-          viewer_percentages = viewer_percentages.where conditions
-          items.each do |item|
-            item['viewerPercentages'] = viewer_percentages[item['id']]
-          end
-        end
-        super
-      end
-
       # @private
       # @note Partnered Channels overwrites +channel_params+ since the query
       #   is slightly different.
