@@ -2,11 +2,7 @@ require 'yt/models/description'
 
 module Yt
   module Models
-    # Contains basic information about the resource. The details of the snippet
-    # are different for the different types of resources.
-    #
-    # Resources with a
-    # snippet are: channels, playlists, playlist items and videos.
+    # Provides methods to interact with the snippet YouTube resources.
     # @see https://developers.google.com/youtube/v3/docs/channels#resource
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
@@ -19,70 +15,21 @@ module Yt
         @auth = options[:auth]
       end
 
-      # @return [String] if the resource is a playlist item, the item’s title.
       has_attribute :title, default: ''
-
-      # @return [Yt::Models::Description] if the resource is a playlist item,
-      #   the item’s description.
-      has_attribute :description, default: '' do |description_text|
-        Description.new description_text
-      end
-
-      # @return [Time] if the resource is a playlist item, the date and time
-      #   that the item was added to the playlist.
+      has_attribute(:description, default: '') {|text| Description.new text}
       has_attribute :published_at, type: Time
+      has_attribute :channel_id
+      has_attribute :channel_title
+      has_attribute :tags, default: []
+      has_attribute :category_id
+      has_attribute :live_broadcast_content
+      has_attribute :playlist_id
+      has_attribute :position, type: Integer
+      has_attribute :resource_id, default: {}
+      has_attribute :thumbnails, default: {}
 
-      # @param [Symbol, String] size The size of the thumbnail to retrieve.
-      # @return [String] if the resource is a playlist item and
-      #   +size+ is +default+, the URL of an 120x90px image.
-      # @return [String] if the resource is a playlist item and
-      #   +size+ is +medium+, the URL of an 320x180px image.
-      # @return [String] if the resource is a playlist item and
-      #   +size+ is +high+, the URL of an 480x360px image.
-      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']
-      end
-
-      # @return [String] if the resource is a playlist item, the ID that YouTube
-      #   uses to uniquely identify the channel that the playlist belongs to.
-      has_attribute :channel_id
-
-      # @return [String] if the resource is a playlist item, the title of the
-      #   channel that the playlist item belongs to.
-      has_attribute :channel_title
-
-      has_attribute :tags, default: []
-
-      has_attribute :category_id
-
-      BROADCAST_TYPES = %q(live none upcoming)
-
-      has_attribute :live_broadcast_content
-
-      # @return [String] if the resource is a playlist item, the ID that
-      #   YouTube uses to uniquely identify the playlist that the item is in.
-      # @return [nil] if the resource is a playlist.
-      has_attribute :playlist_id
-
-      # @return [Integer] if the resource is a playlist item, the order in
-      #   which the item appears in a playlist. The value is zero-based, so the
-      #   first item has a position of 0, the second item of 1, and so forth.
-      # @return [nil] if the resource is a playlist.
-      has_attribute :position, type: Integer
-
-      # @return [String] if the resource is a playlist item, the ID of the
-      #   video the playlist item represents in the playlist.
-      # @return [nil] if the resource is a playlist.
-      def video_id
-        resource_id['videoId']
-      end
-
-      # @return [Yt::Models::Video] the video the playlist item represents in
-      #   the playlist.
-      # @return [nil] if the resource is a playlist.
-      def video
-        @video ||= Video.new id: video_id, auth: @auth if video_id
       end
 
       # Returns whether YouTube API includes all attributes in this snippet.
@@ -97,11 +44,6 @@ module Yt
       def complete?
         @complete ||= data.fetch :complete, true
       end
-
-    private
-
-      has_attribute :thumbnails, default: {}
-      has_attribute :resource_id, default: {}
     end
   end
 end

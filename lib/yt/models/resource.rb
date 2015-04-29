@@ -71,6 +71,17 @@ module Yt
 
     private
 
+      # Since YouTube API only returns tags on Videos#list, the memoized
+      # `@snippet` is erased if the video was instantiated through Video#search
+      # (e.g., by calling account.videos or channel.videos), so that the full
+      # snippet (with tags and category) is loaded, rather than the partial one.
+      def ensure_complete_snippet(attribute)
+        unless snippet.public_send(attribute).present? || snippet.complete?
+          @snippet = nil
+        end
+        snippet.public_send attribute
+      end
+
       # TODO: instead of having Video, Playlist etc override this method,
       #       they should define *what* can be updated in their own *update*
       #       method.
