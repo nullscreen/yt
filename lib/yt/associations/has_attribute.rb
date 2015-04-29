@@ -1,6 +1,7 @@
 require 'yt/models/timestamp'
 
 module Yt
+  # @private
   module Associations
     module HasAttribute
       def self.included(base)
