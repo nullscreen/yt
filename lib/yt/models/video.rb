@@ -378,66 +378,68 @@ module Yt
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
 
-      # @macro has_report
-      has_report :earnings
+    ### ANALYTICS ###
 
-      # @macro has_report
+      # @macro views_report
       has_report :views
 
-      # @macro has_report
+      # @macro demographics_report
+      has_report :viewer_percentage
+
+      # @macro daily_report
       has_report :comments
 
-      # @macro has_report
+      # @macro daily_report
       has_report :likes
 
-      # @macro has_report
+      # @macro daily_report
       has_report :dislikes
 
-      # @macro has_report
+      # @macro daily_report
       has_report :shares
 
-      # @macro has_report
-      # @note: This is not the total number of subscribers gained by the video’s
-      #        channel, but the subscribers gained *from* the video’s page.
+      # @note This is not the total number of subscribers gained by the video’s
+      #   channel, but the subscribers gained *from* the video’s page.
+      # @macro daily_report
       has_report :subscribers_gained
 
-      # @macro has_report
-      # @note: This is not the total number of subscribers lost by the video’s
-      #        channel, but the subscribers lost *from* the video’s page.
+      # @note This is not the total number of subscribers lost by the video’s
+      #   channel, but the subscribers lost *from* the video’s page.
+      # @macro daily_report
       has_report :subscribers_lost
 
-      # @macro has_report
+      # @macro daily_report
       has_report :favorites_added
 
-      # @macro has_report
+      # @macro daily_report
       has_report :favorites_removed
 
-      # @macro has_report
-      has_report :estimated_minutes_watched
-
-      # @macro has_report
+      # @macro daily_report
       has_report :average_view_duration
 
-      # @macro has_report
+      # @macro daily_report
       has_report :average_view_percentage
 
-      # @macro has_report
-      has_report :impressions
+      # @macro daily_report
+      has_report :estimated_minutes_watched
 
-      # @macro has_report
-      has_report :monetized_playbacks
-
-      # @macro has_report
+      # @macro daily_report
       has_report :annotation_clicks
 
-      # @macro has_report
+      # @macro daily_report
       has_report :annotation_click_through_rate
 
-      # @macro has_report
+      # @macro daily_report
       has_report :annotation_close_rate
 
-      # @macro has_report
-      has_report :viewer_percentage
+      # @macro daily_report
+      has_report :earnings
+
+      # @macro daily_report
+      has_report :impressions
+
+      # @macro daily_report
+      has_report :monetized_playbacks
 
       # @deprecated Use {#has_report :viewer_percentage}.
       # @macro has_viewer_percentages

@@ -8,9 +8,7 @@ For more information about changelogs, check
 
 ## 0.17.0 - unreleased
 
-* [ENHANCEMENT] Don’t over-delegate methods from Video to Snippet.
-* [ENHANCEMENT] Don’t over-delegate methods from Video to ContentDetail.
-
+* [ENHANCEMENT] Don’t over-delegate methods of Video.
 
 ## 0.16.0 - 2015-04-27
 
