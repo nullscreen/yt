@@ -312,14 +312,17 @@ module Yt
         !liked?
       end
 
+    ### VIDEO CATEGORY ###
+
+      has_one :video_category
+
+      # @return [String] the video category’s title.
+      def category_title
+        video_category.title
+      end
 
       has_one :advertising_options_set
       delegate :ad_formats, to: :advertising_options_set
-
-      # @!attribute [r] video_category
-      #   @return [Yt::Models::VideoCategory] the video’s category.
-      has_one :video_category
-      delegate :title, to: :video_category, prefix: :category
 
       # @!attribute [r] live_streaming_detail
       #   @return [Yt::Models::LiveStreamingDetail] live streaming detail.
