@@ -149,33 +149,15 @@ module Yt
         end
       end
 
-      # Returns the list of keyword tags associated with the video.
-      # Since YouTube API only returns tags on Videos#list, the memoized
-      # +@snippet+ is erased if the video was instantiated through Video#search
-      # (e.g., by calling account.videos or channel.videos), so that the full
-      # snippet (with tags) is loaded, rather than the partial one.
-      # @see https://developers.google.com/youtube/v3/docs/videos
-      # @return [Array<Yt::Models::Tag>] the list of keyword tags associated
+      # @return [Array<Yt::Models::Tag>] the list of tags attached to the video.
       #   with the video.
       def tags
-        unless snippet.tags.any? || snippet.complete? || @auth.nil?
-          @snippet = nil
-        end
-        snippet.tags
+        ensure_complete_snippet :tags
       end
 
-      # Returns the category ID associated with the video.
-      # Since YouTube API only returns categoryID on Videos#list, the memoized
-      # +@snippet+ is erased if the video was instantiated through Video#search
-      # (e.g., by calling account.videos or channel.videos), so that the full
-      # snippet (with categoryID) is loaded, rather than the partial one.
-      # @see https://developers.google.com/youtube/v3/docs/videos
       # @return [String] ID of the YouTube category associated with the video.
       def category_id
-        unless snippet.category_id.present? || snippet.complete?
-          @snippet = nil
-        end
-        snippet.category_id
+        ensure_complete_snippet :category_id
       end
 
       # Deletes the video.
@@ -291,6 +273,17 @@ module Yt
       end
 
     private
+
+      # Since YouTube API only returns tags on Videos#list, the memoized
+      # `@snippet` is erased if the video was instantiated through Video#search
+      # (e.g., by calling account.videos or channel.videos), so that the full
+      # snippet (with tags and category) is loaded, rather than the partial one.
+      def ensure_complete_snippet(attribute)
+        unless snippet.public_send(attribute).present? || snippet.complete?
+          @snippet = nil
+        end
+        snippet.public_send attribute
+      end
 
       # @see https://developers.google.com/youtube/v3/docs/videos/update
       # @todo: Add recording details keys
