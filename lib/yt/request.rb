@@ -11,7 +11,6 @@ require 'yt/errors/server_error'
 require 'yt/errors/unauthorized'
 
 module Yt
-  # @private
   # A wrapper around Net::HTTP to send HTTP requests to any web API and
   # return their result or raise an error if the result is unexpected.
   # The basic way to use Request is by calling +run+ on an instance.
