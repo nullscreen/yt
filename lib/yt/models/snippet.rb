@@ -22,9 +22,6 @@ module Yt
       # @return [String] if the resource is a channel, the channel’s title.
       # @return [String] if the resource is a playlist, the playlist’s title.
       # @return [String] if the resource is a playlist item, the item’s title.
-      # @return [String] if the resource is a video, the video’s title. Has a
-      #   maximum of 100 characters and may contain all valid UTF-8 characters
-      #   except < and >.
       has_attribute :title, default: ''
 
       # @return [Yt::Models::Description] if the resource is a channel, the
@@ -33,9 +30,6 @@ module Yt
       #   playlist’s description.
       # @return [Yt::Models::Description] if the resource is a playlist item,
       #   the item’s description.
-      # @return [Yt::Models::Description] if the resource is a video, the
-      #   video’s description. Has a maximum of 5000 bytes and may contain all
-      #   valid UTF-8 characters except < and >.
       has_attribute :description, default: '' do |description_text|
         Description.new description_text
       end
@@ -46,23 +40,21 @@ module Yt
       #   the playlist was created.
       # @return [Time] if the resource is a playlist item, the date and time
       #   that the item was added to the playlist.
-      # @return [Time] if the resource is a video, the date and time that the
-      #   video was published.
       has_attribute :published_at, type: Time
 
       # @param [Symbol, String] size The size of the thumbnail to retrieve.
       # @return [String] if the resource is a channel and +size+ is +default+,
       #   the URL of an 88x88px image.
-      # @return [String] if the resource is a playlist, a PlaylistItem or a
-      #    Video and +size+ is +default+, the URL of an 120x90px image.
+      # @return [String] if the resource is a playlist or a playlist item and
+      #   +size+ is +default+, the URL of an 120x90px image.
       # @return [String] if the resource is a channel and +size+ is +medium+,
       #   the URL of an 240x240px image.
-      # @return [String] if the resource is a playlist, a PlaylistItem or a
-      #    Video and +size+ is +medium+, the URL of an 320x180px image.
+      # @return [String] if the resource is a playlist or a playlist item and
+      #   +size+ is +medium+, the URL of an 320x180px image.
       # @return [String] if the resource is a channel and +size+ is +high+,
       #   the URL of an 800x800px image.
-      # @return [String] if the resource is a playlist, a PlaylistItem or a
-      #    Video and +size+ is +high+, the URL of an 480x360px image.
+      # @return [String] if the resource is a playlist or a playlist item and
+      #   +size+ is +high+, the URL of an 480x360px image.
       # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']
@@ -72,8 +64,6 @@ module Yt
       #   uses to uniquely identify the channel that the playlist belongs to.
       # @return [String] if the resource is a playlist item, the ID that YouTube
       #   uses to uniquely identify the channel that the playlist belongs to.
-      # @return [String] if the resource is a video, the ID that YouTube uses
-      #   to uniquely identify the channel that the video was uploaded to.
       # @return [nil] if the resource is a channel.
       has_attribute :channel_id
 
@@ -81,8 +71,6 @@ module Yt
       #   channel that the playlist belongs to.
       # @return [String] if the resource is a playlist item, the title of the
       #   channel that the playlist item belongs to.
-      # @return [String] if the resource is a video, the title of the channel
-      #   that the video was uploaded to.
       # @return [nil] if the resource is a channel.
       has_attribute :channel_title
 
@@ -92,32 +80,18 @@ module Yt
       #   list of keyword tags associated with the playlist.
       # @return [Array<Yt::Models::Tag>] if the resource is a playlist item,
       #   an empty array.
-      # @return [Array<Yt::Models::Tag>] if the resource is a video, the list
-      #   of keyword tags associated with the video.
       has_attribute :tags, default: []
 
-      # @return [String] if the resource is a video, the YouTube video
-      #   category associated with the video.
-      # @return [nil] if the resource is a channel.
-      # @return [nil] if the resource is a playlist.
-      # @return [nil] if the resource is a playlist item.
-      # @see https://developers.google.com/youtube/v3/docs/videoCategories/list
       has_attribute :category_id
 
       BROADCAST_TYPES = %q(live none upcoming)
 
-      # @return [String] if the resource is a video, whether the resource is a
-      #   live broadcast. Valid values are: live, none, upcoming.
-      # @return [nil] if the resource is a channel.
-      # @return [nil] if the resource is a playlist.
-      # @return [nil] if the resource is a playlist item.
       has_attribute :live_broadcast_content
 
       # @return [String] if the resource is a playlist item, the ID that
       #   YouTube uses to uniquely identify the playlist that the item is in.
       # @return [nil] if the resource is a channel.
       # @return [nil] if the resource is a playlist.
-      # @return [nil] if the resource is a video.
       has_attribute :playlist_id
 
       # @return [Integer] if the resource is a playlist item, the order in
@@ -125,14 +99,12 @@ module Yt
       #   first item has a position of 0, the second item of 1, and so forth.
       # @return [nil] if the resource is a channel.
       # @return [nil] if the resource is a playlist.
-      # @return [nil] if the resource is a video.
       has_attribute :position, type: Integer
 
       # @return [String] if the resource is a playlist item, the ID of the
       #   video the playlist item represents in the playlist.
       # @return [nil] if the resource is a channel.
       # @return [nil] if the resource is a playlist.
-      # @return [nil] if the resource is a video.
       def video_id
         resource_id['videoId']
       end
@@ -141,7 +113,6 @@ module Yt
       #   the playlist.
       # @return [nil] if the resource is a channel.
       # @return [nil] if the resource is a playlist.
-      # @return [nil] if the resource is a video.
       def video
         @video ||= Video.new id: video_id, auth: @auth if video_id
       end

@@ -5,8 +5,55 @@ module Yt
     # Provides methods to interact with YouTube videos.
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
-      delegate :channel_id, :channel_title, :category_id,
-        :live_broadcast_content, to: :snippet
+
+  ### SNIPPET ###
+
+      # @!attribute [r] title
+      # @return [String] the video’s title. Has a maximum of 100 characters and
+      #   may contain all valid UTF-8 characters except < and >.
+      delegate :title, to: :snippet
+
+      # @!attribute [r] description
+      # @return [String] the video’s description. Has a maximum of 5000 bytes
+      #   and may contain all valid UTF-8 characters except < and >.
+      delegate :description, to: :snippet
+
+      # Return the URL of the video’s thumbnail.
+      # @!method thumbnail_url(size = :default)
+      # @param [Symbol, String] size The size of the video’s thumbnail.
+      # @return [String] if +size+ is +default+, the URL of a 120x90px image.
+      # @return [String] if +size+ is +medium+, the URL of a 320x180px image.
+      # @return [String] if +size+ is +high+, the URL of a 480x360px image.
+      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      delegate :thumbnail_url, to: :snippet
+
+      # @!attribute [r] published_at
+      # @return [Time] the date and time that the video was published.
+      delegate :published_at, to: :snippet
+
+      # @!attribute [r] channel_id
+      # @return [String] the ID of the channel that the video belongs to.
+      delegate :channel_id, to: :snippet
+
+      # @!attribute [r] channel_title
+      # @return [String] the title of the channel that the video belongs to.
+      delegate :channel_title, to: :snippet
+
+      # @!attribute [r] live_broadcast_content
+      # @return [String] the type of live broadcast that the video contains.
+      #   Valid values are: live, none, upcoming.
+      delegate :live_broadcast_content, to: :snippet
+
+      # @return [Array<Yt::Models::Tag>] the list of tags attached to the video.
+      #   with the video.
+      def tags
+        ensure_complete_snippet :tags
+      end
+
+      # @return [String] ID of the YouTube category associated with the video.
+      def category_id
+        ensure_complete_snippet :category_id
+      end
 
       delegate :deleted?, :failed?, :processed?, :rejected?, :uploaded?,
         :uses_unsupported_codec?, :has_failed_conversion?, :empty?, :invalid?,
@@ -147,17 +194,6 @@ module Yt
         if options[:video_category]
           @video_category = VideoCategory.new data: options[:video_category]
         end
-      end
-
-      # @return [Array<Yt::Models::Tag>] the list of tags attached to the video.
-      #   with the video.
-      def tags
-        ensure_complete_snippet :tags
-      end
-
-      # @return [String] ID of the YouTube category associated with the video.
-      def category_id
-        ensure_complete_snippet :category_id
       end
 
       # Deletes the video.
