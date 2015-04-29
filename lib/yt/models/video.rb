@@ -6,7 +6,7 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
 
-  ### SNIPPET ###
+    ### SNIPPET ###
 
       # @!attribute [r] title
       # @return [String] the video’s title.

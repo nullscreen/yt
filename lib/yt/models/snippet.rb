@@ -19,54 +19,39 @@ module Yt
         @auth = options[:auth]
       end
 
-      # @return [String] if the resource is a playlist, the playlist’s title.
       # @return [String] if the resource is a playlist item, the item’s title.
       has_attribute :title, default: ''
 
-      # @return [Yt::Models::Description] if the resource is a playlist, the
-      #   playlist’s description.
       # @return [Yt::Models::Description] if the resource is a playlist item,
       #   the item’s description.
       has_attribute :description, default: '' do |description_text|
         Description.new description_text
       end
 
-      # @return [Time] if the resource is a playlist, the date and time that
-      #   the playlist was created.
       # @return [Time] if the resource is a playlist item, the date and time
       #   that the item was added to the playlist.
       has_attribute :published_at, type: Time
 
       # @param [Symbol, String] size The size of the thumbnail to retrieve.
-      # @return [String] if the resource is a playlist or a playlist item and
+      # @return [String] if the resource is a playlist item and
       #   +size+ is +default+, the URL of an 120x90px image.
-      # @return [String] if the resource is a playlist or a playlist item and
+      # @return [String] if the resource is a playlist item and
       #   +size+ is +medium+, the URL of an 320x180px image.
-      # @return [String] if the resource is a playlist or a playlist item and
+      # @return [String] if the resource is a playlist item and
       #   +size+ is +high+, the URL of an 480x360px image.
       # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']
       end
 
-      # @return [String] if the resource is a playlist, the ID that YouTube
-      #   uses to uniquely identify the channel that the playlist belongs to.
       # @return [String] if the resource is a playlist item, the ID that YouTube
       #   uses to uniquely identify the channel that the playlist belongs to.
-      # @return [nil] if the resource is a channel.
       has_attribute :channel_id
 
-      # @return [String] if the resource is a playlist, the title of the
-      #   channel that the playlist belongs to.
       # @return [String] if the resource is a playlist item, the title of the
       #   channel that the playlist item belongs to.
-      # @return [nil] if the resource is a channel.
       has_attribute :channel_title
 
-      # @return [Array<String>] if the resource is a playlist, the
-      #   list of keyword tags associated with the playlist.
-      # @return [Array<String>] if the resource is a playlist item,
-      #   an empty array.
       has_attribute :tags, default: []
 
       has_attribute :category_id

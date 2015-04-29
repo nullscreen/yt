@@ -1,5 +1,6 @@
 # encoding: UTF-8
 module Yt
+  # @private
   module Actions
     # Abstract module that contains methods common to every action
     module Base

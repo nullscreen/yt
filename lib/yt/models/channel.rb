@@ -2,11 +2,11 @@ require 'yt/models/resource'
 
 module Yt
   module Models
-    # A channel resource contains information about a YouTube channel.
+    # Provides methods to interact with YouTube channels.
     # @see https://developers.google.com/youtube/v3/docs/channels
     class Channel < Resource
 
-  ### SNIPPET ###
+    ### SNIPPET ###
 
       # @!attribute [r] title
       # @return [String] the channel’s title.
