@@ -3,13 +3,13 @@ Yt - a Ruby client for the YouTube API
 
 Yt helps you write apps that need to interact with YouTube.
 
-The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
+The **full documentation** is available at [rubydoc.info](http://www.rubydoc.info/gems/yt/frames).
 
 [![Build Status](http://img.shields.io/travis/Fullscreen/yt/master.svg)](https://travis-ci.org/Fullscreen/yt)
 [![Coverage Status](http://img.shields.io/coveralls/Fullscreen/yt/master.svg)](https://coveralls.io/r/Fullscreen/yt)
 [![Dependency Status](http://img.shields.io/gemnasium/Fullscreen/yt.svg)](https://gemnasium.com/Fullscreen/yt)
 [![Code Climate](http://img.shields.io/codeclimate/github/Fullscreen/yt.svg)](https://codeclimate.com/github/Fullscreen/yt)
-[![Online docs](http://img.shields.io/badge/docs-✓-green.svg)](http://rubydoc.info/github/Fullscreen/yt/master/frames)
+[![Online docs](http://img.shields.io/badge/docs-✓-green.svg)](http://www.rubydoc.info/gems/yt/frames)
 [![Gem Version](http://img.shields.io/gem/v/yt.svg)](http://rubygems.org/gems/yt)
 
 After [registering your app](#configuring-your-app), you can run commands like:
@@ -30,7 +30,7 @@ video.hd? #=> true
 video.annotations.count #=> 1
 ```
 
-The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
+The **full documentation** is available at [rubydoc.info](http://www.rubydoc.info/gems/yt/frames).
 
 How to install
 ==============
@@ -54,7 +54,7 @@ Available resources
 Yt::Account
 -----------
 
-Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Account) to:
+Use [Yt::Account](http://www.rubydoc.info/gems/yt/Yt/Models/Account) to:
 
 * authenticate as a YouTube account
 * read the attributes of the account
@@ -99,7 +99,7 @@ account.content_owners.first #=>  #<Yt::Models::ContentOwner @id=...>
 Yt::ContentOwner
 ----------------
 
-Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/ContentOwner) to:
+Use [Yt::ContentOwner](http://www.rubydoc.info/gems/yt/Yt/Models/ContentOwner) to:
 
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
@@ -140,7 +140,7 @@ content_owner.create_asset type: 'web' #=> #<Yt::Models::Asset @id=...>
 Yt::Channel
 -----------
 
-Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Channel) to:
+Use [Yt::Channel](http://www.rubydoc.info/gems/yt/Yt/Models/Channel) to:
 
 * read the attributes of a channel
 * access the videos of a channel
@@ -292,7 +292,7 @@ channel.linked_at #=> Wed, 28 May 2014
 Yt::Video
 -----------
 
-Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video) to:
+Use [Yt::Video](http://www.rubydoc.info/gems/yt/Yt/Models/Video) to:
 
 * read the attributes of a video
 * update the attributes of a video
@@ -472,7 +472,7 @@ video.ad_formats #=> ["standard_instream", "trueview_instream"]
 Yt::Playlist
 ------------
 
-Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Playlist) to:
+Use [Yt::Playlist](http://www.rubydoc.info/gems/yt/Yt/Models/Playlist) to:
 
 * read the attributes of a playlist
 * update the attributes of a playlist
@@ -526,7 +526,7 @@ playlist.views_per_playlist_start since: 7.days.ago #=> {Wed, 28 May 2014 => 12.
 Yt::PlaylistItem
 ----------------
 
-Use [Yt::PlaylistItem](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/PlaylistItem) to:
+Use [Yt::PlaylistItem](http://www.rubydoc.info/gems/yt/Yt/Models/PlaylistItem) to:
 
 * read the attributes of a playlist item
 * update the position of an item inside a playlist
@@ -562,7 +562,7 @@ item.delete #=> true
 Yt::Collections::Videos
 -----------------------
 
-Use [Yt::Collections::Videos](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Collections/Videos) to:
+Use [Yt::Collections::Videos](http://www.rubydoc.info/gems/yt/Yt/Collections/Videos) to:
 
 * search for videos
 
@@ -580,7 +580,7 @@ videos.where(id: 'MESycYJytkU,invalid').map(&:title) #=> ["Fullscreen Creator Pl
 Yt::Annotation
 --------------
 
-Use [Yt::Annotation](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Annotation) to:
+Use [Yt::Annotation](http://www.rubydoc.info/gems/yt/Yt/Models/Annotation) to:
 
 * read the attributes of an annotation
 
@@ -598,7 +598,7 @@ annotation.has_link_to_playlist? #=> true
 Yt::MatchPolicy
 ---------------
 
-Use [Yt::MatchPolicy](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/MatchPolicy) to:
+Use [Yt::MatchPolicy](http://www.rubydoc.info/gems/yt/Yt/Models/MatchPolicy) to:
 
 * update the policy used by an asset
 
@@ -611,7 +611,7 @@ match_policy.update policy_id: 'aBcdEF6g-HJ' #=> true
 Yt::Asset
 ---------
 
-Use [Yt::Asset](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Asset) to:
+Use [Yt::Asset](http://www.rubydoc.info/gems/yt/Yt/Models/Asset) to:
 
 * read the ownership of an asset
 * update the attributes of an asset
@@ -632,7 +632,7 @@ asset.update metadata_mine: {notes: 'Some notes'} #=> true
 Yt::Claim
 ---------
 
-Use [Yt::Claim](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Claim) to:
+Use [Yt::Claim](http://www.rubydoc.info/gems/yt/Yt/Models/Claim) to:
 
 * read the attributes of a claim
 * view the history of a claim
@@ -658,7 +658,7 @@ claim.delete #=> true
 Yt::Ownership
 -------------
 
-Use [Yt::Ownership](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Ownership) to:
+Use [Yt::Ownership](http://www.rubydoc.info/gems/yt/Yt/Models/Ownership) to:
 
 * update the ownership of an asset
 
@@ -674,7 +674,7 @@ ownership.update general: [new_general_owner_attrs]
 Yt::AdvertisingOptionsSet
 -------------------------
 
-Use [Yt::AdvertisingOptionsSet](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/AdvertisingOptionsSet) to:
+Use [Yt::AdvertisingOptionsSet](http://www.rubydoc.info/gems/yt/Yt/Models/AdvertisingOptionsSet) to:
 
 * update the advertising settings of a video
 
