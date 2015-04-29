@@ -445,11 +445,29 @@ module Yt
       # @macro has_viewer_percentages
       has_viewer_percentages
 
-      # @!attribute [r] statistics_set
-      #   @return [Yt::Models::StatisticsSet] the statistics for the video.
+    ### STATISTICS ###
+
       has_one :statistics_set
-      delegate :view_count, :like_count, :dislike_count, :favorite_count,
-        :comment_count, to: :statistics_set
+
+      # @!attribute [r] view_count
+      # @return [Integer] the number of times the video has been viewed.
+      delegate :view_count, to: :statistics_set
+
+      # @!attribute [r] like_count
+      # @return [Integer] the number of users who liked the video.
+      delegate :like_count, to: :statistics_set
+
+      # @!attribute [r] dislike_count
+      # @return [Integer] the number of users who disliked the video.
+      delegate :dislike_count, to: :statistics_set
+
+      # @!attribute [r] favorite_count
+      # @return [Integer] the number of users who marked the video as favorite.
+      delegate :favorite_count, to: :statistics_set
+
+      # @!attribute [r] dislike_count
+      # @return [Integer] the number of comments for the video.
+      delegate :comment_count, to: :statistics_set
 
       # @!attribute [r] player
       #   @return [Yt::Models::Player] the player for the video.

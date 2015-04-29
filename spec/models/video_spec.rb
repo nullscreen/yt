@@ -462,6 +462,41 @@ describe Yt::Video do
     end
   end
 
+  describe '#view_count' do
+    context 'given a video with views' do
+      let(:attrs) { {statistics: { "viewCount"=>"123"}} }
+      it { expect(video.view_count).to be 123 }
+    end
+  end
+
+  describe '#comment_count' do
+    context 'given a video with comments' do
+      let(:attrs) { {statistics: { "commentCount"=>"45"}} }
+      it { expect(video.comment_count).to be 45 }
+    end
+  end
+
+  describe '#like_count' do
+    context 'given a video with likes' do
+      let(:attrs) { {statistics: { "likeCount"=>"6"}} }
+      it { expect(video.like_count).to be 6 }
+    end
+  end
+
+  describe '#dislike_count' do
+    context 'given a video with dislikes' do
+      let(:attrs) { {statistics: { "dislikeCount"=>"9"}} }
+      it { expect(video.dislike_count).to be 9 }
+    end
+  end
+
+  describe '#favorite_count' do
+    context 'given a video with favorites' do
+      let(:attrs) { {statistics: { "favoriteCount"=>"44"}} }
+      it { expect(video.favorite_count).to be 44 }
+    end
+  end
+
   describe '#statistics_set' do
     context 'given fetching a video returns statistics' do
       let(:attrs) { {statistics: {"viewCount"=>"202"}} }
