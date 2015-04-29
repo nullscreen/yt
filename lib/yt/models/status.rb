@@ -51,7 +51,6 @@ module Yt
 
     private
 
-
       def video?
         upload_status.present?
       end

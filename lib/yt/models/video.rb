@@ -227,11 +227,34 @@ module Yt
         status.embeddable
       end
 
-      # @!attribute [r] content_detail
-      #   @return [Yt::Models::ContentDetail] the video’s content details.
+    ### CONTENT DETAILS ###
+
       has_one :content_detail
-      delegate :duration, :hd?, :stereoscopic?, :captioned?, :licensed?,
-        to: :content_detail
+
+      # @!attribute [r] duration
+      # @return [Integer] the duration of the video (in seconds).
+      delegate :duration, to: :content_detail
+
+      # @return [Boolean] whether the video is available in 3D.
+      def stereoscopic?
+        content_detail.dimension == '3d'
+      end
+
+      # @return [Boolean] whether the video is available in high definition.
+      def hd?
+        content_detail.definition == 'hd'
+      end
+
+      # @return [Boolean] whether captions are available for the video.
+      def captioned?
+        content_detail.caption == 'true'
+      end
+
+      # @return [Boolean] whether the video represents licensed content, which
+      #   means that the content has been claimed by a YouTube content partner.
+      def licensed?
+        content_detail.licensed_content || false
+      end
 
       # @!attribute [r] file_detail
       #   @return [Yt::Models::FileDetail] the video’s file details.

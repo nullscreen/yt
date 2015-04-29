@@ -8,7 +8,8 @@ For more information about changelogs, check
 
 ## 0.17.0 - unreleased
 
-* [ENHANCEMENT] Move upload status methods from Snippet to Video.
+* [ENHANCEMENT] Don’t over-delegate methods from Video to Snippet.
+* [ENHANCEMENT] Don’t over-delegate methods from Video to ContentDetail.
 
 
 ## 0.16.0 - 2015-04-27

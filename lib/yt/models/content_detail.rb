@@ -17,24 +17,10 @@ module Yt
         to_seconds value
       end
 
-      # @return [Boolean] whether the video is available in 3D.
-      has_attribute :stereoscopic?, from: :dimension do |dimension|
-        dimension == '3d'
-      end
-
-      # @return [Boolean] whether the video is available in high definition.
-      has_attribute :hd?, from: :definition do |definition|
-        definition == 'hd'
-      end
-
-      # @return [Boolean] whether captions are available for the video.
-      has_attribute :captioned?, from: :caption do |caption|
-        caption == 'true'
-      end
-
-      # @return [Boolean] whether the video represents licensed content, which
-      #   means that the content has been claimed by a YouTube content partner.
-      has_attribute :licensed?, default: false, from: :licensed_content
+      has_attribute :dimension
+      has_attribute :definition
+      has_attribute :caption
+      has_attribute :licensed_content
 
     private
 

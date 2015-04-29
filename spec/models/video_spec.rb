@@ -313,6 +313,54 @@ describe Yt::Video do
     end
   end
 
+  describe '#stereoscopic?' do
+    context 'given a 3D video' do
+      let(:attrs) { {content_details: {"dimension"=>"3d"}} }
+      it { expect(video).to be_stereoscopic }
+    end
+
+    context 'given a 2D video' do
+      let(:attrs) { {content_details: {"dimension"=>"2d"}} }
+      it { expect(video).not_to be_stereoscopic }
+    end
+  end
+
+  describe '#hd?' do
+    context 'given a high-definition video' do
+      let(:attrs) { {content_details: {"definition"=>"hd"}} }
+      it { expect(video).to be_hd }
+    end
+
+    context 'given a standard-definition video' do
+      let(:attrs) { {content_details: {"definition"=>"sd"}} }
+      it { expect(video).not_to be_hd }
+    end
+  end
+
+  describe '#captioned?' do
+    context 'given a video with captions' do
+      let(:attrs) { {content_details: {"caption"=>"true"}} }
+      it { expect(video).to be_captioned }
+    end
+
+    context 'given a video without captions' do
+      let(:attrs) { {content_details: {"caption"=>"false"}} }
+      it { expect(video).not_to be_captioned }
+    end
+  end
+
+  describe '#licensed?' do
+    context 'given a video with licensed content' do
+      let(:attrs) { {content_details: {"licensedContent"=>true}} }
+      it { expect(video).to be_licensed }
+    end
+
+    context 'given a video without licensed content' do
+      let(:attrs) { {content_details: {"licensedContent"=>false}} }
+      it { expect(video).not_to be_licensed }
+    end
+  end
+
   describe '#statistics_set' do
     context 'given fetching a video returns statistics' do
       let(:attrs) { {statistics: {"viewCount"=>"202"}} }
