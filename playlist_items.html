@@ -1,0 +1,83 @@
+---
+title:  "Yt::PlaylistItem"
+h2: "Playlist Items"
+---
+
+<p>
+  <code>Yt::PlaylistItem</code> represents a playlist item.
+  Initialize using an ID or using <code>Yt::Playlist#playlist_items</code>:
+</p>
+
+{% highlight ruby %}
+item = Yt::PlaylistItem.new id: 'PLjW_GNR5Ir0GWEP_ove'
+item = Yt::Playlist.new(id: 'PLSWYkYzOrPMRUYaLE6C9').playlist_items.first
+# => All these methods return #<Yt::PlaylistItem:0x... @id="PLjW_GNR5Ir0GWEP_ove">
+{% endhighlight %}
+
+<hr />
+<h4>Authentication</h4>
+
+<p>
+  Most methods of <code>Yt::PlaylistItem</code> <strong>retrieve public data</strong> from YouTube (e.g.: the position in the playlist).<br />
+  To use these methods (marked with <span class="label label-success">&nbsp;</span> below), you only need to <a href="https://github.com/Fullscreen/yt#apps-that-do-not-require-user-interactions">get a Server API key from Google</a> and configure:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.api_key = "<your api key>"             ## replace with your API key
+
+item = Yt::PlaylistItem.new id: 'PLjW_GNR5Ir0GWEP_ove'
+item.position
+# => 3
+{% endhighlight %}
+
+<p>
+  Other methods <strong>acts on behalf of YouTube accounts</strong> (e.g.: delete an item from a playlist).<br />
+  To use these methods (marked with  <span class="label label-warning">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the account you want to act as, and pass the account as the <code>:auth</code> parameter:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.client_id = "<your ID>"           ## replace with your client ID
+Yt.configuration.client_secret = "<your secret>"   ## replace with your client secret
+account = Yt::Account.new refresh_token: "<token>" ## use the account’s refresh token
+
+item = Yt::PlaylistItem.new id: 'PLjW_GNR5Ir0GWEP_ove', auth: account
+item.delete
+# => true
+{% endhighlight %}
+
+<hr />
+<h4>List of <code>Yt::PlaylistItem</code> methods</h4>
+<dl>
+
+  {% include dt.html title="Playlist Item’s Snippet" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Resource#id" %}{% include example.html object='item' method='id' result='"PLjW_GNR5Ir0GWEP_ove"' %}
+{% include doc.html link="Models/PlaylistItem#title" %}{% include example.html object='item' method='title' result='"Welcome to Fullscreen"' %}
+{% include doc.html link="Models/PlaylistItem#description" %}{% include example.html object='item' method='description' result='"We are Fullscreen"' %}
+{% include doc.html link="Models/PlaylistItem#published_at" %}{% include example.html object='item' method='published_at' result='2013-08-14 19:14:21 UTC' %}
+{% include doc.html link="Models/PlaylistItem#thumbnail_url" %}{% include example.html object='item' method='thumbnail_url' result='"https://i.ytimg.com/vi/JhRmvEP4IJ8/default.jpg"' %}
+{% include doc.html link="Models/PlaylistItem#channel_id" %}{% include example.html object='item' method='channel_id' result='"UCxO1tY8h1AhOz0T4ENwmpow"' %}
+{% include doc.html link="Models/PlaylistItem#channel_title" %}{% include example.html object='item' method='channel_title' result='"Fullscreen"' %}
+{% include doc.html link="Models/PlaylistItem#playlist_id" %}{% include example.html object='item' method='playlist_id' result='"PLSWYkYzOrPMRUYaLE6C9"' %}
+{% include doc.html link="Models/PlaylistItem#video_id" %}{% include example.html object='item' method='video_id' result='"BPNYv0vd78A"' %}
+{% include doc.html link="Models/PlaylistItem#position" %}{% include example.html object='item' method='position' result='3' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Playlist Item’s Privacy Status" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Resource#privacy_status" %}{% include example.html object='item' method='privacy_status' result='"public"' %}
+{% include doc.html link="Models/Resource#public%3F" %}{% include example.html object='item' method='public?' result='true' %}
+{% include doc.html link="Models/Resource#unlisted%3F" %}{% include example.html object='item' method='unlisted?' result='false' %}
+{% include doc.html link="Models/Resource#private%3F" %}{% include example.html object='item' method='private?' result='false' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Playlist Item’s Updates" label="warning" auth="must authenticate as the playlist item’s account or content owner" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/PlaylistItem#delete" %}{% include example.html object='item' method='delete' result='true' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Playlist Item’s Associations" label="success" auth="any authentication works" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/PlaylistItem#video" %}{% include example.html object='item' method='video' result='#&lt;Yt::Video …&gt;' %}</pre>
+  </div></dd>
+</dl>

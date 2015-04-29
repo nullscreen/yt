@@ -17,7 +17,6 @@ playlist = Yt::Playlist.new url: 'youtube.com/playlist?list=PLSWYkYzOrPMRUYaLE6C
 <hr />
 <h4>Authentication</h4>
 
-
 <p>
   Most methods of <code>Yt::Playlist</code> <strong>retrieve public data</strong> from YouTube (e.g.: fetch a playlist’s title and items).<br />
   To use these methods (marked with <span class="label label-success">&nbsp;</span> below), you only need to <a href="https://github.com/Fullscreen/yt#apps-that-do-not-require-user-interactions">get a Server API key from Google</a> and configure:
@@ -45,7 +44,6 @@ playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRUYaLE6C9', auth: account
 playlist.add_video "BPNYv0vd78A"
 # => #&lt;Yt::PlaylistItem …&gt; (the newly added playlist item)
 {% endhighlight %}
-
 
 <hr />
 <h4>List of <code>Yt::Playlist</code> methods</h4>
