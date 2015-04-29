@@ -15,12 +15,6 @@ module Yt
       #       '25-34', '35-44', '45-54', '55-64', '65-')
       #     @example Return the % of male viewers of a channel older than 64
       #       channel.viewer_percentages[:male]['65-'] #=> 12.02
-      #   @!method viewer_percentage(filters = {})
-      #     @return [Float] the percentage of viewer matching the filters.
-      #     @param [Hash] filters The type of viewers to be accounted for.
-      #     @option filters [Symbol] :gender Either :male or :female.
-      #     @example Return the % of male viewers of a video
-      #       channel.viewer_percentage(gender: :male) #=> 52.02
 
       # Defines one public instance methods to access the viewer percentages of
       # a resource for a specific metric.

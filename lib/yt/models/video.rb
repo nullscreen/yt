@@ -465,7 +465,7 @@ module Yt
       # @return [Integer] the number of users who marked the video as favorite.
       delegate :favorite_count, to: :statistics_set
 
-      # @!attribute [r] dislike_count
+      # @!attribute [r] comment_count
       # @return [Integer] the number of comments for the video.
       delegate :comment_count, to: :statistics_set
 
