@@ -18,7 +18,11 @@ so the call above is equivalent to `partenered_channels`. The reason is that
 viewer percentage *requires* a time-range, and using a default range of the
 last 3 months can generate more confusion than added value.
 
+Also if your code still uses the deprecated `.viewer_percentages` method, you
+will now have to replace it with `.viewer_percentage`.
+
 * [REMOVAL] Remove `.includes(:viewer_percentages)` on `content_owner.partnered_channels`.
+* [REMOVAL] Remove deprecated `viewer_percentages` (use `viewer_percentage` instead)
 
 ## 0.18.0 - 2015-04-28
 

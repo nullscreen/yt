@@ -319,11 +319,6 @@ describe Yt::Video, :device_app do
       expect{video.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end
-
-    # @deprecated, use video.viewer_percentage instead
-    it 'returns valid reports for video-related demographics' do
-      expect{video.viewer_percentages}.not_to raise_error
-    end
   end
 
   # @note: This test is separated from the block above because, for some

@@ -439,10 +439,6 @@ module Yt
       # @macro daily_report
       has_report :monetized_playbacks
 
-      # @deprecated Use {#has_report :viewer_percentage}.
-      # @macro has_viewer_percentages
-      has_viewer_percentages
-
     ### STATISTICS ###
 
       has_one :statistics_set

@@ -977,22 +977,6 @@ describe Yt::Channel, :partner do
         end
       end
 
-      # @deprecated, use channel.viewer_percentage instead
-      specify 'viewer percentages by gender and age range can be retrieved' do
-        expect(channel.viewer_percentages[:female]['18-24']).to be_a Float
-        expect(channel.viewer_percentages[:female]['25-34']).to be_a Float
-        expect(channel.viewer_percentages[:female]['35-44']).to be_a Float
-        expect(channel.viewer_percentages[:female]['45-54']).to be_a Float
-        expect(channel.viewer_percentages[:female]['55-64']).to be_a Float
-        expect(channel.viewer_percentages[:female]['65-']).to be_a Float
-        expect(channel.viewer_percentages[:male]['18-24']).to be_a Float
-        expect(channel.viewer_percentages[:male]['25-34']).to be_a Float
-        expect(channel.viewer_percentages[:male]['35-44']).to be_a Float
-        expect(channel.viewer_percentages[:male]['45-54']).to be_a Float
-        expect(channel.viewer_percentages[:male]['55-64']).to be_a Float
-        expect(channel.viewer_percentages[:male]['65-']).to be_a Float
-      end
-
       specify 'information about its content owner can be retrieved' do
         expect(channel.content_owner).to be_a String
         expect(channel.linked_at).to be_a Time
