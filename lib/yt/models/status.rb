@@ -92,7 +92,7 @@ module Yt
         upload_status == 'uploaded' if video?
       end
 
-      # @deprecated Use {uploading?} instead.
+      # @deprecated Use {#uploading?} instead.
       def uploaded?
         uploading?
       end

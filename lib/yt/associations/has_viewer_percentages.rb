@@ -4,10 +4,10 @@ module Yt
     #
     # YouTube resources with viewer percentage reports are:
     # {Yt::Models::Channel channels} and {Yt::Models::Channel videos}.
-    # @deprecated Use {#viewer_percentage} instead.
+    # @deprecated
     module HasViewerPercentages
       # @!macro has_viewer_percentages
-      #   @!deprecated Use {#viewer_percentage} instead.
+      #   @deprecated
       #   @!method viewer_percentages
       #     @return [Hash<Symbol,Hash<String,Float>>] the viewer percentages.
       #       The first-level hash identifies the genres (:female, :male).

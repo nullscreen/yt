@@ -151,7 +151,7 @@ module Yt
 
       # Returns the list of keyword tags associated with the video.
       # Since YouTube API only returns tags on Videos#list, the memoized
-      # @snippet is erased if the video was instantiated through Video#search
+      # +@snippet+ is erased if the video was instantiated through Video#search
       # (e.g., by calling account.videos or channel.videos), so that the full
       # snippet (with tags) is loaded, rather than the partial one.
       # @see https://developers.google.com/youtube/v3/docs/videos
@@ -166,7 +166,7 @@ module Yt
 
       # Returns the category ID associated with the video.
       # Since YouTube API only returns categoryID on Videos#list, the memoized
-      # @snippet is erased if the video was instantiated through Video#search
+      # +@snippet+ is erased if the video was instantiated through Video#search
       # (e.g., by calling account.videos or channel.videos), so that the full
       # snippet (with categoryID) is loaded, rather than the partial one.
       # @see https://developers.google.com/youtube/v3/docs/videos
