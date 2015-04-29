@@ -7,6 +7,9 @@ module Yt
   module Models
     class Resource < Base
       attr_reader :auth
+
+      # @!attribute [r] id
+      #   @return [String] the ID that YouTube uses to identify each resource.
       has_one :id
 
       has_one :snippet
