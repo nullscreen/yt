@@ -41,61 +41,12 @@ module Yt
         privacy_status == 'unlisted'
       end
 
-# Upload status (Video only)
-
       # Returns the upload status of a video.
       # @return [String] if the resource is a video, the status of the
       #   uploaded video. Valid values are: deleted, failed, processed,
       #   rejected, uploading.
       # @return [nil] if the resource is not a video.
       has_attribute :upload_status
-
-      # Returns whether an uploaded video was deleted.
-      # @return [Boolean] if the resource is a video, whether the uploaded
-      #   video was deleted by the user.
-      # @return [nil] if the resource is not a video.
-      def deleted?
-        upload_status == 'deleted' if video?
-      end
-
-      # Returns whether a video failed to upload. If true, the reason why
-      # the video upload failed can be obtained with +failure_reason+.
-      # @return [Boolean] if the resource is a video, whether the video failed
-      #   to upload.
-      # @return [nil] if the resource is not a video.
-      def failed?
-        upload_status == 'failed' if video?
-      end
-
-      # Returns whether an uploaded video is being processed by YouTube.
-      # @return [Boolean] if the resource is a video, whether the uploaded
-      #   video is being processed by YouTube.
-      # @return [nil] if the resource is not a video.
-      def processed?
-        upload_status == 'processed' if video?
-      end
-
-      # Returns whether the video was rejected by YouTube. If true, the reason
-      # why the video was rejected can be obtained with +rejection_reason+.
-      # @return [Boolean] if the resource is a video, whether the video was
-      #  rejected by YouTube.
-      # @return [nil] if the resource is not a video.
-      def rejected?
-        upload_status == 'rejected' if video?
-      end
-
-      # Returns whether a video is being uploaded to YouTube.
-      # @return [Boolean] if the resource is a video, whether the video is
-      #   being uploaded.
-      # @return [nil] if the resource is not a video.
-      def uploading?
-        upload_status == 'uploaded' if video?
-      end
-
-      # @deprecated Use {#uploading?} instead.
-      def uploaded?
-        uploading?
-      end
 
 # Failure reason (Video only)
 

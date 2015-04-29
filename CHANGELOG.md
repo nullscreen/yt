@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.17.0 - unreleased
+
+* [ENHANCEMENT] Move upload status methods from Snippet to Video.
+
+
 ## 0.16.0 - 2015-04-27
 
 **How to upgrade**

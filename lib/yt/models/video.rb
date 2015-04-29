@@ -55,13 +55,46 @@ module Yt
         ensure_complete_snippet :category_id
       end
 
-      delegate :deleted?, :failed?, :processed?, :rejected?, :uploaded?,
+    ### STATUS ###
+
+      # @return [Boolean] whether the video was deleted by the user.
+      def deleted?
+        status.upload_status == 'deleted'
+      end
+
+      # @return [Boolean] whether the video failed to upload.
+      def failed?
+        status.upload_status == 'failed'
+      end
+
+      # @return [Boolean] whether the video has been fully processed by YouTube.
+      def processed?
+        status.upload_status == 'processed'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube.
+      def rejected?
+        status.upload_status == 'rejected'
+      end
+
+      # @return [Boolean] whether the video is being uploaded to YouTube.
+      def uploading?
+        status.upload_status == 'uploaded'
+      end
+
+      # @deprecated Use {#uploading?} instead.
+      # @return [Boolean] whether the video is being uploaded to YouTube.
+      def uploaded?
+        uploading?
+      end
+
+      delegate \
         :uses_unsupported_codec?, :has_failed_conversion?, :empty?, :invalid?,
         :too_small?, :aborted?, :claimed?, :infringes_copyright?, :duplicate?,
         :scheduled_at, :publish_at, :scheduled?, :too_long?, :violates_terms_of_use?,
         :inappropriate?, :infringes_trademark?, :belongs_to_closed_account?,
         :belongs_to_suspended_account?, :licensed_as_creative_commons?,
-        :licensed_as_standard_youtube?, :has_public_stats_viewable?, :uploading?,
+        :licensed_as_standard_youtube?, :has_public_stats_viewable?,
         :public_stats_viewable, :embeddable, :embeddable?, :license, to: :status
 
       # @!attribute [r] content_detail

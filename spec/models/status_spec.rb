@@ -46,67 +46,6 @@ describe Yt::Status do
       it { expect(status).not_to be_unlisted }
     end
   end
-
-  describe '#deleted?' do
-    context 'given fetching a status returns uploadStatus "deleted"' do
-      let(:data) { {"uploadStatus"=>"deleted"} }
-      it { expect(status).to be_deleted }
-    end
-
-    context 'given fetching a status does not return uploadStatus "deleted"' do
-      let(:data) { {"uploadStatus"=>"uploaded"} }
-      it { expect(status).not_to be_deleted }
-    end
-  end
-
-  describe '#failed?' do
-    context 'given fetching a status returns uploadStatus "failed"' do
-      let(:data) { {"uploadStatus"=>"failed"} }
-      it { expect(status).to be_failed }
-    end
-
-    context 'given fetching a status does not return uploadStatus "failed"' do
-      let(:data) { {"uploadStatus"=>"uploaded"} }
-      it { expect(status).not_to be_failed }
-    end
-  end
-
-  describe '#processed?' do
-    context 'given fetching a status returns uploadStatus "processed"' do
-      let(:data) { {"uploadStatus"=>"processed"} }
-      it { expect(status).to be_processed }
-    end
-
-    context 'given fetching a status does not return uploadStatus "processed"' do
-      let(:data) { {"uploadStatus"=>"uploaded"} }
-      it { expect(status).not_to be_processed }
-    end
-  end
-
-  describe '#rejected?' do
-    context 'given fetching a status returns uploadStatus "rejected"' do
-      let(:data) { {"uploadStatus"=>"rejected"} }
-      it { expect(status).to be_rejected }
-    end
-
-    context 'given fetching a status does not return uploadStatus "rejected"' do
-      let(:data) { {"uploadStatus"=>"uploaded"} }
-      it { expect(status).not_to be_rejected }
-    end
-  end
-
-  describe '#uploaded?' do
-    context 'given fetching a status returns uploadStatus "uploaded"' do
-      let(:data) { {"uploadStatus"=>"uploaded"} }
-      it { expect(status).to be_uploading }
-    end
-
-    context 'given fetching a status does not return uploadStatus "uploaded"' do
-      let(:data) { {"uploadStatus"=>"failed"} }
-      it { expect(status).not_to be_uploading }
-    end
-  end
-
   describe '#uses_unsupported_codec?' do
     context 'given fetching a status returns failureReason "codec"' do
       let(:data) { {"uploadStatus"=>"failed", "failureReason"=>"codec"} }
