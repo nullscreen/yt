@@ -11,8 +11,7 @@ For more information about changelogs, check
 **How to upgrade**
 
 If your code never calls `public?`, `private?` or `unlisted?` on a Status
-object, then you are
-good to go.
+object, then you are good to go.
 
 If it does, then call the same methods on the parent Resource object instead.
 For instance, replace `video.status.private?` with `video.private?`.

@@ -9,13 +9,11 @@ module Yt
   ### SNIPPET ###
 
       # @!attribute [r] title
-      # @return [String] the video’s title. Has a maximum of 100 characters and
-      #   may contain all valid UTF-8 characters except < and >.
+      # @return [String] the video’s title.
       delegate :title, to: :snippet
 
       # @!attribute [r] description
-      # @return [String] the video’s description. Has a maximum of 5000 bytes
-      #   and may contain all valid UTF-8 characters except < and >.
+      # @return [String] the video’s description.
       delegate :description, to: :snippet
 
       # Return the URL of the video’s thumbnail.
@@ -41,11 +39,10 @@ module Yt
 
       # @!attribute [r] live_broadcast_content
       # @return [String] the type of live broadcast that the video contains.
-      #   Valid values are: live, none, upcoming.
+      #   Possible values are: +'live'+, +'none'+, +'upcoming'+.
       delegate :live_broadcast_content, to: :snippet
 
-      # @return [Array<Yt::Models::Tag>] the list of tags attached to the video.
-      #   with the video.
+      # @return [Array<String>] the list of tags attached to the video.
       def tags
         ensure_complete_snippet :tags
       end
@@ -196,8 +193,8 @@ module Yt
       end
 
       # @!attribute [r] license
-      # @return [String] the video’s license.
-      #   Valid values are: creativeCommon, youtube.
+      # @return [String] the video’s license. Possible values are:
+      #   +'creativeCommon'+, +'youtube'+.
       delegate :license, to: :status
 
       # @return [Boolean] whether the video uses the Standard YouTube license.
@@ -222,7 +219,7 @@ module Yt
         status.public_stats_viewable
       end
 
-      # @return [Boolean] whether the video can be embedded on another website.
+      # @return [Boolean] whether the video can be embedded on other websites.
       def embeddable?
         status.embeddable
       end
@@ -328,8 +325,9 @@ module Yt
 
       # @!attribute [r] ad_formats
       # @return [Array<String>] the list of ad formats that the video is
-      #   allowed to show. Valid values are: long, overlay,
-      #   standard_instream, third_party, trueview_inslate, trueview_instream.
+      #   allowed to show. Possible values are: +'long'+, +'overlay'+,
+      #   +'standard_instream'+, +'third_party'+, +'trueview_inslate'+,
+      #   +'trueview_instream'+.
       delegate :ad_formats, to: :advertising_options_set
 
 
@@ -507,6 +505,44 @@ module Yt
         !exists?
       end
 
+      # Updates the attributes of a video.
+      # @return [Boolean] whether the video was successfully updated.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account with permissions to update the video.
+      # @param [Hash] attributes the attributes to update.
+      # @option attributes [String] :title The new video’s title.
+      #   Cannot have more than 100 characters. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option attributes [String] :description The new video’s description.
+      #   Cannot have more than 5000 bytes. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option attributes [Array<String>] :tags The new video’s tags.
+      #   Cannot have more than 500 characters. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option attributes [String] :category_id The new video’s category ID.
+      # @option attributes [String] :privacy_status The new video’s privacy
+      #   status. Must be one of: private, unscheduled, public.
+      # @option attributes [Boolean] :embeddable The new value to specify
+      #   whether the video can be embedded on other websites.
+      # @option attributes [String] :license The new video’s license. Must be
+      #   one of: youtube, creativeCommon.
+      # @option attributes [Boolean] :public_stats_viewable The new value to
+      #   specify whether the video’s statistics are publicly viewable.
+      # @option attributes :publish_at The new timestamp when the video will be
+      #   made public. Must be in ISO 8601 format (YYYY-MM-DDThh:mm:ss.sZ).
+      # @example Update title and description of a video.
+      #   video.update title: 'New title', description: 'New description'
+      # @example Update tags and category ID of a video.
+      #   video.update tags: ['new', 'tags'], category_id: '22'
+      # @example Update status of a video.
+      #   video.update privacy_status: 'public', public_stats_viewable: true
+      # @example Update visibility/license of a video.
+      #   video.update embeddable: true, license: :youtube
+      # @example Update the time when a private video will become public.
+      #   video.update publish_at: 3.days.from_now.utc.iso8601(3)
+      def update(attributes = {})
+        super
+      end
 
     ### PRIVATE API ###
 
@@ -587,6 +623,9 @@ module Yt
         snippet.public_send attribute
       end
 
+      # TODO: instead of having Video, Playlist etc override this method,
+      #       they should define *what* can be updated in their own *update*
+      #       method.
       # @see https://developers.google.com/youtube/v3/docs/videos/update
       # @todo: Add recording details keys
       def update_parts

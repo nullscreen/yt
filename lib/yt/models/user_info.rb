@@ -34,7 +34,7 @@ module Yt
       has_attribute :avatar_url, from: :picture, default: ''
 
       # @return [String] the person’s gender. Possible values include, but
-      #   are not limited to, "male", "female", "other".
+      #   are not limited to, +'male'+, +'female'+, +'other'+.
       has_attribute :gender, default: ''
 
       # @return [String] the user’s preferred locale.

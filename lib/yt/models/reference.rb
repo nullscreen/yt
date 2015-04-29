@@ -85,11 +85,12 @@ module Yt
         duplicate_on_hold inactive live_streaming_processing
         urgent_reference_processing)
 
-      # @return [String] the reference’s status. Valid values are: activating,
-      #   active, checking, computing_fingerprint, deleted, duplicate_on_hold,
-      #   inactive, live_streaming_processing, and urgent_reference_processing.
+      # @return [String] the reference’s status. Possible values are:
+      #   +'activating'+, +'active'+, +'checking'+, +'computing_fingerprint'+,
+      #   +'deleted'+, +'duplicate_on_hold'+, +'inactive'+,
+      #   +'live_streaming_processing'+, +'urgent_reference_processing'+.
       has_attribute :status
-      
+
       # @return [Boolean] whether the reference is pending.
       def activating?
         status == 'activating'
@@ -142,25 +143,22 @@ module Yt
 
       CONTENT_TYPES = %q(audio video audiovisual)
 
-      # @return [String] whether the reference covers the audio, video, or
-      #   audiovisual portion of the claimed content. Valid values are: audio,
-      #   audiovisual, video.
+      # Returns the audiovisual portion of the referenced content.
+      # @return [String] the audiovisual portion of the referenced content.
+      #   Possible values are: +'audio'+, +'audiovisual'+, +'video'+.
       has_attribute :content_type
 
-      # @return [Boolean] whether the reference covers the audio of the
-      #   content.
+      # @return [Boolean] whether the reference covers only the audio.
       def audio?
         content_type == 'audio'
       end
 
-      # @return [Boolean] whether the reference covers the video of the
-      #   content.
+      # @return [Boolean] whether the reference covers only the video.
       def video?
         content_type == 'video'
       end
 
-      # @return [Boolean] whether the reference covers the audiovisual of the
-      #   content.
+      # @return [Boolean] whether the reference covers both audio and video.
       def audiovisual?
         content_type == 'audiovisual'
       end

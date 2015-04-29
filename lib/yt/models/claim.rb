@@ -45,8 +45,10 @@ module Yt
       STATUSES = %q(active appealed disputed inactive pending potential
         takedown unknown)
 
-      # @return [String] the claim’s status. Valid values are: active,
-      #   appealed, disputed, inactive, pending, potential, takedown, unknown.
+      # Returns the claim’s status.
+      # @return [String] the claim’s status. Possible values are: +'active'+,
+      #   +'appealed'+, +'disputed'+, +'inactive'+, +'pending'+, +'potential'+,
+      #   +'takedown'+, +'unknown'+.
       # @note When updating a claim, you can update its status from active to
       #   inactive to effectively release the claim, but the API does not
       #   support other updates to a claim’s status.
@@ -96,22 +98,22 @@ module Yt
 
       CONTENT_TYPES = %q(audio video audiovisual)
 
-      # @return [String] whether the claim covers the audio, video, or
-      #   audiovisual portion of the claimed content. Valid values are: audio,
-      #   audiovisual, video.
+      # Returns the audiovisual portion of the claimed content.
+      # @return [String] the audiovisual portion of the claimed content.
+      #   Possible values are: +'audio'+, +'audiovisual'+, +'video'+.
       has_attribute :content_type
 
-      # @return [Boolean] whether the covers the audio of the content.
+      # @return [Boolean] whether the claim covers only the audio.
       def audio?
         content_type == 'audio'
       end
 
-      # @return [Boolean] whether the covers the video of the content.
+      # @return [Boolean] whether the claim covers only the video.
       def video?
         content_type == 'video'
       end
 
-      # @return [Boolean] whether the covers the audiovisual of the content.
+      # @return [Boolean] whether the claim covers both audio and video.
       def audiovisual?
         content_type == 'audiovisual'
       end
