@@ -321,8 +321,17 @@ module Yt
         video_category.title
       end
 
+
+    ### ADVERTISING OPTIONS ###
+
       has_one :advertising_options_set
+
+      # @!attribute [r] ad_formats
+      # @return [Array<String>] the list of ad formats that the video is
+      #   allowed to show. Valid values are: long, overlay,
+      #   standard_instream, third_party, trueview_inslate, trueview_instream.
       delegate :ad_formats, to: :advertising_options_set
+
 
       # @!attribute [r] live_streaming_detail
       #   @return [Yt::Models::LiveStreamingDetail] live streaming detail.

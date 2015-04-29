@@ -19,11 +19,6 @@ module Yt
         true
       end
 
-      # Return the list of ad formats that the video is allowed to show.
-      # Valid values for this property are: long, overlay, standard_instream,
-      # third_party, trueview_inslate, or trueview_instream.
-      # @return [Array<String>] the list of ad formats that the video is
-      #   allowed to show.
       def ad_formats
         @data['adFormats']
       end
