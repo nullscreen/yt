@@ -88,14 +88,144 @@ module Yt
         uploading?
       end
 
-      delegate \
-        :uses_unsupported_codec?, :has_failed_conversion?, :empty?, :invalid?,
-        :too_small?, :aborted?, :claimed?, :infringes_copyright?, :duplicate?,
-        :scheduled_at, :publish_at, :scheduled?, :too_long?, :violates_terms_of_use?,
-        :inappropriate?, :infringes_trademark?, :belongs_to_closed_account?,
-        :belongs_to_suspended_account?, :licensed_as_creative_commons?,
-        :licensed_as_standard_youtube?, :has_public_stats_viewable?,
-        :public_stats_viewable, :embeddable, :embeddable?, :license, to: :status
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   of an unsupported codec.
+      # @see https://support.google.com/youtube/answer/1722171
+      def uses_unsupported_codec?
+        status.failure_reason == 'codec'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   YouTube was unable to convert the video.
+      def has_failed_conversion?
+        status.failure_reason == 'conversion'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the video file is empty.
+      def empty?
+        status.failure_reason == 'emptyFile'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the video uses an unsupported file format.
+      # @see https://support.google.com/youtube/troubleshooter/2888402?hl=en
+      def invalid?
+        status.failure_reason == 'invalidFile'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the video file is too small for YouTube.
+      def too_small?
+        status.failure_reason == 'tooSmall'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the uploading process was aborted.
+      def aborted?
+        status.failure_reason == 'uploadAborted'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video was claimed by a different account.
+      def claimed?
+        status.rejection_reason == 'claim'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video commits a copyright infringement.
+      def infringes_copyright?
+        status.rejection_reason == 'copyright'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video is a duplicate of another video.
+      def duplicate?
+        status.rejection_reason == 'duplicate'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video contains inappropriate content.
+      def inappropriate?
+        status.rejection_reason == 'inappropriate'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video exceeds the maximum duration for YouTube.
+      # @see https://support.google.com/youtube/answer/71673?hl=en
+      def too_long?
+        status.rejection_reason == 'length'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video violates the Terms of Use.
+      def violates_terms_of_use?
+        status.rejection_reason == 'termsOfUse'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video infringes a trademark.
+      # @see https://support.google.com/youtube/answer/2801979?hl=en
+      def infringes_trademark?
+        status.rejection_reason == 'trademark'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the account that uploaded the video has been closed.
+      def belongs_to_closed_account?
+        status.rejection_reason == 'uploaderAccountClosed'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the account that uploaded the video has been suspended.
+      def belongs_to_suspended_account?
+        status.rejection_reason == 'uploaderAccountSuspended'
+      end
+
+      # Returns the time when a video is scheduled to be published.
+      # @return [Time] if the video is scheduled to be published, the time
+      #   when it will become public.
+      # @return [nil] if the video is not scheduled to be published.
+      def scheduled_at
+        status.publish_at if scheduled?
+      end
+
+      # @return [Boolean] whether the video is scheduled to be published.
+      def scheduled?
+        private? && status.publish_at
+      end
+
+      # @!attribute [r] license
+      # @return [String] the video’s license.
+      #   Valid values are: creativeCommon, youtube.
+      delegate :license, to: :status
+
+      # @return [Boolean] whether the video uses the Standard YouTube license.
+      # @see https://www.youtube.com/static?template=terms
+      def licensed_as_standard_youtube?
+        license == 'youtube'
+      end
+
+      # @return [Boolean] whether the video uses a Creative Commons license.
+      # @see https://support.google.com/youtube/answer/2797468?hl=en
+      def licensed_as_creative_commons?
+        license == 'creativeCommon'
+      end
+
+      # Returns whether the video statistics are publicly viewable.
+      # @return [Boolean] if the resource is a video, whether the extended
+      #   video statistics on the video’s watch page are publicly viewable.
+      #   By default, those statistics are viewable, and statistics like a
+      #   video’s viewcount and ratings will still be publicly visible even
+      #   if this property’s value is set to false.
+      def has_public_stats_viewable?
+        status.public_stats_viewable
+      end
+
+      # @return [Boolean] whether the video can be embedded on another website.
+      def embeddable?
+        status.embeddable
+      end
 
       # @!attribute [r] content_detail
       #   @return [Yt::Models::ContentDetail] the video’s content details.
