@@ -6,6 +6,23 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.20.0 - unreleased
+
+**How to upgrade**
+
+If your code doesn’t use any of the following constants that were public but
+undocumented, then you are good to go.
+
+If it does, then you should redefine those constants in your own app, since
+it’s not Yt’s goal to validate the values posted to YouTube API.
+
+* [REMOVAL] Remove `Asset#STATUSES` (was `%q(active inactive pending)`).
+* [REMOVAL] Remove `Claim#STATUSES` (was `%q(active appealed disputed inactive pending potential takedown unknown)`).
+* [REMOVAL] Remove `Claim#CONTENT_TYPES` (was `%q(audio video audiovisual)`).
+* [REMOVAL] Remove `Reference#STATUSES` (was `%q(activating active checking computing_fingerprint deleted duplicate_on_hold inactive live_streaming_processing urgent_reference_processing)`).
+* [REMOVAL] Remove `Reference#CONTENT_TYPES` (was `%q(audio video audiovisual)`).
+* [REMOVAL] Remove `Status#PRIVACY_STATUSES` (was `%q(private public unlisted)`).
+
 ## 0.19.0 - 2015-04-28
 
 **How to upgrade**

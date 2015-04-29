@@ -42,9 +42,6 @@ module Yt
 
 # Status
 
-      STATUSES = %q(active appealed disputed inactive pending potential
-        takedown unknown)
-
       # Returns the claim’s status.
       # @return [String] the claim’s status. Possible values are: +'active'+,
       #   +'appealed'+, +'disputed'+, +'inactive'+, +'pending'+, +'potential'+,
@@ -95,8 +92,6 @@ module Yt
       end
 
 # Content Type
-
-      CONTENT_TYPES = %q(audio video audiovisual)
 
       # Returns the audiovisual portion of the claimed content.
       # @return [String] the audiovisual portion of the claimed content.

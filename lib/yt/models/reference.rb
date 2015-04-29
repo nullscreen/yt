@@ -81,10 +81,6 @@ module Yt
 
 # Status
 
-      STATUSES = %q(activating active checking computing_fingerprint deleted
-        duplicate_on_hold inactive live_streaming_processing
-        urgent_reference_processing)
-
       # @return [String] the reference’s status. Possible values are:
       #   +'activating'+, +'active'+, +'checking'+, +'computing_fingerprint'+,
       #   +'deleted'+, +'duplicate_on_hold'+, +'inactive'+,
@@ -140,8 +136,6 @@ module Yt
       end
 
 # Content Type
-
-      CONTENT_TYPES = %q(audio video audiovisual)
 
       # Returns the audiovisual portion of the referenced content.
       # @return [String] the audiovisual portion of the referenced content.
