@@ -63,6 +63,17 @@ module Yt
         !exists?
       end
 
+      # Updates the attributes of a playlist item.
+      # @return [Boolean] whether the item was successfully updated.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account with permissions to update the item.
+      # @param [Hash] attributes the attributes to update.
+      # @option attributes [Integer] the order in which the item should appear
+      #   in a playlist. The value is zero-based, so the first position of 0.
+      def update(attributes = {})
+        super
+      end
+
     ### ASSOCIATIONS ###
 
       # @return [Yt::Models::Video] the video referred by the item.

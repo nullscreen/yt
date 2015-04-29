@@ -312,7 +312,6 @@ module Yt
         video_category.title
       end
 
-
     ### ADVERTISING OPTIONS ###
 
       has_one :advertising_options_set
@@ -323,7 +322,6 @@ module Yt
       #   +'standard_instream'+, +'third_party'+, +'trueview_inslate'+,
       #   +'trueview_instream'+.
       delegate :ad_formats, to: :advertising_options_set
-
 
     ### LIVE STREAMING DETAILS ###
 
@@ -369,6 +367,8 @@ module Yt
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
+
+      has_many :resumable_sessions
 
     ### ANALYTICS ###
 
@@ -467,8 +467,6 @@ module Yt
       delegate :embed_html, to: :player
 
     ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
-
-      has_many :resumable_sessions
 
       # Uploads a thumbnail
       # @param [String] path_or_url the image to upload. Can either be the
