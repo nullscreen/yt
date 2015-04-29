@@ -69,8 +69,8 @@ describe Yt::ContentOwner, :partner do
         expect(claim.id).to be_a String
         expect(claim.asset_id).to be_a String
         expect(claim.video_id).to be_a String
-        expect(claim.status).to be_in Yt::Claim::STATUSES
-        expect(claim.content_type).to be_in Yt::Claim::CONTENT_TYPES
+        expect(claim.status).to be_a String
+        expect(claim.content_type).to be_a String
         expect(claim.created_at).to be_a Time
         expect(claim).not_to be_third_party
       end
@@ -189,8 +189,8 @@ describe Yt::ContentOwner, :partner do
           expect(reference.audioswap_enabled?).to be_in [true, false]
           expect(reference.ignore_fp_match?).to be_in [true, false]
           expect(reference.urgent?).to be_in [true, false]
-          expect(reference.status).to be_in Yt::Reference::STATUSES
-          expect(reference.content_type).to be_in Yt::Reference::CONTENT_TYPES
+          expect(reference.status).to be_a String
+          expect(reference.content_type).to be_a String
         end
       end
 

@@ -20,8 +20,6 @@ module Yt
 
 # Privacy status
 
-      PRIVACY_STATUSES = %q(private public unlisted)
-
       has_attribute :privacy_status
       has_attribute :upload_status
       has_attribute :failure_reason

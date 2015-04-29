@@ -12,9 +12,7 @@ module Yt
         @data = options[:data]
       end
 
-      # @return [Integer] the number of times the resource has been viewed.
       has_attribute :view_count, type: Integer
-
       has_attribute :comment_count, type: Integer
       has_attribute :like_count, type: Integer
       has_attribute :dislike_count, type: Integer
@@ -22,11 +20,6 @@ module Yt
       has_attribute :video_count, type: Integer
       has_attribute :subscriber_count, type: Integer
       has_attribute :hidden_subscriber_count
-
-      # @return [Boolean] whether the number of subscribers is publicly visible.
-      has_attribute :subscriber_count_visible?, from: :hidden_subscriber_count do |hidden|
-        hidden == false
-      end
     end
   end
 end

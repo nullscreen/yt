@@ -16,7 +16,7 @@ describe Yt::Video, :device_app do
       expect(video.description).to be_a String
       expect(video.thumbnail_url).to be_a String
       expect(video.published_at).to be_a Time
-      expect(video.privacy_status).to be_in Yt::Status::PRIVACY_STATUSES
+      expect(video.privacy_status).to be_a String
       expect(video.tags).to be_an Array
       expect(video.channel_id).to be_a String
       expect(video.channel_title).to be_a String

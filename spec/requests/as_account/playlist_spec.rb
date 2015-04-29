@@ -17,7 +17,7 @@ describe Yt::Playlist, :device_app do
       expect(playlist.tags).to be_an Array
       expect(playlist.channel_id).to be_a String
       expect(playlist.channel_title).to be_a String
-      expect(playlist.privacy_status).to be_in Yt::Status::PRIVACY_STATUSES
+      expect(playlist.privacy_status).to be_a String
     end
 
     it { expect(playlist.playlist_items.first).to be_a Yt::PlaylistItem }

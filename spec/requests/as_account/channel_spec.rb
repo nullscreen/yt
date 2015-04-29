@@ -13,7 +13,7 @@ describe Yt::Channel, :device_app do
       expect(channel.description).to be_a String
       expect(channel.thumbnail_url).to be_a String
       expect(channel.published_at).to be_a Time
-      expect(channel.privacy_status).to be_in Yt::Status::PRIVACY_STATUSES
+      expect(channel.privacy_status).to be_a String
       expect(channel.view_count).to be_an Integer
       expect(channel.comment_count).to be_an Integer
       expect(channel.video_count).to be_an Integer

@@ -72,8 +72,6 @@ module Yt
 
 # Status
 
-      STATUSES = %q(active inactive pending)
-
       # Returns the asset’s status.
       # @return [String] the asset’s status. Possible values are: +'active'+,
       #   +'inactive'+, +'pending'+.
