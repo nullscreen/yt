@@ -96,10 +96,10 @@ video.earnings since: 3.days.ago
 
   {% include dt.html title="Video’s Privacy Status" label="success" auth="any authentication works (for public videos)" %}
   <dd><div class="highlight"><pre>
-{% include doc.html link="Models/Status#privacy_status" %}{% include example.html method='privacy_status' result='"public"' %}
-{% include doc.html link="Models/Status#public%3F" %}{% include example.html method='public?' result='true' %}
-{% include doc.html link="Models/Status#unlisted%3F" %}{% include example.html method='unlisted?' result='false' %}
-{% include doc.html link="Models/Status#private%3F" %}{% include example.html method='private?' result='false' %}</pre>
+{% include doc.html link="Models/Resource#privacy_status" %}{% include example.html method='privacy_status' result='"public"' %}
+{% include doc.html link="Models/Resource#public%3F" %}{% include example.html method='public?' result='true' %}
+{% include doc.html link="Models/Resource#unlisted%3F" %}{% include example.html method='unlisted?' result='false' %}
+{% include doc.html link="Models/Resource#private%3F" %}{% include example.html method='private?' result='false' %}</pre>
   </div></dd>
 
   {% include dt.html title="Video’s Rating" label="warning" auth="must authenticate as a YouTube account" %}
