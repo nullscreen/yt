@@ -10,17 +10,27 @@
 
       <a class="navbar-brand" href="{{ site.baseurl }}/">
         <img alt="Yt" src="{{ site.baseurl }}/images/robot.png">
-        Yt · The reliable YouTube API Ruby client
+        Yt<span class="hidden-xs"> · The reliable YouTube API Ruby client</span>
       </a>
     </div>
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right visible-xs-block">
-        {% for page in site.posts reversed %}
-          {% if page.title %}
-          <li><a href="{{ site.baseurl }}{{ page.url }}">{{ page.title }}</a></li>
-          {% endif %}
-        {% endfor %}
+        {% if page.url == '/index.html' %}
+          <li class="active"><a href="{{ site.baseurl }}/index.html">Installing Yt</a></li>
+        {% else %}
+          <li><a href="{{ site.baseurl }}/index.html">Installing Yt</a></li>
+        {% endif %}
+        {% if page.url == '/videos.html' %}
+          <li class="active"><a href="{{ site.baseurl }}/videos.html">Videos</a></li>
+        {% else %}
+          <li><a href="{{ site.baseurl }}/videos.html">Videos</a></li>
+        {% endif %}
+        {% if page.url == '/annotations.html' %}
+          <li class="active"><a href="{{ site.baseurl }}/annotations.html">Annotations</a></li>
+        {% else %}
+          <li><a href="{{ site.baseurl }}/annotations.html">Annotations</a></li>
+        {% endif %}
       </ul>
     </div>
   </div>
