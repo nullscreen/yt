@@ -382,6 +382,86 @@ describe Yt::Video do
     end
   end
 
+  describe '#actual_start_time' do
+    context 'given a non-live streaming video' do
+      let(:attrs) { {live_streaming_details: {}} }
+      it { expect(video.actual_start_time).to be_nil }
+    end
+
+    context 'given a live streaming video that has not started yet' do
+      let(:attrs) { {live_streaming_details: {"scheduledStartTime"=>"2017-07-10T00:00:00.000Z"}} }
+      it { expect(video.actual_start_time).to be_nil }
+    end
+
+    context 'given a live streaming video that has started' do
+      let(:attrs) { {live_streaming_details: {"actualStartTime"=>"2014-08-01T17:48:40.678Z"}} }
+      it { expect(video.actual_start_time.year).to be 2014 }
+    end
+  end
+
+  describe '#actual_end_time' do
+    context 'given a non-live streaming video' do
+      let(:attrs) { {live_streaming_details: {}} }
+      it { expect(video.actual_end_time).to be_nil }
+    end
+
+    context 'given a live streaming video that has not ended yet' do
+      let(:attrs) { {live_streaming_details: {"scheduledStartTime"=>"2017-07-10T00:00:00.000Z"}} }
+      it { expect(video.actual_end_time).to be_nil }
+    end
+
+    context 'given a live streaming video that has ended' do
+      let(:attrs) { {live_streaming_details: {"actualEndTime"=>"2014-08-01T17:48:40.678Z"}} }
+      it { expect(video.actual_end_time.year).to be 2014 }
+    end
+  end
+
+  describe '#scheduled_start_time' do
+    context 'given a non-live streaming video' do
+      let(:attrs) { {live_streaming_details: {}} }
+      it { expect(video.scheduled_start_time).to be_nil }
+    end
+
+    context 'given a live streaming video' do
+      let(:attrs) { {live_streaming_details: {"scheduledStartTime"=>"2017-07-10T00:00:00.000Z"}} }
+      it { expect(video.scheduled_start_time.year).to be 2017 }
+    end
+  end
+
+  describe '#scheduled_end_time' do
+    context 'given a non-live streaming video' do
+      let(:attrs) { {live_streaming_details: {}} }
+      it { expect(video.scheduled_end_time).to be_nil }
+    end
+
+    context 'given a live streaming video that broadcasts indefinitely' do
+      let(:attrs) { {live_streaming_details: {"scheduledStartTime"=>"2017-07-10T00:00:00.000Z"}} }
+      it { expect(video.scheduled_end_time).to be_nil }
+    end
+
+    context 'given a live streaming video with a scheduled ednd' do
+      let(:attrs) { {live_streaming_details: {"scheduledEndTime"=>"2014-08-01T17:48:40.678Z"}} }
+      it { expect(video.scheduled_end_time.year).to be 2014 }
+    end
+  end
+
+  describe '#concurrent_viewers' do
+    context 'given a non-live streaming video' do
+      let(:attrs) { {live_streaming_details: {}} }
+      it { expect(video.concurrent_viewers).to be_nil }
+    end
+
+    context 'given a current live streaming video with viewers' do
+      let(:attrs) { {live_streaming_details: {"concurrentViewers"=>"1"}} }
+      it { expect(video.concurrent_viewers).to be 1 }
+    end
+
+    context 'given a past live streaming video' do
+      let(:attrs) { {live_streaming_details: {"actualEndTime"=>"2013-08-01T17:48:40.678Z"}} }
+      it { expect(video.concurrent_viewers).to be_nil }
+    end
+  end
+
   describe '#statistics_set' do
     context 'given fetching a video returns statistics' do
       let(:attrs) { {statistics: {"viewCount"=>"202"}} }

@@ -333,11 +333,44 @@ module Yt
       delegate :ad_formats, to: :advertising_options_set
 
 
-      # @!attribute [r] live_streaming_detail
-      #   @return [Yt::Models::LiveStreamingDetail] live streaming detail.
+    ### LIVE STREAMING DETAILS ###
+
       has_one :live_streaming_detail
-      delegate :actual_start_time, :actual_end_time, :scheduled_start_time,
-        :scheduled_end_time, :concurrent_viewers, to: :live_streaming_detail
+
+      # The time when a live broadcast started.
+      # @!attribute [r] actual_start_time
+      # @return [Time] if the broadcast has begun, the time it actually started.
+      # @return [nil] if the broadcast has not begun or video is not live.
+      delegate :actual_start_time, to: :live_streaming_detail
+
+      # The time when a live broadcast ended.
+      # @!attribute [r] actual_end_time
+      # @return [Time] if the broadcast is over, the time it actually ended.
+      # @return [nil] if the broadcast is not over or video is not live.
+      delegate :actual_end_time, to: :live_streaming_detail
+
+      # The time when a live broadcast is scheduled to start.
+      # @!attribute [r] scheduled_start_time
+      # @return [Time] the time that the broadcast is scheduled to begin.
+      # @return [nil] if video is not live.
+      delegate :scheduled_start_time, to: :live_streaming_detail
+
+      # The time when a live broadcast is scheduled to end.
+      # @!attribute [r] scheduled_end_time
+      # @return [Time] if the broadcast is scheduled to end, the time it is
+      #   scheduled to end.
+      # @return [nil] if the broadcast is scheduled to continue indefinitely
+      #   or the video is not live.
+      delegate :scheduled_end_time, to: :live_streaming_detail
+
+      # The number of current viewers of a live broadcast.
+      # @!attribute [r] concurrent_viewers
+      # @return [Integer] if the broadcast has current viewers and the
+      #   broadcast owner has not hidden the viewcount for the video, the
+      #   number of viewers currently watching the broadcast.
+      # @return [nil] if the broadcast has ended or the broadcast owner has
+      #   hidden the viewcount for the video or the video is not live.
+      delegate :concurrent_viewers, to: :live_streaming_detail
 
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
@@ -436,6 +469,9 @@ module Yt
         end
         if options[:file_details]
           @file_detail = FileDetail.new data: options[:file_details]
+        end
+        if options[:live_streaming_details]
+          @live_streaming_detail = LiveStreamingDetail.new data: options[:live_streaming_details]
         end
         if options[:video_category]
           @video_category = VideoCategory.new data: options[:video_category]
