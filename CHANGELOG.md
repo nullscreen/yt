@@ -13,16 +13,21 @@ For more information about changelogs, check
 If your code never calls `partnered_channels.includes(:viewer_percentages)` on
 a Yt::ContentOwner, then you are good to go.
 
-If it does, then be aware that viewer percentage is not anymore eager-loaded,
+If it does, then be aware that viewer percentage is not eager-loaded anymore,
 so the call above is equivalent to `partenered_channels`. The reason is that
 viewer percentage *requires* a time-range, and using a default range of the
 last 3 months can generate more confusion than added value.
 
-Also if your code still uses the deprecated `.viewer_percentages` method, you
-will now have to replace it with `.viewer_percentage`.
+Also if your code still uses the deprecated:
+
+- `.viewer_percentages` method, replace with `.viewer_percentage`.
+- `policy.time_updated` method, replace with `policy.updated_at`.
+- `video.uploaded?` method, replace with `video.uploading?`.
 
 * [REMOVAL] Remove `.includes(:viewer_percentages)` on `content_owner.partnered_channels`.
 * [REMOVAL] Remove deprecated `viewer_percentages` (use `viewer_percentage` instead)
+* [REMOVAL] Remove deprecated `policy.time_updated` (use `updated_at` instead)
+* [REMOVAL] Remove deprecated `video.uploaded?` (use `uploading?` instead)
 
 ## 0.18.0 - 2015-04-28
 

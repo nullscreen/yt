@@ -79,12 +79,6 @@ module Yt
         status.upload_status == 'uploaded'
       end
 
-      # @deprecated Use {#uploading?} instead.
-      # @return [Boolean] whether the video is being uploaded to YouTube.
-      def uploaded?
-        uploading?
-      end
-
       # @return [Boolean] whether the video failed to upload to YouTube because
       #   of an unsupported codec.
       # @see https://support.google.com/youtube/answer/1722171
