@@ -11,8 +11,6 @@ module Yt
         @data = options[:data]
       end
 
-      ACTIONS = %q(block monetize takedown track)
-
       # Return the policy that YouTube should enforce if the rule’s conditions
       # are all valid for an asset or for an attempt to view that asset on
       # YouTube. Possible values are: +'block'+, +'monetize'+, +'takedown'+,
