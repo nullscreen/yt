@@ -12,6 +12,7 @@ describe Yt::StatisticsSet do
     end
   end
 
+  # TODO: Remove these specs when these methods are tested in video, channel, ..
   describe '#view_count' do
     context 'given a video with views' do
       let(:data) { {"viewCount"=>value} }

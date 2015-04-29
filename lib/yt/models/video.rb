@@ -5,132 +5,512 @@ module Yt
     # Provides methods to interact with YouTube videos.
     # @see https://developers.google.com/youtube/v3/docs/videos
     class Video < Resource
-      delegate :channel_id, :channel_title, :category_id,
-        :live_broadcast_content, to: :snippet
 
-      delegate :deleted?, :failed?, :processed?, :rejected?, :uploaded?,
-        :uses_unsupported_codec?, :has_failed_conversion?, :empty?, :invalid?,
-        :too_small?, :aborted?, :claimed?, :infringes_copyright?, :duplicate?,
-        :scheduled_at, :publish_at, :scheduled?, :too_long?, :violates_terms_of_use?,
-        :inappropriate?, :infringes_trademark?, :belongs_to_closed_account?,
-        :belongs_to_suspended_account?, :licensed_as_creative_commons?,
-        :licensed_as_standard_youtube?, :has_public_stats_viewable?, :uploading?,
-        :public_stats_viewable, :embeddable, :embeddable?, :license, to: :status
+  ### SNIPPET ###
 
-      # @!attribute [r] content_detail
-      #   @return [Yt::Models::ContentDetail] the video’s content details.
+      # @!attribute [r] title
+      # @return [String] the video’s title. Has a maximum of 100 characters and
+      #   may contain all valid UTF-8 characters except < and >.
+      delegate :title, to: :snippet
+
+      # @!attribute [r] description
+      # @return [String] the video’s description. Has a maximum of 5000 bytes
+      #   and may contain all valid UTF-8 characters except < and >.
+      delegate :description, to: :snippet
+
+      # Return the URL of the video’s thumbnail.
+      # @!method thumbnail_url(size = :default)
+      # @param [Symbol, String] size The size of the video’s thumbnail.
+      # @return [String] if +size+ is +default+, the URL of a 120x90px image.
+      # @return [String] if +size+ is +medium+, the URL of a 320x180px image.
+      # @return [String] if +size+ is +high+, the URL of a 480x360px image.
+      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      delegate :thumbnail_url, to: :snippet
+
+      # @!attribute [r] published_at
+      # @return [Time] the date and time that the video was published.
+      delegate :published_at, to: :snippet
+
+      # @!attribute [r] channel_id
+      # @return [String] the ID of the channel that the video belongs to.
+      delegate :channel_id, to: :snippet
+
+      # @!attribute [r] channel_title
+      # @return [String] the title of the channel that the video belongs to.
+      delegate :channel_title, to: :snippet
+
+      # @!attribute [r] live_broadcast_content
+      # @return [String] the type of live broadcast that the video contains.
+      #   Valid values are: live, none, upcoming.
+      delegate :live_broadcast_content, to: :snippet
+
+      # @return [Array<Yt::Models::Tag>] the list of tags attached to the video.
+      #   with the video.
+      def tags
+        ensure_complete_snippet :tags
+      end
+
+      # @return [String] ID of the YouTube category associated with the video.
+      def category_id
+        ensure_complete_snippet :category_id
+      end
+
+    ### STATUS ###
+
+      # @return [Boolean] whether the video was deleted by the user.
+      def deleted?
+        status.upload_status == 'deleted'
+      end
+
+      # @return [Boolean] whether the video failed to upload.
+      def failed?
+        status.upload_status == 'failed'
+      end
+
+      # @return [Boolean] whether the video has been fully processed by YouTube.
+      def processed?
+        status.upload_status == 'processed'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube.
+      def rejected?
+        status.upload_status == 'rejected'
+      end
+
+      # @return [Boolean] whether the video is being uploaded to YouTube.
+      def uploading?
+        status.upload_status == 'uploaded'
+      end
+
+      # @deprecated Use {#uploading?} instead.
+      # @return [Boolean] whether the video is being uploaded to YouTube.
+      def uploaded?
+        uploading?
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   of an unsupported codec.
+      # @see https://support.google.com/youtube/answer/1722171
+      def uses_unsupported_codec?
+        status.failure_reason == 'codec'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   YouTube was unable to convert the video.
+      def has_failed_conversion?
+        status.failure_reason == 'conversion'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the video file is empty.
+      def empty?
+        status.failure_reason == 'emptyFile'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the video uses an unsupported file format.
+      # @see https://support.google.com/youtube/troubleshooter/2888402?hl=en
+      def invalid?
+        status.failure_reason == 'invalidFile'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the video file is too small for YouTube.
+      def too_small?
+        status.failure_reason == 'tooSmall'
+      end
+
+      # @return [Boolean] whether the video failed to upload to YouTube because
+      #   the uploading process was aborted.
+      def aborted?
+        status.failure_reason == 'uploadAborted'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video was claimed by a different account.
+      def claimed?
+        status.rejection_reason == 'claim'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video commits a copyright infringement.
+      def infringes_copyright?
+        status.rejection_reason == 'copyright'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video is a duplicate of another video.
+      def duplicate?
+        status.rejection_reason == 'duplicate'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video contains inappropriate content.
+      def inappropriate?
+        status.rejection_reason == 'inappropriate'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video exceeds the maximum duration for YouTube.
+      # @see https://support.google.com/youtube/answer/71673?hl=en
+      def too_long?
+        status.rejection_reason == 'length'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video violates the Terms of Use.
+      def violates_terms_of_use?
+        status.rejection_reason == 'termsOfUse'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the video infringes a trademark.
+      # @see https://support.google.com/youtube/answer/2801979?hl=en
+      def infringes_trademark?
+        status.rejection_reason == 'trademark'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the account that uploaded the video has been closed.
+      def belongs_to_closed_account?
+        status.rejection_reason == 'uploaderAccountClosed'
+      end
+
+      # @return [Boolean] whether the video was rejected by YouTube because
+      #   the account that uploaded the video has been suspended.
+      def belongs_to_suspended_account?
+        status.rejection_reason == 'uploaderAccountSuspended'
+      end
+
+      # Returns the time when a video is scheduled to be published.
+      # @return [Time] if the video is scheduled to be published, the time
+      #   when it will become public.
+      # @return [nil] if the video is not scheduled to be published.
+      def scheduled_at
+        status.publish_at if scheduled?
+      end
+
+      # @return [Boolean] whether the video is scheduled to be published.
+      def scheduled?
+        private? && status.publish_at
+      end
+
+      # @!attribute [r] license
+      # @return [String] the video’s license.
+      #   Valid values are: creativeCommon, youtube.
+      delegate :license, to: :status
+
+      # @return [Boolean] whether the video uses the Standard YouTube license.
+      # @see https://www.youtube.com/static?template=terms
+      def licensed_as_standard_youtube?
+        license == 'youtube'
+      end
+
+      # @return [Boolean] whether the video uses a Creative Commons license.
+      # @see https://support.google.com/youtube/answer/2797468?hl=en
+      def licensed_as_creative_commons?
+        license == 'creativeCommon'
+      end
+
+      # Returns whether the video statistics are publicly viewable.
+      # @return [Boolean] if the resource is a video, whether the extended
+      #   video statistics on the video’s watch page are publicly viewable.
+      #   By default, those statistics are viewable, and statistics like a
+      #   video’s viewcount and ratings will still be publicly visible even
+      #   if this property’s value is set to false.
+      def has_public_stats_viewable?
+        status.public_stats_viewable
+      end
+
+      # @return [Boolean] whether the video can be embedded on another website.
+      def embeddable?
+        status.embeddable
+      end
+
+    ### CONTENT DETAILS ###
+
       has_one :content_detail
-      delegate :duration, :hd?, :stereoscopic?, :captioned?, :licensed?,
-        to: :content_detail
 
-      # @!attribute [r] file_detail
-      #   @return [Yt::Models::FileDetail] the video’s file details.
+      # @!attribute [r] duration
+      # @return [Integer] the duration of the video (in seconds).
+      delegate :duration, to: :content_detail
+
+      # @return [Boolean] whether the video is available in 3D.
+      def stereoscopic?
+        content_detail.dimension == '3d'
+      end
+
+      # @return [Boolean] whether the video is available in high definition.
+      def hd?
+        content_detail.definition == 'hd'
+      end
+
+      # @return [Boolean] whether captions are available for the video.
+      def captioned?
+        content_detail.caption == 'true'
+      end
+
+      # @return [Boolean] whether the video represents licensed content, which
+      #   means that the content has been claimed by a YouTube content partner.
+      def licensed?
+        content_detail.licensed_content || false
+      end
+
+    ### FILE DETAILS ###
+
       has_one :file_detail
-      delegate :file_size, :file_type, :container, to: :file_detail
 
-      has_one :advertising_options_set
-      delegate :ad_formats, to: :advertising_options_set
+      # @!attribute [r] file_size
+      # @return [Integer] the size of the uploaded file (in bytes).
+      delegate :file_size, to: :file_detail
 
-      # @!attribute [r] rating
-      #   @return [Yt::Models::Rating] the video’s rating.
+      # @!attribute [r] file_type
+      # @return [String] the type of file uploaded. May be one of:
+      #   archive, audio, document, image, other, project, video.
+      delegate :file_type, to: :file_detail
+
+      # @!attribute [r] container
+      # @return [String] the video container of the uploaded file. (e.g. 'mov').
+      delegate :container, to: :file_detail
+
+
+    ### RATING ###
+
       has_one :rating
 
-      # @!attribute [r] video_category
-      #   @return [Yt::Models::VideoCategory] the video’s category.
-      has_one :video_category
-      delegate :title, to: :video_category, prefix: :category
+      # @return [Boolean] whether the authenticated account likes the video.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def liked?
+        rating.rating == :like
+      end
 
-      # @!attribute [r] live_streaming_detail
-      #   @return [Yt::Models::LiveStreamingDetail] live streaming detail.
+      # Likes the video on behalf of the authenticated account.
+      # @return [Boolean] whether the authenticated account likes the video.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def like
+        rating.set :like
+        liked?
+      end
+
+      # Dislikes the video on behalf of the authenticated account.
+      # @return [Boolean] whether the account does not like the video.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def dislike
+        rating.set :dislike
+        !liked?
+      end
+
+      # Resets the rating of the video on behalf of the authenticated account.
+      # @return [Boolean] whether the account does not like the video.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account.
+      def unlike
+        rating.set :none
+        !liked?
+      end
+
+    ### VIDEO CATEGORY ###
+
+      has_one :video_category
+
+      # @return [String] the video category’s title.
+      def category_title
+        video_category.title
+      end
+
+
+    ### ADVERTISING OPTIONS ###
+
+      has_one :advertising_options_set
+
+      # @!attribute [r] ad_formats
+      # @return [Array<String>] the list of ad formats that the video is
+      #   allowed to show. Valid values are: long, overlay,
+      #   standard_instream, third_party, trueview_inslate, trueview_instream.
+      delegate :ad_formats, to: :advertising_options_set
+
+
+    ### LIVE STREAMING DETAILS ###
+
       has_one :live_streaming_detail
-      delegate :actual_start_time, :actual_end_time, :scheduled_start_time,
-        :scheduled_end_time, :concurrent_viewers, to: :live_streaming_detail
+
+      # The time when a live broadcast started.
+      # @!attribute [r] actual_start_time
+      # @return [Time] if the broadcast has begun, the time it actually started.
+      # @return [nil] if the broadcast has not begun or video is not live.
+      delegate :actual_start_time, to: :live_streaming_detail
+
+      # The time when a live broadcast ended.
+      # @!attribute [r] actual_end_time
+      # @return [Time] if the broadcast is over, the time it actually ended.
+      # @return [nil] if the broadcast is not over or video is not live.
+      delegate :actual_end_time, to: :live_streaming_detail
+
+      # The time when a live broadcast is scheduled to start.
+      # @!attribute [r] scheduled_start_time
+      # @return [Time] the time that the broadcast is scheduled to begin.
+      # @return [nil] if video is not live.
+      delegate :scheduled_start_time, to: :live_streaming_detail
+
+      # The time when a live broadcast is scheduled to end.
+      # @!attribute [r] scheduled_end_time
+      # @return [Time] if the broadcast is scheduled to end, the time it is
+      #   scheduled to end.
+      # @return [nil] if the broadcast is scheduled to continue indefinitely
+      #   or the video is not live.
+      delegate :scheduled_end_time, to: :live_streaming_detail
+
+      # The number of current viewers of a live broadcast.
+      # @!attribute [r] concurrent_viewers
+      # @return [Integer] if the broadcast has current viewers and the
+      #   broadcast owner has not hidden the viewcount for the video, the
+      #   number of viewers currently watching the broadcast.
+      # @return [nil] if the broadcast has ended or the broadcast owner has
+      #   hidden the viewcount for the video or the video is not live.
+      delegate :concurrent_viewers, to: :live_streaming_detail
+
+    ### ANNOTATIONS ###
 
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
 
-      # @macro has_report
-      has_report :earnings
+    ### ANALYTICS ###
 
-      # @macro has_report
+      # @macro views_report
       has_report :views
 
-      # @macro has_report
+      # @macro demographics_report
+      has_report :viewer_percentage
+
+      # @macro daily_report
       has_report :comments
 
-      # @macro has_report
+      # @macro daily_report
       has_report :likes
 
-      # @macro has_report
+      # @macro daily_report
       has_report :dislikes
 
-      # @macro has_report
+      # @macro daily_report
       has_report :shares
 
-      # @macro has_report
-      # @note: This is not the total number of subscribers gained by the video’s
-      #        channel, but the subscribers gained *from* the video’s page.
+      # @note This is not the total number of subscribers gained by the video’s
+      #   channel, but the subscribers gained *from* the video’s page.
+      # @macro daily_report
       has_report :subscribers_gained
 
-      # @macro has_report
-      # @note: This is not the total number of subscribers lost by the video’s
-      #        channel, but the subscribers lost *from* the video’s page.
+      # @note This is not the total number of subscribers lost by the video’s
+      #   channel, but the subscribers lost *from* the video’s page.
+      # @macro daily_report
       has_report :subscribers_lost
 
-      # @macro has_report
+      # @macro daily_report
       has_report :favorites_added
 
-      # @macro has_report
+      # @macro daily_report
       has_report :favorites_removed
 
-      # @macro has_report
-      has_report :estimated_minutes_watched
-
-      # @macro has_report
+      # @macro daily_report
       has_report :average_view_duration
 
-      # @macro has_report
+      # @macro daily_report
       has_report :average_view_percentage
 
-      # @macro has_report
-      has_report :impressions
+      # @macro daily_report
+      has_report :estimated_minutes_watched
 
-      # @macro has_report
-      has_report :monetized_playbacks
-
-      # @macro has_report
+      # @macro daily_report
       has_report :annotation_clicks
 
-      # @macro has_report
+      # @macro daily_report
       has_report :annotation_click_through_rate
 
-      # @macro has_report
+      # @macro daily_report
       has_report :annotation_close_rate
 
-      # @macro has_report
-      has_report :viewer_percentage
+      # @macro daily_report
+      has_report :earnings
+
+      # @macro daily_report
+      has_report :impressions
+
+      # @macro daily_report
+      has_report :monetized_playbacks
 
       # @deprecated Use {#has_report :viewer_percentage}.
       # @macro has_viewer_percentages
       has_viewer_percentages
 
-      # @!attribute [r] statistics_set
-      #   @return [Yt::Models::StatisticsSet] the statistics for the video.
-      has_one :statistics_set
-      delegate :view_count, :like_count, :dislike_count, :favorite_count,
-        :comment_count, to: :statistics_set
+    ### STATISTICS ###
 
-      # @!attribute [r] player
-      #   @return [Yt::Models::Player] the player for the video.
+      has_one :statistics_set
+
+      # @!attribute [r] view_count
+      # @return [Integer] the number of times the video has been viewed.
+      delegate :view_count, to: :statistics_set
+
+      # @!attribute [r] like_count
+      # @return [Integer] the number of users who liked the video.
+      delegate :like_count, to: :statistics_set
+
+      # @!attribute [r] dislike_count
+      # @return [Integer] the number of users who disliked the video.
+      delegate :dislike_count, to: :statistics_set
+
+      # @!attribute [r] favorite_count
+      # @return [Integer] the number of users who marked the video as favorite.
+      delegate :favorite_count, to: :statistics_set
+
+      # @!attribute [r] dislike_count
+      # @return [Integer] the number of comments for the video.
+      delegate :comment_count, to: :statistics_set
+
+    ### PLAYER ###
+
       has_one :player
+
+      # @!attribute [r] embed_html
+      # @return [String] the HTML code of an <iframe> tag that embeds a
+      #   player that will play the video.
       delegate :embed_html, to: :player
 
-      # @!attribute [r] resumable_sessions
-      #   @return [Yt::Collections::ResumableSessions] the sessions used to
-      #     upload thumbnails using the resumable upload protocol.
+
+    ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
+
       has_many :resumable_sessions
 
+      # Uploads a thumbnail
+      # @param [String] path_or_url the image to upload. Can either be the
+      #   path of a local file or the URL of a remote file.
+      # @return the new thumbnail resource for the given image.
+      # @raise [Yt::Errors::RequestError] if path_or_url is not a valid path
+      #   or URL.
+      def upload_thumbnail(path_or_url)
+        file = open(path_or_url, 'rb') rescue StringIO.new
+        session = resumable_sessions.insert file.size
+
+        session.update(body: file) do |data|
+          snippet.instance_variable_set :@thumbnails, data['items'].first
+        end
+      end
+
+      # Deletes the video on behalf of the authenticated account.
+      # @return [Boolean] whether the video does not exist anymore.
+      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} is not an
+      #   authenticated Yt::Account with permissions to delete the video.
+      def delete(options = {})
+        do_delete {@id = nil}
+        !exists?
+      end
+
+
+    ### PRIVATE API ###
+
+      # @private
       # Override Resource's new to set statistics and content details as well
       # if the response includes them
       def initialize(options = {})
@@ -144,117 +524,20 @@ module Yt
         if options[:file_details]
           @file_detail = FileDetail.new data: options[:file_details]
         end
+        if options[:live_streaming_details]
+          @live_streaming_detail = LiveStreamingDetail.new data: options[:live_streaming_details]
+        end
         if options[:video_category]
           @video_category = VideoCategory.new data: options[:video_category]
         end
-      end
-
-      # Returns the list of keyword tags associated with the video.
-      # Since YouTube API only returns tags on Videos#list, the memoized
-      # @snippet is erased if the video was instantiated through Video#search
-      # (e.g., by calling account.videos or channel.videos), so that the full
-      # snippet (with tags) is loaded, rather than the partial one.
-      # @see https://developers.google.com/youtube/v3/docs/videos
-      # @return [Array<Yt::Models::Tag>] the list of keyword tags associated
-      #   with the video.
-      def tags
-        unless snippet.tags.any? || snippet.complete? || @auth.nil?
-          @snippet = nil
+        if options[:player]
+          @player = Player.new data: options[:player]
         end
-        snippet.tags
       end
 
-      # Returns the category ID associated with the video.
-      # Since YouTube API only returns categoryID on Videos#list, the memoized
-      # @snippet is erased if the video was instantiated through Video#search
-      # (e.g., by calling account.videos or channel.videos), so that the full
-      # snippet (with categoryID) is loaded, rather than the partial one.
-      # @see https://developers.google.com/youtube/v3/docs/videos
-      # @return [String] ID of the YouTube category associated with the video.
-      def category_id
-        unless snippet.category_id.present? || snippet.complete?
-          @snippet = nil
-        end
-        snippet.category_id
-      end
-
-      # Deletes the video.
-      #
-      # This method requires {Resource#auth auth} to return an authenticated
-      # instance of {Yt::Account} with permissions to delete the video.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an account with permissions to delete the video.
-      # @return [Boolean] whether the video does not exist anymore.
-      def delete(options = {})
-        do_delete {@id = nil}
-        !exists?
-      end
-
+      # @private
       def exists?
         !@id.nil?
-      end
-
-      # Returns whether the authenticated account likes the video.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @return [Boolean] whether the account likes the video.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def liked?
-        rating.rating == :like
-      end
-
-      # Likes the video on behalf of the authenticated account.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @return [Boolean] whether the account likes the video.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def like
-        rating.set :like
-        liked?
-      end
-
-      # Dislikes the video on behalf of the authenticated account.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @return [Boolean] whether the account does not like the video.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def dislike
-        rating.set :dislike
-        !liked?
-      end
-
-      # Resets the rating of the video on behalf of the authenticated account.
-      #
-      # This method requires {Resource#auth auth} to return an
-      # authenticated instance of {Yt::Account}.
-      # @return [Boolean] whether the account does not like the video.
-      # @raise [Yt::Errors::Unauthorized] if {Resource#auth auth} does not
-      #   return an authenticated account.
-      def unlike
-        rating.set :none
-        !liked?
-      end
-
-      # Uploads a thumbnail
-      # @param [String] path_or_url the image to upload. Can either be the
-      #   path of a local file or the URL of a remote file.
-      # @return the new thumbnail resource for the given image.
-      # @raise [Yt::Errors::RequestError] if path_or_url is not a valid path
-      #   or URL.
-      # @see https://developers.google.com/youtube/v3/docs/thumbnails#resource
-      def upload_thumbnail(path_or_url)
-        file = open(path_or_url, 'rb') rescue StringIO.new
-        session = resumable_sessions.insert file.size
-
-        session.update(body: file) do |data|
-          snippet.instance_variable_set :@thumbnails, data['items'].first
-        end
       end
 
       # @private
@@ -277,6 +560,7 @@ module Yt
       def upload_path
         '/upload/youtube/v3/thumbnails/set'
       end
+
       # @private
       # Tells `has_many :resumable_sessions` what params are set for the object
       # associated to the uploaded file.
@@ -291,6 +575,17 @@ module Yt
       end
 
     private
+
+      # Since YouTube API only returns tags on Videos#list, the memoized
+      # `@snippet` is erased if the video was instantiated through Video#search
+      # (e.g., by calling account.videos or channel.videos), so that the full
+      # snippet (with tags and category) is loaded, rather than the partial one.
+      def ensure_complete_snippet(attribute)
+        unless snippet.public_send(attribute).present? || snippet.complete?
+          @snippet = nil
+        end
+        snippet.public_send attribute
+      end
 
       # @see https://developers.google.com/youtube/v3/docs/videos/update
       # @todo: Add recording details keys

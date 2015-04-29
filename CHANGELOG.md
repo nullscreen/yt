@@ -6,6 +6,19 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.17.0 - 2015-04-28
+
+**How to upgrade**
+
+If your code never calls video-specific methods on `video.status`, then you are
+good to go.
+
+If it does, then call the same methods on `video`, rather than `video.status`.
+For instance, replace `video.status.deleted?` with `video.deleted?`.
+
+* [ENHANCEMENT] Don’t over-delegate methods of Video.
+* [ENHANCEMENT] Complete documentation of Yt::Video.
+
 ## 0.16.0 - 2015-04-27
 
 **How to upgrade**
