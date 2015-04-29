@@ -4,16 +4,13 @@ h2: "Annotations"
 ---
 
 <p>
-  <code>Yt::Annotation</code> represents an annotation of a YouTube video.<br />
-  Initialize <code>Yt::Annotation</code> objects looping through the <code>.annotations</code>
-  collection of each <code>Yt::Video</code>:
+  <code>Yt::Annotation</code> represents a video annotation.
+  Initialize iterating through <code>Yt::Video#annotations</code>:
 </p>
 
 {% highlight ruby %}
 video = Yt::Video.new id: 'BPNYv0vd78A'
-video.annotations # => #<Yt::Collections::Associations …>
-video.annotations.count # => 1
-annotation = video.annotations.first
+video.annotations.first
 # => #<Yt::Annotation:0x…>
 {% endhighlight %}
 
@@ -29,24 +26,24 @@ annotation = video.annotations.first
 
   {% include dt.html title="Annotation’s Location" label="success" auth="no authentication required" %}
   <dd><div class="highlight"><pre>
-{% include doc.html link="Models/Annotation#above%3F" %}{% include example.html method='above?' params=' <span class="mi">50</span>' result='false' %}
-{% include doc.html link="Models/Annotation#below%3F" %}{% include example.html method='below?' params=' <span class="mi">30</span>' result='true' %}</pre>
+{% include doc.html link="Models/Annotation#above%3F" %}{% include example.html object='annotation' method='above?' params=' <span class="mi">50</span>' result='false' %}
+{% include doc.html link="Models/Annotation#below%3F" %}{% include example.html object='annotation' method='below?' params=' <span class="mi">30</span>' result='true' %}</pre>
   </div></dd>
 
   {% include dt.html title="Annotation’s Duration" label="success" auth="no authentication required" %}
   <dd><div class="highlight"><pre>
-{% include doc.html link="Models/Annotation#starts_after%3F" %}{% include example.html method='starts_after?' params=' <span class="mi">4</span>' result='false' %}
-{% include doc.html link="Models/Annotation#starts_before%3F" %}{% include example.html method='starts_before?' params=' <span class="mi">20</span>' result='true' %}</pre>
+{% include doc.html link="Models/Annotation#starts_after%3F" %}{% include example.html object='annotation' method='starts_after?' params=' <span class="mi">4</span>' result='false' %}
+{% include doc.html link="Models/Annotation#starts_before%3F" %}{% include example.html object='annotation' method='starts_before?' params=' <span class="mi">20</span>' result='true' %}</pre>
   </div></dd>
 
   {% include dt.html title="Annotation’s Content" label="success" auth="no authentication required" %}
   <dd><div class="highlight"><pre>
-{% include doc.html link="Models/Annotation#text" %}{% include example.html method='text' result='"Hello, world!"' %}
-{% include doc.html link="Models/Annotation#has_link_to_subscribe%3F" %}{% include example.html method='has_link_to_subscribe?' result='true' %}
-{% include doc.html link="Models/Annotation#has_link_to_video%3F" %}{% include example.html method='has_link_to_video?' result='false' %}
-{% include doc.html link="Models/Annotation#has_link_to_playlist%3F" %}{% include example.html method='has_link_to_playlist?' result='true' %}
-{% include doc.html link="Models/Annotation#has_link_to_same_window%3F" %}{% include example.html method='has_link_to_same_window?' result='false' %}
-{% include doc.html link="Models/Annotation#has_invideo_programming%3F" %}{% include example.html method='has_invideo_programming?' result='true' %}</pre>
+{% include doc.html link="Models/Annotation#text" %}{% include example.html object='annotation' method='text' result='"Hello, world!"' %}
+{% include doc.html link="Models/Annotation#has_link_to_subscribe%3F" %}{% include example.html object='annotation' method='has_link_to_subscribe?' result='true' %}
+{% include doc.html link="Models/Annotation#has_link_to_video%3F" %}{% include example.html object='annotation' method='has_link_to_video?' result='false' %}
+{% include doc.html link="Models/Annotation#has_link_to_playlist%3F" %}{% include example.html object='annotation' method='has_link_to_playlist?' result='true' %}
+{% include doc.html link="Models/Annotation#has_link_to_same_window%3F" %}{% include example.html object='annotation' method='has_link_to_same_window?' result='false' %}
+{% include doc.html link="Models/Annotation#has_invideo_programming%3F" %}{% include example.html object='annotation' method='has_invideo_programming?' result='true' %}</pre>
   </div></dd>
 
 </dl>

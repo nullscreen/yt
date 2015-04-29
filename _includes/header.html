@@ -26,6 +26,11 @@
         {% else %}
           <li><a href="{{ site.baseurl }}/videos.html">Videos</a></li>
         {% endif %}
+        {% if page.url == '/channels.html' %}
+          <li class="active"><a href="{{ site.baseurl }}/channels.html">Channels</a></li>
+        {% else %}
+          <li><a href="{{ site.baseurl }}/channels.html">Channels</a></li>
+        {% endif %}
         {% if page.url == '/annotations.html' %}
           <li class="active"><a href="{{ site.baseurl }}/annotations.html">Annotations</a></li>
         {% else %}
