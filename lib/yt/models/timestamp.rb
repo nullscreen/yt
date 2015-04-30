@@ -1,5 +1,6 @@
 module Yt
   module Models
+    # @private
     # Extend Time to have .to_json return the format needed to submit
     # timestamp to YouTube API.
     # Only needed while we support ActiveSupport 3.

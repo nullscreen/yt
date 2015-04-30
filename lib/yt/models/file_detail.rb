@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Encapsulates basic information about the video file itself,
     # including the file name, size, type, and container.
     # @see https://developers.google.com/youtube/v3/docs/videos#fileDetails

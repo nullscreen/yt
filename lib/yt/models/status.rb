@@ -2,6 +2,7 @@ require 'yt/models/timestamp'
 
 module Yt
   module Models
+    # @private
     # Contains information about the status of a resource. The details of the
     # status are different for the different types of resources.
     #
@@ -26,12 +27,6 @@ module Yt
       has_attribute :embeddable
       has_attribute :public_stats_viewable
       has_attribute :publish_at, type: Time
-
-    private
-
-      def video?
-        upload_status.present?
-      end
     end
   end
 end

@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Provides methods to retrieve an account’s user profile.
     # @see https://developers.google.com/+/api/latest/people/getOpenIdConnect
     class UserInfo < Base

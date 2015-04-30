@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Provides methods to modify the rating of a video on YouTube.
     # @see https://developers.google.com/youtube/v3/docs/videos/rate
     # @see https://developers.google.com/youtube/v3/docs/videos/getRating
