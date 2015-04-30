@@ -3,6 +3,7 @@ require 'yt/models/id'
 
 module Yt
   module Collections
+    # @private
     class Ids < Base
 
     private

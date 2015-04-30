@@ -3,6 +3,7 @@ require 'yt/models/resumable_session'
 
 module Yt
   module Collections
+    # @private
     # Provides methods to upload videos with the resumable upload protocol.
     #
     # Resources with resumable sessions are: {Yt::Models::Account accounts}.

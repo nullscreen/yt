@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     class DeviceFlow < Base
       def initialize(options = {})
         @data = options[:data]

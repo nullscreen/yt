@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Encapsulates statistics about the resource, such as the number of times
     # the resource has been viewed or liked.
     # @see https://developers.google.com/youtube/v3/docs/videos#resource

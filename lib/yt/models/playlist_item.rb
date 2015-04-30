@@ -9,36 +9,36 @@ module Yt
     ### SNIPPET ###
 
       # @!attribute [r] title
-      # @return [String] the item’s title.
+      #   @return [String] the item’s title.
       delegate :title, to: :snippet
 
       # @!attribute [r] description
-      # @return [String] the item’s description.
+      #   @return [String] the item’s description.
       delegate :description, to: :snippet
 
-      # Returns the URL of the item’s thumbnail.
       # @!method thumbnail_url(size = :default)
-      # @param [Symbol, String] size The size of the item’s thumbnail.
-      # @return [String] if +size+ is +default+, the URL of a 120x90px image.
-      # @return [String] if +size+ is +medium+, the URL of a 320x180px image.
-      # @return [String] if +size+ is +high+, the URL of a 480x360px image.
-      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      #   Returns the URL of the item’s thumbnail.
+      #   @param [Symbol, String] size The size of the item’s thumbnail.
+      #   @return [String] if +size+ is +default+, the URL of a 120x90px image.
+      #   @return [String] if +size+ is +medium+, the URL of a 320x180px image.
+      #   @return [String] if +size+ is +high+, the URL of a 480x360px image.
+      #   @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       delegate :thumbnail_url, to: :snippet
 
       # @!attribute [r] published_at
-      # @return [Time] the time that the item was added to the playlist.
+      #   @return [Time] the time that the item was added to the playlist.
       delegate :published_at, to: :snippet
 
       # @!attribute [r] channel_id
-      # @return [String] the ID of the channel that the item belongs to.
+      #   @return [String] the ID of the channel that the item belongs to.
       delegate :channel_id, to: :snippet
 
       # @!attribute [r] channel_title
-      # @return [String] the title of the channel that the item belongs to.
+      #   @return [String] the title of the channel that the item belongs to.
       delegate :channel_title, to: :snippet
 
       # @!attribute [r] playlist_id
-      # @return [String] the ID of the playlist that the item is in.
+      #   @return [String] the ID of the playlist that the item is in.
       delegate :playlist_id, to: :snippet
 
       # @return [String] the ID of the video referred by the item.

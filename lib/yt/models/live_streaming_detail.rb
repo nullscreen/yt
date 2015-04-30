@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Encapsulates information about a live video broadcast.
     # The object will only be present in a video resource if the video is an
     # upcoming, live, or completed live broadcast.

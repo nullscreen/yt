@@ -3,6 +3,7 @@ require 'yt/models/file_detail'
 
 module Yt
   module Collections
+    # @private
     class FileDetails < Base
 
     private

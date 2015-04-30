@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Provides methods to interact with YouTube subscriptions.
     # @see https://developers.google.com/youtube/v3/docs/subscriptions
     class Subscription < Base

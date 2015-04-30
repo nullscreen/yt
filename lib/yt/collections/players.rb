@@ -3,6 +3,7 @@ require 'yt/models/player'
 
 module Yt
   module Collections
+    # @private
     class Players < Base
 
     private

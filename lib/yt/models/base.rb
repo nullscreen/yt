@@ -12,6 +12,7 @@ require 'yt/errors/request_error'
 
 module Yt
   module Models
+    # @private
     class Base
       include Actions::Delete
       include Actions::Update

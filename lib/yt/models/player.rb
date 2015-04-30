@@ -2,6 +2,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Encapsulates information about a video player.
     # @see https://developers.google.com/youtube/v3/docs/videos#player
     class Player < Base

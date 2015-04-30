@@ -9,24 +9,24 @@ module Yt
     ### SNIPPET ###
 
       # @!attribute [r] title
-      # @return [String] the channel’s title.
+      #   @return [String] the channel’s title.
       delegate :title, to: :snippet
 
       # @!attribute [r] description
-      # @return [String] the channel’s description.
+      #   @return [String] the channel’s description.
       delegate :description, to: :snippet
 
-      # Returns the URL of the channel’s thumbnail.
       # @!method thumbnail_url(size = :default)
-      # @param [Symbol, String] size The size of the channel’s thumbnail.
-      # @return [String] if +size+ is +default+, the URL of a 88x88px image.
-      # @return [String] if +size+ is +medium+, the URL of a 240x240px image.
-      # @return [String] if +size+ is +high+, the URL of a 800x800px image.
-      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      #   Returns the URL of the channel’s thumbnail.
+      #   @param [Symbol, String] size The size of the channel’s thumbnail.
+      #   @return [String] if +size+ is +default+, the URL of a 88x88px image.
+      #   @return [String] if +size+ is +medium+, the URL of a 240x240px image.
+      #   @return [String] if +size+ is +high+, the URL of a 800x800px image.
+      #   @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       delegate :thumbnail_url, to: :snippet
 
       # @!attribute [r] published_at
-      # @return [Time] the date and time that the channel was created.
+      #   @return [Time] the date and time that the channel was created.
       delegate :published_at, to: :snippet
 
     ### SUBSCRIPTION ###
@@ -165,19 +165,19 @@ module Yt
       has_one :statistics_set
 
       # @!attribute [r] view_count
-      # @return [Integer] the number of times the channel has been viewed.
+      #   @return [Integer] the number of times the channel has been viewed.
       delegate :view_count, to: :statistics_set
 
       # @!attribute [r] comment_count
-      # @return [Integer] the number of comments for the channel.
+      #   @return [Integer] the number of comments for the channel.
       delegate :comment_count, to: :statistics_set
 
       # @!attribute [r] video_count
-      # @return [Integer] the number of videos uploaded to the channel.
+      #   @return [Integer] the number of videos uploaded to the channel.
       delegate :video_count, to: :statistics_set
 
       # @!attribute [r] subscriber_count
-      # @return [Integer] the number of subscriber the channel has.
+      #   @return [Integer] the number of subscriber the channel has.
       delegate :subscriber_count, to: :statistics_set
 
       # @return [Boolean] whether the number of subscribers is publicly visible.
@@ -189,13 +189,13 @@ module Yt
 
       has_one :content_owner_detail
 
-      # The name of the content owner linked to the channel.
       # @!attribute [r] content_owner
-      # @return [String] if the channel is partnered, its content owner’s name.
-      # @return [nil] if the channel is not partnered or if {Resource#auth auth}
-      #   is a content owner without permissions to administer the channel.
-      # @raise [Yt::Errors::Forbidden] if {Resource#auth auth} does not
-      #   return an authenticated content owner.
+      #   The name of the content owner linked to the channel.
+      #   @return [String] if the channel is partnered, its content owner’s name.
+      #   @return [nil] if the channel is not partnered or if {Resource#auth auth}
+      #     is a content owner without permissions to administer the channel.
+      #   @raise [Yt::Errors::Forbidden] if {Resource#auth auth} does not
+      #     return an authenticated content owner.
       delegate :content_owner, to: :content_owner_detail
 
       # Returns the time the channel was partnered to a content owner.

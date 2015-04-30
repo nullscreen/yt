@@ -1,5 +1,6 @@
 module Yt
   module Models
+    # @private
     class URL
       attr_reader :kind
 

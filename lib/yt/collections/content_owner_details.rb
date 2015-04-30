@@ -3,6 +3,7 @@ require 'yt/models/content_owner_detail'
 
 module Yt
   module Collections
+    # @private
     class ContentOwnerDetails < Base
 
     private
