@@ -10,13 +10,10 @@ describe Yt::Account, :device_app do
     after { @playlist.delete }
   end
 
-  describe '.channel' do
-    it { expect($account.channel).to be_a Yt::Channel }
-  end
-
-  describe '.user_info' do
-    it { expect($account.user_info).to be_a Yt::UserInfo }
-  end
+  it { expect($account.channel).to be_a Yt::Channel }
+  it { expect($account.playlists.first).to be_a Yt::Playlist }
+  it { expect($account.subscribed_channels.first).to be_a Yt::Channel }
+  it { expect($account.user_info).to be_a Yt::UserInfo }
 
   describe '.videos' do
     let(:video) { $account.videos.where(order: 'viewCount').first }

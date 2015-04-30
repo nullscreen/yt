@@ -210,7 +210,7 @@ describe Yt::ContentOwner, :partner do
         expect(policy.id).to be_a String
         expect(policy.name).to be_a String
         expect(policy.updated_at).to be_a Time
-        expect(rule.action).to  be_in Yt::PolicyRule::ACTIONS
+        expect(rule.action).to  be_a String
         expect(rule.included_territories).to be_an Array
         expect(rule.excluded_territories).to be_an Array
         expect(rule.match_duration).to be_an Array

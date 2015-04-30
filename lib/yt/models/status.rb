@@ -18,8 +18,6 @@ module Yt
         @data = options[:data]
       end
 
-# Privacy status
-
       has_attribute :privacy_status
       has_attribute :upload_status
       has_attribute :failure_reason

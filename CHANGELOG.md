@@ -6,6 +6,16 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.21.0 - 2015-04-30
+
+**How to upgrade**
+
+If your code doesn’t use `PolicyRule#ACTIONS`, then you are good to go.
+If it does, then you should redefine the constant in your own app.
+
+* [REMOVAL] Remove `PolicyRule#ACTIONS` (was `%q(block monetize takedown track)`).
+* [BUGFIX] Make `account.playlists` and `account.channel.playlists` behave the same.
+
 ## 0.20.0 - 2015-04-29
 
 **How to upgrade**

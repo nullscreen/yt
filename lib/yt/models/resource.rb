@@ -38,8 +38,6 @@ module Yt
       end
 
       has_one :snippet
-      delegate :title, :description, :thumbnail_url, :published_at,
-        to: :snippet
 
       def initialize(options = {})
         @url = URL.new(options[:url]) if options[:url]

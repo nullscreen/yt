@@ -2,7 +2,7 @@ require 'yt/models/description'
 
 module Yt
   module Models
-    # Provides methods to interact with the snippet YouTube resources.
+    # Provides methods to interact with the snippet of YouTube resources.
     # @see https://developers.google.com/youtube/v3/docs/channels#resource
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
