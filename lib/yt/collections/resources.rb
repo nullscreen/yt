@@ -3,6 +3,7 @@ require 'yt/collections/base'
 
 module Yt
   module Collections
+    # @private
     class Resources < Base
       def delete_all(params = {})
         do_delete_all params

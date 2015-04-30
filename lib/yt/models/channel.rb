@@ -16,8 +16,8 @@ module Yt
       #   @return [String] the channel’s description.
       delegate :description, to: :snippet
 
-      # Returns the URL of the channel’s thumbnail.
       # @!method thumbnail_url(size = :default)
+      #   Returns the URL of the channel’s thumbnail.
       #   @param [Symbol, String] size The size of the channel’s thumbnail.
       #   @return [String] if +size+ is +default+, the URL of a 88x88px image.
       #   @return [String] if +size+ is +medium+, the URL of a 240x240px image.

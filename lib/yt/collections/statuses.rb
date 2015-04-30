@@ -3,6 +3,7 @@ require 'yt/models/status'
 
 module Yt
   module Collections
+    # @private
     class Statuses < Base
 
     private

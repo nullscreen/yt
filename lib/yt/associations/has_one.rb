@@ -1,5 +1,6 @@
 module Yt
   module Associations
+    # @private
     # Associations are a set of macro-like class methods to express
     # relationship between YouTube resources like "Channel has many Videos" or
     # "Account has one Id". They are inspired by ActiveRecord::Associations.

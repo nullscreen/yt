@@ -2,6 +2,7 @@ require 'yt/collections/base'
 
 module Yt
   module Collections
+    # @private
     class Reports < Base
       DIMENSIONS = Hash.new({name: 'day', parse: ->(day) {Date.iso8601 day} }).tap do |hash|
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(type) {TRAFFIC_SOURCES.key type} }

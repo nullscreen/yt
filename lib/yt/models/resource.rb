@@ -6,6 +6,7 @@ require 'yt/models/url'
 module Yt
   module Models
     class Resource < Base
+      # @private
       attr_reader :auth
 
     ### ID ###
@@ -18,8 +19,9 @@ module Yt
 
       has_one :status
 
-      # @return [String] the privacy status of the resource. Possible values
-      #   are: +'private'+, +'public'+, +'unlisted'+.
+      # @!attribute [r] privacy_status
+      #   @return [String] the privacy status of the resource. Possible values
+      #     are: +'private'+, +'public'+, +'unlisted'+.
       delegate :privacy_status, to: :status
 
       # @return [Boolean] whether the resource is public.
@@ -39,6 +41,7 @@ module Yt
 
       has_one :snippet
 
+      # @private
       def initialize(options = {})
         @url = URL.new(options[:url]) if options[:url]
         @id = options[:id] || (@url.id if @url)
@@ -47,14 +50,17 @@ module Yt
         @status = Status.new(data: options[:status]) if options[:status]
       end
 
+      # @private
       def kind
         @url ? @url.kind.to_s : self.class.to_s.demodulize.underscore
       end
 
+      # @private
       def username
         @url.username if @url
       end
 
+      # @private
       def update(attributes = {})
         underscore_keys! attributes
         body = build_update_body attributes

@@ -3,6 +3,7 @@ require 'yt/models/user_info'
 
 module Yt
   module Collections
+    # @private
     class UserInfos < Base
 
     private

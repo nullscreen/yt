@@ -119,6 +119,7 @@ module Yt
       #     the account can manage.
       has_many :content_owners
 
+      # The name of the content owner managing the account.
       # @return [String] name of the CMS account, if the account is partnered.
       # @return [nil] if the account is not a partnered content owner.
       attr_reader :owner_name
@@ -126,7 +127,7 @@ module Yt
     ### ASSOCIATIONS ###
 
       # @!attribute [r] channel
-      #   @return [Yt::Model::Channel] the YouTube channel of the account.
+      #   @return [Yt::Models::Channel] the YouTube channel of the account.
       has_one :channel
 
       # @!attribute [r] playlists

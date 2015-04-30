@@ -3,6 +3,7 @@ require 'yt/models/authentication'
 
 module Yt
   module Collections
+    # @private
     class Authentications < Base
       attr_accessor :auth_params
 
