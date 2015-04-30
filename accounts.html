@@ -1,0 +1,92 @@
+---
+title:  "Yt::Account"
+h2: "Accounts"
+---
+
+<p>
+  <code>Yt::Account</code> represents a YouTube account.
+  Initialize using either their access or refresh token:
+</p>
+
+{% highlight ruby %}
+account = Yt::Account.new access_token:  'ya29.ZAF6McAOf0OwU'
+account = Yt::Account.new refresh_token: '1/ddxHq4ph-BdR954Xh'
+# => All these methods return #<Yt::Account:0x... @id="11668677593">
+{% endhighlight %}
+
+<hr />
+<h4>Authentication</h4>
+
+<p>
+  All methods of <code>Yt::Account</code> <strong>act on behalf of YouTube accounts</strong> (e.g.: upload a video, create a playlist).<br />
+  To use these methods (marked with  <span class="label label-warning">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the account you want to act as, and pass the account as the <code>:auth</code> parameter:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.client_id = "<your ID>"           ## replace with your client ID
+Yt.configuration.client_secret = "<your secret>"   ## replace with your client secret
+account = Yt::Account.new refresh_token: "<token>" ## use the account’s refresh token
+
+account.upload_video "http://example.com/remote_video.mp4", title: 'My video'
+# => #<Yt::Video …>
+{% endhighlight %}
+
+<p>
+  A few methods <strong>acts on behalf of YouTube content owners</strong> (e.g.: fetch the content owner of an account).<br />
+  To use these methods (marked with  <span class="label label-danger">&nbsp;</span> below), you need to <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">get an API Client ID/Secret from Google</a>, <a href="https://github.com/Fullscreen/yt#web-apps-that-require-user-interactions">obtain an access or refresh token</a> from the content owner, and pass the content owner as the <code>:auth</code> parameter:
+</p>
+
+{% highlight ruby %}
+Yt.configuration.client_id = "<your ID>"           ## replace with your client ID
+Yt.configuration.client_secret = "<your secret>"   ## replace with your client secret
+owner = Yt::ContentOwner.new owner_name: "<name>", ## replace with owner’s credentials
+                             refresh_token: "<token>"
+
+account = Yt::Account.new id: owner.id, authentication: owner.authentication
+account.channel_owners
+# => #<Yt::Collections::ChannelOwners …>
+{% endhighlight %}
+
+<hr />
+<h4>List of <code>Yt::Account</code> methods</h4>
+<dl>
+
+  {% include dt.html title="Account’s User Info" label="warning" auth="must authenticate as a YouTube account" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Account#id" %}{% include example.html object='account' method='id' result='"11668677593"' %}
+{% include doc.html link="Models/Account#email" %}{% include example.html object='account' method='email' result='"user@example.com"' %}
+{% include doc.html link="Models/Account#has_verified_email%3F" %}{% include example.html object='account' method='has_verified_email?' result='true' %}
+{% include doc.html link="Models/Account#name" %}{% include example.html object='account' method='name' result='"Michael Stipe"' %}
+{% include doc.html link="Models/Account#given_name" %}{% include example.html object='account' method='given_name' result='"Michael"' %}
+{% include doc.html link="Models/Account#family_name" %}{% include example.html object='account' method='family_name' result='"Stipe"' %}
+{% include doc.html link="Models/Account#profile_url" %}{% include example.html object='account' method='profile_url' result='"https://plus.google.com/11668677593"' %}
+{% include doc.html link="Models/Account#avatar_url" %}{% include example.html object='account' method='avatar_url' result='"https://lh3.googleusercontent.com/-XCWA/photo.jpg"' %}
+{% include doc.html link="Models/Account#gender" %}{% include example.html object='account' method='gender' result='"male"' %}
+{% include doc.html link="Models/Account#locale" %}{% include example.html object='account' method='locale' result='"en"' %}
+{% include doc.html link="Models/Account#hd" %}{% include example.html object='account' method='hd' result='"example.com"' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Account’s Updates" label="warning" auth="must authenticate as a YouTube account" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Account#upload_video" %}{% include example.html object='account' method='upload_video' params=' <span class="s2">"v.mp4"</span><span class="p">,</span> <span class="ss">privacy_status</span><span class="p">:</span> <span class="s2">"private"</span><span class="p">' result='#&lt;Yt::Video …&gt;' %}
+{% include doc.html link="Models/Account#create_playlist" %}{% include example.html object='account' method='create_playlist' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"My favorites"</span>' result='#&lt;Yt::Playlist …&gt;' %}
+{% include doc.html link="Models/Account#delete_playlists" %}{% include example.html object='account' method='delete_playlists' params=' <span class="ss">title</span><span class="p">:</span> <span class="sr">"My favorites"</span>' result='[true]' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Account’s Content Owners" label="danger" auth="must have content owner privileges" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Account#owner_name" %}{% include example.html object='account' method='owner_name' result='"FullScreen"' %}
+{% include doc.html link="Models/Account#content_owners" %}{% include example.html object='account' method='content_owners' result='#&lt;Yt::Collections::ContentOwners …&gt;' %}</pre>
+  </div></dd>
+
+  {% include dt.html title="Account’s Associations" label="warning" auth="must authenticate as a YouTube account" %}
+  <dd><div class="highlight"><pre>
+{% include doc.html link="Models/Account#channel" %}{% include example.html object='account' method='channel' result='#&lt;Yt::Channel …&gt;' %}
+{% include doc.html link="Models/Account#playlists" %}{% include example.html object='account' method='playlists' result='#&lt;Yt::Collections::Playlists …&gt;' %}
+{% include doc.html link="Models/Account#subscribed_channels" %}{% include example.html object='account' method='subscribed_channels' result='#&lt;Yt::Collections::SubscribedChannels …&gt;' %}
+{% include doc.html link="Models/Account#videos" %}{% include example.html object='account' method='videos' result='#&lt;Yt::Collections::Videos …&gt;' %}
+{% include doc.html link="Models/Account#subscribers" %}{% include example.html object='account' method='subscribers' result='#&lt;Yt::Collections::Subscribers …&gt;' %}</pre>
+  </div></dd>
+
+
+</dl>
