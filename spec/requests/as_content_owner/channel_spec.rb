@@ -58,7 +58,7 @@ describe Yt::Channel, :partner do
       describe 'views can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:views) { channel.views_on 5.days.ago}
-          it { expect(views).to be_a Float }
+          it { expect(views).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -164,14 +164,14 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :device_type' do
           views = channel.views range.merge by: :device_type
           expect(views.keys).to all(be_instance_of Symbol)
-          expect(views.values).to all(be_instance_of Float)
+          expect(views.values).to all(be_an Integer)
         end
       end
 
       describe 'comments can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:comments) { channel.comments_on 5.days.ago}
-          it { expect(comments).to be_a Float }
+          it { expect(comments).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -218,7 +218,7 @@ describe Yt::Channel, :partner do
       describe 'likes can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:likes) { channel.likes_on 5.days.ago}
-          it { expect(likes).to be_a Float }
+          it { expect(likes).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -265,7 +265,7 @@ describe Yt::Channel, :partner do
       describe 'dislikes can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:dislikes) { channel.dislikes_on 5.days.ago}
-          it { expect(dislikes).to be_a Float }
+          it { expect(dislikes).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -312,7 +312,7 @@ describe Yt::Channel, :partner do
       describe 'shares can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:shares) { channel.shares_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(shares).to be_a Float }
+          it { expect(shares).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -359,7 +359,7 @@ describe Yt::Channel, :partner do
       describe 'gained subscribers can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:subscribers_gained) { channel.subscribers_gained_on 5.days.ago}
-          it { expect(subscribers_gained).to be_a Float }
+          it { expect(subscribers_gained).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -406,7 +406,7 @@ describe Yt::Channel, :partner do
       describe 'lost subscribers can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:subscribers_lost) { channel.subscribers_lost_on 5.days.ago}
-          it { expect(subscribers_lost).to be_a Float }
+          it { expect(subscribers_lost).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -453,7 +453,7 @@ describe Yt::Channel, :partner do
       describe 'added favorites can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:favorites_added) { channel.favorites_added_on 5.days.ago}
-          it { expect(favorites_added).to be_a Float }
+          it { expect(favorites_added).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -500,7 +500,7 @@ describe Yt::Channel, :partner do
       describe 'removed favorites can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:favorites_removed) { channel.favorites_removed_on 5.days.ago}
-          it { expect(favorites_removed).to be_a Float }
+          it { expect(favorites_removed).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -754,7 +754,7 @@ describe Yt::Channel, :partner do
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:impressions) { channel.impressions_on 20.days.ago}
-          it { expect(impressions).to be_a Float }
+          it { expect(impressions).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -801,7 +801,7 @@ describe Yt::Channel, :partner do
       describe 'monetized playbacks can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:monetized_playbacks) { channel.monetized_playbacks_on 20.days.ago}
-          it { expect(monetized_playbacks).to be_a Float }
+          it { expect(monetized_playbacks).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -863,12 +863,12 @@ describe Yt::Channel, :partner do
 
         specify 'without a :by option (default)' do
           annotation_clicks = channel.annotation_clicks range
-          expect(annotation_clicks.values).to all(be_instance_of Float)
+          expect(annotation_clicks.values).to all(be_an Integer)
         end
 
         specify 'with the :by option set to :day' do
           annotation_clicks = channel.annotation_clicks range.merge by: :day
-          expect(annotation_clicks.values).to all(be_instance_of Float)
+          expect(annotation_clicks.values).to all(be_an Integer)
         end
       end
 

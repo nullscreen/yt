@@ -47,7 +47,7 @@ module Yt
 
       attr_writer :metric
 
-      def within(days_range, dimension, try_again = true)
+      def within(days_range, dimension, type, try_again = true)
         @days_range = days_range
         @dimension = dimension
         if dimension == :gender_age_group # array of array
@@ -55,7 +55,7 @@ module Yt
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
           end
         else
-          Hash[*flat_map{|value| [value.first, value.last]}]
+          Hash[*flat_map{|value| [value.first, type_cast(value.last, type)]}]
         end
       # NOTE: Once in a while, YouTube responds with 400 Error and the message
       # "Invalid query. Query did not conform to the expectations."; in this
@@ -64,10 +64,17 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        try_again && rescue?(e) ? sleep(3) && within(days_range, dimension, false) : raise
+        try_again && rescue?(e) ? sleep(3) && within(days_range, dimension, type, false) : raise
       end
 
     private
+
+      def type_cast(value, type)
+        case [type]
+          when [Integer] then value.to_i if value
+          when [Float] then value.to_f if value
+        end
+      end
 
       def new_item(data)
         [instance_exec(data.first, &DIMENSIONS[@dimension][:parse]), *data[1..-1]]

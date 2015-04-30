@@ -201,43 +201,43 @@ channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: account
 
 channel.delete_playlists title: 'New playlist' #=> [true]
 
-channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-channel.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-channel.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3, …}
+channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9, Thu, 29 May 2014 => 4, …}
+channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7, Wed, 28 May 2014 => 0, …}
+channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0, Wed, 28 May 2014 => 1, …}
+channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3}
+channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1, Sun, 31 Aug 2014=>0}
+channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0, Sun, 31 Aug 2014=>0}
+channel.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1, Sun, 31 Aug 2014=>0}
+channel.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0, Sun, 31 Aug 2014=>0}
 channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
-channel.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+channel.annotation_clicks #=>  {Sun, 22 Feb 2015=>329, Mon, 23 Feb 2015=>326, …}
 channel.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 channel.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 channel.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
-channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
+channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10, related_video: 20, promoted: 5, subscriber: 1, channel: 3, other: 7}
+channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10, external_app: 20, external_url: 5, embedded: 1, search: 3}
 
-channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
+channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34, watch: 467, channel: 462, other: 3}
+channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34, watch: 467, channel: 462, other: 3}
 
-channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
+channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45, "linkedin.com"=>5, "mashable.com"=>1, "unknown"=>1}
+channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45, "linkedin.com"=>5, "mashable.com"=>1, "unknown"=>1}
 
-channel.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-channel.estimated_minutes_watched since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
+channel.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
 
-channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
+channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
 
-channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
-channel.estimated_minutes_watched since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
+channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10, #<Yt::Models::Playlist @id=...>: 20, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10, #<Yt::Models::Playlist @id=...>: 20, …}
 
-channel.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
+channel.views since: 7.days.ago, by: :device_type #=> {mobile: 144473, unknown_platform: 840, game_console: 4940, desktop: 102889, tv: 4134, tablet: 50189}
+channel.estimated_minutes_watched since: 7.days.ago, by: :device_type #=> {mobile: 144473, unknown_platform: 840, game_console: 4940, desktop: 102889, tv: 4134, tablet: 50189}
 ```
 
 *The methods above require to be authenticated as the channel’s account (see below).*
@@ -247,37 +247,37 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: content_owner
 
 channel.earnings_on 5.days.ago #=> 12.23
-channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-channel.impressions_on 5.days.ago #=> 157.0
-channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3, …}
+channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9, Thu, 29 May 2014 => 4, …}
+channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7, Wed, 28 May 2014 => 0, …}
+channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0, Wed, 28 May 2014 => 1, …}
+channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3}
+channel.impressions_on 5.days.ago #=> 157
+channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1, Sun, 31 Aug 2014=>0}
+channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0, Sun, 31 Aug 2014=>0}
 channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
 channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
-channel.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+channel.annotation_clicks #=>  {Sun, 22 Feb 2015=>329, Mon, 23 Feb 2015=>326, …}
 channel.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 channel.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 channel.viewer_percentage since: 7.days.ago #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
-channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10.0, external_app: 20.0, external_url: 5.0, embedded: 1.0, search: 3.0}
-channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34.0, watch: 467.0, channel: 462.0, other: 3.0}
-channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
-channel.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-channel.estimated_minutes_watched since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
-channel.estimated_minutes_watched since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10.0, #<Yt::Models::Playlist @id=...>: 20.0, …}
-channel.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
-channel.estimated_minutes_watched since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
-channel.monetized_playbacks_on 5.days.ago #=> 123.0
+channel.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10, related_video: 20, promoted: 5, subscriber: 1, channel: 3, other: 7}
+channel.estimated_minutes_watched since: 7.days.ago, by: :traffic_source #=> {annotation: 10, external_app: 20, external_url: 5, embedded: 1, search: 3}
+channel.views since: 7.days.ago, by: :playback_location #=> {embedded: 34, watch: 467, channel: 462, other: 3}
+channel.estimated_minutes_watched since: 7.days.ago, by: :playback_location #=> {embedded: 34, watch: 467, channel: 462, other: 3}
+channel.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45, "linkedin.com"=>5, "mashable.com"=>1, "unknown"=>1}
+channel.estimated_minutes_watched since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45, "linkedin.com"=>5, "mashable.com"=>1, "unknown"=>1}
+channel.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+channel.views since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+channel.views since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10, #<Yt::Models::Playlist @id=...>: 20, …}
+channel.estimated_minutes_watched since: 7.days.ago, by: :playlist #=> {#<Yt::Models::Playlist @id=...>: 10, #<Yt::Models::Playlist @id=...>: 20, …}
+channel.views since: 7.days.ago, by: :device_type #=> {mobile: 144473, unknown_platform: 840, game_console: 4940, desktop: 102889, tv: 4134, tablet: 50189}
+channel.estimated_minutes_watched since: 7.days.ago, by: :device_type #=> {mobile: 144473, unknown_platform: 840, game_console: 4940, desktop: 102889, tv: 4134, tablet: 50189}
+channel.monetized_playbacks_on 5.days.ago #=> 123
 channel.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male: 50.88}
 channel.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
@@ -400,28 +400,28 @@ video.update tags: ['a tag'], categoryId: '21', license: 'creativeCommon'
 video.upload_thumbnail 'my_thumbnail.jpg'
 video.upload_thumbnail 'http://example.com/remote.png'
 
-video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-video.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3, …}
+video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9, Thu, 29 May 2014 => 4, …}
+video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7, Wed, 28 May 2014 => 0, …}
+video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0, Wed, 28 May 2014 => 1, …}
+video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3}
+video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1, Sun, 31 Aug 2014=>0}
+video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0, Sun, 31 Aug 2014=>0}
+video.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1, Sun, 31 Aug 2014=>0}
+video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0, Sun, 31 Aug 2014=>0}
 video.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 video.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
-video.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+video.annotation_clicks #=>  {Sun, 22 Feb 2015=>329, Mon, 23 Feb 2015=>326, …}
 video.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 video.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 video.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
-video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
-video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
-video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
-video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-video.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
+video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10, related_video: 20, promoted: 5, subscriber: 1, channel: 3, other: 7}
+video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6, :watch=>11}
+video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45, "linkedin.com"=>5, "mashable.com"=>1, "unknown"=>1}
+video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+video.views since: 7.days.ago, by: :device_type #=> {mobile: 144473, unknown_platform: 840, game_console: 4940, desktop: 102889, tv: 4134, tablet: 50189}
 video.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male: 50.88}
 video.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
@@ -435,30 +435,30 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 video = Yt::Video.new id: 'MESycYJytkU', auth: content_owner
 
 video.earnings_on 5.days.ago #=> 12.23
-video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-video.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
+video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3, …}
+video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9, Thu, 29 May 2014 => 4, …}
+video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7, Wed, 28 May 2014 => 0, …}
+video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0, Wed, 28 May 2014 => 1, …}
+video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3}
+video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1, Sun, 31 Aug 2014=>0}
+video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0, Sun, 31 Aug 2014=>0}
+video.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1, Sun, 31 Aug 2014=>0}
+video.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0, Sun, 31 Aug 2014=>0}
 video.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
 video.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
 video.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
-video.impressions_on 5.days.ago #=> 157.0
-video.monetized_playbacks_on 5.days.ago #=> 123.0
-video.annotation_clicks #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
+video.impressions_on 5.days.ago #=> 157
+video.monetized_playbacks_on 5.days.ago #=> 123
+video.annotation_clicks #=>  {Sun, 22 Feb 2015=>329, Mon, 23 Feb 2015=>326, …}
 video.annotation_click_through_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 video.annotation_close_rate #=>  {Sun, 22 Feb 2015=>0.02, Mon, 23 Feb 2015=>0.03, …}
 video.viewer_percentage #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
 
-video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10.0, related_video: 20.0, promoted: 5.0, subscriber: 1.0, channel: 3.0, other: 7.0}
-video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6.0, :watch=>11.0}
-video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45.0, "linkedin.com"=>5.0, "mashable.com"=>1.0, "unknown"=>1.0}
-video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10.0, #<Yt::Models::Video @id=...>: 20.0, …}
-video.views since: 7.days.ago, by: :device_type #=> {mobile: 144473.0, unknown_platform: 840.0, game_console: 4940.0, desktop: 102889.0, tv: 4134.0, tablet: 50189.0}
+video.views since: 7.days.ago, by: :traffic_source #=> {advertising: 10, related_video: 20, promoted: 5, subscriber: 1, channel: 3, other: 7}
+video.views since: 7.days.ago, by: :playback_location #=> {:embedded=>6, :watch=>11}
+video.views since: 7.days.ago, by: :embedded_player_location #=> {"fullscreen.net"=>45, "linkedin.com"=>5, "mashable.com"=>1, "unknown"=>1}
+video.views since: 7.days.ago, by: :related_video #=> {#<Yt::Models::Video @id=...>: 10, #<Yt::Models::Video @id=...>: 20, …}
+video.views since: 7.days.ago, by: :device_type #=> {mobile: 144473, unknown_platform: 840, game_console: 4940, desktop: 102889, tv: 4134, tablet: 50189}
 video.viewer_percentage since: 7.days.ago, by: :gender #=> {female: 49.12, male: 50.88}
 video.viewer_percentage since: 7.days.ago, by: :age_group #=> {'18-24' => 12.12, '25-34' => 16.16,…}
 
@@ -505,11 +505,11 @@ playlist.add_video 'MESycYJytkU', position: 2
 playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
 playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
 
-playlist.views_on 5.days.ago #=> 12.0
-playlist.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+playlist.views_on 5.days.ago #=> 12
+playlist.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3, …}
 
-playlist.playlist_starts_on 5.days.ago #=> 12.0
-playlist.playlist_starts since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
+playlist.playlist_starts_on 5.days.ago #=> 12
+playlist.playlist_starts since: 7.days.ago #=> {Wed, 28 May 2014 => 12, Thu, 29 May 2014 => 3, …}
 
 playlist.average_time_in_playlist_on 5.days.ago #=> 12.0
 playlist.average_time_in_playlist since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}

@@ -40,7 +40,7 @@ describe Yt::Video, :partner do
       describe 'views can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:views) { video.views_on 5.days.ago}
-          it { expect(views).to be_a Float }
+          it { expect(views).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -128,14 +128,14 @@ describe Yt::Video, :partner do
         specify 'with the :by option set to :device_type' do
           views = video.views range.merge by: :device_type
           expect(views.keys).to all(be_instance_of Symbol)
-          expect(views.values).to all(be_instance_of Float)
+          expect(views.values).to all(be_an Integer)
         end
       end
 
       describe 'comments can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:comments) { video.comments_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(comments).to be_a Float }
+          it { expect(comments).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -182,7 +182,7 @@ describe Yt::Video, :partner do
       describe 'likes can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:likes) { video.likes_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(likes).to be_a Float }
+          it { expect(likes).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -229,7 +229,7 @@ describe Yt::Video, :partner do
       describe 'dislikes can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:dislikes) { video.dislikes_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(dislikes).to be_a Float }
+          it { expect(dislikes).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -276,7 +276,7 @@ describe Yt::Video, :partner do
       describe 'shares can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:shares) { video.shares_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(shares).to be_a Float }
+          it { expect(shares).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -323,7 +323,7 @@ describe Yt::Video, :partner do
       describe 'gained subscribers can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:subscribers_gained) { video.subscribers_gained_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(subscribers_gained).to be_a Float }
+          it { expect(subscribers_gained).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -370,7 +370,7 @@ describe Yt::Video, :partner do
       describe 'lost subscribers can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:subscribers_lost) { video.subscribers_lost_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(subscribers_lost).to be_a Float }
+          it { expect(subscribers_lost).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -417,7 +417,7 @@ describe Yt::Video, :partner do
       describe 'added favorites can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:favorites_added) { video.favorites_added_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(favorites_added).to be_a Float }
+          it { expect(favorites_added).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -464,7 +464,7 @@ describe Yt::Video, :partner do
       describe 'removed favorites can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:favorites_removed) { video.favorites_removed_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(favorites_removed).to be_a Float }
+          it { expect(favorites_removed).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -699,8 +699,8 @@ describe Yt::Video, :partner do
 
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:impressions) { video.impressions_on 20.days.ago}
-          it { expect(impressions).to be_a Float }
+          let(:impressions) { video.impressions_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
+          it { expect(impressions).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -746,8 +746,8 @@ describe Yt::Video, :partner do
 
       describe 'monetized playbacks can be retrieved for a specific day' do
         context 'in which the video was partnered' do
-          let(:monetized_playbacks) { video.monetized_playbacks_on 20.days.ago}
-          it { expect(monetized_playbacks).to be_a Float }
+          let(:monetized_playbacks) { video.monetized_playbacks_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
+          it { expect(monetized_playbacks).to be_an Integer }
         end
 
         context 'in which the video was not partnered' do
@@ -809,12 +809,12 @@ describe Yt::Video, :partner do
 
         specify 'without a :by option (default)' do
           annotation_clicks = video.annotation_clicks range
-          expect(annotation_clicks.values).to all(be_instance_of Float)
+          expect(annotation_clicks.values).to all(be_an Integer)
         end
 
         specify 'with the :by option set to :day' do
           annotation_clicks = video.annotation_clicks range.merge by: :day
-          expect(annotation_clicks.values).to all(be_instance_of Float)
+          expect(annotation_clicks.values).to all(be_an Integer)
         end
       end
 

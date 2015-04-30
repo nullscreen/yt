@@ -13,7 +13,7 @@ describe Yt::Playlist, :partner do
       describe 'views can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:views) { playlist.views_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
-          it { expect(views).to be_a Float }
+          it { expect(views).to be_an Integer }
         end
 
         context 'in which the playlist was not viewed' do
@@ -110,19 +110,19 @@ describe Yt::Playlist, :partner do
         specify 'with the :by option set to :device_type' do
           views = playlist.views range.merge by: :device_type
           expect(views.keys).to all(be_instance_of Symbol)
-          expect(views.values).to all(be_instance_of Float)
+          expect(views.values).to all(be_an Integer)
         end
       end
 
       describe 'estimated minutes watched can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
-          let(:views) { playlist.estimated_minutes_watched_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
-          it { expect(views).to be_a Float }
+          let(:minutes) { playlist.estimated_minutes_watched_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
+          it { expect(minutes).to be_a Float }
         end
 
         context 'in which the playlist was not viewed' do
-          let(:views) { playlist.estimated_minutes_watched_on 20.years.ago}
-          it { expect(views).to be_nil }
+          let(:minutes) { playlist.estimated_minutes_watched_on 20.years.ago}
+          it { expect(minutes).to be_nil }
         end
       end
 
@@ -271,7 +271,7 @@ describe Yt::Playlist, :partner do
 
       describe 'average view duration can be retrieved for a specific day' do
         context 'in which the playlist was partnered' do
-          let(:average_view_duration) { playlist.average_view_duration_on 5.days.ago}
+          let(:average_view_duration) { playlist.average_view_duration_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
           it { expect(average_view_duration).to be_a Float }
         end
 
@@ -319,7 +319,7 @@ describe Yt::Playlist, :partner do
       describe 'playlist starts can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:playlist_starts) { playlist.playlist_starts_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
-          it { expect(playlist_starts).to be_a Float }
+          it { expect(playlist_starts).to be_an Integer }
         end
 
         context 'in which the playlist was not viewed' do
