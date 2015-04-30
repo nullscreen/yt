@@ -18,6 +18,11 @@ module Yt
       #   @example Get the $1 for each day of last week:
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :day
       #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.2, …}
+      #   @return [Hash<Symbol, $2>] if grouped by range, the $1
+      #     for the entire time-range (under the key +:total+).
+      #   @example Get the $1 for the whole last week:
+      #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :range
+      #     # => {Wed, 8 May 2014..Tue, 14 May 2014 => 564.0,}
       #   @macro report
 
       # @!macro [new] report_by_day

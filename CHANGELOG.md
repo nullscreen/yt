@@ -17,6 +17,7 @@ a Float: views, `comments`, `likes`, `dislikes`, `shares`, `subscribers_gained`,
 `impressions`, `monetized_plybacks`, `playlist_starts`.
 
 * [ENHANCEMENT] Return `Integer` values for reports that can never return decimal digits.
+* [FEATURE] New `by: :range` option for reports, to return a metric without dimensions (that is, for the whole range)
 
 ## 0.21.0 - 2015-04-30
 

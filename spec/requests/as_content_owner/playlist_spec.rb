@@ -42,6 +42,16 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          views = playlist.views range.merge by: :range
+          expect(views.size).to be 1
+          expect(views[:total]).to be_an Integer
+        end
+      end
+
       describe 'views can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -143,6 +153,16 @@ describe Yt::Playlist, :partner do
 
         specify 'with a given end (:to option)' do
           expect(playlist.estimated_minutes_watched(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :range
+          expect(minutes.size).to be 1
+          expect(minutes[:total]).to be_a Float
         end
       end
 
@@ -301,6 +321,16 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average view duration can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          duration = playlist.average_view_duration range.merge by: :range
+          expect(duration.size).to be 1
+          expect(duration[:total]).to be_a Float
+        end
+      end
+
       describe 'average view duration can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -345,6 +375,16 @@ describe Yt::Playlist, :partner do
 
         specify 'with a given end (:to option)' do
           expect(playlist.playlist_starts(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'playlist starts can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          playlist_starts = playlist.playlist_starts range.merge by: :range
+          expect(playlist_starts.size).to be 1
+          expect(playlist_starts[:total]).to be_an Integer
         end
       end
 
@@ -395,6 +435,16 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average time in playlist can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          times = playlist.average_time_in_playlist range.merge by: :range
+          expect(times.size).to be 1
+          expect(times[:total]).to be_a Float
+        end
+      end
+
       describe 'average time in playlist can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -439,6 +489,16 @@ describe Yt::Playlist, :partner do
 
         specify 'with a given end (:to option)' do
           expect(playlist.views_per_playlist_start(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'views per playlist start can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          views = playlist.views_per_playlist_start range.merge by: :range
+          expect(views.size).to be 1
+          expect(views[:total]).to be_a Float
         end
       end
 
