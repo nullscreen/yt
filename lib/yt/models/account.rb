@@ -98,6 +98,7 @@ module Yt
       end
 
       # Deletes the account’s playlists matching all the given attributes.
+      # @!method delete_playlists(attributes = {})
       # @return [Array<Boolean>] whether each playlist matching the given
       #   attributes was deleted.
       # @param [Hash] attributes the attributes to match the playlists by.
