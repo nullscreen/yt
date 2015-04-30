@@ -7,3 +7,4 @@ defaults:
       path: ""
     values:
       layout:  "default"
+      version: 0.22.0
