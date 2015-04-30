@@ -12,11 +12,11 @@ module Yt
       has_one :user_info
 
       # @!attribute [r] id
-      # @return [String] the (Google+) account’s ID.
+      #   @return [String] the (Google+) account’s ID.
       delegate :id, to: :user_info
 
       # @!attribute [r] email
-      # @return [String] the account’s email address.
+      #   @return [String] the account’s email address.
       delegate :email, to: :user_info
 
       # @return [Boolean] whether the email address is verified.
@@ -25,15 +25,15 @@ module Yt
       end
 
       # @!attribute [r] name
-      # @return [String] the account’s full name.
+      #   @return [String] the account’s full name.
       delegate :name, to: :user_info
 
       # @!attribute [r] given_name
-      # @return [String] the user’s given (first) name.
+      #   @return [String] the user’s given (first) name.
       delegate :given_name, to: :user_info
 
       # @!attribute [r] family_name
-      # @return [String] the user’s family (last) name.
+      #   @return [String] the user’s family (last) name.
       delegate :family_name, to: :user_info
 
       # @return [String] the URL of the account’s (Google +) profile page.
@@ -97,26 +97,26 @@ module Yt
         playlists.insert params
       end
 
-      # Deletes the account’s playlists matching all the given attributes.
       # @!method delete_playlists(attributes = {})
-      # @return [Array<Boolean>] whether each playlist matching the given
-      #   attributes was deleted.
-      # @param [Hash] attributes the attributes to match the playlists by.
-      # @option attributes [<String, Regexp>] :title The playlist’s title.
-      #   Pass a String for perfect match or a Regexp for advanced match.
-      # @option attributes [<String, Regexp>] :description The playlist’s
-      #   description. Pass a String (perfect match) or a Regexp (advanced).
-      # @option attributes [Array<String>] :tags The playlist’s tags.
-      #   All tags must match exactly.
-      # @option attributes [String] :privacy_status The playlist’s privacy
-      #   status.
+      #   Deletes the account’s playlists matching all the given attributes.
+      #   @return [Array<Boolean>] whether each playlist matching the given
+      #     attributes was deleted.
+      #   @param [Hash] attributes the attributes to match the playlists by.
+      #   @option attributes [<String, Regexp>] :title The playlist’s title.
+      #     Pass a String for perfect match or a Regexp for advanced match.
+      #   @option attributes [<String, Regexp>] :description The playlist’s
+      #     description. Pass a String (perfect match) or a Regexp (advanced).
+      #   @option attributes [Array<String>] :tags The playlist’s tags.
+      #     All tags must match exactly.
+      #   @option attributes [String] :privacy_status The playlist’s privacy
+      #     status.
       delegate :delete_playlists, to: :channel
 
     ### CONTENT OWNERS ###
 
       # @!attribute [r] content_owners
-      # @return [Yt::Collections::ContentOwners] the content owners that
-      #   the account can manage.
+      #   @return [Yt::Collections::ContentOwners] the content owners that
+      #     the account can manage.
       has_many :content_owners
 
       # @return [String] name of the CMS account, if the account is partnered.
@@ -126,16 +126,16 @@ module Yt
     ### ASSOCIATIONS ###
 
       # @!attribute [r] channel
-      # @return [Yt::Model::Channel] the YouTube channel of the account.
+      #   @return [Yt::Model::Channel] the YouTube channel of the account.
       has_one :channel
 
       # @!attribute [r] playlists
-      # @return [Yt::Collections::Playlists] the playlists owned by the account.
+      #   @return [Yt::Collections::Playlists] the playlists owned by the account.
       delegate :playlists, to: :channel
 
       # @!attribute [r] subscribed_channels
-      # @return [Yt::Collections::SubscribedChannels] the channels that the
-      #   account is subscribed to.
+      #   @return [Yt::Collections::SubscribedChannels] the channels that the
+      #     account is subscribed to.
       delegate :subscribed_channels, to: :channel
 
       # @!attribute [r] videos
@@ -143,12 +143,12 @@ module Yt
       has_many :videos
 
       # @!attribute [r] subscribers
-      # @return [Yt::Collections::Subscribers] the channels subscribed to
-      #   the account’s channel.
+      #   @return [Yt::Collections::Subscribers] the channels subscribed to
+      #     the account’s channel.
       has_many :subscribers
 
-      # @private
       # @!attribute [r] resumable_sessions
+      #   @private
       #   @return [Yt::Collections::ResumableSessions] the sessions used to
       #     upload videos using the resumable upload protocol.
       has_many :resumable_sessions

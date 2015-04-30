@@ -9,37 +9,37 @@ module Yt
     ### SNIPPET ###
 
       # @!attribute [r] title
-      # @return [String] the video’s title.
+      #   @return [String] the video’s title.
       delegate :title, to: :snippet
 
       # @!attribute [r] description
-      # @return [String] the video’s description.
+      #   @return [String] the video’s description.
       delegate :description, to: :snippet
 
-      # Returns the URL of the video’s thumbnail.
       # @!method thumbnail_url(size = :default)
-      # @param [Symbol, String] size The size of the video’s thumbnail.
-      # @return [String] if +size+ is +default+, the URL of a 120x90px image.
-      # @return [String] if +size+ is +medium+, the URL of a 320x180px image.
-      # @return [String] if +size+ is +high+, the URL of a 480x360px image.
-      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      #   Returns the URL of the video’s thumbnail.
+      #   @param [Symbol, String] size The size of the video’s thumbnail.
+      #   @return [String] if +size+ is +default+, the URL of a 120x90px image.
+      #   @return [String] if +size+ is +medium+, the URL of a 320x180px image.
+      #   @return [String] if +size+ is +high+, the URL of a 480x360px image.
+      #   @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       delegate :thumbnail_url, to: :snippet
 
       # @!attribute [r] published_at
-      # @return [Time] the date and time that the video was published.
+      #   @return [Time] the date and time that the video was published.
       delegate :published_at, to: :snippet
 
       # @!attribute [r] channel_id
-      # @return [String] the ID of the channel that the video belongs to.
+      #   @return [String] the ID of the channel that the video belongs to.
       delegate :channel_id, to: :snippet
 
       # @!attribute [r] channel_title
-      # @return [String] the title of the channel that the video belongs to.
+      #   @return [String] the title of the channel that the video belongs to.
       delegate :channel_title, to: :snippet
 
       # @!attribute [r] live_broadcast_content
-      # @return [String] the type of live broadcast that the video contains.
-      #   Possible values are: +'live'+, +'none'+, +'upcoming'+.
+      #   @return [String] the type of live broadcast that the video contains.
+      #     Possible values are: +'live'+, +'none'+, +'upcoming'+.
       delegate :live_broadcast_content, to: :snippet
 
       # @return [Array<String>] the list of tags attached to the video.
@@ -187,8 +187,8 @@ module Yt
       end
 
       # @!attribute [r] license
-      # @return [String] the video’s license. Possible values are:
-      #   +'creativeCommon'+, +'youtube'+.
+      #   @return [String] the video’s license. Possible values are:
+      #     +'creativeCommon'+, +'youtube'+.
       delegate :license, to: :status
 
       # @return [Boolean] whether the video uses the Standard YouTube license.
@@ -223,7 +223,7 @@ module Yt
       has_one :content_detail
 
       # @!attribute [r] duration
-      # @return [Integer] the duration of the video (in seconds).
+      #   @return [Integer] the duration of the video (in seconds).
       delegate :duration, to: :content_detail
 
       # @return [Boolean] whether the video is available in 3D.
@@ -252,16 +252,16 @@ module Yt
       has_one :file_detail
 
       # @!attribute [r] file_size
-      # @return [Integer] the size of the uploaded file (in bytes).
+      #   @return [Integer] the size of the uploaded file (in bytes).
       delegate :file_size, to: :file_detail
 
       # @!attribute [r] file_type
-      # @return [String] the type of file uploaded. May be one of:
-      #   archive, audio, document, image, other, project, video.
+      #   @return [String] the type of file uploaded. May be one of:
+      #     archive, audio, document, image, other, project, video.
       delegate :file_type, to: :file_detail
 
       # @!attribute [r] container
-      # @return [String] the video container of the uploaded file. (e.g. 'mov').
+      #   @return [String] the video container of the uploaded file. (e.g. 'mov').
       delegate :container, to: :file_detail
 
 
@@ -317,49 +317,49 @@ module Yt
       has_one :advertising_options_set
 
       # @!attribute [r] ad_formats
-      # @return [Array<String>] the list of ad formats that the video is
-      #   allowed to show. Possible values are: +'long'+, +'overlay'+,
-      #   +'standard_instream'+, +'third_party'+, +'trueview_inslate'+,
-      #   +'trueview_instream'+.
+      #   @return [Array<String>] the list of ad formats that the video is
+      #     allowed to show. Possible values are: +'long'+, +'overlay'+,
+      #     +'standard_instream'+, +'third_party'+, +'trueview_inslate'+,
+      #     +'trueview_instream'+.
       delegate :ad_formats, to: :advertising_options_set
 
     ### LIVE STREAMING DETAILS ###
 
       has_one :live_streaming_detail
 
-      # The time when a live broadcast started.
       # @!attribute [r] actual_start_time
-      # @return [Time] if the broadcast has begun, the time it actually started.
-      # @return [nil] if the broadcast has not begun or video is not live.
+      #   The time when a live broadcast started.
+      #   @return [Time] if the broadcast has begun, the time it actually started.
+      #   @return [nil] if the broadcast has not begun or video is not live.
       delegate :actual_start_time, to: :live_streaming_detail
 
-      # The time when a live broadcast ended.
       # @!attribute [r] actual_end_time
-      # @return [Time] if the broadcast is over, the time it actually ended.
-      # @return [nil] if the broadcast is not over or video is not live.
+      #   The time when a live broadcast ended.
+      #   @return [Time] if the broadcast is over, the time it actually ended.
+      #   @return [nil] if the broadcast is not over or video is not live.
       delegate :actual_end_time, to: :live_streaming_detail
 
-      # The time when a live broadcast is scheduled to start.
       # @!attribute [r] scheduled_start_time
-      # @return [Time] the time that the broadcast is scheduled to begin.
-      # @return [nil] if video is not live.
+      #   The time when a live broadcast is scheduled to start.
+      #   @return [Time] the time that the broadcast is scheduled to begin.
+      #   @return [nil] if video is not live.
       delegate :scheduled_start_time, to: :live_streaming_detail
 
-      # The time when a live broadcast is scheduled to end.
       # @!attribute [r] scheduled_end_time
-      # @return [Time] if the broadcast is scheduled to end, the time it is
-      #   scheduled to end.
-      # @return [nil] if the broadcast is scheduled to continue indefinitely
-      #   or the video is not live.
+      #   The time when a live broadcast is scheduled to end.
+      #   @return [Time] if the broadcast is scheduled to end, the time it is
+      #     scheduled to end.
+      #   @return [nil] if the broadcast is scheduled to continue indefinitely
+      #     or the video is not live.
       delegate :scheduled_end_time, to: :live_streaming_detail
 
-      # The number of current viewers of a live broadcast.
       # @!attribute [r] concurrent_viewers
-      # @return [Integer] if the broadcast has current viewers and the
-      #   broadcast owner has not hidden the viewcount for the video, the
-      #   number of viewers currently watching the broadcast.
-      # @return [nil] if the broadcast has ended or the broadcast owner has
-      #   hidden the viewcount for the video or the video is not live.
+      #   The number of current viewers of a live broadcast.
+      #   @return [Integer] if the broadcast has current viewers and the
+      #     broadcast owner has not hidden the viewcount for the video, the
+      #     number of viewers currently watching the broadcast.
+      #   @return [nil] if the broadcast has ended or the broadcast owner has
+      #     hidden the viewcount for the video or the video is not live.
       delegate :concurrent_viewers, to: :live_streaming_detail
 
     ### ASSOCIATIONS ###
@@ -438,23 +438,23 @@ module Yt
       has_one :statistics_set
 
       # @!attribute [r] view_count
-      # @return [Integer] the number of times the video has been viewed.
+      #   @return [Integer] the number of times the video has been viewed.
       delegate :view_count, to: :statistics_set
 
       # @!attribute [r] like_count
-      # @return [Integer] the number of users who liked the video.
+      #   @return [Integer] the number of users who liked the video.
       delegate :like_count, to: :statistics_set
 
       # @!attribute [r] dislike_count
-      # @return [Integer] the number of users who disliked the video.
+      #   @return [Integer] the number of users who disliked the video.
       delegate :dislike_count, to: :statistics_set
 
       # @!attribute [r] favorite_count
-      # @return [Integer] the number of users who marked the video as favorite.
+      #   @return [Integer] the number of users who marked the video as favorite.
       delegate :favorite_count, to: :statistics_set
 
       # @!attribute [r] comment_count
-      # @return [Integer] the number of comments for the video.
+      #   @return [Integer] the number of comments for the video.
       delegate :comment_count, to: :statistics_set
 
     ### PLAYER ###
@@ -462,8 +462,8 @@ module Yt
       has_one :player
 
       # @!attribute [r] embed_html
-      # @return [String] the HTML code of an <iframe> tag that embeds a
-      #   player that will play the video.
+      #   @return [String] the HTML code of an <iframe> tag that embeds a
+      #     player that will play the video.
       delegate :embed_html, to: :player
 
     ### ACTIONS (UPLOAD, UPDATE, DELETE) ###

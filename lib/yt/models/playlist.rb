@@ -9,36 +9,36 @@ module Yt
     ### SNIPPET ###
 
       # @!attribute [r] title
-      # @return [String] the playlist’s title.
+      #   @return [String] the playlist’s title.
       delegate :title, to: :snippet
 
       # @!attribute [r] description
-      # @return [String] the playlist’s description.
+      #   @return [String] the playlist’s description.
       delegate :description, to: :snippet
 
-      # Returns the URL of the playlist’s thumbnail.
       # @!method thumbnail_url(size = :default)
-      # @param [Symbol, String] size The size of the playlist’s thumbnail.
-      # @return [String] if +size+ is +default+, the URL of a 120x90px image.
-      # @return [String] if +size+ is +medium+, the URL of a 320x180px image.
-      # @return [String] if +size+ is +high+, the URL of a 480x360px image.
-      # @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      #   Returns the URL of the playlist’s thumbnail.
+      #   @param [Symbol, String] size The size of the playlist’s thumbnail.
+      #   @return [String] if +size+ is +default+, the URL of a 120x90px image.
+      #   @return [String] if +size+ is +medium+, the URL of a 320x180px image.
+      #   @return [String] if +size+ is +high+, the URL of a 480x360px image.
+      #   @return [nil] if the +size+ is not +default+, +medium+ or +high+.
       delegate :thumbnail_url, to: :snippet
 
       # @!attribute [r] published_at
-      # @return [Time] the date and time that the playlist was created.
+      #   @return [Time] the date and time that the playlist was created.
       delegate :published_at, to: :snippet
 
       # @!attribute [r] channel_id
-      # @return [String] the ID of the channel that the playlist belongs to.
+      #   @return [String] the ID of the channel that the playlist belongs to.
       delegate :channel_id, to: :snippet
 
       # @!attribute [r] channel_title
-      # @return [String] the title of the channel that the playlist belongs to.
+      #   @return [String] the title of the channel that the playlist belongs to.
       delegate :channel_title, to: :snippet
 
       # @!attribute [r] tags
-      # @return [Array<String>] the list of tags attached to the playlist.
+      #   @return [Array<String>] the list of tags attached to the playlist.
       delegate :tags, to: :snippet
 
     ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
