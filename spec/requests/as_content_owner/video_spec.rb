@@ -600,6 +600,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'removed favorites can be grouped by range' do
+        let(:id) { 'NeMlqbX2Ifg' }
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :range' do
