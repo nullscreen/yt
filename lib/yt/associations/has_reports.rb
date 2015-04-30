@@ -13,11 +13,16 @@ module Yt
       #     Also aliased as +:to+.
 
       # @!macro [new] report_with_day
-      #   @return [Hash<Date, Float>] if grouped by day, the $1
+      #   @return [Hash<Date, $2>] if grouped by day, the $1
       #     for each day in the time-range.
       #   @example Get the $1 for each day of last week:
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :day
       #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.2, …}
+      #   @return [Hash<Symbol, $2>] if grouped by range, the $1
+      #     for the entire time-range (under the key +:total+).
+      #   @example Get the $1 for the whole last week:
+      #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :range
+      #     # => {Wed, 8 May 2014..Tue, 14 May 2014 => 564.0,}
       #   @macro report
 
       # @!macro [new] report_by_day
@@ -26,22 +31,22 @@ module Yt
       #   @macro report_with_day
 
       # @!macro [new] report_with_video_dimensions
-      #   @return [Hash<Symbol, Float>] if grouped by playback location, the
+      #   @return [Hash<Symbol, $2>] if grouped by playback location, the
       #     $1 for each traffic playback location.
       #   @example Get yesterday’s $1 grouped by playback location:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :playback_location
       #     # => {embedded: 53.0, watch: 467.0, …}
-      #   @return [Hash<Yt::Video, Float>] if grouped by related video, the
+      #   @return [Hash<Yt::Video, $2>] if grouped by related video, the
       #     $1 for each related video.
       #   @example Get yesterday’s $1 by related video:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :related_video
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
-      #   @return [Hash<Yt::Video, Float>] if grouped by device type, the
+      #   @return [Hash<Yt::Video, $2>] if grouped by device type, the
       #     $1 for each device type.
       #   @example Get yesterday’s $1 by device type:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :device_type
       #     # => {mobile: 133.0, tv: 412.0, …}
-      #   @return [Hash<Yt::Video, Float>] if grouped by traffic source, the
+      #   @return [Hash<Yt::Video, $2>] if grouped by traffic source, the
       #     $1 for each traffic source.
       #   @example Get yesterday’s $1 by traffic source:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :traffic_source
@@ -52,7 +57,7 @@ module Yt
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
       #     Accepted values are: +:day+, +:traffic_source+,
       #     +:playback_location+, +:related_video+, +:embedded_player_location+.
-      #   @return [Hash<Symbol, Float>] if grouped by embedded player location,
+      #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
       #     the $1 for each embedded player location.
       #   @example Get yesterday’s $1 by embedded player location:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :embedded_player_location
@@ -60,12 +65,12 @@ module Yt
       #   @macro report_with_video_dimensions
 
       # @!macro [new] report_with_channel_dimensions
-      #   @return [Hash<Yt::Video, Float>] if grouped by video, the
+      #   @return [Hash<Yt::Video, $2>] if grouped by video, the
       #     $1 for each video.
       #   @example Get yesterday’s $1 by video:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :video
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
-      #   @return [Hash<Yt::Video, Float>] if grouped by playlist, the
+      #   @return [Hash<Yt::Video, $2>] if grouped by playlist, the
       #     $1 for each playlist.
       #   @example Get yesterday’s $1 by playlist:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :playlist
@@ -77,7 +82,7 @@ module Yt
       #     Accepted values are: +:day+, +:traffic_source+,
       #     +:playback_location+, +:related_video+, +:video+,
       #     +:playlist+, +:embedded_player_location+.
-      #   @return [Hash<Symbol, Float>] if grouped by embedded player location,
+      #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
       #     the $1 for each embedded player location.
       #   @example Get yesterday’s $1 by embedded player location:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :embedded_player_location
@@ -95,17 +100,17 @@ module Yt
       #   @option options [Symbol] :by (:gender_age_group) The dimension to
       #     show viewer percentage by.
       #     Accepted values are: +:gender+, +:age_group+, +:gender_age_group+.
-      #   @return [Hash<Symbol, Float>] if grouped by gender, the
+      #   @return [Hash<Symbol, $2>] if grouped by gender, the
       #     viewer percentage by gender.
       #   @example Get yesterday’s viewer percentage by gender:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :gender
       #     # => {female: 53.0, male: 47.0}
-      #   @return [Hash<String, Float>] if grouped by age group, the
+      #   @return [Hash<String, $2>] if grouped by age group, the
       #     viewer percentage by age group.
       #   @example Get yesterday’s $1 grouped by age group:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :age_group
       #     # => {"18-24" => 4.54, "35-24" => 12.31, "45-34" => 8.92, …}
-      #   @return [Hash<Symbol, [Hash<String, Float>]>] if grouped by gender
+      #   @return [Hash<Symbol, [Hash<String, $2>]>] if grouped by gender
       #     and age group, the viewer percentage by gender/age group.
       #   @example Get yesterday’s $1 by gender and age group:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago
@@ -115,16 +120,17 @@ module Yt
       # Defines two public instance methods to access the reports of a
       # resource for a specific metric.
       # @param [Symbol] metric the metric to access the reports of.
-      # @example Adds +earnings+ and +earnings_on+ on a Channel resource.
+      # @param [Class] type The class to cast the returned values to.
+      # @example Adds +comments+ and +comments_on+ on a Channel resource.
       #   class Channel < Resource
-      #     has_report :earnings
+      #     has_report :comments, Integer
       #   end
-      def has_report(metric)
+      def has_report(metric, type)
         require 'yt/collections/reports'
 
         define_metric_on_method metric
         define_metric_method metric
-        define_range_metric_method metric
+        define_range_metric_method metric, type
         define_all_metric_method metric
       end
 
@@ -157,11 +163,11 @@ module Yt
         end
       end
 
-      def define_range_metric_method(metric)
+      def define_range_metric_method(metric, type)
         define_method "range_#{metric}" do |date_range, dimension|
           ivar = instance_variable_get "@range_#{metric}_#{dimension}"
           instance_variable_set "@range_#{metric}_#{dimension}", ivar || {}
-          instance_variable_get("@range_#{metric}_#{dimension}")[date_range] ||= send("all_#{metric}").within date_range, dimension
+          instance_variable_get("@range_#{metric}_#{dimension}")[date_range] ||= send("all_#{metric}").within date_range, dimension, type
         end
         private "range_#{metric}"
       end

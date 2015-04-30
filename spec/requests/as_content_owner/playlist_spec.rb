@@ -13,7 +13,7 @@ describe Yt::Playlist, :partner do
       describe 'views can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:views) { playlist.views_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
-          it { expect(views).to be_a Float }
+          it { expect(views).to be_an Integer }
         end
 
         context 'in which the playlist was not viewed' do
@@ -39,6 +39,16 @@ describe Yt::Playlist, :partner do
 
         specify 'with a given end (:to option)' do
           expect(playlist.views(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'views can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          views = playlist.views range.merge by: :range
+          expect(views.size).to be 1
+          expect(views[:total]).to be_an Integer
         end
       end
 
@@ -110,19 +120,19 @@ describe Yt::Playlist, :partner do
         specify 'with the :by option set to :device_type' do
           views = playlist.views range.merge by: :device_type
           expect(views.keys).to all(be_instance_of Symbol)
-          expect(views.values).to all(be_instance_of Float)
+          expect(views.values).to all(be_an Integer)
         end
       end
 
       describe 'estimated minutes watched can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
-          let(:views) { playlist.estimated_minutes_watched_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
-          it { expect(views).to be_a Float }
+          let(:minutes) { playlist.estimated_minutes_watched_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
+          it { expect(minutes).to be_a Float }
         end
 
         context 'in which the playlist was not viewed' do
-          let(:views) { playlist.estimated_minutes_watched_on 20.years.ago}
-          it { expect(views).to be_nil }
+          let(:minutes) { playlist.estimated_minutes_watched_on 20.years.ago}
+          it { expect(minutes).to be_nil }
         end
       end
 
@@ -143,6 +153,16 @@ describe Yt::Playlist, :partner do
 
         specify 'with a given end (:to option)' do
           expect(playlist.estimated_minutes_watched(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :range
+          expect(minutes.size).to be 1
+          expect(minutes[:total]).to be_a Float
         end
       end
 
@@ -271,7 +291,7 @@ describe Yt::Playlist, :partner do
 
       describe 'average view duration can be retrieved for a specific day' do
         context 'in which the playlist was partnered' do
-          let(:average_view_duration) { playlist.average_view_duration_on 5.days.ago}
+          let(:average_view_duration) { playlist.average_view_duration_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
           it { expect(average_view_duration).to be_a Float }
         end
 
@@ -301,6 +321,16 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average view duration can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          duration = playlist.average_view_duration range.merge by: :range
+          expect(duration.size).to be 1
+          expect(duration[:total]).to be_a Float
+        end
+      end
+
       describe 'average view duration can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -319,7 +349,7 @@ describe Yt::Playlist, :partner do
       describe 'playlist starts can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:playlist_starts) { playlist.playlist_starts_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
-          it { expect(playlist_starts).to be_a Float }
+          it { expect(playlist_starts).to be_an Integer }
         end
 
         context 'in which the playlist was not viewed' do
@@ -345,6 +375,16 @@ describe Yt::Playlist, :partner do
 
         specify 'with a given end (:to option)' do
           expect(playlist.playlist_starts(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'playlist starts can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          playlist_starts = playlist.playlist_starts range.merge by: :range
+          expect(playlist_starts.size).to be 1
+          expect(playlist_starts[:total]).to be_an Integer
         end
       end
 
@@ -395,6 +435,16 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average time in playlist can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          times = playlist.average_time_in_playlist range.merge by: :range
+          expect(times.size).to be 1
+          expect(times[:total]).to be_a Float
+        end
+      end
+
       describe 'average time in playlist can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -439,6 +489,16 @@ describe Yt::Playlist, :partner do
 
         specify 'with a given end (:to option)' do
           expect(playlist.views_per_playlist_start(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'views per playlist start can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          views = playlist.views_per_playlist_start range.merge by: :range
+          expect(views.size).to be 1
+          expect(views[:total]).to be_a Float
         end
       end
 

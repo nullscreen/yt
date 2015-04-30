@@ -55,10 +55,36 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'earnings can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :range' do
+          earnings = channel.earnings range.merge by: :range
+          expect(earnings.size).to be 1
+          expect(earnings[:total]).to be_a Float
+        end
+      end
+
+      describe 'earnings can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          earnings = channel.earnings range
+          expect(earnings.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          earnings = channel.earnings range.merge by: :day
+          expect(earnings.keys).to eq range.values
+        end
+      end
+
       describe 'views can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:views) { channel.views_on 5.days.ago}
-          it { expect(views).to be_a Float }
+          it { expect(views).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -84,6 +110,16 @@ describe Yt::Channel, :partner do
 
         specify 'with a given end (:to option)' do
           expect(channel.views(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'views can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          views = channel.views range.merge by: :range
+          expect(views.size).to be 1
+          expect(views[:total]).to be_an Integer
         end
       end
 
@@ -164,14 +200,14 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :device_type' do
           views = channel.views range.merge by: :device_type
           expect(views.keys).to all(be_instance_of Symbol)
-          expect(views.values).to all(be_instance_of Float)
+          expect(views.values).to all(be_an Integer)
         end
       end
 
       describe 'comments can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:comments) { channel.comments_on 5.days.ago}
-          it { expect(comments).to be_a Float }
+          it { expect(comments).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -200,6 +236,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'comments can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          comments = channel.comments range.merge by: :range
+          expect(comments.size).to be 1
+          expect(comments[:total]).to be_an Integer
+        end
+      end
+
       describe 'comments can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -218,7 +264,7 @@ describe Yt::Channel, :partner do
       describe 'likes can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:likes) { channel.likes_on 5.days.ago}
-          it { expect(likes).to be_a Float }
+          it { expect(likes).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -247,6 +293,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'likes can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          likes = channel.likes range.merge by: :range
+          expect(likes.size).to be 1
+          expect(likes[:total]).to be_an Integer
+        end
+      end
+
       describe 'likes can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -265,7 +321,7 @@ describe Yt::Channel, :partner do
       describe 'dislikes can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:dislikes) { channel.dislikes_on 5.days.ago}
-          it { expect(dislikes).to be_a Float }
+          it { expect(dislikes).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -294,6 +350,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'dislikes can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          dislikes = channel.dislikes range.merge by: :range
+          expect(dislikes.size).to be 1
+          expect(dislikes[:total]).to be_an Integer
+        end
+      end
+
       describe 'dislikes can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -312,7 +378,7 @@ describe Yt::Channel, :partner do
       describe 'shares can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:shares) { channel.shares_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
-          it { expect(shares).to be_a Float }
+          it { expect(shares).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -341,6 +407,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'shares can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          shares = channel.shares range.merge by: :range
+          expect(shares.size).to be 1
+          expect(shares[:total]).to be_an Integer
+        end
+      end
+
       describe 'shares can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -359,7 +435,7 @@ describe Yt::Channel, :partner do
       describe 'gained subscribers can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:subscribers_gained) { channel.subscribers_gained_on 5.days.ago}
-          it { expect(subscribers_gained).to be_a Float }
+          it { expect(subscribers_gained).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -388,6 +464,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'gained subscribers can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          subscribers_gained = channel.subscribers_gained range.merge by: :range
+          expect(subscribers_gained.size).to be 1
+          expect(subscribers_gained[:total]).to be_an Integer
+        end
+      end
+
       describe 'gained subscribers can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -406,7 +492,7 @@ describe Yt::Channel, :partner do
       describe 'lost subscribers can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:subscribers_lost) { channel.subscribers_lost_on 5.days.ago}
-          it { expect(subscribers_lost).to be_a Float }
+          it { expect(subscribers_lost).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -435,6 +521,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'lost subscribers can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          subscribers_lost = channel.subscribers_lost range.merge by: :range
+          expect(subscribers_lost.size).to be 1
+          expect(subscribers_lost[:total]).to be_an Integer
+        end
+      end
+
       describe 'lost subscribers can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -453,7 +549,7 @@ describe Yt::Channel, :partner do
       describe 'added favorites can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:favorites_added) { channel.favorites_added_on 5.days.ago}
-          it { expect(favorites_added).to be_a Float }
+          it { expect(favorites_added).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -482,6 +578,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'added favorites can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          favorites_added = channel.favorites_added range.merge by: :range
+          expect(favorites_added.size).to be 1
+          expect(favorites_added[:total]).to be_an Integer
+        end
+      end
+
       describe 'added favorites can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -500,7 +606,7 @@ describe Yt::Channel, :partner do
       describe 'removed favorites can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:favorites_removed) { channel.favorites_removed_on 5.days.ago}
-          it { expect(favorites_removed).to be_a Float }
+          it { expect(favorites_removed).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -526,6 +632,16 @@ describe Yt::Channel, :partner do
 
         specify 'with a given end (:to option)' do
           expect(channel.favorites_removed(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'removed favorites can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          favorites_removed = channel.favorites_removed range.merge by: :range
+          expect(favorites_removed.size).to be 1
+          expect(favorites_removed[:total]).to be_an Integer
         end
       end
 
@@ -573,6 +689,16 @@ describe Yt::Channel, :partner do
 
         specify 'with a given end (:to option)' do
           expect(channel.estimated_minutes_watched(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          minutes = channel.estimated_minutes_watched range.merge by: :range
+          expect(minutes.size).to be 1
+          expect(minutes[:total]).to be_a Float
         end
       end
 
@@ -689,6 +815,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'average view duration can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          duration = channel.average_view_duration range.merge by: :range
+          expect(duration.size).to be 1
+          expect(duration[:total]).to be_a Float
+        end
+      end
+
       describe 'average view duration can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -736,6 +872,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'average view percentage can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          percentage = channel.average_view_percentage range.merge by: :range
+          expect(percentage.size).to be 1
+          expect(percentage[:total]).to be_a Float
+        end
+      end
+
       describe 'average view percentage can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -754,7 +900,7 @@ describe Yt::Channel, :partner do
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:impressions) { channel.impressions_on 20.days.ago}
-          it { expect(impressions).to be_a Float }
+          it { expect(impressions).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -783,6 +929,16 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'impressions can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          impressions = channel.impressions range.merge by: :range
+          expect(impressions.size).to be 1
+          expect(impressions[:total]).to be_an Integer
+        end
+      end
+
       describe 'impressions can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -801,7 +957,7 @@ describe Yt::Channel, :partner do
       describe 'monetized playbacks can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:monetized_playbacks) { channel.monetized_playbacks_on 20.days.ago}
-          it { expect(monetized_playbacks).to be_a Float }
+          it { expect(monetized_playbacks).to be_an Integer }
         end
 
         context 'in which the channel was not partnered' do
@@ -827,6 +983,16 @@ describe Yt::Channel, :partner do
 
         specify 'with a given end (:to option)' do
           expect(channel.monetized_playbacks(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'monetized playbacks can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          monetized_playbacks = channel.monetized_playbacks range.merge by: :range
+          expect(monetized_playbacks.size).to be 1
+          expect(monetized_playbacks[:total]).to be_an Integer
         end
       end
 
@@ -858,17 +1024,27 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'annotation clicks can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          annotation_clicks = channel.annotation_clicks range.merge by: :range
+          expect(annotation_clicks.size).to be 1
+          expect(annotation_clicks[:total]).to be_an Integer
+        end
+      end
+
       describe 'annotation clicks can be grouped by day' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
 
         specify 'without a :by option (default)' do
           annotation_clicks = channel.annotation_clicks range
-          expect(annotation_clicks.values).to all(be_instance_of Float)
+          expect(annotation_clicks.values).to all(be_an Integer)
         end
 
         specify 'with the :by option set to :day' do
           annotation_clicks = channel.annotation_clicks range.merge by: :day
-          expect(annotation_clicks.values).to all(be_instance_of Float)
+          expect(annotation_clicks.values).to all(be_an Integer)
         end
       end
 
@@ -882,6 +1058,16 @@ describe Yt::Channel, :partner do
 
         specify 'with a given start (:from option) and a given end (:to option)' do
           expect(channel.annotation_click_through_rate(from: date, to: date_to).keys.min).to eq date.to_date
+        end
+      end
+
+      describe 'annotation click-through rate can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          rate = channel.annotation_click_through_rate range.merge by: :range
+          expect(rate.size).to be 1
+          expect(rate[:total]).to be_a Float
         end
       end
 
@@ -909,6 +1095,16 @@ describe Yt::Channel, :partner do
 
         specify 'with a given start (:from option) and a given end (:to option)' do
           expect(channel.annotation_close_rate(from: date, to: date_to).keys.min).to eq date.to_date
+        end
+      end
+
+      describe 'annotation close rate can be grouped by range' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :range' do
+          rate = channel.annotation_close_rate range.merge by: :range
+          expect(rate.size).to be 1
+          expect(rate[:total]).to be_a Float
         end
       end
 

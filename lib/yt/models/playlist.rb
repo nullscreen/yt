@@ -152,25 +152,25 @@ module Yt
     ### ANALYTICS ###
 
       # @macro report_by_playlist_dimensions
-      has_report :views
+      has_report :views, Integer
 
       # @macro report_by_playlist_dimensions
-      has_report :estimated_minutes_watched
+      has_report :estimated_minutes_watched, Float
 
       # @macro report_by_gender_and_age_group
-      has_report :viewer_percentage
+      has_report :viewer_percentage, Float
 
       # @macro report_by_day
-      has_report :average_view_duration
+      has_report :average_view_duration, Float
 
       # @macro report_by_day
-      has_report :playlist_starts
+      has_report :playlist_starts, Integer
 
       # @macro report_by_day
-      has_report :average_time_in_playlist
+      has_report :average_time_in_playlist, Float
 
       # @macro report_by_day
-      has_report :views_per_playlist_start
+      has_report :views_per_playlist_start, Float
 
     ### PRIVATE API ###
 

@@ -6,6 +6,19 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.22.0 - 2015-04-30
+
+**How to upgrade**
+
+If your code expects any of the following method to return Float values, then
+be aware that they now return Integer. You can still call `to_f` if you do need
+a Float: views, `comments`, `likes`, `dislikes`, `shares`, `subscribers_gained`,
+`subscribers_lost`, `favorites_added`, `favorites_removed`, `annotations`,
+`impressions`, `monetized_plybacks`, `playlist_starts`.
+
+* [ENHANCEMENT] Return `Integer` values for reports that can never return decimal digits.
+* [FEATURE] New `by: :range` option for reports, to return a metric without dimensions (that is, for the whole range)
+
 ## 0.21.0 - 2015-04-30
 
 **How to upgrade**
