@@ -370,7 +370,7 @@ client = # new client initialized with either OAuth or AuthSub
 client.video_upload(File.open("test.mov"), :title => "test",:description => 'some description', :category => 'People',:keywords => %w[cool blah test])
 # with yt
 account = Yt::Account.new access_token: 'access_token'
-account.upload_video 'test.mov', title: 'test', description: 'some description', category_id: 22, tags: %w(cool blah test)
+account.upload_video 'test.mov', title: 'test', description: 'some description', category_id: '22', tags: %w(cool blah test)
 ```
 
 Upload remote video:
@@ -381,7 +381,7 @@ client = # new client initialized with either OAuth or AuthSub
 client.video_upload("http://url/myvideo.mp4", :title => "test",:description => 'some description', :category => 'People',:keywords => %w[cool blah test])
 # with yt
 account = Yt::Account.new access_token: 'access_token'
-account.upload_video 'http://url/myvideo.mp4', title: 'test', description: 'some description', category_id: 22, tags: %w(cool blah test)
+account.upload_video 'http://url/myvideo.mp4', title: 'test', description: 'some description', category_id: '22', tags: %w(cool blah test)
 ```
 
 Upload video with a developer tag:
@@ -401,7 +401,7 @@ client = # new client initialized with either OAuth or AuthSub
 client.video_upload("http://media.railscasts.com/assets/episodes/videos/412-fast-rails-commands.mp4", :title => "test",:description => 'some description', :category => 'People',:keywords => %w[cool blah test])
 # with yt
 account = Yt::Account.new access_token: 'access_token'
-account.upload_video 'http://media.railscasts.com/assets/episodes/videos/412-fast-rails-commands.mp4', title: 'test', description: 'some description', category_id: 22, tags: %w(cool blah test)
+account.upload_video 'http://media.railscasts.com/assets/episodes/videos/412-fast-rails-commands.mp4', title: 'test', description: 'some description', category_id: '22', tags: %w(cool blah test)
 ```
 
 Upload private video:
@@ -412,7 +412,7 @@ client = # new client initialized with either OAuth or AuthSub
 client.video_upload(File.open("test.mov"), :title => "test",:description => 'some description', :category => 'People',:keywords => %w[cool blah test], :private => true)
 # with yt
 account = Yt::Account.new access_token: 'access_token'
-account.upload_video 'test.mov', privacy_status: :private, title: 'test', description: 'some description', category_id: 22, tags: %w(cool blah test)
+account.upload_video 'test.mov', privacy_status: :private, title: 'test', description: 'some description', category_id: '22', tags: %w(cool blah test)
 ```
 
 Update video:

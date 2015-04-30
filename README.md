@@ -74,7 +74,7 @@ account.channel #=> #<Yt::Models::Channel @id=...>
 account.videos.count #=> 12
 account.videos.first #=> #<Yt::Models::Video @id=...>
 
-account.upload_video 'my_video.mp4', title: 'My new video', privacy_status: 'private', category_id: 17
+account.upload_video 'my_video.mp4', title: 'My new video', privacy_status: 'private', category_id: '17'
 account.upload_video 'http://example.com/remote.m4v', title: 'My other video', tags: ['music']
 
 account.create_playlist title: 'New playlist', privacy_status: 'unlisted' #=> true

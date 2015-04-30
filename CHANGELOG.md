@@ -14,6 +14,7 @@ If your code doesn’t use `PolicyRule#ACTIONS`, then you are good to go.
 If it does, then you should redefine the constant in your own app.
 
 * [REMOVAL] Remove `PolicyRule#ACTIONS` (was `%q(block monetize takedown track)`).
+* [BUGFIX] Make `account.playlists` and `account.channel.playlists` behave the same.
 
 ## 0.20.0 - 2015-04-29
 
