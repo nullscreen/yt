@@ -22,7 +22,7 @@ module Yt
       #     for the entire time-range (under the key +:total+).
       #   @example Get the $1 for the whole last week:
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :range
-      #     # => {Wed, 8 May 2014..Tue, 14 May 2014 => 564.0,}
+      #     # => {total: 564.0}
       #   @macro report
 
       # @!macro [new] report_by_day
