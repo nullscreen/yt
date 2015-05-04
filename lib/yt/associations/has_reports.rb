@@ -148,26 +148,31 @@ module Yt
           to = options[:until] || options[:to] || (metric == :viewer_percentage ? Date.today : 1.day.ago)
           range = Range.new *[from, to].map(&:to_date)
           dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :day)
+          filters = options.slice(:country, :continent, :video, :sub_continent, :group, :province)
 
-          ivar = instance_variable_get "@#{metric}_#{dimension}"
-          instance_variable_set "@#{metric}_#{dimension}", ivar || {}
+          filter_memoize_key = filters.map {|f,v| "#{f}#{v}"}.join
+          ivar = instance_variable_get "@#{metric}_#{dimension}_#{filter_memoize_key}"
+          instance_variable_set "@#{metric}_#{dimension}_#{filter_memoize_key}", ivar || {}
 
           case dimension
           when :day
             Hash[*range.flat_map do |date|
-              [date, instance_variable_get("@#{metric}_#{dimension}")[date] ||= send("range_#{metric}", range, dimension)[date]]
+              [date, instance_variable_get("@#{metric}_#{dimension}_#{filter_memoize_key}")[date] ||= send("range_#{metric}", range, dimension: dimension, filters: filters)[date]]
             end]
           else
-            instance_variable_get("@#{metric}_#{dimension}")[range] ||= send("range_#{metric}", range, dimension)
+            instance_variable_get("@#{metric}_#{dimension}_#{filter_memoize_key}")[range] ||= send("range_#{metric}", range, dimension: dimension, filters: filters)
           end
         end
       end
 
       def define_range_metric_method(metric, type)
-        define_method "range_#{metric}" do |date_range, dimension|
-          ivar = instance_variable_get "@range_#{metric}_#{dimension}"
-          instance_variable_set "@range_#{metric}_#{dimension}", ivar || {}
-          instance_variable_get("@range_#{metric}_#{dimension}")[date_range] ||= send("all_#{metric}").within date_range, dimension, type
+        define_method "range_#{metric}" do |date_range, options|
+          dimension = options[:dimension]
+          filters = options[:filters]
+          filter_memoize_key = filters.map {|f,v| "#{f}#{v}"}.join
+          ivar = instance_variable_get "@range_#{metric}_#{dimension}_#{filter_memoize_key}"
+          instance_variable_set "@range_#{metric}_#{dimension}_#{filter_memoize_key}", ivar || {}
+          instance_variable_get("@range_#{metric}_#{dimension}_#{filter_memoize_key}")[date_range] ||= send("all_#{metric}").within date_range, options.merge(type: type)
         end
         private "range_#{metric}"
       end

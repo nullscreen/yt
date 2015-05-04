@@ -48,9 +48,14 @@ module Yt
 
       attr_writer :metric
 
-      def within(days_range, dimension, type, try_again = true)
+      def within(days_range, options = {}, try_again = true)
+        dimension = options.fetch(:dimension)
+        type = options.fetch(:type)
+
         @days_range = days_range
         @dimension = dimension
+        @filters = options.fetch(:filters, {})
+
         if dimension == :gender_age_group # array of array
           Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
@@ -65,7 +70,7 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        try_again && rescue?(e) ? sleep(3) && within(days_range, dimension, type, false) : raise
+        try_again && rescue?(e) ? sleep(3) && within(days_range, options, false) : raise
       end
 
     private
@@ -101,10 +106,16 @@ module Yt
           params['max-results'] = 25 if @dimension == :embedded_player_location
           params['max-results'] = 25 if @dimension == :related_video
           params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video]
-          params[:filters] = ((params[:filters] || '').split(';') + ['isCurated==1']).compact.uniq.join(';') if @dimension == :playlist
-          params[:filters] = ((params[:filters] || '').split(';') + ['insightPlaybackLocationType==EMBEDDED']).compact.uniq.join(';') if @dimension == :embedded_player_location
-          params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==RELATED_VIDEO']).compact.uniq.join(';') if @dimension == :related_video
+          params[:filters] = filter_params
         end
+      end
+
+      def filter_params
+        @filters.reverse_merge({}.tap do |filters|
+          f[:isCurated] == 1 if @dimension == :playlist
+          f[:insightPlaybackLocationType] = 'EMBEDDED' if @dimension == :embedded_player_location
+          f[:insightTrafficSourceType] = 'RELATED_VIDEO' if @dimension == :related_video
+        end).map {|f, v| "#{f}==#{v}"}.join(';')
       end
 
       def items_key

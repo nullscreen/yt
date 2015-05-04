@@ -13,7 +13,7 @@ describe Yt::VideoCategory do
 
   describe '#snippet' do
     context 'given fetching a video category returns a snippet' do
-      let(:attrs) { {snippet: {"title": "People & Blogs", "assignable": true}} }
+      let(:attrs) { {snippet: {"title" => "People & Blogs", "assignable" => true}} }
 
       it { expect(video_category.snippet).to be_a Yt::Snippet }
     end
