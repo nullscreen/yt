@@ -183,7 +183,7 @@ module Yt
     def parse_response!
       response.body = case @response_format
         when :xml then Hash.from_xml response.body
-        when :json then JSON response.body
+        when :json then JSON response.body, {}
       end if response.body
     end
 
