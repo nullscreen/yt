@@ -8,7 +8,7 @@ For more information about changelogs, check
 
 ## 0.22.1 - unreleased
 
-* [FEATURE] New `by: :country` option for channel and video reports
+* [FEATURE] New `by: :country` option for channel, video and playlist reports
 
 ## 0.22.0 - 2015-04-30
 
