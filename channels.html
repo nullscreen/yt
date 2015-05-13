@@ -67,7 +67,7 @@ channel.earnings since: 3.days.ago
 <dl>
 
   {% include dt.html title="Channel’s Snippet" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="snippet"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Resource#id" %}{% include example.html object='channel' method='id' result='"UCxO1tY8h1AhOz0T4ENwmpow"' %}
 {% include doc.html link="Models/Channel#title" %}{% include example.html object='channel' method='title' result='"Fullscreen"' %}
 {% include doc.html link="Models/Channel#description" %}{% include example.html object='channel' method='description' result='"The media company for the connected generation"' %}
@@ -76,7 +76,7 @@ channel.earnings since: 3.days.ago
   </div></dd>
 
   {% include dt.html title="Channel’s Statistics" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="statistics"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Channel#view_count" %}{% include example.html object='channel' method='view_count' result='9' %}
 {% include doc.html link="Models/Channel#comment_count" %}{% include example.html object='channel' method='comment_count' result='1' %}
 {% include doc.html link="Models/Channel#video_count" %}{% include example.html object='channel' method='video_count' result='103' %}
@@ -85,7 +85,7 @@ channel.earnings since: 3.days.ago
   </div></dd>
 
   {% include dt.html title="Channel’s Privacy Status" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="privacy"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Resource#privacy_status" %}{% include example.html object='channel' method='privacy_status' result='"public"' %}
 {% include doc.html link="Models/Resource#public%3F" %}{% include example.html object='channel' method='public?' result='true' %}
 {% include doc.html link="Models/Resource#unlisted%3F" %}{% include example.html object='channel' method='unlisted?' result='false' %}
@@ -93,32 +93,32 @@ channel.earnings since: 3.days.ago
   </div></dd>
 
   {% include dt.html title="Channel’s Subscription" label="warning" auth="must authenticate as another channel’s account" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="subscription"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Channel#subscribe" %}{% include example.html object='channel' method='subscribe' result='nil' %}
 {% include doc.html link="Models/Channel#unsubscribe" %}{% include example.html object='channel' method='unsubscribe' result='true' %}
 {% include doc.html link="Models/Channel#subscribed%3F" %}{% include example.html object='channel' method='subscribed?' result='false' %}</pre>
   </div></dd>
 
   {% include dt.html title="Channel’s Updates" label="warning" auth="must authenticate as the channel’s account or content owner" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="updates"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Channel#delete_playlists" %}{% include example.html object='channel' method='delete_playlists' params=' <span class="ss">title</span><span class="p">:</span> <span class="sr">/2013$/</span>' result='[true, true]' %}</pre>
   </div></dd>
 
   {% include dt.html title="Channel’s Content Owner Details" label="danger" auth="must authenticate as the channel’s content owner" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="content_owner"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Channel#content_owner" %}{% include example.html object='channel' method='content_owner' result='"Cy8DxxmTcwc7ci4zPWrKiw"' %}
 {% include doc.html link="Models/Channel#linked_at" %}{% include example.html object='channel' method='linked_at' result='2011-03-01 23:32:00 UTC' %}</pre>
   </div></dd>
 
   {% include dt.html title="Channel’s Associations" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="associations"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Channel#videos" %}{% include example.html object='channel' method='videos' result='#&lt;Yt::Collections::Videos …&gt;' %}
 {% include doc.html link="Models/Channel#playlists" %}{% include example.html object='channel' method='playlists' result='#&lt;Yt::Collections::Playlists …&gt;' %}
 {% include doc.html link="Models/Channel#subscribed_channels" %}{% include example.html object='channel' method='subscribed_channels' result='#&lt;Yt::Collections::SubscribedChannels …&gt;' %}</pre>
   </div></dd>
 
   {% include dt.html title="Channel’s Analytics" label="warning" auth="must authenticate as the channel’s account or content owner" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="analytics"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Channel#views" %}{% include example.html object='channel' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 12, Thu, 9 May 2014 => 33, …}' %}
 {% include doc.html link="Models/Channel#comments" %}{% include example.html object='channel' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 7, Wed, 8 May 2014 =&gt; …}' %}
 {% include doc.html link="Models/Channel#likes" %}{% include example.html object='channel' method='likes' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 32, Thu, 9 May 2014 => 3, …}' %}
@@ -181,7 +181,7 @@ channel.earnings since: 3.days.ago
   </div></dd>
 
   {% include dt.html title="Channel’s Monetization" label="danger" auth="must authenticate as the channel’s content owner" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="monetization"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Channel#earnings" %}{% include example.html object='channel' method='earnings' result='{Wed, 8 May 2014 => 455.6, Thu, 9 May 2014 => 312.9, …}' %}
 {% include doc.html link="Models/Channel#impressions" %}{% include example.html object='channel' method='impressions' result='{Wed, 8 May 2014 => 847, Thu, 9 May 2014 => 54, …}' %}
 {% include doc.html link="Models/Channel#monetized_playbacks" %}{% include example.html object='channel' method='monetized_playbacks' result='{Wed, 8 May 2014 => 53345, …}' %}</pre>

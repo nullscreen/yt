@@ -50,7 +50,7 @@ playlist.add_video "BPNYv0vd78A"
 <dl>
 
   {% include dt.html title="Playlist’s Snippet" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="snippet"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Resource#id" %}{% include example.html object='playlist' method='id' result='"PLSWYkYzOrPMRUYaLE6C9"' %}
 {% include doc.html link="Models/Playlist#title" %}{% include example.html object='playlist' method='title' result='"Fullscreen Arcade"' %}
 {% include doc.html link="Models/Playlist#description" %}{% include example.html object='playlist' method='description' result='"Retro games!"' %}
@@ -62,7 +62,7 @@ playlist.add_video "BPNYv0vd78A"
   </div></dd>
 
   {% include dt.html title="Playlist’s Privacy Status" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="privacy"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Resource#privacy_status" %}{% include example.html object='playlist' method='privacy_status' result='"public"' %}
 {% include doc.html link="Models/Resource#public%3F" %}{% include example.html object='playlist' method='public?' result='true' %}
 {% include doc.html link="Models/Resource#unlisted%3F" %}{% include example.html object='playlist' method='unlisted?' result='false' %}
@@ -70,20 +70,20 @@ playlist.add_video "BPNYv0vd78A"
   </div></dd>
 
   {% include dt.html title="Playlist’s Updates" label="warning" auth="must authenticate as the playlist’s account or content owner" %}
-  <dd><div class="highlight"><pre>
-{% include doc.html link="Models/Playlist#update" %}{% include example.html object='playlist' method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"Videos I like"</span><span class="p">,</span> <span class="ss">privacy_status</span><span class="p">:</span> <span class="s2">"public"</span><span class="p">' result='true' %}
+  <dd><a class="anchor" id="updates"></a><div class="highlight"><pre>
+{% include doc.html link="Models/Playlist#update" %}{% include example.html object='playlist' method='update' params=' <span class="ss">title</span><span class="p">:</span> <span class="s2">"Videos I like"</span><span class="p">,</span> <span class="ss">privacy_status</span><span class="p">:</span> <span class="s2">"public"</span>' result='true' %}
 {% include doc.html link="Models/Playlist#add_video" %}{% include example.html object='playlist' method='add_video' params=' <span class="s2">"BPNYv0vd78A"</span>' result='#&lt;Yt::PlaylistItem …&gt;' %}
 {% include doc.html link="Models/Playlist#add_videos" %}{% include example.html object='playlist' method='add_videos' params=' <span class="o">%w{</span><span class="s2">BPNYv0vd78A 2NW_AqhkYZZ</span><span class="o">}</span>' result='[#&lt;Yt::PlaylistItem …&gt;]' %}
 {% include doc.html link="Models/Playlist#delete_playlist_items" %}{% include example.html object='playlist' method='delete_playlist_items' params=' <span class="ss">video_id</span><span class="p">:</span> <span class="s2">"BPNYv0vd78A"</span>' result='[true, false]' %}</pre>
   </div></dd>
 
   {% include dt.html title="Playlist’s Associations" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="associations"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Playlist#playlist_items" %}{% include example.html object='playlist' method='playlist_items' result='#&lt;Yt::Collections::PlaylistItems …&gt;' %}</pre>
   </div></dd>
 
   {% include dt.html title="Playlist’s Analytics" label="warning" auth="must authenticate as the playlist’s account or content owner" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="analytics"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 8, Thu, 9 May 2014 => 9, …}' %}
 {% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 456.0, …}' %}
 {% include doc.html link="Models/Playlist#playlist_starts" %}{% include example.html object='playlist' method='playlist_starts' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 7, …}' %}

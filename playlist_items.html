@@ -50,7 +50,7 @@ item.delete
 <dl>
 
   {% include dt.html title="Playlist Item’s Snippet" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="snippet"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Resource#id" %}{% include example.html object='item' method='id' result='"PLjW_GNR5Ir0GWEP_ove"' %}
 {% include doc.html link="Models/PlaylistItem#title" %}{% include example.html object='item' method='title' result='"Welcome to Fullscreen"' %}
 {% include doc.html link="Models/PlaylistItem#description" %}{% include example.html object='item' method='description' result='"We are Fullscreen"' %}
@@ -64,7 +64,7 @@ item.delete
   </div></dd>
 
   {% include dt.html title="Playlist Item’s Privacy Status" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="privacy"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Resource#privacy_status" %}{% include example.html object='item' method='privacy_status' result='"public"' %}
 {% include doc.html link="Models/Resource#public%3F" %}{% include example.html object='item' method='public?' result='true' %}
 {% include doc.html link="Models/Resource#unlisted%3F" %}{% include example.html object='item' method='unlisted?' result='false' %}
@@ -72,13 +72,13 @@ item.delete
   </div></dd>
 
   {% include dt.html title="Playlist Item’s Updates" label="warning" auth="must authenticate as the playlist item’s account or content owner" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="updates"></a><div class="highlight"><pre>
 {% include doc.html link="Models/PlaylistItem#update" %}{% include example.html object='item' method='update' params=' <span class="ss">position</span><span class="p">:</span> <span class="mi">0</span>' result='true' %}
 {% include doc.html link="Models/PlaylistItem#delete" %}{% include example.html object='item' method='delete' result='true' %}</pre>
   </div></dd>
 
   {% include dt.html title="Playlist Item’s Associations" label="success" auth="any authentication works" %}
-  <dd><div class="highlight"><pre>
+  <dd><a class="anchor" id="associations"></a><div class="highlight"><pre>
 {% include doc.html link="Models/PlaylistItem#video" %}{% include example.html object='item' method='video' result='#&lt;Yt::Video …&gt;' %}</pre>
   </div></dd>
 </dl>
