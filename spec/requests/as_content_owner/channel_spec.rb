@@ -226,6 +226,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'views can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          views = channel.views range.merge by: :state
+          expect(views.keys).to all(be_a String)
+          expect(views.keys.map(&:length).uniq).to eq [2]
+          expect(views.values).to all(be_an Integer)
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:comments) { channel.comments_on 5.days.ago}
@@ -905,6 +916,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          minutes = channel.estimated_minutes_watched range.merge by: :state
+          expect(minutes.keys).to all(be_a String)
+          expect(minutes.keys.map(&:length).uniq).to eq [2]
+          expect(minutes.values).to all(be_a Float)
+        end
+      end
+
       describe 'average view duration can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:average_view_duration) { channel.average_view_duration_on 5.days.ago}
@@ -973,6 +995,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'average view duration can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          duration = channel.average_view_duration range.merge by: :state
+          expect(duration.keys).to all(be_a String)
+          expect(duration.keys.map(&:length).uniq).to eq [2]
+          expect(duration.values).to all(be_a Float)
+        end
+      end
+
       describe 'average view percentage can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:average_view_percentage) { channel.average_view_percentage_on 5.days.ago}
@@ -1035,6 +1068,17 @@ describe Yt::Channel, :partner do
 
         specify 'with the :by option set to :country' do
           percentage = channel.average_view_percentage range.merge by: :country
+          expect(percentage.keys).to all(be_a String)
+          expect(percentage.keys.map(&:length).uniq).to eq [2]
+          expect(percentage.values).to all(be_a Float)
+        end
+      end
+
+      describe 'average view percentage can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          percentage = channel.average_view_percentage range.merge by: :state
           expect(percentage.keys).to all(be_a String)
           expect(percentage.keys.map(&:length).uniq).to eq [2]
           expect(percentage.values).to all(be_a Float)
@@ -1225,6 +1269,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'annotation clicks can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          clicks = channel.annotation_clicks range.merge by: :state
+          expect(clicks.keys).to all(be_a String)
+          expect(clicks.keys.map(&:length).uniq).to eq [2]
+          expect(clicks.values).to all(be_an Integer)
+        end
+      end
+
       describe 'annotation click-through rate can be retrieved for a range of days' do
         let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
         let(:date_to) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -1273,6 +1328,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'annotation click-through rate can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          rate = channel.annotation_click_through_rate range.merge by: :state
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
+        end
+      end
+
       describe 'annotation close rate can be retrieved for a range of days' do
         let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
         let(:date_to) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -1315,6 +1381,17 @@ describe Yt::Channel, :partner do
 
         specify 'with the :by option set to :country' do
           rate = channel.annotation_close_rate range.merge by: :country
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
+        end
+      end
+
+      describe 'annotation close rate can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          rate = channel.annotation_close_rate range.merge by: :state
           expect(rate.keys).to all(be_a String)
           expect(rate.keys.map(&:length).uniq).to eq [2]
           expect(rate.values).to all(be_a Float)

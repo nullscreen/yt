@@ -135,6 +135,17 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          views = playlist.views range.merge by: :state
+          expect(views.keys).to all(be_a String)
+          expect(views.keys.map(&:length).uniq).to eq [2]
+          expect(views.values).to all(be_an Integer)
+        end
+      end
+
       describe 'estimated minutes watched can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:minutes) { playlist.estimated_minutes_watched_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
@@ -260,6 +271,17 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :state
+          expect(minutes.keys).to all(be_a String)
+          expect(minutes.keys.map(&:length).uniq).to eq [2]
+          expect(minutes.values).to all(be_a Float)
+        end
+      end
+
       describe 'viewer percentage can be retrieved for a range of days' do
         let(:viewer_percentage) { playlist.viewer_percentage since: 1.year.ago, until: 10.days.ago}
         it { expect(viewer_percentage).to be_a Hash }
@@ -379,6 +401,17 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average view duration can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          duration = playlist.average_view_duration range.merge by: :state
+          expect(duration.keys).to all(be_a String)
+          expect(duration.keys.map(&:length).uniq).to eq [2]
+          expect(duration.values).to all(be_a Float)
+        end
+      end
+
       describe 'playlist starts can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:playlist_starts) { playlist.playlist_starts_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
@@ -436,11 +469,22 @@ describe Yt::Playlist, :partner do
         end
       end
 
-      describe 'average view duration can be grouped by country' do
+      describe 'playlist starts can be grouped by country' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
         specify 'with the :by option set to :country' do
           starts = playlist.playlist_starts range.merge by: :country
+          expect(starts.keys).to all(be_a String)
+          expect(starts.keys.map(&:length).uniq).to eq [2]
+          expect(starts.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'playlist starts can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          starts = playlist.playlist_starts range.merge by: :state
           expect(starts.keys).to all(be_a String)
           expect(starts.keys.map(&:length).uniq).to eq [2]
           expect(starts.values).to all(be_an Integer)
@@ -515,6 +559,17 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average time in playlist can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          time = playlist.average_time_in_playlist range.merge by: :state
+          expect(time.keys).to all(be_a String)
+          expect(time.keys.map(&:length).uniq).to eq [2]
+          expect(time.values).to all(be_a Float)
+        end
+      end
+
       describe 'views per playlist start can be retrieved for a specific day' do
         context 'in which the playlist was viewed' do
           let(:views_per_playlist_start) { playlist.views_per_playlist_start_on ENV['YT_TEST_PARTNER_PLAYLIST_DATE']}
@@ -583,6 +638,16 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views per playlist start can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          views = playlist.views_per_playlist_start range.merge by: :state
+          expect(views.keys).to all(be_a String)
+          expect(views.keys.map(&:length).uniq).to eq [2]
+          expect(views.values).to all(be_a Float)
+        end
+      end
     end
 
     context 'not managed by the authenticated Content Owner' do

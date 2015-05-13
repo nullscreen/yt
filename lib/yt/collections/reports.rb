@@ -14,6 +14,7 @@ module Yt
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id, value) { [Yt::Playlist.new(id: playlist_id, auth: @auth), value] } }
         hash[:device_type] = {name: 'deviceType', parse: ->(type, value) { [type.downcase.to_sym, value] } }
         hash[:country] = {name: 'country', parse: ->(country_code, *values) { [country_code, values.last]  } }
+        hash[:state] = {name: 'province', parse: ->(country_and_state_code, *values) { [country_and_state_code[3..-1], values.last]  } }
         hash[:gender_age_group] = {name: 'gender,ageGroup', parse: ->(gender, *values) { [gender.downcase.to_sym, *values] }}
         hash[:gender] = {name: 'gender', parse: ->(gender, value) { [gender.downcase.to_sym, value] } }
         hash[:age_group] = {name: 'ageGroup', parse: ->(age_group, value) { [age_group[3..-1], value] } }
@@ -102,6 +103,7 @@ module Yt
           params['max-results'] = 25 if @dimension == :embedded_player_location
           params['max-results'] = 25 if @dimension == :related_video
           params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video]
+          params[:filters] = ((params[:filters] || '').split(';') + ["country==US"]).compact.uniq.join(';') if @dimension == :state
           params[:filters] = ((params[:filters] || '').split(';') + ['isCurated==1']).compact.uniq.join(';') if @dimension == :playlist
           params[:filters] = ((params[:filters] || '').split(';') + ['insightPlaybackLocationType==EMBEDDED']).compact.uniq.join(';') if @dimension == :embedded_player_location
           params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==RELATED_VIDEO']).compact.uniq.join(';') if @dimension == :related_video
