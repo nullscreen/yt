@@ -81,6 +81,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'earnings can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          earnings = channel.earnings range.merge by: :country
+          expect(earnings.keys).to all(be_a String)
+          expect(earnings.keys.map(&:length).uniq).to eq [2]
+          expect(earnings.values).to all(be_a Float)
+        end
+      end
+
       describe 'views can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:views) { channel.views_on 5.days.ago}
@@ -204,6 +215,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'views can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          views = channel.views range.merge by: :country
+          expect(views.keys).to all(be_a String)
+          expect(views.keys.map(&:length).uniq).to eq [2]
+          expect(views.values).to all(be_an Integer)
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:comments) { channel.comments_on 5.days.ago}
@@ -258,6 +280,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           comments = channel.comments range.merge by: :day
           expect(comments.keys).to eq range.values
+        end
+      end
+
+      describe 'comments can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          comments = channel.comments range.merge by: :country
+          expect(comments.keys).to all(be_a String)
+          expect(comments.keys.map(&:length).uniq).to eq [2]
+          expect(comments.values).to all(be_an Integer)
         end
       end
 
@@ -318,6 +351,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'likes can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          likes = channel.likes range.merge by: :country
+          expect(likes.keys).to all(be_a String)
+          expect(likes.keys.map(&:length).uniq).to eq [2]
+          expect(likes.values).to all(be_an Integer)
+        end
+      end
+
       describe 'dislikes can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:dislikes) { channel.dislikes_on 5.days.ago}
@@ -375,9 +419,21 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'dislikes can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          dislikes = channel.dislikes range.merge by: :country
+          expect(dislikes.keys).to all(be_a String)
+          expect(dislikes.keys.map(&:length).uniq).to eq [2]
+          expect(dislikes.values).to all(be_an Integer)
+        end
+      end
+
       describe 'shares can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
-          let(:shares) { channel.shares_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
+          let(:date) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 95 }
+          let(:shares) { channel.shares_on date }
           it { expect(shares).to be_an Integer }
         end
 
@@ -429,6 +485,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           shares = channel.shares range.merge by: :day
           expect(shares.keys).to eq range.values
+        end
+      end
+
+      describe 'shares can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          shares = channel.shares range.merge by: :country
+          expect(shares.keys).to all(be_a String)
+          expect(shares.keys.map(&:length).uniq).to eq [2]
+          expect(shares.values).to all(be_an Integer)
         end
       end
 
@@ -489,6 +556,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'gained subscribers can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          subscribers_gained = channel.subscribers_gained range.merge by: :country
+          expect(subscribers_gained.keys).to all(be_a String)
+          expect(subscribers_gained.keys.map(&:length).uniq).to eq [2]
+          expect(subscribers_gained.values).to all(be_an Integer)
+        end
+      end
+
       describe 'lost subscribers can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:subscribers_lost) { channel.subscribers_lost_on 5.days.ago}
@@ -543,6 +621,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           subscribers_lost = channel.subscribers_lost range.merge by: :day
           expect(subscribers_lost.keys).to eq range.values
+        end
+      end
+
+      describe 'lost subscribers can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          subscribers_lost = channel.subscribers_lost range.merge by: :country
+          expect(subscribers_lost.keys).to all(be_a String)
+          expect(subscribers_lost.keys.map(&:length).uniq).to eq [2]
+          expect(subscribers_lost.values).to all(be_an Integer)
         end
       end
 
@@ -603,6 +692,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'added favorites can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          favorites_added = channel.favorites_added range.merge by: :country
+          expect(favorites_added.keys).to all(be_a String)
+          expect(favorites_added.keys.map(&:length).uniq).to eq [2]
+          expect(favorites_added.values).to all(be_an Integer)
+        end
+      end
+
       describe 'removed favorites can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:favorites_removed) { channel.favorites_removed_on 5.days.ago}
@@ -657,6 +757,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           favorites_removed = channel.favorites_removed range.merge by: :day
           expect(favorites_removed.keys).to eq range.values
+        end
+      end
+
+      describe 'removed favorites can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          favorites_removed = channel.favorites_removed range.merge by: :country
+          expect(favorites_removed.keys).to all(be_a String)
+          expect(favorites_removed.keys.map(&:length).uniq).to eq [2]
+          expect(favorites_removed.values).to all(be_an Integer)
         end
       end
 
@@ -783,6 +894,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          minutes = channel.estimated_minutes_watched range.merge by: :country
+          expect(minutes.keys).to all(be_a String)
+          expect(minutes.keys.map(&:length).uniq).to eq [2]
+          expect(minutes.values).to all(be_a Float)
+        end
+      end
+
       describe 'average view duration can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:average_view_duration) { channel.average_view_duration_on 5.days.ago}
@@ -837,6 +959,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           average_view_duration = channel.average_view_duration range.merge by: :day
           expect(average_view_duration.keys).to eq range.values
+        end
+      end
+
+      describe 'average view duration can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          duration = channel.average_view_duration range.merge by: :country
+          expect(duration.keys).to all(be_a String)
+          expect(duration.keys.map(&:length).uniq).to eq [2]
+          expect(duration.values).to all(be_a Float)
         end
       end
 
@@ -897,6 +1030,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'average view percentage can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          percentage = channel.average_view_percentage range.merge by: :country
+          expect(percentage.keys).to all(be_a String)
+          expect(percentage.keys.map(&:length).uniq).to eq [2]
+          expect(percentage.values).to all(be_a Float)
+        end
+      end
+
       describe 'impressions can be retrieved for a specific day' do
         context 'in which the channel was partnered' do
           let(:impressions) { channel.impressions_on 20.days.ago}
@@ -951,6 +1095,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           impressions = channel.impressions range.merge by: :day
           expect(impressions.keys).to eq range.values
+        end
+      end
+
+      describe 'impressions can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          impressions = channel.impressions range.merge by: :country
+          expect(impressions.keys).to all(be_a String)
+          expect(impressions.keys.map(&:length).uniq).to eq [2]
+          expect(impressions.values).to all(be_an Integer)
         end
       end
 
@@ -1011,6 +1166,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'monetized playbacks can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          playbacks = channel.monetized_playbacks range.merge by: :country
+          expect(playbacks.keys).to all(be_a String)
+          expect(playbacks.keys.map(&:length).uniq).to eq [2]
+          expect(playbacks.values).to all(be_an Integer)
+        end
+      end
+
       describe 'annotation clicks can be retrieved for a range of days' do
         let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
         let(:date_to) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -1045,6 +1211,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           annotation_clicks = channel.annotation_clicks range.merge by: :day
           expect(annotation_clicks.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'annotation clicks can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          clicks = channel.annotation_clicks range.merge by: :country
+          expect(clicks.keys).to all(be_a String)
+          expect(clicks.keys.map(&:length).uniq).to eq [2]
+          expect(clicks.values).to all(be_an Integer)
         end
       end
 
@@ -1085,6 +1262,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'annotation click-through rate can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          rate = channel.annotation_click_through_rate range.merge by: :country
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
+        end
+      end
+
       describe 'annotation close rate can be retrieved for a range of days' do
         let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
         let(:date_to) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -1119,6 +1307,17 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           annotation_close_rate = channel.annotation_close_rate range.merge by: :day
           expect(annotation_close_rate.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'annotation close rate can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          rate = channel.annotation_close_rate range.merge by: :country
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
         end
       end
 
