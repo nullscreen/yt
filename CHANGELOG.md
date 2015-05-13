@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.22.1 - unreleased
+
+* [FEATURE] New `by: :country` option for channel and video reports
+
 ## 0.22.0 - 2015-04-30
 
 **How to upgrade**

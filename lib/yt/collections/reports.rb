@@ -13,6 +13,7 @@ module Yt
         hash[:video] = {name: 'video', parse: ->(video_id, value) { [Yt::Video.new(id: video_id, auth: @auth), value] } }
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id, value) { [Yt::Playlist.new(id: playlist_id, auth: @auth), value] } }
         hash[:device_type] = {name: 'deviceType', parse: ->(type, value) { [type.downcase.to_sym, value] } }
+        hash[:country] = {name: 'country', parse: ->(country_code, *values) { [country_code, values.last]  } }
         hash[:gender_age_group] = {name: 'gender,ageGroup', parse: ->(gender, *values) { [gender.downcase.to_sym, *values] }}
         hash[:gender] = {name: 'gender', parse: ->(gender, value) { [gender.downcase.to_sym, value] } }
         hash[:age_group] = {name: 'ageGroup', parse: ->(age_group, value) { [age_group[3..-1], value] } }
