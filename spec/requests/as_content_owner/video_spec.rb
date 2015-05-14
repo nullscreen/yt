@@ -153,6 +153,20 @@ describe Yt::Video, :partner do
             it { expect(views.keys).to eq [country_code] }
           end
         end
+
+        context 'and grouped by state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys.map(&:length).uniq).to eq [2] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys.map(&:length).uniq).to eq [2] }
+          end
+        end
       end
 
       describe 'views can be retrieved for a range of days' do
