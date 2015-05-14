@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.22.1 - unreleased
+## 0.22.1 - 2015-05-13
 
 * [FEATURE] New `by: :country` option for channel, video and playlist reports
 * [FEATURE] New `by: :state` option for channel, video and playlist reports
