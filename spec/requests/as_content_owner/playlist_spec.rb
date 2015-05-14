@@ -22,6 +22,40 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:views) { playlist.views since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'views can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -155,6 +189,40 @@ describe Yt::Playlist, :partner do
         context 'in which the playlist was not viewed' do
           let(:minutes) { playlist.estimated_minutes_watched_on 20.years.ago}
           it { expect(minutes).to be_nil }
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:estimated_minutes_watched) { playlist.estimated_minutes_watched since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(estimated_minutes_watched.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(estimated_minutes_watched.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(estimated_minutes_watched.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(estimated_minutes_watched.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -345,6 +413,40 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average view duration can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:average_view_duration) { playlist.average_view_duration since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_duration.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_duration.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_duration.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_duration.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'average view duration can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -421,6 +523,40 @@ describe Yt::Playlist, :partner do
         context 'in which the playlist was not viewed' do
           let(:playlist_starts) { playlist.playlist_starts_on 20.years.ago}
           it { expect(playlist_starts).to be_nil }
+        end
+      end
+
+      describe 'playlist starts can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:playlist_starts) { playlist.playlist_starts since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(playlist_starts.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(playlist_starts.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(playlist_starts.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(playlist_starts.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -503,6 +639,40 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average time in playlist can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:average_time_in_playlist) { playlist.average_time_in_playlist since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_time_in_playlist.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_time_in_playlist.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_time_in_playlist.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_time_in_playlist.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'average time in playlist can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -579,6 +749,40 @@ describe Yt::Playlist, :partner do
         context 'in which the playlist was not viewed' do
           let(:views_per_playlist_start) { playlist.views_per_playlist_start_on 20.years.ago}
           it { expect(views_per_playlist_start).to be_nil }
+        end
+      end
+
+      describe 'views per playlist start can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:views_per_playlist_start) { playlist.views_per_playlist_start since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views_per_playlist_start.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views_per_playlist_start.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views_per_playlist_start.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views_per_playlist_start.keys).to eq [country_code] }
+          end
         end
       end
 

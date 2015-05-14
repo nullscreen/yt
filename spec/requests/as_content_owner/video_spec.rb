@@ -25,6 +25,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'earnings can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:earnings) { video.earnings since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(earnings.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(earnings.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(earnings.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(earnings.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'earnings can be retrieved for a range of days' do
         let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
@@ -83,6 +117,41 @@ describe Yt::Video, :partner do
         context 'in which the video was not partnered' do
           let(:views) { video.views_on 20.years.ago}
           it { expect(views).to be_nil }
+        end
+      end
+
+
+      describe 'views can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:views) { video.views since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -213,6 +282,41 @@ describe Yt::Video, :partner do
         end
       end
 
+
+      describe 'comments can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:comments) { video.comments since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(comments.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(comments.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(comments.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(comments.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'comments can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -281,6 +385,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'likes can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:likes) { video.likes since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(likes.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(likes.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(likes.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(likes.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'likes can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -346,6 +484,40 @@ describe Yt::Video, :partner do
         context 'in which the video was not partnered' do
           let(:dislikes) { video.dislikes_on 20.years.ago}
           it { expect(dislikes).to be_nil }
+        end
+      end
+
+      describe 'dislikes can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:dislikes) { video.dislikes since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(dislikes.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(dislikes.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(dislikes.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(dislikes.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -418,6 +590,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'shares can be retrieved for a single country' do
+        let(:country_code) { 'PT' }
+        let(:shares) { video.shares since: date, by: by, in: location }
+        let(:date) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 95 }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(shares.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(shares.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(shares.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(shares.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'shares can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -483,6 +689,40 @@ describe Yt::Video, :partner do
         context 'in which the video was not partnered' do
           let(:subscribers_gained) { video.subscribers_gained_on 20.years.ago}
           it { expect(subscribers_gained).to be_nil }
+        end
+      end
+
+      describe 'gained subscribers can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:subscribers_gained) { video.subscribers_gained since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_gained.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_gained.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_gained.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_gained.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -554,6 +794,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'lost subscribers can be retrieved for a single country' do
+        let(:country_code) { 'BR' }
+        let(:subscribers_lost) { video.subscribers_lost since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_lost.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_lost.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_lost.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_lost.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'lost subscribers can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -619,6 +893,40 @@ describe Yt::Video, :partner do
         context 'in which the video was not partnered' do
           let(:favorites_added) { video.favorites_added_on 20.years.ago}
           it { expect(favorites_added).to be_nil }
+        end
+      end
+
+      describe 'favorites added can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:favorites_added) { video.favorites_added since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(favorites_added.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(favorites_added.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(favorites_added.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(favorites_added.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -690,6 +998,41 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'favorites removed can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:favorites_removed) { video.favorites_removed since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(favorites_removed.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(favorites_removed.keys.min).to eq date.to_date }
+          end
+        end
+
+        # TODO: Remove "removed favorites" since it’s deprecated!
+        # context 'and grouped by country' do
+        #   let(:by) { :country }
+        #
+        #   context 'with the :in option set to the country code' do
+        #     let(:location) { country_code }
+        #     it { expect(favorites_removed.keys).to eq [country_code] }
+        #   end
+        #
+        #   context 'with the :in option set to {country: country code}' do
+        #     let(:location) { {country: country_code} }
+        #     it { expect(favorites_removed.keys).to eq [country_code] }
+        #   end
+        # end
+      end
+
       describe 'removed favorites can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -757,6 +1100,40 @@ describe Yt::Video, :partner do
         context 'in which the video was not partnered' do
           let(:estimated_minutes_watched) { video.estimated_minutes_watched_on 20.years.ago}
           it { expect(estimated_minutes_watched).to be_nil }
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:estimated_minutes_watched) { video.estimated_minutes_watched since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(estimated_minutes_watched.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(estimated_minutes_watched.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(estimated_minutes_watched.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(estimated_minutes_watched.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -887,6 +1264,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'average view duration can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:average_view_duration) { video.average_view_duration since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_duration.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_duration.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_duration.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_duration.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'average view duration can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -963,6 +1374,40 @@ describe Yt::Video, :partner do
         context 'in which the video was not partnered' do
           let(:average_view_percentage) { video.average_view_percentage_on 20.years.ago}
           it { expect(average_view_percentage).to be_nil }
+        end
+      end
+
+      describe 'average view percentage can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:average_view_percentage) { video.average_view_percentage since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_percentage.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_percentage.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_percentage.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_percentage.keys).to eq [country_code] }
+          end
         end
       end
 
@@ -1045,6 +1490,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'impressions can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:impressions) { video.impressions since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(impressions.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(impressions.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(impressions.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(impressions.keys).to eq [country_code] }
+          end
+        end
+      end
+
       describe 'impressions can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -1110,6 +1589,40 @@ describe Yt::Video, :partner do
         context 'in which the video was not partnered' do
           let(:monetized_playbacks) { video.monetized_playbacks_on 20.years.ago}
           it { expect(monetized_playbacks).to be_nil }
+        end
+      end
+
+      describe 'monetized playbacks can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:monetized_playbacks) { video.monetized_playbacks since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(monetized_playbacks.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(monetized_playbacks.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(monetized_playbacks.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(monetized_playbacks.keys).to eq [country_code] }
+          end
         end
       end
 

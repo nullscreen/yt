@@ -50,9 +50,10 @@ module Yt
 
       attr_writer :metric
 
-      def within(days_range, dimension, type, try_again = true)
+      def within(days_range, country, dimension, type, try_again = true)
         @days_range = days_range
         @dimension = dimension
+        @country = country
         if dimension == :gender_age_group # array of array
           Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
@@ -104,6 +105,7 @@ module Yt
           params['max-results'] = 25 if @dimension == :related_video
           params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video]
           params[:filters] = ((params[:filters] || '').split(';') + ["country==US"]).compact.uniq.join(';') if @dimension == :state
+          params[:filters] = ((params[:filters] || '').split(';') + ["country==#{@country}"]).compact.uniq.join(';') if @country
           params[:filters] = ((params[:filters] || '').split(';') + ['isCurated==1']).compact.uniq.join(';') if @dimension == :playlist
           params[:filters] = ((params[:filters] || '').split(';') + ['insightPlaybackLocationType==EMBEDDED']).compact.uniq.join(';') if @dimension == :embedded_player_location
           params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==RELATED_VIDEO']).compact.uniq.join(';') if @dimension == :related_video
