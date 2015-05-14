@@ -10,6 +10,7 @@ For more information about changelogs, check
 
 * [FEATURE] New `by: :country` option for channel, video and playlist reports
 * [FEATURE] New `by: :state` option for channel, video and playlist reports
+* [FEATURE] New `:in` option to limit reports to a country
 
 ## 0.22.0 - 2015-04-30
 

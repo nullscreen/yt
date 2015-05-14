@@ -146,28 +146,31 @@ module Yt
         define_method metric do |options = {}|
           from = options[:since] || options[:from] || (metric == :viewer_percentage ? 3.months.ago : 5.days.ago)
           to = options[:until] || options[:to] || (metric == :viewer_percentage ? Date.today : 1.day.ago)
+          location = options[:in]
+          country = location.is_a?(Hash) ? location[:country] : location
+
           range = Range.new *[from, to].map(&:to_date)
           dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :day)
 
-          ivar = instance_variable_get "@#{metric}_#{dimension}"
-          instance_variable_set "@#{metric}_#{dimension}", ivar || {}
+          ivar = instance_variable_get "@#{metric}_#{dimension}_#{country}"
+          instance_variable_set "@#{metric}_#{dimension}_#{country}", ivar || {}
 
           case dimension
           when :day
             Hash[*range.flat_map do |date|
-              [date, instance_variable_get("@#{metric}_#{dimension}")[date] ||= send("range_#{metric}", range, dimension)[date]]
+              [date, instance_variable_get("@#{metric}_#{dimension}_#{country}")[date] ||= send("range_#{metric}", range, dimension, country)[date]]
             end]
           else
-            instance_variable_get("@#{metric}_#{dimension}")[range] ||= send("range_#{metric}", range, dimension)
+            instance_variable_get("@#{metric}_#{dimension}_#{country}")[range] ||= send("range_#{metric}", range, dimension, country)
           end
         end
       end
 
       def define_range_metric_method(metric, type)
-        define_method "range_#{metric}" do |date_range, dimension|
-          ivar = instance_variable_get "@range_#{metric}_#{dimension}"
-          instance_variable_set "@range_#{metric}_#{dimension}", ivar || {}
-          instance_variable_get("@range_#{metric}_#{dimension}")[date_range] ||= send("all_#{metric}").within date_range, dimension, type
+        define_method "range_#{metric}" do |date_range, dimension, country|
+          ivar = instance_variable_get "@range_#{metric}_#{dimension}_#{country}"
+          instance_variable_set "@range_#{metric}_#{dimension}_#{country}", ivar || {}
+          instance_variable_get("@range_#{metric}_#{dimension}_#{country}")[date_range] ||= send("all_#{metric}").within date_range, country, dimension, type
         end
         private "range_#{metric}"
       end
