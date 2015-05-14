@@ -65,7 +65,6 @@ video.earnings since: 3.days.ago
 <hr />
 <h4>List of <code>Yt::Video</code> methods</h4>
 <dl>
-
   {% include dt.html title="Video’s Snippet" label="success" auth="any authentication works" %}
   <dd><a class="anchor" id="snippet"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Resource#id" %}{% include example.html object='video' method='id' result='"BPNYv0vd78A"' %}
@@ -200,23 +199,53 @@ video.earnings since: 3.days.ago
 {% include doc.html link="Models/Video#annotations" %}{% include example.html object='video' method='annotations' result='#&lt;Yt::Collections::Annotations …&gt;' %}</pre>
   </div></dd>
 
+  {% include dt.html title="Video’s Monetization" label="danger" auth="must authenticate as the video’s content owner" %}
+  <dd><a class="anchor" id="monetization"></a><div class="highlight"><pre>
+{% include doc.html link="Models/Video#ad_formats" %}{% include example.html object='video' method='ad_formats' result='["standard_instream", "trueview_instream"]' %}
+{% include doc.html link="Models/Video#earnings" %}{% include example.html object='video' method='earnings' result='{Wed, 8 May 2014 => 455.1, Thu, 9 May 2014 => 312.3, …}' %}
+{% include doc.html link="Models/Video#impressions" %}{% include example.html object='video' method='impressions' result='{Wed, 8 May 2014 => 84734, Thu, 9 May 2014 => 456, …}' %}
+{% include doc.html link="Models/Video#monetized_playbacks" %}{% include example.html object='video' method='monetized_playbacks' result='{Wed, 8 May 2014 => 53345, …}' %}</pre>
+  </div></dd>
+</dl>
+<hr />
+<h4>List of <code>Yt::Video</code> analytics methods</h4>
+<a class="anchor" id="analytics"></a>
+<p>
+  For all methods below, you <strong>must</strong> provide the starting and ending date using the <code>:since</code> and <code>:until</code> options.<br />
+  The result will include one value per each day of the range you specified. <br />
+  Use <code>by: :range</code> if you want to get only the total value for the whole period.<br />
+  Additionally, you can limit the results to a specific country or US state with the <code>:in</code> option.
+</p>
+{% highlight ruby %}
+range = {since: 2.months.ago, until: 1.month.ago} # use Date or String
+video.views range # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 9, …}
+video.views range.merge(in: 'US') # => {Wed, 8 May 2014 => 3, Thu, 9 May 2014 => 6, …}
+video.views range.merge(by: :range) # => {total: 219}
+video.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 113}
+{% endhighlight %}
+<p>
+  For brevity, the options above are omitted in the examples below, since all methods accept them.
+</p>
+
+<dl>
   {% include dt.html title="Video’s Analytics" label="warning" auth="must authenticate as the video’s account or content owner" %}
-  <dd><a class="anchor" id="analytics"></a><div class="highlight"><pre>
-{% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 12, Thu, 9 May 2014 => 9, …}' %}
-{% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 7, Thu, 9 May 2014 => 5, …}' %}
-{% include doc.html link="Models/Video#likes" %}{% include example.html object='video' method='likes' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 32, Thu, 9 May 2014 => 8, …}' %}
-{% include doc.html link="Models/Video#dislikes" %}{% include example.html object='video' method='dislikes' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 87, Thu, 9 May 2014 => 6, …}' %}
-{% include doc.html link="Models/Video#shares" %}{% include example.html object='video' method='shares' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 44, Thu, 9 May 2014 => 3, …}' %}
-{% include doc.html link="Models/Video#subscribers_gained" %}{% include example.html object='video' method='subscribers_gained' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 32, …}' %}
-{% include doc.html link="Models/Video#subscribers_lost" %}{% include example.html object='video' method='subscribers_lost' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 1, …}' %}
-{% include doc.html link="Models/Video#favorites_added" %}{% include example.html object='video' method='favorites_added' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 181, …}' %}
-{% include doc.html link="Models/Video#favorites_removed" %}{% include example.html object='video' method='favorites_removed' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 0, …}' %}
-{% include doc.html link="Models/Video#average_view_duration" %}{% include example.html object='video' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 456, …}' %}
-{% include doc.html link="Models/Video#average_view_percentage" %}{% include example.html object='video' method='average_view_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 38.85, …}' %}
-{% include doc.html link="Models/Video#annotation_clicks" %}{% include example.html object='video' method='annotation_clicks' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 329, …}' %}
-{% include doc.html link="Models/Video#annotation_click_through_rate" %}{% include example.html object='video' method='annotation_click_through_rate' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 0.3, …}' %}
-{% include doc.html link="Models/Video#annotation_close_rate" %}{% include example.html object='video' method='annotation_close_rate' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 0.1, …}' %}
-{% include doc.html link="Models/Video#estimated_minutes_watched" %}{% include example.html object='video' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:day</span>' result='{Wed, 8 May 2014 =&gt; 124.0, …}' %}
+  <dd>
+<div class="highlight"><pre>
+{% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' result='{Wed, 8 May 2014 =&gt; 12, Thu, 9 May 2014 => 9, …}' %}
+{% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' result='{Wed, 8 May 2014 =&gt; 7, Thu, 9 May 2014 => 5, …}' %}
+{% include doc.html link="Models/Video#likes" %}{% include example.html object='video' method='likes' result='{Wed, 8 May 2014 =&gt; 32, Thu, 9 May 2014 => 8, …}' %}
+{% include doc.html link="Models/Video#dislikes" %}{% include example.html object='video' method='dislikes' result='{Wed, 8 May 2014 =&gt; 87, Thu, 9 May 2014 => 6, …}' %}
+{% include doc.html link="Models/Video#shares" %}{% include example.html object='video' method='shares' result='{Wed, 8 May 2014 =&gt; 44, Thu, 9 May 2014 => 3, …}' %}
+{% include doc.html link="Models/Video#subscribers_gained" %}{% include example.html object='video' method='subscribers_gained' result='{Wed, 8 May 2014 =&gt; 32, …}' %}
+{% include doc.html link="Models/Video#subscribers_lost" %}{% include example.html object='video' method='subscribers_lost' result='{Wed, 8 May 2014 =&gt; 1, …}' %}
+{% include doc.html link="Models/Video#favorites_added" %}{% include example.html object='video' method='favorites_added' result='{Wed, 8 May 2014 =&gt; 181, …}' %}
+{% include doc.html link="Models/Video#favorites_removed" %}{% include example.html object='video' method='favorites_removed' result='{Wed, 8 May 2014 =&gt; 0, …}' %}
+{% include doc.html link="Models/Video#average_view_duration" %}{% include example.html object='video' method='average_view_duration' result='{Wed, 8 May 2014 =&gt; 456, …}' %}
+{% include doc.html link="Models/Video#average_view_percentage" %}{% include example.html object='video' method='average_view_percentage' result='{Wed, 8 May 2014 =&gt; 38.85, …}' %}
+{% include doc.html link="Models/Video#annotation_clicks" %}{% include example.html object='video' method='annotation_clicks' result='{Wed, 8 May 2014 =&gt; 329, …}' %}
+{% include doc.html link="Models/Video#annotation_click_through_rate" %}{% include example.html object='video' method='annotation_click_through_rate' result='{Wed, 8 May 2014 =&gt; 0.3, …}' %}
+{% include doc.html link="Models/Video#annotation_close_rate" %}{% include example.html object='video' method='annotation_close_rate' result='{Wed, 8 May 2014 =&gt; 0.1, …}' %}
+{% include doc.html link="Models/Video#estimated_minutes_watched" %}{% include example.html object='video' method='estimated_minutes_watched' result='{Wed, 8 May 2014 =&gt; 124.0, …}' %}
 
 {% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 12, "IT" => 9, …}' %}
 {% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 7, "IT" => 5, …}' %}
@@ -258,13 +287,4 @@ video.earnings since: 3.days.ago
 {% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html object='video' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:gender</span>' result="{female: 12.3, male: 87.7}" %}
 {% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html object='video' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}</pre>
   </div></dd>
-
-  {% include dt.html title="Video’s Monetization" label="danger" auth="must authenticate as the video’s content owner" %}
-  <dd><a class="anchor" id="monetization"></a><div class="highlight"><pre>
-{% include doc.html link="Models/Video#ad_formats" %}{% include example.html object='video' method='ad_formats' result='["standard_instream", "trueview_instream"]' %}
-{% include doc.html link="Models/Video#earnings" %}{% include example.html object='video' method='earnings' result='{Wed, 8 May 2014 => 455.1, Thu, 9 May 2014 => 312.3, …}' %}
-{% include doc.html link="Models/Video#impressions" %}{% include example.html object='video' method='impressions' result='{Wed, 8 May 2014 => 84734, Thu, 9 May 2014 => 456, …}' %}
-{% include doc.html link="Models/Video#monetized_playbacks" %}{% include example.html object='video' method='monetized_playbacks' result='{Wed, 8 May 2014 => 53345, …}' %}</pre>
-  </div></dd>
-
 </dl>
