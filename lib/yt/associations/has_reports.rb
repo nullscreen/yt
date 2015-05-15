@@ -43,6 +43,11 @@ module Yt
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
       #   @return [Hash<Yt::Video, $2>] if grouped by device type, the
       #     $1 for each device type.
+      #   @example Get yesterday’s $1 by search term:
+      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :search_term
+      #     # => {"fullscreen" => 33.0, "good music" => 12.0, …}
+      #   @return [Hash<String, $2>] if grouped by search term, the
+      #     $1 for each search term that led viewers to the content.
       #   @example Get yesterday’s $1 by device type:
       #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :device_type
       #     # => {mobile: 133.0, tv: 412.0, …}

@@ -272,6 +272,15 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'views can be grouped by search term' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :search_term' do
+          views = channel.views range.merge by: :search_term
+          expect(views.keys).to all(be_a String)
+        end
+      end
+
       describe 'views can be grouped by video' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
@@ -1265,6 +1274,15 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :related_video' do
           estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :related_video
           expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by search term' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :search_term' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :search_term
+          expect(estimated_minutes_watched.keys).to all(be_a String)
         end
       end
 

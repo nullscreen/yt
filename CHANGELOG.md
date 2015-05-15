@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.22.2 - unreleased
+
+* [FEATURE] New `by: :search_term` option for reports.
+
 ## 0.22.1 - 2015-05-13
 
 * [FEATURE] New `by: :country` option for channel, video and playlist reports
