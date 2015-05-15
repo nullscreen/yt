@@ -10,6 +10,7 @@ For more information about changelogs, check
 
 * [FEATURE] New `by: :search_term` option for reports.
 * [FEATURE] New `in: {state: 'XX'}` option to limit reports to a US state
+* [FEATURE] New `uniques by: :day` report
 
 ## 0.22.1 - 2015-05-13
 
