@@ -18,12 +18,14 @@ module Yt
       #   @example Get the $1 for each day of last week:
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :day
       #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.0, …}
+      #   @macro report
+
+      # @!macro [new] report_with_range
       #   @return [Hash<Symbol, $2>] if grouped by range, the $1
       #     for the entire time-range (under the key +:total+).
       #   @example Get the $1 for the whole last week:
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :range
       #     # => {total: 564.0}
-      #   @macro report
 
       # @!macro [new] report_with_country
       #   @option options [<String, Hash>] :in The country to limit the $1
@@ -44,16 +46,23 @@ module Yt
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :range, in: {state: 'TX'}
       #     # => {total: 19.0}
 
+      # @!macro [new] report_by_day
+      #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
+      #     Accepted values are: +:day+.
+      #   @macro report_with_day
+
       # @!macro [new] report_by_day_and_country
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
       #     Accepted values are: +:day+, :+range+.
       #   @macro report_with_day
+      #   @macro report_with_range
       #   @macro report_with_country
 
       # @!macro [new] report_by_day_and_state
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
       #     Accepted values are: +:day+, :+range+.
       #   @macro report_with_day
+      #   @macro report_with_range
       #   @macro report_with_country_and_state
 
       # @!macro [new] report_with_video_dimensions
@@ -83,6 +92,7 @@ module Yt
       #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :traffic_source
       #     # => {advertising: 543.0, playlist: 92.0, …}
       #   @macro report_with_day
+      #   @macro report_with_range
 
       # @!macro [new] report_by_video_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.

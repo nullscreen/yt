@@ -326,6 +326,81 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'uniques can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:uniques) { video.uniques since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(uniques.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(uniques.keys.min).to eq date.to_date }
+          end
+        end
+      end
+
+      describe 'uniques can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { video.uniques since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+      end
+
+      describe 'uniques can be retrieved for a range of days' do
+        let(:date) { 4.days.ago }
+
+        specify 'with a given start (:since option)' do
+          expect(video.uniques(since: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:until option)' do
+          expect(video.uniques(until: date).keys.max).to eq date.to_date
+        end
+
+        specify 'with a given start (:from option)' do
+          expect(video.uniques(from: date).keys.min).to eq date.to_date
+        end
+
+        specify 'with a given end (:to option)' do
+          expect(video.uniques(to: date).keys.max).to eq date.to_date
+        end
+      end
+
+      describe 'uniques can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          uniques = video.uniques range
+          expect(uniques.keys).to eq range.values
+        end
+
+        specify 'with the :by option set to :day' do
+          uniques = video.uniques range.merge by: :day
+          expect(uniques.keys).to eq range.values
+        end
+      end
+
       describe 'comments can be retrieved for a specific day' do
         context 'in which the video was partnered' do
           let(:comments) { video.comments_on ENV['YT_TEST_PARTNER_VIDEO_DATE']}
