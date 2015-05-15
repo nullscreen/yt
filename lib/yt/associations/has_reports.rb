@@ -11,6 +11,10 @@ module Yt
       #     Also aliased as +:from+.
       #   @option options [#to_date] :until The last day of the time-range.
       #     Also aliased as +:to+.
+      #   @option options [<String, Hash>] :in The country to limit the $1
+      #     to. Can either be the two-letter ISO-3166-1 country code, such as
+      #     +"US"+, or a Hash with the code in the +:country+ key, such as
+      #     +{country: "US"}+.
 
       # @!macro [new] report_with_day
       #   @return [Hash<Date, $2>] if grouped by day, the $1
