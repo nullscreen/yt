@@ -131,17 +131,19 @@ channel.earnings since: 3.days.ago
   For all methods below, you <strong>must</strong> provide the starting and ending date using the <code>:since</code> and <code>:until</code> options.<br />
   The result will include one value per each day of the range you specified. <br />
   Use <code>by: :range</code> if you want to get only the total value for the whole period.<br />
-  Additionally, you can limit the results to a specific country with the <code>:in</code> option.
+  Use the <code>:in</code> option to limit the results to a specific location.
 </p>
 {% highlight ruby %}
 range = {since: 2.months.ago, until: 1.month.ago} # use Date or String
 channel.views range # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 9, …}
-channel.views range.merge(in: 'US') # => {Wed, 8 May 2014 => 3, Thu, 9 May 2014 => …}
+channel.views range.merge(in: 'FR') # => {Wed, 8 May 2014 => 3, Thu, 9 May 2014 => …}
 channel.views range.merge(by: :range) # => {total: 219}
 channel.views range.merge(by: :range, in: {country: 'US'}) # => {total: 113}
+# NOTE: Not all methods can be limited by US state; check the docs for more details.
+channel.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 23}
 {% endhighlight %}
 <p>
-  For brevity, the options above are omitted in the examples below, since all methods accept them.
+  For brevity, the options above are omitted in the examples below.
 </p>
 
 <dl>
