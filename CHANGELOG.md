@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.22.2 - unreleased
+## 0.22.2 - 2015-05-15
 
 * [FEATURE] New `by: :search_term` option for reports.
 * [FEATURE] New `in: {state: 'XX'}` option to limit reports to a US state
