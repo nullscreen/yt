@@ -11,17 +11,13 @@ module Yt
       #     Also aliased as +:from+.
       #   @option options [#to_date] :until The last day of the time-range.
       #     Also aliased as +:to+.
-      #   @option options [<String, Hash>] :in The country to limit the $1
-      #     to. Can either be the two-letter ISO-3166-1 country code, such as
-      #     +"US"+, or a Hash with the code in the +:country+ key, such as
-      #     +{country: "US"}+.
 
       # @!macro [new] report_with_day
       #   @return [Hash<Date, $2>] if grouped by day, the $1
       #     for each day in the time-range.
       #   @example Get the $1 for each day of last week:
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :day
-      #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.2, …}
+      #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.0, …}
       #   @return [Hash<Symbol, $2>] if grouped by range, the $1
       #     for the entire time-range (under the key +:total+).
       #   @example Get the $1 for the whole last week:
@@ -29,81 +25,111 @@ module Yt
       #     # => {total: 564.0}
       #   @macro report
 
-      # @!macro [new] report_by_day
+      # @!macro [new] report_with_country
+      #   @option options [<String, Hash>] :in The country to limit the $1
+      #     to. Can either be the two-letter ISO-3166-1 code of a country, such
+      #     as +"US"+, or a Hash with the code in the +:country+ key, such
+      #     as +{country: "US"}+.
+      #   @example Get the $1 for the whole last week in France only:
+      #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :range, in: 'FR'
+      #     # => {total: 44.0}
+
+      # @!macro [new] report_with_country_and_state
+      #   @option options [<String, Hash>] :in The location to limit the $1
+      #     to. Can either be the two-letter ISO-3166-1 code of a country, such
+      #     as +"US"+, or a Hash that either contains the +:country+ key, such
+      #     as +{country: "US"}+ or the +:state+ key, such as +{state: "TX"}+.
+      #     Note that YouTube API only provides data for US states.
+      #   @example Get the $1 for the whole last week in Texas only:
+      #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :range, in: {state: 'TX'}
+      #     # => {total: 19.0}
+
+      # @!macro [new] report_by_day_and_country
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+.
+      #     Accepted values are: +:day+, :+range+.
       #   @macro report_with_day
+      #   @macro report_with_country
+
+      # @!macro [new] report_by_day_and_state
+      #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
+      #     Accepted values are: +:day+, :+range+.
+      #   @macro report_with_day
+      #   @macro report_with_country_and_state
 
       # @!macro [new] report_with_video_dimensions
       #   @return [Hash<Symbol, $2>] if grouped by playback location, the
       #     $1 for each traffic playback location.
       #   @example Get yesterday’s $1 grouped by playback location:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :playback_location
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :playback_location
       #     # => {embedded: 53.0, watch: 467.0, …}
       #   @return [Hash<Yt::Video, $2>] if grouped by related video, the
       #     $1 for each related video.
       #   @example Get yesterday’s $1 by related video:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :related_video
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :related_video
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
       #   @return [Hash<Yt::Video, $2>] if grouped by device type, the
       #     $1 for each device type.
       #   @example Get yesterday’s $1 by search term:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :search_term
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :search_term
       #     # => {"fullscreen" => 33.0, "good music" => 12.0, …}
       #   @return [Hash<String, $2>] if grouped by search term, the
       #     $1 for each search term that led viewers to the content.
       #   @example Get yesterday’s $1 by device type:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :device_type
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :device_type
       #     # => {mobile: 133.0, tv: 412.0, …}
       #   @return [Hash<Yt::Video, $2>] if grouped by traffic source, the
       #     $1 for each traffic source.
       #   @example Get yesterday’s $1 by traffic source:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :traffic_source
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :traffic_source
       #     # => {advertising: 543.0, playlist: 92.0, …}
       #   @macro report_with_day
 
       # @!macro [new] report_by_video_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:traffic_source+,
-      #     +:playback_location+, +:related_video+, +:embedded_player_location+.
+      #     Accepted values are: +:day+, +:range+, +:traffic_source+,
+      #     +:search_term+, +:playback_location+, +:related_video+,
+      #     +:embedded_player_location+.
       #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
       #     the $1 for each embedded player location.
       #   @example Get yesterday’s $1 by embedded player location:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :embedded_player_location
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :embedded_player_location
       #     # => {"fullscreen.net" => 92.0, "yahoo.com" => 14.0, …}
       #   @macro report_with_video_dimensions
+      #   @macro report_with_country_and_state
 
       # @!macro [new] report_with_channel_dimensions
       #   @return [Hash<Yt::Video, $2>] if grouped by video, the
       #     $1 for each video.
       #   @example Get yesterday’s $1 by video:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :video
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :video
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
       #   @return [Hash<Yt::Video, $2>] if grouped by playlist, the
       #     $1 for each playlist.
       #   @example Get yesterday’s $1 by playlist:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :playlist
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :playlist
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
       #   @macro report_with_video_dimensions
 
       # @!macro [new] report_by_channel_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:traffic_source+,
-      #     +:playback_location+, +:related_video+, +:video+,
+      #     Accepted values are: +:day+, +:range+, +:traffic_source+,
+      #     +:search_term+, +:playback_location+, +:related_video+, +:video+,
       #     +:playlist+, +:embedded_player_location+.
       #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
       #     the $1 for each embedded player location.
       #   @example Get yesterday’s $1 by embedded player location:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :embedded_player_location
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :embedded_player_location
       #     # => {"fullscreen.net" => 92.0, "yahoo.com" => 14.0, …}
       #   @macro report_with_channel_dimensions
+      #   @macro report_with_country_and_state
 
       # @!macro [new] report_by_playlist_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:traffic_source+,
+      #     Accepted values are: +:day+, +:range+, +:traffic_source+,
       #     +:playback_location+, +:related_video+, +:video+,
       #     +:playlist+.
       #   @macro report_with_channel_dimensions
+      #   @macro report_with_country_and_state
 
       # @!macro [new] report_by_gender_and_age_group
       #   @option options [Symbol] :by (:gender_age_group) The dimension to
@@ -112,19 +138,23 @@ module Yt
       #   @return [Hash<Symbol, $2>] if grouped by gender, the
       #     viewer percentage by gender.
       #   @example Get yesterday’s viewer percentage by gender:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :gender
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :gender
       #     # => {female: 53.0, male: 47.0}
       #   @return [Hash<String, $2>] if grouped by age group, the
       #     viewer percentage by age group.
       #   @example Get yesterday’s $1 grouped by age group:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago, by: :age_group
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :age_group
       #     # => {"18-24" => 4.54, "35-24" => 12.31, "45-34" => 8.92, …}
       #   @return [Hash<Symbol, [Hash<String, $2>]>] if grouped by gender
       #     and age group, the viewer percentage by gender/age group.
       #   @example Get yesterday’s $1 by gender and age group:
-      #     resource.$1 from: 1.day.ago, to: 1.day.ago
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago
       #     # => {female: {"18-24" => 12.12, "25-34" => 16.16, …}, male:…}
+      #   @example Get yesterday’s $1 by gender and age group in France only:
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, in: 'FR'
+      #     # => {female: {"18-24" => 16.12, "25-34" => 13.16, …}, male:…}
       #   @macro report
+      #   @macro report_with_country_and_state
 
       # Defines two public instance methods to access the reports of a
       # resource for a specific metric.

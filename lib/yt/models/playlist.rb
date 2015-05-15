@@ -160,16 +160,16 @@ module Yt
       # @macro report_by_gender_and_age_group
       has_report :viewer_percentage, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :average_view_duration, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :playlist_starts, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :average_time_in_playlist, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :views_per_playlist_start, Float
 
     ### PRIVATE API ###
