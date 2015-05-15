@@ -70,7 +70,7 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        try_again && rescue?(e) ? sleep(3) && within(days_range, dimension, type, false) : raise
+        try_again && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, type, false) : raise
       end
 
     private
