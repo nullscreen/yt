@@ -381,56 +381,56 @@ module Yt
       # @macro report_by_gender_and_age_group
       has_report :viewer_percentage, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :comments, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :likes, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :dislikes, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :shares, Integer
 
       # @note This is not the total number of subscribers gained by the video’s
       #   channel, but the subscribers gained *from* the video’s page.
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :subscribers_gained, Integer
 
       # @note This is not the total number of subscribers lost by the video’s
       #   channel, but the subscribers lost *from* the video’s page.
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :subscribers_lost, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :favorites_added, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :favorites_removed, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :average_view_duration, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :average_view_percentage, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :annotation_clicks, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :annotation_click_through_rate, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_state
       has_report :annotation_close_rate, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :earnings, Float
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :impressions, Integer
 
-      # @macro report_by_day
+      # @macro report_by_day_and_country
       has_report :monetized_playbacks, Integer
 
     ### STATISTICS ###

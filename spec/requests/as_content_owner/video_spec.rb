@@ -120,7 +120,6 @@ describe Yt::Video, :partner do
         end
       end
 
-
       describe 'views can be retrieved for a single country' do
         let(:country_code) { 'US' }
         let(:views) { video.views since: date, by: by, in: location }
@@ -151,6 +150,54 @@ describe Yt::Video, :partner do
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
             it { expect(views.keys).to eq [country_code] }
+          end
+        end
+
+        context 'and grouped by state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys.map(&:length).uniq).to eq [2] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys.map(&:length).uniq).to eq [2] }
+          end
+        end
+      end
+
+      describe 'views can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:views) { video.views since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(views.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(views.keys).to eq [state_code] }
           end
         end
       end
@@ -1146,6 +1193,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:minutes) { video.estimated_minutes_watched since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(minutes.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(minutes.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(minutes.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(minutes.keys).to eq [state_code] }
+          end
+        end
+      end
+
       describe 'estimated minutes watched can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -1316,6 +1397,40 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'average view duration can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:duration) { video.average_view_duration since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(duration.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(duration.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(duration.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(duration.keys).to eq [state_code] }
+          end
+        end
+      end
+
       describe 'average view duration can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -1425,6 +1540,40 @@ describe Yt::Video, :partner do
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
             it { expect(average_view_percentage.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'average view percentage can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:percentage) { video.average_view_percentage since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(percentage.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(percentage.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(percentage.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(percentage.keys).to eq [state_code] }
           end
         end
       end
@@ -1713,6 +1862,88 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'annotation clicks can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:annotation_clicks) { video.annotation_clicks since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_clicks.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_clicks.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_clicks.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_clicks.keys).to eq [country_code] }
+          end
+        end
+
+        context 'and grouped by state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_clicks.keys.map(&:length).uniq).to eq [2] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_clicks.keys.map(&:length).uniq).to eq [2] }
+          end
+        end
+      end
+
+      describe 'annotation clicks can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:clicks) { video.annotation_clicks since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(clicks.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(clicks.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(clicks.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(clicks.keys).to eq [state_code] }
+          end
+        end
+      end
+
       describe 'annotation clicks can be grouped by range' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
@@ -1772,6 +2003,88 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'annotation click_through_rate can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:annotation_click_through_rate) { video.annotation_click_through_rate since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_click_through_rate.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_click_through_rate.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_click_through_rate.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_click_through_rate.keys).to eq [country_code] }
+          end
+        end
+
+        context 'and grouped by state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_click_through_rate.keys.map(&:length).uniq).to eq [2] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_click_through_rate.keys.map(&:length).uniq).to eq [2] }
+          end
+        end
+      end
+
+      describe 'annotation click_through_rate can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:click_through_rate) { video.annotation_click_through_rate since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(click_through_rate.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(click_through_rate.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(click_through_rate.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(click_through_rate.keys).to eq [state_code] }
+          end
+        end
+      end
+
       describe 'annotation click-through rate can be grouped by range' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
@@ -1828,6 +2141,88 @@ describe Yt::Video, :partner do
 
         specify 'with a given start (:from option) and a given end (:to option)' do
           expect(video.annotation_close_rate(from: date, to: date_to).keys.min).to eq date.to_date
+        end
+      end
+
+      describe 'annotation close_rate can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:annotation_close_rate) { video.annotation_close_rate since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_close_rate.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_close_rate.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_close_rate.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_close_rate.keys).to eq [country_code] }
+          end
+        end
+
+        context 'and grouped by state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_close_rate.keys.map(&:length).uniq).to eq [2] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_close_rate.keys.map(&:length).uniq).to eq [2] }
+          end
+        end
+      end
+
+      describe 'annotation close_rate can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:close_rate) { video.annotation_close_rate since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(close_rate.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(close_rate.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(close_rate.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(close_rate.keys).to eq [state_code] }
+          end
         end
       end
 
@@ -1905,7 +2300,39 @@ describe Yt::Video, :partner do
         end
       end
 
-      describe 'viewer_percentage can be grouped by gender' do
+      describe 'viewer percentage can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:viewer_percentage) { video.viewer_percentage since: date, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'with the :in option set to the country code' do
+          let(:location) { country_code }
+          it { expect(viewer_percentage.keys).to match_array [:female, :male] }
+        end
+
+        context 'with the :in option set to {country: country code}' do
+          let(:location) { {country: country_code} }
+          it { expect(viewer_percentage.keys).to match_array [:female, :male] }
+        end
+      end
+
+      describe 'viewer percentage can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:viewer_percentage) { video.viewer_percentage since: date, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'with the :in option set to {state: state code}' do
+          let(:location) { {state: state_code} }
+          it { expect(viewer_percentage.keys).to match_array [:female, :male] }
+        end
+
+        context 'with the :in option set to {country: "US", state: state code}' do
+          let(:location) { {country: 'US', state: state_code} }
+          it { expect(viewer_percentage.keys).to match_array [:female, :male] }
+        end
+      end
+
+      describe 'viewer percentage can be grouped by gender' do
         let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
         let(:keys) { range.values }
 

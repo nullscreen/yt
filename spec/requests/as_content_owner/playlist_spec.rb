@@ -56,6 +56,40 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:result) { playlist.views since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+        end
+      end
+
       describe 'views can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -179,7 +213,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'views can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :state' do
           views = playlist.views range.merge by: :state
@@ -231,6 +265,40 @@ describe Yt::Playlist, :partner do
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
             it { expect(estimated_minutes_watched.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:result) { playlist.estimated_minutes_watched since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
           end
         end
       end
@@ -358,7 +426,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'estimated minutes watched can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :state' do
           minutes = playlist.estimated_minutes_watched range.merge by: :state
@@ -465,6 +533,40 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'average view duration can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:result) { playlist.average_view_duration since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+        end
+      end
+
       describe 'average view duration can be retrieved for a range of days' do
         let(:date) { 4.days.ago }
 
@@ -522,7 +624,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'average view duration can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :state' do
           duration = playlist.average_view_duration range.merge by: :state
@@ -574,6 +676,40 @@ describe Yt::Playlist, :partner do
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
             it { expect(playlist_starts.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'playlist starts can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:result) { playlist.playlist_starts since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
           end
         end
       end
@@ -635,7 +771,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'playlist starts can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :state' do
           starts = playlist.playlist_starts range.merge by: :state
@@ -687,6 +823,40 @@ describe Yt::Playlist, :partner do
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
             it { expect(average_time_in_playlist.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'average time in playlist can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:result) { playlist.average_time_in_playlist since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
           end
         end
       end
@@ -748,7 +918,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'average time in playlist can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :state' do
           time = playlist.average_time_in_playlist range.merge by: :state
@@ -800,6 +970,40 @@ describe Yt::Playlist, :partner do
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
             it { expect(views_per_playlist_start.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'views per playlists start can be retrieved for a single US state' do
+        let(:state_code) { 'CA' }
+        let(:result) { playlist.views_per_playlist_start since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
           end
         end
       end
@@ -861,7 +1065,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'views per playlist start can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :state' do
           views = playlist.views_per_playlist_start range.merge by: :state
