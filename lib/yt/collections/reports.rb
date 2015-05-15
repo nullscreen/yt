@@ -10,6 +10,7 @@ module Yt
         hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(location, value) {[PLAYBACK_LOCATIONS.key(location), value]} }
         hash[:embedded_player_location] = {name: 'insightPlaybackLocationDetail', parse: ->(url, value) {[url, value]} }
         hash[:related_video] = {name: 'insightTrafficSourceDetail', parse: ->(video_id, value) { [Yt::Video.new(id: video_id, auth: @auth), value] } }
+        hash[:search_term] = {name: 'insightTrafficSourceDetail', parse: ->(search_term, value) { [search_term, value] } }
         hash[:video] = {name: 'video', parse: ->(video_id, value) { [Yt::Video.new(id: video_id, auth: @auth), value] } }
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id, value) { [Yt::Playlist.new(id: playlist_id, auth: @auth), value] } }
         hash[:device_type] = {name: 'deviceType', parse: ->(type, value) { [type.downcase.to_sym, value] } }
@@ -101,14 +102,14 @@ module Yt
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
           params['max-results'] = 10 if @dimension == :video
           params['max-results'] = 200 if @dimension == :playlist
-          params['max-results'] = 25 if @dimension == :embedded_player_location
-          params['max-results'] = 25 if @dimension == :related_video
-          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video]
+          params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term]
+          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term]
           params[:filters] = ((params[:filters] || '').split(';') + ["country==US"]).compact.uniq.join(';') if @dimension == :state
           params[:filters] = ((params[:filters] || '').split(';') + ["country==#{@country}"]).compact.uniq.join(';') if @country
           params[:filters] = ((params[:filters] || '').split(';') + ['isCurated==1']).compact.uniq.join(';') if @dimension == :playlist
           params[:filters] = ((params[:filters] || '').split(';') + ['insightPlaybackLocationType==EMBEDDED']).compact.uniq.join(';') if @dimension == :embedded_player_location
           params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==RELATED_VIDEO']).compact.uniq.join(';') if @dimension == :related_video
+          params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==YT_SEARCH']).compact.uniq.join(';') if @dimension == :search_term
         end
       end
 
