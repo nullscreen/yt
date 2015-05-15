@@ -9,6 +9,7 @@ For more information about changelogs, check
 ## 0.22.2 - unreleased
 
 * [FEATURE] New `by: :search_term` option for reports.
+* [FEATURE] New `in: {state: 'XX'}` option to limit reports to a US state
 
 ## 0.22.1 - 2015-05-13
 
