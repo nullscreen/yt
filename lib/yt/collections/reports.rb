@@ -5,6 +5,7 @@ module Yt
     # @private
     class Reports < Base
       DIMENSIONS = Hash.new({name: 'day', parse: ->(day, *values) {[Date.iso8601(day), values.last]} }).tap do |hash|
+        hash[:month] = {name: 'month', parse: ->(month, *values) { [Range.new(Date.strptime(month, '%Y-%m').beginning_of_month, Date.strptime(month, '%Y-%m').end_of_month), values.last]} }
         hash[:range] = {parse: ->(*values) { [:total, values.last]} }
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(source, value) {[TRAFFIC_SOURCES.key(source), value]} }
         hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(location, value) {[PLAYBACK_LOCATIONS.key(location), value]} }

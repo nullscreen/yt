@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.23.1 - unreleased
+
+* [FEATURE] New `by: :month` option for reports.
+
 ## 0.23.0 - 2015-05-18
 
 **How to upgrade**

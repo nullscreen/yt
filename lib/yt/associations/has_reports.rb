@@ -18,6 +18,11 @@ module Yt
       #   @example Get the $1 for each day of last week:
       #     resource.$1 since: 2.weeks.ago, until: 1.week.ago, by: :day
       #     # => {Wed, 8 May 2014 => 12.0, Thu, 9 May 2014 => 34.0, …}
+      #   @return [Hash<Range<Date, Date>, $2>] if grouped by month, the $1
+      #     for each month in the time-range.
+      #   @example Get the $1 for this and last month:
+      #     resource.$1 since: 1.month.ago, by: :month
+      #     # => {Wed, 01 Apr 2014..Thu, 30 Apr 2014 => 12.0, Fri, 01 May 2014..Sun, 31 May 2014 => 34.0, …}
       #   @macro report
 
       # @!macro [new] report_with_range
@@ -48,19 +53,19 @@ module Yt
 
       # @!macro [new] report_by_day
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+.
+      #     Accepted values are: +:day+, +:month+.
       #   @macro report_with_day
 
       # @!macro [new] report_by_day_and_country
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, :+range+.
+      #     Accepted values are: +:day+, +:month+, :+range+.
       #   @macro report_with_day
       #   @macro report_with_range
       #   @macro report_with_country
 
       # @!macro [new] report_by_day_and_state
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, :+range+.
+      #     Accepted values are: +:day+, +:month+, :+range+.
       #   @macro report_with_day
       #   @macro report_with_range
       #   @macro report_with_country_and_state
@@ -96,7 +101,7 @@ module Yt
 
       # @!macro [new] report_by_video_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:range+, +:traffic_source+,
+      #     Accepted values are: +:day+, +:month+, +:range+, +:traffic_source+,
       #     +:search_term+, +:playback_location+, +:related_video+,
       #     +:embedded_player_location+.
       #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
@@ -122,7 +127,7 @@ module Yt
 
       # @!macro [new] report_by_channel_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:range+, +:traffic_source+,
+      #     Accepted values are: +:day+, +:month+, +:range+, +:traffic_source+,
       #     +:search_term+, +:playback_location+, +:related_video+, +:video+,
       #     +:playlist+, +:embedded_player_location+.
       #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
@@ -135,7 +140,7 @@ module Yt
 
       # @!macro [new] report_by_playlist_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:range+, +:traffic_source+,
+      #     Accepted values are: +:day+, +:month+, +:range+, +:traffic_source+,
       #     +:playback_location+, +:related_video+, +:video+,
       #     +:playlist+.
       #   @macro report_with_channel_dimensions
@@ -193,14 +198,20 @@ module Yt
 
       def define_metric_method(metric)
         define_method metric do |options = {}|
-          from = options[:since] || options[:from] || (options[:by] == :day ? 5.days.ago : '2005-02-01')
+          from = options[:since] || options[:from] || (options[:by].in?([:day, :month]) ? 5.days.ago : '2005-02-01')
           to = options[:until] || options[:to] || Date.today
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location
           state = location[:state] if location.is_a?(Hash)
 
-          range = Range.new *[from, to].map(&:to_date)
           dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :range)
+
+          if dimension == :month
+            from = from.to_date.beginning_of_month
+            to = to.to_date.beginning_of_month
+          end
+
+          range = Range.new *[from, to].map(&:to_date)
 
           ivar = instance_variable_get "@#{metric}_#{dimension}_#{country}_#{state}"
           instance_variable_set "@#{metric}_#{dimension}_#{country}_#{state}", ivar || {}
