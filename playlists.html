@@ -86,20 +86,22 @@ playlist.add_video "BPNYv0vd78A"
 <h4>List of <code>Yt::Playlist</code> analytics methods</h4>
 <a class="anchor" id="analytics"></a>
 <p>
-  For all methods below, you <strong>must</strong> provide the starting and ending date using the <code>:since</code> and <code>:until</code> options.<br />
-  The result will include one value per each day of the range you specified. <br />
-  Use <code>by: :range</code> if you want to get only the total value for the whole period.<br />
-  Use the <code>:in</code> option to limit the results to a specific location.
+  By default, analytics methods return the total value for the lifetime of a playlist (e.g., all the views of a playlist).<br />
+  To set specific starting and ending dates, use the <code>:since</code> and <code>:until</code> options.<br />
+  To obtain one value per each day of the range you specify (rather than the total), use the <code>by: :day</code> option.<br />
+  To limit the results to a specific location, use the <code>:in</code> option .
 </p>
 {% highlight ruby %}
-range = {since: 2.months.ago, until: 1.month.ago} # use Date or String
-playlist.views range # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 9, …}
-playlist.views range.merge(in: 'FR') # => {Wed, 8 May 2014 => 3, Thu, 9 May 2014 => …}
-playlist.views range.merge(by: :range) # => {total: 219}
-playlist.views range.merge(by: :range, in: {country: 'US'}) # => {total: 113}
-# NOTE: Not all methods can be limited by US state; check the docs for more details.
-playlist.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 12}
+playlist.views # => {total: 949}
 
+range = {since: 2.months.ago, until: 1.month.ago} # use a Date or String
+playlist.views range # => {total: 219}
+playlist.views range.merge(by: :day) # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 …}
+
+playlist.views in: 'FR' # => {total: 45}
+playlist.views in: {country: 'US'} # => {total: 113}
+playlist.views in: {state: 'TX'} # => {total: 11}
+# NOTE: Not all methods can be limited by US state; check the docs for details.
 {% endhighlight %}
 <p>
   For brevity, the options above are omitted in the examples below.
@@ -109,12 +111,12 @@ playlist.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 12}
   {% include dt.html title="Playlist’s Analytics" label="warning" auth="must authenticate as the playlist’s account or content owner" %}
   <dd>
 <div class="highlight"><pre>
-{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' result='{Wed, 8 May 2014 =&gt; 8, Thu, 9 May 2014 => 9, …}' %}
-{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' result='{Wed, 8 May 2014 =&gt; 456.0, …}' %}
-{% include doc.html link="Models/Playlist#playlist_starts" %}{% include example.html object='playlist' method='playlist_starts' result='{Wed, 8 May 2014 =&gt; 7, …}' %}
-{% include doc.html link="Models/Playlist#average_time_in_playlist" %}{% include example.html object='playlist' method='average_time_in_playlist' result='{Wed, 8 May 2014 =&gt; 32.0, …}' %}
-{% include doc.html link="Models/Playlist#views_per_playlist_start" %}{% include example.html object='playlist' method='views_per_playlist_start' result='{Wed, 8 May 2014 =&gt; 87, …}' %}
-{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' result='{Wed, 8 May 2014 =&gt; 12.0, …}' %}
+{% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' result='{total: 223}' %}
+{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' result='{total: 23.4}' %}
+{% include doc.html link="Models/Playlist#playlist_starts" %}{% include example.html object='playlist' method='playlist_starts' result='{total: 44}' %}
+{% include doc.html link="Models/Playlist#average_time_in_playlist" %}{% include example.html object='playlist' method='average_time_in_playlist' result='{total: 1.23}' %}
+{% include doc.html link="Models/Playlist#views_per_playlist_start" %}{% include example.html object='playlist' method='views_per_playlist_start' result='{total: 4.53}' %}
+{% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' result='{total: 12.0}' %}
 
 {% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 8, "RU" => 9, …}' %}
 {% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 456.0, …}' %}

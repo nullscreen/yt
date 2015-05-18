@@ -212,19 +212,22 @@ video.earnings since: 3.days.ago
 <a class="anchor" id="analytics"></a>
 
 <p>
-  For all methods below, you <strong>must</strong> provide the starting and ending date using the <code>:since</code> and <code>:until</code> options.<br />
-  The result will include one value per each day of the range you specified. <br />
-  Use <code>by: :range</code> if you want to get only the total value for the whole period.<br />
-  Use the <code>:in</code> option to limit the results to a specific location.
+  By default, analytics methods return the total value for the lifetime of a video (e.g., all the views of a video).<br />
+  To set specific starting and ending dates, use the <code>:since</code> and <code>:until</code> options.<br />
+  To obtain one value per each day of the range you specify (rather than the total), use the <code>by: :day</code> option.<br />
+  To limit the results to a specific location, use the <code>:in</code> option .
 </p>
 {% highlight ruby %}
-range = {since: 2.months.ago, until: 1.month.ago} # use Date or String
-video.views range # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 9, …}
-video.views range.merge(in: 'FR') # => {Wed, 8 May 2014 => 3, Thu, 9 May 2014 => …}
-video.views range.merge(by: :range) # => {total: 219}
-# NOTE: {by: :range} does not work with 'video.uniques'; check the docs for details.
-video.views range.merge(by: :range, in: {country: 'US'}) # => {total: 113}
-video.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 113}
+video.views # => {total: 949}
+
+range = {since: 2.months.ago, until: 1.month.ago} # use a Date or String
+video.views range # => {total: 219}
+video.views range.merge(by: :day) # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => …}
+# NOTE: 'video.uniques' only works with {by: :day} – check its docs for details.
+
+video.views in: 'FR' # => {total: 45}
+video.views in: {country: 'US'} # => {total: 113}
+video.views in: {state: 'TX'} # => {total: 11}
 # NOTE: Not all methods can be limited by US state; check the docs for details.
 {% endhighlight %}
 <p>
@@ -235,22 +238,22 @@ video.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 113}
   {% include dt.html title="Video’s Analytics" label="warning" auth="must authenticate as the video’s account or content owner" %}
   <dd>
 <div class="highlight"><pre>
-{% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' result='{Wed, 8 May 2014 =&gt; 12, Thu, 9 May 2014 => 9, …}' %}
-{% include doc.html link="Models/Video#uniques" %}{% include example.html object='video' method='uniques' result='{Wed, 8 May 2014 =&gt; 8, Thu, 9 May 2014 => 7, …}' %}
-{% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' result='{Wed, 8 May 2014 =&gt; 7, Thu, 9 May 2014 => 5, …}' %}
-{% include doc.html link="Models/Video#likes" %}{% include example.html object='video' method='likes' result='{Wed, 8 May 2014 =&gt; 32, Thu, 9 May 2014 => 8, …}' %}
-{% include doc.html link="Models/Video#dislikes" %}{% include example.html object='video' method='dislikes' result='{Wed, 8 May 2014 =&gt; 87, Thu, 9 May 2014 => 6, …}' %}
-{% include doc.html link="Models/Video#shares" %}{% include example.html object='video' method='shares' result='{Wed, 8 May 2014 =&gt; 44, Thu, 9 May 2014 => 3, …}' %}
-{% include doc.html link="Models/Video#subscribers_gained" %}{% include example.html object='video' method='subscribers_gained' result='{Wed, 8 May 2014 =&gt; 32, …}' %}
-{% include doc.html link="Models/Video#subscribers_lost" %}{% include example.html object='video' method='subscribers_lost' result='{Wed, 8 May 2014 =&gt; 1, …}' %}
-{% include doc.html link="Models/Video#favorites_added" %}{% include example.html object='video' method='favorites_added' result='{Wed, 8 May 2014 =&gt; 181, …}' %}
-{% include doc.html link="Models/Video#favorites_removed" %}{% include example.html object='video' method='favorites_removed' result='{Wed, 8 May 2014 =&gt; 0, …}' %}
-{% include doc.html link="Models/Video#average_view_duration" %}{% include example.html object='video' method='average_view_duration' result='{Wed, 8 May 2014 =&gt; 456, …}' %}
-{% include doc.html link="Models/Video#average_view_percentage" %}{% include example.html object='video' method='average_view_percentage' result='{Wed, 8 May 2014 =&gt; 38.85, …}' %}
-{% include doc.html link="Models/Video#annotation_clicks" %}{% include example.html object='video' method='annotation_clicks' result='{Wed, 8 May 2014 =&gt; 329, …}' %}
-{% include doc.html link="Models/Video#annotation_click_through_rate" %}{% include example.html object='video' method='annotation_click_through_rate' result='{Wed, 8 May 2014 =&gt; 0.3, …}' %}
-{% include doc.html link="Models/Video#annotation_close_rate" %}{% include example.html object='video' method='annotation_close_rate' result='{Wed, 8 May 2014 =&gt; 0.1, …}' %}
-{% include doc.html link="Models/Video#estimated_minutes_watched" %}{% include example.html object='video' method='estimated_minutes_watched' result='{Wed, 8 May 2014 =&gt; 124.0, …}' %}
+{% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' result='{total: 3453}' %}
+{% include doc.html link="Models/Video#uniques" %}{% include example.html object='video' method='uniques' result='{total: 395}' %}
+{% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' result='{total: 304}' %}
+{% include doc.html link="Models/Video#likes" %}{% include example.html object='video' method='likes' result='{total: 459}' %}
+{% include doc.html link="Models/Video#dislikes" %}{% include example.html object='video' method='dislikes' result='{total: 923}' %}
+{% include doc.html link="Models/Video#shares" %}{% include example.html object='video' method='shares' result='{total: 223}' %}
+{% include doc.html link="Models/Video#subscribers_gained" %}{% include example.html object='video' method='subscribers_gained' result='{total: 232}' %}
+{% include doc.html link="Models/Video#subscribers_lost" %}{% include example.html object='video' method='subscribers_lost' result='{total: 904}' %}
+{% include doc.html link="Models/Video#favorites_added" %}{% include example.html object='video' method='favorites_added' result='{total: 224}' %}
+{% include doc.html link="Models/Video#favorites_removed" %}{% include example.html object='video' method='favorites_removed' result='{total: 322}' %}
+{% include doc.html link="Models/Video#average_view_duration" %}{% include example.html object='video' method='average_view_duration' result='{total: 23.0}' %}
+{% include doc.html link="Models/Video#average_view_percentage" %}{% include example.html object='video' method='average_view_percentage' result='{total: 2.45}' %}
+{% include doc.html link="Models/Video#annotation_clicks" %}{% include example.html object='video' method='annotation_clicks' result='{total: 723}' %}
+{% include doc.html link="Models/Video#annotation_click_through_rate" %}{% include example.html object='video' method='annotation_click_through_rate' result='{total: 8.34}' %}
+{% include doc.html link="Models/Video#annotation_close_rate" %}{% include example.html object='video' method='annotation_close_rate' result='{total: 0.34}' %}
+{% include doc.html link="Models/Video#estimated_minutes_watched" %}{% include example.html object='video' method='estimated_minutes_watched' result='{total: 4.0}' %}
 
 {% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 12, "IT" => 9, …}' %}
 {% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 7, "IT" => 5, …}' %}

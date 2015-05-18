@@ -128,22 +128,23 @@ channel.earnings since: 3.days.ago
 <h4>List of <code>Yt::Channel</code> analytics methods</h4>
 <a class="anchor" id="analytics"></a>
 <p>
-  For all methods below, you <strong>must</strong> provide the starting and ending date using the <code>:since</code> and <code>:until</code> options.<br />
-  The result will include one value per each day of the range you specified. <br />
-  Use <code>by: :range</code> if you want to get only the total value for the whole period.<br />
-  Use the <code>:in</code> option to limit the results to a specific location.
+  By default, analytics methods return the total value for the lifetime of a channel (e.g., all the views of a channel).<br />
+  To set specific starting and ending dates, use the <code>:since</code> and <code>:until</code> options.<br />
+  To obtain one value per each day of the range you specify (rather than the total), use the <code>by: :day</code> option.<br />
+  To limit the results to a specific location, use the <code>:in</code> option .
 </p>
 {% highlight ruby %}
-range = {since: 2.months.ago, until: 1.month.ago} # use Date or String
-channel.views range # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 9, …}
-channel.views range.merge(in: 'FR') # => {Wed, 8 May 2014 => 3, Thu, 9 May 2014 => …}
-channel.views range.merge(by: :range) # => {total: 219}
-# NOTE: {by: :range} does not work with 'channel.uniques'; check the docs for details.
-channel.views range.merge(by: :range, in: {country: 'US'}) # => {total: 113}
-channel.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 113}
+channel.views # => {total: 949}
+
+range = {since: 2.months.ago, until: 1.month.ago} # use a Date or String
+channel.views range # => {total: 219}
+channel.views range.merge(by: :day) # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => …}
+# NOTE: 'channel.uniques' only works with {by: :day} – check its docs for details.
+
+channel.views in: 'FR' # => {total: 45}
+channel.views in: {country: 'US'} # => {total: 113}
+channel.views in: {state: 'TX'} # => {total: 11}
 # NOTE: Not all methods can be limited by US state; check the docs for details.
-
-
 {% endhighlight %}
 <p>
   For brevity, the options above are omitted in the examples below.
@@ -153,22 +154,22 @@ channel.views range.merge(by: :range, in: {state: 'TX'}) # => {total: 113}
   {% include dt.html title="Channel’s Analytics" label="warning" auth="must authenticate as the channel’s account or content owner" %}
   <dd>
 <div class="highlight"><pre>
-{% include doc.html link="Models/Channel#views" %}{% include example.html object='channel' method='views' result='{Wed, 8 May 2014 =&gt; 12, Thu, 9 May 2014 => 33, …}' %}
-{% include doc.html link="Models/Channel#uniques" %}{% include example.html object='channel' method='uniques' result='{Wed, 8 May 2014 =&gt; 9, Thu, 9 May 2014 => 16, …}' %}
-{% include doc.html link="Models/Channel#comments" %}{% include example.html object='channel' method='comments' result='{Wed, 8 May 2014 =&gt; 7, Wed, 8 May 2014 =&gt; …}' %}
-{% include doc.html link="Models/Channel#likes" %}{% include example.html object='channel' method='likes' result='{Wed, 8 May 2014 =&gt; 32, Thu, 9 May 2014 => 3, …}' %}
-{% include doc.html link="Models/Channel#dislikes" %}{% include example.html object='channel' method='dislikes' result='{Wed, 8 May 2014 =&gt; 87, Wed, 8 May 2014 =&gt;…}' %}
-{% include doc.html link="Models/Channel#shares" %}{% include example.html object='channel' method='shares' result='{Wed, 8 May 2014 =&gt; 44, Thu, 9 May 2014 => 7, …}' %}
-{% include doc.html link="Models/Channel#subscribers_gained" %}{% include example.html object='channel' method='subscribers_gained' result='{Wed, 8 May 2014 =&gt; 32, …}' %}
-{% include doc.html link="Models/Channel#subscribers_lost" %}{% include example.html object='channel' method='subscribers_lost' result='{Wed, 8 May 2014 =&gt; 1, …}' %}
-{% include doc.html link="Models/Channel#favorites_added" %}{% include example.html object='channel' method='favorites_added' result='{Wed, 8 May 2014 =&gt; 181, …}' %}
-{% include doc.html link="Models/Channel#favorites_removed" %}{% include example.html object='channel' method='favorites_removed' result='{Wed, 8 May 2014 =&gt; 0, …}' %}
-{% include doc.html link="Models/Channel#average_view_duration" %}{% include example.html object='channel' method='average_view_duration' result='{Wed, 8 May 2014 =&gt; 456, …}' %}
-{% include doc.html link="Models/Channel#average_view_percentage" %}{% include example.html object='channel' method='average_view_percentage' result='{Wed, 8 May 2014 =&gt; 38.85, …}' %}
-{% include doc.html link="Models/Channel#annotation_clicks" %}{% include example.html object='channel' method='annotation_clicks' result='{Wed, 8 May 2014 =&gt; 329, …}' %}
-{% include doc.html link="Models/Channel#annotation_click_through_rate" %}{% include example.html object='channel' method='annotation_click_through_rate' result='{Wed, 8 May 2014 =&gt; …}' %}
-{% include doc.html link="Models/Channel#annotation_close_rate" %}{% include example.html object='channel' method='annotation_close_rate' result='{Wed, 8 May 2014 =&gt; 0.1, …}' %}
-{% include doc.html link="Models/Channel#estimated_minutes_watched" %}{% include example.html object='channel' method='estimated_minutes_watched' result='{Wed, 8 May 2014 =&gt; 12.0, …}' %}
+{% include doc.html link="Models/Channel#views" %}{% include example.html object='channel' method='views' result='{total: 345}' %}
+{% include doc.html link="Models/Channel#uniques" %}{% include example.html object='channel' method='uniques' result='{total: 115}' %}
+{% include doc.html link="Models/Channel#comments" %}{% include example.html object='channel' method='comments' result='{total: 900}' %}
+{% include doc.html link="Models/Channel#likes" %}{% include example.html object='channel' method='likes' result='{total: 934}' %}
+{% include doc.html link="Models/Channel#dislikes" %}{% include example.html object='channel' method='dislikes' result='{total: 445}' %}
+{% include doc.html link="Models/Channel#shares" %}{% include example.html object='channel' method='shares' result='{total: 913}' %}
+{% include doc.html link="Models/Channel#subscribers_gained" %}{% include example.html object='channel' method='subscribers_gained' result='{total: 334}' %}
+{% include doc.html link="Models/Channel#subscribers_lost" %}{% include example.html object='channel' method='subscribers_lost' result='{total: 345}' %}
+{% include doc.html link="Models/Channel#favorites_added" %}{% include example.html object='channel' method='favorites_added' result='{total: 334}' %}
+{% include doc.html link="Models/Channel#favorites_removed" %}{% include example.html object='channel' method='favorites_removed' result='{total: 987}' %}
+{% include doc.html link="Models/Channel#average_view_duration" %}{% include example.html object='channel' method='average_view_duration' result='{total: 12.0}' %}
+{% include doc.html link="Models/Channel#average_view_percentage" %}{% include example.html object='channel' method='average_view_percentage' result='{total: 34.3}' %}
+{% include doc.html link="Models/Channel#annotation_clicks" %}{% include example.html object='channel' method='annotation_clicks' result='{total: 91}' %}
+{% include doc.html link="Models/Channel#annotation_click_through_rate" %}{% include example.html object='channel' method='annotation_click_through_rate' result='{total: 2.98}' %}
+{% include doc.html link="Models/Channel#annotation_close_rate" %}{% include example.html object='channel' method='annotation_close_rate' result='{total: 3.34}' %}
+{% include doc.html link="Models/Channel#estimated_minutes_watched" %}{% include example.html object='channel' method='estimated_minutes_watched' result='{total: 12.0}' %}
 
 {% include doc.html link="Models/Channel#views" %}{% include example.html object='channel' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 12, "MX" => 33, …}' %}
 {% include doc.html link="Models/Channel#comments" %}{% include example.html object='channel' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 7, "FR" =&gt; 12, …}' %}
