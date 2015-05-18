@@ -187,20 +187,20 @@ module Yt
 
       def define_metric_on_method(metric)
         define_method "#{metric}_on" do |date|
-          send(metric, from: date, to: date).values.first
+          send(metric, from: date, to: date, by: :day).values.first
         end
       end
 
       def define_metric_method(metric)
         define_method metric do |options = {}|
-          from = options[:since] || options[:from] || (metric == :viewer_percentage ? 3.months.ago : 5.days.ago)
-          to = options[:until] || options[:to] || (metric == :viewer_percentage ? Date.today : 1.day.ago)
+          from = options[:since] || options[:from] || (options[:by] == :day ? 5.days.ago : '2005-02-01')
+          to = options[:until] || options[:to] || Date.today
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location
           state = location[:state] if location.is_a?(Hash)
 
           range = Range.new *[from, to].map(&:to_date)
-          dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :day)
+          dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :range)
 
           ivar = instance_variable_get "@#{metric}_#{dimension}_#{country}_#{state}"
           instance_variable_set "@#{metric}_#{dimension}_#{country}_#{state}", ivar || {}

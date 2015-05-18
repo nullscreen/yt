@@ -6,6 +6,32 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.23.0 - 2015-05-18
+
+**How to upgrade**
+
+If your code expects reports to return results **by day** then you **must** add
+the `by: :day` option to your report method. The new default is `by: :range`.
+For instance `channel.views` would return
+
+  {Wed, 8 May 2014 => 12.4, Thu, 9 May 2014 => 3.2, Fri, 10 May 2014 => …}
+
+and now returns the same as calling `channel.views by: :range`:
+
+  {total: 3450}
+
+Additionally, if you expect reports **by day** then you **must** specify the
+`:since` option to your report method. Previously, this value was set to
+`5.days.ago`, but now is required. `:until` still defaults to `Date.today`.
+
+Finally, if you expect reports for the entire range, notice that the default
+ `:since` option is now set to the date when YouTube opened. Therefore calling a
+method like `channel.views` now returns the **lifetime** views of a channel.
+
+* [ENHANCEMENT] Change default from `by: :day` to `by: :range`.
+* [ENHANCEMENT] Require `:since` options for any report by day.
+* [ENHANCEMENT] Change default range for reports by range to lifetime.
+
 ## 0.22.2 - 2015-05-15
 
 * [FEATURE] New `by: :search_term` option for reports.
