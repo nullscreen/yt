@@ -10,6 +10,33 @@ describe Yt::Playlist, :partner do
     context 'managed by the authenticated Content Owner' do
       let(:id) { ENV['YT_TEST_PARTNER_PLAYLIST_ID'] }
 
+      describe 'multiple reports can be retrieved at once' do
+        metrics = {views: Integer, estimated_minutes_watched: Float,
+         average_view_duration: Float, playlist_starts: Integer,
+         average_time_in_playlist: Float, views_per_playlist_start: Float}
+
+        specify 'by day' do
+          range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
+          result = playlist.reports range.merge(only: metrics, by: :day)
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Date)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+
+        specify 'by month' do
+          result = playlist.reports only: metrics, by: :month, since: 1.month.ago
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map &:first).to all(be_a Date)
+            expect(result[metric].keys.map &:first).to eq result[metric].keys.map(&:first).map(&:beginning_of_month)
+            expect(result[metric].keys.map &:last).to all(be_a Date)
+            expect(result[metric].keys.map &:last).to eq result[metric].keys.map(&:last).map(&:end_of_month)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+      end
+
       {views: Integer, estimated_minutes_watched: Float, average_view_duration: Float,
        playlist_starts: Integer, average_time_in_playlist: Float,
        views_per_playlist_start: Float}.each do |metric, type|

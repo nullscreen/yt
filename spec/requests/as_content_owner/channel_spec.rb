@@ -10,6 +10,39 @@ describe Yt::Channel, :partner do
     context 'managed by the authenticated Content Owner' do
       let(:id) { ENV['YT_TEST_PARTNER_CHANNEL_ID'] }
 
+      describe 'multiple reports can be retrieved at once' do
+        metrics = {views: Integer, uniques: Integer,
+          estimated_minutes_watched: Float, comments: Integer, likes: Integer,
+          dislikes: Integer, shares: Integer, subscribers_gained: Integer,
+          subscribers_lost: Integer, favorites_added: Integer,
+          favorites_removed: Integer, average_view_duration: Float,
+          average_view_percentage: Float, annotation_clicks: Integer,
+          annotation_click_through_rate: Float,
+          annotation_close_rate: Float, earnings: Float, impressions: Integer,
+          monetized_playbacks: Integer}
+
+        specify 'by day' do
+          range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
+          result = channel.reports range.merge(only: metrics, by: :day)
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Date)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+
+        specify 'by month' do
+          result = channel.reports only: metrics, by: :month, since: 1.month.ago
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map &:first).to all(be_a Date)
+            expect(result[metric].keys.map &:first).to eq result[metric].keys.map(&:first).map(&:beginning_of_month)
+            expect(result[metric].keys.map &:last).to all(be_a Date)
+            expect(result[metric].keys.map &:last).to eq result[metric].keys.map(&:last).map(&:end_of_month)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+      end
+
       [:views, :uniques, :comments, :likes, :dislikes, :shares,
        :subscribers_gained, :subscribers_lost, :favorites_added,
        :favorites_removed, :estimated_minutes_watched, :average_view_duration,
@@ -1411,7 +1444,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'annotation clicks can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :country' do
           clicks = channel.annotation_clicks range.merge by: :country
@@ -1422,7 +1455,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'annotation clicks can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :state' do
           clicks = channel.annotation_clicks range.merge by: :state
@@ -1521,7 +1554,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'annotation click-through rate can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :state' do
           rate = channel.annotation_click_through_rate range.merge by: :state

@@ -194,6 +194,39 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'multiple reports can be retrieved at once' do
+        metrics = {views: Integer, uniques: Integer,
+          estimated_minutes_watched: Float, comments: Integer, likes: Integer,
+          dislikes: Integer, shares: Integer, subscribers_gained: Integer,
+          subscribers_lost: Integer, favorites_added: Integer,
+          favorites_removed: Integer, average_view_duration: Float,
+          average_view_percentage: Float, annotation_clicks: Integer,
+          annotation_click_through_rate: Float,
+          annotation_close_rate: Float, earnings: Float, impressions: Integer,
+          monetized_playbacks: Integer}
+
+        specify 'by day' do
+          range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
+          result = video.reports range.merge(only: metrics, by: :day)
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Date)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+
+        specify 'by month' do
+          result = video.reports only: metrics, by: :month, since: 1.month.ago
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map &:first).to all(be_a Date)
+            expect(result[metric].keys.map &:first).to eq result[metric].keys.map(&:first).map(&:beginning_of_month)
+            expect(result[metric].keys.map &:last).to all(be_a Date)
+            expect(result[metric].keys.map &:last).to eq result[metric].keys.map(&:last).map(&:end_of_month)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+      end
+
       describe 'earnings can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
@@ -289,7 +322,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'views can be grouped by related video' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :related_video' do
           views = video.views range.merge by: :related_video
@@ -298,7 +331,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'views can be grouped by search term' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :search_term' do
           views = video.views range.merge by: :search_term
@@ -307,7 +340,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'views can be grouped by device type' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :device_type' do
           views = video.views range.merge by: :device_type
@@ -317,7 +350,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'views can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :country' do
           views = video.views range.merge by: :country
@@ -328,7 +361,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'views can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :state' do
           views = video.views range.merge by: :state

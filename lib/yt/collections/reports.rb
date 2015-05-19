@@ -4,22 +4,22 @@ module Yt
   module Collections
     # @private
     class Reports < Base
-      DIMENSIONS = Hash.new({name: 'day', parse: ->(day, *values) {[Date.iso8601(day), values.last]} }).tap do |hash|
-        hash[:month] = {name: 'month', parse: ->(month, *values) { [Range.new(Date.strptime(month, '%Y-%m').beginning_of_month, Date.strptime(month, '%Y-%m').end_of_month), values.last]} }
-        hash[:range] = {parse: ->(*values) { [:total, values.last]} }
-        hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(source, value) {[TRAFFIC_SOURCES.key(source), value]} }
-        hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(location, value) {[PLAYBACK_LOCATIONS.key(location), value]} }
-        hash[:embedded_player_location] = {name: 'insightPlaybackLocationDetail', parse: ->(url, value) {[url, value]} }
-        hash[:related_video] = {name: 'insightTrafficSourceDetail', parse: ->(video_id, value) { [Yt::Video.new(id: video_id, auth: @auth), value] } }
-        hash[:search_term] = {name: 'insightTrafficSourceDetail', parse: ->(search_term, value) { [search_term, value] } }
-        hash[:video] = {name: 'video', parse: ->(video_id, value) { [Yt::Video.new(id: video_id, auth: @auth), value] } }
-        hash[:playlist] = {name: 'playlist', parse: ->(playlist_id, value) { [Yt::Playlist.new(id: playlist_id, auth: @auth), value] } }
-        hash[:device_type] = {name: 'deviceType', parse: ->(type, value) { [type.downcase.to_sym, value] } }
-        hash[:country] = {name: 'country', parse: ->(country_code, *values) { [country_code, values.last]  } }
-        hash[:state] = {name: 'province', parse: ->(country_and_state_code, *values) { [country_and_state_code[3..-1], values.last]  } }
+      DIMENSIONS = Hash.new({name: 'day', parse: ->(day, *values) { @metrics.keys.zip(values.map{|v| {Date.iso8601(day) => v}}).to_h} }).tap do |hash|
+        hash[:month] = {name: 'month', parse: ->(month, *values) { @metrics.keys.zip(values.map{|v| {Range.new(Date.strptime(month, '%Y-%m').beginning_of_month, Date.strptime(month, '%Y-%m').end_of_month) => v} }).to_h} }
+        hash[:range] = {parse: ->(*values) { @metrics.keys.zip(values.map{|v| {total: v}}).to_h } }
+        hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(source, *values) { @metrics.keys.zip(values.map{|v| {TRAFFIC_SOURCES.key(source) => v}}).to_h} }
+        hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(location, *values) { @metrics.keys.zip(values.map{|v| {PLAYBACK_LOCATIONS.key(location) => v}}).to_h} }
+        hash[:embedded_player_location] = {name: 'insightPlaybackLocationDetail', parse: ->(url, *values) {@metrics.keys.zip(values.map{|v| {url => v}}).to_h} }
+        hash[:related_video] = {name: 'insightTrafficSourceDetail', parse: ->(video_id, *values) { @metrics.keys.zip(values.map{|v| {Yt::Video.new(id: video_id, auth: @auth) => v}}).to_h} }
+        hash[:search_term] = {name: 'insightTrafficSourceDetail', parse: ->(search_term, *values) {@metrics.keys.zip(values.map{|v| {search_term => v}}).to_h} }
+        hash[:video] = {name: 'video', parse: ->(video_id, *values) { @metrics.keys.zip(values.map{|v| {Yt::Video.new(id: video_id, auth: @auth) => v}}).to_h} }
+        hash[:playlist] = {name: 'playlist', parse: ->(playlist_id, *values) { @metrics.keys.zip(values.map{|v| {Yt::Playlist.new(id: playlist_id, auth: @auth) => v}}).to_h} }
+        hash[:device_type] = {name: 'deviceType', parse: ->(type, *values) {@metrics.keys.zip(values.map{|v| {type.downcase.to_sym => v}}).to_h} }
+        hash[:country] = {name: 'country', parse: ->(country_code, *values) { @metrics.keys.zip(values.map{|v| {country_code => v}}).to_h} }
+        hash[:state] = {name: 'province', parse: ->(country_and_state_code, *values) { @metrics.keys.zip(values.map{|v| {country_and_state_code[3..-1] => v}}).to_h} }
         hash[:gender_age_group] = {name: 'gender,ageGroup', parse: ->(gender, *values) { [gender.downcase.to_sym, *values] }}
-        hash[:gender] = {name: 'gender', parse: ->(gender, value) { [gender.downcase.to_sym, value] } }
-        hash[:age_group] = {name: 'ageGroup', parse: ->(age_group, value) { [age_group[3..-1], value] } }
+        hash[:gender] = {name: 'gender', parse: ->(gender, *values) {@metrics.keys.zip(values.map{|v| {gender.downcase.to_sym => v}}).to_h} }
+        hash[:age_group] = {name: 'ageGroup', parse: ->(age_group, *values) {@metrics.keys.zip(values.map{|v| {age_group[3..-1] => v}}).to_h} }
       end
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Traffic_Source_Dimensions
@@ -50,9 +50,9 @@ module Yt
         mobile: 'MOBILE' # only present for data < September 10, 2013
       }
 
-      attr_writer :metric
+      attr_writer :metrics
 
-      def within(days_range, country, state, dimension, type, try_again = true)
+      def within(days_range, country, state, dimension, try_again = true)
         @days_range = days_range
         @dimension = dimension
         @country = country
@@ -62,8 +62,18 @@ module Yt
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
           end
         else
-          hash = Hash[*flat_map{|value| [value.first, type_cast(value.last, type)]}]
-          dimension == :month ? hash.sort_by{|range, v| range.first}.to_h : hash
+          hash = flat_map do |hashes|
+            hashes.map do |metric, values|
+              [metric, values.transform_values{|v| type_cast(v, @metrics[metric])}]
+            end.to_h
+          end
+          hash = hash.inject(@metrics.transform_values{|v| {}}) do |result, hash|
+            result.deep_merge hash
+          end
+          if dimension == :month
+            hash = hash.transform_values{|h| h.sort_by{|range, v| range.first}.to_h}
+          end
+          (@metrics.one? || @metrics.keys == [:earnings, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
         end
       # NOTE: Once in a while, YouTube responds with 400 Error and the message
       # "Invalid query. Query did not conform to the expectations."; in this
@@ -72,7 +82,7 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        try_again && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, type, false) : raise
+        try_again && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, false) : raise
       end
 
     private
@@ -101,12 +111,12 @@ module Yt
         @parent.reports_params.tap do |params|
           params['start-date'] = @days_range.begin
           params['end-date'] = @days_range.end
-          params['metrics'] = @metric.to_s.camelize(:lower)
+          params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
           params['max-results'] = 10 if @dimension == :video
           params['max-results'] = 200 if @dimension == :playlist
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term]
-          params['sort'] = "-#{@metric.to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term]
+          params['sort'] = "-#{@metrics.keys.join(',').to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term]
           params[:filters] = ((params[:filters] || '').split(';') + ["country==US"]).compact.uniq.join(';') if @dimension == :state && !@state
           params[:filters] = ((params[:filters] || '').split(';') + ["country==#{@country}"]).compact.uniq.join(';') if @country && !@state
           params[:filters] = ((params[:filters] || '').split(';') + ["province==US-#{@state}"]).compact.uniq.join(';') if @state

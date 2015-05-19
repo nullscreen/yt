@@ -3,6 +3,23 @@ module Yt
     # @private
     # Provides methods to access the analytics reports of a resource.
     module HasReports
+      # @!macro [new] reports
+      #   Returns the reports for the given metrics grouped by the given dimension.
+      #   @!method reports(options = {})
+      #   @param [Hash] options the metrics, time-range and dimensions for the reports.
+      #   @option options [Array<Symbol>] :only The metrics to generate reports
+      #     for.
+      #   @option options [Symbol] :by (:day) The dimension to collect metrics
+      #     by. Accepted values are: +:day+, +:month+.
+      #   @option options [#to_date] :since The first day of the time-range.
+      #     Also aliased as +:from+.
+      #   @option options [#to_date] :until The last day of the time-range.
+      #     Also aliased as +:to+.
+      #   @return [Hash<Symbol, Hash>] the reports for each metric specified.
+      #   @example Get the views and estimated minutes watched by day for last week:
+      #     resource.reports only: [:views, :estimated_minutes_watched] since: 1.week.ago, by: :day
+      #     # => {views: {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 34, …}, estimated_minutes_watched: {Wed, 8 May 2014 => 9.0, Thu, 9 May 2014 => 6.0, …}}
+
       # @!macro [new] report
       #   Returns the $1 grouped by the given dimension.
       #   @!method $1(options = {})
@@ -184,8 +201,9 @@ module Yt
 
         define_metric_on_method metric
         define_metric_method metric
-        define_range_metric_method metric, type
-        define_all_metric_method metric
+        define_reports_method metric, type
+        define_range_metric_method metric
+        define_all_metric_method metric, type
       end
 
     private
@@ -196,6 +214,29 @@ module Yt
         end
       end
 
+      def define_reports_method(metric, type)
+        (@metrics ||= {})[metric] = type
+        define_method :reports do |options = {}|
+          from = options[:since] || options[:from] || (options[:by].in?([:day, :month]) ? 5.days.ago : '2005-02-01')
+          to = options[:until] || options[:to] || Date.today
+          location = options[:in]
+          country = location.is_a?(Hash) ? location[:country] : location
+          state = location[:state] if location.is_a?(Hash)
+          dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :range)
+          if dimension == :month
+            from = from.to_date.beginning_of_month
+            to = to.to_date.beginning_of_month
+          end
+          date_range = Range.new *[from, to].map(&:to_date)
+
+          only = options.fetch :only, []
+          reports = Collections::Reports.of(self).tap do |reports|
+            reports.metrics =  self.class.instance_variable_get(:@metrics).select{|k, v| k.in? only}
+          end
+          reports.within date_range, country, state, dimension
+        end unless defined?(reports)
+      end
+
       def define_metric_method(metric)
         define_method metric do |options = {}|
           from = options[:since] || options[:from] || (options[:by].in?([:day, :month]) ? 5.days.ago : '2005-02-01')
@@ -203,19 +244,15 @@ module Yt
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location
           state = location[:state] if location.is_a?(Hash)
-
           dimension = options[:by] || (metric == :viewer_percentage ? :gender_age_group : :range)
-
           if dimension == :month
             from = from.to_date.beginning_of_month
             to = to.to_date.beginning_of_month
           end
-
           range = Range.new *[from, to].map(&:to_date)
 
           ivar = instance_variable_get "@#{metric}_#{dimension}_#{country}_#{state}"
           instance_variable_set "@#{metric}_#{dimension}_#{country}_#{state}", ivar || {}
-
           case dimension
           when :day
             Hash[*range.flat_map do |date|
@@ -227,23 +264,23 @@ module Yt
         end
       end
 
-      def define_range_metric_method(metric, type)
+      def define_range_metric_method(metric)
         define_method "range_#{metric}" do |date_range, dimension, country, state|
           ivar = instance_variable_get "@range_#{metric}_#{dimension}_#{country}_#{state}"
           instance_variable_set "@range_#{metric}_#{dimension}_#{country}_#{state}", ivar || {}
-          instance_variable_get("@range_#{metric}_#{dimension}_#{country}_#{state}")[date_range] ||= send("all_#{metric}").within date_range, country, state, dimension, type
+          instance_variable_get("@range_#{metric}_#{dimension}_#{country}_#{state}")[date_range] ||= send("all_#{metric}").within date_range, country, state, dimension
         end
         private "range_#{metric}"
       end
 
-      def define_all_metric_method(metric)
+      def define_all_metric_method(metric, type)
         define_method "all_#{metric}" do
           # @note Asking for the "earnings" metric of a day in which a channel
           # made 0 USD returns the wrong "nil". But adding to the request the
           # "estimatedMinutesWatched" metric returns the correct value 0.
-          query = metric
-          query = "estimatedMinutesWatched,#{metric}" if metric == :earnings
-          Collections::Reports.of(self).tap{|reports| reports.metric = query}
+          metrics = {metric => type}
+          metrics[:estimated_minutes_watched] = Integer if metric == :earnings
+          Collections::Reports.of(self).tap{|reports| reports.metrics = metrics}
         end
         private "all_#{metric}"
       end

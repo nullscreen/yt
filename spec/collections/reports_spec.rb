@@ -3,13 +3,13 @@ require 'yt/collections/reports'
 require 'yt/models/content_owner'
 
 describe Yt::Collections::Reports do
-  subject(:reports) { Yt::Collections::Reports.new parent: content_owner }
+  subject(:reports) { Yt::Collections::Reports.new(parent: content_owner).tap{|reports| reports.metrics = {views: Integer}} }
   let(:content_owner) { Yt::ContentOwner.new owner_name: 'any-name' }
   let(:error){ {reason: reason, message: message} }
   let(:msg) { {response_body: {error: {errors: [error]}}}.to_json }
 
   describe '#within' do
-    let(:result) { reports.within Range.new(5.days.ago, 4.days.ago), nil, nil, :day, Float }
+    let(:result) { reports.within Range.new(5.days.ago, 4.days.ago), nil, nil, :day }
     context 'given the request raises error 400 with "Invalid Query" message' do
       let(:reason) { 'badRequest' }
       let(:message) { 'Invalid query. Query did not conform to the expectations' }
@@ -22,7 +22,7 @@ describe Yt::Collections::Reports do
       end
 
       context 'but returns a success code 2XX the second time' do
-        before { try_again.and_return [[1,2]] }
+        before { try_again.and_return [views: {total: 20}] }
         it { expect{result}.not_to fail }
       end
     end

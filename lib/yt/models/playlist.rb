@@ -151,6 +151,8 @@ module Yt
 
     ### ANALYTICS ###
 
+      # @macro reports
+
       # @macro report_by_playlist_dimensions
       has_report :views, Integer
 

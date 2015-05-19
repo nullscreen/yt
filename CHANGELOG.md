@@ -9,6 +9,7 @@ For more information about changelogs, check
 ## 0.23.1 - unreleased
 
 * [FEATURE] New `by: :month` option for reports.
+* [FEATURE] New `.reports` method to fetch multiple metrics at once.
 
 ## 0.23.0 - 2015-05-18
 

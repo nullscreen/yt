@@ -372,6 +372,8 @@ module Yt
 
     ### ANALYTICS ###
 
+      # @macro reports
+
       # @macro report_by_video_dimensions
       has_report :views, Integer
 
