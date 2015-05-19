@@ -103,6 +103,8 @@ module Yt
 
     ### ANALYTICS ###
 
+      # @macro reports
+
       # @macro report_by_channel_dimensions
       has_report :views, Integer
 

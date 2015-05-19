@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.23.1 - 2015-05-19
+
+* [FEATURE] New `by: :month` option for reports.
+* [FEATURE] New `.reports` method to fetch multiple metrics at once.
+
 ## 0.23.0 - 2015-05-18
 
 **How to upgrade**

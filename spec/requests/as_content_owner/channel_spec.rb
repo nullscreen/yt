@@ -10,6 +10,39 @@ describe Yt::Channel, :partner do
     context 'managed by the authenticated Content Owner' do
       let(:id) { ENV['YT_TEST_PARTNER_CHANNEL_ID'] }
 
+      describe 'multiple reports can be retrieved at once' do
+        metrics = {views: Integer, uniques: Integer,
+          estimated_minutes_watched: Float, comments: Integer, likes: Integer,
+          dislikes: Integer, shares: Integer, subscribers_gained: Integer,
+          subscribers_lost: Integer, favorites_added: Integer,
+          favorites_removed: Integer, average_view_duration: Float,
+          average_view_percentage: Float, annotation_clicks: Integer,
+          annotation_click_through_rate: Float,
+          annotation_close_rate: Float, earnings: Float, impressions: Integer,
+          monetized_playbacks: Integer}
+
+        specify 'by day' do
+          range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
+          result = channel.reports range.merge(only: metrics, by: :day)
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Date)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+
+        specify 'by month' do
+          result = channel.reports only: metrics, by: :month, since: 1.month.ago
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map &:first).to all(be_a Date)
+            expect(result[metric].keys.map &:first).to eq result[metric].keys.map(&:first).map(&:beginning_of_month)
+            expect(result[metric].keys.map &:last).to all(be_a Date)
+            expect(result[metric].keys.map &:last).to eq result[metric].keys.map(&:last).map(&:end_of_month)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+      end
+
       [:views, :uniques, :comments, :likes, :dislikes, :shares,
        :subscribers_gained, :subscribers_lost, :favorites_added,
        :favorites_removed, :estimated_minutes_watched, :average_view_duration,
@@ -24,14 +57,32 @@ describe Yt::Channel, :partner do
 
           context 'with a given start and end (:since/:until option)' do
             let(:options) { {by: :day, since: date_in, until: date_out} }
-            it { expect(result.keys.min).to eq date_in.to_date }
-            it { expect(result.keys.max).to eq date_out.to_date }
+            specify do
+              expect(result.keys.min).to eq date_in.to_date
+              expect(result.keys.max).to eq date_out.to_date
+            end
           end
 
           context 'with a given start and end (:from/:to option)' do
             let(:options) { {by: :day, from: date_in, to: date_out} }
-            it { expect(result.keys.min).to eq date_in.to_date }
-            it { expect(result.keys.max).to eq date_out.to_date }
+            specify do
+              expect(result.keys.min).to eq date_in.to_date
+              expect(result.keys.max).to eq date_out.to_date
+            end
+          end
+        end
+
+        describe "#{metric} can be grouped by month" do
+          let(:metric) { metric }
+
+          let(:result) { channel.public_send metric, by: :month, since: 3.months.ago }
+          specify do
+            expect(result.keys).to eq(result.keys.sort_by{|range| range.first})
+            expect(result.keys).to all(be_a Range)
+            expect(result.keys.map &:first).to all(be_a Date)
+            expect(result.keys.map &:first).to eq result.keys.map(&:first).map(&:beginning_of_month)
+            expect(result.keys.map &:last).to all(be_a Date)
+            expect(result.keys.map &:last).to eq result.keys.map(&:last).map(&:end_of_month)
           end
         end
       end
@@ -59,29 +110,24 @@ describe Yt::Channel, :partner do
             it { expect(result).to be_nil }
           end
         end
-      end
 
-      {views: Integer, comments: Integer, likes: Integer, dislikes: Integer,
-       shares: Integer, subscribers_gained: Integer, subscribers_lost: Integer,
-       favorites_added: Integer, favorites_removed: Integer,
-       estimated_minutes_watched: Float, average_view_duration: Float,
-       average_view_percentage: Float, impressions: Integer,
-       monetized_playbacks: Integer, annotation_clicks: Integer,
-       annotation_click_through_rate: Float, annotation_close_rate: Float,
-       earnings: Float}.each do |metric, type|
         describe "#{metric} can be grouped by range" do
           let(:metric) { metric }
 
           context 'without a :by option (default)' do
             let(:result) { channel.public_send metric }
-            it { expect(result.size).to be 1 }
-            it { expect(result[:total]).to be_a type }
+            specify do
+              expect(result.size).to be 1
+              expect(result[:total]).to be_a type
+            end
           end
 
           context 'with the :by option set to :range' do
             let(:result) { channel.public_send metric, by: :range }
-            it { expect(result.size).to be 1 }
-            it { expect(result[:total]).to be_a type }
+            specify do
+              expect(result.size).to be 1
+              expect(result[:total]).to be_a type
+            end
           end
         end
       end
@@ -1398,7 +1444,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'annotation clicks can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :country' do
           clicks = channel.annotation_clicks range.merge by: :country
@@ -1409,7 +1455,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'annotation clicks can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :state' do
           clicks = channel.annotation_clicks range.merge by: :state
@@ -1508,7 +1554,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'annotation click-through rate can be grouped by state' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :state' do
           rate = channel.annotation_click_through_rate range.merge by: :state

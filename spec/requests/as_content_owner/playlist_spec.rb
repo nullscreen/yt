@@ -10,8 +10,36 @@ describe Yt::Playlist, :partner do
     context 'managed by the authenticated Content Owner' do
       let(:id) { ENV['YT_TEST_PARTNER_PLAYLIST_ID'] }
 
-      [:views, :estimated_minutes_watched, :average_view_duration,
-       :playlist_starts, :average_time_in_playlist, :views_per_playlist_start].each do |metric|
+      describe 'multiple reports can be retrieved at once' do
+        metrics = {views: Integer, estimated_minutes_watched: Float,
+         average_view_duration: Float, playlist_starts: Integer,
+         average_time_in_playlist: Float, views_per_playlist_start: Float}
+
+        specify 'by day' do
+          range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
+          result = playlist.reports range.merge(only: metrics, by: :day)
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Date)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+
+        specify 'by month' do
+          result = playlist.reports only: metrics, by: :month, since: 1.month.ago
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map &:first).to all(be_a Date)
+            expect(result[metric].keys.map &:first).to eq result[metric].keys.map(&:first).map(&:beginning_of_month)
+            expect(result[metric].keys.map &:last).to all(be_a Date)
+            expect(result[metric].keys.map &:last).to eq result[metric].keys.map(&:last).map(&:end_of_month)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+      end
+
+      {views: Integer, estimated_minutes_watched: Float, average_view_duration: Float,
+       playlist_starts: Integer, average_time_in_playlist: Float,
+       views_per_playlist_start: Float}.each do |metric, type|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
           let(:date_out) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -20,21 +48,33 @@ describe Yt::Playlist, :partner do
 
           context 'with a given start and end (:since/:until option)' do
             let(:options) { {by: :day, since: date_in, until: date_out} }
-            it { expect(result.keys.min).to eq date_in.to_date }
-            it { expect(result.keys.max).to eq date_out.to_date }
+            specify do
+              expect(result.keys.min).to eq date_in.to_date
+              expect(result.keys.max).to eq date_out.to_date
+            end
           end
 
           context 'with a given start and end (:from/:to option)' do
             let(:options) { {by: :day, from: date_in, to: date_out} }
-            it { expect(result.keys.min).to eq date_in.to_date }
-            it { expect(result.keys.max).to eq date_out.to_date }
+            specify do
+              expect(result.keys.min).to eq date_in.to_date
+              expect(result.keys.max).to eq date_out.to_date
+            end
           end
         end
-      end
 
-      {views: Integer, estimated_minutes_watched: Float, average_view_duration: Float,
-       playlist_starts: Integer, average_time_in_playlist: Float,
-       views_per_playlist_start: Float}.each do |metric, type|
+        describe "#{metric} can be grouped by month" do
+          let(:metric) { metric }
+          let(:result) { playlist.public_send metric, by: :month, since: 1.month.ago }
+          specify do
+            expect(result.keys).to all(be_a Range)
+            expect(result.keys.map &:first).to all(be_a Date)
+            expect(result.keys.map &:first).to eq result.keys.map(&:first).map(&:beginning_of_month)
+            expect(result.keys.map &:last).to all(be_a Date)
+            expect(result.keys.map &:last).to eq result.keys.map(&:last).map(&:end_of_month)
+          end
+        end
+
         describe "#{metric} can be retrieved for a specific day" do
           let(:metric) { metric }
           let(:result) { playlist.public_send "#{metric}_on", date }
@@ -55,14 +95,18 @@ describe Yt::Playlist, :partner do
 
           context 'without a :by option (default)' do
             let(:result) { playlist.public_send metric }
-            it { expect(result.size).to be 1 }
-            it { expect(result[:total]).to be_a type }
+            specify do
+              expect(result.size).to be 1
+              expect(result[:total]).to be_a type
+            end
           end
 
           context 'with the :by option set to :range' do
             let(:result) { playlist.public_send metric, by: :range }
-            it { expect(result.size).to be 1 }
-            it { expect(result[:total]).to be_a type }
+            specify do
+              expect(result.size).to be 1
+              expect(result[:total]).to be_a type
+            end
           end
         end
 
