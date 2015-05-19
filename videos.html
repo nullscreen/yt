@@ -208,27 +208,37 @@ video.earnings since: 3.days.ago
   </div></dd>
 </dl>
 <hr />
-<h4>List of <code>Yt::Video</code> analytics methods</h4>
+<h4>Notes about <code>Yt::Video</code> analytics methods</h4>
 <a class="anchor" id="analytics"></a>
 
 <p>
-  By default, analytics methods return the total value for the lifetime of a video (e.g., all the views of a video).<br />
-  To set specific starting and ending dates, use the <code>:since</code> and <code>:until</code> options.<br />
-  To obtain one value per each day of the range you specify (rather than the total), use the <code>by: :day</code> option.<br />
-  To limit the results to a specific location, use the <code>:in</code> option .
+  By default, analytics methods return the total value for the lifetime of a video.
 </p>
 {% highlight ruby %}
 video.views # => {total: 949}
-
-range = {since: 2.months.ago, until: 1.month.ago} # use a Date or String
-video.views range # => {total: 219}
-video.views range.merge(by: :day) # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => …}
-# NOTE: 'video.uniques' only works with {by: :day} – check its docs for details.
-
+{% endhighlight %}
+<p>
+  To set specific starting and ending dates, pass the <code>:since</code> and <code>:until</code> options (either as Date or String).<br />
+</p>
+{% highlight ruby %}
+video.views since: '2014-03-31', until: 1.month.ago # => {total: 429}
+{% endhighlight %}
+<p>
+  To obtain one value per each day or month of the range you specify (rather than the total), use the <code>:by</code> option.<br />
+  Note that <code>video.uniques</code> is the only method that <em>requires</em> the <code>:by</code> option to be set.
+</p>
+{% highlight ruby %}
+video.views by: :day # => {Wed, 8 May 2014 => 6, Thu, 9 May 2014 => 7, …}
+video.views by: :month # => {Fri, 01 May 2015..Sun, 31 May 2015=>130192, …}
+{% endhighlight %}
+<p>
+  To limit the results to a specific country or US state, use the <code>:in</code> option.<br />
+  Note that only some methods can be limited by US state; check the docs for details.
+</p>
+{% highlight ruby %}
 video.views in: 'FR' # => {total: 45}
 video.views in: {country: 'US'} # => {total: 113}
 video.views in: {state: 'TX'} # => {total: 11}
-# NOTE: Not all methods can be limited by US state; check the docs for details.
 {% endhighlight %}
 <p>
   For brevity, the options above are omitted in the examples below.
@@ -295,6 +305,8 @@ video.views in: {state: 'TX'} # => {total: 11}
 
 {% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html object='video' method='viewer_percentage' result="{female: {'18-24' =&gt; 4.12, '25-34' =&gt; …}, …}" %}
 {% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html object='video' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:gender</span>' result="{female: 12.3, male: 87.7}" %}
-{% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html object='video' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}</pre>
+{% include doc.html link="Models/Video#viewer_percentage" %}{% include example.html object='video' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}
+
+{% include doc.html link="Models/Video#reports" %}{% include example.html object='video' method='reports' params=' <span class="ss">only</span><span class="p">: [</span><span class="ss">:views</span><span class="p">, </span><span class="ss">:shares</span><span class="p">]</span>' result="{views: {…}, shares: {…}}" %}</pre>
   </div></dd>
 </dl>

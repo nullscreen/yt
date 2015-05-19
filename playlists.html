@@ -150,6 +150,8 @@ playlist.views in: {state: 'TX'} # => {total: 11}
 
 {% include doc.html link="Models/Playlist#viewer_percentage" %}{% include example.html object='playlist' method='viewer_percentage' result="{female: {'18-24' =&gt; 4.12, '25-34' =&gt; …}, …}" %}
 {% include doc.html link="Models/Playlist#viewer_percentage" %}{% include example.html object='playlist' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:gender</span>' result="{female: 12.3, male: 87.7}" %}
-{% include doc.html link="Models/Playlist#viewer_percentage" %}{% include example.html object='playlist' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}</pre>
+{% include doc.html link="Models/Playlist#viewer_percentage" %}{% include example.html object='playlist' method='viewer_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:age_group</span>' result="{'18-24' =&gt; 4.1, '25-34' =&gt; …}" %}
+
+{% include doc.html link="Models/Playlist#reports" %}{% include example.html object='playlist' method='reports' params=' <span class="ss">only</span><span class="p">: [</span><span class="ss">:views</span><span class="p">]</span>' result="{views: {…}}" %}</pre>
   </div></dd>
 </dl>
