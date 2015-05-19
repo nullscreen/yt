@@ -42,8 +42,9 @@ describe Yt::Channel, :partner do
         describe "#{metric} can be grouped by month" do
           let(:metric) { metric }
 
-          let(:result) { channel.public_send metric, by: :month, since: 1.month.ago }
+          let(:result) { channel.public_send metric, by: :month, since: 3.months.ago }
           specify do
+            expect(result.keys).to eq(result.keys.sort_by{|range| range.first})
             expect(result.keys).to all(be_a Range)
             expect(result.keys.map &:first).to all(be_a Date)
             expect(result.keys.map &:first).to eq result.keys.map(&:first).map(&:beginning_of_month)

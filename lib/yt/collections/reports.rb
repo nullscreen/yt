@@ -62,7 +62,8 @@ module Yt
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
           end
         else
-          Hash[*flat_map{|value| [value.first, type_cast(value.last, type)]}]
+          hash = Hash[*flat_map{|value| [value.first, type_cast(value.last, type)]}]
+          dimension == :month ? hash.sort_by{|range, v| range.first}.to_h : hash
         end
       # NOTE: Once in a while, YouTube responds with 400 Error and the message
       # "Invalid query. Query did not conform to the expectations."; in this
