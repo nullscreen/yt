@@ -5,7 +5,7 @@ h2: "Videos"
 
 <p>
   <code>Yt::Video</code> represents a YouTube video.
-  Initialize using either the YouTube ID or URL:
+  You can initialize one using either the YouTube ID or URL:
 </p>
 
 {% highlight ruby %}
@@ -14,6 +14,13 @@ video = Yt::Video.new url: 'http://youtube.com/watch?v=BPNYv0vd78A'
 video = Yt::Video.new url: 'https://youtu.be/BPNYv0vd78A'
 # => All these methods return #<Yt::Video:0x... @id="BPNYv0vd78A">
 {% endhighlight %}
+
+<p>
+  Some methods from other classes also return a <code>Yt::Video</code> object
+  (e.g.: <code>Yt::Account#upload_video</code>) or a collection of <code>Yt::Video</code>
+  objects (e.g.: <code>#videos</code> from <code>Yt::Account</code>,
+  <code>Yt::Channel</code> and <code>Yt::Playlist</code>).
+</p>
 
 <hr />
 <h4>Authentication</h4>

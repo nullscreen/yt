@@ -14,6 +14,12 @@ item = Yt::Playlist.new(id: 'PLSWYkYzOrPMRUYaLE6C9').playlist_items.first
 # => All these methods return #<Yt::PlaylistItem:0x... @id="PLjW_GNR5Ir0GWEP_ove">
 {% endhighlight %}
 
+<p>
+  Some methods from other classes also return a <code>Yt::PlaylistItem</code> object
+  (e.g.: <code>Yt::Playlist#add_video</code>) or a collection of <code>Yt::PlaylistItem</code>
+  objects (e.g.: <code>Playlist#playlist_items</code>).
+</p>
+
 <hr />
 <h4>Authentication</h4>
 

@@ -15,6 +15,12 @@ channel = Yt::Channel.new url: 'http://youtube.com/fullscreen'
 # => All these methods return #<Yt::Channel:0x... @id="UCxO1tY8h1AhOz0T4ENwmpow">
 {% endhighlight %}
 
+<p>
+  Some methods from other classes also return a <code>Yt::Channel</code> object
+  (e.g.: <code>Yt::Account#channel</code>) or a collection of <code>Yt::Channel</code>
+  objects (e.g.: <code>Yt::Account#subscribed_channels</code>).
+</p>
+
 <hr />
 <h4>Authentication</h4>
 

@@ -14,6 +14,13 @@ playlist = Yt::Playlist.new url: 'youtube.com/playlist?list=PLSWYkYzOrPMRUYaLE6C
 # => All these methods return #<Yt::Playlist:0x... @id="PLSWYkYzOrPMRUYaLE6C9">
 {% endhighlight %}
 
+<p>
+  Some methods from other classes also return a <code>Yt::Playlist</code> object
+  (e.g.: <code>Yt::Account#create_playlist</code>) or a collection of <code>Yt::Playlist</code>
+  objects (e.g.: <code>#playlists</code> from <code>Yt::Account</code> and
+  <code>Yt::Channel</code>).
+</p>
+
 <hr />
 <h4>Authentication</h4>
 
@@ -42,7 +49,7 @@ account = Yt::Account.new refresh_token: "<token>" ## use the account’s refres
 
 playlist = Yt::Playlist.new id: 'PLSWYkYzOrPMRUYaLE6C9', auth: account
 playlist.add_video "BPNYv0vd78A"
-# => #&lt;Yt::PlaylistItem …&gt; (the newly added playlist item)
+# => #<Yt::PlaylistItem …> (the newly added playlist item)
 {% endhighlight %}
 
 <hr />
