@@ -330,6 +330,12 @@ describe Yt::Channel, :partner do
           views = channel.views range.merge by: :related_video
           expect(views.keys).to all(be_instance_of Yt::Video)
         end
+
+        specify 'and provided with an :includes option to preload parts' do
+          views = channel.views range.merge by: :related_video, includes: [:statistics]
+          expect(views.keys.map{|v| v.instance_variable_defined? :@status}).to all(be false)
+          expect(views.keys.map{|v| v.instance_variable_defined? :@statistics_set}).to all(be true)
+        end
       end
 
       describe 'views can be grouped by search term' do
@@ -348,6 +354,12 @@ describe Yt::Channel, :partner do
           views = channel.views range.merge by: :video
           expect(views.keys).to all(be_instance_of Yt::Video)
         end
+
+        specify 'and provided with an :includes option to preload parts' do
+          views = channel.views range.merge by: :video, includes: [:statistics]
+          expect(views.keys.map{|v| v.instance_variable_defined? :@status}).to all(be false)
+          expect(views.keys.map{|v| v.instance_variable_defined? :@statistics_set}).to all(be true)
+        end
       end
 
       describe 'views can be grouped by playlist' do
@@ -356,6 +368,12 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :playlist' do
           views = channel.views range.merge by: :playlist
           expect(views.keys).to all(be_instance_of Yt::Playlist)
+        end
+
+        specify 'and provided with an :includes option to preload parts' do
+          views = channel.views range.merge by: :playlist, includes: [:status]
+          expect(views.keys.map{|playlist| playlist.instance_variable_defined? :@content_details}).to all(be false)
+          expect(views.keys.map{|playlist| playlist.instance_variable_defined? :@status}).to all(be true)
         end
       end
 

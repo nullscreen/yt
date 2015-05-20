@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.23.2 - 2015-05-20
+
+* [FEATURE] Accept `:includes` in reports by video, related video and playlist to preload parts.
+
 ## 0.23.1 - 2015-05-19
 
 * [FEATURE] New `by: :month` option for reports.
