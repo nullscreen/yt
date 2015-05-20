@@ -95,10 +95,10 @@ module Yt
       #     # => {embedded: 53.0, watch: 467.0, …}
       #   @return [Hash<Yt::Video, $2>] if grouped by related video, the
       #     $1 for each related video.
-      #   @example Get yesterday’s $1 by related video:
-      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :related_video
+      #   @example Get yesterday’s $1 by related video, eager-loading the snippet of each video::
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :related_video, includes: [:snippet]
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
-      #   @return [Hash<Yt::Video, $2>] if grouped by device type, the
+      #   @return [Hash<Symbol, $2>] if grouped by device type, the
       #     $1 for each device type.
       #   @example Get yesterday’s $1 by search term:
       #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :search_term
@@ -108,7 +108,7 @@ module Yt
       #   @example Get yesterday’s $1 by device type:
       #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :device_type
       #     # => {mobile: 133.0, tv: 412.0, …}
-      #   @return [Hash<Yt::Video, $2>] if grouped by traffic source, the
+      #   @return [Hash<Symbol, $2>] if grouped by traffic source, the
       #     $1 for each traffic source.
       #   @example Get yesterday’s $1 by traffic source:
       #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :traffic_source
@@ -121,6 +121,10 @@ module Yt
       #     Accepted values are: +:day+, +:month+, +:range+, +:traffic_source+,
       #     +:search_term+, +:playback_location+, +:related_video+,
       #     +:embedded_player_location+.
+      #   @option options [Array<Symbol>] :includes ([:id]) if grouped by
+      #     related video, the parts of each video to eager-load. Accepted
+      #     values are: +:id+, +:snippet+, +:status+, +:statistics+,
+      #     +:content_details+.
       #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
       #     the $1 for each embedded player location.
       #   @example Get yesterday’s $1 by embedded player location:
@@ -130,16 +134,20 @@ module Yt
       #   @macro report_with_country_and_state
 
       # @!macro [new] report_with_channel_dimensions
+      #   @option options [Array<Symbol>] :includes ([:id]) if grouped by
+      #     video, related video, or playlist, the parts of each video or
+      #     playlist to eager-load. Accepted values are: +:id+, +:snippet+,
+      #     +:status+, +:statistics+, +:content_details+.
       #   @return [Hash<Yt::Video, $2>] if grouped by video, the
       #     $1 for each video.
-      #   @example Get yesterday’s $1 by video:
-      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :video
+      #   @example Get yesterday’s $1 by video, eager-loading the status and statistics of each video:
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :video, includes: [:status, :statistics]
       #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
-      #   @return [Hash<Yt::Video, $2>] if grouped by playlist, the
+      #   @return [Hash<Yt::Playlist, $2>] if grouped by playlist, the
       #     $1 for each playlist.
       #   @example Get yesterday’s $1 by playlist:
       #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :playlist
-      #     # => {#<Yt::Video @id=…> => 33.0, #<Yt::Video @id=…> => 12.0, …}
+      #     # => {#<Yt::Playlist @id=…> => 33.0, #<Yt::Playlist @id=…> => 12.0, …}
       #   @macro report_with_video_dimensions
 
       # @!macro [new] report_by_channel_dimensions
@@ -253,13 +261,24 @@ module Yt
 
           ivar = instance_variable_get "@#{metric}_#{dimension}_#{country}_#{state}"
           instance_variable_set "@#{metric}_#{dimension}_#{country}_#{state}", ivar || {}
-          case dimension
+          results = case dimension
           when :day
             Hash[*range.flat_map do |date|
               [date, instance_variable_get("@#{metric}_#{dimension}_#{country}_#{state}")[date] ||= send("range_#{metric}", range, dimension, country, state)[date]]
             end]
           else
             instance_variable_get("@#{metric}_#{dimension}_#{country}_#{state}")[range] ||= send("range_#{metric}", range, dimension, country, state)
+          end
+          lookup_class = case options[:by]
+            when :video, :related_video then Yt::Collections::Videos
+            when :playlist then Yt::Collections::Playlists
+          end
+          if lookup_class
+            includes = options.fetch(:includes, [:id]).join(',').camelize(:lower)
+            items = lookup_class.new(auth: auth).where(part: includes, id: results.keys.join(','))
+            results.transform_keys{|id| items.find{|item| item.id == id}}.reject{|k, _| k.nil?}
+          else
+            results
           end
         end
       end
