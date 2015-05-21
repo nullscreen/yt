@@ -76,7 +76,7 @@ describe Yt::Video, :partner do
       end
 
       {views: Integer, comments: Integer, dislikes: Integer,
-       estimated_minutes_watched: Integer, average_view_duration: Float,
+       estimated_minutes_watched: Integer, average_view_duration: Integer,
        average_view_percentage: Float, impressions: Integer,
        subscribers_lost: Integer, subscribers_gained: Integer, likes: Integer,
        monetized_playbacks: Integer, earnings: Float}.each do |metric, type|
@@ -99,7 +99,7 @@ describe Yt::Video, :partner do
       {views: Integer, comments: Integer, likes: Integer, dislikes: Integer,
        shares: Integer, subscribers_gained: Integer, subscribers_lost: Integer,
        favorites_added: Integer,
-       estimated_minutes_watched: Integer, average_view_duration: Float,
+       estimated_minutes_watched: Integer, average_view_duration: Integer,
        average_view_percentage: Float, impressions: Integer,
        monetized_playbacks: Integer, annotation_clicks: Integer,
        annotation_click_through_rate: Float, annotation_close_rate: Float,
@@ -199,7 +199,7 @@ describe Yt::Video, :partner do
           estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
           dislikes: Integer, shares: Integer, subscribers_gained: Integer,
           subscribers_lost: Integer, favorites_added: Integer,
-          favorites_removed: Integer, average_view_duration: Float,
+          favorites_removed: Integer, average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
           annotation_click_through_rate: Float,
           annotation_close_rate: Float, earnings: Float, impressions: Integer,
@@ -762,7 +762,7 @@ describe Yt::Video, :partner do
           duration = video.average_view_duration range.merge by: :country
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 
@@ -773,7 +773,7 @@ describe Yt::Video, :partner do
           duration = video.average_view_duration range.merge by: :state
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 

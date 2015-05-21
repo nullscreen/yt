@@ -415,7 +415,7 @@ module Yt
       has_report :favorites_removed, Integer
 
       # @macro report_by_day_and_state
-      has_report :average_view_duration, Float
+      has_report :average_view_duration, Integer
 
       # @macro report_by_day_and_state
       has_report :average_view_percentage, Float

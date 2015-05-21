@@ -10,11 +10,13 @@ For more information about changelogs, check
 
 **How to upgrade**
 
-If your code expects the `estimated_minutes_watched` report to return a `Float`,
-beware that it now returns an `Integer` (since that is what YouTube returns).
+If your code expects the `estimated_minutes_watched`
+or the `average_view_duration` report to return a `Float`, beware that they now
+return an `Integer` (since that is what YouTube returns).
 In case you still need to parse a float, just append `.to_f` to the result.
 
 * [ENHANCEMENT] Return Integer on `estimated_minutes_watched` reports
+* [ENHANCEMENT] Return Integer on `average_view_duration` reports
 * [FEATURE] New `by: :referrer` option for reports.
 
 ## 0.23.2 - 2015-05-20

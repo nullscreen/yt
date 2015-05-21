@@ -15,7 +15,7 @@ describe Yt::Channel, :partner do
           estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
           dislikes: Integer, shares: Integer, subscribers_gained: Integer,
           subscribers_lost: Integer, favorites_added: Integer,
-          favorites_removed: Integer, average_view_duration: Float,
+          favorites_removed: Integer, average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
           annotation_click_through_rate: Float,
           annotation_close_rate: Float, earnings: Float, impressions: Integer,
@@ -89,7 +89,7 @@ describe Yt::Channel, :partner do
 
       {views: Integer, comments: Integer, likes: Integer, dislikes: Integer,
        subscribers_gained: Integer, subscribers_lost: Integer,
-       estimated_minutes_watched: Integer, average_view_duration: Float,
+       estimated_minutes_watched: Integer, average_view_duration: Integer,
        annotation_clicks: Integer, annotation_click_through_rate: Float,
        favorites_added: Integer, favorites_removed: Integer,
        average_view_percentage: Float, impressions: Integer,
@@ -1177,7 +1177,7 @@ describe Yt::Channel, :partner do
           duration = channel.average_view_duration range.merge by: :country
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 
@@ -1188,7 +1188,7 @@ describe Yt::Channel, :partner do
           duration = channel.average_view_duration range.merge by: :state
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 

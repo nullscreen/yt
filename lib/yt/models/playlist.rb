@@ -163,7 +163,7 @@ module Yt
       has_report :viewer_percentage, Float
 
       # @macro report_by_day_and_state
-      has_report :average_view_duration, Float
+      has_report :average_view_duration, Integer
 
       # @macro report_by_day_and_state
       has_report :playlist_starts, Integer

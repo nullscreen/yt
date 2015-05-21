@@ -12,7 +12,7 @@ describe Yt::Playlist, :partner do
 
       describe 'multiple reports can be retrieved at once' do
         metrics = {views: Integer, estimated_minutes_watched: Integer,
-         average_view_duration: Float, playlist_starts: Integer,
+         average_view_duration: Integer, playlist_starts: Integer,
          average_time_in_playlist: Float, views_per_playlist_start: Float}
 
         specify 'by day' do
@@ -38,7 +38,7 @@ describe Yt::Playlist, :partner do
       end
 
       {views: Integer, estimated_minutes_watched: Integer,
-       average_view_duration: Float, playlist_starts: Integer,
+       average_view_duration: Integer, playlist_starts: Integer,
        average_time_in_playlist: Float,
        views_per_playlist_start: Float}.each do |metric, type|
         describe "#{metric} can be retrieved for a range of days" do
@@ -530,7 +530,7 @@ describe Yt::Playlist, :partner do
           duration = playlist.average_view_duration range.merge by: :country
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 
@@ -541,7 +541,7 @@ describe Yt::Playlist, :partner do
           duration = playlist.average_view_duration range.merge by: :state
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 
