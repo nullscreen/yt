@@ -381,7 +381,7 @@ module Yt
       has_report :uniques, Integer
 
       # @macro report_by_video_dimensions
-      has_report :estimated_minutes_watched, Float
+      has_report :estimated_minutes_watched, Integer
 
       # @macro report_by_gender_and_age_group
       has_report :viewer_percentage, Float

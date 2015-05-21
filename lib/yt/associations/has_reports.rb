@@ -18,7 +18,7 @@ module Yt
       #   @return [Hash<Symbol, Hash>] the reports for each metric specified.
       #   @example Get the views and estimated minutes watched by day for last week:
       #     resource.reports only: [:views, :estimated_minutes_watched] since: 1.week.ago, by: :day
-      #     # => {views: {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 34, …}, estimated_minutes_watched: {Wed, 8 May 2014 => 9.0, Thu, 9 May 2014 => 6.0, …}}
+      #     # => {views: {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 34, …}, estimated_minutes_watched: {Wed, 8 May 2014 => 9, Thu, 9 May 2014 => 6, …}}
 
       # @!macro [new] report
       #   Returns the $1 grouped by the given dimension.
