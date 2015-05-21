@@ -227,6 +227,15 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views can be grouped by referrer' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :referrer' do
+          views = playlist.views range.merge by: :referrer
+          expect(views.keys).to all(be_a String)
+        end
+      end
+
       describe 'views can be grouped by video' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
@@ -355,6 +364,15 @@ describe Yt::Playlist, :partner do
 
         specify 'with the :by option set to :search_term' do
           minutes = playlist.estimated_minutes_watched range.merge by: :search_term
+          expect(minutes.keys).to all(be_a String)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by referrer' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :referrer' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :referrer
           expect(minutes.keys).to all(be_a String)
         end
       end

@@ -339,6 +339,15 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by referrer' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :referrer' do
+          views = video.views range.merge by: :referrer
+          expect(views.keys).to all(be_a String)
+        end
+      end
+
       describe 'views can be grouped by device type' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
@@ -657,6 +666,15 @@ describe Yt::Video, :partner do
 
         specify 'with the :by option set to :search_term' do
           estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :search_term
+          expect(estimated_minutes_watched.keys).to all(be_a String)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by referrer' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :referrer' do
+          estimated_minutes_watched = video.estimated_minutes_watched range.merge by: :referrer
           expect(estimated_minutes_watched.keys).to all(be_a String)
         end
       end

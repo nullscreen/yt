@@ -105,6 +105,11 @@ module Yt
       #     # => {"fullscreen" => 33.0, "good music" => 12.0, …}
       #   @return [Hash<String, $2>] if grouped by search term, the
       #     $1 for each search term that led viewers to the content.
+      #   @example Get yesterday’s $1 by URL that referred to the resource:
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :referrer
+      #     # => {"Google Search" => 33.0, "ytimg.com" => 12.0, …}
+      #   @return [Hash<String, $2>] if grouped by search term, the
+      #     $1 for each search term that led viewers to the content.
       #   @example Get yesterday’s $1 by device type:
       #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :device_type
       #     # => {mobile: 133.0, tv: 412.0, …}

@@ -15,6 +15,7 @@ beware that it now returns an `Integer` (since that is what YouTube returns).
 In case you still need to parse a float, just append `.to_f` to the result.
 
 * [ENHANCEMENT] Return Integer on `estimated_minutes_watched` reports
+* [FEATURE] New `by: :referrer` option for reports.
 
 ## 0.23.2 - 2015-05-20
 
