@@ -119,21 +119,21 @@ playlist.views in: {state: 'TX'} # => {total: 11}
   <dd>
 <div class="highlight"><pre>
 {% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' result='{total: 223}' %}
-{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' result='{total: 23.4}' %}
+{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' result='{total: 234}' %}
 {% include doc.html link="Models/Playlist#playlist_starts" %}{% include example.html object='playlist' method='playlist_starts' result='{total: 44}' %}
 {% include doc.html link="Models/Playlist#average_time_in_playlist" %}{% include example.html object='playlist' method='average_time_in_playlist' result='{total: 1.23}' %}
 {% include doc.html link="Models/Playlist#views_per_playlist_start" %}{% include example.html object='playlist' method='views_per_playlist_start' result='{total: 4.53}' %}
 {% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' result='{total: 12}' %}
 
 {% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 8, "RU" => 9, …}' %}
-{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 456.0, …}' %}
+{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 456, …}' %}
 {% include doc.html link="Models/Playlist#playlist_starts" %}{% include example.html object='playlist' method='playlist_starts' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 7, …}' %}
 {% include doc.html link="Models/Playlist#average_time_in_playlist" %}{% include example.html object='playlist' method='average_time_in_playlist' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 32.0, …}' %}
 {% include doc.html link="Models/Playlist#views_per_playlist_start" %}{% include example.html object='playlist' method='views_per_playlist_start' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 87, …}' %}
 {% include doc.html link="Models/Playlist#estimated_minutes_watched" %}{% include example.html object='playlist' method='estimated_minutes_watched' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 12, …}' %}
 
 {% include doc.html link="Models/Playlist#views" %}{% include example.html object='playlist' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:state</span>' result='{"TX" =&gt; 8, "AZ" => 9, …}' %}
-{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:state</span>' result='{"SD" =&gt; 456.0, …}' %}
+{% include doc.html link="Models/Playlist#average_view_duration" %}{% include example.html object='playlist' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:state</span>' result='{"SD" =&gt; 456, …}' %}
 {% include doc.html link="Models/Playlist#playlist_starts" %}{% include example.html object='playlist' method='playlist_starts' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:state</span>' result='{"ND" =&gt; 7, …}' %}
 {% include doc.html link="Models/Playlist#average_time_in_playlist" %}{% include example.html object='playlist' method='average_time_in_playlist' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:state</span>' result='{"MA" =&gt; 32.0, …}' %}
 {% include doc.html link="Models/Playlist#views_per_playlist_start" %}{% include example.html object='playlist' method='views_per_playlist_start' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:state</span>' result='{"TX" =&gt; 87, …}' %}
