@@ -18,7 +18,7 @@ module Yt
       #   @return [Hash<Symbol, Hash>] the reports for each metric specified.
       #   @example Get the views and estimated minutes watched by day for last week:
       #     resource.reports only: [:views, :estimated_minutes_watched] since: 1.week.ago, by: :day
-      #     # => {views: {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 34, …}, estimated_minutes_watched: {Wed, 8 May 2014 => 9.0, Thu, 9 May 2014 => 6.0, …}}
+      #     # => {views: {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => 34, …}, estimated_minutes_watched: {Wed, 8 May 2014 => 9, Thu, 9 May 2014 => 6, …}}
 
       # @!macro [new] report
       #   Returns the $1 grouped by the given dimension.
@@ -103,6 +103,11 @@ module Yt
       #   @example Get yesterday’s $1 by search term:
       #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :search_term
       #     # => {"fullscreen" => 33.0, "good music" => 12.0, …}
+      #   @return [Hash<String, $2>] if grouped by search term, the
+      #     $1 for each search term that led viewers to the content.
+      #   @example Get yesterday’s $1 by URL that referred to the resource:
+      #     resource.$1 since: 1.day.ago, until: 1.day.ago, by: :referrer
+      #     # => {"Google Search" => 33.0, "ytimg.com" => 12.0, …}
       #   @return [Hash<String, $2>] if grouped by search term, the
       #     $1 for each search term that led viewers to the content.
       #   @example Get yesterday’s $1 by device type:

@@ -112,7 +112,7 @@ module Yt
       has_report :uniques, Integer
 
       # @macro report_by_channel_dimensions
-      has_report :estimated_minutes_watched, Float
+      has_report :estimated_minutes_watched, Integer
 
       # @macro report_by_gender_and_age_group
       has_report :viewer_percentage, Float
@@ -142,7 +142,7 @@ module Yt
       has_report :favorites_removed, Integer
 
       # @macro report_by_day_and_state
-      has_report :average_view_duration, Float
+      has_report :average_view_duration, Integer
 
       # @macro report_by_day_and_state
       has_report :average_view_percentage, Float

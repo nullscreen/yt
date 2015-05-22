@@ -11,8 +11,8 @@ describe Yt::Playlist, :partner do
       let(:id) { ENV['YT_TEST_PARTNER_PLAYLIST_ID'] }
 
       describe 'multiple reports can be retrieved at once' do
-        metrics = {views: Integer, estimated_minutes_watched: Float,
-         average_view_duration: Float, playlist_starts: Integer,
+        metrics = {views: Integer, estimated_minutes_watched: Integer,
+         average_view_duration: Integer, playlist_starts: Integer,
          average_time_in_playlist: Float, views_per_playlist_start: Float}
 
         specify 'by day' do
@@ -37,8 +37,9 @@ describe Yt::Playlist, :partner do
         end
       end
 
-      {views: Integer, estimated_minutes_watched: Float, average_view_duration: Float,
-       playlist_starts: Integer, average_time_in_playlist: Float,
+      {views: Integer, estimated_minutes_watched: Integer,
+       average_view_duration: Integer, playlist_starts: Integer,
+       average_time_in_playlist: Float,
        views_per_playlist_start: Float}.each do |metric, type|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
@@ -226,6 +227,15 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'views can be grouped by referrer' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :referrer' do
+          views = playlist.views range.merge by: :referrer
+          expect(views.keys).to all(be_a String)
+        end
+      end
+
       describe 'views can be grouped by video' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
@@ -358,6 +368,15 @@ describe Yt::Playlist, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be grouped by referrer' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :referrer' do
+          minutes = playlist.estimated_minutes_watched range.merge by: :referrer
+          expect(minutes.keys).to all(be_a String)
+        end
+      end
+
       describe 'estimated minutes watched can be grouped by video' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
@@ -382,7 +401,7 @@ describe Yt::Playlist, :partner do
         specify 'with the :by option set to :device_type' do
           minutes = playlist.estimated_minutes_watched range.merge by: :device_type
           expect(minutes.keys).to all(be_instance_of Symbol)
-          expect(minutes.values).to all(be_instance_of Float)
+          expect(minutes.values).to all(be_an Integer)
         end
       end
 
@@ -393,7 +412,7 @@ describe Yt::Playlist, :partner do
           minutes = playlist.estimated_minutes_watched range.merge by: :country
           expect(minutes.keys).to all(be_a String)
           expect(minutes.keys.map(&:length).uniq).to eq [2]
-          expect(minutes.values).to all(be_a Float)
+          expect(minutes.values).to all(be_an Integer)
         end
       end
 
@@ -404,7 +423,7 @@ describe Yt::Playlist, :partner do
           minutes = playlist.estimated_minutes_watched range.merge by: :state
           expect(minutes.keys).to all(be_a String)
           expect(minutes.keys.map(&:length).uniq).to eq [2]
-          expect(minutes.values).to all(be_a Float)
+          expect(minutes.values).to all(be_an Integer)
         end
       end
 
@@ -511,7 +530,7 @@ describe Yt::Playlist, :partner do
           duration = playlist.average_view_duration range.merge by: :country
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 
@@ -522,7 +541,7 @@ describe Yt::Playlist, :partner do
           duration = playlist.average_view_duration range.merge by: :state
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 

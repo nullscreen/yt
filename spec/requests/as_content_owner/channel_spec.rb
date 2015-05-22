@@ -12,10 +12,10 @@ describe Yt::Channel, :partner do
 
       describe 'multiple reports can be retrieved at once' do
         metrics = {views: Integer, uniques: Integer,
-          estimated_minutes_watched: Float, comments: Integer, likes: Integer,
+          estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
           dislikes: Integer, shares: Integer, subscribers_gained: Integer,
           subscribers_lost: Integer, favorites_added: Integer,
-          favorites_removed: Integer, average_view_duration: Float,
+          favorites_removed: Integer, average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
           annotation_click_through_rate: Float,
           annotation_close_rate: Float, earnings: Float, impressions: Integer,
@@ -89,7 +89,7 @@ describe Yt::Channel, :partner do
 
       {views: Integer, comments: Integer, likes: Integer, dislikes: Integer,
        subscribers_gained: Integer, subscribers_lost: Integer,
-       estimated_minutes_watched: Float, average_view_duration: Float,
+       estimated_minutes_watched: Integer, average_view_duration: Integer,
        annotation_clicks: Integer, annotation_click_through_rate: Float,
        favorites_added: Integer, favorites_removed: Integer,
        average_view_percentage: Float, impressions: Integer,
@@ -343,6 +343,15 @@ describe Yt::Channel, :partner do
 
         specify 'with the :by option set to :search_term' do
           views = channel.views range.merge by: :search_term
+          expect(views.keys).to all(be_a String)
+        end
+      end
+
+      describe 'views can be grouped by referrer' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :referrer' do
+          views = channel.views range.merge by: :referrer
           expect(views.keys).to all(be_a String)
         end
       end
@@ -1024,6 +1033,15 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'estimated minutes watched can be grouped by referrer' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :referrer' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :referrer
+          expect(estimated_minutes_watched.keys).to all(be_a String)
+        end
+      end
+
       describe 'estimated minutes watched can be grouped by video' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
@@ -1048,7 +1066,7 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :device_type' do
           estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :device_type
           expect(estimated_minutes_watched.keys).to all(be_instance_of Symbol)
-          expect(estimated_minutes_watched.values).to all(be_instance_of Float)
+          expect(estimated_minutes_watched.values).to all(be_an Integer)
         end
       end
 
@@ -1059,7 +1077,7 @@ describe Yt::Channel, :partner do
           minutes = channel.estimated_minutes_watched range.merge by: :country
           expect(minutes.keys).to all(be_a String)
           expect(minutes.keys.map(&:length).uniq).to eq [2]
-          expect(minutes.values).to all(be_a Float)
+          expect(minutes.values).to all(be_an Integer)
         end
       end
 
@@ -1070,7 +1088,7 @@ describe Yt::Channel, :partner do
           minutes = channel.estimated_minutes_watched range.merge by: :state
           expect(minutes.keys).to all(be_a String)
           expect(minutes.keys.map(&:length).uniq).to eq [2]
-          expect(minutes.values).to all(be_a Float)
+          expect(minutes.values).to all(be_an Integer)
         end
       end
 
@@ -1159,7 +1177,7 @@ describe Yt::Channel, :partner do
           duration = channel.average_view_duration range.merge by: :country
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 
@@ -1170,7 +1188,7 @@ describe Yt::Channel, :partner do
           duration = channel.average_view_duration range.merge by: :state
           expect(duration.keys).to all(be_a String)
           expect(duration.keys.map(&:length).uniq).to eq [2]
-          expect(duration.values).to all(be_a Float)
+          expect(duration.values).to all(be_an Integer)
         end
       end
 

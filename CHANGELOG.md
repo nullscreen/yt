@@ -6,6 +6,19 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.24.0 - 2015-05-21
+
+**How to upgrade**
+
+If your code expects the `estimated_minutes_watched`
+or the `average_view_duration` report to return a `Float`, beware that they now
+return an `Integer` (since that is what YouTube returns).
+In case you still need to parse a float, just append `.to_f` to the result.
+
+* [ENHANCEMENT] Return Integer on `estimated_minutes_watched` reports
+* [ENHANCEMENT] Return Integer on `average_view_duration` reports
+* [FEATURE] New `by: :referrer` option for reports.
+
 ## 0.23.2 - 2015-05-20
 
 * [FEATURE] Accept `:includes` in reports by video, related video and playlist to preload parts.
