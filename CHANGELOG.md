@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.24.1 - 2015-07-01
+
+* [BUGFIX] Don't raise error when YouTube returns a deleted video while eager loading
+
 ## 0.24.0 - 2015-05-21
 
 **How to upgrade**
