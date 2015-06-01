@@ -22,7 +22,7 @@ describe Yt::Collections::Videos, :server_app do
   end
 
   specify 'with a chart parameter, only returns videos of that chart', :ruby2 do
-    expect(videos.where(chart: 'mostPopular').size).to be 200
+    expect(videos.where(chart: 'mostPopular').size).to be 30
   end
 
   context 'with a list of parts' do
