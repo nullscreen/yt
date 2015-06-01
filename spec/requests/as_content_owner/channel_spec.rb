@@ -581,7 +581,7 @@ describe Yt::Channel, :partner do
       describe 'dislikes can be retrieved for a single country' do
         let(:country_code) { 'US' }
         let(:dislikes) { channel.dislikes since: date, by: by, in: location }
-        let(:date) { 4.days.ago }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
         context 'and grouped by day' do
           let(:by) { :day }
@@ -1405,7 +1405,7 @@ describe Yt::Channel, :partner do
       describe 'annotation clicks can be retrieved for a single country' do
         let(:country_code) { 'US' }
         let(:annotation_clicks) { channel.annotation_clicks since: date, by: by, in: location }
-        let(:date) { 4.days.ago }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
         context 'and grouped by day' do
           let(:by) { :day }
@@ -1504,7 +1504,7 @@ describe Yt::Channel, :partner do
       describe 'annotation click-through rate can be retrieved for a single country' do
         let(:country_code) { 'US' }
         let(:annotation_click_through_rate) { channel.annotation_click_through_rate since: date, by: by, in: location }
-        let(:date) { 4.days.ago }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
         context 'and grouped by day' do
           let(:by) { :day }
@@ -1579,7 +1579,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'annotation click-through rate can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :country' do
           rate = channel.annotation_click_through_rate range.merge by: :country

@@ -48,7 +48,7 @@ module Yt
                 when 'statistics' then video.statistics_set.data
                 when 'contentDetails' then video.content_detail.data
               end
-            end
+            end if video
           end
 
           if include_category
