@@ -39,6 +39,9 @@ module Yt
         channel: 'YT_CHANNEL',
         other_page: 'YT_OTHER_PAGE',
         search: 'YT_SEARCH',
+        google: 'GOOGLE_SEARCH'
+        notification: 'NOTIFICATION'
+        info_card: 'INFO_CARD'
       }
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Playback_Location_Dimensions
