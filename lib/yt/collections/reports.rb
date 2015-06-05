@@ -39,8 +39,8 @@ module Yt
         channel: 'YT_CHANNEL',
         other_page: 'YT_OTHER_PAGE',
         search: 'YT_SEARCH',
-        google: 'GOOGLE_SEARCH'
-        notification: 'NOTIFICATION'
+        google: 'GOOGLE_SEARCH',
+        notification: 'NOTIFICATION',
         info_card: 'INFO_CARD'
       }
 
