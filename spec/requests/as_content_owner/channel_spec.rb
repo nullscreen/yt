@@ -1657,7 +1657,7 @@ describe Yt::Channel, :partner do
       describe 'annotation close rate can be retrieved for a single US state' do
         let(:state_code) { 'NY' }
         let(:result) { channel.annotation_close_rate since: date, by: by, in: location }
-        let(:date) { 4.days.ago }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
         context 'and grouped by day' do
           let(:by) { :day }
