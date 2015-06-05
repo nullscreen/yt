@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.24.2 - 2015-06-05
+## 0.24.3 - 2015-06-05
 
 * [ENHANCEMENT] Add newly available traffic sources
 
