@@ -6,7 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.24.1 - 2015-07-01
+## 0.24.2 - 2015-06-05
+
+* [ENHANCEMENT] Add newly available traffic sources
+
+## 0.24.1 - 2015-06-01
 
 * [BUGFIX] Don't raise error when YouTube returns a deleted video while eager loading
 
