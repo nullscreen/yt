@@ -302,6 +302,11 @@ describe Yt::Channel, :partner do
           views = channel.views range.merge by: :traffic_source
           expect(views.keys - keys).to be_empty
         end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :traffic_source
+          expect(views.values.sort.reverse).to eq views.values
+        end
       end
 
       describe 'views can be grouped by playback location' do
@@ -311,6 +316,11 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :playback_location' do
           views = channel.views range.merge by: :playback_location
           expect(views.keys - keys).to be_empty
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :playback_location
+          expect(views.values.sort.reverse).to eq views.values
         end
       end
 
@@ -405,6 +415,11 @@ describe Yt::Channel, :partner do
           expect(views.keys.map(&:length).uniq).to eq [2]
           expect(views.values).to all(be_an Integer)
         end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :country
+          expect(views.values.sort.reverse).to eq views.values
+        end
       end
 
       describe 'views can be grouped by state' do
@@ -415,6 +430,11 @@ describe Yt::Channel, :partner do
           expect(views.keys).to all(be_a String)
           expect(views.keys.map(&:length).uniq).to eq [2]
           expect(views.values).to all(be_an Integer)
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :state
+          expect(views.values.sort.reverse).to eq views.values
         end
       end
 

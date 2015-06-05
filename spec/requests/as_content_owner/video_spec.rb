@@ -300,6 +300,11 @@ describe Yt::Video, :partner do
           views = video.views range.merge by: :traffic_source
           expect(views.keys - keys).to be_empty
         end
+
+        specify 'and are returned sorted by descending views' do
+          views = video.views range.merge by: :traffic_source
+          expect(views.values.sort.reverse).to eq views.values
+        end
       end
 
       describe 'views can be grouped by playback location' do
@@ -367,6 +372,11 @@ describe Yt::Video, :partner do
           expect(views.keys.map(&:length).uniq).to eq [2]
           expect(views.values).to all(be_an Integer)
         end
+
+        specify 'and are returned sorted by descending views' do
+          views = video.views range.merge by: :country
+          expect(views.values.sort.reverse).to eq views.values
+        end
       end
 
       describe 'views can be grouped by state' do
@@ -377,6 +387,11 @@ describe Yt::Video, :partner do
           expect(views.keys).to all(be_a String)
           expect(views.keys.map(&:length).uniq).to eq [2]
           expect(views.values).to all(be_an Integer)
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = video.views range.merge by: :state
+          expect(views.values.sort.reverse).to eq views.values
         end
       end
 
