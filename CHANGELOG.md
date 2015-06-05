@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.24.4 - 2015-06-05
+
+* [ENHANCEMENT] When grouping by traffic source, country, state or playback location, return results sorted by descending views
+
 ## 0.24.3 - 2015-06-05
 
 * [ENHANCEMENT] Add newly available traffic sources
