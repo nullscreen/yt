@@ -404,6 +404,11 @@ describe Yt::Channel, :partner do
           expect(views.keys).to all(be_instance_of Symbol)
           expect(views.values).to all(be_an Integer)
         end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :device_type
+          expect(views.values.sort.reverse).to eq views.values
+        end
       end
 
       describe 'views can be grouped by country' do
