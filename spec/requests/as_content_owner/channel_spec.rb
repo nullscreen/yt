@@ -21,16 +21,17 @@ describe Yt::Channel, :partner do
           annotation_close_rate: Float, earnings: Float, impressions: Integer,
           monetized_playbacks: Integer}
 
-        specify 'by day' do
+        specify 'by day, and are chronologically sorted' do
           range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
           result = channel.reports range.merge(only: metrics, by: :day)
           metrics.each do |metric, type|
             expect(result[metric].keys).to all(be_a Date)
             expect(result[metric].values).to all(be_a type)
+            expect(result[metric].keys.sort).to eq result[metric].keys
           end
         end
 
-        specify 'by month' do
+        specify 'by month, and are chronologically sorted' do
           result = channel.reports only: metrics, by: :month, since: 1.month.ago
           metrics.each do |metric, type|
             expect(result[metric].keys).to all(be_a Range)
@@ -291,6 +292,11 @@ describe Yt::Channel, :partner do
         specify 'with the :by option set to :day' do
           views = channel.views range.merge by: :day
           expect(views.keys).to eq range.values
+        end
+
+        specify 'and are returned chronologically sorted' do
+          views = channel.views range.merge by: :day
+          expect(views.keys.sort).to eq views.keys
         end
       end
 

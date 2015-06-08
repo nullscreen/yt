@@ -76,6 +76,8 @@ module Yt
           end
           if dimension == :month
             hash = hash.transform_values{|h| h.sort_by{|range, v| range.first}.to_h}
+          elsif dimension == :day
+            hash = hash.transform_values{|h| h.sort_by{|day, v| day}.to_h}
           elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type]
             hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
           end

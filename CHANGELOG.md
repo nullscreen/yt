@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.24.6 - 2015-06-08
+
+* [ENHANCEMENT] When grouping by day, return results in chronological order
+
 ## 0.24.5 - 2015-06-08
 
 * [ENHANCEMENT] When grouping by device type, return results sorted by descending views
