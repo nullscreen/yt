@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.24.7 - 2015-06-08
+
+* [ENHANCEMENT] Add `:videos` option to limit channel reports to subset of videos
+
 ## 0.24.6 - 2015-06-08
 
 * [ENHANCEMENT] When grouping by day, return results in chronological order

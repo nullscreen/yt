@@ -449,6 +449,17 @@ describe Yt::Channel, :partner do
         end
       end
 
+      describe 'views can be limited to a subset of videos' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+        let(:videos) { channel.videos.first(2) }
+
+        specify 'with the :videos option listing the video IDs' do
+          video_views = videos.inject(0){|total, video| total + video.views(range)[:total]}
+          views = channel.views range.merge videos: videos.map(&:id)
+          expect(views[:total]).to eq video_views
+        end
+      end
+
       describe 'uniques can be retrieved for a single country' do
         let(:country_code) { 'US' }
         let(:uniques) { channel.uniques since: date, by: by, in: location }
