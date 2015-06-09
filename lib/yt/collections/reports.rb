@@ -56,11 +56,12 @@ module Yt
 
       attr_writer :metrics
 
-      def within(days_range, country, state, dimension, try_again = true)
+      def within(days_range, country, state, dimension, videos, try_again = true)
         @days_range = days_range
         @dimension = dimension
         @country = country
         @state = state
+        @videos = videos
         if dimension == :gender_age_group # array of array
           Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
@@ -90,7 +91,7 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        try_again && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, false) : raise
+        try_again && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, videos, false) : raise
       end
 
     private
@@ -125,6 +126,7 @@ module Yt
           params['max-results'] = 200 if @dimension == :playlist
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
           params['sort'] = "-#{@metrics.keys.join(',').to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
+          params[:filters] = "video==#{@videos.join ','}" if @videos
           params[:filters] = ((params[:filters] || '').split(';') + ["country==US"]).compact.uniq.join(';') if @dimension == :state && !@state
           params[:filters] = ((params[:filters] || '').split(';') + ["country==#{@country}"]).compact.uniq.join(';') if @country && !@state
           params[:filters] = ((params[:filters] || '').split(';') + ["province==US-#{@state}"]).compact.uniq.join(';') if @state
