@@ -452,11 +452,20 @@ describe Yt::Channel, :partner do
       describe 'views can be limited to a subset of videos' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
         let(:videos) { channel.videos.first(2) }
+        let(:video_views) { videos.inject(0){|total, video| total + video.views(range)[:total]} }
 
         specify 'with the :videos option listing the video IDs' do
-          video_views = videos.inject(0){|total, video| total + video.views(range)[:total]}
           views = channel.views range.merge videos: videos.map(&:id)
           expect(views[:total]).to eq video_views
+        end
+
+        specify 'with a maximum of 200 video IDs' do
+          views = channel.views range.merge videos: (videos*100).map(&:id)
+          expect(views[:total]).to eq video_views
+        end
+
+        specify 'but fails with more than 200 video IDs' do
+          expect{channel.views range.merge videos: (videos*101).map(&:id)}.to raise_error Yt::Errors::RequestError
         end
       end
 
