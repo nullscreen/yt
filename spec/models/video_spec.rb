@@ -473,6 +473,23 @@ describe Yt::Video do
     end
   end
 
+  describe '#age_restricted?' do
+    context 'given a video with age restricted content' do
+      let(:attrs) { {content_details: {"contentRating"=>{"ytRating"=>"ytAgeRestricted"}}} }
+      it { expect(video).to be_age_restricted }
+    end
+
+    context 'given a video without age restricted content' do
+      let(:attrs) { {content_details: {}} }
+      it { expect(video).not_to be_age_restricted }
+    end
+
+    context 'given a video with a content rating but not ytRating' do
+      let(:attrs) { {content_details: {"contentRating"=>{"acbRating": "PG"}}} }
+      it { expect(video).not_to be_age_restricted }
+    end
+  end
+
   describe '#file_size' do
     context 'given a video with fileSize' do
       let(:attrs) { {file_details: {"fileSize"=>"8000000"}} }

@@ -22,6 +22,7 @@ module Yt
       has_attribute :definition
       has_attribute :caption
       has_attribute :licensed_content
+      has_attribute :content_rating
 
     private
 
