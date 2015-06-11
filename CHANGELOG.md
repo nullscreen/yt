@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.24.8 - unreleased
+
+* [FEATURE] New Video#age_restricted? method
+
 ## 0.24.7 - 2015-06-08
 
 * [ENHANCEMENT] Add `:videos` option to limit channel reports to subset of videos

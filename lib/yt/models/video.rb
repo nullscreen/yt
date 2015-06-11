@@ -250,7 +250,7 @@ module Yt
       # @return [Boolean] whether the video is identified by YouTube as
       #   age-restricted content.
       def age_restricted?
-        content_detail.content_rating != nil && content_detail.content_rating['ytRating'] == 'ytAgeRestricted'
+        content_detail.youtube_rating == 'ytAgeRestricted'
       end
 
     ### FILE DETAILS ###

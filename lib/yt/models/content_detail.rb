@@ -22,7 +22,11 @@ module Yt
       has_attribute :definition
       has_attribute :caption
       has_attribute :licensed_content
-      has_attribute :content_rating
+      has_attribute :content_rating, default: {}
+
+      def youtube_rating
+        content_rating['ytRating']
+      end
 
     private
 
