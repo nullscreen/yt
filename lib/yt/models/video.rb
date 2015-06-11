@@ -247,6 +247,12 @@ module Yt
         content_detail.licensed_content || false
       end
 
+      # @return [Boolean] whether the video is identified by YouTube as
+      #   age-restricted content.
+      def age_restricted?
+        content_detail.youtube_rating == 'ytAgeRestricted'
+      end
+
     ### FILE DETAILS ###
 
       has_one :file_detail
