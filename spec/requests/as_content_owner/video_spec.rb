@@ -55,6 +55,18 @@ describe Yt::Video, :partner do
           end
         end
 
+        describe "#{metric} can be grouped by week and returns non-overlapping periods" do
+          let(:metric) { metric }
+          let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 9} }
+          let(:result) { video.public_send metric, range.merge(by: :week)}
+          specify do
+            expect(result.size).to be <= 2
+            expect(result.keys).to all(be_a Range)
+            expect(result.keys.map{|range| range.first.wday}.uniq).to be_one
+            expect(result.keys.map{|range| range.last.wday}.uniq).to be_one
+          end
+        end
+
         describe "#{metric} can be retrieved for a single country" do
           let(:result) { video.public_send metric, options }
 
@@ -222,6 +234,18 @@ describe Yt::Video, :partner do
             expect(result[metric].keys.map &:first).to eq result[metric].keys.map(&:first).map(&:beginning_of_month)
             expect(result[metric].keys.map &:last).to all(be_a Date)
             expect(result[metric].keys.map &:last).to eq result[metric].keys.map(&:last).map(&:end_of_month)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+
+        specify 'by week' do
+          range = {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 9}
+          result = video.reports range.merge(only: metrics, by: :week)
+          metrics.each do |metric, type|
+            expect(result[metric].size).to be <= 2
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map{|range| range.first.wday}.uniq).to be_one
+            expect(result[metric].keys.map{|range| range.last.wday}.uniq).to be_one
             expect(result[metric].values).to all(be_a type)
           end
         end

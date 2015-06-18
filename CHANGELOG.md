@@ -6,8 +6,9 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.24.8 - unreleased
+## 0.24.8 - 2015-06-18
 
+* [FEATURE] New `by: :week` option for reports.
 * [FEATURE] New Video#age_restricted? method
 
 ## 0.24.7 - 2015-06-08

@@ -10,7 +10,7 @@ module Yt
       #   @option options [Array<Symbol>] :only The metrics to generate reports
       #     for.
       #   @option options [Symbol] :by (:day) The dimension to collect metrics
-      #     by. Accepted values are: +:day+, +:month+.
+      #     by. Accepted values are: +:day+, +:week+, +:month+.
       #   @option options [#to_date] :since The first day of the time-range.
       #     Also aliased as +:from+.
       #   @option options [#to_date] :until The last day of the time-range.
@@ -40,6 +40,11 @@ module Yt
       #   @example Get the $1 for this and last month:
       #     resource.$1 since: 1.month.ago, by: :month
       #     # => {Wed, 01 Apr 2014..Thu, 30 Apr 2014 => 12.0, Fri, 01 May 2014..Sun, 31 May 2014 => 34.0, …}
+      #   @return [Hash<Range<Date, Date>, $2>] if grouped by week, the $1
+      #     for each week in the time-range.
+      #   @example Get the $1 for this and last week:
+      #     resource.$1 since: 1.week.ago, by: :week
+      #     # => {Wed, 01 Apr 2014..Tue, 07 Apr 2014 => 20.0, Wed, 08 Apr 2014..Tue, 14 Apr 2014 => 13.0, …}
       #   @macro report
 
       # @!macro [new] report_with_range
@@ -70,19 +75,19 @@ module Yt
 
       # @!macro [new] report_by_day
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:month+.
+      #     Accepted values are: +:day+, +:week+, +:month+.
       #   @macro report_with_day
 
       # @!macro [new] report_by_day_and_country
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:month+, :+range+.
+      #     Accepted values are: +:day+, +:week+, +:month+, :+range+.
       #   @macro report_with_day
       #   @macro report_with_range
       #   @macro report_with_country
 
       # @!macro [new] report_by_day_and_state
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:month+, :+range+.
+      #     Accepted values are: +:day+, +:week+, +:month+, :+range+.
       #   @macro report_with_day
       #   @macro report_with_range
       #   @macro report_with_country_and_state
@@ -123,9 +128,9 @@ module Yt
 
       # @!macro [new] report_by_video_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:month+, +:range+, +:traffic_source+,
-      #     +:search_term+, +:playback_location+, +:related_video+,
-      #     +:embedded_player_location+.
+      #     Accepted values are: +:day+, +:week+, +:month+, +:range+,
+      #     +:traffic_source+,+:search_term+, +:playback_location+,
+      #     +:related_video+, +:embedded_player_location+.
       #   @option options [Array<Symbol>] :includes ([:id]) if grouped by
       #     related video, the parts of each video to eager-load. Accepted
       #     values are: +:id+, +:snippet+, +:status+, +:statistics+,
@@ -157,9 +162,9 @@ module Yt
 
       # @!macro [new] report_by_channel_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:month+, +:range+, +:traffic_source+,
-      #     +:search_term+, +:playback_location+, +:related_video+, +:video+,
-      #     +:playlist+, +:embedded_player_location+.
+      #     Accepted values are: +:day+, +:week+, +:month+, +:range+,
+      #     +:traffic_source+, +:search_term+, +:playback_location+, +:video+,
+      #     +:related_video+, +:playlist+, +:embedded_player_location+.
       #   @return [Hash<Symbol, $2>] if grouped by embedded player location,
       #     the $1 for each embedded player location.
       #   @example Get yesterday’s $1 by embedded player location:
@@ -170,8 +175,8 @@ module Yt
 
       # @!macro [new] report_by_playlist_dimensions
       #   @option options [Symbol] :by (:day) The dimension to collect $1 by.
-      #     Accepted values are: +:day+, +:month+, +:range+, +:traffic_source+,
-      #     +:playback_location+, +:related_video+, +:video+,
+      #     Accepted values are: +:day+, +:week+, +:month+, +:range+,
+      #     +:traffic_source+, +:playback_location+, +:related_video+, +:video+,
       #     +:playlist+.
       #   @macro report_with_channel_dimensions
       #   @macro report_with_country_and_state
@@ -230,7 +235,7 @@ module Yt
       def define_reports_method(metric, type)
         (@metrics ||= {})[metric] = type
         define_method :reports do |options = {}|
-          from = options[:since] || options[:from] || (options[:by].in?([:day, :month]) ? 5.days.ago : '2005-02-01')
+          from = options[:since] || options[:from] || (options[:by].in?([:day, :week, :month]) ? 5.days.ago : '2005-02-01')
           to = options[:until] || options[:to] || Date.today
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location
@@ -253,7 +258,7 @@ module Yt
 
       def define_metric_method(metric)
         define_method metric do |options = {}|
-          from = options[:since] || options[:from] || (options[:by].in?([:day, :month]) ? 5.days.ago : '2005-02-01')
+          from = options[:since] || options[:from] || (options[:by].in?([:day, :week, :month]) ? 5.days.ago : '2005-02-01')
           to = options[:until] || options[:to] || Date.today
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location
