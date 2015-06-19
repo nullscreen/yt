@@ -97,9 +97,10 @@ module Yt
           params[:max_results] = 50
           params[:part] = 'snippet'
           params[:order] = 'date'
-          params[:published_before] = @published_before if @published_before
           params.merge! @parent.videos_params if @parent
           apply_where_params! params
+          params[:published_before] = @published_before if @published_before
+          params
         end
       end
 

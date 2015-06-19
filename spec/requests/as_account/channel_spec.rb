@@ -88,6 +88,14 @@ describe Yt::Channel, :device_app do
           expect(channel.videos.count).to be > 500
           expect(channel.videos.where(order: 'viewCount').count).to be 500
         end
+
+        specify 'over 500 videos can be retrieved even with a publishedBefore condition' do
+          # @note: these tests are slow because they go through multiple pages
+          # of results to test that we can overcome YouTube’s limitation of only
+          # returning the first 500 results when ordered by date.
+          today = Date.today.beginning_of_day.iso8601(0)
+          expect(channel.videos.where(published_before: today).count).to be > 500
+        end
       end
     end
 
