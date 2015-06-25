@@ -129,7 +129,7 @@ module Yt
           params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
           params['max-results'] = 10 if @dimension == :video
-          params['max-results'] = 200 if @dimension == :playlist
+          params['max-results'] = 50 if @dimension == :playlist
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
           params['sort'] = "-#{@metrics.keys.join(',').to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
           params[:filters] = "video==#{@videos.join ','}" if @videos
