@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.24.10 - 2015-06-25
+
+* [BUGFIX] Don't break reports `by: :playlist` when trying to fetch their part by limiting to result to 50 playlists.
+
 ## 0.24.9 - 2015-06-19
 
 * [BUGFIX] Let more than `max_results` videos be retrieved even when a `published_before` where condition is specified.
