@@ -444,6 +444,9 @@ module Yt
       # @macro report_by_day_and_country
       has_report :monetized_playbacks, Integer
 
+      # @macro report_by_day_and_country
+      has_report :playback_based_cpm, Float
+
     ### STATISTICS ###
 
       has_one :statistics_set

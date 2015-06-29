@@ -128,10 +128,15 @@ module Yt
           params['end-date'] = @days_range.end
           params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
-          params['max-results'] = 10 if @dimension == :video
-          params['max-results'] = 50 if @dimension == :playlist
+          params['max-results'] = 50 if @dimension.in? [:playlist, :video]
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
-          params['sort'] = "-#{@metrics.keys.join(',').to_s.camelize(:lower)}" if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
+          if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
+            if @metrics.keys == [:earnings, :estimated_minutes_watched]
+              params['sort'] = '-earnings'
+            else
+              params['sort'] = "-#{@metrics.keys.join(',').to_s.camelize(:lower)}"
+            end
+          end
           params[:filters] = "video==#{@videos.join ','}" if @videos
           params[:filters] = ((params[:filters] || '').split(';') + ["country==US"]).compact.uniq.join(';') if @dimension == :state && !@state
           params[:filters] = ((params[:filters] || '').split(';') + ["country==#{@country}"]).compact.uniq.join(';') if @country && !@state
