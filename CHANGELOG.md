@@ -6,6 +6,17 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.0 - 2015-06-29
+
+**How to upgrade**
+
+If your code expects 10 videos when calling a report `by: :video` or
+`by: :related_video`, beware that those reports now return 25 videos.
+If you only need the first 10, just add `.first(10)` to your result.
+For instance: `channel.views(by: :video).first(10).to_h`.
+
+* [ENHANCEMENT] Return 25 results on reports by video / related video.
+
 ## 0.24.10 - 2015-06-25
 
 * [BUGFIX] Don't break reports `by: :playlist` when trying to fetch their part by limiting to result to 50 playlists.
