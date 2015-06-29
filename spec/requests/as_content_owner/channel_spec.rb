@@ -19,7 +19,7 @@ describe Yt::Channel, :partner do
           average_view_percentage: Float, annotation_clicks: Integer,
           annotation_click_through_rate: Float,
           annotation_close_rate: Float, earnings: Float, impressions: Integer,
-          monetized_playbacks: Integer}
+          monetized_playbacks: Integer, playback_based_cpm: Float}
 
         specify 'by day, and are chronologically sorted' do
           range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
@@ -60,7 +60,7 @@ describe Yt::Channel, :partner do
        :subscribers_gained, :subscribers_lost, :favorites_added,
        :favorites_removed, :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
-       :annotation_clicks, :annotation_click_through_rate,
+       :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
        :annotation_close_rate, :earnings].each do |metric|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
@@ -118,7 +118,7 @@ describe Yt::Channel, :partner do
        annotation_clicks: Integer, annotation_click_through_rate: Float,
        favorites_added: Integer, favorites_removed: Integer,
        average_view_percentage: Float, impressions: Integer,
-       shares: Integer,
+       shares: Integer, playback_based_cpm: Float,
        monetized_playbacks: Integer, annotation_close_rate: Float,
        earnings: Float}.each do |metric, type|
         describe "#{metric} can be retrieved for a specific day" do
@@ -1474,6 +1474,61 @@ describe Yt::Channel, :partner do
           expect(playbacks.keys).to all(be_a String)
           expect(playbacks.keys.map(&:length).uniq).to eq [2]
           expect(playbacks.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'playback-based CPM can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:playback_based_cpm) { channel.playback_based_cpm since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(playback_based_cpm.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(playback_based_cpm.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(playback_based_cpm.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(playback_based_cpm.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'playback-based CPM can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          playback_based_cpm = channel.playback_based_cpm range.merge by: :day
+          expect(playback_based_cpm.keys).to eq range.values
+        end
+      end
+
+      describe 'playback-based CPM can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          playbacks = channel.playback_based_cpm range.merge by: :country
+          expect(playbacks.keys).to all(be_a String)
+          expect(playbacks.keys.map(&:length).uniq).to eq [2]
+          expect(playbacks.values).to all(be_a Float)
         end
       end
 

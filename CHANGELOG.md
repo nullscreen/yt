@@ -16,6 +16,7 @@ If you only need the first 10, just add `.first(10)` to your result.
 For instance: `channel.views(by: :video).first(10).to_h`.
 
 * [ENHANCEMENT] Return 25 results on reports by video / related video.
+* [FEATURE] New `playback_based_cpm` report for channels and videos.
 
 ## 0.24.10 - 2015-06-25
 
@@ -122,7 +123,7 @@ If your code expects any of the following method to return Float values, then
 be aware that they now return Integer. You can still call `to_f` if you do need
 a Float: views, `comments`, `likes`, `dislikes`, `shares`, `subscribers_gained`,
 `subscribers_lost`, `favorites_added`, `favorites_removed`, `annotations`,
-`impressions`, `monetized_plybacks`, `playlist_starts`.
+`impressions`, `monetized_playbacks`, `playlist_starts`.
 
 * [ENHANCEMENT] Return `Integer` values for reports that can never return decimal digits.
 * [FEATURE] New `by: :range` option for reports, to return a metric without dimensions (that is, for the whole range)

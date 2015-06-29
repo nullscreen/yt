@@ -17,7 +17,7 @@ describe Yt::Video, :partner do
        :subscribers_gained, :subscribers_lost, :favorites_added,
        :favorites_removed, :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
-       :annotation_clicks, :annotation_click_through_rate,
+       :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
        :annotation_close_rate, :earnings].each do |metric|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
@@ -921,6 +921,27 @@ describe Yt::Video, :partner do
           expect(playbacks.keys).to all(be_a String)
           expect(playbacks.keys.map(&:length).uniq).to eq [2]
           expect(playbacks.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'playback-based CPM can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          playback_based_cpm = video.playback_based_cpm range.merge by: :day
+          expect(playback_based_cpm.keys).to eq range.values
+        end
+      end
+
+      describe 'playback-based CPM can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          playbacks = video.playback_based_cpm range.merge by: :country
+          expect(playbacks.keys).to all(be_a String)
+          expect(playbacks.keys.map(&:length).uniq).to eq [2]
+          expect(playbacks.values).to all(be_a Float)
         end
       end
 
