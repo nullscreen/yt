@@ -259,8 +259,11 @@ In order to use Yt you must register your app in the [Google Developers Console]
 If you don’t have a registered app, browse to the console and select "Create Project":
 ![01-create-project](https://cloud.githubusercontent.com/assets/7408595/3373043/4224c894-fbb0-11e3-9f8a-4d96bddce136.png)
 
-When your project is ready, select APIs & Auth in the menu and enable Google+, YouTube Analytics and YouTube Data API:
-![02-select-api](https://cloud.githubusercontent.com/assets/7408595/3373046/4226ea34-fbb0-11e3-9a44-872871e8b297.png)
+When your project is ready, select APIs & Auth in the menu and individually enable Google+, YouTube Analytics and YouTube Data API:
+![02-select-api](https://cloud.githubusercontent.com/assets/4453997/8442701/5d0f77f4-1f35-11e5-93d8-07d4459186b5.png)
+![02a-enable google api](https://cloud.githubusercontent.com/assets/4453997/8442306/0f714cb8-1f33-11e5-99b3-f17a4b1230fe.png)
+![02b-enable youtube api](https://cloud.githubusercontent.com/assets/4453997/8442304/0f6fd0e0-1f33-11e5-981a-acf90ccd7409.png)
+![02c-enable youtube analytics api](https://cloud.githubusercontent.com/assets/4453997/8442305/0f71240e-1f33-11e5-9b60-4ecea02da9be.png)
 
 The next step is to create an API key. Depending on the nature of your app, you should pick one of the following strategies.
 
