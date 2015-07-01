@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.1 - Unreleased
+
+* [ENHANCEMENT] `Yt::Video.new` accepts embedded video url.
+
 ## 0.25.0 - 2015-06-29
 
 **How to upgrade**
