@@ -71,6 +71,7 @@ module Yt
         %W{
           youtube\\.com/watch\\?v=#{video_id}
           youtu\\.be/#{video_id}
+          youtube\\.com/embed/#{video_id}
         }
       end
 
