@@ -202,6 +202,7 @@ module Yt
       [
         OpenSSL::SSL::SSLError,
         Errno::ETIMEDOUT,
+        Errno::EHOSTUNREACH,
         Errno::ENETUNREACH,
         Errno::ECONNRESET,
         Net::HTTPServerError
