@@ -174,6 +174,24 @@ asset.ownership.release! #=> true
 asset.update metadata_mine: {notes: 'Some notes'} #=> true
 ```
 
+* to retrieve metadata for an asset (e.g. title, notes, description, custom_id)
+
+```ruby
+content_owner = Yt::ContentOwner.new(...)
+asset = content_owner.assets.where(id: 'A969176766549462', fetch_metadata: 'mine').first
+asset.metadata_mine.title #=> "Master Final   Neu La Anh Fix"
+
+asset = content_owner.assets.where(id: 'A969176766549462', fetch_metadata: 'effective').first
+asset.metadata_effective.title #=> "Neu la anh" (different due to ownership conflicts)
+```
+
+* to search for an asset
+
+```ruby
+content_owner.assets.where(labels: "campaign:cpiuwdz-8oc").size #=> 417
+content_owner.assets.where(labels: "campaign:cpiuwdz-8oc").first.title #=> "Whoomp! (Supadupafly) (Xxl Hip House Mix)"
+```
+
 Yt::Claim
 ---------
 
