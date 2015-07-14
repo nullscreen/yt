@@ -7,6 +7,9 @@ module Yt
     # @see https://developers.google.com/youtube/analytics/v1/content_owner_reports
     class ContentOwner < Account
 
+      #   @return [Yt::Collections::ContentOwnerAdvertisingOptionsSets] the advertising options of the ContentOwner
+      has_one :content_owner_advertising_options_set
+
       # @!attribute [r] partnered_channels
       #   @return [Yt::Collections::PartneredChannels] the channels managed by the CMS account.
       has_many :partnered_channels
