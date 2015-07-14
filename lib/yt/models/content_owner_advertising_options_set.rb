@@ -1,4 +1,6 @@
 require 'yt/models/base'
+require 'yt/models/allowed_advertising_options_set'
+require 'yt/models/claimed_video_defaults_set'
 
 module Yt
   module Models
