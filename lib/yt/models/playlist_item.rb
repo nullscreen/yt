@@ -88,6 +88,13 @@ module Yt
         !@id.nil?
       end
 
+      # @private
+      # Override Resource's new to set video if the response includes it
+      def initialize(options = {})
+        super options
+        @video = options[:video] if options[:video]
+      end
+
     private
 
       def resource_id
