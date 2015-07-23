@@ -16,7 +16,23 @@ module Yt
       def attributes_for_new_item(data)
         snippet = data.fetch 'snippet', {}
         data['snippet'].reverse_merge! complete: snippet.key?('position')
-        super(data)
+        super(data).tap do |attributes|
+          attributes[:video] = data['video']
+        end
+      end
+
+      def eager_load_items_from(items)
+        if included_relationships.include?(:video)
+          video_ids = items.map{|item| item['snippet']['resourceId']['videoId']}.uniq
+          conditions = {id: video_ids.join(',')}
+          conditions[:part] = 'snippet,status,statistics'
+          videos = Collections::Videos.new(auth: @auth).where conditions
+          items.each do |item|
+            video = videos.find{|v| v.id == item['snippet']['resourceId']['videoId']}
+            item['video'] = video
+          end
+        end
+        super
       end
 
       # @return [Hash] the parameters to submit to YouTube to list playlist items.

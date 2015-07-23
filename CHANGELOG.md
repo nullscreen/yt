@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.2 - 2015-07-22
+
+* [FEATURE] Add .includes(:video) to .playlist_items to eager-load video data of a list of playlist items.
+
 ## 0.25.1 - 2015-07-06
 
 * [ENHANCEMENT] `Yt::Video.new` accepts embedded video url.
