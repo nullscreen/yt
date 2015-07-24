@@ -76,6 +76,7 @@ module Yt
 
       def next_page
         super.tap do |items|
+          halt_list if use_list_endpoint? && items.empty? && @page_token.nil?
           add_offset_to(items) if !use_list_endpoint? && @page_token.nil? && videos_params[:order] == 'date'
         end
       end
@@ -89,6 +90,18 @@ module Yt
           last_published = items.last['snippet']['publishedAt']
           @page_token, @published_before = '', last_published
         end
+      end
+
+      # If we ask for a list of videos matching specific IDs and no video is
+      # returned (e.g. they are all private/deleted), then we don’t want to
+      # switch from /videos to /search and keep on looking for videos, but
+      # simply return an empty array of items
+      def halt_list
+        @halt_list = true
+      end
+
+      def more_pages?
+        (@last_index.zero? && !@halt_list) || !@page_token.nil?
       end
 
       def videos_params
