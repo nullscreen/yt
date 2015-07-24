@@ -711,7 +711,7 @@ describe Yt::Channel, :partner do
       describe 'shares can be retrieved for a single country' do
         let(:country_code) { 'US' }
         let(:shares) { channel.shares since: date, by: by, in: location }
-        let(:date) { 4.days.ago }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
         context 'and grouped by day' do
           let(:by) { :day }
@@ -753,7 +753,7 @@ describe Yt::Channel, :partner do
       end
 
       describe 'shares can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :country' do
           shares = channel.shares range.merge by: :country
@@ -876,7 +876,7 @@ describe Yt::Channel, :partner do
       describe 'favorites added can be retrieved for a single country' do
         let(:country_code) { 'US' }
         let(:favorites_added) { channel.favorites_added since: date, by: by, in: location }
-        let(:date) { 4.days.ago }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
 
         context 'and grouped by day' do
           let(:by) { :day }

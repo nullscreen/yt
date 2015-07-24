@@ -72,7 +72,7 @@ describe Yt::Channel, :device_app do
       end
 
       describe 'when the channel has more than 500 videos' do
-        let(:id) { 'UCsmvakQZlvGsyjyOhmhvOsw' }
+        let(:id) { 'UC0v-tlzsn0QZwJnkiaUSJVQ' }
 
         specify 'the estimated and actual number of videos can be retrieved' do
           # @note: in principle, the following three counters should match, but
