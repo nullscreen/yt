@@ -101,6 +101,7 @@ describe Yt::Channel, :device_app do
 
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
     it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
+    it { expect(channel.related_playlists.first).to be_a Yt::Playlist }
 
     specify 'with a public list of subscriptions' do
       expect(channel.subscribed_channels.first).to be_a Yt::Channel

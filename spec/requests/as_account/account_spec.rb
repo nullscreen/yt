@@ -12,6 +12,7 @@ describe Yt::Account, :device_app do
 
   it { expect($account.channel).to be_a Yt::Channel }
   it { expect($account.playlists.first).to be_a Yt::Playlist }
+  it { expect($account.related_playlists.first).to be_a Yt::Playlist }
   it { expect($account.subscribed_channels.first).to be_a Yt::Channel }
   it { expect($account.user_info).to be_a Yt::UserInfo }
 

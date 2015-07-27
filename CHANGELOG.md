@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.4 - 2015-07-27
+
+* [FEATURE] Add `channel.related_playlist` and `account.related_playlists` to access "Liked Videos", "Uploads", etc.
+
 ## 0.25.3 - 2015-07-23
 
 * [BUGFIX] Don’t run an infinite loop when calling `.playlist_items.includes(:video)` on a playlist with only private or deleted videos
