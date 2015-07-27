@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.3 - 2015-07-23
+
+* [BUGFIX] Don’t run an infinite loop when calling `.playlist_items.includes(:video)` on a playlist with only private or deleted videos
+
 ## 0.25.2 - 2015-07-22
 
 * [FEATURE] Add .includes(:video) to .playlist_items to eager-load video data of a list of playlist items.

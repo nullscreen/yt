@@ -47,6 +47,18 @@ describe Yt::Playlist, :device_app do
     end
   end
 
+  context 'given a playlist that only includes other people’s private or deleted videos' do
+    let(:id) { 'PLsnYEvcCzABOsJdehqkIDhwz8CPGWzX59' }
+
+    describe '.playlist_items.includes(:video)' do
+      let(:items) { playlist.playlist_items.includes(:video).map{|i| i} }
+
+      specify 'returns nil (without running an infinite loop)' do
+        expect(items.size).to be 2
+      end
+    end
+  end
+
   context 'given an unknown playlist' do
     let(:id) { 'not-a-playlist-id' }
 

@@ -614,7 +614,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'playlist starts can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :country' do
           starts = playlist.playlist_starts range.merge by: :country
@@ -680,7 +680,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'average time in playlist can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :country' do
           time = playlist.average_time_in_playlist range.merge by: :country
@@ -746,7 +746,7 @@ describe Yt::Playlist, :partner do
       end
 
       describe 'views per playlist start can be grouped by country' do
-        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :country' do
           views = playlist.views_per_playlist_start range.merge by: :country
