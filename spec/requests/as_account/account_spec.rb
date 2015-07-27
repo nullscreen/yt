@@ -15,6 +15,27 @@ describe Yt::Account, :device_app do
   it { expect($account.subscribed_channels.first).to be_a Yt::Channel }
   it { expect($account.user_info).to be_a Yt::UserInfo }
 
+  describe '.related_playlists' do
+    let(:related_playlists) { $account.related_playlists }
+
+    specify 'returns the list of associated playlist (Liked Videos, Uploads, ...)' do
+      expect(related_playlists.first).to be_a Yt::Playlist
+    end
+
+    specify 'includes public related playlists (such as Liked Videos)' do
+      uploads = related_playlists.select{|p| p.title.starts_with? 'Uploads'}
+      expect(uploads).not_to be_empty
+    end
+
+    specify 'includes private playlists (such as Watch Later or History)' do
+      watch_later = related_playlists.select{|p| p.title == 'Watch Later'}
+      expect(watch_later).not_to be_empty
+
+      history = related_playlists.select{|p| p.title == 'History'}
+      expect(history).not_to be_empty
+    end
+  end
+
   describe '.videos' do
     let(:video) { $account.videos.where(order: 'viewCount').first }
 

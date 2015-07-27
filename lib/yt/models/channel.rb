@@ -94,6 +94,12 @@ module Yt
       #   @return [Yt::Collections::Playlists] the channel’s playlists.
       has_many :playlists
 
+      # @!attribute [r] related_playlists
+      #   @return [Yt::Collections::Playlists] the playlists associated with the
+      #     channel, such as the playlist of uploaded or liked videos.
+      #   @see https://developers.google.com/youtube/v3/docs/channels#contentDetails.relatedPlaylists
+      has_many :related_playlists
+
       # @!attribute [r] subscribed_channels
       #   @return [Yt::Collections::SubscribedChannels] the channels that this
       #     channel is subscribed to.

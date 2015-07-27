@@ -102,6 +102,24 @@ describe Yt::Channel, :device_app do
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
     it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
 
+    describe '.related_playlists' do
+      let(:related_playlists) { channel.related_playlists }
+
+      specify 'returns the list of associated playlist (Liked Videos, Uploads, ...)' do
+        expect(related_playlists.first).to be_a Yt::Playlist
+      end
+
+      specify 'includes public related playlists (such as Liked Videos)' do
+        uploads = related_playlists.select{|p| p.title.starts_with? 'Uploads'}
+        expect(uploads).not_to be_empty
+      end
+
+      specify 'does not includes private playlists (such as Watch Later)' do
+        watch_later = related_playlists.select{|p| p.title.starts_with? 'Watch'}
+        expect(watch_later).to be_empty
+      end
+    end
+
     specify 'with a public list of subscriptions' do
       expect(channel.subscribed_channels.first).to be_a Yt::Channel
     end

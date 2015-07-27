@@ -180,37 +180,18 @@ channel = Yt::Channel.new url: 'youtube.com/liz'
 channel.videos.where(q: 'penguin')
 ```
 
-<!--
-
-TODO: Although FAVORITE is somehow deprecated, it can still be retrieved with
-V3. First, get the contentDetails of the account's channel and you'll get
-
-{"relatedPlaylists"=>
-  {"likes"=>"LLrWYT-_Xncr1BLPfPNr50sQ",
-   "favorites"=>"FLrWYT-_Xncr1BLPfPNr50sQ",
-   "uploads"=>"UUrWYT-_Xncr1BLPfPNr50sQ",
-   "watchHistory"=>"HLrWYT-_Xncr1BLPfPNr50sQ",
-   "watchLater"=>"WLrWYT-_Xncr1BLPfPNr50sQ"},
-
-Then you can list the videos of the "favorites" playlist. That playlist does
-not exist for new YouTube account, but you can still add a video to it, and
-it will magically appear (and also, DELETE PLAYLIST will be disabled)
-
 List videos favorited by user:
 
 ```ruby
 # with youtube_it
 client = YouTubeIt::Client.new
 client.videos_by(:favorites, :user => 'liz')
-# with yt: not supported (was removed from YouTube API V3)
-
-or maybe add .liked_videos and .disliked_videos here !!!!!
-
+# with yt: note that only *old* channels have a "Favorites" playlist, since
+# "Favorites" has been deprecated by YouTube in favor of "Liked Videos".
+channel = Yt::Channel.new url: 'youtube.com/liz'
+channel.related_playlists.find{|p| p.title == 'Favorites'}
 ```
 
-
-
--->
 
 Retrieve video by ID:
 
@@ -509,32 +490,16 @@ client.delete_comment(video_id, comment_id)
 # with yt: not supported (was removed from YouTube API V3)
 ```
 
-<!--
 List Favorites:
-
-
-TODO: Although FAVORITE is somehow deprecated, it can still be retrieved with
-V3. First, get the contentDetails of the account's channel and you'll get
-
-{"relatedPlaylists"=>
-  {"likes"=>"LLrWYT-_Xncr1BLPfPNr50sQ",
-   "favorites"=>"FLrWYT-_Xncr1BLPfPNr50sQ",
-   "uploads"=>"UUrWYT-_Xncr1BLPfPNr50sQ",
-   "watchHistory"=>"HLrWYT-_Xncr1BLPfPNr50sQ",
-   "watchLater"=>"WLrWYT-_Xncr1BLPfPNr50sQ"},
-
-Then you can list the videos of the "favorites" playlist. That playlist does
-not exist for new YouTube account, but you can still add a video to it, and
-it will magically appear (and also, DELETE PLAYLIST will be disabled)
-
 
 ```ruby
 # with youtube_it
 client = # new client initialized with either OAuth or AuthSub
 client.favorites(user) # default: current user
-# with yt
-
-# TODO: ADD account.liked_videos and .disliked_videos
+# with yt: note that only *old* channels have a "Favorites" playlist, since
+# "Favorites" has been deprecated by YouTube in favor of "Liked Videos".
+account = Yt::Account.new access_token: 'access_token'
+account.related_playlists.find{|p| p.title == 'Favorites'}
 ```
 
 Add Favorite:
@@ -723,36 +688,39 @@ playlist_item = Yt::PlaylistItem.new id: playlist_entry_id, auth: account
 playlist_item.update position: position
 ```
 
-<!--
-
-
-TODO: Although WATCHLATER is somehow deprecated, it can still be retrieved with
-V3. First, get the contentDetails of the account's channel and you'll get
-
-{"relatedPlaylists"=>
-  {"likes"=>"LLrWYT-_Xncr1BLPfPNr50sQ",
-   "favorites"=>"FLrWYT-_Xncr1BLPfPNr50sQ",
-   "uploads"=>"UUrWYT-_Xncr1BLPfPNr50sQ",
-   "watchHistory"=>"HLrWYT-_Xncr1BLPfPNr50sQ",
-   "watchLater"=>"WLrWYT-_Xncr1BLPfPNr50sQ"},
-
-Then you can list the videos of the "watch later" playlist. That playlist does
-not exist for new YouTube account, but you can still add a video to it, and
-it will magically appear (and also, DELETE PLAYLIST will be disabled)
-
-
 Select All Videos From your Watch Later Playlist:
-  $ watcher_later = client.watcherlater(user) #default: current user
-  $ watcher_later.videos
+
+```ruby
+# with youtube_it
+watcher_later = client.watcherlater(user) #default: current user
+watcher_later.videos
+# with yt
+account = Yt::Account.new access_token: 'access_token'
+watch_later = account.related_playlists.find{|p| p.title == 'Watch Later'}
+watch_later.playlist_items.map{|item| item.video}
+```
 
 Add Video To Watcher Later Playlist:
-  $ client.add_video_to_watchlater(video_id)
+
+```ruby
+# with youtube_it
+client.add_video_to_watchlater(video_id)
+# with yt
+account = Yt::Account.new access_token: 'access_token'
+watch_later = account.related_playlists.find{|p| p.title == 'Watch Later'}
+watch_later.add_video video_id
+```
 
 Remove Video From Watch Later Playlist:
-  $ client.delete_video_from_watchlater(watchlater_entry_id)
 
--->
-
+```ruby
+# with youtube_it
+client.delete_video_from_watchlater(watchlater_entry_id)
+# with yt
+account = Yt::Account.new access_token: 'access_token'
+watch_later = account.related_playlists.find{|p| p.title == 'Watch Later'}
+watch_later.delete_playlist_items video_id: video_id
+```
 
 <!-- TODO: Add using https://developers.google.com/youtube/v3/docs/search/list#relatedToVideoId
 
