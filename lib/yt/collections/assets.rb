@@ -9,10 +9,8 @@ module Yt
     # Resources with assets are: {Yt::Models::ContentOwner content owners}.
     class Assets < Base
       def insert(attributes = {})
-        underscore_keys! attributes
-        body = {type: attributes[:type]}
         params = {on_behalf_of_content_owner: @auth.owner_name}
-        do_insert(params: params, body: body)
+        do_insert(params: params, body: attributes)
       end
 
     private

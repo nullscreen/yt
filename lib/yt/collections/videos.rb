@@ -8,20 +8,61 @@ module Yt
     # Resources with videos are: {Yt::Models::Channel channels} and
     # {Yt::Models::Account accounts}.
     class Videos < Base
+      def where(requirements = {})
+        @published_before = nil
+        super
+      end
 
     private
 
       def attributes_for_new_item(data)
         id = use_list_endpoint? ? data['id'] : data['id']['videoId']
-        snippet = data['snippet'].merge includes_tags: false if data['snippet']
+        snippet = data['snippet'].reverse_merge complete: false if data['snippet']
         {}.tap do |attributes|
           attributes[:id] = id
           attributes[:snippet] = snippet
           attributes[:status] = data['status']
           attributes[:content_details] = data['contentDetails']
           attributes[:statistics] = data['statistics']
+          attributes[:video_category] = data['videoCategory']
           attributes[:auth] = @auth
         end
+      end
+
+      def eager_load_items_from(items)
+        if included_relationships.any?
+          include_category = included_relationships.delete(:category)
+          included_relationships.append(:snippet).uniq! if include_category
+
+          ids = items.map{|item| item['id']['videoId']}
+          parts = included_relationships.map{|r| r.to_s.camelize(:lower)}
+          conditions = {id: ids.join(','), part: parts.join(',')}
+          videos = Collections::Videos.new(auth: @auth).where conditions
+
+          items.each do |item|
+            video = videos.find{|v| v.id == item['id']['videoId']}
+            parts.each do |part|
+              item[part] = case part
+                when 'snippet' then video.snippet.data.merge complete: true
+                when 'status' then video.status.data
+                when 'statistics' then video.statistics_set.data
+                when 'contentDetails' then video.content_detail.data
+              end
+            end if video
+          end
+
+          if include_category
+            category_ids = items.map{|item| item['snippet']['categoryId']}.uniq
+            conditions = {id: category_ids.join(',')}
+            video_categories = Collections::VideoCategories.new(auth: @auth).where conditions
+
+            items.each do |item|
+              video_category = video_categories.find{|v| v.id == item['snippet']['categoryId']}
+              item['videoCategory'] = video_category.data
+            end
+          end
+        end
+        super
       end
 
       # @return [Hash] the parameters to submit to YouTube to list videos.
@@ -35,6 +76,7 @@ module Yt
 
       def next_page
         super.tap do |items|
+          halt_list if use_list_endpoint? && items.empty? && @page_token.nil?
           add_offset_to(items) if !use_list_endpoint? && @page_token.nil? && videos_params[:order] == 'date'
         end
       end
@@ -50,15 +92,28 @@ module Yt
         end
       end
 
+      # If we ask for a list of videos matching specific IDs and no video is
+      # returned (e.g. they are all private/deleted), then we don’t want to
+      # switch from /videos to /search and keep on looking for videos, but
+      # simply return an empty array of items
+      def halt_list
+        @halt_list = true
+      end
+
+      def more_pages?
+        (@last_index.zero? && !@halt_list) || !@page_token.nil?
+      end
+
       def videos_params
         {}.tap do |params|
           params[:type] = :video
           params[:max_results] = 50
           params[:part] = 'snippet'
           params[:order] = 'date'
-          params[:published_before] = @published_before if @published_before
           params.merge! @parent.videos_params if @parent
           apply_where_params! params
+          params[:published_before] = @published_before if @published_before
+          params
         end
       end
 

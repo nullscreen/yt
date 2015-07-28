@@ -10,6 +10,7 @@ require 'yt/errors/server_error'
 require 'yt/errors/unauthorized'
 
 module Yt
+  # @private
   # A wrapper around Net::HTTP to send HTTP requests to any web API and
   # return their result or raise an error if the result is unexpected.
   # The basic way to use Request is by calling +run+ on an instance.
@@ -32,12 +33,10 @@ module Yt
     # @option options [String] :host The host component of the request URI.
     # @option options [String] :path The path component of the request URI.
     # @option options [Hash] :params ({}) The params to use as the query
-    #   component of the request URI, for instance the Hash {a: 1, b: 2}
+    #   component of the request URI, for instance the Hash +{a: 1, b: 2}+
     #   corresponds to the query parameters "a=1&b=2".
     # @option options [Hash] :camelize_params (true) whether to transform
-    #   each key of params into a camel-case symbol before sending the
-    #   request. For instance, if set to true, the params {aBc: 1, d_e: 2,
-    #   'f' => 3} would be sent as {aBc: 1, dE: 2, f: 3}.
+    #   each key of params into a camel-case symbol before sending the request.
     # @option options [Hash] :request_format (:json) The format of the
     #   requesty body. If a request body is passed, it will be parsed
     #   according to this format before sending it in the request.
@@ -201,12 +200,23 @@ module Yt
     def server_errors
       [
         OpenSSL::SSL::SSLError,
-        OpenSSL::SSL::SSLErrorWaitReadable,
         Errno::ETIMEDOUT,
+        Errno::EHOSTUNREACH,
         Errno::ENETUNREACH,
         Errno::ECONNRESET,
         Net::HTTPServerError
-      ]
+      ] + extra_server_errors
+    end
+
+    # Returns the list of server errors that are only raised (and therefore
+    # can only be rescued) by specific versions of Ruby.
+    # @see: https://github.com/Fullscreen/yt/pull/110
+    def extra_server_errors
+      if defined? OpenSSL::SSL::SSLErrorWaitReadable
+        [OpenSSL::SSL::SSLErrorWaitReadable]
+      else
+        []
+      end
     end
 
     # Sleeps for a while and returns true for the first +max_retries+ times,

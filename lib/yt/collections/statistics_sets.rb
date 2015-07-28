@@ -3,6 +3,7 @@ require 'yt/models/statistics_set'
 
 module Yt
   module Collections
+    # @private
     class StatisticsSets < Base
 
     private

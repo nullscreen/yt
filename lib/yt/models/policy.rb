@@ -25,11 +25,6 @@ module Yt
       # @return [String] the time the policy was updated.
       has_attribute :updated_at, type: Time, from: :time_updated
 
-      # @deprecated Use {#updated_at} instead.
-      def time_updated
-        updated_at
-      end
-
       # @return [Array<PolicyRule>] a list of rules that specify the action
       #   that YouTube should take and may optionally specify the conditions
       #   under which that action is enforced.

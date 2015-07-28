@@ -23,3 +23,5 @@ Gemfile.lock
 
 doc/
 .yardoc/
+_site/
+TODO.md

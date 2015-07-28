@@ -7,7 +7,7 @@ describe Yt::Playlist, :device_app do
   subject(:playlist) { Yt::Playlist.new id: id, auth: $account }
 
   context 'given an existing playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+    let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
 
     it 'returns valid metadata' do
       expect(playlist.title).to be_a String
@@ -17,10 +17,46 @@ describe Yt::Playlist, :device_app do
       expect(playlist.tags).to be_an Array
       expect(playlist.channel_id).to be_a String
       expect(playlist.channel_title).to be_a String
-      expect(playlist.privacy_status).to be_in Yt::Status::PRIVACY_STATUSES
+      expect(playlist.privacy_status).to be_a String
     end
 
-    it { expect(playlist.playlist_items.first).to be_a Yt::PlaylistItem }
+    describe '.playlist_items' do
+      let(:item) { playlist.playlist_items.first }
+
+      specify 'returns the playlist item with the complete snippet' do
+        expect(item).to be_a Yt::PlaylistItem
+        expect(item.snippet).to be_complete
+        expect(item.position).not_to be_nil
+      end
+
+      specify 'does not eager-load the attributes of the item’s video' do
+        expect(item.video.instance_variable_defined? :@snippet).to be false
+        expect(item.video.instance_variable_defined? :@status).to be false
+        expect(item.video.instance_variable_defined? :@statistics_set).to be false
+      end
+    end
+
+    describe '.playlist_items.includes(:video)' do
+      let(:item) { playlist.playlist_items.includes(:video).first }
+
+      specify 'eager-loads the snippet, status and statistics of each video' do
+        expect(item.video.instance_variable_defined? :@snippet).to be true
+        expect(item.video.instance_variable_defined? :@status).to be true
+        expect(item.video.instance_variable_defined? :@statistics_set).to be true
+      end
+    end
+  end
+
+  context 'given a playlist that only includes other people’s private or deleted videos' do
+    let(:id) { 'PLsnYEvcCzABOsJdehqkIDhwz8CPGWzX59' }
+
+    describe '.playlist_items.includes(:video)' do
+      let(:items) { playlist.playlist_items.includes(:video).map{|i| i} }
+
+      specify 'returns nil (without running an infinite loop)' do
+        expect(items.size).to be 2
+      end
+    end
   end
 
   context 'given an unknown playlist' do
@@ -31,7 +67,7 @@ describe Yt::Playlist, :device_app do
   end
 
   context 'given someone else’s playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+    let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
     let(:video_id) { 'MESycYJytkU' }
 
     it { expect{playlist.delete}.to fail.with 'forbidden' }
@@ -137,6 +173,20 @@ describe Yt::Playlist, :device_app do
         it { expect(playlist.add_video(video_id, position: 0).position).to be 0 }
       end
 
+      # NOTE: This test sounds redundant, but it’s actually a reflection of
+      # another irrational behavior of YouTube API. In short, if you add a new
+      # video to a playlist, the returned item does not have the "position"
+      # information. You need an extra call to get it. When YouTube fixes this
+      # behavior, this test (and related code) will go away.
+      describe 'adding the video' do
+        let(:item) { playlist.add_video video_id }
+
+        specify 'returns an item without its position' do
+          expect(item.snippet).not_to be_complete
+          expect(item.position).not_to be_nil # after reloading
+        end
+      end
+
       describe 'can be removed' do
         before { playlist.add_video video_id }
 
@@ -173,6 +223,22 @@ describe Yt::Playlist, :device_app do
         it { expect{playlist.add_videos video_ids}.to change{playlist.playlist_items.count}.by(1) }
         it { expect{playlist.add_videos! video_ids}.to fail.with 'videoNotFound' }
       end
+    end
+  end
+
+  context 'given one of my own playlists that I want to get reports for' do
+    let(:id) { $account.channel.playlists.first.id }
+
+    it 'returns valid reports for playlist-related metrics' do
+      expect{playlist.views}.not_to raise_error
+      expect{playlist.playlist_starts}.not_to raise_error
+      expect{playlist.average_time_in_playlist}.not_to raise_error
+      expect{playlist.views_per_playlist_start}.not_to raise_error
+
+      expect{playlist.views_on 3.days.ago}.not_to raise_error
+      expect{playlist.playlist_starts_on 3.days.ago}.not_to raise_error
+      expect{playlist.average_time_in_playlist_on 3.days.ago}.not_to raise_error
+      expect{playlist.views_per_playlist_start_on 3.days.ago}.not_to raise_error
     end
   end
 end

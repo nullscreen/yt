@@ -3,13 +3,13 @@ Yt - a Ruby client for the YouTube API
 
 Yt helps you write apps that need to interact with YouTube.
 
-The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
+The **source code** is available on [GitHub](https://github.com/Fullscreen/yt) and the **documentation** on [RubyDoc](http://www.rubydoc.info/gems/yt/frames).
 
 [![Build Status](http://img.shields.io/travis/Fullscreen/yt/master.svg)](https://travis-ci.org/Fullscreen/yt)
 [![Coverage Status](http://img.shields.io/coveralls/Fullscreen/yt/master.svg)](https://coveralls.io/r/Fullscreen/yt)
 [![Dependency Status](http://img.shields.io/gemnasium/Fullscreen/yt.svg)](https://gemnasium.com/Fullscreen/yt)
 [![Code Climate](http://img.shields.io/codeclimate/github/Fullscreen/yt.svg)](https://codeclimate.com/github/Fullscreen/yt)
-[![Online docs](http://img.shields.io/badge/docs-✓-green.svg)](http://rubydoc.info/github/Fullscreen/yt/master/frames)
+[![Online docs](http://img.shields.io/badge/docs-✓-green.svg)](http://www.rubydoc.info/gems/yt/frames)
 [![Gem Version](http://img.shields.io/gem/v/yt.svg)](http://rubygems.org/gems/yt)
 
 After [registering your app](#configuring-your-app), you can run commands like:
@@ -30,7 +30,7 @@ video.hd? #=> true
 video.annotations.count #=> 1
 ```
 
-The **full documentation** is available at [rubydoc.info](http://rubydoc.info/github/Fullscreen/yt/master/frames).
+The **full documentation** is available at [rubydoc.info](http://www.rubydoc.info/gems/yt/frames).
 
 How to install
 ==============
@@ -41,7 +41,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.13.11'
+    gem 'yt', '~> 0.25.4'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -54,52 +54,13 @@ Available resources
 Yt::Account
 -----------
 
-Use [Yt::Account](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Account) to:
+Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/accounts.html) for the list of methods available for `Yt::Account`.
 
-* authenticate as a YouTube account
-* read the attributes of the account
-* access the channel managed by the account
-* access the videos uploaded by the account
-* create playlist
-* upload a video
-* list the channels subscribed to an account
-
-```ruby
-# Accounts can be initialized with access token, refresh token or an authorization code
-account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
-
-account.email #=> .. your e-mail address..
-account.channel #=> #<Yt::Models::Channel @id=...>
-
-account.videos.count #=> 12
-account.videos.first #=> #<Yt::Models::Video @id=...>
-
-account.upload_video 'my_video.mp4', title: 'My new video', privacy_status: 'private', category_id: 17
-account.upload_video 'http://example.com/remote.m4v', title: 'My other video', tags: ['music']
-
-account.create_playlist title: 'New playlist', privacy_status: 'unlisted' #=> true
-
-account.subscribers.count #=> 2
-account.subscribers.first #=> #<Yt::Models::Channel @id=...>
-account.subscribers.first.title #=> 'Fullscreen'
-
-```
-
-*The methods above require to be authenticated as a YouTube account (see below).*
-
-```ruby
-account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
-
-account.content_owners.count #=> 3
-account.content_owners.first #=>  #<Yt::Models::ContentOwner @id=...>
-```
-
-*The methods above require to be authenticated as a YouTube Content Partner account (see below).*
 
 Yt::ContentOwner
 ----------------
 
-Use [Yt::ContentOwner](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/ContentOwner) to:
+Use [Yt::ContentOwner](http://www.rubydoc.info/gems/yt/Yt/Models/ContentOwner) to:
 
 * authenticate as a YouTube content owner
 * list the channels partnered with a YouTube content owner
@@ -115,8 +76,6 @@ content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.
 content_owner.partnered_channels.count #=> 12
 content_owner.partnered_channels.map &:title #=> ["Fullscreen", "Best of Fullscreen", ...]
 content_owner.partnered_channels.where(part: 'statistics').map &:subscriber_count #=> [136925, 56945, ...]
-content_owner.partnered_channels.includes(:viewer_percentages).map &:viewer_percentages #=> [{female: {'18-24' => 12.12,…}…}, {female: {'18-24' => 40.12,…}…}, …]
-
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
@@ -140,320 +99,27 @@ content_owner.create_asset type: 'web' #=> #<Yt::Models::Asset @id=...>
 Yt::Channel
 -----------
 
-Use [Yt::Channel](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Channel) to:
-
-* read the attributes of a channel
-* access the videos of a channel
-* access the playlists of a channel
-* access the channels that the channel is subscribed to
-* subscribe to and unsubscribe from a channel
-* delete playlists from a channel
-* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, estimated/average video watch and impressions of a channel
-* retrieve the viewer percentage of a channel by gender and age group
-
-```ruby
-# Channels can be initialized with ID or URL
-channel = Yt::Channel.new url: 'youtube.com/fullscreen'
-
-channel.title #=> "Fullscreen"
-channel.description #=> "The first media company for the connected generation."
-channel.description.has_link_to_playlist? #=> false
-channel.thumbnail_url #=> "https://yt3.ggpht.com/-KMnbKDBl60w/.../photo.jpg"
-channel.published_at #=> 2006-03-23 06:13:25 UTC
-channel.public? #=> true
-
-channel.view_count #=> 421619
-channel.comment_count #=> 773
-channel.video_count #=> 12
-channel.subscriber_count #=> 136925
-channel.subscriber_count_visible? #=> true
-
-channel.videos.count #=> 12
-channel.videos.first #=> #<Yt::Models::Video @id=...>
-
-channel.playlists.count #=> 2
-channel.playlists.first #=> #<Yt::Models::Playlist @id=...>
-
-channel.subscribed_channels.count #=> 132
-channel.subscribed_channels.first #=> #<Yt::Models::Channel @id=...>
-```
-
-*The methods above do not require authentication.*
-
-```ruby
-account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
-channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: account
-
-channel.subscribed? #=> false
-channel.subscribe #=> true
-```
-
-*The methods above require to be authenticated as a YouTube account (see below).*
-
-```ruby
-account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
-channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: account
-
-channel.delete_playlists title: 'New playlist' #=> [true]
-
-channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-channel.favorites_added from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-channel.favorites_removed from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
-channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
-channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
-channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-channel.viewer_percentage(gender: :male) #=> 49.12
-```
-
-*The methods above require to be authenticated as the channel’s account (see below).*
-
-```ruby
-content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
-channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: content_owner
-
-channel.earnings_on 5.days.ago #=> 12.23
-channel.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-channel.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-channel.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-channel.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-channel.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-channel.impressions_on 5.days.ago #=> 157.0
-channel.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-channel.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-channel.estimated_minutes_watched #=> {Sun, 22 Feb 2015=>2433258.0, Mon, 23 Feb 2015=>2634360.0, …}
-channel.average_view_duration #=>  {Sun, 22 Feb 2015=>329.0, Mon, 23 Feb 2015=>326.0, …}
-channel.average_view_percentage # {Sun, 22 Feb 2015=>38.858253094977265, Mon, 23 Feb 2015=>37.40014235438217, …}
-channel.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-channel.viewer_percentage(gender: :female) #=> 49.12
-
-channel.content_owner #=> 'CMSname'
-channel.linked_at #=> Wed, 28 May 2014
-```
-
-*The methods above require to be authenticated as the channel’s content owner (see below).*
+Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/channels.html) for the list of methods available for `Yt::Channel`.
 
 Yt::Video
------------
+---------
 
-Use [Yt::Video](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Video) to:
-
-* read the attributes of a video
-* update the attributes of a video
-* upload a thumbnail for a video
-* access the annotations of a video
-* delete a video
-* like and dislike a video
-* retrieve the daily earnings, views, comments, likes, dislikes, shares, subscribers gained/lost, impressions and monetized playbacks of a video
-* retrieve the viewer percentage of a video by gender and age group
-* retrieve data about live-streaming videos
-* retrieve the advertising options of a video
-
-```ruby
-# Videos can be initialized with ID or URL
-video = Yt::Video.new url: 'http://youtu.be/MESycYJytkU'
-
-video.title #=> "Fullscreen Creator Platform"
-video.description #=> "The new Fullscreen Creator Platform gives creators and brands a suite..."
-video.description.has_link_to_channel? #=> true
-video.thumbnail_url #=> "https://i1.ytimg.com/vi/MESycYJytkU/default.jpg"
-video.published_at #=> 2013-07-09 16:27:32 UTC
-video.tags #=> []
-video.channel_id #=> "UCxO1tY8h1AhOz0T4ENwmpow"
-video.channel_title #=> "Fullscreen"
-video.category_id #=> "22"
-video.live_broadcast_content #=> "none"
-
-video.public? #=> true
-video.uploaded? #=> false
-video.rejected? #=> false
-video.failed? #=> true
-video.processed? #=> false
-video.deleted? #=> false
-video.uses_unsupported_codec? #=> true
-video.has_failed_conversion? #=> false
-video.empty? #=> false
-video.invalid? #=> false
-video.too_small? #=> false
-video.aborted? #=> false
-video.claimed? #=> false
-video.infringes_copyright? #=> false
-video.duplicate? #=> false
-video.inappropriate? #=> false
-video.too_long? #=> false
-video.violates_terms_of_use? #=> false
-video.infringes_trademark? #=> false
-video.belongs_to_closed_account? #=> false
-video.belongs_to_suspended_account? #=> false
-video.scheduled? #=> true
-video.scheduled_at #=> Tue, 27 May 2014 12:50:00
-video.licensed_as_creative_commons? #=> true
-video.licensed_as_standard_youtube? #=> false
-video.embeddable? #=> false
-video.has_public_stats_viewable? #=> false
-
-video.duration #=> 86
-video.hd? #=> true
-video.stereoscopic? #=> false
-video.captioned? #=> true
-video.licensed? #=> false
-
-video.actual_start_time #=> Tue, 27 May 2014 12:50:00
-video.actual_end_time #=> Tue, 27 May 2014 12:54:00
-video.scheduled_start_time #=> Tue, 27 May 2014 12:49:00
-video.scheduled_end_time #=> Tue, 27 May 2014 12:55:00
-video.concurrent_viewers #=> 0
-
-video.annotations.count #=> 1
-video.annotations.first #=> #<Yt::Models::Annotation @id=...>
-```
-
-*The methods above do not require authentication.*
-
-```ruby
-account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
-video = Yt::Video.new id: 'MESycYJytkU', auth: account
-
-video.liked? #=> false
-video.like #=> true
-```
-
-*The methods above require to be authenticated as a YouTube account (see below).*
-
-```ruby
-account = Yt::Account.new access_token: 'ya29.1.ABCDEFGHIJ'
-video = Yt::Video.new id: 'MESycYJytkU', auth: account
-
-video.update title: 'A title', description: 'A description <with angle brackets>'
-video.update tags: ['a tag'], categoryId: '21', license: 'creativeCommon'
-
-video.upload_thumbnail 'my_thumbnail.jpg'
-video.upload_thumbnail 'http://example.com/remote.png'
-
-video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-video.viewer_percentage(gender: :female) #=> 49.12
-
-video.delete #=> true
-```
-
-*The methods above require to be authenticated as the video’s owner (see below).*
-
-```ruby
-content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
-video = Yt::Video.new id: 'MESycYJytkU', auth: content_owner
-
-video.earnings_on 5.days.ago #=> 12.23
-video.views since: 7.days.ago #=> {Wed, 28 May 2014 => 12.0, Thu, 29 May 2014 => 3.0, …}
-video.comments until: 2.days.ago #=> {Wed, 28 May 2014 => 9.0, Thu, 29 May 2014 => 4.0, …}
-video.likes from: 8.days.ago #=> {Tue, 27 May 2014 => 7.0, Wed, 28 May 2014 => 0.0, …}
-video.dislikes to: 2.days.ago #=> {Tue, 27 May 2014 => 0.0, Wed, 28 May 2014 => 1.0, …}
-video.shares since: 7.days.ago, until: 7.days.ago  #=> {Wed, 28 May 2014 => 3.0}
-video.subscribers_gained from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>1.0, Sun, 31 Aug 2014=>0.0}
-video.subscribers_lost from: '2014-08-30', to: '2014-08-31' #=> {Sat, 30 Aug 2014=>0.0, Sun, 31 Aug 2014=>0.0}
-video.impressions_on 5.days.ago #=> 157.0
-video.monetized_playbacks_on 5.days.ago #=> 123.0
-
-video.viewer_percentages #=> {female: {'18-24' => 12.12, '25-34' => 16.16,…}…}
-video.viewer_percentage(gender: :female) #=> 49.12
-
-video.ad_formats #=> ["standard_instream", "trueview_instream"]
-```
-
-*The methods above require to be authenticated as the video’s content owner (see below).*
+Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/videos.html) for the list of methods available for `Yt::Video`.
 
 Yt::Playlist
 ------------
 
-Use [Yt::Playlist](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Playlist) to:
-
-* read the attributes of a playlist
-* update the attributes of a playlist
-* access the items of a playlist
-* add one or multiple videos to a playlist
-* delete items from a playlist
-
-```ruby
-# Playlists can be initialized with ID or URL
-playlist = Yt::Playlist.new url: 'youtube.com/playlist?list=PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc'
-
-playlist.title #=> "Fullscreen Features"
-playlist.description #=> "You send us your best videos and we feature our favorite ones..."
-playlist.description.has_link_to_subscribe? #=> false
-playlist.thumbnail_url #=> "https://i1.ytimg.com/vi/36kL2alg7Jk/default.jpg"
-playlist.published_at #=> 2012-11-27 21:23:38 UTC
-playlist.public? #=> true
-playlist.tags #=> []
-playlist.channel_id #=> "UCxO1tY8h1AhOz0T4ENwmpow"
-playlist.channel_title #=> "Fullscreen"
-
-playlist.playlist_items.count #=> 1
-playlist.playlist_items.first #=> #<Yt::Models::PlaylistItem @id=...>
-```
-
-*The methods above do not require authentication.*
-
-```ruby
-playlist.update title: 'A <title> with angle brackets', description: 'desc', tags: ['new tag'], privacy_status: 'private'
-playlist.add_video 'MESycYJytkU', position: 2
-playlist.add_videos ['MESycYJytkU', 'MESycYJytkU']
-playlist.delete_playlist_items title: 'Fullscreen Creator Platform' #=> [true]
-```
-
-*The methods above require to be authenticated as the playlist’s owner (see below).*
+Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/playlists.html) for the list of methods available for `Yt::Playlist`.
 
 Yt::PlaylistItem
 ----------------
 
-Use [Yt::PlaylistItem](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/PlaylistItem) to:
-
-* read the attributes of a playlist item
-* update the position of an item inside a playlist
-* delete a playlist item
-
-```ruby
-item = Yt::PlaylistItem.new id: 'PLjW_GNR5Ir0GWEP_oveGBNjTvKkYyZfsna1TZDCBP-Z8'
-
-item.title #=> "Titanium - David Guetta - Space Among Many Cover ft. Evan Chan and Glenna Roberts"
-item.description #=> "CLICK to tweet this video: [...]"
-item.description.has_link_to_channel? #=> true
-item.thumbnail_url #=> "https://i1.ytimg.com/vi/W4GhTprSsOY/default.jpg"
-item.published_at #=> 2012-12-22 19:38:02 UTC
-item.public? #=> true
-item.channel_id #=> "UCxO1tY8h1AhOz0T4ENwmpow"
-item.channel_title #=> "Fullscreen"
-item.playlist_id #=> "PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc"
-item.position #=> 0
-item.video_id #=> "W4GhTprSsOY"
-item.video #=> #<Yt::Models::Video @id=...>
-```
-
-*The methods above do not require authentication.*
-
-```ruby
-item.update position: 3 #=> true
-item.delete #=> true
-```
-
-*The methods above require to be authenticated as the playlist’s owner (see below).*
-
+Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/playlist_items.html) for the list of methods available for `Yt::PlaylistItem`.
 
 Yt::Collections::Videos
 -----------------------
 
-Use [Yt::Collections::Videos](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Collections/Videos) to:
+Use [Yt::Collections::Videos](http://www.rubydoc.info/gems/yt/Yt/Collections/Videos) to:
 
 * search for videos
 
@@ -471,25 +137,13 @@ videos.where(id: 'MESycYJytkU,invalid').map(&:title) #=> ["Fullscreen Creator Pl
 Yt::Annotation
 --------------
 
-Use [Yt::Annotation](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Annotation) to:
+Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/annotations.html) for the list of methods available for `Yt::Annotation`.
 
-* read the attributes of an annotation
-
-```ruby
-video = Yt::Video.new id: 'MESycYJytkU'
-annotation = video.annotations.first
-
-annotation.below? 70 #=> false
-annotation.has_link_to_subscribe? #=> false
-annotation.has_link_to_playlist? #=> true
-```
-
-*Annotations do not require authentication.*
 
 Yt::MatchPolicy
 ---------------
 
-Use [Yt::MatchPolicy](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/MatchPolicy) to:
+Use [Yt::MatchPolicy](http://www.rubydoc.info/gems/yt/Yt/Models/MatchPolicy) to:
 
 * update the policy used by an asset
 
@@ -502,7 +156,7 @@ match_policy.update policy_id: 'aBcdEF6g-HJ' #=> true
 Yt::Asset
 ---------
 
-Use [Yt::Asset](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Asset) to:
+Use [Yt::Asset](http://www.rubydoc.info/gems/yt/Yt/Models/Asset) to:
 
 * read the ownership of an asset
 * update the attributes of an asset
@@ -520,12 +174,54 @@ asset.ownership.release! #=> true
 asset.update metadata_mine: {notes: 'Some notes'} #=> true
 ```
 
+* to retrieve metadata for an asset (e.g. title, notes, description, custom_id)
+
+```ruby
+content_owner = Yt::ContentOwner.new(...)
+asset = content_owner.assets.where(id: 'A969176766549462', fetch_metadata: 'mine').first
+asset.metadata_mine.title #=> "Master Final   Neu La Anh Fix"
+
+asset = content_owner.assets.where(id: 'A969176766549462', fetch_metadata: 'effective').first
+asset.metadata_effective.title #=> "Neu la anh" (different due to ownership conflicts)
+```
+
+* to search for an asset
+
+```ruby
+content_owner.assets.where(labels: "campaign:cpiuwdz-8oc").size #=> 417
+content_owner.assets.where(labels: "campaign:cpiuwdz-8oc").first.title #=> "Whoomp! (Supadupafly) (Xxl Hip House Mix)"
+```
+
+Yt::Claim
+---------
+
+Use [Yt::Claim](http://www.rubydoc.info/gems/yt/Yt/Models/Claim) to:
+
+* read the attributes of a claim
+* view the history of a claim
+* update the attributes of an claim
+
+```ruby
+
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+claim = Yt::Claim.new id: 'ABCD12345678', auth: content_owner
+claim.video_id #=> 'va141cJga2'
+claim.asset_id #=> 'A1234'
+claim.content_type #=> 'audiovisual'
+claim.active? #=> true
+
+claim.claim_history #=> #<Yt::Models::ClaimHistory ...>
+claim.claim_history.events[0].type #=> "claim_create"
+
+claim.delete #=> true
+```
+
 *The methods above require to be authenticated as the video’s content owner (see below).*
 
 Yt::Ownership
 -------------
 
-Use [Yt::Ownership](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/Ownership) to:
+Use [Yt::Ownership](http://www.rubydoc.info/gems/yt/Yt/Models/Ownership) to:
 
 * update the ownership of an asset
 
@@ -541,7 +237,7 @@ ownership.update general: [new_general_owner_attrs]
 Yt::AdvertisingOptionsSet
 -------------------------
 
-Use [Yt::AdvertisingOptionsSet](http://rubydoc.info/github/Fullscreen/yt/master/Yt/Models/AdvertisingOptionsSet) to:
+Use [Yt::AdvertisingOptionsSet](http://www.rubydoc.info/gems/yt/Yt/Models/AdvertisingOptionsSet) to:
 
 * update the advertising settings of a video
 
@@ -581,8 +277,11 @@ In order to use Yt you must register your app in the [Google Developers Console]
 If you don’t have a registered app, browse to the console and select "Create Project":
 ![01-create-project](https://cloud.githubusercontent.com/assets/7408595/3373043/4224c894-fbb0-11e3-9f8a-4d96bddce136.png)
 
-When your project is ready, select APIs & Auth in the menu and enable Google+, YouTube Analytics and YouTube Data API:
-![02-select-api](https://cloud.githubusercontent.com/assets/7408595/3373046/4226ea34-fbb0-11e3-9a44-872871e8b297.png)
+When your project is ready, select APIs & Auth in the menu and individually enable Google+, YouTube Analytics and YouTube Data API:
+![02-select-api](https://cloud.githubusercontent.com/assets/4453997/8442701/5d0f77f4-1f35-11e5-93d8-07d4459186b5.png)
+![02a-enable google api](https://cloud.githubusercontent.com/assets/4453997/8442306/0f714cb8-1f33-11e5-99b3-f17a4b1230fe.png)
+![02b-enable youtube api](https://cloud.githubusercontent.com/assets/4453997/8442304/0f6fd0e0-1f33-11e5-981a-acf90ccd7409.png)
+![02c-enable youtube analytics api](https://cloud.githubusercontent.com/assets/4453997/8442305/0f71240e-1f33-11e5-9b60-4ecea02da9be.png)
 
 The next step is to create an API key. Depending on the nature of your app, you should pick one of the following strategies.
 
@@ -788,9 +487,3 @@ the [YouTube Analytics API](https://developers.google.com/youtube/analytics).
 If you find that a method is missing, fork the project, add the missing code,
 write the appropriate tests, then submit a pull request, and it will gladly
 be merged!
-
-Don’t hesitate to send code comments, issues or pull requests through GitHub
-and to spread the love on Twitter by following [@ytgem](https://twitter.com/intent/user?screen_name=ytgem) – 
-all feedback is appreciated.
-
-![yt4](https://cloud.githubusercontent.com/assets/7408595/3638115/0ef9d6bc-1037-11e4-831a-787204e9b979.png)

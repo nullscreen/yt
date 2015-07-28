@@ -6,16 +6,42 @@ require 'yt/models/url'
 module Yt
   module Models
     class Resource < Base
+      # @private
       attr_reader :auth
+
+    ### ID ###
+
+      # @!attribute [r] id
+      #   @return [String] the ID that YouTube uses to identify each resource.
       has_one :id
 
-      has_one :snippet
-      delegate :title, :description, :thumbnail_url, :published_at,
-        to: :snippet
+    ### STATUS ###
 
       has_one :status
-      delegate :privacy_status, :public?, :private?, :unlisted?, to: :status
 
+      # @!attribute [r] privacy_status
+      #   @return [String] the privacy status of the resource. Possible values
+      #     are: +'private'+, +'public'+, +'unlisted'+.
+      delegate :privacy_status, to: :status
+
+      # @return [Boolean] whether the resource is public.
+      def public?
+        privacy_status == 'public'
+      end
+
+      # @return [Boolean] whether the resource is private.
+      def private?
+        privacy_status == 'private'
+      end
+
+      # @return [Boolean] whether the resource is unlisted.
+      def unlisted?
+        privacy_status == 'unlisted'
+      end
+
+      has_one :snippet
+
+      # @private
       def initialize(options = {})
         @url = URL.new(options[:url]) if options[:url]
         @id = options[:id] || (@url.id if @url)
@@ -24,14 +50,17 @@ module Yt
         @status = Status.new(data: options[:status]) if options[:status]
       end
 
+      # @private
       def kind
         @url ? @url.kind.to_s : self.class.to_s.demodulize.underscore
       end
 
+      # @private
       def username
         @url.username if @url
       end
 
+      # @private
       def update(attributes = {})
         underscore_keys! attributes
         body = build_update_body attributes
@@ -44,9 +73,22 @@ module Yt
         end
       end
 
-
     private
 
+      # Since YouTube API only returns tags on Videos#list, the memoized
+      # `@snippet` is erased if the video was instantiated through Video#search
+      # (e.g., by calling account.videos or channel.videos), so that the full
+      # snippet (with tags and category) is loaded, rather than the partial one.
+      def ensure_complete_snippet(attribute)
+        unless snippet.public_send(attribute).present? || snippet.complete?
+          @snippet = nil
+        end
+        snippet.public_send attribute
+      end
+
+      # TODO: instead of having Video, Playlist etc override this method,
+      #       they should define *what* can be updated in their own *update*
+      #       method.
       # @return [Hash] the parameters to submit to YouTube to update a playlist.
       # @see https://developers.google.com/youtube/v3/docs/playlists/update
       # @see https://developers.google.com/youtube/v3/docs/videos/update
@@ -67,17 +109,17 @@ module Yt
         {}.tap do |body|
           update_parts.each do |name, part|
             if should_include_part_in_update? part, attributes
-              body[name] = build_update_body_part part, attributes
+              body[name] = build_update_body_part name, part, attributes
               sanitize_brackets! body[name] if part[:sanitize_brackets]
             end
           end
         end
       end
 
-      def build_update_body_part(part, attributes = {})
+      def build_update_body_part(name, part, attributes = {})
         {}.tap do |body_part|
           part[:keys].map do |key|
-            body_part[camelize key] = attributes.fetch key, send(key)
+            body_part[camelize key] = attributes.fetch key, public_send(name).public_send(key)
           end
         end
       end

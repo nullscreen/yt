@@ -3,6 +3,7 @@ require 'yt/models/subscription'
 
 module Yt
   module Collections
+    # @private
     class Subscriptions < Base
 
       def insert(options = {})
