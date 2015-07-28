@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 require 'yt/models/channel'
+require 'yt/models/playlist'
 
 describe Yt::Channel, :partner do
   subject(:channel) { Yt::Channel.new id: id, auth: $content_owner }
@@ -9,12 +10,154 @@ describe Yt::Channel, :partner do
     context 'managed by the authenticated Content Owner' do
       let(:id) { ENV['YT_TEST_PARTNER_CHANNEL_ID'] }
 
-      describe 'earnings can be retrieved for a specific day' do
-        context 'in which the channel made any money' do
-          let(:earnings) { channel.earnings_on 5.days.ago}
-          it { expect(earnings).to be_a Float }
+      describe 'multiple reports can be retrieved at once' do
+        metrics = {views: Integer, uniques: Integer,
+          estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
+          dislikes: Integer, shares: Integer, subscribers_gained: Integer,
+          subscribers_lost: Integer, favorites_added: Integer,
+          favorites_removed: Integer, average_view_duration: Integer,
+          average_view_percentage: Float, annotation_clicks: Integer,
+          annotation_click_through_rate: Float,
+          annotation_close_rate: Float, earnings: Float, impressions: Integer,
+          monetized_playbacks: Integer, playback_based_cpm: Float}
+
+        specify 'by day, and are chronologically sorted' do
+          range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
+          result = channel.reports range.merge(only: metrics, by: :day)
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Date)
+            expect(result[metric].values).to all(be_a type)
+            expect(result[metric].keys.sort).to eq result[metric].keys
+          end
         end
 
+        specify 'by month, and are chronologically sorted' do
+          result = channel.reports only: metrics, by: :month, since: 1.month.ago
+          metrics.each do |metric, type|
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map &:first).to all(be_a Date)
+            expect(result[metric].keys.map &:first).to eq result[metric].keys.map(&:first).map(&:beginning_of_month)
+            expect(result[metric].keys.map &:last).to all(be_a Date)
+            expect(result[metric].keys.map &:last).to eq result[metric].keys.map(&:last).map(&:end_of_month)
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+
+        specify 'by week' do
+          range = {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 9}
+          result = channel.reports range.merge(only: metrics, by: :week)
+          metrics.each do |metric, type|
+            expect(result[metric].size).to be <= 2
+            expect(result[metric].keys).to all(be_a Range)
+            expect(result[metric].keys.map{|range| range.first.wday}.uniq).to be_one
+            expect(result[metric].keys.map{|range| range.last.wday}.uniq).to be_one
+            expect(result[metric].values).to all(be_a type)
+          end
+        end
+      end
+
+      [:views, :uniques, :comments, :likes, :dislikes, :shares,
+       :subscribers_gained, :subscribers_lost, :favorites_added,
+       :favorites_removed, :estimated_minutes_watched, :average_view_duration,
+       :average_view_percentage, :impressions, :monetized_playbacks,
+       :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
+       :annotation_close_rate, :earnings].each do |metric|
+        describe "#{metric} can be retrieved for a range of days" do
+          let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+          let(:date_out) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
+          let(:metric) { metric }
+          let(:result) { channel.public_send metric, options }
+
+          context 'with a given start and end (:since/:until option)' do
+            let(:options) { {by: :day, since: date_in, until: date_out} }
+            specify do
+              expect(result.keys.min).to eq date_in.to_date
+              expect(result.keys.max).to eq date_out.to_date
+            end
+          end
+
+          context 'with a given start and end (:from/:to option)' do
+            let(:options) { {by: :day, from: date_in, to: date_out} }
+            specify do
+              expect(result.keys.min).to eq date_in.to_date
+              expect(result.keys.max).to eq date_out.to_date
+            end
+          end
+        end
+
+        describe "#{metric} can be grouped by month" do
+          let(:metric) { metric }
+
+          let(:result) { channel.public_send metric, by: :month, since: 3.months.ago }
+          specify do
+            expect(result.keys).to eq(result.keys.sort_by{|range| range.first})
+            expect(result.keys).to all(be_a Range)
+            expect(result.keys.map &:first).to all(be_a Date)
+            expect(result.keys.map &:first).to eq result.keys.map(&:first).map(&:beginning_of_month)
+            expect(result.keys.map &:last).to all(be_a Date)
+            expect(result.keys.map &:last).to eq result.keys.map(&:last).map(&:end_of_month)
+          end
+        end
+
+        describe "#{metric} can be grouped by week and returns non-overlapping periods" do
+          let(:metric) { metric }
+          let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 9} }
+          let(:result) { channel.public_send metric, range.merge(by: :week)}
+          specify do
+            expect(result.size).to be <= 2
+            expect(result.keys).to all(be_a Range)
+            expect(result.keys.map{|range| range.first.wday}.uniq).to be_one
+            expect(result.keys.map{|range| range.last.wday}.uniq).to be_one
+          end
+        end
+      end
+
+      {views: Integer, comments: Integer, likes: Integer, dislikes: Integer,
+       subscribers_gained: Integer, subscribers_lost: Integer,
+       estimated_minutes_watched: Integer, average_view_duration: Integer,
+       annotation_clicks: Integer, annotation_click_through_rate: Float,
+       favorites_added: Integer, favorites_removed: Integer,
+       average_view_percentage: Float, impressions: Integer,
+       shares: Integer, playback_based_cpm: Float,
+       monetized_playbacks: Integer, annotation_close_rate: Float,
+       earnings: Float}.each do |metric, type|
+        describe "#{metric} can be retrieved for a specific day" do
+          let(:metric) { metric }
+          let(:result) { channel.public_send "#{metric}_on", date }
+
+          context 'in which the channel had data for the report' do
+            let(:date) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE'])  + 95  }
+            it { expect(result).to be_a type }
+          end
+
+          context 'in which the channel was not partnered' do
+            let(:date) { 5.days.from_now }
+            it { expect(result).to be_nil }
+          end
+        end
+
+        describe "#{metric} can be grouped by range" do
+          let(:metric) { metric }
+
+          context 'without a :by option (default)' do
+            let(:result) { channel.public_send metric }
+            specify do
+              expect(result.size).to be 1
+              expect(result[:total]).to be_a type
+            end
+          end
+
+          context 'with the :by option set to :range' do
+            let(:result) { channel.public_send metric, by: :range }
+            specify do
+              expect(result.size).to be 1
+              expect(result[:total]).to be_a type
+            end
+          end
+        end
+      end
+
+      describe 'earnings can be retrieved for a specific day' do
         # NOTE: This test sounds redundant, but it’s actually a reflection of
         # another irrational behavior of YouTube API. In short, if you ask for
         # the "earnings" metric of a day in which a channel made 0 USD, then
@@ -27,465 +170,1745 @@ describe Yt::Channel, :partner do
           let(:earnings) { channel.earnings_on zero_date}
           it { expect(earnings).to eq 0 }
         end
-
-        context 'in the future' do
-          let(:earnings) { channel.earnings_on 5.days.from_now}
-          it { expect(earnings).to be_nil }
-        end
       end
 
-      describe 'earnings can be retrieved for a range of days' do
+      describe 'earnings can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:earnings) { channel.earnings since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.earnings(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(earnings.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(earnings.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.earnings(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.earnings(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(earnings.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.earnings(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(earnings.keys).to eq [country_code] }
+          end
         end
       end
 
-      describe 'views can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:views) { channel.views_on 5.days.ago}
-          it { expect(views).to be_a Float }
-        end
+      describe 'earnings can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:views) { channel.views_on 20.years.ago}
-          it { expect(views).to be_nil }
+        specify 'with the :by option set to :day' do
+          earnings = channel.earnings range.merge by: :day
+          expect(earnings.keys).to eq range.values
         end
       end
 
-      describe 'views can be retrieved for a range of days' do
+      describe 'earnings can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          earnings = channel.earnings range.merge by: :country
+          expect(earnings.keys).to all(be_a String)
+          expect(earnings.keys.map(&:length).uniq).to eq [2]
+          expect(earnings.values).to all(be_a Float)
+        end
+      end
+
+      describe 'views can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:views) { channel.views since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.views(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.views(until: date).keys.max).to eq date.to_date
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys).to eq [country_code] }
+          end
         end
 
-        specify 'with a given start (:from option)' do
-          expect(channel.views(from: date).keys.min).to eq date.to_date
-        end
+        context 'and grouped by state' do
+          let(:by) { :state }
 
-        specify 'with a given end (:to option)' do
-          expect(channel.views(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(views.keys.map(&:length).uniq).to eq [2] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(views.keys.map(&:length).uniq).to eq [2] }
+          end
         end
       end
 
-      describe 'comments can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:comments) { channel.comments_on 5.days.ago}
-          it { expect(comments).to be_a Float }
-        end
-
-        context 'in which the channel was not partnered' do
-          let(:comments) { channel.comments_on 20.years.ago}
-          it { expect(comments).to be_nil }
-        end
-      end
-
-      describe 'comments can be retrieved for a range of days' do
+      describe 'views can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.views since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.comments(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.comments(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by US state' do
+          let(:by) { :state }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.comments(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.comments(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
         end
       end
 
-      describe 'likes can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:likes) { channel.likes_on 5.days.ago}
-          it { expect(likes).to be_a Float }
+      describe 'views can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          views = channel.views range.merge by: :day
+          expect(views.keys).to eq range.values
         end
 
-        context 'in which the channel was not partnered' do
-          let(:likes) { channel.likes_on 20.years.ago}
-          it { expect(likes).to be_nil }
+        specify 'and are returned chronologically sorted' do
+          views = channel.views range.merge by: :day
+          expect(views.keys.sort).to eq views.keys
         end
       end
 
-      describe 'likes can be retrieved for a range of days' do
+      describe 'views can be grouped by traffic source' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::TRAFFIC_SOURCES.keys }
+
+        specify 'with the :by option set to :traffic_source' do
+          views = channel.views range.merge by: :traffic_source
+          expect(views.keys - keys).to be_empty
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :traffic_source
+          expect(views.values.sort.reverse).to eq views.values
+        end
+      end
+
+      describe 'views can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          views = channel.views range.merge by: :playback_location
+          expect(views.keys - keys).to be_empty
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :playback_location
+          expect(views.values.sort.reverse).to eq views.values
+        end
+      end
+
+      describe 'views can be grouped by embedded player location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :embedded_player_location' do
+          views = channel.views range.merge by: :embedded_player_location
+          expect(views).not_to be_empty
+        end
+      end
+
+      describe 'views can be grouped by related video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :related_video' do
+          views = channel.views range.merge by: :related_video
+          expect(views.keys).to all(be_instance_of Yt::Video)
+        end
+
+        specify 'and provided with an :includes option to preload parts' do
+          views = channel.views range.merge by: :related_video, includes: [:statistics]
+          expect(views.keys.map{|v| v.instance_variable_defined? :@status}).to all(be false)
+          expect(views.keys.map{|v| v.instance_variable_defined? :@statistics_set}).to all(be true)
+        end
+      end
+
+      describe 'views can be grouped by search term' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :search_term' do
+          views = channel.views range.merge by: :search_term
+          expect(views.keys).to all(be_a String)
+        end
+      end
+
+      describe 'views can be grouped by referrer' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :referrer' do
+          views = channel.views range.merge by: :referrer
+          expect(views.keys).to all(be_a String)
+        end
+      end
+
+      describe 'views can be grouped by video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :video' do
+          views = channel.views range.merge by: :video
+          expect(views.keys).to all(be_instance_of Yt::Video)
+        end
+
+        specify 'and provided with an :includes option to preload parts' do
+          views = channel.views range.merge by: :video, includes: [:statistics]
+          expect(views.keys.map{|v| v.instance_variable_defined? :@status}).to all(be false)
+          expect(views.keys.map{|v| v.instance_variable_defined? :@statistics_set}).to all(be true)
+        end
+      end
+
+      describe 'views can be grouped by playlist' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :playlist' do
+          views = channel.views range.merge by: :playlist
+          expect(views.keys).to all(be_instance_of Yt::Playlist)
+        end
+
+        specify 'and provided with an :includes option to preload parts' do
+          views = channel.views range.merge by: :playlist, includes: [:status]
+          expect(views.keys.map{|playlist| playlist.instance_variable_defined? :@content_details}).to all(be false)
+          expect(views.keys.map{|playlist| playlist.instance_variable_defined? :@status}).to all(be true)
+        end
+      end
+
+      describe 'views can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          views = channel.views range.merge by: :device_type
+          expect(views.keys).to all(be_instance_of Symbol)
+          expect(views.values).to all(be_an Integer)
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :device_type
+          expect(views.values.sort.reverse).to eq views.values
+        end
+      end
+
+      describe 'views can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          views = channel.views range.merge by: :country
+          expect(views.keys).to all(be_a String)
+          expect(views.keys.map(&:length).uniq).to eq [2]
+          expect(views.values).to all(be_an Integer)
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :country
+          expect(views.values.sort.reverse).to eq views.values
+        end
+      end
+
+      describe 'views can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          views = channel.views range.merge by: :state
+          expect(views.keys).to all(be_a String)
+          expect(views.keys.map(&:length).uniq).to eq [2]
+          expect(views.values).to all(be_an Integer)
+        end
+
+        specify 'and are returned sorted by descending views' do
+          views = channel.views range.merge by: :state
+          expect(views.values.sort.reverse).to eq views.values
+        end
+      end
+
+      describe 'views can be limited to a subset of videos' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+        let(:videos) { channel.videos.first(2) }
+        let(:video_views) { videos.inject(0){|total, video| total + video.views(range)[:total]} }
+
+        specify 'with the :videos option listing the video IDs' do
+          views = channel.views range.merge videos: videos.map(&:id)
+          expect(views[:total]).to eq video_views
+        end
+
+        specify 'with a maximum of 200 video IDs' do
+          views = channel.views range.merge videos: (videos*100).map(&:id)
+          expect(views[:total]).to eq video_views
+        end
+
+        specify 'but fails with more than 200 video IDs' do
+          expect{channel.views range.merge videos: (videos*101).map(&:id)}.to raise_error Yt::Errors::RequestError
+        end
+      end
+
+      describe 'uniques can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:uniques) { channel.uniques since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.likes(since: date).keys.min).to eq date.to_date
-        end
+        context 'and grouped by day' do
+          let(:by) { :day }
 
-        specify 'with a given end (:until option)' do
-          expect(channel.likes(until: date).keys.max).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(uniques.keys.min).to eq date.to_date }
+          end
 
-        specify 'with a given start (:from option)' do
-          expect(channel.likes(from: date).keys.min).to eq date.to_date
-        end
-
-        specify 'with a given end (:to option)' do
-          expect(channel.likes(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(uniques.keys.min).to eq date.to_date }
+          end
         end
       end
 
-      describe 'dislikes can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:dislikes) { channel.dislikes_on 5.days.ago}
-          it { expect(dislikes).to be_a Float }
-        end
-
-        context 'in which the channel was not partnered' do
-          let(:dislikes) { channel.dislikes_on 20.years.ago}
-          it { expect(dislikes).to be_nil }
-        end
-      end
-
-      describe 'dislikes can be retrieved for a range of days' do
+      describe 'uniques can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.uniques since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.dislikes(since: date).keys.min).to eq date.to_date
-        end
+        context 'and grouped by day' do
+          let(:by) { :day }
 
-        specify 'with a given end (:until option)' do
-          expect(channel.dislikes(until: date).keys.max).to eq date.to_date
-        end
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
 
-        specify 'with a given start (:from option)' do
-          expect(channel.dislikes(from: date).keys.min).to eq date.to_date
-        end
-
-        specify 'with a given end (:to option)' do
-          expect(channel.dislikes(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
         end
       end
 
-      describe 'shares can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:shares) { channel.shares_on 5.days.ago}
-          it { expect(shares).to be_a Float }
-        end
+      describe 'uniques can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:shares) { channel.shares_on 20.years.ago}
-          it { expect(shares).to be_nil }
+        specify 'with the :by option set to :day' do
+          uniques = channel.uniques range.merge by: :day
+          expect(uniques.keys).to eq range.values
         end
       end
 
-      describe 'shares can be retrieved for a range of days' do
+      describe 'comments can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:comments) { channel.comments since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.shares(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(comments.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(comments.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.shares(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.shares(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(comments.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.shares(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(comments.keys).to eq [country_code] }
+          end
         end
       end
 
-      describe 'gained subscribers can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:subscribers_gained) { channel.subscribers_gained_on 5.days.ago}
-          it { expect(subscribers_gained).to be_a Float }
-        end
+      describe 'comments can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:subscribers_gained) { channel.subscribers_gained_on 20.years.ago}
-          it { expect(subscribers_gained).to be_nil }
+        specify 'with the :by option set to :day' do
+          comments = channel.comments range.merge by: :day
+          expect(comments.keys).to eq range.values
         end
       end
 
-      describe 'gained subscribers can be retrieved for a range of days' do
+      describe 'comments can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          comments = channel.comments range.merge by: :country
+          expect(comments.keys).to all(be_a String)
+          expect(comments.keys.map(&:length).uniq).to eq [2]
+          expect(comments.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'likes can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:likes) { channel.likes since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.subscribers_gained(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(likes.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(likes.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.subscribers_gained(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.subscribers_gained(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(likes.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.subscribers_gained(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(likes.keys).to eq [country_code] }
+          end
         end
       end
 
-      describe 'lost subscribers can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:subscribers_lost) { channel.subscribers_lost_on 5.days.ago}
-          it { expect(subscribers_lost).to be_a Float }
-        end
+      describe 'likes can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:subscribers_lost) { channel.subscribers_lost_on 20.years.ago}
-          it { expect(subscribers_lost).to be_nil }
+        specify 'with the :by option set to :day' do
+          likes = channel.likes range.merge by: :day
+          expect(likes.keys).to eq range.values
         end
       end
 
-      describe 'lost subscribers can be retrieved for a range of days' do
+      describe 'likes can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          likes = channel.likes range.merge by: :country
+          expect(likes.keys).to all(be_a String)
+          expect(likes.keys.map(&:length).uniq).to eq [2]
+          expect(likes.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'dislikes can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:dislikes) { channel.dislikes since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(dislikes.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(dislikes.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(dislikes.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(dislikes.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'dislikes can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          dislikes = channel.dislikes range.merge by: :day
+          expect(dislikes.keys).to eq range.values
+        end
+      end
+
+      describe 'dislikes can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          dislikes = channel.dislikes range.merge by: :country
+          expect(dislikes.keys).to all(be_a String)
+          expect(dislikes.keys.map(&:length).uniq).to eq [2]
+          expect(dislikes.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'shares can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:shares) { channel.shares since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(shares.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(shares.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(shares.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(shares.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'shares can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          shares = channel.shares range.merge by: :day
+          expect(shares.keys).to eq range.values
+        end
+      end
+
+      describe 'shares can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          shares = channel.shares range.merge by: :country
+          expect(shares.keys).to all(be_a String)
+          expect(shares.keys.map(&:length).uniq).to eq [2]
+          expect(shares.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'gained subscribers can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:subscribers_gained) { channel.subscribers_gained since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.subscribers_lost(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_gained.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_gained.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.subscribers_lost(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.subscribers_lost(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_gained.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.subscribers_lost(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_gained.keys).to eq [country_code] }
+          end
         end
       end
 
-      describe 'added favorites can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:favorites_added) { channel.favorites_added_on 5.days.ago}
-          it { expect(favorites_added).to be_a Float }
-        end
+      describe 'gained subscribers can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:favorites_added) { channel.favorites_added_on 20.years.ago}
-          it { expect(favorites_added).to be_nil }
+        specify 'with the :by option set to :day' do
+          subscribers_gained = channel.subscribers_gained range.merge by: :day
+          expect(subscribers_gained.keys).to eq range.values
         end
       end
 
-      describe 'added favorites can be retrieved for a range of days' do
+      describe 'gained subscribers can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          subscribers_gained = channel.subscribers_gained range.merge by: :country
+          expect(subscribers_gained.keys).to all(be_a String)
+          expect(subscribers_gained.keys.map(&:length).uniq).to eq [2]
+          expect(subscribers_gained.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'lost subscribers can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:subscribers_lost) { channel.subscribers_lost since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.favorites_added(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_lost.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_lost.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.favorites_added(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.favorites_added(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(subscribers_lost.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.favorites_added(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(subscribers_lost.keys).to eq [country_code] }
+          end
         end
       end
 
-      describe 'removed favorites can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:favorites_removed) { channel.favorites_removed_on 5.days.ago}
-          it { expect(favorites_removed).to be_a Float }
-        end
+      describe 'lost subscribers can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:favorites_removed) { channel.favorites_removed_on 20.years.ago}
-          it { expect(favorites_removed).to be_nil }
+        specify 'with the :by option set to :day' do
+          subscribers_lost = channel.subscribers_lost range.merge by: :day
+          expect(subscribers_lost.keys).to eq range.values
         end
       end
 
-      describe 'removed favorites can be retrieved for a range of days' do
+      describe 'lost subscribers can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          subscribers_lost = channel.subscribers_lost range.merge by: :country
+          expect(subscribers_lost.keys).to all(be_a String)
+          expect(subscribers_lost.keys.map(&:length).uniq).to eq [2]
+          expect(subscribers_lost.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'favorites added can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:favorites_added) { channel.favorites_added since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(favorites_added.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(favorites_added.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(favorites_added.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(favorites_added.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'added favorites can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          favorites_added = channel.favorites_added range.merge by: :day
+          expect(favorites_added.keys).to eq range.values
+        end
+      end
+
+      describe 'added favorites can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          favorites_added = channel.favorites_added range.merge by: :country
+          expect(favorites_added.keys).to all(be_a String)
+          expect(favorites_added.keys.map(&:length).uniq).to eq [2]
+          expect(favorites_added.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'favorites removed can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:favorites_removed) { channel.favorites_removed since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(favorites_removed.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(favorites_removed.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(favorites_removed.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(favorites_removed.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'removed favorites can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          favorites_removed = channel.favorites_removed range.merge by: :day
+          expect(favorites_removed.keys).to eq range.values
+        end
+      end
+
+      describe 'removed favorites can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'with the :by option set to :country' do
+          favorites_removed = channel.favorites_removed range.merge by: :country
+          expect(favorites_removed.keys).to all(be_a String)
+          expect(favorites_removed.keys.map(&:length).uniq).to eq [2]
+          expect(favorites_removed.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'estimated minutes watched can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:estimated_minutes_watched) { channel.estimated_minutes_watched since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.favorites_removed(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(estimated_minutes_watched.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(estimated_minutes_watched.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.favorites_removed(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.favorites_removed(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(estimated_minutes_watched.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.favorites_removed(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(estimated_minutes_watched.keys).to eq [country_code] }
+          end
         end
       end
 
-      describe 'estimated minutes watched can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:estimated_minutes_watched) { channel.estimated_minutes_watched_on 5.days.ago}
-          it { expect(estimated_minutes_watched).to be_a Float }
-        end
-
-        context 'in which the channel was not partnered' do
-          let(:estimated_minutes_watched) { channel.estimated_minutes_watched_on 20.years.ago}
-          it { expect(estimated_minutes_watched).to be_nil }
-        end
-      end
-
-      describe 'estimated minutes watched can be retrieved for a range of days' do
+      describe 'estimated minutes watched can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.estimated_minutes_watched since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.estimated_minutes_watched(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.estimated_minutes_watched(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by US state' do
+          let(:by) { :state }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.estimated_minutes_watched(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.estimated_minutes_watched(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
         end
       end
 
-      describe 'average view duration can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:average_view_duration) { channel.average_view_duration_on 5.days.ago}
-          it { expect(average_view_duration).to be_a Float }
-        end
+      describe 'estimated minutes watched can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:average_view_duration) { channel.average_view_duration_on 20.years.ago}
-          it { expect(average_view_duration).to be_nil }
+        specify 'with the :by option set to :day' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :day
+          expect(estimated_minutes_watched.keys).to eq range.values
         end
       end
 
-      describe 'average view duration can be retrieved for a range of days' do
+      describe 'estimated minutes watched can be grouped by traffic source' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::TRAFFIC_SOURCES.keys }
+
+        specify 'with the :by option set to :traffic_source' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :traffic_source
+          expect(estimated_minutes_watched.keys - keys).to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by playback location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+        let(:keys) { Yt::Collections::Reports::PLAYBACK_LOCATIONS.keys }
+
+        specify 'with the :by option set to :playback_location' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :playback_location
+          expect(estimated_minutes_watched.keys - keys).to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by embedded player location' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :embedded_player_location' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :embedded_player_location
+          expect(estimated_minutes_watched).not_to be_empty
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by related video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :related_video' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :related_video
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by search term' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :search_term' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :search_term
+          expect(estimated_minutes_watched.keys).to all(be_a String)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by referrer' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :referrer' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :referrer
+          expect(estimated_minutes_watched.keys).to all(be_a String)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by video' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :video' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :video
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Video)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by playlist' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :playlist' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :playlist
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Yt::Playlist)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by device type' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :device_type' do
+          estimated_minutes_watched = channel.estimated_minutes_watched range.merge by: :device_type
+          expect(estimated_minutes_watched.keys).to all(be_instance_of Symbol)
+          expect(estimated_minutes_watched.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          minutes = channel.estimated_minutes_watched range.merge by: :country
+          expect(minutes.keys).to all(be_a String)
+          expect(minutes.keys.map(&:length).uniq).to eq [2]
+          expect(minutes.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'estimated minutes watched can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          minutes = channel.estimated_minutes_watched range.merge by: :state
+          expect(minutes.keys).to all(be_a String)
+          expect(minutes.keys.map(&:length).uniq).to eq [2]
+          expect(minutes.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'average view duration can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:average_view_duration) { channel.average_view_duration since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.average_view_duration(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_duration.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_duration.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.average_view_duration(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.average_view_duration(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_duration.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.average_view_duration(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_duration.keys).to eq [country_code] }
+          end
         end
       end
 
-      describe 'average view percentage can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:average_view_percentage) { channel.average_view_percentage_on 5.days.ago}
-          it { expect(average_view_percentage).to be_a Float }
-        end
-
-        context 'in which the channel was not partnered' do
-          let(:average_view_percentage) { channel.average_view_percentage_on 20.years.ago}
-          it { expect(average_view_percentage).to be_nil }
-        end
-      end
-
-      describe 'average view percentage can be retrieved for a range of days' do
+      describe 'average view duration can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.average_view_duration since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.average_view_percentage(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.average_view_percentage(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by US state' do
+          let(:by) { :state }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.average_view_percentage(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.average_view_percentage(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
         end
       end
 
-      describe 'impressions can be retrieved for a specific day' do
-        context 'in which the channel was partnered' do
-          let(:impressions) { channel.impressions_on 20.days.ago}
-          it { expect(impressions).to be_a Float }
-        end
+      describe 'average view duration can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
 
-        context 'in which the channel was not partnered' do
-          let(:impressions) { channel.impressions_on 20.years.ago}
-          it { expect(impressions).to be_nil }
+        specify 'with the :by option set to :day' do
+          average_view_duration = channel.average_view_duration range.merge by: :day
+          expect(average_view_duration.keys).to eq range.values
         end
       end
 
-      describe 'impressions can be retrieved for a range of days' do
+      describe 'average view duration can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          duration = channel.average_view_duration range.merge by: :country
+          expect(duration.keys).to all(be_a String)
+          expect(duration.keys.map(&:length).uniq).to eq [2]
+          expect(duration.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'average view duration can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          duration = channel.average_view_duration range.merge by: :state
+          expect(duration.keys).to all(be_a String)
+          expect(duration.keys.map(&:length).uniq).to eq [2]
+          expect(duration.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'average view percentage can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:average_view_percentage) { channel.average_view_percentage since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
-        specify 'with a given start (:since option)' do
-          expect(channel.impressions(since: date).keys.min).to eq date.to_date
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_percentage.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_percentage.keys.min).to eq date.to_date }
+          end
         end
 
-        specify 'with a given end (:until option)' do
-          expect(channel.impressions(until: date).keys.max).to eq date.to_date
-        end
+        context 'and grouped by country' do
+          let(:by) { :country }
 
-        specify 'with a given start (:from option)' do
-          expect(channel.impressions(from: date).keys.min).to eq date.to_date
-        end
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(average_view_percentage.keys).to eq [country_code] }
+          end
 
-        specify 'with a given end (:to option)' do
-          expect(channel.impressions(to: date).keys.max).to eq date.to_date
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(average_view_percentage.keys).to eq [country_code] }
+          end
         end
       end
 
-      specify 'viewer percentages by gender and age range can be retrieved' do
-        expect(channel.viewer_percentages[:female]['18-24']).to be_a Float
-        expect(channel.viewer_percentages[:female]['25-34']).to be_a Float
-        expect(channel.viewer_percentages[:female]['35-44']).to be_a Float
-        expect(channel.viewer_percentages[:female]['45-54']).to be_a Float
-        expect(channel.viewer_percentages[:female]['55-64']).to be_a Float
-        expect(channel.viewer_percentages[:female]['65-']).to be_a Float
-        expect(channel.viewer_percentages[:male]['18-24']).to be_a Float
-        expect(channel.viewer_percentages[:male]['25-34']).to be_a Float
-        expect(channel.viewer_percentages[:male]['35-44']).to be_a Float
-        expect(channel.viewer_percentages[:male]['45-54']).to be_a Float
-        expect(channel.viewer_percentages[:male]['55-64']).to be_a Float
-        expect(channel.viewer_percentages[:male]['65-']).to be_a Float
+      describe 'average view percentage can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.average_view_percentage since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
 
-        expect(channel.viewer_percentage(gender: :male)).to be_a Float
-        expect(channel.viewer_percentage(gender: :female)).to be_a Float
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+        end
+      end
+
+      describe 'average view percentage can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          average_view_percentage = channel.average_view_percentage range.merge by: :day
+          expect(average_view_percentage.keys).to eq range.values
+        end
+      end
+
+      describe 'average view percentage can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          percentage = channel.average_view_percentage range.merge by: :country
+          expect(percentage.keys).to all(be_a String)
+          expect(percentage.keys.map(&:length).uniq).to eq [2]
+          expect(percentage.values).to all(be_a Float)
+        end
+      end
+
+      describe 'average view percentage can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          percentage = channel.average_view_percentage range.merge by: :state
+          expect(percentage.keys).to all(be_a String)
+          expect(percentage.keys.map(&:length).uniq).to eq [2]
+          expect(percentage.values).to all(be_a Float)
+        end
+      end
+
+      describe 'impressions can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:impressions) { channel.impressions since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_PLAYLIST_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(impressions.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(impressions.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(impressions.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(impressions.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'impressions can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          impressions = channel.impressions range.merge by: :day
+          expect(impressions.keys).to eq range.values
+        end
+      end
+
+      describe 'impressions can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          impressions = channel.impressions range.merge by: :country
+          expect(impressions.keys).to all(be_a String)
+          expect(impressions.keys.map(&:length).uniq).to eq [2]
+          expect(impressions.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'monetized playbacks can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:monetized_playbacks) { channel.monetized_playbacks since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(monetized_playbacks.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(monetized_playbacks.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(monetized_playbacks.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(monetized_playbacks.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'monetized_playbacks can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          monetized_playbacks = channel.monetized_playbacks range.merge by: :day
+          expect(monetized_playbacks.keys).to eq range.values
+        end
+      end
+
+      describe 'monetized playbacks can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          playbacks = channel.monetized_playbacks range.merge by: :country
+          expect(playbacks.keys).to all(be_a String)
+          expect(playbacks.keys.map(&:length).uniq).to eq [2]
+          expect(playbacks.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'playback-based CPM can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:playback_based_cpm) { channel.playback_based_cpm since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(playback_based_cpm.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(playback_based_cpm.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(playback_based_cpm.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(playback_based_cpm.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'playback-based CPM can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          playback_based_cpm = channel.playback_based_cpm range.merge by: :day
+          expect(playback_based_cpm.keys).to eq range.values
+        end
+      end
+
+      describe 'playback-based CPM can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          playbacks = channel.playback_based_cpm range.merge by: :country
+          expect(playbacks.keys).to all(be_a String)
+          expect(playbacks.keys.map(&:length).uniq).to eq [2]
+          expect(playbacks.values).to all(be_a Float)
+        end
+      end
+
+      describe 'annotation clicks can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:annotation_clicks) { channel.annotation_clicks since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_clicks.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_clicks.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_clicks.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_clicks.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'annotation clicks can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.annotation_clicks since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+        end
+      end
+
+      describe 'annotation clicks can be grouped by day' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'with the :by option set to :day' do
+          annotation_clicks = channel.annotation_clicks range.merge by: :day
+          expect(annotation_clicks.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'annotation clicks can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          clicks = channel.annotation_clicks range.merge by: :country
+          expect(clicks.keys).to all(be_a String)
+          expect(clicks.keys.map(&:length).uniq).to eq [2]
+          expect(clicks.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'annotation clicks can be grouped by state' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :state' do
+          clicks = channel.annotation_clicks range.merge by: :state
+          expect(clicks.keys).to all(be_a String)
+          expect(clicks.keys.map(&:length).uniq).to eq [2]
+          expect(clicks.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'annotation click-through rate can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:annotation_click_through_rate) { channel.annotation_click_through_rate since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_click_through_rate.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_click_through_rate.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_click_through_rate.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_click_through_rate.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'annotation click-through rate can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.annotation_click_through_rate since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+        end
+      end
+
+      describe 'annotation click-through rate can be grouped by day' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'with the :by option set to :day' do
+          annotation_click_through_rate = channel.annotation_click_through_rate range.merge by: :day
+          expect(annotation_click_through_rate.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'annotation click-through rate can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          rate = channel.annotation_click_through_rate range.merge by: :country
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
+        end
+      end
+
+      describe 'annotation click-through rate can be grouped by state' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :state' do
+          rate = channel.annotation_click_through_rate range.merge by: :state
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
+        end
+      end
+
+      describe 'annotation close rate can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:annotation_close_rate) { channel.annotation_close_rate since: date, by: by, in: location }
+        let(:date) { 4.days.ago }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_close_rate.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_close_rate.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(annotation_close_rate.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(annotation_close_rate.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'annotation close rate can be retrieved for a single US state' do
+        let(:state_code) { 'NY' }
+        let(:result) { channel.annotation_close_rate since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by US state' do
+          let(:by) { :state }
+
+          context 'with the :in option set to {state: state code}' do
+            let(:location) { {state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+
+          context 'with the :in option set to {country: "US", state: state code}' do
+            let(:location) { {country: 'US', state: state_code} }
+            it { expect(result.keys).to eq [state_code] }
+          end
+        end
+      end
+
+      describe 'annotation close rate can be grouped by day' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'with the :by option set to :day' do
+          annotation_close_rate = channel.annotation_close_rate range.merge by: :day
+          expect(annotation_close_rate.values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'annotation close rate can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          rate = channel.annotation_close_rate range.merge by: :country
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
+        end
+      end
+
+      describe 'annotation close rate can be grouped by state' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :state' do
+          rate = channel.annotation_close_rate range.merge by: :state
+          expect(rate.keys).to all(be_a String)
+          expect(rate.keys.map(&:length).uniq).to eq [2]
+          expect(rate.values).to all(be_a Float)
+        end
+      end
+
+      describe 'viewer percentage can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:viewer_percentage) { channel.viewer_percentage in: location }
+
+        context 'with the :in option set to the country code' do
+          let(:location) { country_code }
+          it { expect(viewer_percentage.keys).to match_array [:female, :male] }
+        end
+
+        context 'with the :in option set to {country: country code}' do
+          let(:location) { {country: country_code} }
+          it { expect(viewer_percentage.keys).to match_array [:female, :male] }
+        end
+      end
+
+      describe 'viewer percentage can be retrieved for a single US state' do
+         let(:state_code) { 'TX' }
+         let(:viewer_percentage) { channel.viewer_percentage since: date, in: location }
+         let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+         context 'with the :in option set to {state: state code}' do
+           let(:location) { {state: state_code} }
+           it {expect(viewer_percentage.keys).to match_array [:female, :male] }
+         end
+
+         context 'with the :in option set to {country: "US", state: state code}' do
+           let(:location) { {country: 'US', state: state_code} }
+           it { expect(viewer_percentage.keys).to match_array [:female, :male] }
+         end
+       end
+
+      describe 'viewer percentage can be retrieved for a range of days' do
+        let(:viewer_percentage) { channel.viewer_percentage since: 1.year.ago, until: 10.days.ago}
+        it { expect(viewer_percentage).to be_a Hash }
+      end
+
+      describe 'viewer_percentage can be grouped by gender and age group' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'without a :by option (default)' do
+          viewer_percentage = channel.viewer_percentage range
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:female].values).to all(be_instance_of Float)
+          expect(viewer_percentage[:male].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:male].values).to all(be_instance_of Float)
+        end
+
+        specify 'with the :by option set to :gender_age_group' do
+          viewer_percentage = channel.viewer_percentage range.merge by: :gender_age_group
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:female].values).to all(be_instance_of Float)
+          expect(viewer_percentage[:male].keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage[:male].values).to all(be_instance_of Float)
+        end
+      end
+
+      describe 'viewer_percentage can be grouped by gender' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :gender' do
+          viewer_percentage = channel.viewer_percentage range.merge by: :gender
+          expect(viewer_percentage.keys).to match_array [:female, :male]
+          expect(viewer_percentage[:female]).to be_a Float
+          expect(viewer_percentage[:male]).to be_a Float
+        end
+      end
+
+      describe 'viewer_percentage can be grouped by age group' do
+        let(:range) { {since: 1.year.ago.to_date, until: 1.week.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :age_group' do
+          viewer_percentage = channel.viewer_percentage range.merge by: :age_group
+          expect(viewer_percentage.keys - %w(65- 35-44 45-54 13-17 25-34 55-64 18-24)).to be_empty
+          expect(viewer_percentage.values).to all(be_instance_of Float)
+        end
       end
 
       specify 'information about its content owner can be retrieved' do

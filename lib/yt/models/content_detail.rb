@@ -2,10 +2,12 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Encapsulates information about the video content, including the length
     # of the video and an indication of whether captions are available.
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     class ContentDetail < Base
+      attr_reader :data
 
       def initialize(options = {})
         @data = options[:data]
@@ -16,24 +18,15 @@ module Yt
         to_seconds value
       end
 
-      # @return [Boolean] whether the video is available in 3D.
-      has_attribute :stereoscopic?, from: :dimension do |dimension|
-        dimension == '3d'
-      end
+      has_attribute :dimension
+      has_attribute :definition
+      has_attribute :caption
+      has_attribute :licensed_content
+      has_attribute :content_rating, default: {}
 
-      # @return [Boolean] whether the video is available in high definition.
-      has_attribute :hd?, from: :definition do |definition|
-        definition == 'hd'
+      def youtube_rating
+        content_rating['ytRating']
       end
-
-      # @return [Boolean] whether captions are available for the video.
-      has_attribute :captioned?, from: :caption do |caption|
-        caption == 'true'
-      end
-
-      # @return [Boolean] whether the video represents licensed content, which
-      #   means that the content has been claimed by a YouTube content partner.
-      has_attribute :licensed?, default: false, from: :licensed_content
 
     private
 

@@ -7,7 +7,7 @@ module Yt
   module Actions
     module List
       delegate :any?, :count, :each, :each_cons, :each_slice, :find, :first,
-        :flat_map, :map, :size, to: :list
+        :flat_map, :map, :select, :size, to: :list
 
       def first!
         first.tap{|item| raise Errors::NoItems, error_message unless item}
@@ -41,7 +41,7 @@ module Yt
       def total_results
         response = list_request(list_params).run
         total_results = response.body.fetch('pageInfo', {})['totalResults']
-        total_results ||= response.body.fetch(items_key, []).size
+        total_results ||= extract_items(response.body).size
       end
 
       def find_next
@@ -93,7 +93,7 @@ module Yt
       def fetch_page(params = {})
         @last_response = list_request(params).run
         token = @last_response.body['nextPageToken']
-        items = @last_response.body.fetch items_key, []
+        items = extract_items @last_response.body
         {items: items, token: token}
       end
 
@@ -121,6 +121,10 @@ module Yt
           params[:exptected_response] = Net::HTTPOK
           params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key
         end
+      end
+
+      def extract_items(list)
+        list.fetch items_key, []
       end
 
       def items_key

@@ -3,6 +3,7 @@ require 'yt/models/rating'
 
 module Yt
   module Collections
+    # @private
     class Ratings < Base
 
     private

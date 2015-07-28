@@ -71,11 +71,12 @@ module Yt
         timestamps.first < seconds if timestamps.any?
       end
 
-    private
-
+      # @return [String] the textual content of the annotation.
       def text
         @text ||= @data['TEXT'] || ''
       end
+
+    private
 
       has_attribute :type, default: ''
 

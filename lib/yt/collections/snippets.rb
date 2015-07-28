@@ -3,6 +3,7 @@ require 'yt/models/snippet'
 
 module Yt
   module Collections
+    # @private
     class Snippets < Base
 
     private

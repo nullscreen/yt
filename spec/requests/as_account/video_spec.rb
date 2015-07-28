@@ -16,12 +16,12 @@ describe Yt::Video, :device_app do
       expect(video.description).to be_a String
       expect(video.thumbnail_url).to be_a String
       expect(video.published_at).to be_a Time
-      expect(video.privacy_status).to be_in Yt::Status::PRIVACY_STATUSES
+      expect(video.privacy_status).to be_a String
       expect(video.tags).to be_an Array
       expect(video.channel_id).to be_a String
       expect(video.channel_title).to be_a String
       expect(video.category_id).to be_a String
-      expect(video.live_broadcast_content).to be_in Yt::Snippet::BROADCAST_TYPES
+      expect(video.live_broadcast_content).to be_a String
       expect(video.view_count).to be_an Integer
       expect(video.like_count).to be_an Integer
       expect(video.dislike_count).to be_an Integer
@@ -36,7 +36,7 @@ describe Yt::Video, :device_app do
       expect(video.failed?).to be_in [true, false]
       expect(video.processed?).to be_in [true, false]
       expect(video.rejected?).to be_in [true, false]
-      expect(video.uploaded?).to be_in [true, false]
+      expect(video.uploading?).to be_in [true, false]
       expect(video.uses_unsupported_codec?).to be_in [true, false]
       expect(video.has_failed_conversion?).to be_in [true, false]
       expect(video.empty?).to be_in [true, false]
@@ -63,6 +63,8 @@ describe Yt::Video, :device_app do
       expect(video.scheduled_start_time).to be_nil
       expect(video.scheduled_end_time).to be_nil
       expect(video.concurrent_viewers).to be_nil
+      expect(video.embed_html).to be_a String
+      expect(video.category_title).to be_a String
     end
 
     it { expect{video.update}.to fail }
@@ -118,6 +120,7 @@ describe Yt::Video, :device_app do
     it { expect{video.rating}.to raise_error Yt::Errors::NoItems }
     it { expect{video.status}.to raise_error Yt::Errors::NoItems }
     it { expect{video.statistics_set}.to raise_error Yt::Errors::NoItems }
+    it { expect{video.file_detail}.to raise_error Yt::Errors::NoItems }
   end
 
   context 'given one of my own videos that I want to delete' do
@@ -279,7 +282,7 @@ describe Yt::Video, :device_app do
 
     it 'returns valid reports for video-related metrics' do
       # Some reports are only available to Content Owners.
-      # See content ownere test for more details about what the methods return.
+      # See content owner test for more details about what the methods return.
       expect{video.views}.not_to raise_error
       expect{video.comments}.not_to raise_error
       expect{video.likes}.not_to raise_error
@@ -289,9 +292,17 @@ describe Yt::Video, :device_app do
       expect{video.subscribers_lost}.not_to raise_error
       expect{video.favorites_added}.not_to raise_error
       expect{video.favorites_removed}.not_to raise_error
+      expect{video.estimated_minutes_watched}.not_to raise_error
+      expect{video.average_view_duration}.not_to raise_error
+      expect{video.average_view_percentage}.not_to raise_error
+      expect{video.annotation_clicks}.not_to raise_error
+      expect{video.annotation_click_through_rate}.not_to raise_error
+      expect{video.annotation_close_rate}.not_to raise_error
+      expect{video.viewer_percentage}.not_to raise_error
       expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions}.to raise_error Yt::Errors::Unauthorized
       expect{video.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
+      expect{video.playback_based_cpm}.to raise_error Yt::Errors::Unauthorized
       expect{video.advertising_options_set}.to raise_error Yt::Errors::Forbidden
 
       expect{video.views_on 3.days.ago}.not_to raise_error
@@ -303,13 +314,11 @@ describe Yt::Video, :device_app do
       expect{video.subscribers_lost_on 3.days.ago}.not_to raise_error
       expect{video.favorites_added_on 3.days.ago}.not_to raise_error
       expect{video.favorites_removed_on 3.days.ago}.not_to raise_error
+      expect{video.estimated_minutes_watched_on 3.days.ago}.not_to raise_error
+      expect{video.average_view_duration_on 3.days.ago}.not_to raise_error
+      expect{video.average_view_percentage_on 3.days.ago}.not_to raise_error
       expect{video.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
-    end
-
-    it 'returns valid reports for video-related demographics' do
-      expect{video.viewer_percentages}.not_to raise_error
-      expect{video.viewer_percentage}.not_to raise_error
     end
   end
 
@@ -370,6 +379,30 @@ describe Yt::Video, :device_app do
       let(:path_or_url) { 'https://bit.ly/yt_thumbnail' }
 
       it { expect{update}.not_to raise_error }
+    end
+
+    context 'given an invalid URL' do
+      let(:path_or_url) { 'this-is-not-a-url' }
+
+      it { expect{update}.to raise_error Yt::Errors::RequestError }
+    end
+  end
+
+  # @note: This test is separated from the block above because YouTube only
+  #   returns file details for *some videos*: "The fileDetails object will
+  #   only be returned if the processingDetails.fileAvailability property
+  #   has a value of available.". Therefore, just to test fileDetails, we use a
+  #   different video that (for some unknown reason) is marked as 'available'.
+  #   Also note that I was not able to find a single video returning fileName,
+  #   therefore video.file_name is not returned by Yt, until it can be tested.
+  # @see https://developers.google.com/youtube/v3/docs/videos#processingDetails.fileDetailsAvailability
+  context 'given one of my own *available* videos' do
+    let(:id) { 'yCmaOvUFhlI' }
+
+    it 'returns valid file details' do
+      expect(video.file_size).to be_an Integer
+      expect(video.file_type).to be_a String
+      expect(video.container).to be_a String
     end
   end
 end

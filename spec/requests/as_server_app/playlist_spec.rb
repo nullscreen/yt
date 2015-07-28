@@ -2,10 +2,10 @@ require 'spec_helper'
 require 'yt/models/playlist'
 
 describe Yt::Playlist, :server_app do
-  subject(:playlist) { Yt::Playlist.new id: id }
+  subject(:playlist) { Yt::Playlist.new attrs }
 
-  context 'given an existing playlist' do
-    let(:id) { 'PLSWYkYzOrPMRCK6j0UgryI8E0NHhoVdRc' }
+  context 'given an existing playlist ID' do
+    let(:attrs) { {id: 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4'} }
 
     it 'returns valid snippet data' do
       expect(playlist.snippet).to be_a Yt::Snippet
@@ -23,10 +23,31 @@ describe Yt::Playlist, :server_app do
     it { expect(playlist.playlist_items.first).to be_a Yt::PlaylistItem }
   end
 
+  context 'given an existing playlist URL' do
+    let(:attrs) { {url: 'https://www.youtube.com/playlist?list=LLxO1tY8h1AhOz0T4ENwmpow'} }
+
+    specify 'provides access to its data' do
+      expect(playlist.id).to eq 'LLxO1tY8h1AhOz0T4ENwmpow'
+      expect(playlist.title).to eq 'Liked videos'
+      expect(playlist.privacy_status).to eq 'public'
+    end
+  end
+
   context 'given an unknown playlist' do
-    let(:id) { 'not-a-playlist-id' }
+    let(:attrs) { {id: 'not-a-playlist-id'} }
 
     it { expect{playlist.snippet}.to raise_error Yt::Errors::NoItems }
     it { expect{playlist.status}.to raise_error Yt::Errors::NoItems }
+  end
+
+
+  context 'given an unknown playlist URL' do
+    let(:attrs) { {url: 'youtube.com/--not-a-valid-url--'} }
+
+    specify 'accessing its data raises an error' do
+      expect{playlist.id}.to raise_error Yt::Errors::NoItems
+      expect{playlist.title}.to raise_error Yt::Errors::NoItems
+      expect{playlist.status}.to raise_error Yt::Errors::NoItems
+    end
   end
 end

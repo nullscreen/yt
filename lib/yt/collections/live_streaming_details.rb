@@ -3,6 +3,7 @@ require 'yt/models/live_streaming_detail'
 
 module Yt
   module Collections
+    # @private
     class LiveStreamingDetails < Base
 
     private

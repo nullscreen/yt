@@ -1,5 +1,6 @@
 module Yt
   module Models
+    # @private
     # If we dropped support for Ruby 1.9.3, then we could simply use Enumerator
     # which takes a `size` parameter in Ruby >= 2.
     class Iterator < Enumerator

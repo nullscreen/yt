@@ -3,6 +3,7 @@ require 'yt/models/content_detail'
 
 module Yt
   module Collections
+    # @private
     class ContentDetails < Base
 
     private

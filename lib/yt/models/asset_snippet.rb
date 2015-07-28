@@ -16,14 +16,15 @@ module Yt
       #   identify the asset.
       has_attribute :id
 
+      # Returns the asset’s type.
       # @return [String] the asset’s type. This value determines the metadata
       #   fields that you can set for the asset. In addition, certain API
       #   functions may only be supported for specific types of assets. For
       #   example, composition assets may have more complex ownership data than
       #   other types of assets.
-      #   Valid values for this property are: art_track_video, composition,
-      #   episode, general, movie, music_video, season, show, sound_recording,
-      #   video_game, and web.
+      #   Possible values are: +'art_track_video'+, +'composition'+,
+      #   +'episode'+, +'general'+, +'movie'+, +'music_video'+, +'season'+,
+      #   +'show'+, +'sound_recording'+, +'video_game'+, +'web'+.
       has_attribute :type
 
       # @return [String] the title of this asset.

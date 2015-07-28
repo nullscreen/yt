@@ -13,7 +13,9 @@ module Yt
       end
 
       def playlists_params
-        resources_params.merge channel_id: @parent.id
+        params = resources_params
+        params.merge! channel_id: @parent.id if @parent
+        apply_where_params! params
       end
 
       def insert_parts

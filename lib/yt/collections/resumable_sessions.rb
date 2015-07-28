@@ -3,6 +3,7 @@ require 'yt/models/resumable_session'
 
 module Yt
   module Collections
+    # @private
     # Provides methods to upload videos with the resumable upload protocol.
     #
     # Resources with resumable sessions are: {Yt::Models::Account accounts}.
@@ -14,7 +15,7 @@ module Yt
       # object to upload. If the request succeeds, YouTube returns a unique
       # URL to upload the object file (and eventually resume the upload).
       # @param [Integer] content_length the size (bytes) of the object to upload.
-      # @param [Hash] options the metadata to add to the uploaded object.
+      # @param [Hash] body the metadata to add to the uploaded object.
       def insert(content_length, body = {})
         @headers = headers_for content_length
         do_insert body: body, headers: @headers

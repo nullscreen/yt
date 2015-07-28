@@ -2,12 +2,13 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Provides methods to modify the rating of a video on YouTube.
     # @see https://developers.google.com/youtube/v3/docs/videos/rate
     # @see https://developers.google.com/youtube/v3/docs/videos/getRating
     class Rating < Base
       # @return [Symbol, nil] the rating of a video (if present).
-      #  Valid values are: :dislike, :like, :none, :unspecified
+      #  Possible values are: +:dislike+, +:like+, +:none+, +:unspecified+.
       attr_reader :rating
 
       def initialize(options = {})

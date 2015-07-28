@@ -1,5 +1,6 @@
 module Yt
   module Associations
+    # @private
     # Provides authentication methods to YouTube resources, which allows to
     # access to content detail set-specific methods like `access_token`.
     #
@@ -16,6 +17,7 @@ module Yt
       end
     end
 
+    # @private
     module Authenticable
       delegate :access_token, :refresh_token, :expires_at, to: :authentication
 

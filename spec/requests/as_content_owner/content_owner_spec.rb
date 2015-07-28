@@ -12,14 +12,6 @@ describe Yt::ContentOwner, :partner do
     specify '.size', :ruby2 do
       expect(partnered_channels.size).to be > 0
     end
-
-    context 'with includes(:viewer_percentages)' do
-      let(:channel) { partnered_channels.includes(:viewer_percentages).first }
-
-      specify 'eager-loads the viewer percentages of each channel' do
-        expect(channel.instance_variable_defined? :@viewer_percentages).to be true
-      end
-    end
   end
 
   describe 'claims' do
@@ -77,8 +69,8 @@ describe Yt::ContentOwner, :partner do
         expect(claim.id).to be_a String
         expect(claim.asset_id).to be_a String
         expect(claim.video_id).to be_a String
-        expect(claim.status).to be_in Yt::Claim::STATUSES
-        expect(claim.content_type).to be_in Yt::Claim::CONTENT_TYPES
+        expect(claim.status).to be_a String
+        expect(claim.content_type).to be_a String
         expect(claim.created_at).to be_a Time
         expect(claim).not_to be_third_party
       end
@@ -197,8 +189,8 @@ describe Yt::ContentOwner, :partner do
           expect(reference.audioswap_enabled?).to be_in [true, false]
           expect(reference.ignore_fp_match?).to be_in [true, false]
           expect(reference.urgent?).to be_in [true, false]
-          expect(reference.status).to be_in Yt::Reference::STATUSES
-          expect(reference.content_type).to be_in Yt::Reference::CONTENT_TYPES
+          expect(reference.status).to be_a String
+          expect(reference.content_type).to be_a String
         end
       end
 
@@ -218,7 +210,7 @@ describe Yt::ContentOwner, :partner do
         expect(policy.id).to be_a String
         expect(policy.name).to be_a String
         expect(policy.updated_at).to be_a Time
-        expect(rule.action).to  be_in Yt::PolicyRule::ACTIONS
+        expect(rule.action).to  be_a String
         expect(rule.included_territories).to be_an Array
         expect(rule.excluded_territories).to be_an Array
         expect(rule.match_duration).to be_an Array
@@ -241,7 +233,7 @@ describe Yt::ContentOwner, :partner do
   #   Therefore, the test is commented out, otherwise a new asset would
   #   be created every time the test is run.
   # describe 'assets can be added' do
-  #   let(:params) { {type: 'web'} }
+  #   let(:params) { {type: 'web', metadata_mine: {title: "Test Asset Title"}} }
   #   before { @asset = $content_owner.create_asset params }
   #   after { @asset.delete } # This does not seem to work
   #   it { expect(@asset).to be_a Yt::Asset }

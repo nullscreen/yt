@@ -3,6 +3,7 @@ require 'yt/models/base'
 
 module Yt
   module Models
+    # @private
     # Provides methods to upload videos with the resumable upload protocol.
     # @see https://developers.google.com/youtube/v3/guides/using_resumable_upload_protocol
     class ResumableSession < Base

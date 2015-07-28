@@ -6,6 +6,308 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.4 - 2015-07-27
+
+* [FEATURE] Add `channel.related_playlist` and `account.related_playlists` to access "Liked Videos", "Uploads", etc.
+
+## 0.25.3 - 2015-07-23
+
+* [BUGFIX] Don’t run an infinite loop when calling `.playlist_items.includes(:video)` on a playlist with only private or deleted videos
+
+## 0.25.2 - 2015-07-22
+
+* [FEATURE] Add .includes(:video) to .playlist_items to eager-load video data of a list of playlist items.
+
+## 0.25.1 - 2015-07-06
+
+* [ENHANCEMENT] `Yt::Video.new` accepts embedded video url.
+
+## 0.25.0 - 2015-06-29
+
+**How to upgrade**
+
+If your code expects 10 videos when calling a report `by: :video` or
+`by: :related_video`, beware that those reports now return 25 videos.
+If you only need the first 10, just add `.first(10)` to your result.
+For instance: `channel.views(by: :video).first(10).to_h`.
+
+* [ENHANCEMENT] Return 25 results on reports by video / related video.
+* [FEATURE] New `playback_based_cpm` report for channels and videos.
+
+## 0.24.10 - 2015-06-25
+
+* [BUGFIX] Don't break reports `by: :playlist` when trying to fetch their part by limiting to result to 50 playlists.
+
+## 0.24.9 - 2015-06-19
+
+* [BUGFIX] Let more than `max_results` videos be retrieved even when a `published_before` where condition is specified.
+
+## 0.24.8 - 2015-06-18
+
+* [FEATURE] New `by: :week` option for reports.
+* [FEATURE] New Video#age_restricted? method
+
+## 0.24.7 - 2015-06-08
+
+* [ENHANCEMENT] Add `:videos` option to limit channel reports to subset of videos
+
+## 0.24.6 - 2015-06-08
+
+* [ENHANCEMENT] When grouping by day, return results in chronological order
+
+## 0.24.5 - 2015-06-08
+
+* [ENHANCEMENT] When grouping by device type, return results sorted by descending views
+
+## 0.24.4 - 2015-06-05
+
+* [ENHANCEMENT] When grouping by traffic source, country, state or playback location, return results sorted by descending views
+
+## 0.24.3 - 2015-06-05
+
+* [ENHANCEMENT] Add newly available traffic sources
+
+## 0.24.1 - 2015-06-01
+
+* [BUGFIX] Don't raise error when YouTube returns a deleted video while eager loading
+
+## 0.24.0 - 2015-05-21
+
+**How to upgrade**
+
+If your code expects the `estimated_minutes_watched`
+or the `average_view_duration` report to return a `Float`, beware that they now
+return an `Integer` (since that is what YouTube returns).
+In case you still need to parse a float, just append `.to_f` to the result.
+
+* [ENHANCEMENT] Return Integer on `estimated_minutes_watched` reports
+* [ENHANCEMENT] Return Integer on `average_view_duration` reports
+* [FEATURE] New `by: :referrer` option for reports.
+
+## 0.23.2 - 2015-05-20
+
+* [FEATURE] Accept `:includes` in reports by video, related video and playlist to preload parts.
+
+## 0.23.1 - 2015-05-19
+
+* [FEATURE] New `by: :month` option for reports.
+* [FEATURE] New `.reports` method to fetch multiple metrics at once.
+
+## 0.23.0 - 2015-05-18
+
+**How to upgrade**
+
+If your code expects reports to return results **by day** then you **must** add
+the `by: :day` option to your report method. The new default is `by: :range`.
+For instance `channel.views` would return
+
+  {Wed, 8 May 2014 => 12.4, Thu, 9 May 2014 => 3.2, Fri, 10 May 2014 => …}
+
+and now returns the same as calling `channel.views by: :range`:
+
+  {total: 3450}
+
+Additionally, if you expect reports **by day** then you **must** specify the
+`:since` option to your report method. Previously, this value was set to
+`5.days.ago`, but now is required. `:until` still defaults to `Date.today`.
+
+Finally, if you expect reports for the entire range, notice that the default
+ `:since` option is now set to the date when YouTube opened. Therefore calling a
+method like `channel.views` now returns the **lifetime** views of a channel.
+
+* [ENHANCEMENT] Change default from `by: :day` to `by: :range`.
+* [ENHANCEMENT] Require `:since` options for any report by day.
+* [ENHANCEMENT] Change default range for reports by range to lifetime.
+
+## 0.22.2 - 2015-05-15
+
+* [FEATURE] New `by: :search_term` option for reports.
+* [FEATURE] New `in: {state: 'XX'}` option to limit reports to a US state
+* [FEATURE] New `uniques by: :day` report
+
+## 0.22.1 - 2015-05-13
+
+* [FEATURE] New `by: :country` option for channel, video and playlist reports
+* [FEATURE] New `by: :state` option for channel, video and playlist reports
+* [FEATURE] New `:in` option to limit reports to a country
+
+## 0.22.0 - 2015-04-30
+
+**How to upgrade**
+
+If your code expects any of the following method to return Float values, then
+be aware that they now return Integer. You can still call `to_f` if you do need
+a Float: views, `comments`, `likes`, `dislikes`, `shares`, `subscribers_gained`,
+`subscribers_lost`, `favorites_added`, `favorites_removed`, `annotations`,
+`impressions`, `monetized_playbacks`, `playlist_starts`.
+
+* [ENHANCEMENT] Return `Integer` values for reports that can never return decimal digits.
+* [FEATURE] New `by: :range` option for reports, to return a metric without dimensions (that is, for the whole range)
+
+## 0.21.0 - 2015-04-30
+
+**How to upgrade**
+
+If your code doesn’t use `PolicyRule#ACTIONS`, then you are good to go.
+If it does, then you should redefine the constant in your own app.
+
+* [REMOVAL] Remove `PolicyRule#ACTIONS` (was `%q(block monetize takedown track)`).
+* [BUGFIX] Make `account.playlists` and `account.channel.playlists` behave the same.
+
+## 0.20.0 - 2015-04-29
+
+**How to upgrade**
+
+If your code doesn’t use any of the following constants that were public but
+undocumented, then you are good to go.
+
+If it does, then you should redefine those constants in your own app, since
+it’s not Yt’s goal to validate the values posted to YouTube API.
+
+* [REMOVAL] Remove `Asset#STATUSES` (was `%q(active inactive pending)`).
+* [REMOVAL] Remove `Claim#STATUSES` (was `%q(active appealed disputed inactive pending potential takedown unknown)`).
+* [REMOVAL] Remove `Claim#CONTENT_TYPES` (was `%q(audio video audiovisual)`).
+* [REMOVAL] Remove `Reference#STATUSES` (was `%q(activating active checking computing_fingerprint deleted duplicate_on_hold inactive live_streaming_processing urgent_reference_processing)`).
+* [REMOVAL] Remove `Reference#CONTENT_TYPES` (was `%q(audio video audiovisual)`).
+* [REMOVAL] Remove `Status#PRIVACY_STATUSES` (was `%q(private public unlisted)`).
+
+## 0.19.0 - 2015-04-28
+
+**How to upgrade**
+
+If your code never calls `partnered_channels.includes(:viewer_percentages)` on
+a Yt::ContentOwner, then you are good to go.
+
+If it does, then be aware that viewer percentage is not eager-loaded anymore,
+so the call above is equivalent to `partenered_channels`. The reason is that
+viewer percentage *requires* a time-range, and using a default range of the
+last 3 months can generate more confusion than added value.
+
+Also if your code still uses the deprecated:
+
+- `.viewer_percentages` method, replace with `.viewer_percentage`.
+- `policy.time_updated` method, replace with `policy.updated_at`.
+- `video.uploaded?` method, replace with `video.uploading?`.
+
+* [REMOVAL] Remove `.includes(:viewer_percentages)` on `content_owner.partnered_channels`.
+* [REMOVAL] Remove deprecated `viewer_percentages` (use `viewer_percentage` instead)
+* [REMOVAL] Remove deprecated `policy.time_updated` (use `updated_at` instead)
+* [REMOVAL] Remove deprecated `video.uploaded?` (use `uploading?` instead)
+
+## 0.18.0 - 2015-04-28
+
+**How to upgrade**
+
+If your code never calls `public?`, `private?` or `unlisted?` on a Status
+object, then you are good to go.
+
+If it does, then call the same methods on the parent Resource object instead.
+For instance, replace `video.status.private?` with `video.private?`.
+
+* [ENHANCEMENT] Don’t over-delegate privacy status methods of Resource.
+
+## 0.17.0 - 2015-04-28
+
+**How to upgrade**
+
+If your code never calls video-specific methods on `video.status`, then you are
+good to go.
+
+If it does, then call the same methods on `video`, rather than `video.status`.
+For instance, replace `video.status.deleted?` with `video.deleted?`.
+
+* [ENHANCEMENT] Don’t over-delegate methods of Video.
+* [ENHANCEMENT] Complete documentation of Yt::Video.
+
+## 0.16.0 - 2015-04-27
+
+**How to upgrade**
+
+If your code never calls `video.uploaded?`, then you are good to go.
+
+If it does, then replace your calls with `video.uploading?`.
+In fact, the YouTube constant `uploaded` identifies the status where a
+video is **being uploaded**.
+
+* [ENHANCEMENT] Rename `uploaded?` to `uploading?` to avoid confusion.
+
+## 0.15.3 - 2015-04-27
+
+* [FEATURE] New `file_size`, `file_type`, `container` methods for Yt::Video.
+* [BUGFIX] Retrieve `category_id` also for videos obtained through a search.
+* [FEATURE] Add .includes(:category) to .videos in order to eager-load category title and ID of a collection of videos
+
+## 0.15.2 - 2015-04-27
+
+* [FEATURE] New `embed_html` method for Yt::Video.
+
+## 0.15.1 - 2015-04-19
+
+* [FEATURE] New `annotation clicks` report for videos and channels.
+* [FEATURE] New `annotation click-through rate` report for videos and channels.
+* [FEATURE] New `annotation close rate` report for videos and channels.
+
+## 0.15.0 - 2015-04-19
+
+**How to upgrade**
+
+If your code never calls the `viewer_percentage(gender: [:female|:male])` method
+on a Channel or Video object, then you are good to go.
+
+If it does, then replace your calls to `viewer_percentage(gender: :female)`
+with `viewer_percentage(by: gender)[:female]`, and do the same for `:male`.
+
+Note that the _plural_ `viewer_percentages` method still works but it’s
+deprecated: you should use `viewer_percentage` instead.
+
+* [ENHANCEMENT] Remove `:gender` option in `viewer_percentage` in favor of a more generic `:by`
+* [FEATURE] New `by: :gender` option for reports, to return viewer percentage by gender
+* [FEATURE] New `by: :age_group` option for reports, to return viewer percentage by age group
+* [ENHANCEMENT] The viewer percentage report now accepts start/end date options (like any other report)
+* [DEPRECATION] Deprecate `viewer_percentages` in favor of `viewer_percentage`.
+
+## 0.14.7 - 2015-04-17
+
+* [FEATURE] New `by: :device_type` option for reports, to return views and estimated watched minutes (channels) by device
+
+## 0.14.6 - 2015-04-17
+
+* [BUGFIX] Rescue OpenSSL::SSL::SSLErrorWaitReadable only on version of Ruby that define it.
+
+## 0.14.5 - 2015-04-15
+
+* [BUGFIX] Raise `Yt::Errors::RequestError` when passing an invalid path or URL to `upload_thumbnail`
+
+## 0.14.4 - 2015-04-14
+
+* [FEATURE] New `by: :embedded_player_location` option for reports, to return views and estimated watched minutes (channels) by URL where the player was embedded
+* [FEATURE] New `by: :playback_location` option for reports, to return views and estimated watched minutes (channels) by watch/embedded/channel/external app/mobile.
+* [FEATURE] New `by: :related_video` option for reports, to return views and estimated watched minutes (channels) by the video that linked there.
+
+## 0.14.3 - 2015-04-09
+
+* [BUGFIX] Don't let request errors crash Yt in Ruby 1.9.3.
+
+## 0.14.2 - 2015-04-08
+
+* [FEATURE] Make `Annotation#text` a public method.
+* [FEATURE] Make `data` a public method for Snippet, Status, ContentDetail and StatisticsSet.
+* [FEATURE] Add .includes to .videos, so you can eager load snippet, status, statistics and content details for a collection of videos
+
+## 0.14.1 - 2015-03-30
+
+* [FEATURE] New `monetized playbacks` report for channels.
+* [FEATURE] New `estimated watched minutes` report for videos.
+* [FEATURE] New video reports: `average_view_duration`, `average_view_percentage`.
+* [FEATURE] New `by: :playlist` option for reports, to return views and estimated watched minutes (channels) by playlist.
+* [FEATURE] New playlist reports: `views`, `playlist_starts`, `average_time_in_playlist`, `views_per_playlist_start`.
+
+
+## 0.14.0 - 2015-03-25
+
+* [FEATURE] New `by: :traffic_source` option for reports, to return views (channels/videos) and estimated watched minutes (channels) by traffic source.
+* [FEATURE] New `by: :video` option for reports, to return views and estimated watched minutes (channels) by video.
+
 ## 0.13.12 - 2015-03-23
 
 * [FEATURE] New channel/video reports: `favorites_added`, `favorites_removed`.
