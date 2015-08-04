@@ -32,6 +32,10 @@ module Yt
         @force = options[:force]
         @scopes = options[:scopes]
         @authentication = options[:authentication]
+
+        if @refresh_token.nil? && @authentication
+          @refresh_token = @authentication.refresh_token
+        end
       end
 
       def auth
