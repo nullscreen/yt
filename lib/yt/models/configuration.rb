@@ -46,7 +46,7 @@ module Yt
       attr_accessor :log_level
 
       # @return [Array<Proc>] Register a proc to handle token updates.
-      attr_accessor :authentication_handlers
+      attr_reader :authentication_handlers
 
       # Initialize the global configuration settings, using the values of
       # the specified following environment variables by default.
