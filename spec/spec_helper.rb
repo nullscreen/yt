@@ -20,4 +20,8 @@ RSpec.configure do |config|
 
   config.backtrace_exclusion_patterns << %r|/users/.*/\.rvm/gems/|i
   config.backtrace_exclusion_patterns << %r|/vendor/bundle/gems/|i
+
+  config.fail_fast = true
+  config.default_formatter = 'doc'
+  config.color = true
 end
