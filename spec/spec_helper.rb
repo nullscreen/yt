@@ -17,4 +17,7 @@ RSpec.configure do |config|
   config.filter_run_excluding ruby2: true if RUBY_VERSION < '2'
   # @note: See https://github.com/Fullscreen/yt/issues/103
   config.filter_run_excluding ruby21: true if RUBY_VERSION < '2.1'
+
+  config.backtrace_exclusion_patterns << %r|/users/.*/\.rvm/gems/|i
+  config.backtrace_exclusion_patterns << %r|/vendor/bundle/gems/|i
 end
