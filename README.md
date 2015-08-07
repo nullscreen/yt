@@ -56,6 +56,15 @@ Yt::Account
 
 Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/accounts.html) for the list of methods available for `Yt::Account`.
 
+Yt::CommentThread
+----------------
+One youtube main comment thread - topLevelComment and Replies are accessible throught thread
+
+```ruby
+video = Yt::Video.new ...
+video.comment_threads #=> Yt::CommentThreads collection
+video.comment_threads.first.comment #=> Yt::Comment - actual top level comment
+```
 
 Yt::ContentOwner
 ----------------
