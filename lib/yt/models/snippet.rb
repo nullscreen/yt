@@ -19,7 +19,9 @@ module Yt
       has_attribute :title, default: ''
       has_attribute(:description, default: '') {|text| Description.new text}
       has_attribute :published_at, type: Time
+      has_attribute :updated_at, type: Time
       has_attribute :channel_id
+      has_attribute :video_id
       has_attribute :channel_title
       has_attribute :tags, default: []
       has_attribute :category_id
