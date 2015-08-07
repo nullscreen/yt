@@ -32,12 +32,15 @@ module Yt
 
       has_attribute :like_count
 
+      has_attribute :author_profile_image_url
+
     ### PRIVATE API ###
       def initialize(options = {})
         @data = options[:data] || {}
         if options[:snippet]
           @data['textDisplay'] = options[:snippet]['textDisplay']
           @data['authorDisplayName'] = options[:snippet]['authorDisplayName']
+          @data['authorProfileImageUrl'] = options[:snippet]['authorProfileImageUrl']
           @data['likeCount'] = options[:snippet]['likeCount']
         end
         super options
