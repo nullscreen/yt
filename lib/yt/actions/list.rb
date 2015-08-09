@@ -13,6 +13,10 @@ module Yt
         first.tap{|item| raise Errors::NoItems, error_message unless item}
       end
 
+      def to_ary
+        list.to_a
+      end
+
     private
 
       def list

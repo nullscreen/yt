@@ -9,7 +9,7 @@ module Yt
     #
     # Resources with comment threads are: {Yt::Models::Channel channels} and
     # {Yt::Models::Video videos}.
-    class CommentThreads < Base
+    class CommentThreads < Resources
 
 
       private
@@ -39,6 +39,21 @@ module Yt
           params[:part] = 'snippet'
           params.merge! @parent.comments_params if @parent
           params
+        end
+
+        def build_insert_body(attributes={})
+          attributes.tap do |params|
+            if @parent
+              params[:channel_id] ||= @parent.channel_id
+              params[:video_id] ||= @parent.id
+            end
+          end
+          super(attributes)
+        end
+
+        def insert_parts
+          snippet = {keys: [:channel_id, :video_id, :top_level_comment], sanitize_brackets: true}
+          {snippet: snippet}
         end
 
     end
