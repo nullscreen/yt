@@ -20,7 +20,10 @@ module Yt
       end
 
       def reasons
-        kind.fetch('errors', []).map{|e| e['reason']}
+        case kind
+          when Hash then kind.fetch('errors', []).map{|e| e['reason']}
+          else kind
+        end
       end
 
     private

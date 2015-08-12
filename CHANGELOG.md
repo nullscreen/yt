@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.5 - 2015-08-12
+
+* [BUGIX] Correctly parse the YouTube response when requesting a refresh token with the wrong credentials.
+
 ## 0.25.4 - 2015-07-27
 
 * [FEATURE] Add `channel.related_playlist` and `account.related_playlists` to access "Liked Videos", "Uploads", etc.
