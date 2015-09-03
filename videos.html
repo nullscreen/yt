@@ -269,6 +269,8 @@ video.views in: {state: 'TX'} # => {total: 11}
 {% include doc.html link="Models/Video#subscribers_lost" %}{% include example.html object='video' method='subscribers_lost' result='{total: 904}' %}
 {% include doc.html link="Models/Video#favorites_added" %}{% include example.html object='video' method='favorites_added' result='{total: 224}' %}
 {% include doc.html link="Models/Video#favorites_removed" %}{% include example.html object='video' method='favorites_removed' result='{total: 322}' %}
+{% include doc.html link="Models/Video#videos_added_to_playlists" %}{% include example.html object='video' method='videos_added_to_playlists' result='{total: 224}' %}
+{% include doc.html link="Models/Video#videos_removed_from_playlists" %}{% include example.html object='video' method='videos_removed_from_playlists' result='{total: 322}' %}
 {% include doc.html link="Models/Video#average_view_duration" %}{% include example.html object='video' method='average_view_duration' result='{total: 23}' %}
 {% include doc.html link="Models/Video#average_view_percentage" %}{% include example.html object='video' method='average_view_percentage' result='{total: 2.45}' %}
 {% include doc.html link="Models/Video#annotation_clicks" %}{% include example.html object='video' method='annotation_clicks' result='{total: 723}' %}
@@ -285,6 +287,8 @@ video.views in: {state: 'TX'} # => {total: 11}
 {% include doc.html link="Models/Video#subscribers_lost" %}{% include example.html object='video' method='subscribers_lost' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 1, …}' %}
 {% include doc.html link="Models/Video#favorites_added" %}{% include example.html object='video' method='favorites_added' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 181, …}' %}
 {% include doc.html link="Models/Video#favorites_removed" %}{% include example.html object='video' method='favorites_removed' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 0, …}' %}
+{% include doc.html link="Models/Video#videos_added_to_playlists" %}{% include example.html object='video' method='videos_added_to_playlists' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 181, …}' %}
+{% include doc.html link="Models/Video#videos_removed_from_playlists" %}{% include example.html object='video' method='videos_removed_from_playlists' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 0, …}' %}
 {% include doc.html link="Models/Video#average_view_duration" %}{% include example.html object='video' method='average_view_duration' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 456, …}' %}
 {% include doc.html link="Models/Video#average_view_percentage" %}{% include example.html object='video' method='average_view_percentage' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 38.85, …}' %}
 {% include doc.html link="Models/Video#annotation_clicks" %}{% include example.html object='video' method='annotation_clicks' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 329, …}' %}
