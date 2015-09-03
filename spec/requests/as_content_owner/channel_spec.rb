@@ -15,6 +15,7 @@ describe Yt::Channel, :partner do
           estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
           dislikes: Integer, shares: Integer, subscribers_gained: Integer,
           subscribers_lost: Integer, favorites_added: Integer,
+          videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
           favorites_removed: Integer, average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
           annotation_click_through_rate: Float,
@@ -58,6 +59,7 @@ describe Yt::Channel, :partner do
 
       [:views, :uniques, :comments, :likes, :dislikes, :shares,
        :subscribers_gained, :subscribers_lost, :favorites_added,
+       :videos_added_to_playlists, :videos_removed_from_playlists,
        :favorites_removed, :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
        :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
@@ -117,6 +119,7 @@ describe Yt::Channel, :partner do
        estimated_minutes_watched: Integer, average_view_duration: Integer,
        annotation_clicks: Integer, annotation_click_through_rate: Float,
        favorites_added: Integer, favorites_removed: Integer,
+       videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
        average_view_percentage: Float, impressions: Integer,
        shares: Integer, playback_based_cpm: Float,
        monetized_playbacks: Integer, annotation_close_rate: Float,
@@ -980,6 +983,116 @@ describe Yt::Channel, :partner do
           expect(favorites_removed.keys).to all(be_a String)
           expect(favorites_removed.keys.map(&:length).uniq).to eq [2]
           expect(favorites_removed.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'videos added to playlists can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:videos_added_to_playlists) { channel.videos_added_to_playlists since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(videos_added_to_playlists.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(videos_added_to_playlists.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(videos_added_to_playlists.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(videos_added_to_playlists.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'added favorites can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          videos_added_to_playlists = channel.videos_added_to_playlists range.merge by: :day
+          expect(videos_added_to_playlists.keys).to eq range.values
+        end
+      end
+
+      describe 'added favorites can be grouped by country' do
+        let(:range) { {since: 4.days.ago, until: 3.days.ago} }
+
+        specify 'with the :by option set to :country' do
+          videos_added_to_playlists = channel.videos_added_to_playlists range.merge by: :country
+          expect(videos_added_to_playlists.keys).to all(be_a String)
+          expect(videos_added_to_playlists.keys.map(&:length).uniq).to eq [2]
+          expect(videos_added_to_playlists.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'videos removed from playlists can be retrieved for a single country' do
+        let(:country_code) { 'US' }
+        let(:videos_removed_from_playlists) { channel.videos_removed_from_playlists since: date, by: by, in: location }
+        let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
+
+        context 'and grouped by day' do
+          let(:by) { :day }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(videos_removed_from_playlists.keys.min).to eq date.to_date }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(videos_removed_from_playlists.keys.min).to eq date.to_date }
+          end
+        end
+
+        context 'and grouped by country' do
+          let(:by) { :country }
+
+          context 'with the :in option set to the country code' do
+            let(:location) { country_code }
+            it { expect(videos_removed_from_playlists.keys).to eq [country_code] }
+          end
+
+          context 'with the :in option set to {country: country code}' do
+            let(:location) { {country: country_code} }
+            it { expect(videos_removed_from_playlists.keys).to eq [country_code] }
+          end
+        end
+      end
+
+      describe 'removed favorites can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          videos_removed_from_playlists = channel.videos_removed_from_playlists range.merge by: :day
+          expect(videos_removed_from_playlists.keys).to eq range.values
+        end
+      end
+
+      describe 'removed favorites can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5} }
+
+        specify 'with the :by option set to :country' do
+          videos_removed_from_playlists = channel.videos_removed_from_playlists range.merge by: :country
+          expect(videos_removed_from_playlists.keys).to all(be_a String)
+          expect(videos_removed_from_playlists.keys.map(&:length).uniq).to eq [2]
+          expect(videos_removed_from_playlists.values).to all(be_an Integer)
         end
       end
 

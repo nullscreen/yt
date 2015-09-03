@@ -292,6 +292,8 @@ describe Yt::Video, :device_app do
       expect{video.subscribers_lost}.not_to raise_error
       expect{video.favorites_added}.not_to raise_error
       expect{video.favorites_removed}.not_to raise_error
+      expect{video.videos_added_to_playlists}.not_to raise_error
+      expect{video.videos_removed_from_playlists}.not_to raise_error
       expect{video.estimated_minutes_watched}.not_to raise_error
       expect{video.average_view_duration}.not_to raise_error
       expect{video.average_view_percentage}.not_to raise_error
@@ -314,6 +316,8 @@ describe Yt::Video, :device_app do
       expect{video.subscribers_lost_on 3.days.ago}.not_to raise_error
       expect{video.favorites_added_on 3.days.ago}.not_to raise_error
       expect{video.favorites_removed_on 3.days.ago}.not_to raise_error
+      expect{video.videos_added_to_playlists_on 3.days.ago}.not_to raise_error
+      expect{video.videos_removed_from_playlists_on 3.days.ago}.not_to raise_error
       expect{video.estimated_minutes_watched_on 3.days.ago}.not_to raise_error
       expect{video.average_view_duration_on 3.days.ago}.not_to raise_error
       expect{video.average_view_percentage_on 3.days.ago}.not_to raise_error

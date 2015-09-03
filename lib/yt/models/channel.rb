@@ -147,6 +147,12 @@ module Yt
       # @macro report_by_day_and_country
       has_report :favorites_removed, Integer
 
+      # @macro report_by_day_and_country
+      has_report :videos_added_to_playlists, Integer
+
+      # @macro report_by_day_and_country
+      has_report :videos_removed_from_playlists, Integer
+
       # @macro report_by_day_and_state
       has_report :average_view_duration, Integer
 
