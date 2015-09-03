@@ -15,6 +15,7 @@ describe Yt::Video, :partner do
 
       [:views, :uniques, :comments, :likes, :dislikes, :shares,
        :subscribers_gained, :subscribers_lost, :favorites_added,
+       :videos_added_to_playlists, :videos_removed_from_playlists,
        :favorites_removed, :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
        :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
@@ -111,6 +112,7 @@ describe Yt::Video, :partner do
       {views: Integer, comments: Integer, likes: Integer, dislikes: Integer,
        shares: Integer, subscribers_gained: Integer, subscribers_lost: Integer,
        favorites_added: Integer,
+       videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
        estimated_minutes_watched: Integer, average_view_duration: Integer,
        average_view_percentage: Float, impressions: Integer,
        monetized_playbacks: Integer, annotation_clicks: Integer,
@@ -162,6 +164,7 @@ describe Yt::Video, :partner do
 
       [:views, :comments, :likes, :dislikes, :shares,
        :subscribers_gained, :subscribers_lost, :favorites_added,
+       :videos_added_to_playlists, :videos_removed_from_playlists,
        :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
        :annotation_clicks, :annotation_click_through_rate,
@@ -211,6 +214,7 @@ describe Yt::Video, :partner do
           estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
           dislikes: Integer, shares: Integer, subscribers_gained: Integer,
           subscribers_lost: Integer, favorites_added: Integer,
+          videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
           favorites_removed: Integer, average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
           annotation_click_through_rate: Float,
@@ -572,6 +576,48 @@ describe Yt::Video, :partner do
           expect(subscribers_lost.keys).to all(be_a String)
           expect(subscribers_lost.keys.map(&:length).uniq).to eq [2]
           expect(subscribers_lost.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'added to playlists can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          videos_added_to_playlists = video.videos_added_to_playlists range.merge by: :day
+          expect(videos_added_to_playlists.keys).to eq range.values
+        end
+      end
+
+      describe 'added to playlists can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          videos_added_to_playlists = video.videos_added_to_playlists range.merge by: :country
+          expect(videos_added_to_playlists.keys).to all(be_a String)
+          expect(videos_added_to_playlists.keys.map(&:length).uniq).to eq [2]
+          expect(videos_added_to_playlists.values).to all(be_an Integer)
+        end
+      end
+
+      describe 'removed from playlists can be grouped by day' do
+        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
+        let(:keys) { range.values }
+
+        specify 'with the :by option set to :day' do
+          videos_removed_from_playlists = video.videos_removed_from_playlists range.merge by: :day
+          expect(videos_removed_from_playlists.keys).to eq range.values
+        end
+      end
+
+      describe 'removed from playlists can be grouped by country' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+
+        specify 'with the :by option set to :country' do
+          videos_removed_from_playlists = video.videos_removed_from_playlists range.merge by: :country
+          expect(videos_removed_from_playlists.keys).to all(be_a String)
+          expect(videos_removed_from_playlists.keys.map(&:length).uniq).to eq [2]
+          expect(videos_removed_from_playlists.values).to all(be_an Integer)
         end
       end
 

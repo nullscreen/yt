@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.6 - 2015-09-03
+
+* [FEATURE] New channel/video reports: `videos_added_to_playlists`, `videos_removed_from_playlists`.
+
 ## 0.25.5 - 2015-08-12
 
 * [BUGIX] Correctly parse the YouTube response when requesting a refresh token with the wrong credentials.
