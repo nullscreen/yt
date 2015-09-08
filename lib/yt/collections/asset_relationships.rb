@@ -20,7 +20,12 @@ module Yt
       def list_params
         super.tap do |params|
           params[:path] = '/youtube/partner/v1/assetRelationships'
+          params[:params] = asset_relationships_params
         end
+      end
+
+      def asset_relationships_params
+        apply_where_params! on_behalf_of_content_owner: @auth.owner_name
       end
 
       # @return [Hash] the parameters to submit to YouTube to add a asset relationship.
