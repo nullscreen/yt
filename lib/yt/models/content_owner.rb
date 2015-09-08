@@ -19,6 +19,10 @@ module Yt
       #   @return [Yt::Collection::Assets] the assets administered by the content owner.
       has_many :assets
 
+      # @!attribute [r] asset_relationships
+      #   @return [Yt::Collection::AssetRelationships] the asset relationships administered by the content owner.
+      has_many :asset_relationships
+
       # @!attribute [r] references
       #   @return [Yt::Collections::References] the references administered by the content owner.
       has_many :references
@@ -38,6 +42,10 @@ module Yt
 
       def create_asset(params = {})
         assets.insert params
+      end
+
+      def create_asset_relationship(params = {})
+        asset_relationships.insert params
       end
 
       def create_claim(params = {})
