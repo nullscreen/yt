@@ -188,13 +188,15 @@ module Yt
     end
 
     # Returns whether it is worth to run a failed request again.
-    # There are two cases in which retrying a request might be worth:
+    # There are three cases in which retrying a request might be worth:
     # - when the server specifies that the request token has expired and
-    #   the user has to refresh the token in order to tryi again
+    #   the user has to refresh the token in order to try again
     # - when the server is unreachable, and waiting for a couple of seconds
     #   might solve the connection issues.
+    # - when the user has reached the quota for requests/second, and waiting
+    #   for a couple of seconds might solve the connection issues.
     def run_again?
-      refresh_token_and_retry? || server_error? && sleep_and_retry?
+      refresh_token_and_retry? || (server_error? || exceeded_quota?) && sleep_and_retry?
     end
 
     # Returns the list of server errors worth retrying the request once.
@@ -259,6 +261,11 @@ module Yt
     # @return [Boolean] whether the response matches any server error.
     def server_error?
       response_error == Errors::ServerError
+    end
+
+    # @return [Boolean] whether the request exceeds the YouTube quota
+    def exceeded_quota?
+      response_error == Errors::Forbidden && response.body =~ /quotaExceeded/
     end
 
     # @return [Boolean] whether the request lacks proper authorization.
