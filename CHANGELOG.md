@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.8 - 2015-09-10
+
+* [FEATURE] Retry the same request up to 3 times if YouTube responds with "quotaExceeded"
+
 ## 0.25.7 - 2015-09-10
 
 * [FEATURE] Retry the same request once if YouTube responds with "quotaExceeded"
