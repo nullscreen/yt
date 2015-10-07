@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.9 - 2015-10-07
+
+* [ENHANCEMENT] Add newly available traffic source: "Playlist page"
+
 ## 0.25.8 - 2015-09-10
 
 * [FEATURE] Retry the same request up to 3 times if YouTube responds with "quotaExceeded"
