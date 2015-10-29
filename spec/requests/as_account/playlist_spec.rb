@@ -18,6 +18,7 @@ describe Yt::Playlist, :device_app do
       expect(playlist.channel_id).to be_a String
       expect(playlist.channel_title).to be_a String
       expect(playlist.privacy_status).to be_a String
+      expect(playlist.item_count).to be_an Integer
     end
 
     describe '.playlist_items' do

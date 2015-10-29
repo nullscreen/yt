@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.10 - 2015-10-29
+
+* [FEATURE] Add Playlist#item_count
+
 ## 0.25.9 - 2015-10-07
 
 * [ENHANCEMENT] Add newly available traffic source: "Playlist page"

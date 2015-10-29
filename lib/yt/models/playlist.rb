@@ -41,6 +41,14 @@ module Yt
       #   @return [Array<String>] the list of tags attached to the playlist.
       delegate :tags, to: :snippet
 
+    ### STATISTICS ###
+
+      has_one :content_detail
+
+      # @!attribute [r] item_count
+      #   @return [Integer] the number of items in the playlist.
+      delegate :item_count, to: :content_detail
+
     ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
 
       # Deletes the playlist.
