@@ -25,6 +25,12 @@ describe Yt::URL do
     it {expect(url.id).to eq 'MESycYJytkU' }
   end
 
+  context 'given a v video URL' do
+    let(:text) { 'https://www.youtube.com/v/MESycYJytkU' }
+    it {expect(url.kind).to eq :video }
+    it {expect(url.id).to eq 'MESycYJytkU' }
+  end
+
   context 'given a playlist-embedded video URL' do
     let(:text) { 'youtube.com/watch?v=MESycYJytkU&list=LLxO1tY8h1AhOz0T4ENwmpow' }
     it {expect(url.kind).to eq :video }

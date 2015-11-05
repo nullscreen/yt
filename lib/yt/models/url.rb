@@ -72,6 +72,7 @@ module Yt
           youtube\\.com/watch\\?v=#{video_id}
           youtu\\.be/#{video_id}
           youtube\\.com/embed/#{video_id}
+          youtube\\.com/v/#{video_id}
         }
       end
 
