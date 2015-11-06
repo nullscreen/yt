@@ -185,6 +185,16 @@ module Yt
     ### PRIVATE API ###
 
       # @private
+      # Override Resource's new to set content details as well
+      # if the response includes them
+      def initialize(options = {})
+        super options
+        if options[:content_details]
+          @content_detail = ContentDetail.new data: options[:content_details]
+        end
+      end
+
+      # @private
       # Tells `has_reports` to retrieve the reports from YouTube Analytics API
       # either as a Channel or as a Content Owner.
       # @see https://developers.google.com/youtube/analytics/v1/reports

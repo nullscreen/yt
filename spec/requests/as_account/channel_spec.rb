@@ -99,6 +99,16 @@ describe Yt::Channel, :device_app do
       end
     end
 
+    describe '.playlists' do
+      describe '.includes(:content_details)' do
+        let(:playlist) { channel.playlists.includes(:content_details).first }
+
+        specify 'eager-loads the content details of each playlist' do
+          expect(playlist.instance_variable_defined? :@content_detail).to be true
+        end
+      end
+    end
+
     it { expect(channel.playlists.first).to be_a Yt::Playlist }
     it { expect{channel.delete_playlists}.to raise_error Yt::Errors::RequestError }
 
