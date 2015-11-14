@@ -648,6 +648,39 @@ describe Yt::Video do
     end
   end
 
+  describe '#location_description' do
+    context 'given recording details with a location description' do
+      let(:attrs) { {recording_details: {"locationDescription"=>"Deep blue forest"}} }
+      it { expect(video.location_description).to eq "Deep blue forest" }
+    end
+  end
+
+  describe '#location' do
+    context 'given recording details with a location' do
+      let(:attrs) do
+        {
+          recording_details: {
+            "location" => {
+              "latitude"  =>  48.44,
+              "longitude" => 137.30,
+              "altitude"  => 949.00
+            }
+          }
+        }
+      end
+      it { expect(video.location['latitude'] ).to eq  48.44 }
+      it { expect(video.location['longitude']).to eq 137.30 }
+      it { expect(video.location['altitude'] ).to eq 949.00 }
+    end
+  end
+
+  describe '#location_description' do
+    context 'given recording details with a recording date' do
+      let(:attrs) { {recording_details: {"recordingDate"=>"2012-03-17T00:00:00.000Z"}} }
+      it { expect(video.recording_date).to eq Time.parse('2012-03-17T00:00:00.000Z') }
+    end
+  end
+
   describe '#update' do
     let(:attrs) { {id: 'MESycYJytkU', snippet: {'title'=>'old'}} }
     before { expect(video).to receive(:do_update).and_yield 'snippet'=>{'title'=>'new'} }

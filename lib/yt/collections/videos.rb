@@ -23,6 +23,7 @@ module Yt
           attributes[:snippet] = snippet
           attributes[:status] = data['status']
           attributes[:content_details] = data['contentDetails']
+          attributes[:recording_details] = data['recordingDetails']
           attributes[:statistics] = data['statistics']
           attributes[:video_category] = data['videoCategory']
           attributes[:auth] = @auth
@@ -47,6 +48,7 @@ module Yt
                 when 'status' then video.status.data
                 when 'statistics' then video.statistics_set.data
                 when 'contentDetails' then video.content_detail.data
+                when 'recordingDetails' then video.recording_detail.data
               end
             end if video
           end

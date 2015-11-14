@@ -309,6 +309,25 @@ module Yt
         !liked?
       end
 
+    ### RECORDING DETAILS ###
+
+      has_one :recording_detail
+
+      # @!attribute [r] location_description
+      #   The text description of the location where the video was recorded.
+      #   @return [String] the locations description
+      delegate :location_description, to: :recording_detail
+
+      # @!attribute [r] location
+      #   The geolocation information associated with the video.
+      #   @return [Hash] the locations coordinates
+      delegate :location, to: :recording_detail
+
+      # @!attribute [r] recording_date
+      #   The date and time when the video was recorded.
+      #   @return [Time] the recording time
+      delegate :recording_date, to: :recording_detail
+
     ### VIDEO CATEGORY ###
 
       has_one :video_category
@@ -570,6 +589,9 @@ module Yt
         if options[:live_streaming_details]
           @live_streaming_detail = LiveStreamingDetail.new data: options[:live_streaming_details]
         end
+        if options[:recording_details]
+          @recording_detail = RecordingDetail.new data: options[:recording_details]
+        end
         if options[:video_category]
           @video_category = VideoCategory.new data: options[:video_category]
         end
@@ -623,13 +645,14 @@ module Yt
       #       they should define *what* can be updated in their own *update*
       #       method.
       # @see https://developers.google.com/youtube/v3/docs/videos/update
-      # @todo: Add recording details keys
       def update_parts
+        recording_detail_keys = [:location_description, :location, :recording_date]
+        recording_detail = { keys: recording_detail_keys, sanitize_brackets: true }
         snippet_keys = [:title, :description, :tags, :category_id]
         snippet = {keys: snippet_keys, sanitize_brackets: true}
         status_keys = [:privacy_status, :embeddable, :license,
           :public_stats_viewable, :publish_at]
-        {snippet: snippet, status: {keys: status_keys}}
+        {recording_detail: recording_detail, snippet: snippet, status: {keys: status_keys}}
       end
     end
   end
