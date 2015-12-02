@@ -99,17 +99,24 @@ describe Yt::Account, :device_app do
 
   describe '.upload_video' do
     let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private', category_id: 17} }
-    let(:video) { $account.upload_video path_or_url, video_params }
+    let(:video) { $account.upload_video source, video_params }
     after { video.delete }
 
     context 'given the path to a local video file' do
-      let(:path_or_url) { File.expand_path '../video.mp4', __FILE__ }
+      let(:source) { File.expand_path '../video.mp4', __FILE__ }
 
       it { expect(video).to be_a Yt::Video }
     end
 
     context 'given the URL of a remote video file' do
-      let(:path_or_url) { 'https://bit.ly/yt_test' }
+      let(:source) { 'https://bit.ly/yt_test' }
+
+      it { expect(video).to be_a Yt::Video }
+    end
+
+    context 'given an IO stream' do
+      after { source.close }
+      let(:source) { File.open(File.expand_path('../video.mp4', __FILE__), 'rb') }
 
       it { expect(video).to be_a Yt::Video }
     end

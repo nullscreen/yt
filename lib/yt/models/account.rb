@@ -60,16 +60,20 @@ module Yt
     ### ACTIONS ###
 
       # Uploads a video to the account’s channel.
-      # @param [String] path_or_url the video to upload. Can either be the
-      #   path of a local file or the URL of a remote file.
+      # @param [String] source the video to upload. Can either be the path of
+      #   a local file, the URL of a remote file or an IO-like object.
       # @param [Hash] params the metadata to add to the uploaded video.
       # @option params [String] :title The video’s title.
       # @option params [String] :description The video’s description.
       # @option params [Array<String>] :title The video’s tags.
       # @option params [String] :privacy_status The video’s privacy status.
       # @return [Yt::Models::Video] the newly uploaded video.
-      def upload_video(path_or_url, params = {})
-        file = open path_or_url, 'rb'
+      def upload_video(source, params = {})
+        file = if source.respond_to?(:read) && source.respond_to?(:eof?) && source.respond_to?(:size)
+                 source
+               else
+                 open source, 'rb'
+               end
         session = resumable_sessions.insert file.size, upload_body(params)
 
         session.update(body: file) do |data|
