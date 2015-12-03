@@ -631,6 +631,23 @@ module Yt
           :public_stats_viewable, :publish_at]
         {snippet: snippet, status: {keys: status_keys}}
       end
+
+      # NOTE: Another irrational behavior of YouTube API. If you are setting a
+      # video to public/unlisted then you should *not* pass publishAt at any
+      # cost, otherwise the API will fail (since setting publishAt means you
+      # want the video to be private). Similarly, you should *not* pass any
+      # past publishAt (for the same reason).
+      def build_update_body_part(name, part, attributes = {})
+        {}.tap do |body_part|
+          part[:keys].map do |key|
+            body_part[camelize key] = attributes.fetch key, public_send(name).public_send(key)
+          end
+
+          if body_part.fetch(:publishAt, 1.day.from_now) < Time.now || body_part[:privacyStatus].in?(['public', 'unlisted'])
+            body_part.delete(:publishAt)
+          end
+        end
+      end
     end
   end
 end
