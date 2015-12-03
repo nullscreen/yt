@@ -337,7 +337,7 @@ describe Yt::Video, :device_app do
     let(:id) { @tmp_video.id }
     let!(:old_title) { "Yt Test Update publishAt Video #{rand}" }
     let!(:old_privacy_status) { 'private' }
-    after  { video.delete}
+    after  { video.delete }
 
     let!(:new_scheduled_at) { Yt::Timestamp.parse("#{rand(30) + 1} Jan 2020", Time.now) }
 
@@ -346,9 +346,21 @@ describe Yt::Video, :device_app do
 
       specify 'only updates the timestamp to publish the video' do
         expect(video.update attrs).to be true
-        expect(video.scheduled_at).to eq new_scheduled_at
         expect(video.privacy_status).to eq old_privacy_status
         expect(video.title).to eq old_title
+        # NOTE: This is another irrational behavior of YouTube API. In short,
+        # the response of Video#update *does not* include the publishAt value
+        # even if it exists. You need to call Video#list again to get it.
+        video = Yt::Video.new id: id, auth: $account
+        expect(video.scheduled_at).to eq new_scheduled_at
+        # Setting a private (scheduled) video to private has no effect:
+        expect(video.update privacy_status: 'private').to be true
+        video = Yt::Video.new id: id, auth: $account
+        expect(video.scheduled_at).to eq new_scheduled_at
+        # Setting a private (scheduled) video to unlisted/public removes publishAt:
+        expect(video.update privacy_status: 'unlisted').to be true
+        video = Yt::Video.new id: id, auth: $account
+        expect(video.scheduled_at).to be_nil
       end
     end
 

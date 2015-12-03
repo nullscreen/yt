@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.12 - 2015-12-03
+
+* [BUGFIX] Fix Video#update with publishAt
+
 ## 0.25.11 - 2015-11-05
 
 * [ENHANCEMENT] Add "youtube.com/v/..." as possible URL for YouTube videos
