@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.13 - 2015-12-04
+
+* [BUGFIX] Fix previous fix to Video#update with publishAt (typo)
+
 ## 0.25.12 - 2015-12-03
 
 * [BUGFIX] Fix Video#update with publishAt
