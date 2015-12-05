@@ -643,7 +643,7 @@ module Yt
             body_part[camelize key] = attributes.fetch key, public_send(name).public_send(key)
           end
 
-          if body_part.fetch(:publishAt, 1.day.from_now) < Time.now || body_part[:privacyStatus].in?(['public', 'unlisted'])
+          if (body_part[:publishAt] || 1.day.from_now) < Time.now || body_part[:privacyStatus].in?(['public', 'unlisted'])
             body_part.delete(:publishAt)
           end
         end
