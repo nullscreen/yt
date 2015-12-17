@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.15 - 2015-12-17
+
+* [FEATURE] Add `revoke_access` to Yt::Account
+
 ## 0.25.14 - 2015-12-16
 
 * [ENHANCEMENT] Add `:display_name` to each content owner returned by account.content_owners

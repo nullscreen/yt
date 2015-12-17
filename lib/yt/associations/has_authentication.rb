@@ -9,6 +9,7 @@ module Yt
       def has_authentication
         require 'yt/collections/authentications'
         require 'yt/collections/device_flows'
+        require 'yt/collections/revocations'
         require 'yt/errors/missing_auth'
         require 'yt/errors/no_items'
         require 'yt/errors/unauthorized'
@@ -58,6 +59,18 @@ module Yt
         old_access_token = authentication.access_token
         @authentication = @access_token = @refreshed_authentications = nil
         old_access_token != authentication.access_token
+      end
+
+      # Revoke access given to the application.
+      # Returns true if the access was correctly revoked.
+      # @see https://developers.google.com/identity/protocols/OAuth2WebServer#tokenrevoke
+      def revoke_access
+        revocations.first!
+        @authentication = @access_token = @refreshed_authentications = nil
+        true
+      rescue Errors::RequestError => e
+        raise unless e.reasons.include? 'invalid_token'
+        false
       end
 
     private
@@ -147,6 +160,12 @@ module Yt
       def device_flows
         @device_flows ||= Collections::DeviceFlows.of(self).tap do |auth|
           auth.auth_params = device_flow_params
+        end
+      end
+
+      def revocations
+        @revocations ||= Collections::Revocations.of(self).tap do |auth|
+          auth.auth_params = {token: @refresh_token || @access_token}
         end
       end
 
