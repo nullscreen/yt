@@ -11,7 +11,7 @@ module Yt
     private
 
       def attributes_for_new_item(data)
-        {owner_name: data['id'], authentication: @auth.authentication}
+        {owner_name: data['id'], display_name: data['displayName'], authentication: @auth.authentication}
       end
 
       # @return [Hash] the parameters to submit to YouTube to list content

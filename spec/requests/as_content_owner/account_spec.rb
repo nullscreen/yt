@@ -16,6 +16,10 @@ describe Yt::Account, :partner do
         expect(content_owners.first).to be_a Yt::ContentOwner
       end
 
+      specify 'includes the display name for each content owner' do
+        expect(content_owners.first.display_name).to be_a String
+      end
+
       specify 'ensures the content owners have the same credentials as the account' do
         expect(content_owners.first.access_token).to eq account.access_token
         expect(content_owners.first.refresh_token).to eq account.refresh_token

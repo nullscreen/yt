@@ -8,6 +8,7 @@ For more information about changelogs, check
 
 ## 0.25.14 - 2015-12-16
 
+* [ENHANCEMENT] Add `:display_name` to each content owner returned by account.content_owners
 * [BUGFIX] Don’t raise error when raising MissingAuth without any scope
 
 ## 0.25.13 - 2015-12-04
