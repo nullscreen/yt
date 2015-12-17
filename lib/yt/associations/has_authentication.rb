@@ -103,6 +103,7 @@ module Yt
         error_message = case
           when @redirect_uri && @scopes then missing_authorization_code_message
           when @scopes then pending_device_code_message
+          else {}
         end
         raise Errors::MissingAuth, error_message
       end
