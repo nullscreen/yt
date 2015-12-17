@@ -27,9 +27,13 @@ module Yt
       #   @return [Yt::Collections::Policies] the policies saved by the content owner.
       has_many :policies
 
+      # @return [String] The display name of the content owner.
+      attr_reader :display_name
+
       def initialize(options = {})
         super options
         @owner_name = options[:owner_name]
+        @display_name = options[:display_name]
       end
 
       def create_reference(params = {})
