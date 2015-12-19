@@ -58,7 +58,13 @@ module Yt
       def refreshed_access_token?
         old_access_token = authentication.access_token
         @authentication = @access_token = @refreshed_authentications = nil
-        old_access_token != authentication.access_token
+
+        if old_access_token != authentication.access_token
+          access_token_was_refreshed
+          true
+        else
+          false
+        end
       end
 
       # Revoke access given to the application.
@@ -71,6 +77,12 @@ module Yt
       rescue Errors::RequestError => e
         raise unless e.reasons.include? 'invalid_token'
         false
+      end
+
+      # Invoked when the access token is refreshed.
+      def access_token_was_refreshed
+        # Apps using Yt can override this method to handle this event, for
+        # instance to store the newly generated access token in the database.
       end
 
     private
