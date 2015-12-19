@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.16 - 2015-12-19
+
+* [FEATURE] Add `access_token_was_refreshed` to Yt::Account
+
 ## 0.25.15 - 2015-12-17
 
 * [FEATURE] Add `revoke_access` to Yt::Account
