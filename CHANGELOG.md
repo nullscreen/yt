@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.17 - 2016-01-05
+
+* [FEATURE] Add `:videos` to Yt::ContentOwner to list videos in network with a content owner
+
 ## 0.25.16 - 2015-12-19
 
 * [FEATURE] Add `access_token_was_refreshed` to Yt::Account
