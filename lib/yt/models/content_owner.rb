@@ -47,6 +47,15 @@ module Yt
       def create_claim(params = {})
         claims.insert params
       end
+
+    ### PRIVATE API ###
+
+      # @private
+      # Tells `has_many :videos` that account.videos should return all the
+      # videos *on behalf of* the content owner (public, private, unlisted).
+      def videos_params
+        {for_content_owner: true, on_behalf_of_content_owner: @owner_name}
+      end
     end
   end
 end
