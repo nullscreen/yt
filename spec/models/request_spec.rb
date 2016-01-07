@@ -178,6 +178,27 @@ describe Yt::Request do
           it { expect{request.run}.not_to fail }
         end
       end
+
+      # NOTE: This test is just a reflection of YouTube irrational behavior of
+      # being unavailable once in a while, and therefore causing Net::HTTP to
+      # fail, although retrying after some seconds works.
+      context 'a SocketError', ruby21: true do
+        let(:http_error) { SocketError.new }
+
+        context 'every time' do
+          before { expect(Net::HTTP).to receive(:start).at_least(:once).and_raise http_error }
+
+          it { expect{request.run}.to fail }
+        end
+
+        context 'but works the second time' do
+          before { expect(Net::HTTP).to receive(:start).at_least(:once).and_return retry_response }
+          before { allow(retry_response).to receive(:body) }
+          let(:retry_response) { Net::HTTPOK.new nil, nil, nil }
+
+          it { expect{request.run}.not_to fail }
+        end
+      end
     end
   end
 end
