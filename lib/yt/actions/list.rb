@@ -47,7 +47,7 @@ module Yt
       def find_next
         @items ||= []
         if @items[@last_index].nil? && more_pages?
-          more_items = next_page.map{|data| new_item data}
+          more_items = next_page.map{|data| new_item data}.compact
           @items.concat more_items
         end
         @items[(@last_index +=1) -1]

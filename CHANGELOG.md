@@ -6,9 +6,13 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.25.18 - unreleased
+## 0.25.18 - 2016-01-08
 
 * [FEATURE] Add Yt::COUNTRIES and Yt::US_STATES
+* [FEATURE] Add YouTube Analytics Video Groups
+* [FEATURE] Add `:video_groups` to Yt::Account (list video-groups created by an account)
+* [FEATURE] Add `:video_groups` to Yt::ContentOwner (list video-groups on behalf of a content owner)
+* [FEATURE] Add reports by video-group
 
 ## 0.25.17 - 2016-01-05
 

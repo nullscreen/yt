@@ -10,6 +10,7 @@ require 'yt/models/match_policy'
 require 'yt/models/playlist'
 require 'yt/models/playlist_item'
 require 'yt/models/video'
+require 'yt/models/video_group'
 require 'yt/models/ownership'
 require 'yt/models/advertising_options_set'
 
