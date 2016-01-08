@@ -1,5 +1,6 @@
 require 'yt/config'
 require 'yt/version'
+require 'yt/constants/geography'
 require 'yt/models/account'
 require 'yt/models/channel'
 require 'yt/models/claim'
