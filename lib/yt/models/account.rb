@@ -160,6 +160,11 @@ module Yt
       #     upload videos using the resumable upload protocol.
       has_many :resumable_sessions
 
+      # @!attribute [r] video_groups
+      #   @return [Yt::Collections::VideoGroups] the video-groups created by the
+      #     account.
+      has_many :video_groups
+
     ### PRIVATE API ###
 
       has_authentication
@@ -178,6 +183,13 @@ module Yt
       # videos *owned by* the account (public, private, unlisted).
       def videos_params
         {for_mine: true}
+      end
+
+      # @private
+      # Tells `has_many :video_groups` that content_owner.groups should return
+      # all the video-groups *owned by* the account
+      def video_groups_params
+        {mine: true}
       end
 
       # @private
