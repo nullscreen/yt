@@ -24,6 +24,12 @@ module Yt
       #   @return [Time] the date and time when the group was created.
       delegate :published_at, to: :group_info
 
+    ### ASSOCIATIONS ###
+
+      # @!attribute [r] group_items
+      #   @return [Yt::Collections::GroupItems] the group’s items.
+      has_many :group_items
+
     ### ANALYTICS ###
 
       # @macro reports

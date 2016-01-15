@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.19 - 2016-01-15
+
+* [FEATURE] Add `:group_items` to Yt::VideoGroup (list items of a group)
+* [FEATURE] Add `:includes(:video)` to `Yt::VideoGroup#group_items` (eagerly loads all the videos)
+
 ## 0.25.18 - 2016-01-08
 
 * [FEATURE] Add Yt::COUNTRIES and Yt::US_STATES
