@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yt/models/video_group'
+require 'yt/models/group_item'
 
 describe Yt::VideoGroup, :partner do
   subject(:video_group) { Yt::VideoGroup.new id: id, auth: $content_owner }
@@ -16,6 +17,18 @@ describe Yt::VideoGroup, :partner do
       specify 'the number of videos in the group can be retrieved' do
         expect(video_group.item_count).to be_an(Integer)
         expect(video_group.item_count).not_to be_zero
+      end
+
+      specify '.group_items retrieves the group items' do
+        expect(video_group.group_items.count).to be_an(Integer)
+        expect(video_group.group_items.map{|g| g}).to all(be_a Yt::GroupItem)
+      end
+
+      specify '.group_items.includes(:video) eager-loads each video' do
+        item = video_group.group_items.includes(:video).first
+        expect(item.video.instance_variable_defined? :@snippet).to be true
+        expect(item.video.instance_variable_defined? :@status).to be true
+        expect(item.video.instance_variable_defined? :@statistics_set).to be true
       end
 
       describe 'multiple reports can be retrieved at once' do
