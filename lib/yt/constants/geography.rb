@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Yt
   # The list of country codes and names used by the YouTube Analytics API.
   # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#country
