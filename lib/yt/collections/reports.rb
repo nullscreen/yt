@@ -53,6 +53,8 @@ module Yt
         embedded: 'EMBEDDED',
         other: 'YT_OTHER',
         external_app: 'EXTERNAL_APP',
+        search: 'SEARCH', # undocumented but returned by the API
+        browse: 'BROWSE', # undocumented but returned by the API
         mobile: 'MOBILE' # only present for data < September 10, 2013
       }
 

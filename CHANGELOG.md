@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.20 - 2016-01-24
+
+* [FEATURE] Add (undocumented) playback location dimensions SEARCH and BROWSE
+
 ## 0.25.19 - 2016-01-15
 
 * [FEATURE] Add `:group_items` to Yt::VideoGroup (list items of a group)
