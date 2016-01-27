@@ -31,7 +31,6 @@ module Yt
       def subscriptions_params
         {}.tap do |params|
           params[:max_results] = 50
-          params[:for_channel_id] = @parent.id
           params[:mine] = true
           params[:part] = 'snippet'
         end
