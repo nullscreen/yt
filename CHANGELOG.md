@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.22 - 2016-02-04
+
+* [IMPROVEMENT] Deal with channels with more than 500 videos in a better way
+
 ## 0.25.21 - 2016-02-04
 
 * [BUGFIX] Add required 'require' to have `.with_indifferent_access` in geography

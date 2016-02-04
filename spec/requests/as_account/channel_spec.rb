@@ -86,6 +86,7 @@ describe Yt::Channel, :device_app do
           # of results to test that we can overcome YouTube’s limitation of only
           # returning the first 500 results when ordered by date.
           expect(channel.videos.count).to be > 500
+          expect(channel.videos.count).to eq channel.videos.map(&:id).uniq.count
           expect(channel.videos.where(order: 'viewCount').count).to be 500
         end
 
