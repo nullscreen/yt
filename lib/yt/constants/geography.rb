@@ -1,3 +1,6 @@
+require 'active_support'
+require 'active_support/core_ext/hash/indifferent_access'
+
 module Yt
   # The list of country codes and names used by the YouTube Analytics API.
   # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#country

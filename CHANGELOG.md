@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.21 - 2016-02-04
+
+* [BUGFIX] Add required 'require' to have `.with_indifferent_access` in geography
+
 ## 0.25.20 - 2016-01-24
 
 * [FEATURE] Add (undocumented) playback location dimensions SEARCH and BROWSE
