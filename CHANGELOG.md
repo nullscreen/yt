@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.23 - 2016-02-23
+
+* [IMPROVEMENT] Retry 3 times after a server error, to bypass temporary glitches by YouTube.
+* [IMPROVEMENT] Don’t combine forMine and publishedBefore parameters in Search#list since YouTube does not support this anymore.
+
 ## 0.25.22 - 2016-02-04
 
 * [IMPROVEMENT] Deal with channels with more than 500 videos in a better way
