@@ -10,6 +10,7 @@ module Yt
     class Videos < Base
       def where(requirements = {})
         @published_before = nil
+        @halt_list = false
         super
       end
 
