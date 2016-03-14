@@ -40,8 +40,16 @@ module Yt
       def build_insert_body_part(part, attributes = {})
         {}.tap do |body_part|
           part[:keys].map do |key|
-            body_part[camelize key] = attributes[key] if attributes[key]
+            body_part[camelize key] = attribute_for_request(attributes[key]) if attributes[key]
           end
+        end
+      end
+
+      def attribute_for_request(attribute)
+        if attribute.is_a?(Yt::Models::Base)
+          {snippet: attribute.snippet.data}
+        else
+          attribute
         end
       end
 

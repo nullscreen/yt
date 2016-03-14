@@ -13,6 +13,10 @@ module Yt
         first.tap{|item| raise Errors::NoItems, error_message unless item}
       end
 
+      def to_ary
+        list.to_a
+      end
+
     private
 
       def list
@@ -75,7 +79,7 @@ module Yt
       end
 
       def more_pages?
-        @last_index.zero? || !@page_token.nil?
+        @last_index.zero? || !@page_token.blank?
       end
 
       def next_page

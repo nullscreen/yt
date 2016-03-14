@@ -272,6 +272,13 @@ module Yt
       end
 
       # @private
+      # Tells `has_many :comment_threads` that channel.commentThreads should return all the
+      # threads publicly available on the channel.
+      def comments_params
+        {channel_id: id}
+      end
+
+      # @private
       # Tells `has_reports` to retrieve the reports from YouTube Analytics API
       # either as a Channel or as a Content Owner.
       # @see https://developers.google.com/youtube/analytics/v1/reports

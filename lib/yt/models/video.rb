@@ -318,6 +318,11 @@ module Yt
         video_category.title
       end
 
+
+    ### VIDEO COMMENTS ###
+
+      has_many :comment_threads
+
     ### ADVERTISING OPTIONS ###
 
       has_one :advertising_options_set
@@ -602,6 +607,13 @@ module Yt
       # Tells `has_many :resumable_sessions` what path to hit to upload a file.
       def upload_path
         '/upload/youtube/v3/thumbnails/set'
+      end
+
+      # @private
+      # Tells `has_many :comment_threads` that channel.commentThreads should return all the
+      # threads publicly available on the video.
+      def comments_params
+        {video_id: id}
       end
 
       # @private
