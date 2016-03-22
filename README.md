@@ -116,6 +116,22 @@ Yt::PlaylistItem
 
 Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/playlist_items.html) for the list of methods available for `Yt::PlaylistItem`.
 
+Yt::CommentThread
+----------------
+
+Use [Yt::CommentThread](http://www.rubydoc.info/gems/yt/Yt/Models/CommentThread) to:
+
+* Show details of a comment_thread
+
+```ruby
+Yt::CommentThread.new id: 'z13vsnnbwtv4sbnug232erczcmi3wzaug'
+
+comment_thread.video_id #=> "1234"
+comment_thread.total_reply_count #=> 1
+comment_thread.can_reply? #=> true
+comment_thread.public? #=> true
+```
+
 Yt::Collections::Videos
 -----------------------
 
