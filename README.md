@@ -121,7 +121,7 @@ Yt::CommentThread
 
 Use [Yt::CommentThread](http://www.rubydoc.info/gems/yt/Yt/Models/CommentThread) to:
 
-* Show details of a comment_thread
+* Show details of a comment_thread.
 
 ```ruby
 Yt::CommentThread.new id: 'z13vsnnbwtv4sbnug232erczcmi3wzaug'
@@ -130,6 +130,23 @@ comment_thread.video_id #=> "1234"
 comment_thread.total_reply_count #=> 1
 comment_thread.can_reply? #=> true
 comment_thread.public? #=> true
+```
+
+Yt::Comment
+----------------
+
+Use [Yt::Comment](http://www.rubydoc.info/gems/yt/Yt/Models/Comment) to:
+
+* Get details of a comment.
+
+```ruby
+Yt::Comment.new id: 'z13vsnnbwtv4sbnug232erczcmi3wzaug'
+
+comment.text_display #=> "awesome"
+comment.author_display_name #=> "Jack"
+comment.like_count #=> 1
+comment.updated_at #=> 2016-03-22 12:56:56 UTC
+comment.parent_id #=> "abc1234" (return nil if the comment is not a reply)
 ```
 
 Yt::Collections::Videos
