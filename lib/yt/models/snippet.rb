@@ -8,6 +8,7 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
     # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
+    # @see https://developers.google.com/youtube/v3/docs/commentThread#resource
     class Snippet < Base
       attr_reader :data
 
@@ -28,9 +29,19 @@ module Yt
       has_attribute :position, type: Integer
       has_attribute :resource_id, default: {}
       has_attribute :thumbnails, default: {}
+      has_attribute :video_id
+      has_attribute :total_reply_count, type: Integer
 
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']
+      end
+
+      def public?
+        @public ||= data.fetch 'isPublic', false
+      end
+
+      def can_reply?
+        @can_reply ||= data.fetch 'canReply', false
       end
 
       # Returns whether YouTube API includes all attributes in this snippet.
