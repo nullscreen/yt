@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.26 - 2016-03-24
+
+* [FEATURE] Add Yt::Comment resource.
+
 ## 0.25.25 - 2016-03-24
 
 * [FEATURE] Add Yt::CommentThread resource.

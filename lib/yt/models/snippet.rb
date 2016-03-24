@@ -8,7 +8,8 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
     # @see https://developers.google.com/youtube/v3/docs/playlists#resource
     # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
-    # @see https://developers.google.com/youtube/v3/docs/commentThread#resource
+    # @see https://developers.google.com/youtube/v3/docs/commentThreads#resource
+    # @see https://developers.google.com/youtube/v3/docs/comments#resource
     class Snippet < Base
       attr_reader :data
 
@@ -31,6 +32,12 @@ module Yt
       has_attribute :thumbnails, default: {}
       has_attribute :video_id
       has_attribute :total_reply_count, type: Integer
+      has_attribute :author_display_name
+      has_attribute :text_display
+      has_attribute :parent_id
+      has_attribute :like_count, type: Integer
+      has_attribute :updated_at, type: Time
+
 
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']
