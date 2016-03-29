@@ -6,19 +6,6 @@ require 'yt/models/channel'
 describe Yt::Collections::CommentThreads do
   subject(:collection) { Yt::Collections::CommentThreads.new parent: parent}
 
-  describe '#list_params' do
-    context "comment threads from a video" do
-      let(:parent) { Yt::Video.new id: 'any-id' }
-      it { expect(collection.send(:list_params)[:params]).to include :videoId }
-    end
-
-    context "comment threads from a video" do
-      let(:parent) { Yt::Channel.new id: 'any-id' }
-      it { expect(collection.send(:list_params)[:params]).to include :channelId }
-    end
-  end
-
-
   describe '#size', :ruby2 do
     describe 'sends only one request and return the total results' do
       let(:total_results) { 1234 }

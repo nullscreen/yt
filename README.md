@@ -29,6 +29,8 @@ video.comment_count #=> 308
 video.hd? #=> true
 video.annotations.count #=> 1
 video.comment_threads #=> #<Yt::Collections::CommentThreads ...>
+# Use #take to limit the number of pages need to fetch from server
+video.comment_threads.take(99).map(&:author_display_name) #=> ["Paul", "Tommy", ...]
 ```
 
 The **full documentation** is available at [rubydoc.info](http://www.rubydoc.info/gems/yt/frames).

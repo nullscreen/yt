@@ -6,7 +6,7 @@ describe Yt::Video, :server_app do
   subject(:video) { Yt::Video.new attrs }
 
   context 'given an existing video ID' do
-    let(:attrs) { {id: 'MESycYJytkU'} }
+    let(:attrs) { {id: 'L3JDXvz7G6c'} }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -28,11 +28,11 @@ describe Yt::Video, :server_app do
   end
 
   context 'given an existing video URL' do
-    let(:attrs) { {url: 'https://www.youtube.com/watch?v=MESycYJytkU&list=LLxO1tY8h1AhOz0T4ENwmpow'} }
+    let(:attrs) { {url: 'https://www.youtube.com/watch?v=L3JDXvz7G6c'} }
 
     specify 'provides access to its data' do
-      expect(video.id).to eq 'MESycYJytkU'
-      expect(video.title).to eq 'Fullscreen Creator Platform'
+      expect(video.id).to eq 'L3JDXvz7G6c'
+      expect(video.title).to eq "you’re in fullscreen"
       expect(video.privacy_status).to eq 'public'
     end
   end

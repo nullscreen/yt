@@ -52,14 +52,7 @@ module Yt
       end
 
       def top_level_comment
-        if @top_level_comment.nil?
-          d = data.fetch('topLevelComment', nil).tap do |data|
-            data[:id] = data.fetch 'id', nil
-            data[:snippet] = data.fetch 'snippet', nil
-          end
-          @top_level_comment = Yt::Comment.new(d) if d
-        end
-        @top_level_comment
+        @top_level_comment ||= Yt::Comment.new data['topLevelComment'].symbolize_keys
       end
 
       # Returns whether YouTube API includes all attributes in this snippet.

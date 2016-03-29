@@ -28,11 +28,6 @@ describe Yt::CommentThread do
       let(:attrs) { {snippet: {"topLevelComment"=> {}}} }
       it { expect(comment_thread.top_level_comment).to be_a Yt::Comment }
     end
-
-    context 'given a snippet without a top level comment' do
-      let(:attrs) { {snippet: {}} }
-      it { expect(comment_thread.top_level_comment).to be_nil }
-    end
   end
 
   describe 'attributes from #top_level_comment delegations' do
