@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yt/models/video'
+require 'yt/collections/comment_threads'
 
 describe Yt::Video, :server_app do
   subject(:video) { Yt::Video.new attrs }
@@ -55,4 +56,24 @@ describe Yt::Video, :server_app do
     end
   end
 
+  describe 'associations' do
+    let(:attrs) { {id: 'MsplPPW7tFo'} }
+
+    describe '#comment_threads' do
+      it { expect(video.comment_threads).to be_a Yt::Collections::CommentThreads }
+      it { expect(video.comment_threads.first.top_level_comment).to be_a Yt::Models::Comment }
+    end
+
+    describe '#comment_threads.each_cons' do
+      it {
+        comment_threads = []
+        video.comment_threads.each_cons(2).take_while do |items|
+          comment_threads += items
+          comment_threads.size < 6
+        end
+        expect(comment_threads.size).to be 6
+      }
+    end
+  end
 end
+

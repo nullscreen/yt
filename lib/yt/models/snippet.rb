@@ -1,4 +1,5 @@
 require 'yt/models/description'
+require 'yt/models/comment'
 
 module Yt
   module Models
@@ -38,7 +39,6 @@ module Yt
       has_attribute :like_count, type: Integer
       has_attribute :updated_at, type: Time
 
-
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']
       end
@@ -49,6 +49,17 @@ module Yt
 
       def can_reply?
         @can_reply ||= data.fetch 'canReply', false
+      end
+
+      def top_level_comment
+        if @top_level_comment.nil?
+          d = data.fetch('topLevelComment', nil).tap do |data|
+            data[:id] = data.fetch 'id', nil
+            data[:snippet] = data.fetch 'snippet', nil
+          end
+          @top_level_comment = Yt::Comment.new(d) if d
+        end
+        @top_level_comment
       end
 
       # Returns whether YouTube API includes all attributes in this snippet.
