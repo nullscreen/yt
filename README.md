@@ -28,6 +28,9 @@ video.title #=> "Fullscreen Creator Platform"
 video.comment_count #=> 308
 video.hd? #=> true
 video.annotations.count #=> 1
+video.comment_threads #=> #<Yt::Collections::CommentThreads ...>
+# Use #take to limit the number of pages need to fetch from server
+video.comment_threads.take(99).map(&:author_display_name) #=> ["Paul", "Tommy", ...]
 ```
 
 The **full documentation** is available at [rubydoc.info](http://www.rubydoc.info/gems/yt/frames).
@@ -130,6 +133,12 @@ comment_thread.video_id #=> "1234"
 comment_thread.total_reply_count #=> 1
 comment_thread.can_reply? #=> true
 comment_thread.public? #=> true
+
+comment_thread.top_level_comment #=> #<Yt::Models::Comment ...>
+comment_thread.text_display #=> "funny video!"
+comment_thread.like_count #=> 9
+comment_thread.updated_at #=> 2016-03-22 12:56:56 UTC
+comment_thread.author_display_name #=> "Joe"
 ```
 
 Yt::Comment

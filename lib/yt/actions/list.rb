@@ -6,7 +6,7 @@ require 'yt/config'
 module Yt
   module Actions
     module List
-      delegate :any?, :count, :each, :each_cons, :each_slice, :find, :first,
+      delegate :any?, :count, :each, :each_cons, :each_slice, :find, :first, :take,
         :flat_map, :map, :select, :size, to: :list
 
       def first!
