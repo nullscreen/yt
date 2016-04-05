@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.28 - 2016-04-05
+
+* [BUGFIX] If no asset ID is set, calling ContentOwner#assets will now use the path, /youtube/partner/v1/assetSearch, instead of '/youtube/partner/v1/assets'
+
 ## 0.25.27 - 2016-03-28
 
 * [FEATURE] Add `comment_threads` association to Yt::Video.

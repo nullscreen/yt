@@ -71,6 +71,7 @@ Use [Yt::ContentOwner](http://www.rubydoc.info/gems/yt/Yt/Models/ContentOwner) t
 * list and delete the references administered by the content owner
 * list the policies and policy rules administered by the content owner
 * create assets
+* list assets
 
 ```ruby
 # Content owners can be initialized with access token, refresh token or an authorization code
@@ -95,6 +96,13 @@ content_owner.policies.first.rules.first.action #=> "monetize"
 content_owner.policies.first.rules.first.included_territories #=> ["US", "CA"]
 
 content_owner.create_asset type: 'web' #=> #<Yt::Models::Asset @id=...>
+
+content_owner.assets.first #=> #<Yt::Models::AssetSnippet:0x007ff2bc543b00 @id=...>
+content_owner.assets.first.id #=> "A4532885163805730"
+content_owner.assets.first.title #=> "Money Train"
+content_owner.assets.first.type #=> "web"
+content_owner.assets.first.custom_id #=> "MoKNJFOIRroc"
+
 ```
 
 *All the above methods require authentication (see below).*
