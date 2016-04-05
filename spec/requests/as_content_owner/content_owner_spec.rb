@@ -279,6 +279,19 @@ describe Yt::ContentOwner, :partner do
     end
   end
 
+  describe '.assets' do
+    describe 'given the content owner has assets' do
+      let(:asset) { $content_owner.assets.first }
+
+      it 'returns valid asset' do
+        expect(asset.id).to be_a String
+        expect(asset.type).to be_a String
+        expect(asset.title).to be_a String
+        expect(asset.custom_id).to be_a String
+      end
+    end
+  end
+
   # @note: The following test works, but YouTube API endpoint to mark
   #   an asset as 'invalid' (soft-delete) does not work, and apparently
   #   there is no way to update the status of a asset.
