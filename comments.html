@@ -1,0 +1,51 @@
+---
+title:  "Comments"
+h2: "Comments"
+---
+
+<p><code>Yt::CommentThread</code> represents a YouTube comment thread.</p>
+<p><code>Yt::Comment</code> represents a top level comment of a thread or a reply to a comment.</p>
+</p>
+
+{% highlight ruby %}
+comment_thread = Yt::CommentThread.new id: 'z13fsrejbwf3dziea22pd5trmyqbjteoa04'
+comment = Yt::Comment.new id: 'z13fsrejbwf3dziea22pd5trmyqbjteoa04'
+{% endhighlight %}
+
+<h4>Video/Channel Comments</h4>
+
+<p>To retrieve all comment threads of a video or channel, you can use associations.<p>
+
+{% highlight ruby %}
+video = Yt::Video.new(id: 'WW4Bg43afvk')
+video.comment_threads # => <Yt::Collections::CommentThreads ...>
+channel = Yt::Channel.new(id: 'UCKG1g_by7n00g3rdjWVFOIQ')
+channel.comment_threads # => <Yt::Collections::CommentThreads ...>
+{% endhighlight %}
+
+<h4>List of <code>Yt::CommentThread</code> methods</h4>
+
+<dd><a class="anchor"></a><div class="highlight"><pre>
+{% include doc.html link="Models/CommentThread#video_id" %}{% include example.html object='comment_thread' method='video_id' result='"BPNYv0vd78A"' %}
+{% include doc.html link="Models/CommentThread#total_reply_count" %}{% include example.html object='comment_thread' method='total_reply_count' result='3' %}
+{% include doc.html link="Models/CommentThread#public?" %}{% include example.html object='comment_thread' method='public?' result='true' %}
+{% include doc.html link="Models/CommentThread#can_reply?" %}{% include example.html object='comment_thread' method='can_reply?' result='true' %}
+
+{% include doc.html link="Models/CommentThread#top_level_comment" %}{% include example.html object='comment_thread' method='top_level_comment' result='&lt;Yt::Comment ...&gt;"' %}
+{% include doc.html link="Models/CommentThread#text_display" %}{% include example.html object='comment_thread' method='text_display' result='"totally awesome"' %}
+{% include doc.html link="Models/CommentThread#author_display_name" %}{% include example.html object='comment_thread' method='author_display_name' result='"Jack"' %}
+{% include doc.html link="Models/CommentThread#like_count" %}{% include example.html object='comment_thread' method='like_count' result='99' %}
+{% include doc.html link="Models/CommentThread#updated_at" %}{% include example.html object='comment_thread' method='updated_at' result='2015-03-31 06:46:46 UTC' %}
+</div></dd>
+
+
+<h4>List of <code>Yt::Comment</code> methods</h4>
+
+<dd><a class="anchor"></a><div class="highlight"><pre>
+{% include doc.html link="Models/CommentThread#video_id" %}{% include example.html object='comment_thread' method='video_id' result='"sojBKlt1Fik"' %}
+{% include doc.html link="Models/CommentThread#text_display" %}{% include example.html object='comment_thread' method='text_display' result='"totally awesome"' %}
+{% include doc.html link="Models/CommentThread#author_display_name" %}{% include example.html object='comment_thread' method='author_display_name' result='"Jack"' %}
+{% include doc.html link="Models/CommentThread#like_count" %}{% include example.html object='comment_thread' method='like_count' result='99' %}
+{% include doc.html link="Models/CommentThread#updated_at" %}{% include example.html object='comment_thread' method='updated_at' result='2015-03-31 06:46:46 UTC' %}
+{% include doc.html link="Models/CommentThread#parent_id" %}{% include example.html object='comment_thread' method='parent_id' result='"z13cffaoaqrvvtwfm23vzzdh3w3xupe1w"' %}
+</div></dd>
