@@ -269,7 +269,7 @@ module Yt
 
     # @return [Boolean] whether the request exceeds the YouTube quota
     def exceeded_quota?
-      response_error == Errors::Forbidden && response.body =~ /Exceeded/
+      response_error == Errors::Forbidden && response.body =~ /Exceeded/i
     end
 
     # @return [Boolean] whether the request lacks proper authorization.
