@@ -33,7 +33,8 @@ module Yt
       def eager_load_items_from(items)
         if included_relationships.any?
           include_category = included_relationships.delete(:category)
-          included_relationships.append(:snippet).uniq! if include_category
+          include_claim = included_relationships.delete(:claim)
+          included_relationships.append(:snippet).uniq! if include_category || include_claim
 
           ids = items.map{|item| item['id']['videoId']}
           parts = included_relationships.map{|r| r.to_s.camelize(:lower)}
@@ -50,6 +51,16 @@ module Yt
                 when 'contentDetails' then video.content_detail.data
               end
             end if video
+          end
+
+          if include_claim
+            video_ids = items.map{|item| item['id']['videoId']}.uniq
+            conditions = { video_id: video_ids.join(',') }
+            claims = Collections::Claims.new(auth: @auth, parent: @parent).where conditions
+            items.each do |item|
+              claim = claims.find { |c| c.video_id == item['id']['videoId']}
+              item['claim'] = claim
+            end
           end
 
           if include_category

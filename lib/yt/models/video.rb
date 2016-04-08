@@ -554,6 +554,10 @@ module Yt
         super
       end
 
+    ### Claim ###
+
+      has_one :claim
+
     ### PRIVATE API ###
 
       # @private
