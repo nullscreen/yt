@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.30 - 2016-04-07
+
+* [FEATURE] Add ability for videos to eager load claims. For example, `$content_owner.videos.includes(:claim).first.claim.id`.
+
 ## 0.25.29 - 2016-04-07
 
 * [BUGFIX] Previously, Yt was throttling queries for `quotaExceeded` responses from YouTube. However, matching `quotaExceeded` was too specific and would not have caught other limit exceeding responses from YouTube. This change will allow Yt to throttle other responses that contains `Exceeded` or `exceeded`.
