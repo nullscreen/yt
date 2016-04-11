@@ -37,7 +37,12 @@ module Yt
       end
 
       def claims_params
-        apply_where_params! on_behalf_of_content_owner: @parent.owner_name
+        if @parent.respond_to? :owner_name
+          owner_name = @parent.owner_name
+        else
+          owner_name = @auth.owner_name
+        end
+        apply_where_params! on_behalf_of_content_owner: owner_name
       end
 
       # @private

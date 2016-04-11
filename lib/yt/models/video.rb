@@ -554,6 +554,10 @@ module Yt
         super
       end
 
+    ### Claim ###
+
+      has_one :claim
+
     ### PRIVATE API ###
 
       # @private
@@ -578,6 +582,9 @@ module Yt
         end
         if options[:player]
           @player = Player.new data: options[:player]
+        end
+        if options[:claim]
+          @claim = options[:claim]
         end
       end
 

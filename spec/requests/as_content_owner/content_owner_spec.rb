@@ -49,6 +49,16 @@ describe Yt::ContentOwner, :partner do
         expect(video.instance_variable_defined? :@content_detail).to be true
       end
     end
+
+    describe '.includes(:claim)' do
+      let(:video) { $content_owner.videos.includes(:claim).first }
+
+      specify 'eager-loads the claim of each video' do
+        expect(video.instance_variable_defined? :@claim).to be true
+        expect(video.claim.id).to be_a String
+        expect(video.claim.video_id).to eq video.id
+      end
+    end
   end
 
   describe '.video_groups' do
