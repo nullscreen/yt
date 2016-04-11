@@ -27,6 +27,7 @@ module Yt
           attributes[:statistics] = data['statistics']
           attributes[:video_category] = data['videoCategory']
           attributes[:auth] = @auth
+          attributes[:claim] = data['claim']
         end
       end
 
