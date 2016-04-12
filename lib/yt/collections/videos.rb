@@ -33,13 +33,15 @@ module Yt
 
       def eager_load_items_from(items)
         if included_relationships.any?
-          include_category = included_relationships.delete(:category)
-          include_claim = included_relationships.delete(:claim)
-          included_relationships.append(:snippet).uniq! if include_category || include_claim
+          included_relationships.append(:snippet).uniq! if
+            included_relationships.include?(:claim) ||
+            included_relationships.include?(:category)
 
           ids = items.map{|item| item['id']['videoId']}
-          parts = included_relationships.map{|r| r.to_s.camelize(:lower)}
-          conditions = {id: ids.join(','), part: parts.join(',')}
+          parts = included_relationships.reject do |p|
+            p == :claim || p == :category
+          end.map{|r| r.to_s.camelize(:lower)}
+          conditions = { id: ids.join(','), part: parts.join(',') }
           videos = Collections::Videos.new(auth: @auth).where conditions
 
           items.each do |item|
@@ -54,7 +56,7 @@ module Yt
             end if video
           end
 
-          if include_claim
+          if included_relationships.include? :claim
             video_ids = items.map{|item| item['id']['videoId']}.uniq
             conditions = { video_id: video_ids.join(',') }
             claims = @parent.claims.where conditions
@@ -64,7 +66,7 @@ module Yt
             end
           end
 
-          if include_category
+          if included_relationships.include? :category
             category_ids = items.map{|item| item['snippet']['categoryId']}.uniq
             conditions = {id: category_ids.join(',')}
             video_categories = Collections::VideoCategories.new(auth: @auth).where conditions
