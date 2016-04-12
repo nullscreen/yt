@@ -1,3 +1,3 @@
 module Yt
-  VERSION = '0.25.30'
+  VERSION = '0.25.31'
 end

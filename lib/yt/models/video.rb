@@ -379,6 +379,13 @@ module Yt
 
       has_many :resumable_sessions
 
+      # @!attribute [r] channel
+      #   @return [Yt::Models::Claim, nil] the first claim on the video by
+      #     the content owner of the video, if eagerly loaded.
+      def claim
+        @claim
+      end
+
     ### ANALYTICS ###
 
       # @macro reports
@@ -553,10 +560,6 @@ module Yt
       def update(attributes = {})
         super
       end
-
-    ### Claim ###
-
-      has_one :claim
 
     ### PRIVATE API ###
 

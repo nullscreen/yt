@@ -26,8 +26,8 @@ module Yt
           attributes[:content_details] = data['contentDetails']
           attributes[:statistics] = data['statistics']
           attributes[:video_category] = data['videoCategory']
-          attributes[:auth] = @auth
           attributes[:claim] = data['claim']
+          attributes[:auth] = @auth
         end
       end
 
@@ -57,7 +57,7 @@ module Yt
           if include_claim
             video_ids = items.map{|item| item['id']['videoId']}.uniq
             conditions = { video_id: video_ids.join(',') }
-            claims = Collections::Claims.new(auth: @auth, parent: @parent).where conditions
+            claims = @parent.claims.where conditions
             items.each do |item|
               claim = claims.find { |c| c.video_id == item['id']['videoId']}
               item['claim'] = claim
