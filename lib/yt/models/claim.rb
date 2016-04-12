@@ -113,6 +113,11 @@ module Yt
         content_type == 'audiovisual'
       end
 
+      def source
+        origin = @data.fetch 'origin', nil
+        origin.fetch 'source', nil if origin
+      end
+
       # @return [Time] the date and time that the claim was created.
       has_attribute :created_at, type: Time, from: :time_created
 

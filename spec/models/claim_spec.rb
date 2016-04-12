@@ -208,4 +208,16 @@ describe Yt::Claim do
       it { expect(claim.third_party?).to be false }
     end
   end
+
+  describe '#source' do
+    context 'given fetching a claim returns a source' do
+      let(:data) { {"origin"=>{"source"=>"webUpload"}} }
+      it { expect(claim.source).to eq 'webUpload' }
+    end
+
+    context 'given fetching a claim does not return a source' do
+      let(:data) { {"origin"=>{}} }
+      it { expect(claim.source).to eq nil }
+    end
+  end
 end
