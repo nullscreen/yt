@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.31 - 2016-04-11
+
+* [BUGFIX] Don’t try to instantiate video.claim if a video does not have a claim.
+
 ## 0.25.30 - 2016-04-07
 
 * [FEATURE] Add ability for videos to eager load claims. For example, `$content_owner.videos.includes(:claim).first.claim.id`.
