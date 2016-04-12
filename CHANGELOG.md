@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.32 - 2016-04-12
+
+* [BUGFIX] Fix where videos did not eager load claims or categories in subsequent requests.
+
 ## 0.25.31 - 2016-04-11
 
 * [BUGFIX] Don’t try to instantiate video.claim if a video does not have a claim.
