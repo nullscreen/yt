@@ -33,14 +33,15 @@ module Yt
 
       def eager_load_items_from(items)
         if included_relationships.any?
-          included_relationships.append(:snippet).uniq! if
-            included_relationships.include?(:claim) ||
-            included_relationships.include?(:category)
+          associations = [:claim, :category]
+          if (included_relationships & associations).any?
+            included_relationships.append(:snippet).uniq!
+          end
 
           ids = items.map{|item| item['id']['videoId']}
-          parts = included_relationships.reject do |p|
-            p == :claim || p == :category
-          end.map{|r| r.to_s.camelize(:lower)}
+          parts = (included_relationships - associations).map do |r|
+            r.to_s.camelize(:lower)
+          end
           conditions = { id: ids.join(','), part: parts.join(',') }
           videos = Collections::Videos.new(auth: @auth).where conditions
 

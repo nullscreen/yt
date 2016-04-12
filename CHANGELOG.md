@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.25.32 - 2016-04-11
+## 0.25.32 - 2016-04-12
 
 * [BUGFIX] Fix where videos did not eager load claims or categories in subsequent requests.
 
