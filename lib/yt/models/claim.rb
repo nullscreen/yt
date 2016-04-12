@@ -113,6 +113,7 @@ module Yt
         content_type == 'audiovisual'
       end
 
+      # @return String of the claim's source.
       def source
         origin = @data.fetch 'origin', nil
         origin.fetch 'source', nil if origin
