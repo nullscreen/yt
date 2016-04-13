@@ -61,7 +61,10 @@ module Yt
           eager_load_asset = included_relationships.include?({ claim: :asset })
           if eager_load_claim || eager_load_asset
             video_ids = items.map{|item| item['id']['videoId']}.uniq
-            conditions = { video_id: video_ids.join(',') }
+            conditions = {
+              video_id: video_ids.join(','),
+              include_third_party_claims: false
+            }
             if eager_load_asset
               claims = @parent.claims.includes(:asset).where conditions
             else
