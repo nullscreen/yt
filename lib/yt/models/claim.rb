@@ -11,6 +11,7 @@ module Yt
         @data = options[:data]
         @id = options[:id]
         @auth = options[:auth]
+        @asset = options[:asset] if options[:asset]
       end
 
       # @!attribute [r] claim_history
@@ -117,6 +118,11 @@ module Yt
       def source
         origin = @data.fetch 'origin', nil
         origin.fetch 'source', nil if origin
+      end
+
+      # @return the first asset of the claim.
+      def asset
+        @asset
       end
 
       # @return [Time] the date and time that the claim was created.
