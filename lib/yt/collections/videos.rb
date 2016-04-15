@@ -33,7 +33,7 @@ module Yt
 
       def eager_load_items_from(items)
         if included_relationships.any?
-          associations = [:claim, :category, { claim: :asset }]
+          associations = [:claim, :category]
           if (included_relationships & associations).any?
             included_relationships.append(:snippet).uniq!
           end
@@ -57,19 +57,13 @@ module Yt
             end if video
           end
 
-          eager_load_claim = included_relationships.include? :claim
-          eager_load_asset = included_relationships.include?({ claim: :asset })
-          if eager_load_claim || eager_load_asset
+          if included_relationships.include? :claim
             video_ids = items.map{|item| item['id']['videoId']}.uniq
             conditions = {
               video_id: video_ids.join(','),
               include_third_party_claims: false
             }
-            if eager_load_asset
-              claims = @parent.claims.includes(:asset).where conditions
-            else
-              claims = @parent.claims.where conditions
-            end
+            claims = @parent.claims.includes(:asset).where conditions
             items.each do |item|
               claim = claims.find { |c| c.video_id == item['id']['videoId']}
               item['claim'] = claim
