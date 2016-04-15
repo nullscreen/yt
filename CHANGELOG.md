@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.33 - 2016-04-15
+
+* [FEATURE] Eager-loading claims from videos will also eager-load assets.
+* [FEATURE] New method - `Claim#source` will return the source of the claim.
+
 ## 0.25.32 - 2016-04-12
 
 * [BUGFIX] Fix where videos did not eager load claims or categories in subsequent requests.
