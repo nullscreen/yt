@@ -114,13 +114,12 @@ module Yt
         content_type == 'audiovisual'
       end
 
-      # @return String of the claim's source.
+      # @return [Yt::Models::Claim] the source of the claim
       def source
-        origin = @data.fetch 'origin', nil
-        origin.fetch 'source', nil if origin
+        @data.fetch('origin', {})['source']
       end
 
-      # @return the first asset of the claim.
+      # @return [Yt::Models::Claim] the asset of the claim
       def asset
         @asset
       end
