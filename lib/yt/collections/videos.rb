@@ -59,8 +59,11 @@ module Yt
 
           if included_relationships.include? :claim
             video_ids = items.map{|item| item['id']['videoId']}.uniq
-            conditions = { video_id: video_ids.join(',') }
-            claims = @parent.claims.where conditions
+            conditions = {
+              video_id: video_ids.join(','),
+              include_third_party_claims: false
+            }
+            claims = @parent.claims.includes(:asset).where conditions
             items.each do |item|
               claim = claims.find { |c| c.video_id == item['id']['videoId']}
               item['claim'] = claim

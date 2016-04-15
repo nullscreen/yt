@@ -54,10 +54,12 @@ describe Yt::ContentOwner, :partner do
       let(:videos) { $content_owner.videos.includes(:claim) }
       let(:video_with_claim) { videos.find{|v| v.claim.present?} }
 
-      specify 'eager-loads the claim of each video' do
+      specify 'eager-loads the claim of each video and its asset' do
         expect(video_with_claim.claim).to be_a Yt::Claim
         expect(video_with_claim.claim.id).to be_a String
         expect(video_with_claim.claim.video_id).to eq video_with_claim.id
+        expect(video_with_claim.claim.asset).to be_a Yt::Asset
+        expect(video_with_claim.claim.asset.id).to be_a String
       end
     end
   end
