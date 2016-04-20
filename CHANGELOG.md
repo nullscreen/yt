@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.34  - 2016-04-20
+
+* [FEATURE] Add `ad_breaks` and `tp_ad_server_video_id` attribute to AdvertisingOptionsSet
+
 ## 0.25.33 - 2016-04-15
 
 * [FEATURE] Eager-loading claims from videos will also eager-load assets.
