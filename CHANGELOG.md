@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.35  - 2016-04-27
+
+* [BUGFIX] Don’t try to eager load more than 50 assets at the time from claims
+
 ## 0.25.34  - 2016-04-20
 
 * [FEATURE] Add `ad_breaks` and `tp_ad_server_video_id` attribute to AdvertisingOptionsSet
