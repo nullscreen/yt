@@ -28,7 +28,7 @@ module Yt
 
       def eager_load_items_from(items)
         if included_relationships.include? :asset
-          asset_ids = items.map { |item| item['assetId'] }.uniq
+          asset_ids = items.map{|a| a.values_at 'videoId', 'assetId'}.to_h.values
           conditions = { id: asset_ids.join(','), fetch_metadata: 'effective' }
           assets = @parent.assets.where conditions
           items.each do |item|
