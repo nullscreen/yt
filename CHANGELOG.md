@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+
+## 0.25.36  - 2016-05-10
+
+* [BUGFIX] Raise RequestError when authentication code is "invalid" or "already redeemed"
+* [FEATURE] Make two methods `#explanation` and `#response_body` public for `Yt::Errors::RequestError`
+
 ## 0.25.35  - 2016-04-27
 
 * [BUGFIX] Don’t try to eager load more than 50 assets at the time from claims
