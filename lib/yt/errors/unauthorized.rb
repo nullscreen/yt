@@ -4,11 +4,11 @@ require 'yt/config'
 module Yt
   module Errors
     class Unauthorized < RequestError
-      private
-
       def explanation
         'A request to YouTube API was sent without a valid authentication'
       end
+
+    private
 
       def more_details
         if [Yt.configuration.client_id, Yt.configuration.api_key].none?

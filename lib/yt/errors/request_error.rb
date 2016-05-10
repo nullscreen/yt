@@ -30,12 +30,15 @@ module Yt
         end
       end
 
-    private
-
       def explanation
         'A request to YouTube API failed'
       end
 
+      def response_body
+        json['response_body'].is_a?(Hash) ? json['response_body'] : {}
+      end
+
+    private
 
       def details
         <<-MSG.gsub(/^ {8}/, '')
@@ -58,10 +61,6 @@ module Yt
       end
 
       def more_details
-      end
-
-      def response_body
-        json['response_body'].is_a?(Hash) ? json['response_body'] : {}
       end
 
       def request_curl
