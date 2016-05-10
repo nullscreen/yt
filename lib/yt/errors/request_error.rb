@@ -19,6 +19,10 @@ module Yt
         response_body.fetch 'error', {}
       end
 
+      def description
+        response_body.fetch 'error_description', {}
+      end
+
       def reasons
         case kind
           when Hash then kind.fetch('errors', []).map{|e| e['reason']}
