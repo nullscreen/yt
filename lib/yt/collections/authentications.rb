@@ -40,7 +40,14 @@ module Yt
       end
 
       def expected?(error)
-        error.kind == 'invalid_grant'
+        error.kind == 'invalid_grant' &&
+          invalid_code_errors.exclude?(error.description)
+      end
+
+    private
+
+      def invalid_code_errors
+        ["Code was already redeemed.", "Invalid code."]
       end
     end
   end
