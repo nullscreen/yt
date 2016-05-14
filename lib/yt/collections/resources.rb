@@ -23,7 +23,12 @@ module Yt
       end
 
       def resources_params
-        {max_results: 50, part: 'snippet,status'}
+        default_parts = [:snippet, :status]
+        parts = (default_parts + included_relationships.map(&:to_sym)).uniq.map do |r|
+          r.to_s.camelize(:lower)
+        end.join(',')
+
+        {max_results: 50, part: parts}
       end
 
       def build_insert_body(attributes = {})
