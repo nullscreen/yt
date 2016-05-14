@@ -16,6 +16,14 @@ module Yt
       #   @return [String] the channel’s description.
       delegate :description, to: :snippet
 
+      # @!attribute [r] custom_url
+      #   @return [String] the channel’s custom URL.
+      delegate :custom_url, to: :snippet
+
+      # @!attribute [r] country
+      #   @return [String] the country with which the channel is associated.
+      delegate :country, to: :snippet
+
       # @!method thumbnail_url(size = :default)
       #   Returns the URL of the channel’s thumbnail.
       #   @param [Symbol, String] size The size of the channel’s thumbnail.
