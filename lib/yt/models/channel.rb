@@ -37,6 +37,13 @@ module Yt
       #   @return [Time] the date and time that the channel was created.
       delegate :published_at, to: :snippet
 
+    ### CONTENT DETAILS ###
+      has_one :content_detail
+
+      # @!attribute [r] google_plus_user_id
+      #   @return [String] the Google+ profile ID associated with this channel.
+      delegate :google_plus_user_id, to: :content_detail
+
     ### SUBSCRIPTION ###
 
       has_one :subscription
@@ -264,6 +271,9 @@ module Yt
       # if the response includes them
       def initialize(options = {})
         super options
+        if options[:content_details]
+          @content_detail = ContentDetail.new data: options[:content_details]
+        end
         if options[:statistics]
           @statistics_set = StatisticsSet.new data: options[:statistics]
         end
