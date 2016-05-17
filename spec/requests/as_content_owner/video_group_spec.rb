@@ -5,6 +5,19 @@ require 'yt/models/group_item'
 describe Yt::VideoGroup, :partner do
   subject(:video_group) { Yt::VideoGroup.new id: id, auth: $content_owner }
 
+  context 'given a channel-group', :partner do
+    context 'managed by the authenticated Content Owner' do
+      let(:id) { ENV['YT_TEST_PARTNER_CHANNEL_GROUP_ID'] }
+
+      specify '.videos loads each video of each channel' do
+        video = video_group.videos.first
+        expect(video.instance_variable_defined? :@snippet).to be true
+        expect(video.instance_variable_defined? :@status).to be true
+        expect(video.instance_variable_defined? :@statistics_set).to be true
+      end
+    end
+  end
+
   context 'given a video-group', :partner do
     context 'managed by the authenticated Content Owner' do
       let(:id) { ENV['YT_TEST_PARTNER_VIDEO_GROUP_ID'] }
@@ -29,6 +42,13 @@ describe Yt::VideoGroup, :partner do
         expect(item.video.instance_variable_defined? :@snippet).to be true
         expect(item.video.instance_variable_defined? :@status).to be true
         expect(item.video.instance_variable_defined? :@statistics_set).to be true
+      end
+
+      specify '.videos loads each video' do
+        video = video_group.videos.first
+        expect(video.instance_variable_defined? :@snippet).to be true
+        expect(video.instance_variable_defined? :@status).to be true
+        expect(video.instance_variable_defined? :@statistics_set).to be true
       end
 
       describe 'multiple reports can be retrieved at once' do
