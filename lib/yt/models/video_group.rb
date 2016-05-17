@@ -128,6 +128,26 @@ module Yt
           params[:filters] = "group==#{id}"
         end
       end
+
+      def all_video_ids
+        resource_ids = group_items.map{|item| item.data['resource']['id']}.uniq
+        case group_info.data["itemType"]
+        when "youtube#video"
+          resource_ids
+        when "youtube#channel"
+          resource_ids.flat_map do |channel_id|
+            Yt::Channel.new(id: channel_id, auth: @auth).videos.map(&:id)
+          end
+        end
+      end
+
+      def videos
+        all_video_ids.each_slice(50).flat_map do |video_ids|
+          conditions = {id: video_ids.join(',')}
+          conditions[:part] = 'snippet,status,statistics,contentDetails'
+          Collections::Videos.new(auth: @auth).where(conditions).map(&:itself)
+        end
+      end
     end
   end
 end

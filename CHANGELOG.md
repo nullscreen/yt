@@ -6,6 +6,9 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.37  - 2016-05-16
+
+* [FEATURE] Add `VideoGroup#videos` to load all videos under a group of channels, as well as a group of videos.
 
 ## 0.25.36  - 2016-05-10
 
