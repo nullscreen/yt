@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.38 - 2016-06-13
+
+* [IMPROVEMENT] Don’t combine forContentOwner and publishedBefore parameters in Search#list since YouTube does not support this anymore.
+
 ## 0.25.37  - 2016-05-16
 
 * [FEATURE] Add `VideoGroup#videos` to load all videos under a group of channels, as well as a group of videos.
