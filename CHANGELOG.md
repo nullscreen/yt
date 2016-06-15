@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.39 - 2016-06-15
+
+* [FEATURE] Add `by: :operating_system` option for reports, to return views (from a `content_owner.video`) by operating system.
+* [FEATURE] Add `Yt::Collections::Reports::DEVICE_TYPES` to list all device types supported by YouTube Analytics API.
+* [FEATURE] Add `Yt::Collections::Reports::OPERATING_SYSTEMS` to list all operating systems supported by YouTube Analytics API.
+
 ## 0.25.38 - 2016-06-13
 
 * [IMPROVEMENT] Don’t combine forContentOwner and publishedBefore parameters in Search#list since YouTube does not support this anymore.
