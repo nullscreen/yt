@@ -383,10 +383,11 @@ describe Yt::Video, :partner do
 
       describe 'views can be grouped by device type' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+        let(:keys) { Yt::Collections::Reports::DEVICE_TYPES.keys }
 
         specify 'with the :by option set to :device_type' do
           views = video.views range.merge by: :device_type
-          expect(views.keys).to all(be_instance_of Symbol)
+          expect(views.keys - keys).to be_empty
           expect(views.values).to all(be_an Integer)
         end
       end

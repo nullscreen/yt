@@ -16,7 +16,7 @@ module Yt
         hash[:referrer] = {name: 'insightTrafficSourceDetail', parse: ->(url, *values) {@metrics.keys.zip(values.map{|v| {url => v}}).to_h} }
         hash[:video] = {name: 'video', parse: ->(video_id, *values) { @metrics.keys.zip(values.map{|v| {video_id => v}}).to_h} }
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id, *values) { @metrics.keys.zip(values.map{|v| {playlist_id => v}}).to_h} }
-        hash[:device_type] = {name: 'deviceType', parse: ->(type, *values) {@metrics.keys.zip(values.map{|v| {type.downcase.to_sym => v}}).to_h} }
+        hash[:device_type] = {name: 'deviceType', parse: ->(type, *values) {@metrics.keys.zip(values.map{|v| {DEVICE_TYPES.key(type) => v}}).to_h} }
         hash[:country] = {name: 'country', parse: ->(country_code, *values) { @metrics.keys.zip(values.map{|v| {country_code => v}}).to_h} }
         hash[:state] = {name: 'province', parse: ->(country_and_state_code, *values) { @metrics.keys.zip(values.map{|v| {country_and_state_code[3..-1] => v}}).to_h} }
         hash[:gender_age_group] = {name: 'gender,ageGroup', parse: ->(gender, *values) { [gender.downcase.to_sym, *values] }}
@@ -56,6 +56,16 @@ module Yt
         search: 'SEARCH', # undocumented but returned by the API
         browse: 'BROWSE', # undocumented but returned by the API
         mobile: 'MOBILE' # only present for data < September 10, 2013
+      }
+
+      # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Device_Dimensions
+      DEVICE_TYPES = {
+        desktop: 'DESKTOP',
+        game_console: 'GAME_CONSOLE',
+        mobile: 'MOBILE',
+        tablet: 'TABLET',
+        tv: 'TV',
+        unknown_platform: 'UNKNOWN_PLATFORM'
       }
 
       attr_writer :metrics
