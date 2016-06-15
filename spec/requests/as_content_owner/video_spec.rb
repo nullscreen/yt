@@ -392,6 +392,16 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by operating system' do
+        let(:keys) { Yt::Collections::Reports::OPERATING_SYSTEMS.keys }
+
+        specify 'with the :by option set to :operating_system' do
+          views = video.views by: :operating_system
+          expect(views.keys - keys).to be_empty
+          expect(views.values).to all(be_an Integer)
+        end
+      end
+
       describe 'views can be grouped by country' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
