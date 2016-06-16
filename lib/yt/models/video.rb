@@ -451,6 +451,10 @@ module Yt
       # @macro report_by_day_and_state
       has_report :annotation_close_rate, Float
 
+      has_report :annotation_impressions, Integer
+      has_report :annotation_clickable_impressions, Integer
+      has_report :annotation_closable_impressions, Integer
+
       # @macro report_by_day_and_country
       has_report :earnings, Float
 
