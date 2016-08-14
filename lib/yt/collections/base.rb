@@ -31,9 +31,9 @@ module Yt
       # are at https://developers.google.com/youtube/v3/docs/search/list
       #
       # @example Return the first video of a channel (no requirements):
-      #   video.channels.first
+      #   channel.videos.first
       # @example Return the first long video of a channel by video count:
-      #   video.channels.where(order: 'viewCount', video_duration: 'long').first
+      #   channel.videos.where(order: 'viewCount', video_duration: 'long').first
       def where(requirements = {})
         self.tap do
           @items = []
