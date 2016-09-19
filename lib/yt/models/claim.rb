@@ -5,7 +5,7 @@ module Yt
     # Provides methods to interact with YouTube ContentID claims.
     # @see https://developers.google.com/youtube/partner/docs/v1/claims
     class Claim < Base
-      attr_reader :auth
+      attr_reader :auth, :data
 
       def initialize(options = {})
         @data = options[:data]

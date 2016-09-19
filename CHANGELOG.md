@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.25.40 - 2016-09-19
+
+* [IMPROVEMENT] Add `Yt::Claim#data` to access the policy of a claim
+
 ## 0.25.39 - 2016-06-15
 
 * [FEATURE] Add `by: :operating_system` option for reports, to return views (from a `content_owner.video`) by operating system.
