@@ -298,6 +298,12 @@ describe Yt::Video, :device_app do
       expect{video.annotation_clicks}.not_to raise_error
       expect{video.annotation_click_through_rate}.not_to raise_error
       expect{video.annotation_close_rate}.not_to raise_error
+      expect{video.card_impressions}.not_to raise_error
+      expect{video.card_clicks}.not_to raise_error
+      expect{video.card_click_rate}.not_to raise_error
+      expect{video.card_teaser_impressions}.not_to raise_error
+      expect{video.card_teaser_clicks}.not_to raise_error
+      expect{video.card_teaser_click_rate}.not_to raise_error
       expect{video.viewer_percentage}.not_to raise_error
       expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{video.impressions}.to raise_error Yt::Errors::Unauthorized

@@ -6,6 +6,15 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.26.1 - 2016-10-05
+
+* [FEATURE] New `card impressions` report for videos and channels.
+* [FEATURE] New `card clicks` report for videos and channels.
+* [FEATURE] New `card click rate` report for videos and channels.
+* [FEATURE] New `card teaser impressions` report for videos and channels.
+* [FEATURE] New `card teaser clicks` report for videos and channels.
+* [FEATURE] New `card teaser click rate` report for videos and channels.
+
 ## 0.26.0 - 2016-10-05
 
 **How to upgrade**
