@@ -277,6 +277,12 @@ video.views in: {state: 'TX'} # => {total: 11}
 {% include doc.html link="Models/Video#annotation_click_through_rate" %}{% include example.html object='video' method='annotation_click_through_rate' result='{total: 8.34}' %}
 {% include doc.html link="Models/Video#annotation_close_rate" %}{% include example.html object='video' method='annotation_close_rate' result='{total: 0.34}' %}
 {% include doc.html link="Models/Video#estimated_minutes_watched" %}{% include example.html object='video' method='estimated_minutes_watched' result='{total: 4}' %}
+{% include doc.html link="Models/Video#card_impressions" %}{% include example.html object='video' method='card_impressions' result='{total: 3}' %}
+{% include doc.html link="Models/Video#card_clicks" %}{% include example.html object='video' method='card_clicks' result='{total: 3}' %}
+{% include doc.html link="Models/Video#card_click_rate" %}{% include example.html object='video' method='card_click_rate' result='{total: 0.65}' %}
+{% include doc.html link="Models/Video#card_teaser_impressions" %}{% include example.html object='video' method='card_teaser_impressions' result='{total: 3}' %}
+{% include doc.html link="Models/Video#card_teaser_clicks" %}{% include example.html object='video' method='card_teaser_clicks' result='{total: 3}' %}
+{% include doc.html link="Models/Video#card_teaser_click_rate" %}{% include example.html object='video' method='card_teaser_click_rate' result='{total: 0.65}' %}
 
 {% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 12, "IT" => 9, …}' %}
 {% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 7, "IT" => 5, …}' %}

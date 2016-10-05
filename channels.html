@@ -180,6 +180,13 @@ channel.views in: {state: 'TX'} # => {total: 11}
 {% include doc.html link="Models/Channel#annotation_click_through_rate" %}{% include example.html object='channel' method='annotation_click_through_rate' result='{total: 2.98}' %}
 {% include doc.html link="Models/Channel#annotation_close_rate" %}{% include example.html object='channel' method='annotation_close_rate' result='{total: 3.34}' %}
 {% include doc.html link="Models/Channel#estimated_minutes_watched" %}{% include example.html object='channel' method='estimated_minutes_watched' result='{total: 12}' %}
+{% include doc.html link="Models/Channel#card_impressions" %}{% include example.html object='channel' method='card_impressions' result='{total: 3}' %}
+{% include doc.html link="Models/Channel#card_clicks" %}{% include example.html object='channel' method='card_clicks' result='{total: 3}' %}
+{% include doc.html link="Models/Channel#card_click_rate" %}{% include example.html object='channel' method='card_click_rate' result='{total: 0.65}' %}
+{% include doc.html link="Models/Channel#card_teaser_impressions" %}{% include example.html object='channel' method='card_teaser_impressions' result='{total: 3}' %}
+{% include doc.html link="Models/Channel#card_teaser_clicks" %}{% include example.html object='channel' method='card_teaser_clicks' result='{total: 3}' %}
+{% include doc.html link="Models/Channel#card_teaser_click_rate" %}{% include example.html object='channel' method='card_teaser_click_rate' result='{total: 0.65}' %}
+
 
 {% include doc.html link="Models/Channel#views" %}{% include example.html object='channel' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 33, "MX" => 12, …}' %}
 {% include doc.html link="Models/Channel#comments" %}{% include example.html object='channel' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 17, "FR" =&gt; 12, …}' %}
