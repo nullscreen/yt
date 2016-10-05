@@ -18,10 +18,12 @@ describe Yt::Channel, :partner do
           videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
           average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
-          annotation_click_through_rate: Float,
-          annotation_close_rate: Float, earnings: Float, impressions: Integer,
+          annotation_click_through_rate: Float, annotation_close_rate: Float,
+          card_impressions: Integer, card_clicks: Integer,
+          card_click_rate: Float, card_teaser_impressions: Integer,
+          card_teaser_clicks: Integer, card_teaser_click_rate: Float,
+          earnings: Float, impressions: Integer,
           monetized_playbacks: Integer, playback_based_cpm: Float}
-
         specify 'by day, and are chronologically sorted' do
           range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
           result = channel.reports range.merge(only: metrics, by: :day)
@@ -62,8 +64,10 @@ describe Yt::Channel, :partner do
        :videos_added_to_playlists, :videos_removed_from_playlists,
        :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
-       :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
-       :annotation_close_rate, :earnings].each do |metric|
+       :annotation_clicks, :annotation_click_through_rate,
+       :card_impressions, :card_clicks, :card_click_rate,
+       :card_teaser_impressions, :card_teaser_clicks, :card_teaser_click_rate,
+       :playback_based_cpm, :annotation_close_rate, :earnings].each do |metric|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
           let(:date_out) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -118,6 +122,9 @@ describe Yt::Channel, :partner do
        subscribers_gained: Integer, subscribers_lost: Integer,
        estimated_minutes_watched: Integer, average_view_duration: Integer,
        annotation_clicks: Integer, annotation_click_through_rate: Float,
+       card_impressions: Integer, card_clicks: Integer,
+       card_click_rate: Float, card_teaser_impressions: Integer,
+       card_teaser_clicks: Integer, card_teaser_click_rate: Float,
        videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
        average_view_percentage: Float, impressions: Integer,
        shares: Integer, playback_based_cpm: Float,

@@ -221,6 +221,12 @@ describe Yt::Channel, :device_app do
       expect{channel.annotation_clicks}.not_to raise_error
       expect{channel.annotation_click_through_rate}.not_to raise_error
       expect{channel.annotation_close_rate}.not_to raise_error
+      expect{channel.card_impressions}.not_to raise_error
+      expect{channel.card_clicks}.not_to raise_error
+      expect{channel.card_click_rate}.not_to raise_error
+      expect{channel.card_teaser_impressions}.not_to raise_error
+      expect{channel.card_teaser_clicks}.not_to raise_error
+      expect{channel.card_teaser_click_rate}.not_to raise_error
       expect{channel.viewer_percentage}.not_to raise_error
       expect{channel.earnings}.to raise_error Yt::Errors::Unauthorized
       expect{channel.impressions}.to raise_error Yt::Errors::Unauthorized

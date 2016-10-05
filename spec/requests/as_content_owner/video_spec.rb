@@ -19,6 +19,8 @@ describe Yt::Video, :partner do
        :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
        :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
+       :card_impressions, :card_clicks, :card_click_rate,
+       :card_teaser_impressions, :card_teaser_clicks, :card_teaser_click_rate,
        :annotation_close_rate, :earnings].each do |metric|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
@@ -116,6 +118,9 @@ describe Yt::Video, :partner do
        average_view_percentage: Float, impressions: Integer,
        monetized_playbacks: Integer, annotation_clicks: Integer,
        annotation_click_through_rate: Float, annotation_close_rate: Float,
+       card_impressions: Integer, card_clicks: Integer,
+       card_click_rate: Float, card_teaser_impressions: Integer,
+       card_teaser_clicks: Integer, card_teaser_click_rate: Float,
        earnings: Float}.each do |metric, type|
         describe "#{metric} can be grouped by range" do
           let(:metric) { metric }
@@ -143,6 +148,8 @@ describe Yt::Video, :partner do
        :videos_added_to_playlists, :videos_removed_from_playlists,
        :estimated_minutes_watched, :average_view_duration,
        :average_view_percentage, :impressions, :monetized_playbacks,
+       :card_impressions, :card_clicks, :card_click_rate,
+       :card_teaser_impressions, :card_teaser_clicks, :card_teaser_click_rate,
        :annotation_clicks, :annotation_click_through_rate,
        :annotation_close_rate, :earnings].each do |metric|
         describe "#{metric} can be retrieved for a single country" do
@@ -165,6 +172,8 @@ describe Yt::Video, :partner do
       end
 
       [:views, :annotation_clicks, :annotation_click_through_rate,
+       :card_impressions, :card_clicks, :card_click_rate,
+       :card_teaser_impressions, :card_teaser_clicks, :card_teaser_click_rate,
        :annotation_close_rate].each do |metric|
         describe "#{metric} can be retrieved for a single country" do
           let(:result) { video.public_send metric, options }
@@ -193,6 +202,9 @@ describe Yt::Video, :partner do
           videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
           average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
+          card_impressions: Integer, card_clicks: Integer,
+          card_click_rate: Float, card_teaser_impressions: Integer,
+          card_teaser_clicks: Integer, card_teaser_click_rate: Float,
           annotation_click_through_rate: Float,
           annotation_close_rate: Float, earnings: Float, impressions: Integer,
           monetized_playbacks: Integer}
