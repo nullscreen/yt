@@ -6,6 +6,17 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.26.0 - 2016-10-05
+
+**How to upgrade**
+
+If your code calls `.favorites_added` and `.favorites_removed` on channels and
+videos then you must remove that code since those metrics are not anymore
+supported by YouTube API.
+
+* [REMOVAL] Remove deprecated `favorites_added` metric for channels, videos, and video groups.
+* [REMOVAL] Remove deprecated `favorites_removed` metric for channels, videos, and video groups
+
 ## 0.25.40 - 2016-09-19
 
 * [IMPROVEMENT] Add `Yt::Claim#data` to access the policy of a claim
