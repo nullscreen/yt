@@ -213,8 +213,6 @@ describe Yt::Channel, :device_app do
       expect{channel.shares}.not_to raise_error
       expect{channel.subscribers_gained}.not_to raise_error
       expect{channel.subscribers_lost}.not_to raise_error
-      expect{channel.favorites_added}.not_to raise_error
-      expect{channel.favorites_removed}.not_to raise_error
       expect{channel.videos_added_to_playlists}.not_to raise_error
       expect{channel.videos_removed_from_playlists}.not_to raise_error
       expect{channel.estimated_minutes_watched}.not_to raise_error
@@ -236,8 +234,6 @@ describe Yt::Channel, :device_app do
       expect{channel.shares_on 3.days.ago}.not_to raise_error
       expect{channel.subscribers_gained_on 3.days.ago}.not_to raise_error
       expect{channel.subscribers_lost_on 3.days.ago}.not_to raise_error
-      expect{channel.favorites_added_on 3.days.ago}.not_to raise_error
-      expect{channel.favorites_removed_on 3.days.ago}.not_to raise_error
       expect{channel.videos_added_to_playlists_on 3.days.ago}.not_to raise_error
       expect{channel.videos_removed_from_playlists_on 3.days.ago}.not_to raise_error
       expect{channel.estimated_minutes_watched_on 3.days.ago}.not_to raise_error
