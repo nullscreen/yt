@@ -44,6 +44,8 @@ module Yt
         google: 'GOOGLE_SEARCH',
         notification: 'NOTIFICATION',
         playlist_page: 'YT_PLAYLIST_PAGE',
+        campaign_card: 'CAMPAIGN_CARD',
+        end_screen: 'END_SCREEN',
         info_card: 'INFO_CARD'
       }
 

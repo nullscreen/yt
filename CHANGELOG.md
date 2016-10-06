@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.26.2 - 2016-10-05
+
+* [ENHANCEMENT] Add newly available traffic sources: "Campaign card" and "End screen"
+
 ## 0.26.1 - 2016-10-05
 
 * [FEATURE] New `card impressions` report for videos and channels.
