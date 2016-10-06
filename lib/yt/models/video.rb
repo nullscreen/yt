@@ -464,10 +464,10 @@ module Yt
       has_report :card_teaser_click_rate, Float
 
       # @macro report_by_day_and_country
-      has_report :earnings, Float
+      has_report :estimated_revenue, Float
 
       # @macro report_by_day_and_country
-      has_report :impressions, Integer
+      has_report :ad_impressions, Integer
 
       # @macro report_by_day_and_country
       has_report :monetized_playbacks, Integer

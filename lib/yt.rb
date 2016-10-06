@@ -18,7 +18,7 @@ require 'yt/models/advertising_options_set'
 # An object-oriented Ruby client for YouTube.
 # Helps creating applications that need to interact with YouTube objects.
 # Inclused methods to access YouTube Data API V3 resources (channels, videos,
-# ...), YouTube Analytics API V2 resources (metrics, earnings, ...), and
+# ...), YouTube Analytics API V2 resources (metrics, estimated_revenue, ...), and
 # objects not available through the API (annotations).
 module Yt
 end

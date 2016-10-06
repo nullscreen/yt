@@ -17,11 +17,11 @@ describe Yt::Video, :partner do
        :subscribers_gained, :subscribers_lost,
        :videos_added_to_playlists, :videos_removed_from_playlists,
        :estimated_minutes_watched, :average_view_duration,
-       :average_view_percentage, :impressions, :monetized_playbacks,
+       :average_view_percentage, :ad_impressions, :monetized_playbacks,
        :annotation_clicks, :annotation_click_through_rate, :playback_based_cpm,
        :card_impressions, :card_clicks, :card_click_rate,
        :card_teaser_impressions, :card_teaser_clicks, :card_teaser_click_rate,
-       :annotation_close_rate, :earnings].each do |metric|
+       :annotation_close_rate, :estimated_revenue].each do |metric|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
           let(:date_out) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -94,13 +94,13 @@ describe Yt::Video, :partner do
        shares: Integer, subscribers_gained: Integer, subscribers_lost: Integer,
        videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
        estimated_minutes_watched: Integer, average_view_duration: Integer,
-       average_view_percentage: Float, impressions: Integer,
+       average_view_percentage: Float, ad_impressions: Integer,
        monetized_playbacks: Integer, annotation_clicks: Integer,
        annotation_click_through_rate: Float, annotation_close_rate: Float,
        card_impressions: Integer, card_clicks: Integer,
        card_click_rate: Float, card_teaser_impressions: Integer,
        card_teaser_clicks: Integer, card_teaser_click_rate: Float,
-       earnings: Float}.each do |metric, type|
+       estimated_revenue: Float}.each do |metric, type|
         describe "#{metric} can be grouped by range" do
           let(:metric) { metric }
 
@@ -126,11 +126,11 @@ describe Yt::Video, :partner do
        :subscribers_gained, :subscribers_lost,
        :videos_added_to_playlists, :videos_removed_from_playlists,
        :estimated_minutes_watched, :average_view_duration,
-       :average_view_percentage, :impressions, :monetized_playbacks,
+       :average_view_percentage, :ad_impressions, :monetized_playbacks,
        :card_impressions, :card_clicks, :card_click_rate,
        :card_teaser_impressions, :card_teaser_clicks, :card_teaser_click_rate,
        :annotation_clicks, :annotation_click_through_rate,
-       :annotation_close_rate, :earnings].each do |metric|
+       :annotation_close_rate, :estimated_revenue].each do |metric|
         describe "#{metric} can be retrieved for a single country" do
           let(:result) { video.public_send metric, options }
 
@@ -185,7 +185,7 @@ describe Yt::Video, :partner do
           card_click_rate: Float, card_teaser_impressions: Integer,
           card_teaser_clicks: Integer, card_teaser_click_rate: Float,
           annotation_click_through_rate: Float,
-          annotation_close_rate: Float, earnings: Float, impressions: Integer,
+          annotation_close_rate: Float, estimated_revenue: Float, ad_impressions: Integer,
           monetized_playbacks: Integer}
 
         specify 'by day' do
@@ -222,24 +222,24 @@ describe Yt::Video, :partner do
         end
       end
 
-      describe 'earnings can be grouped by day' do
+      describe 'estimated_revenue can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
 
         specify 'with the :by option set to :day' do
-          earnings = video.earnings range.merge by: :day
-          expect(earnings.keys).to eq range.values
+          estimated_revenue = video.estimated_revenue range.merge by: :day
+          expect(estimated_revenue.keys).to eq range.values
         end
       end
 
-      describe 'earnings can be grouped by country' do
+      describe 'estimated_revenue can be grouped by country' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
         specify 'with the :by option set to :country' do
-          earnings = video.earnings range.merge by: :country
-          expect(earnings.keys).to all(be_a String)
-          expect(earnings.keys.map(&:length).uniq).to eq [2]
-          expect(earnings.values).to all(be_a Float)
+          estimated_revenue = video.estimated_revenue range.merge by: :country
+          expect(estimated_revenue.keys).to all(be_a String)
+          expect(estimated_revenue.keys.map(&:length).uniq).to eq [2]
+          expect(estimated_revenue.values).to all(be_a Float)
         end
       end
 
@@ -874,24 +874,24 @@ describe Yt::Video, :partner do
         end
       end
 
-      describe 'impressions can be grouped by day' do
+      describe 'ad_impressions can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
 
         specify 'with the :by option set to :day' do
-          impressions = video.impressions range.merge by: :day
-          expect(impressions.keys).to eq range.values
+          ad_impressions = video.ad_impressions range.merge by: :day
+          expect(ad_impressions.keys).to eq range.values
         end
       end
 
-      describe 'impressions can be grouped by country' do
+      describe 'ad_impressions can be grouped by country' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
         specify 'with the :by option set to :country' do
-          impressions = video.impressions range.merge by: :country
-          expect(impressions.keys).to all(be_a String)
-          expect(impressions.keys.map(&:length).uniq).to eq [2]
-          expect(impressions.values).to all(be_an Integer)
+          ad_impressions = video.ad_impressions range.merge by: :country
+          expect(ad_impressions.keys).to all(be_a String)
+          expect(ad_impressions.keys.map(&:length).uniq).to eq [2]
+          expect(ad_impressions.values).to all(be_an Integer)
         end
       end
 
