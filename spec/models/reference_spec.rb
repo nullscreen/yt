@@ -156,8 +156,8 @@ describe Yt::Reference do
 
   describe '#video_id' do
     context 'given fetching a reference returns an videoId' do
-      let(:data) { {"videoId"=>"MESycYJytkU"} }
-      it { expect(reference.video_id).to eq 'MESycYJytkU' }
+      let(:data) { {"videoId"=>"jNQXAC9IVRw"} }
+      it { expect(reference.video_id).to eq 'jNQXAC9IVRw' }
     end
   end
 

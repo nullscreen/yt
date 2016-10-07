@@ -6,7 +6,7 @@ require 'yt/collections/playlist_items'
 describe Yt::Collections::PlaylistItems do
   subject(:collection) { Yt::Collections::PlaylistItems.new parent: playlist }
   let(:playlist) { Yt::Playlist.new id: 'LLxO1tY8h1AhOz0T4ENwmpow' }
-  let(:attrs) { {id: 'MESycYJytkU', kind: :video} }
+  let(:attrs) { {id: 'jNQXAC9IVRw', kind: :video} }
   let(:msg) { {response_body: {error: {errors: [{reason: reason}]}}}.to_json }
   before { expect(collection).to behave }
 

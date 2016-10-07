@@ -7,34 +7,34 @@ describe Yt::URL do
   subject(:url) { Yt::URL.new text }
 
   context 'given a long video URL' do
-    let(:text) { 'youtube.com/watch?v=MESycYJytkU' }
+    let(:text) { 'youtube.com/watch?v=jNQXAC9IVRw' }
     it {expect(url.kind).to eq :video }
-    it {expect(url.id).to eq 'MESycYJytkU' }
+    it {expect(url.id).to eq 'jNQXAC9IVRw' }
     it {expect(url.username).to be_nil }
   end
 
   context 'given a short video URL' do
-    let(:text) { 'https://youtu.be/MESycYJytkU' }
+    let(:text) { 'https://youtu.be/jNQXAC9IVRw' }
     it {expect(url.kind).to eq :video }
-    it {expect(url.id).to eq 'MESycYJytkU' }
+    it {expect(url.id).to eq 'jNQXAC9IVRw' }
   end
 
   context 'given an embed video URL' do
-    let(:text) { 'https://www.youtube.com/embed/MESycYJytkU' }
+    let(:text) { 'https://www.youtube.com/embed/jNQXAC9IVRw' }
     it {expect(url.kind).to eq :video }
-    it {expect(url.id).to eq 'MESycYJytkU' }
+    it {expect(url.id).to eq 'jNQXAC9IVRw' }
   end
 
   context 'given a v video URL' do
-    let(:text) { 'https://www.youtube.com/v/MESycYJytkU' }
+    let(:text) { 'https://www.youtube.com/v/jNQXAC9IVRw' }
     it {expect(url.kind).to eq :video }
-    it {expect(url.id).to eq 'MESycYJytkU' }
+    it {expect(url.id).to eq 'jNQXAC9IVRw' }
   end
 
   context 'given a playlist-embedded video URL' do
-    let(:text) { 'youtube.com/watch?v=MESycYJytkU&list=LLxO1tY8h1AhOz0T4ENwmpow' }
+    let(:text) { 'youtube.com/watch?v=jNQXAC9IVRw&list=LLxO1tY8h1AhOz0T4ENwmpow' }
     it {expect(url.kind).to eq :video }
-    it {expect(url.id).to eq 'MESycYJytkU' }
+    it {expect(url.id).to eq 'jNQXAC9IVRw' }
   end
 
   context 'given a long channel URL' do

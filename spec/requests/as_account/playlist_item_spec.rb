@@ -32,8 +32,8 @@ describe Yt::PlaylistItem, :device_app do
   context 'given one of my own playlist items that I want to update' do
     before(:all) do
       @my_playlist = $account.create_playlist title: "Yt Test Update Playlist Item #{rand}"
-      @my_playlist.add_video 'MESycYJytkU'
-      @my_playlist_item = @my_playlist.add_video 'MESycYJytkU'
+      @my_playlist.add_video 'jNQXAC9IVRw'
+      @my_playlist_item = @my_playlist.add_video 'jNQXAC9IVRw'
     end
     after(:all) { @my_playlist.delete }
 

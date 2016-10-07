@@ -69,7 +69,7 @@ describe Yt::Playlist, :device_app do
 
   context 'given someone else’s playlist' do
     let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
-    let(:video_id) { 'MESycYJytkU' }
+    let(:video_id) { 'jNQXAC9IVRw' }
 
     it { expect{playlist.delete}.to fail.with 'forbidden' }
     it { expect{playlist.update}.to fail.with 'forbidden' }
@@ -164,7 +164,7 @@ describe Yt::Playlist, :device_app do
     end
 
     context 'given an existing video' do
-      let(:video_id) { 'MESycYJytkU' }
+      let(:video_id) { 'jNQXAC9IVRw' }
 
       describe 'can be added' do
         it { expect(playlist.add_video video_id).to be_a Yt::PlaylistItem }
@@ -217,7 +217,7 @@ describe Yt::Playlist, :device_app do
     end
 
     context 'given one existing and one unknown video' do
-      let(:video_ids) { ['MESycYJytkU', 'not-a-video'] }
+      let(:video_ids) { ['jNQXAC9IVRw', 'not-a-video'] }
 
       describe 'only one can be added' do
         it { expect(playlist.add_videos(video_ids).length).to eq 2 }

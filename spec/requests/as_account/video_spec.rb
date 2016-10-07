@@ -7,7 +7,7 @@ describe Yt::Video, :device_app do
   subject(:video) { Yt::Video.new id: id, auth: $account }
 
   context 'given someone else’s video' do
-    let(:id) { 'MESycYJytkU' }
+    let(:id) { 'jNQXAC9IVRw' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -418,7 +418,7 @@ describe Yt::Video, :device_app do
   subject(:video) { Yt::Video.new id: id, auth: $account }
 
   context 'given someone else’s video' do
-    let(:id) { 'MESycYJytkU' }
+    let(:id) { 'jNQXAC9IVRw' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -823,7 +823,7 @@ describe Yt::Video, :device_app do
   subject(:video) { Yt::Video.new id: id, auth: $account }
 
   context 'given someone else’s video' do
-    let(:id) { 'MESycYJytkU' }
+    let(:id) { 'jNQXAC9IVRw' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -1228,7 +1228,7 @@ describe Yt::Video, :device_app do
   subject(:video) { Yt::Video.new id: id, auth: $account }
 
   context 'given someone else’s video' do
-    let(:id) { 'MESycYJytkU' }
+    let(:id) { 'jNQXAC9IVRw' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -1633,7 +1633,7 @@ describe Yt::Video, :device_app do
   subject(:video) { Yt::Video.new id: id, auth: $account }
 
   context 'given someone else’s video' do
-    let(:id) { 'MESycYJytkU' }
+    let(:id) { 'jNQXAC9IVRw' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -2039,7 +2039,7 @@ describe Yt::Video, :device_app do
   subject(:video) { Yt::Video.new id: id, auth: $account }
 
   context 'given someone else’s video' do
-    let(:id) { 'MESycYJytkU' }
+    let(:id) { 'jNQXAC9IVRw' }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 

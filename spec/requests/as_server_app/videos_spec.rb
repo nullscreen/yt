@@ -14,7 +14,7 @@ describe Yt::Collections::Videos, :server_app do
   end
 
   context 'with a list of video IDs, only returns the videos matching those IDs' do
-    let(:video_id) { 'MESycYJytkU' }
+    let(:video_id) { 'jNQXAC9IVRw' }
     let(:videos_by_id) { videos.where id: "#{video_id},invalid" }
 
     it { expect(videos_by_id.size).to be 1 }
@@ -26,9 +26,9 @@ describe Yt::Collections::Videos, :server_app do
   end
 
   context 'with a list of parts' do
-    let(:video_id) { 'MESycYJytkU' }
+    let(:video_id) { 'jNQXAC9IVRw' }
     let(:part) { 'statistics,contentDetails' }
-    let(:video) { videos.where(id: 'MESycYJytkU', part: part).first }
+    let(:video) { videos.where(id: 'jNQXAC9IVRw', part: part).first }
 
     specify 'load ONLY the specified parts of the videos' do
       expect(video.instance_variable_defined? :@snippet).to be false

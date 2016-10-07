@@ -5,9 +5,9 @@ describe Yt::Resource do
   subject(:resource) { Yt::Resource.new attrs }
 
   context 'given a resource initialized with a URL (containing an ID)' do
-    let(:attrs) { {url: 'youtu.be/MESycYJytkU'} }
+    let(:attrs) { {url: 'youtu.be/jNQXAC9IVRw'} }
 
-    it { expect(resource.id).to eq 'MESycYJytkU' }
+    it { expect(resource.id).to eq 'jNQXAC9IVRw' }
     it { expect(resource.kind).to eq 'video' }
     it { expect(resource.username).to be_nil }
   end

@@ -644,7 +644,7 @@ error by using the `unsubscribe` method:
 
 ## 0.11.5 - 2014-08-27
 
-* [BUGFIX] Make videos.where(id: 'MESycYJytkU').first.id return 'MESycYJytkU'
+* [BUGFIX] Make videos.where(id: 'jNQXAC9IVRw').first.id return 'jNQXAC9IVRw'
 
 ## 0.11.4 - 2014-08-27
 

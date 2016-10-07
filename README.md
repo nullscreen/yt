@@ -23,7 +23,7 @@ channel.videos.count #=> 12
 ```
 
 ```ruby
-video = Yt::Video.new id: 'MESycYJytkU'
+video = Yt::Video.new id: 'jNQXAC9IVRw'
 video.title #=> "Fullscreen Creator Platform"
 video.comment_count #=> 308
 video.hd? #=> true
@@ -83,7 +83,7 @@ content_owner.partnered_channels.where(part: 'statistics').map &:subscriber_coun
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
-content_owner.claims.first.video_id #=> 'MESycYJytkU'
+content_owner.claims.first.video_id #=> 'jNQXAC9IVRw'
 content_owner.claims.first.status #=> "active"
 
 reference = content_owner.references.where(asset_id: "ABCDEFG").first #=> #<Yt::Models::Reference @id=...>
@@ -178,7 +178,7 @@ videos = Yt::Collections::Videos.new
 videos.where(order: 'viewCount').first.title #=>  "PSY - GANGNAM STYLE"
 videos.where(q: 'Fullscreen CreatorPlatform', safe_search: 'none').size #=> 324
 videos.where(chart: 'mostPopular', video_category_id: 44).first.title #=> "SINISTER - Trailer"
-videos.where(id: 'MESycYJytkU,invalid').map(&:title) #=> ["Fullscreen Creator Platform"]
+videos.where(id: 'jNQXAC9IVRw,invalid').map(&:title) #=> ["Fullscreen Creator Platform"]
 ```
 
 *The methods above do not require authentication.*
@@ -293,7 +293,7 @@ Use [Yt::AdvertisingOptionsSet](http://www.rubydoc.info/gems/yt/Yt/Models/Advert
 
 ```ruby
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
-ad_options = Yt::AdvertisingOptionsSet.new video_id: 'MESycYJytkU', auth: $content_owner
+ad_options = Yt::AdvertisingOptionsSet.new video_id: 'jNQXAC9IVRw', auth: $content_owner
 ad_options.update ad_formats: %w(standard_instream long) #=> true
 ```
 

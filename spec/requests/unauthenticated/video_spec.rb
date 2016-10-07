@@ -5,7 +5,7 @@ describe Yt::Video do
   subject(:video) { Yt::Video.new id: id }
 
   context 'given a public video with annotations' do
-    let(:id) { 'MESycYJytkU' }
+    let(:id) { 'jNQXAC9IVRw' }
 
     it { expect(video.annotations).to be_a Yt::Collections::Annotations }
     it { expect(video.annotations.first).to be_a Yt::Annotation }
