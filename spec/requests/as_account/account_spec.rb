@@ -27,10 +27,7 @@ describe Yt::Account, :device_app do
       expect(uploads).not_to be_empty
     end
 
-    specify 'includes private playlists (such as Watch Later or History)' do
-      watch_later = related_playlists.select{|p| p.title == 'Watch Later'}
-      expect(watch_later).not_to be_empty
-
+    specify 'includes private playlists (such as History)' do
       history = related_playlists.select{|p| p.title == 'History'}
       expect(history).not_to be_empty
     end

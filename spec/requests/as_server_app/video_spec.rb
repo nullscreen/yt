@@ -6,7 +6,7 @@ describe Yt::Video, :server_app do
   subject(:video) { Yt::Video.new attrs }
 
   context 'given an existing video ID' do
-    let(:attrs) { {id: 'L3JDXvz7G6c'} }
+    let(:attrs) { {id: '9bZkp7q19f0'} }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -28,11 +28,11 @@ describe Yt::Video, :server_app do
   end
 
   context 'given an existing video URL' do
-    let(:attrs) { {url: 'https://www.youtube.com/watch?v=L3JDXvz7G6c'} }
+    let(:attrs) { {url: 'https://www.youtube.com/watch?v=9bZkp7q19f0'} }
 
     specify 'provides access to its data' do
-      expect(video.id).to eq 'L3JDXvz7G6c'
-      expect(video.title).to eq "you’re in fullscreen"
+      expect(video.id).to eq '9bZkp7q19f0'
+      expect(video.title).to eq "PSY - GANGNAM STYLE(강남스타일) M/V"
       expect(video.privacy_status).to eq 'public'
     end
   end

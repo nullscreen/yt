@@ -19,10 +19,4 @@ describe Yt::Comment, :server_app do
 
     it { expect(comment.parent_id).to be_a String }
   end
-
-  context 'given an unknown comment ID' do
-    let(:attrs) { {id: 'not-a-comment-id'} }
-    it { expect{comment.text_display}.to raise_error Yt::Errors::NoItems }
-  end
-
 end
