@@ -422,6 +422,17 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by subscribed statuses' do
+        let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
+        let(:keys) { Yt::Collections::Reports::SUBSCRIBED_STATUSES.keys }
+
+        specify 'with the :by option set to subscribed statuses' do
+          views = video.views range.merge by: :subscribed_status
+          expect(views.keys - keys).to be_empty
+          expect(views.values).to all(be_an Integer)
+        end
+      end
+
       describe 'uniques can be retrieved for a single US state' do
         let(:state_code) { 'NY' }
         let(:result) { video.uniques since: date, by: by, in: location }
