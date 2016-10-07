@@ -422,12 +422,12 @@ describe Yt::Video, :partner do
         end
       end
 
-      describe 'views can be grouped by playback details' do
+      describe 'views can be grouped by subscribed statuses' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
-        let(:keys) { Yt::Collections::Reports::PLAYBACK_DETAILS.keys }
+        let(:keys) { Yt::Collections::Reports::SUBSCRIBED_STATUSES.keys }
 
-        specify 'with the :by option set to :playback_details' do
-          views = video.views range.merge by: :playback_details
+        specify 'with the :by option set to subscribed statuses' do
+          views = video.views range.merge by: :subscribed_statuses
           expect(views.keys - keys).to be_empty
           expect(views.values).to all(be_an Integer)
         end
