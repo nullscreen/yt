@@ -130,21 +130,6 @@ describe Yt::Channel, :partner do
        shares: Integer, playback_based_cpm: Float,
        monetized_playbacks: Integer, annotation_close_rate: Float,
        earnings: Float}.each do |metric, type|
-        describe "#{metric} can be retrieved for a specific day" do
-          let(:metric) { metric }
-          let(:result) { channel.public_send "#{metric}_on", date }
-
-          context 'in which the channel had data for the report' do
-            let(:date) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE'])  + 95  }
-            it { expect(result).to be_a type }
-          end
-
-          context 'in which the channel was not partnered' do
-            let(:date) { 5.days.from_now }
-            it { expect(result).to be_nil }
-          end
-        end
-
         describe "#{metric} can be grouped by range" do
           let(:metric) { metric }
 

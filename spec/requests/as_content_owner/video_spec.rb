@@ -90,27 +90,6 @@ describe Yt::Video, :partner do
         end
       end
 
-      {views: Integer, comments: Integer, dislikes: Integer,
-       estimated_minutes_watched: Integer, average_view_duration: Integer,
-       average_view_percentage: Float, impressions: Integer,
-       subscribers_lost: Integer, subscribers_gained: Integer, likes: Integer,
-       monetized_playbacks: Integer, earnings: Float}.each do |metric, type|
-        describe "#{metric} can be retrieved for a specific day" do
-          let(:metric) { metric }
-          let(:result) { video.public_send "#{metric}_on", date }
-
-          context 'in which the video had data' do
-            let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
-            it { expect(result).to be_a type }
-          end
-
-          context 'in the future' do
-            let(:date) { 5.days.from_now }
-            it { expect(result).to be_nil }
-          end
-        end
-      end
-
       {views: Integer, comments: Integer, likes: Integer, dislikes: Integer,
        shares: Integer, subscribers_gained: Integer, subscribers_lost: Integer,
        videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,

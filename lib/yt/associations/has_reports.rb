@@ -206,18 +206,17 @@ module Yt
       #   @macro report
       #   @macro report_with_country_and_state
 
-      # Defines two public instance methods to access the reports of a
+      # Defines a public instance methods to access the reports of a
       # resource for a specific metric.
       # @param [Symbol] metric the metric to access the reports of.
       # @param [Class] type The class to cast the returned values to.
-      # @example Adds +comments+ and +comments_on+ on a Channel resource.
+      # @example Adds +comments+ on a Channel resource.
       #   class Channel < Resource
       #     has_report :comments, Integer
       #   end
       def has_report(metric, type)
         require 'yt/collections/reports'
 
-        define_metric_on_method metric
         define_metric_method metric
         define_reports_method metric, type
         define_range_metric_method metric
@@ -225,12 +224,6 @@ module Yt
       end
 
     private
-
-      def define_metric_on_method(metric)
-        define_method "#{metric}_on" do |date|
-          send(metric, from: date, to: date, by: :day).values.first
-        end
-      end
 
       def define_reports_method(metric, type)
         (@metrics ||= {})[metric] = type

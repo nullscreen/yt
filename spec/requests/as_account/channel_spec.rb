@@ -232,21 +232,6 @@ describe Yt::Channel, :device_app do
       expect{channel.impressions}.to raise_error Yt::Errors::Unauthorized
       expect{channel.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
       expect{channel.playback_based_cpm}.to raise_error Yt::Errors::Unauthorized
-
-      expect{channel.views_on 3.days.ago}.not_to raise_error
-      expect{channel.comments_on 3.days.ago}.not_to raise_error
-      expect{channel.likes_on 3.days.ago}.not_to raise_error
-      expect{channel.dislikes_on 3.days.ago}.not_to raise_error
-      expect{channel.shares_on 3.days.ago}.not_to raise_error
-      expect{channel.subscribers_gained_on 3.days.ago}.not_to raise_error
-      expect{channel.subscribers_lost_on 3.days.ago}.not_to raise_error
-      expect{channel.videos_added_to_playlists_on 3.days.ago}.not_to raise_error
-      expect{channel.videos_removed_from_playlists_on 3.days.ago}.not_to raise_error
-      expect{channel.estimated_minutes_watched_on 3.days.ago}.not_to raise_error
-      expect{channel.average_view_duration_on 3.days.ago}.not_to raise_error
-      expect{channel.average_view_percentage_on 3.days.ago}.not_to raise_error
-      expect{channel.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
-      expect{channel.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
     end
 
     it 'cannot give information about its content owner' do

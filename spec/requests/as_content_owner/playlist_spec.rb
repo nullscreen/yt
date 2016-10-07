@@ -100,21 +100,6 @@ describe Yt::Playlist, :partner do
           end
         end
 
-        describe "#{metric} can be retrieved for a specific day" do
-          let(:metric) { metric }
-          let(:result) { playlist.public_send "#{metric}_on", date }
-
-          context 'in which the playlist had data' do
-            let(:date) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
-            it { expect(result).to be_a type }
-          end
-
-          context 'in the future' do
-            let(:date) { 5.days.from_now }
-            it { expect(result).to be_nil }
-          end
-        end
-
         describe "#{metric} can be grouped by range" do
           let(:metric) { metric }
 
