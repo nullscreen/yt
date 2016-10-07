@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.26.3 - 2016-10-07
+
+* [FEATURE] Add `by: :playback_details` option for reports, to return views (from a `content_owner.video`) by playback details.
+* [FEATURE] Add `Yt::Collections::Reports::PLAYBACK_DETAILS` to list all playback details supported by YouTube Analytics API.
+
 ## 0.26.2 - 2016-10-05
 
 * [ENHANCEMENT] Add newly available traffic sources: "Campaign card" and "End screen"

@@ -11,6 +11,7 @@ module Yt
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(source, *values) { @metrics.keys.zip(values.map{|v| {TRAFFIC_SOURCES.key(source) => v}}).to_h} }
         hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(location, *values) { @metrics.keys.zip(values.map{|v| {PLAYBACK_LOCATIONS.key(location) => v}}).to_h} }
         hash[:embedded_player_location] = {name: 'insightPlaybackLocationDetail', parse: ->(url, *values) {@metrics.keys.zip(values.map{|v| {url => v}}).to_h} }
+        hash[:playback_details] = {name: 'subscribedStatus', parse: ->(details, *values) {@metrics.keys.zip(values.map{|v| {PLAYBACK_DETAILS.key(details) => v}}).to_h} }
         hash[:related_video] = {name: 'insightTrafficSourceDetail', parse: ->(video_id, *values) { @metrics.keys.zip(values.map{|v| {video_id => v}}).to_h} }
         hash[:search_term] = {name: 'insightTrafficSourceDetail', parse: ->(search_term, *values) {@metrics.keys.zip(values.map{|v| {search_term => v}}).to_h} }
         hash[:referrer] = {name: 'insightTrafficSourceDetail', parse: ->(url, *values) {@metrics.keys.zip(values.map{|v| {url => v}}).to_h} }
@@ -59,6 +60,12 @@ module Yt
         search: 'SEARCH', # undocumented but returned by the API
         browse: 'BROWSE', # undocumented but returned by the API
         mobile: 'MOBILE' # only present for data < September 10, 2013
+      }
+
+      # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Playback_Detail_Dimensions
+      PLAYBACK_DETAILS = {
+        subscribed: 'SUBSCRIBED',
+        unsubscribed: 'UNSUBSCRIBED'
       }
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Device_Dimensions
@@ -126,7 +133,7 @@ module Yt
             end
           elsif dimension == :day
             hash = hash.transform_values{|h| h.sort_by{|day, v| day}.to_h}
-          elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system]
+          elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :playback_details]
             hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
           end
           (@metrics.one? || @metrics.keys == [:earnings, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
