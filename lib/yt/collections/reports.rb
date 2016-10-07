@@ -11,7 +11,7 @@ module Yt
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(source, *values) { @metrics.keys.zip(values.map{|v| {TRAFFIC_SOURCES.key(source) => v}}).to_h} }
         hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(location, *values) { @metrics.keys.zip(values.map{|v| {PLAYBACK_LOCATIONS.key(location) => v}}).to_h} }
         hash[:embedded_player_location] = {name: 'insightPlaybackLocationDetail', parse: ->(url, *values) {@metrics.keys.zip(values.map{|v| {url => v}}).to_h} }
-        hash[:subscribed_statuses] = {name: 'subscribedStatus', parse: ->(status, *values) {@metrics.keys.zip(values.map{|v| {SUBSCRIBED_STATUSES.key(status) => v}}).to_h} }
+        hash[:subscribed_status] = {name: 'subscribedStatus', parse: ->(status, *values) {@metrics.keys.zip(values.map{|v| {SUBSCRIBED_STATUSES.key(status) => v}}).to_h} }
         hash[:related_video] = {name: 'insightTrafficSourceDetail', parse: ->(video_id, *values) { @metrics.keys.zip(values.map{|v| {video_id => v}}).to_h} }
         hash[:search_term] = {name: 'insightTrafficSourceDetail', parse: ->(search_term, *values) {@metrics.keys.zip(values.map{|v| {search_term => v}}).to_h} }
         hash[:referrer] = {name: 'insightTrafficSourceDetail', parse: ->(url, *values) {@metrics.keys.zip(values.map{|v| {url => v}}).to_h} }
@@ -133,7 +133,7 @@ module Yt
             end
           elsif dimension == :day
             hash = hash.transform_values{|h| h.sort_by{|day, v| day}.to_h}
-          elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :subscribed_statuses]
+          elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :subscribed_status]
             hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
           end
           (@metrics.one? || @metrics.keys == [:earnings, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash

@@ -8,7 +8,7 @@ For more information about changelogs, check
 
 ## 0.26.3 - 2016-10-07
 
-* [FEATURE] Add `by: :subscribed_statuses` option for reports, to return views (from a `content_owner.video`) by subscribed statuses.
+* [FEATURE] Add `by: :subscribed_status` option for reports, to return views (from a `content_owner.video`) by subscribed status.
 * [FEATURE] Add `Yt::Collections::Reports::SUBSCRIBED_STATUSES` to list all subscribed statuses supported by YouTube Analytics API.
 
 ## 0.26.2 - 2016-10-05
