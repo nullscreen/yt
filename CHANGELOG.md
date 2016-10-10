@@ -6,6 +6,43 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.27.0 - 2016-10-07
+
+**How to upgrade**
+
+If your code calls any of the following `..._on` method to fetch metrics on
+a specific day, you need to replace it with the equivalent method that does
+not end with `_on`. For instance replace `views_on(3.days.ago)` with the
+equivalent `views(since: 3.days.ago, until: 3.days.ago)`.
+
+* [REMOVAL] Remove `#views_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#uniques_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#estimated_minutes_watched_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#viewer_percentage_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#comments_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#likes_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#dislikes_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#shares_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#subscribers_gained_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#subscribers_lost_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#videos_added_to_playlists_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#videos_removed_from_playlists_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#average_view_duration_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#average_view_percentage_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#annotation_clicks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#annotation_click_through_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#annotation_close_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_impressions_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_clicks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_click_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_teaser_impressions_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_teaser_clicks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_teaser_click_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#earnings_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#impressions_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#monetized_playbacks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#playback_based_cpm_on` method for channels, playlists, videos and video groups
+
 ## 0.26.3 - 2016-10-07
 
 * [FEATURE] Add `by: :subscribed_status` option for reports, to return views (from a `content_owner.video`) by subscribed status.
@@ -607,7 +644,7 @@ error by using the `unsubscribe` method:
 
 ## 0.11.5 - 2014-08-27
 
-* [BUGFIX] Make videos.where(id: 'MESycYJytkU').first.id return 'MESycYJytkU'
+* [BUGFIX] Make videos.where(id: 'jNQXAC9IVRw').first.id return 'jNQXAC9IVRw'
 
 ## 0.11.4 - 2014-08-27
 

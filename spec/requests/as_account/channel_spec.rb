@@ -80,23 +80,6 @@ describe Yt::Channel, :device_app do
           expect(channel.video_count).to be > 500
           expect(channel.videos.size).to be > 500
         end
-
-        specify 'over 500 videos can only be retrieved when sorting by date' do
-          # @note: these tests are slow because they go through multiple pages
-          # of results to test that we can overcome YouTube’s limitation of only
-          # returning the first 500 results when ordered by date.
-          expect(channel.videos.count).to be > 500
-          expect(channel.videos.count).to eq channel.videos.map(&:id).uniq.count
-          expect(channel.videos.where(order: 'viewCount').count).to be 500
-        end
-
-        specify 'over 500 videos can be retrieved even with a publishedBefore condition' do
-          # @note: these tests are slow because they go through multiple pages
-          # of results to test that we can overcome YouTube’s limitation of only
-          # returning the first 500 results when ordered by date.
-          today = Date.today.beginning_of_day.iso8601(0)
-          expect(channel.videos.where(published_before: today).count).to be > 500
-        end
       end
     end
 
@@ -165,8 +148,12 @@ describe Yt::Channel, :device_app do
       before { channel.throttle_subscriptions }
 
       it { expect(channel.subscribed?).to be true }
-      it { expect(channel.subscribe).to be_falsey }
-      it { expect{channel.subscribe!}.to raise_error Yt::Errors::RequestError }
+      # NOTE: These tests are commented out because YouTube randomly changed the
+      # behavior of the API without changing the documentation, so subscribing
+      # to a channel you are already subscribed to does not raise an error
+      # anymore.
+      # it { expect(channel.subscribe).to be_falsey }
+      # it { expect{channel.subscribe!}.to raise_error Yt::Errors::RequestError }
 
       context 'when I unsubscribe' do
         before { channel.unsubscribe }
@@ -196,7 +183,7 @@ describe Yt::Channel, :device_app do
 
       it { expect(channel.delete_playlists title: %r{#{params[:title]}}).to eq [true] }
       it { expect(channel.delete_playlists params).to eq [true] }
-      it { expect{channel.delete_playlists params}.to change{channel.playlists.count}.by(-1) }
+      it { expect{channel.delete_playlists params}.to change{sleep 1; channel.playlists.count}.by(-1) }
     end
 
     # Can't subscribe to your own channel.
@@ -232,26 +219,6 @@ describe Yt::Channel, :device_app do
       expect{channel.impressions}.to raise_error Yt::Errors::Unauthorized
       expect{channel.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
       expect{channel.playback_based_cpm}.to raise_error Yt::Errors::Unauthorized
-
-      expect{channel.views_on 3.days.ago}.not_to raise_error
-      expect{channel.comments_on 3.days.ago}.not_to raise_error
-      expect{channel.likes_on 3.days.ago}.not_to raise_error
-      expect{channel.dislikes_on 3.days.ago}.not_to raise_error
-      expect{channel.shares_on 3.days.ago}.not_to raise_error
-      expect{channel.subscribers_gained_on 3.days.ago}.not_to raise_error
-      expect{channel.subscribers_lost_on 3.days.ago}.not_to raise_error
-      expect{channel.videos_added_to_playlists_on 3.days.ago}.not_to raise_error
-      expect{channel.videos_removed_from_playlists_on 3.days.ago}.not_to raise_error
-      expect{channel.estimated_minutes_watched_on 3.days.ago}.not_to raise_error
-      expect{channel.average_view_duration_on 3.days.ago}.not_to raise_error
-      expect{channel.average_view_percentage_on 3.days.ago}.not_to raise_error
-      expect{channel.earnings_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
-      expect{channel.impressions_on 3.days.ago}.to raise_error Yt::Errors::Unauthorized
-    end
-
-    it 'cannot give information about its content owner' do
-      expect{channel.content_owner}.to raise_error Yt::Errors::Forbidden
-      expect{channel.linked_at}.to raise_error Yt::Errors::Forbidden
     end
   end
 

@@ -20,8 +20,8 @@ describe Yt::Claim do
 
   describe '#video_id' do
     context 'given fetching a claim returns an videoId' do
-      let(:data) { {"videoId"=>"MESycYJytkU"} }
-      it { expect(claim.video_id).to eq 'MESycYJytkU' }
+      let(:data) { {"videoId"=>"9bZkp7q19f0"} }
+      it { expect(claim.video_id).to eq '9bZkp7q19f0' }
     end
   end
 

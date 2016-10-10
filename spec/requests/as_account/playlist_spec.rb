@@ -48,18 +48,6 @@ describe Yt::Playlist, :device_app do
     end
   end
 
-  context 'given a playlist that only includes other people’s private or deleted videos' do
-    let(:id) { 'PLsnYEvcCzABOsJdehqkIDhwz8CPGWzX59' }
-
-    describe '.playlist_items.includes(:video)' do
-      let(:items) { playlist.playlist_items.includes(:video).map{|i| i} }
-
-      specify 'returns nil (without running an infinite loop)' do
-        expect(items.size).to be 2
-      end
-    end
-  end
-
   context 'given an unknown playlist' do
     let(:id) { 'not-a-playlist-id' }
 
@@ -69,10 +57,10 @@ describe Yt::Playlist, :device_app do
 
   context 'given someone else’s playlist' do
     let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
-    let(:video_id) { 'MESycYJytkU' }
+    let(:video_id) { '9bZkp7q19f0' }
 
-    it { expect{playlist.delete}.to fail.with 'forbidden' }
-    it { expect{playlist.update}.to fail.with 'forbidden' }
+    it { expect{playlist.delete}.to fail.with 'playlistForbidden' }
+    it { expect{playlist.update}.to fail.with 'playlistForbidden' }
     it { expect{playlist.add_video! video_id}.to raise_error Yt::Errors::RequestError }
     it { expect{playlist.delete_playlist_items}.to raise_error Yt::Errors::RequestError }
   end
@@ -164,7 +152,7 @@ describe Yt::Playlist, :device_app do
     end
 
     context 'given an existing video' do
-      let(:video_id) { 'MESycYJytkU' }
+      let(:video_id) { '9bZkp7q19f0' }
 
       describe 'can be added' do
         it { expect(playlist.add_video video_id).to be_a Yt::PlaylistItem }
@@ -206,18 +194,8 @@ describe Yt::Playlist, :device_app do
       end
     end
 
-    context 'given a video of a terminated account' do
-      let(:video_id) { 'kDCpdKeTe5g' }
-
-      describe 'cannot be added' do
-        it { expect(playlist.add_video video_id).to be_nil }
-        it { expect{playlist.add_video video_id}.not_to change{playlist.playlist_items.count} }
-        it { expect{playlist.add_video! video_id}.to fail.with 'forbidden' }
-      end
-    end
-
     context 'given one existing and one unknown video' do
-      let(:video_ids) { ['MESycYJytkU', 'not-a-video'] }
+      let(:video_ids) { ['9bZkp7q19f0', 'not-a-video'] }
 
       describe 'only one can be added' do
         it { expect(playlist.add_videos(video_ids).length).to eq 2 }
@@ -235,11 +213,6 @@ describe Yt::Playlist, :device_app do
       expect{playlist.playlist_starts}.not_to raise_error
       expect{playlist.average_time_in_playlist}.not_to raise_error
       expect{playlist.views_per_playlist_start}.not_to raise_error
-
-      expect{playlist.views_on 3.days.ago}.not_to raise_error
-      expect{playlist.playlist_starts_on 3.days.ago}.not_to raise_error
-      expect{playlist.average_time_in_playlist_on 3.days.ago}.not_to raise_error
-      expect{playlist.views_per_playlist_start_on 3.days.ago}.not_to raise_error
     end
   end
 end
