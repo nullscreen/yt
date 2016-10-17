@@ -136,7 +136,7 @@ module Yt
           elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :subscribed_status]
             hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
           end
-          (@metrics.one? || @metrics.keys == [:earnings, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
+          (@metrics.one? || @metrics.keys == [:estimated_revenue, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
         end
       # NOTE: Once in a while, YouTube responds with 400 Error and the message
       # "Invalid query. Query did not conform to the expectations."; in this
@@ -179,8 +179,8 @@ module Yt
           params['max-results'] = 50 if @dimension.in? [:playlist, :video]
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
           if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
-            if @metrics.keys == [:earnings, :estimated_minutes_watched]
-              params['sort'] = '-earnings'
+            if @metrics.keys == [:estimated_revenue, :estimated_minutes_watched]
+              params['sort'] = '-estimated_revenue'
             else
               params['sort'] = "-#{@metrics.keys.join(',').to_s.camelize(:lower)}"
             end

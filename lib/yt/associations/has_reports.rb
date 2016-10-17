@@ -225,6 +225,13 @@ module Yt
 
     private
 
+      def deprecated_alias(deprecated, replacement)
+        define_method deprecated do |options = {}|
+          warn "##{deprecated} has been deprecated. please use ##{replacement}"
+          send replacement, options
+        end
+      end
+
       def define_reports_method(metric, type)
         (@metrics ||= {})[metric] = type
         define_method :reports do |options = {}|
@@ -303,7 +310,7 @@ module Yt
           # made 0 USD returns the wrong "nil". But adding to the request the
           # "estimatedMinutesWatched" metric returns the correct value 0.
           metrics = {metric => type}
-          metrics[:estimated_minutes_watched] = Integer if metric == :earnings
+          metrics[:estimated_minutes_watched] = Integer if metric == :estimated_revenue
           Collections::Reports.of(self).tap{|reports| reports.metrics = metrics}
         end
         private "all_#{metric}"
