@@ -465,11 +465,11 @@ module Yt
 
       # @macro report_by_day_and_country
       has_report :estimated_revenue, Float
-      deprecated_alias :earnings, :estimated_revenue
+      alias :earnings :estimated_revenue
 
       # @macro report_by_day_and_country
       has_report :ad_impressions, Integer
-      deprecated_alias :impressions, :ad_impressions
+      alias :impressions :ad_impressions
 
       # @macro report_by_day_and_country
       has_report :monetized_playbacks, Integer

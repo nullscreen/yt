@@ -180,7 +180,7 @@ module Yt
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
           if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
             if @metrics.keys == [:estimated_revenue, :estimated_minutes_watched]
-              params['sort'] = '-estimated_revenue'
+              params['sort'] = '-estimatedRevenue'
             else
               params['sort'] = "-#{@metrics.keys.join(',').to_s.camelize(:lower)}"
             end

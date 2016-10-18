@@ -225,13 +225,6 @@ module Yt
 
     private
 
-      def deprecated_alias(deprecated, replacement)
-        define_method deprecated do |options = {}|
-          warn "##{deprecated} has been deprecated. please use ##{replacement}"
-          send replacement, options
-        end
-      end
-
       def define_reports_method(metric, type)
         (@metrics ||= {})[metric] = type
         define_method :reports do |options = {}|
@@ -306,7 +299,7 @@ module Yt
 
       def define_all_metric_method(metric, type)
         define_method "all_#{metric}" do
-          # @note Asking for the "earnings" metric of a day in which a channel
+          # @note Asking for the "estimated_revenue" metric of a day in which a channel
           # made 0 USD returns the wrong "nil". But adding to the request the
           # "estimatedMinutesWatched" metric returns the correct value 0.
           metrics = {metric => type}
