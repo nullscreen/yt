@@ -299,11 +299,11 @@ module Yt
 
       def define_all_metric_method(metric, type)
         define_method "all_#{metric}" do
-          # @note Asking for the "earnings" metric of a day in which a channel
+          # @note Asking for the "estimated_revenue" metric of a day in which a channel
           # made 0 USD returns the wrong "nil". But adding to the request the
           # "estimatedMinutesWatched" metric returns the correct value 0.
           metrics = {metric => type}
-          metrics[:estimated_minutes_watched] = Integer if metric == :earnings
+          metrics[:estimated_minutes_watched] = Integer if metric == :estimated_revenue
           Collections::Reports.of(self).tap{|reports| reports.metrics = metrics}
         end
         private "all_#{metric}"
