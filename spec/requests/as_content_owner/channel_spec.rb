@@ -129,7 +129,7 @@ describe Yt::Channel, :partner do
        average_view_percentage: Float, ad_impressions: Integer,
        shares: Integer, playback_based_cpm: Float,
        monetized_playbacks: Integer, annotation_close_rate: Float,
-       earnings: Float}.each do |metric, type|
+       estimated_revenue: Float}.each do |metric, type|
         describe "#{metric} can be grouped by range" do
           let(:metric) { metric }
 

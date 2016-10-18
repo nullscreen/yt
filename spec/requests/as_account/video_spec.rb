@@ -1906,8 +1906,8 @@ describe Yt::Video, :device_app do
       expect{video.annotation_click_through_rate}.not_to raise_error
       expect{video.annotation_close_rate}.not_to raise_error
       expect{video.viewer_percentage}.not_to raise_error
-      expect{video.earnings}.to raise_error Yt::Errors::Unauthorized
-      expect{video.impressions}.to raise_error Yt::Errors::Unauthorized
+      expect{video.estimated_revenue}.to raise_error Yt::Errors::Unauthorized
+      expect{video.ad_impressions}.to raise_error Yt::Errors::Unauthorized
       expect{video.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
       expect{video.playback_based_cpm}.to raise_error Yt::Errors::Unauthorized
       expect{video.advertising_options_set}.to raise_error Yt::Errors::Forbidden
