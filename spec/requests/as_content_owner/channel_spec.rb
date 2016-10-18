@@ -22,7 +22,7 @@ describe Yt::Channel, :partner do
           card_impressions: Integer, card_clicks: Integer,
           card_click_rate: Float, card_teaser_impressions: Integer,
           card_teaser_clicks: Integer, card_teaser_click_rate: Float,
-          earnings: Float, impressions: Integer,
+          estimated_revenue: Float, ad_impressions: Integer,
           monetized_playbacks: Integer, playback_based_cpm: Float}
         specify 'by day, and are chronologically sorted' do
           range = {since: 5.days.ago.to_date, until: 3.days.ago.to_date}
@@ -63,11 +63,11 @@ describe Yt::Channel, :partner do
        :subscribers_gained, :subscribers_lost,
        :videos_added_to_playlists, :videos_removed_from_playlists,
        :estimated_minutes_watched, :average_view_duration,
-       :average_view_percentage, :impressions, :monetized_playbacks,
+       :average_view_percentage, :ad_impressions, :monetized_playbacks,
        :annotation_clicks, :annotation_click_through_rate,
        :card_impressions, :card_clicks, :card_click_rate,
        :card_teaser_impressions, :card_teaser_clicks, :card_teaser_click_rate,
-       :playback_based_cpm, :annotation_close_rate, :earnings].each do |metric|
+       :playback_based_cpm, :annotation_close_rate, :estimated_revenue].each do |metric|
         describe "#{metric} can be retrieved for a range of days" do
           let(:date_in) { ENV['YT_TEST_PARTNER_VIDEO_DATE'] }
           let(:date_out) { Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 5 }
@@ -126,10 +126,10 @@ describe Yt::Channel, :partner do
        card_click_rate: Float, card_teaser_impressions: Integer,
        card_teaser_clicks: Integer, card_teaser_click_rate: Float,
        videos_added_to_playlists: Integer, videos_removed_from_playlists: Integer,
-       average_view_percentage: Float, impressions: Integer,
+       average_view_percentage: Float, ad_impressions: Integer,
        shares: Integer, playback_based_cpm: Float,
        monetized_playbacks: Integer, annotation_close_rate: Float,
-       earnings: Float}.each do |metric, type|
+       estimated_revenue: Float}.each do |metric, type|
         describe "#{metric} can be grouped by range" do
           let(:metric) { metric }
 
@@ -151,24 +151,24 @@ describe Yt::Channel, :partner do
         end
       end
 
-      describe 'earnings can be retrieved for a specific day' do
+      describe 'estimated_revenue can be retrieved for a specific day' do
         # NOTE: This test sounds redundant, but it’s actually a reflection of
         # another irrational behavior of YouTube API. In short, if you ask for
-        # the "earnings" metric of a day in which a channel made 0 USD, then
-        # the API returns "nil". But if you also for the "earnings" metric AND
+        # the "estimated_revenue" metric of a day in which a channel made 0 USD, then
+        # the API returns "nil". But if you also for the "estimated_revenue" metric AND
         # the "estimatedMinutesWatched" metric, then the API returns the
         # correct value of "0", while still returning nil for those days in
-        # which the earnings have not been estimated yet.
+        # which the estimated_revenue have not been estimated yet.
         context 'in which the channel did not make any money' do
-          let(:zero_date) { ENV['YT_TEST_PARTNER_CHANNEL_NO_EARNINGS_DATE'] }
-          let(:earnings) { channel.earnings_on zero_date}
-          it { expect(earnings).to eq 0 }
+          let(:zero_date) { ENV['YT_TEST_PARTNER_CHANNEL_NO_estimated_revenue_DATE'] }
+          let(:estimated_revenue) { channel.estimated_revenue_on zero_date}
+          it { expect(estimated_revenue).to eq 0 }
         end
       end
 
-      describe 'earnings can be retrieved for a single country' do
+      describe 'estimated_revenue can be retrieved for a single country' do
         let(:country_code) { 'US' }
-        let(:earnings) { channel.earnings since: date, by: by, in: location }
+        let(:estimated_revenue) { channel.estimated_revenue since: date, by: by, in: location }
         let(:date) { 4.days.ago }
 
         context 'and grouped by day' do
@@ -176,12 +176,12 @@ describe Yt::Channel, :partner do
 
           context 'with the :in option set to the country code' do
             let(:location) { country_code }
-            it { expect(earnings.keys.min).to eq date.to_date }
+            it { expect(estimated_revenue.keys.min).to eq date.to_date }
           end
 
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
-            it { expect(earnings.keys.min).to eq date.to_date }
+            it { expect(estimated_revenue.keys.min).to eq date.to_date }
           end
         end
 
@@ -190,34 +190,34 @@ describe Yt::Channel, :partner do
 
           context 'with the :in option set to the country code' do
             let(:location) { country_code }
-            it { expect(earnings.keys).to eq [country_code] }
+            it { expect(estimated_revenue.keys).to eq [country_code] }
           end
 
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
-            it { expect(earnings.keys).to eq [country_code] }
+            it { expect(estimated_revenue.keys).to eq [country_code] }
           end
         end
       end
 
-      describe 'earnings can be grouped by day' do
+      describe 'estimated_revenue can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
 
         specify 'with the :by option set to :day' do
-          earnings = channel.earnings range.merge by: :day
-          expect(earnings.keys).to eq range.values
+          estimated_revenue = channel.estimated_revenue range.merge by: :day
+          expect(estimated_revenue.keys).to eq range.values
         end
       end
 
-      describe 'earnings can be grouped by country' do
+      describe 'estimated_revenue can be grouped by country' do
         let(:range) { {since: 4.days.ago, until: 3.days.ago} }
 
         specify 'with the :by option set to :country' do
-          earnings = channel.earnings range.merge by: :country
-          expect(earnings.keys).to all(be_a String)
-          expect(earnings.keys.map(&:length).uniq).to eq [2]
-          expect(earnings.values).to all(be_a Float)
+          estimated_revenue = channel.estimated_revenue range.merge by: :country
+          expect(estimated_revenue.keys).to all(be_a String)
+          expect(estimated_revenue.keys.map(&:length).uniq).to eq [2]
+          expect(estimated_revenue.values).to all(be_a Float)
         end
       end
 
@@ -1319,9 +1319,9 @@ describe Yt::Channel, :partner do
         end
       end
 
-      describe 'impressions can be retrieved for a single country' do
+      describe 'ad_impressions can be retrieved for a single country' do
         let(:country_code) { 'US' }
-        let(:impressions) { channel.impressions since: date, by: by, in: location }
+        let(:ad_impressions) { channel.ad_impressions since: date, by: by, in: location }
         let(:date) { ENV['YT_TEST_PARTNER_PLAYLIST_DATE'] }
 
         context 'and grouped by day' do
@@ -1329,12 +1329,12 @@ describe Yt::Channel, :partner do
 
           context 'with the :in option set to the country code' do
             let(:location) { country_code }
-            it { expect(impressions.keys.min).to eq date.to_date }
+            it { expect(ad_impressions.keys.min).to eq date.to_date }
           end
 
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
-            it { expect(impressions.keys.min).to eq date.to_date }
+            it { expect(ad_impressions.keys.min).to eq date.to_date }
           end
         end
 
@@ -1343,34 +1343,34 @@ describe Yt::Channel, :partner do
 
           context 'with the :in option set to the country code' do
             let(:location) { country_code }
-            it { expect(impressions.keys).to eq [country_code] }
+            it { expect(ad_impressions.keys).to eq [country_code] }
           end
 
           context 'with the :in option set to {country: country code}' do
             let(:location) { {country: country_code} }
-            it { expect(impressions.keys).to eq [country_code] }
+            it { expect(ad_impressions.keys).to eq [country_code] }
           end
         end
       end
 
-      describe 'impressions can be grouped by day' do
+      describe 'ad_impressions can be grouped by day' do
         let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
         let(:keys) { range.values }
 
         specify 'with the :by option set to :day' do
-          impressions = channel.impressions range.merge by: :day
-          expect(impressions.keys).to eq range.values
+          ad_impressions = channel.ad_impressions range.merge by: :day
+          expect(ad_impressions.keys).to eq range.values
         end
       end
 
-      describe 'impressions can be grouped by country' do
+      describe 'ad_impressions can be grouped by country' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_PLAYLIST_DATE']} }
 
         specify 'with the :by option set to :country' do
-          impressions = channel.impressions range.merge by: :country
-          expect(impressions.keys).to all(be_a String)
-          expect(impressions.keys.map(&:length).uniq).to eq [2]
-          expect(impressions.values).to all(be_an Integer)
+          ad_impressions = channel.ad_impressions range.merge by: :country
+          expect(ad_impressions.keys).to all(be_a String)
+          expect(ad_impressions.keys.map(&:length).uniq).to eq [2]
+          expect(ad_impressions.values).to all(be_an Integer)
         end
       end
 
@@ -1872,8 +1872,8 @@ describe Yt::Channel, :partner do
     context 'not managed by the authenticated Content Owner' do
       let(:id) { 'UCBR8-60-B28hp2BmDPdntcQ' }
 
-      specify 'earnings and impressions cannot be retrieved' do
-        expect{channel.earnings}.to raise_error Yt::Errors::Forbidden
+      specify 'estimated_revenue and ad_impressions cannot be retrieved' do
+        expect{channel.estimated_revenue}.to raise_error Yt::Errors::Forbidden
         expect{channel.views}.to raise_error Yt::Errors::Forbidden
       end
 

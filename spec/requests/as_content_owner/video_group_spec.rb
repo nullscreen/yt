@@ -60,7 +60,7 @@ describe Yt::VideoGroup, :partner do
           average_view_duration: Integer,
           average_view_percentage: Float, annotation_clicks: Integer,
           annotation_click_through_rate: Float,
-          annotation_close_rate: Float, earnings: Float, impressions: Integer,
+          annotation_close_rate: Float, estimated_revenue: Float, ad_impressions: Integer,
           monetized_playbacks: Integer}
 
         specify 'by day, and are chronologically sorted' do

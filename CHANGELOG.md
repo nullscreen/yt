@@ -6,6 +6,18 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.28.0 - 2016-10-18
+
+**How to upgrade**
+
+If your code calls `.earnings` and `.impressions`
+then you must replace that code  with `.estimated_revenue` and
+`.ad_impressions` since those metrics will no longer be supported by
+YouTube API as of [November 4, 2016](https://developers.google.com/youtube/analytics/revision_history#august-10-2016).
+
+* [breaking change] Change deprecated `earnings` to `estimated_revenue`
+* [breaking change] Change deprecated `impressions` to `ad_impressions`
+
 ## 0.27.0 - 2016-10-07
 
 **How to upgrade**
