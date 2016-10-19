@@ -66,7 +66,7 @@ owner = Yt::ContentOwner.new owner_name: "<name>", ## replace with owner’s cre
                              refresh_token: "<token>"
 
 video = Yt::Video.new id: 'BPNYv0vd78A', auth: owner
-video.earnings since: 3.days.ago
+video.estimated_revenue since: 3.days.ago
 # => {Wed, 8 May 2014 => 12.3, Thu, 9 May 2014 => 3.7, Fri, 10 May 2014 => …}
 {% endhighlight %}
 
@@ -211,8 +211,8 @@ video.earnings since: 3.days.ago
   {% include dt.html title="Video’s Monetization" label="danger" auth="must authenticate as the video’s content owner" %}
   <dd><a class="anchor" id="monetization"></a><div class="highlight"><pre>
 {% include doc.html link="Models/Video#ad_formats" %}{% include example.html object='video' method='ad_formats' result='["standard_instream", "trueview_instream"]' %}
-{% include doc.html link="Models/Video#earnings" %}{% include example.html object='video' method='earnings' result='{Wed, 8 May 2014 => 455.1, Thu, 9 May 2014 => 312.3, …}' %}
-{% include doc.html link="Models/Video#impressions" %}{% include example.html object='video' method='impressions' result='{Wed, 8 May 2014 => 84734, Thu, 9 May 2014 => 456, …}' %}
+{% include doc.html link="Models/Video#estimated_revenue" %}{% include example.html object='video' method='estimated_revenue' result='{Fri, 14 Oct 2016 => 455.1, …}' %}
+{% include doc.html link="Models/Video#ad_impressions" %}{% include example.html object='video' method='ad_impressions' result='{Fri, 14 Oct 2016 => 84734, …}' %}
 {% include doc.html link="Models/Video#playback_based_cpm" %}{% include example.html object='video' method='playback_based_cpm' result='{Wed, 8 May 2014 => 1.24, Thu, 9 May 2014 => …}' %}
 {% include doc.html link="Models/Video#monetized_playbacks" %}{% include example.html object='video' method='monetized_playbacks' result='{Wed, 8 May 2014 => 53345, …}' %}</pre>
   </div></dd>
