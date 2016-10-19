@@ -64,7 +64,7 @@ owner = Yt::ContentOwner.new owner_name: "<name>", ## replace with owner’s cre
                              refresh_token: "<token>"
 
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow', auth: owner
-channel.earnings since: 3.days.ago
+channel.estimated_revenue since: 3.days.ago
 # => {Wed, 8 May 2014 => 12.4, Thu, 9 May 2014 => 3.2, Fri, 10 May 2014 => …}
 {% endhighlight %}
 
@@ -126,8 +126,8 @@ channel.earnings since: 3.days.ago
 
   {% include dt.html title="Channel’s Monetization" label="danger" auth="must authenticate as the channel’s content owner" %}
   <dd><a class="anchor" id="monetization"></a><div class="highlight"><pre>
-{% include doc.html link="Models/Channel#earnings" %}{% include example.html object='channel' method='earnings' result='{Wed, 8 May 2014 => 455.6, Thu, 9 May 2014 => 312.9, …}' %}
-{% include doc.html link="Models/Channel#impressions" %}{% include example.html object='channel' method='impressions' result='{Wed, 8 May 2014 => 847, Thu, 9 May 2014 => 54, …}' %}
+{% include doc.html link="Models/Channel#estimated_revenue" %}{% include example.html object='channel' method='estimated_revenue' result='{Fri, 14 Oct 2016 => 455.6, …}' %}
+{% include doc.html link="Models/Channel#ad_impressions" %}{% include example.html object='channel' method='ad_impressions' result='{Fri, 14 Oct 2016 => 847, …}' %}
 {% include doc.html link="Models/Channel#playback_based_cpm" %}{% include example.html object='channel' method='playback_based_cpm' result='{Wed, 8 May 2014 => 0.34, Thu, 9 May 2014 …}' %}
 {% include doc.html link="Models/Channel#monetized_playbacks" %}{% include example.html object='channel' method='monetized_playbacks' result='{Wed, 8 May 2014 => 53345, …}' %}</pre>
   </div></dd>
@@ -186,7 +186,6 @@ channel.views in: {state: 'TX'} # => {total: 11}
 {% include doc.html link="Models/Channel#card_teaser_impressions" %}{% include example.html object='channel' method='card_teaser_impressions' result='{total: 3}' %}
 {% include doc.html link="Models/Channel#card_teaser_clicks" %}{% include example.html object='channel' method='card_teaser_clicks' result='{total: 3}' %}
 {% include doc.html link="Models/Channel#card_teaser_click_rate" %}{% include example.html object='channel' method='card_teaser_click_rate' result='{total: 0.65}' %}
-
 
 {% include doc.html link="Models/Channel#views" %}{% include example.html object='channel' method='views' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 33, "MX" => 12, …}' %}
 {% include doc.html link="Models/Channel#comments" %}{% include example.html object='channel' method='comments' params=' <span class="ss">by</span><span class="p">:</span> <span class="ss">:country</span>' result='{"US" =&gt; 17, "FR" =&gt; 12, …}' %}
