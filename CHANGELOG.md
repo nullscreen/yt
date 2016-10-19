@@ -15,8 +15,10 @@ then you must replace that code  with `.estimated_revenue` and
 `.ad_impressions` since those metrics will no longer be supported by
 YouTube API as of [November 4, 2016](https://developers.google.com/youtube/analytics/revision_history#august-10-2016).
 
-* [breaking change] Change deprecated `earnings` to `estimated_revenue`
-* [breaking change] Change deprecated `impressions` to `ad_impressions`
+* [REMOVAL] Remove `#earnings` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#impressions` method for channels, videos and video groups
+* [FEATURE] Add `#estimated_revenue` method for channels, videos and video groups
+* [FEATURE] Add `#ad_impressions` method for channels, videos and video groups
 
 ## 0.27.0 - 2016-10-07
 
