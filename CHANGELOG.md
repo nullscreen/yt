@@ -6,6 +6,15 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.28.1 - 2016-10-24
+
+* [FEATURE] New `card impressions` report for video groups.
+* [FEATURE] New `card clicks` report for video groups.
+* [FEATURE] New `card click rate` report for video groups.
+* [FEATURE] New `card teaser impressions` report for video groups.
+* [FEATURE] New `card teaser clicks` report for video groups.
+* [FEATURE] New `card teaser click rate` report for video groups.
+
 ## 0.28.0 - 2016-10-18
 
 **How to upgrade**
