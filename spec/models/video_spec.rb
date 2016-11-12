@@ -666,4 +666,16 @@ describe Yt::Video do
       it { expect{video.delete}.to change{video.exists?} }
     end
   end
+
+  describe '#found?', server_app: true do
+    context "given an ID that doesn't match any YouTube video" do
+      let(:attrs) { {id: 'not-a-real-video'} }
+      it { expect(video).not_to be_found }
+    end
+
+    context "given an ID that matches something on YouTube" do
+      let(:attrs) { {id: 'dQw4w9WgXcQ'} }
+      it { expect(video).to be_found }
+    end
+  end
 end

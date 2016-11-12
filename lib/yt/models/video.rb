@@ -52,6 +52,11 @@ module Yt
         ensure_complete_snippet :category_id
       end
 
+      # @return [Boolean] Have we found a video on YouTube matching the ID?
+      def found?
+        snippets.any?
+      end
+
     ### STATUS ###
 
       # @return [Boolean] whether the video was deleted by the user.
