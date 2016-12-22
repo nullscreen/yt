@@ -63,7 +63,6 @@ module Yt
         @country = country
         @state = state
         @videos = videos
-        binding.pry
 
         if dimension == :gender_age_group # array of array
           Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
