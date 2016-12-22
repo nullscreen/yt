@@ -257,8 +257,9 @@ module Yt
       end
 
       def define_metric_method(metric)
+
         define_method metric do |options = {}|
-          from = options[:since] || options[:from] || (options[:by].in?([:day, :week, :month]) ? 5.days.ago : '2005-02-01')
+          from = options[:since] || options[:from] || (options[:by].in?([:day, :week, :month]) ? 5.days.ago : '2005-02-01') rescue '2005-02-01'
           to = options[:until] || options[:to] || Date.today
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location

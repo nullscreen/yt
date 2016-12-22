@@ -85,7 +85,7 @@ module Yt
             end
           elsif dimension == :day
             hash = hash.transform_values{|h| h.sort_by{|day, v| day}.to_h}
-          elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type]
+          elsif [:traffic_source, :country, :state, :playback_location, :device_type].include?(dimension)
             hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
           end
           (@metrics.one? || @metrics.keys == [:earnings, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
@@ -128,9 +128,9 @@ module Yt
           params['end-date'] = @days_range.end
           params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
-          params['max-results'] = 50 if @dimension.in? [:playlist, :video]
-          params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
-          if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
+          params['max-results'] = 50 if [:playlist, :video].include?(@dimension)
+          params['max-results'] = 25 if [:embedded_player_location, :related_video, :search_term, :referrer].include?(@dimension)
+          if [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer].include?(@dimension)
             if @metrics.keys == [:earnings, :estimated_minutes_watched]
               params['sort'] = '-earnings'
             else
