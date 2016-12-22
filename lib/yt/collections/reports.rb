@@ -63,21 +63,29 @@ module Yt
         @country = country
         @state = state
         @videos = videos
+        binding.pry
+
         if dimension == :gender_age_group # array of array
           Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
           end
         else
+
           hash = flat_map do |hashes|
             hashes.map do |metric, values|
-              [metric, values.transform_values{|v| type_cast(v, @metrics[metric])}]
+              # [ metric, values.transform_values { |v| type_cast(v, @metrics[metric]) } ]
+              [ metric, values.inject({}) { |h, (k, v)| h[k] = type_cast(v, @metrics[metric]); h } ]
             end.to_h
           end
-          hash = hash.inject(@metrics.transform_values{|v| {}}) do |result, hash|
+
+          # hash = hash.inject(@metrics.transform_values { |v| {} }) do |result, hash|
+          hash = hash.inject(@metrics.inject({}) { |h, (k, v)| h[k] = {}; h }) do |result, hash|
             result.deep_merge hash
           end
+
           if dimension == :month
-            hash = hash.transform_values{|h| h.sort_by{|range, v| range.first}.to_h}
+            # hash = hash.transform_values{|h| h.sort_by{|range, v| range.first}.to_h}
+            hash = hash.inject({}) { |h, (k, v)| h.sort_by { |range, v| range.first }.to_h; h }
           elsif dimension == :week
             hash = hash.transform_values do |h|
               h.select{|range, v| range.last.wday == days_range.last.wday}.
@@ -88,6 +96,7 @@ module Yt
           elsif [:traffic_source, :country, :state, :playback_location, :device_type].include?(dimension)
             hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
           end
+
           (@metrics.one? || @metrics.keys == [:earnings, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
         end
       # NOTE: Once in a while, YouTube responds with 400 Error and the message
