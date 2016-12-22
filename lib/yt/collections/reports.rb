@@ -84,7 +84,7 @@ module Yt
 
           if dimension == :month
             # hash = hash.transform_values{|h| h.sort_by{|range, v| range.first}.to_h}
-            hash = hash.inject({}) { |h, (k, v)| h.sort_by { |range, v| range.first }.to_h; h }
+            hash = hash.inject({}) { |h, (k, v)| v.sort_by { |range, v| range.first }.to_h; h }
           elsif dimension == :week
             hash = hash.transform_values do |h|
               h.select{|range, v| range.last.wday == days_range.last.wday}.
