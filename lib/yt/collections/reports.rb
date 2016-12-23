@@ -79,14 +79,15 @@ module Yt
           if dimension == :month
             hash = hash.inject({}){|h,(k,v)| v.sort_by{|range, v| range.first}.to_h; h}
           elsif dimension == :week
-            hash = hash.transform_values do |h|
-              h.select{|range, v| range.last.wday == days_range.last.wday}.
-              sort_by{|range, v| range.first}.to_h
+            hash = hash.inject({}) do |h,(k,v)|
+              v.select{|range, v| range.last.wday == days_range.last.wday}.
+              sort_by{|range, v| range.first }.to_h
+              h
             end
           elsif dimension == :day
-            hash = hash.transform_values{|h| h.sort_by{|day, v| day}.to_h}
+            hash = hash.inject({}){|h,(k,v)| v.sort_by{|day, v| day}.to_h; h}
           elsif [:traffic_source, :country, :state, :playback_location, :device_type].include?(dimension)
-            hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
+            hash = hash.inject({}){|h,(k,v)| v.sort_by{|range, v| -v}.to_h; h}
           end
           (@metrics.one? || @metrics.keys == [:earnings, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
         end
