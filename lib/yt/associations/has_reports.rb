@@ -235,7 +235,7 @@ module Yt
       def define_reports_method(metric, type)
         (@metrics ||= {})[metric] = type
         define_method :reports do |options = {}|
-          from = options[:since] || options[:from] || ( [:day, :week, :month].include?(options[:by]) ? 5.days.ago : '2005-02-01' )
+          from = options[:since] || options[:from] || ([:day, :week, :month].include?(options[:by]) ? 5.days.ago : '2005-02-01')
           to = options[:until] || options[:to] || Date.today
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location
@@ -258,7 +258,7 @@ module Yt
 
       def define_metric_method(metric)
         define_method metric do |options = {}|
-          from = options[:since] || options[:from] || ( [:day, :week, :month].include?(options[:by]) ? 5.days.ago : '2005-02-01' )
+          from = options[:since] || options[:from] || ([:day, :week, :month].include?(options[:by]) ? 5.days.ago : '2005-02-01')
           to = options[:until] || options[:to] || Date.today
           location = options[:in]
           country = location.is_a?(Hash) ? location[:country] : location
