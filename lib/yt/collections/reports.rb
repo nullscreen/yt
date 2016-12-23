@@ -70,14 +70,14 @@ module Yt
         else
           hash = flat_map do |hashes|
             hashes.map do |metric, values|
-              [ metric, values.inject({}) { |h, (k, v)| h[k] = type_cast(v, @metrics[metric]); h } ]
+              [metric, values.inject({}) {|h, (k,v)| h[k] = type_cast(v, @metrics[metric]); h }]
             end.to_h
           end
-          hash = hash.inject(@metrics.inject({}) { |h, (k, v)| h[k] = {}; h }) do |result, hash|
+          hash = hash.inject(@metrics.inject({}) {|h, (k,v)| h[k] = {}; h }) do |result, hash|
             result.deep_merge hash
           end
           if dimension == :month
-            hash = hash.inject({}) { |h, (k, v)| v.sort_by { |range, v| range.first }.to_h; h }
+            hash = hash.inject({}) {|h, (k,v)| v.sort_by {|range, v| range.first}.to_h; h }
           elsif dimension == :week
             hash = hash.transform_values do |h|
               h.select{|range, v| range.last.wday == days_range.last.wday}.
