@@ -21,24 +21,24 @@ describe Yt::Description do
     end
 
     context 'with a video long URL' do
-      let(:text) { 'example.com and Link to video: youtube.com/watch?v=MESycYJytkU' }
+      let(:text) { 'example.com and Link to video: youtube.com/watch?v=9bZkp7q19f0' }
       it { expect(description).to have_link_to_video }
     end
 
     context 'with a video short URL' do
-      let(:text) { 'Link to video: youtu.be/MESycYJytkU' }
+      let(:text) { 'Link to video: youtu.be/9bZkp7q19f0' }
       it { expect(description).to have_link_to_video }
     end
 
     context 'with a playlist-embedded video URL' do
-      let(:text) { 'Link to video in playlist: youtube.com/watch?v=MESycYJytkU&index=619&list=LLxO1tY8h1AhOz0T4ENwmpow' }
+      let(:text) { 'Link to video in playlist: youtube.com/watch?v=9bZkp7q19f0&index=619&list=LLxO1tY8h1AhOz0T4ENwmpow' }
       it { expect(description).to have_link_to_video }
     end
   end
 
   describe '#has_link_to_channel?' do
     context 'without a channel URL' do
-      let(:text) { 'youtu.be/MESycYJytkU is a video link' }
+      let(:text) { 'youtu.be/9bZkp7q19f0 is a video link' }
       it { expect(description).not_to have_link_to_channel }
     end
 
@@ -60,7 +60,7 @@ describe Yt::Description do
 
   describe '#has_link_to_subscribe?' do
     context 'without a subscribe URL' do
-      let(:text) { 'Link to video: youtu.be/MESycYJytkU' }
+      let(:text) { 'Link to video: youtu.be/9bZkp7q19f0' }
       it { expect(description).not_to have_link_to_subscribe }
     end
 
@@ -82,7 +82,7 @@ describe Yt::Description do
 
   describe '#has_link_to_playlist?' do
     context 'without a playlist URL' do
-      let(:text) { 'Link to video: youtu.be/MESycYJytkU' }
+      let(:text) { 'Link to video: youtu.be/9bZkp7q19f0' }
       it { expect(description).not_to have_link_to_playlist }
     end
 

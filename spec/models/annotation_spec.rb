@@ -86,7 +86,7 @@ describe Yt::Annotation do
     end
 
     context 'given an annotation with an embedded playlist link' do
-      let(:xml) { '<TEXT>https://www.youtube.com/watch?v=MESycYJytkU&amp;list=LLxO1tY8h1AhOz0T4ENwmpow"</TEXT>' }
+      let(:xml) { '<TEXT>https://www.youtube.com/watch?v=9bZkp7q19f0&amp;list=LLxO1tY8h1AhOz0T4ENwmpow"</TEXT>' }
       it { expect(annotation).to have_link_to_playlist }
     end
 

@@ -20,8 +20,8 @@ describe Yt::Claim do
 
   describe '#video_id' do
     context 'given fetching a claim returns an videoId' do
-      let(:data) { {"videoId"=>"MESycYJytkU"} }
-      it { expect(claim.video_id).to eq 'MESycYJytkU' }
+      let(:data) { {"videoId"=>"9bZkp7q19f0"} }
+      it { expect(claim.video_id).to eq '9bZkp7q19f0' }
     end
   end
 
@@ -206,6 +206,18 @@ describe Yt::Claim do
     context 'given fetching a claim returns thirdPartyClaim true' do
       let(:data) { {"thirdPartyClaim"=>false} }
       it { expect(claim.third_party?).to be false }
+    end
+  end
+
+  describe '#source' do
+    context 'given fetching a claim returns a source' do
+      let(:data) { {"origin"=>{"source"=>"webUpload"}} }
+      it { expect(claim.source).to eq 'webUpload' }
+    end
+
+    context 'given fetching a claim does not return a source' do
+      let(:data) { {"origin"=>{}} }
+      it { expect(claim.source).to eq nil }
     end
   end
 end

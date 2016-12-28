@@ -6,7 +6,8 @@ require 'yt/config'
 module Yt
   module Actions
     module List
-      delegate :each, :count, :size, to: :list
+      delegate :any?, :count, :each, :each_cons, :each_slice, :find, :first, :take,
+        :flat_map, :map, :select, :size, to: :list
 
       def first!
         first.tap{|item| raise Errors::NoItems, error_message unless item}
@@ -46,7 +47,7 @@ module Yt
       def find_next
         @items ||= []
         if @items[@last_index].nil? && more_pages?
-          more_items = next_page.map{|data| new_item data}
+          more_items = next_page.map{|data| new_item data}.compact
           @items.concat more_items
         end
         @items[(@last_index +=1) -1]

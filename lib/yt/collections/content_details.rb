@@ -16,9 +16,10 @@ module Yt
       #   content detail of a resource, for instance a video.
       # @see https://developers.google.com/youtube/v3/docs/videos#resource
       def list_params
+        endpoint = @parent.kind.pluralize.camelize :lower
         super.tap do |params|
           params[:params] = content_details_params
-          params[:path] = '/youtube/v3/videos'
+          params[:path] = "/youtube/v3/#{endpoint}"
         end
       end
 

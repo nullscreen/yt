@@ -6,6 +6,252 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.28.1 - 2016-10-24
+
+* [FEATURE] New `card impressions` report for video groups.
+* [FEATURE] New `card clicks` report for video groups.
+* [FEATURE] New `card click rate` report for video groups.
+* [FEATURE] New `card teaser impressions` report for video groups.
+* [FEATURE] New `card teaser clicks` report for video groups.
+* [FEATURE] New `card teaser click rate` report for video groups.
+
+## 0.28.0 - 2016-10-18
+
+**How to upgrade**
+
+If your code calls `.earnings` and `.impressions`
+then you must replace that code  with `.estimated_revenue` and
+`.ad_impressions` since those metrics will no longer be supported by
+YouTube API as of [November 4, 2016](https://developers.google.com/youtube/analytics/revision_history#august-10-2016).
+
+* [REMOVAL] Remove `#earnings` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#impressions` method for channels, videos and video groups
+* [FEATURE] Add `#estimated_revenue` method for channels, videos and video groups
+* [FEATURE] Add `#ad_impressions` method for channels, videos and video groups
+
+## 0.27.0 - 2016-10-07
+
+**How to upgrade**
+
+If your code calls any of the following `..._on` method to fetch metrics on
+a specific day, you need to replace it with the equivalent method that does
+not end with `_on`. For instance replace `views_on(3.days.ago)` with the
+equivalent `views(since: 3.days.ago, until: 3.days.ago)`.
+
+* [REMOVAL] Remove `#views_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#uniques_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#estimated_minutes_watched_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#viewer_percentage_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#comments_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#likes_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#dislikes_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#shares_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#subscribers_gained_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#subscribers_lost_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#videos_added_to_playlists_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#videos_removed_from_playlists_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#average_view_duration_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#average_view_percentage_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#annotation_clicks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#annotation_click_through_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#annotation_close_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_impressions_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_clicks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_click_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_teaser_impressions_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_teaser_clicks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#card_teaser_click_rate_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#earnings_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#impressions_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#monetized_playbacks_on` method for channels, playlists, videos and video groups
+* [REMOVAL] Remove `#playback_based_cpm_on` method for channels, playlists, videos and video groups
+
+## 0.26.3 - 2016-10-07
+
+* [FEATURE] Add `by: :subscribed_status` option for reports, to return views (from a `content_owner.video`) by subscribed status.
+* [FEATURE] Add `Yt::Collections::Reports::SUBSCRIBED_STATUSES` to list all subscribed statuses supported by YouTube Analytics API.
+
+## 0.26.2 - 2016-10-05
+
+* [ENHANCEMENT] Add newly available traffic sources: "Campaign card" and "End screen"
+
+## 0.26.1 - 2016-10-05
+
+* [FEATURE] New `card impressions` report for videos and channels.
+* [FEATURE] New `card clicks` report for videos and channels.
+* [FEATURE] New `card click rate` report for videos and channels.
+* [FEATURE] New `card teaser impressions` report for videos and channels.
+* [FEATURE] New `card teaser clicks` report for videos and channels.
+* [FEATURE] New `card teaser click rate` report for videos and channels.
+
+## 0.26.0 - 2016-10-05
+
+**How to upgrade**
+
+If your code calls `.favorites_added` and `.favorites_removed` on channels and
+videos then you must remove that code since those metrics are not anymore
+supported by YouTube API.
+
+* [REMOVAL] Remove deprecated `favorites_added` metric for channels, videos, and video groups.
+* [REMOVAL] Remove deprecated `favorites_removed` metric for channels, videos, and video groups
+
+## 0.25.40 - 2016-09-19
+
+* [IMPROVEMENT] Add `Yt::Claim#data` to access the policy of a claim
+
+## 0.25.39 - 2016-06-15
+
+* [FEATURE] Add `by: :operating_system` option for reports, to return views (from a `content_owner.video`) by operating system.
+* [FEATURE] Add `Yt::Collections::Reports::DEVICE_TYPES` to list all device types supported by YouTube Analytics API.
+* [FEATURE] Add `Yt::Collections::Reports::OPERATING_SYSTEMS` to list all operating systems supported by YouTube Analytics API.
+
+## 0.25.38 - 2016-06-13
+
+* [IMPROVEMENT] Don’t combine forContentOwner and publishedBefore parameters in Search#list since YouTube does not support this anymore.
+
+## 0.25.37  - 2016-05-16
+
+* [FEATURE] Add `VideoGroup#videos` to load all videos under a group of channels, as well as a group of videos.
+
+## 0.25.36  - 2016-05-10
+
+* [BUGFIX] Raise RequestError when authentication code is "invalid" or "already redeemed"
+* [FEATURE] Make two methods `#explanation` and `#response_body` public for `Yt::Errors::RequestError`
+
+## 0.25.35  - 2016-04-27
+
+* [BUGFIX] Don’t try to eager load more than 50 assets at the time from claims
+
+## 0.25.34  - 2016-04-20
+
+* [FEATURE] Add `ad_breaks` and `tp_ad_server_video_id` attribute to AdvertisingOptionsSet
+
+## 0.25.33 - 2016-04-15
+
+* [FEATURE] Eager-loading claims from videos will also eager-load assets.
+* [FEATURE] New method - `Claim#source` will return the source of the claim.
+
+## 0.25.32 - 2016-04-12
+
+* [BUGFIX] Fix where videos did not eager load claims or categories in subsequent requests.
+
+## 0.25.31 - 2016-04-11
+
+* [BUGFIX] Don’t try to instantiate video.claim if a video does not have a claim.
+
+## 0.25.30 - 2016-04-07
+
+* [FEATURE] Add ability for videos to eager load claims. For example, `$content_owner.videos.includes(:claim).first.claim.id`.
+
+## 0.25.29 - 2016-04-07
+
+* [BUGFIX] Previously, Yt was throttling queries for `quotaExceeded` responses from YouTube. However, matching `quotaExceeded` was too specific and would not have caught other limit exceeding responses from YouTube. This change will allow Yt to throttle other responses that contains `Exceeded` or `exceeded`.
+
+## 0.25.28 - 2016-04-05
+
+* [BUGFIX] If no asset ID is set, calling ContentOwner#assets will now use the path, /youtube/partner/v1/assetSearch, instead of '/youtube/partner/v1/assets'
+
+## 0.25.27 - 2016-03-28
+
+* [FEATURE] Add `comment_threads` association to Yt::Video.
+* [FEATURE] Add `top_level_comment` and delegate its attributes (`text_display`, `author_display_name`, `like_count`, `updated_at`) to Yt::CommentThread.
+
+## 0.25.26 - 2016-03-24
+
+* [FEATURE] Add Yt::Comment resource.
+
+## 0.25.25 - 2016-03-24
+
+* [FEATURE] Add Yt::CommentThread resource.
+
+## 0.25.24 - 2016-03-02
+
+* [BUGFIX] When `videos.where(..)` returns more than one page, don’t retain the items for the next request.
+
+## 0.25.23 - 2016-02-23
+
+* [IMPROVEMENT] Retry 3 times after a server error, to bypass temporary glitches by YouTube.
+* [IMPROVEMENT] Don’t combine forMine and publishedBefore parameters in Search#list since YouTube does not support this anymore.
+
+## 0.25.22 - 2016-02-04
+
+* [IMPROVEMENT] Deal with channels with more than 500 videos in a better way
+
+## 0.25.21 - 2016-02-04
+
+* [BUGFIX] Add required 'require' to have `.with_indifferent_access` in geography
+
+## 0.25.20 - 2016-01-24
+
+* [FEATURE] Add (undocumented) playback location dimensions SEARCH and BROWSE
+
+## 0.25.19 - 2016-01-15
+
+* [FEATURE] Add `:group_items` to Yt::VideoGroup (list items of a group)
+* [FEATURE] Add `:includes(:video)` to `Yt::VideoGroup#group_items` (eagerly loads all the videos)
+
+## 0.25.18 - 2016-01-08
+
+* [FEATURE] Add Yt::COUNTRIES and Yt::US_STATES
+* [FEATURE] Add YouTube Analytics Video Groups
+* [FEATURE] Add `:video_groups` to Yt::Account (list video-groups created by an account)
+* [FEATURE] Add `:video_groups` to Yt::ContentOwner (list video-groups on behalf of a content owner)
+* [FEATURE] Add reports by video-group
+
+## 0.25.17 - 2016-01-05
+
+* [FEATURE] Add `:videos` to Yt::ContentOwner to list videos in network with a content owner
+
+## 0.25.16 - 2015-12-19
+
+* [FEATURE] Add `access_token_was_refreshed` to Yt::Account
+
+## 0.25.15 - 2015-12-17
+
+* [FEATURE] Add `revoke_access` to Yt::Account
+
+## 0.25.14 - 2015-12-16
+
+* [ENHANCEMENT] Add `:display_name` to each content owner returned by account.content_owners
+* [BUGFIX] Don’t raise error when raising MissingAuth without any scope
+
+## 0.25.13 - 2015-12-04
+
+* [BUGFIX] Fix previous fix to Video#update with publishAt (typo)
+
+## 0.25.12 - 2015-12-03
+
+* [BUGFIX] Fix Video#update with publishAt
+
+## 0.25.11 - 2015-11-05
+
+* [ENHANCEMENT] Add "youtube.com/v/..." as possible URL for YouTube videos
+* [ENHANCEMENT] Add eager loading to channel.playlists
+
+## 0.25.10 - 2015-10-29
+
+* [FEATURE] Add Playlist#item_count
+
+## 0.25.9 - 2015-10-07
+
+* [ENHANCEMENT] Add newly available traffic source: "Playlist page"
+
+## 0.25.8 - 2015-09-10
+
+* [FEATURE] Retry the same request up to 3 times if YouTube responds with "quotaExceeded"
+
+## 0.25.7 - 2015-09-10
+
+* [FEATURE] Retry the same request once if YouTube responds with "quotaExceeded"
+
+## 0.25.6 - 2015-09-03
+
+* [FEATURE] New channel/video reports: `videos_added_to_playlists`, `videos_removed_from_playlists`.
+
+## 0.25.5 - 2015-08-12
+
+* [BUGIX] Correctly parse the YouTube response when requesting a refresh token with the wrong credentials.
+
 ## 0.25.4 - 2015-07-27
 
 * [FEATURE] Add `channel.related_playlist` and `account.related_playlists` to access "Liked Videos", "Uploads", etc.
@@ -421,7 +667,7 @@ error by using the `unsubscribe` method:
 
 ## 0.11.5 - 2014-08-27
 
-* [BUGFIX] Make videos.where(id: 'MESycYJytkU').first.id return 'MESycYJytkU'
+* [BUGFIX] Make videos.where(id: 'jNQXAC9IVRw').first.id return 'jNQXAC9IVRw'
 
 ## 0.11.4 - 2014-08-27
 

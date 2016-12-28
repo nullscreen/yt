@@ -10,7 +10,7 @@ module Yt
     class Description < String
       # @return [Boolean] whether the description includes a link to a video
       # @example
-      #   description = Yt::Models::Description.new 'Link to video: youtube.com/watch?v=MESycYJytkU'
+      #   description = Yt::Models::Description.new 'Link to video: youtube.com/watch?v=9bZkp7q19f0'
       #   description.has_link_to_video? #=> true
       #
       # @todo add an option to match the link to a specific video

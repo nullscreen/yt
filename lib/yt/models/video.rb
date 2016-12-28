@@ -369,12 +369,22 @@ module Yt
       delegate :concurrent_viewers, to: :live_streaming_detail
 
     ### ASSOCIATIONS ###
+      # @!attribute [r] comments
+      #   @return [Yt::Collections::Comments] the video’s comments.
+      has_many :comment_threads
 
       # @!attribute [r] annotations
       #   @return [Yt::Collections::Annotations] the video’s annotations.
       has_many :annotations
 
       has_many :resumable_sessions
+
+      # @!attribute [r] channel
+      #   @return [Yt::Models::Claim, nil] the first claim on the video by
+      #     the content owner of the video, if eagerly loaded.
+      def claim
+        @claim
+      end
 
     ### ANALYTICS ###
 
@@ -415,10 +425,10 @@ module Yt
       has_report :subscribers_lost, Integer
 
       # @macro report_by_day_and_country
-      has_report :favorites_added, Integer
+      has_report :videos_added_to_playlists, Integer
 
       # @macro report_by_day_and_country
-      has_report :favorites_removed, Integer
+      has_report :videos_removed_from_playlists, Integer
 
       # @macro report_by_day_and_state
       has_report :average_view_duration, Integer
@@ -435,11 +445,29 @@ module Yt
       # @macro report_by_day_and_state
       has_report :annotation_close_rate, Float
 
-      # @macro report_by_day_and_country
-      has_report :earnings, Float
+      # @macro report_by_day_and_state
+      has_report :card_impressions, Integer
+
+      # @macro report_by_day_and_state
+      has_report :card_clicks, Integer
+
+      # @macro report_by_day_and_state
+      has_report :card_click_rate, Float
+
+      # @macro report_by_day_and_state
+      has_report :card_teaser_impressions, Integer
+
+      # @macro report_by_day_and_state
+      has_report :card_teaser_clicks, Integer
+
+      # @macro report_by_day_and_state
+      has_report :card_teaser_click_rate, Float
 
       # @macro report_by_day_and_country
-      has_report :impressions, Integer
+      has_report :estimated_revenue, Float
+
+      # @macro report_by_day_and_country
+      has_report :ad_impressions, Integer
 
       # @macro report_by_day_and_country
       has_report :monetized_playbacks, Integer
@@ -570,6 +598,9 @@ module Yt
         if options[:player]
           @player = Player.new data: options[:player]
         end
+        if options[:claim]
+          @claim = options[:claim]
+        end
       end
 
       # @private
@@ -624,6 +655,23 @@ module Yt
         status_keys = [:privacy_status, :embeddable, :license,
           :public_stats_viewable, :publish_at]
         {snippet: snippet, status: {keys: status_keys}}
+      end
+
+      # NOTE: Another irrational behavior of YouTube API. If you are setting a
+      # video to public/unlisted then you should *not* pass publishAt at any
+      # cost, otherwise the API will fail (since setting publishAt means you
+      # want the video to be private). Similarly, you should *not* pass any
+      # past publishAt (for the same reason).
+      def build_update_body_part(name, part, attributes = {})
+        {}.tap do |body_part|
+          part[:keys].map do |key|
+            body_part[camelize key] = attributes.fetch key, public_send(name).public_send(key)
+          end
+
+          if (body_part[:publishAt] || 1.day.from_now) < Time.now || body_part[:privacyStatus].in?(['public', 'unlisted'])
+            body_part.delete(:publishAt)
+          end
+        end
       end
     end
   end

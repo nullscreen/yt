@@ -5,12 +5,13 @@ module Yt
     # Provides methods to interact with YouTube ContentID claims.
     # @see https://developers.google.com/youtube/partner/docs/v1/claims
     class Claim < Base
-      attr_reader :auth
+      attr_reader :auth, :data
 
       def initialize(options = {})
         @data = options[:data]
         @id = options[:id]
         @auth = options[:auth]
+        @asset = options[:asset] if options[:asset]
       end
 
       # @!attribute [r] claim_history
@@ -111,6 +112,16 @@ module Yt
       # @return [Boolean] whether the claim covers both audio and video.
       def audiovisual?
         content_type == 'audiovisual'
+      end
+
+      # @return [String] the source of the claim
+      def source
+        @data.fetch('origin', {})['source']
+      end
+
+      # @return [Yt::Models::Asset] the asset of the claim
+      def asset
+        @asset
       end
 
       # @return [Time] the date and time that the claim was created.

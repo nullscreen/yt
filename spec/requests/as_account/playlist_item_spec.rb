@@ -5,7 +5,7 @@ describe Yt::PlaylistItem, :device_app do
   subject(:item) { Yt::PlaylistItem.new id: id, auth: $account }
 
   context 'given an existing playlist item' do
-    let(:id) { 'PLjW_GNR5Ir0GMlbJzA-aW0UV8TchJFb8p3uzrLNcZKPY' }
+    let(:id) { 'UExTV1lrWXpPclBNVDlwSkc1U3Q1RzBXRGFsaFJ6R2tVNC4yQUE2Q0JEMTk4NTM3RTZC' }
 
     it 'returns valid metadata' do
       expect(item.title).to be_a String
@@ -32,8 +32,8 @@ describe Yt::PlaylistItem, :device_app do
   context 'given one of my own playlist items that I want to update' do
     before(:all) do
       @my_playlist = $account.create_playlist title: "Yt Test Update Playlist Item #{rand}"
-      @my_playlist.add_video 'MESycYJytkU'
-      @my_playlist_item = @my_playlist.add_video 'MESycYJytkU'
+      @my_playlist.add_video '9bZkp7q19f0'
+      @my_playlist_item = @my_playlist.add_video '9bZkp7q19f0'
     end
     after(:all) { @my_playlist.delete }
 

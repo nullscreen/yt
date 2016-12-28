@@ -10,6 +10,7 @@ module Yt
     class Videos < Base
       def where(requirements = {})
         @published_before = nil
+        @halt_list = false
         super
       end
 
@@ -25,18 +26,23 @@ module Yt
           attributes[:content_details] = data['contentDetails']
           attributes[:statistics] = data['statistics']
           attributes[:video_category] = data['videoCategory']
+          attributes[:claim] = data['claim']
           attributes[:auth] = @auth
         end
       end
 
       def eager_load_items_from(items)
         if included_relationships.any?
-          include_category = included_relationships.delete(:category)
-          included_relationships.append(:snippet).uniq! if include_category
+          associations = [:claim, :category]
+          if (included_relationships & associations).any?
+            included_relationships.append(:snippet).uniq!
+          end
 
           ids = items.map{|item| item['id']['videoId']}
-          parts = included_relationships.map{|r| r.to_s.camelize(:lower)}
-          conditions = {id: ids.join(','), part: parts.join(',')}
+          parts = (included_relationships - associations).map do |r|
+            r.to_s.camelize(:lower)
+          end
+          conditions = { id: ids.join(','), part: parts.join(',') }
           videos = Collections::Videos.new(auth: @auth).where conditions
 
           items.each do |item|
@@ -51,7 +57,20 @@ module Yt
             end if video
           end
 
-          if include_category
+          if included_relationships.include? :claim
+            video_ids = items.map{|item| item['id']['videoId']}.uniq
+            conditions = {
+              video_id: video_ids.join(','),
+              include_third_party_claims: false
+            }
+            claims = @parent.claims.includes(:asset).where conditions
+            items.each do |item|
+              claim = claims.find { |c| c.video_id == item['id']['videoId']}
+              item['claim'] = claim
+            end
+          end
+
+          if included_relationships.include? :category
             category_ids = items.map{|item| item['snippet']['categoryId']}.uniq
             conditions = {id: category_ids.join(',')}
             video_categories = Collections::VideoCategories.new(auth: @auth).where conditions
@@ -77,7 +96,7 @@ module Yt
       def next_page
         super.tap do |items|
           halt_list if use_list_endpoint? && items.empty? && @page_token.nil?
-          add_offset_to(items) if !use_list_endpoint? && @page_token.nil? && videos_params[:order] == 'date'
+          add_offset_to(items) if !use_list_endpoint? && videos_params[:order] == 'date' && !(videos_params[:for_mine] || videos_params[:for_content_owner])
         end
       end
 
@@ -86,9 +105,15 @@ module Yt
       # that limit, the query is restarted with a publishedBefore filter in
       # case there are more videos to be listed for a channel
       def add_offset_to(items)
-        if items.count == videos_params[:max_results]
+        @fetched_items ||= 0
+        if (@fetched_items += items.count) >= 500
           last_published = items.last['snippet']['publishedAt']
-          @page_token, @published_before = '', last_published
+          last_published = DateTime.rfc3339(last_published) - 1.second
+          last_published = last_published.strftime '%FT%T.999Z'
+          @page_token, @published_before, @fetched_items = '', last_published, 0
+        elsif (1...50) === @last_index % 50
+          @halt_list, @page_token = true, nil
+          @last_index += items.size
         end
       end
 
