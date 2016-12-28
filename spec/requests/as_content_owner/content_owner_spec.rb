@@ -14,6 +14,71 @@ describe Yt::ContentOwner, :partner do
     end
   end
 
+  describe '.videos' do
+    let(:video) { $content_owner.videos.where(order: 'viewCount').first }
+
+    specify 'returns the videos in network with the content owner with their tags and category ID' do
+      expect(video).to be_a Yt::Video
+      expect(video.tags).not_to be_empty
+      expect(video.category_id).not_to be_nil
+    end
+
+    describe '.includes(:snippet)' do
+      let(:video) { $content_owner.videos.includes(:snippet).first }
+
+      specify 'eager-loads the *full* snippet of each video' do
+        expect(video.instance_variable_defined? :@snippet).to be true
+        expect(video.channel_title).to be
+        expect(video.snippet).to be_complete
+      end
+    end
+
+    describe '.includes(:statistics, :status)' do
+      let(:video) { $content_owner.videos.includes(:statistics, :status).first }
+
+      specify 'eager-loads the statistics and status of each video' do
+        expect(video.instance_variable_defined? :@statistics_set).to be true
+        expect(video.instance_variable_defined? :@status).to be true
+      end
+    end
+
+    describe '.includes(:content_details)' do
+      let(:video) { $content_owner.videos.includes(:content_details).first }
+
+      specify 'eager-loads the statistics of each video' do
+        expect(video.instance_variable_defined? :@content_detail).to be true
+      end
+    end
+
+    describe '.includes(:claim)' do
+      let(:videos) { $content_owner.videos.includes(:claim) }
+      let(:video_with_claim) { videos.find{|v| v.claim.present?} }
+
+      specify 'eager-loads the claim of each video and its asset' do
+        expect(video_with_claim.claim).to be_a Yt::Claim
+        expect(video_with_claim.claim.id).to be_a String
+        expect(video_with_claim.claim.video_id).to eq video_with_claim.id
+        expect(video_with_claim.claim.asset).to be_a Yt::Asset
+        expect(video_with_claim.claim.asset.id).to be_a String
+      end
+    end
+  end
+
+  describe '.video_groups' do
+    let(:video_group) { $content_owner.video_groups.first }
+
+    specify 'returns the first video-group created by the account' do
+      expect(video_group).to be_a Yt::VideoGroup
+      expect(video_group.title).to be_a String
+      expect(video_group.item_count).to be_an Integer
+      expect(video_group.published_at).to be_a Time
+    end
+
+    specify 'allows to run reports against each video-group' do
+      expect(video_group.views).to be
+    end
+  end
+
   describe 'claims' do
     let(:asset_id) { ENV['YT_TEST_PARTNER_ASSET_ID'] }
     let(:video_id) { ENV['YT_TEST_PARTNER_CLAIMABLE_VIDEO_ID'] }
@@ -224,6 +289,19 @@ describe Yt::ContentOwner, :partner do
       let(:policy) { $content_owner.policies.where(id: policy_id).first }
       let(:policy_id) { '--not-a-matching-reference-id--' }
       it { expect(policy).not_to be }
+    end
+  end
+
+  describe '.assets' do
+    describe 'given the content owner has assets' do
+      let(:asset) { $content_owner.assets.first }
+
+      it 'returns valid asset' do
+        expect(asset.id).to be_a String
+        expect(asset.type).to be_a String
+        expect(asset.title).to be_a String
+        expect(asset.custom_id).to be_a String
+      end
     end
   end
 

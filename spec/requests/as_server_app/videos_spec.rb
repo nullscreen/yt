@@ -14,7 +14,7 @@ describe Yt::Collections::Videos, :server_app do
   end
 
   context 'with a list of video IDs, only returns the videos matching those IDs' do
-    let(:video_id) { 'MESycYJytkU' }
+    let(:video_id) { '9bZkp7q19f0' }
     let(:videos_by_id) { videos.where id: "#{video_id},invalid" }
 
     it { expect(videos_by_id.size).to be 1 }
@@ -22,13 +22,13 @@ describe Yt::Collections::Videos, :server_app do
   end
 
   specify 'with a chart parameter, only returns videos of that chart', :ruby2 do
-    expect(videos.where(chart: 'mostPopular').size).to be 30
+    expect(videos.where(chart: 'mostPopular').size).to be 200
   end
 
   context 'with a list of parts' do
-    let(:video_id) { 'MESycYJytkU' }
+    let(:video_id) { '9bZkp7q19f0' }
     let(:part) { 'statistics,contentDetails' }
-    let(:video) { videos.where(id: 'MESycYJytkU', part: part).first }
+    let(:video) { videos.where(id: '9bZkp7q19f0', part: part).first }
 
     specify 'load ONLY the specified parts of the videos' do
       expect(video.instance_variable_defined? :@snippet).to be false

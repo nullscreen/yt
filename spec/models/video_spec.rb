@@ -649,7 +649,7 @@ describe Yt::Video do
   end
 
   describe '#update' do
-    let(:attrs) { {id: 'MESycYJytkU', snippet: {'title'=>'old'}} }
+    let(:attrs) { {id: '9bZkp7q19f0', snippet: {'title'=>'old'}} }
     before { expect(video).to receive(:do_update).and_yield 'snippet'=>{'title'=>'new'} }
 
     it { expect(video.update title: 'new').to be true }

@@ -19,16 +19,26 @@ module Yt
         response_body.fetch 'error', {}
       end
 
-      def reasons
-        kind.fetch('errors', []).map{|e| e['reason']}
+      def description
+        response_body.fetch 'error_description', {}
       end
 
-    private
+      def reasons
+        case kind
+          when Hash then kind.fetch('errors', []).map{|e| e['reason']}
+          else kind
+        end
+      end
 
       def explanation
         'A request to YouTube API failed'
       end
 
+      def response_body
+        json['response_body'].is_a?(Hash) ? json['response_body'] : {}
+      end
+
+    private
 
       def details
         <<-MSG.gsub(/^ {8}/, '')
@@ -51,10 +61,6 @@ module Yt
       end
 
       def more_details
-      end
-
-      def response_body
-        json['response_body'].is_a?(Hash) ? json['response_body'] : {}
       end
 
       def request_curl

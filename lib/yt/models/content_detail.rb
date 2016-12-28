@@ -23,6 +23,7 @@ module Yt
       has_attribute :caption
       has_attribute :licensed_content
       has_attribute :content_rating, default: {}
+      has_attribute :item_count
 
       def youtube_rating
         content_rating['ytRating']

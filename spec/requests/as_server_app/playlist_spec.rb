@@ -16,6 +16,7 @@ describe Yt::Playlist, :server_app do
       expect(playlist.tags).to be_an Array
       expect(playlist.channel_id).to be_a String
       expect(playlist.channel_title).to be_a String
+      expect(playlist.item_count).to be_an Integer
     end
 
     it { expect(playlist.status).to be_a Yt::Status }

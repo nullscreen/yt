@@ -17,6 +17,27 @@ module Yt
 
     private
 
+      def attributes_for_new_item(data)
+        {}.tap do |attributes|
+          attributes[:id] = data['id']
+          attributes[:auth] = @auth
+          attributes[:data] = data
+          attributes[:asset] = data['asset']
+        end
+      end
+
+      def eager_load_items_from(items)
+        if included_relationships.include? :asset
+          asset_ids = items.map{|a| a.values_at 'videoId', 'assetId'}.to_h.values
+          conditions = { id: asset_ids.join(','), fetch_metadata: 'effective' }
+          assets = @parent.assets.where conditions
+          items.each do |item|
+            item['asset'] = assets.find { |a| a.id == item['assetId'] }
+          end
+        end
+        super
+      end
+
       # @return [Hash] the parameters to submit to YouTube to list claims
       #   administered by the content owner.
       # @see https://developers.google.com/youtube/partner/docs/v1/claims/list

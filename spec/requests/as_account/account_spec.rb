@@ -27,10 +27,7 @@ describe Yt::Account, :device_app do
       expect(uploads).not_to be_empty
     end
 
-    specify 'includes private playlists (such as Watch Later or History)' do
-      watch_later = related_playlists.select{|p| p.title == 'Watch Later'}
-      expect(watch_later).not_to be_empty
-
+    specify 'includes private playlists (such as History)' do
       history = related_playlists.select{|p| p.title == 'History'}
       expect(history).not_to be_empty
     end
@@ -94,6 +91,21 @@ describe Yt::Account, :device_app do
       specify 'eager-loads the statistics of each video' do
         expect(video.instance_variable_defined? :@content_detail).to be true
       end
+    end
+  end
+
+  describe '.video_groups' do
+    let(:video_group) { $account.video_groups.first }
+
+    specify 'returns the first video-group created by the account' do
+      expect(video_group).to be_a Yt::VideoGroup
+      expect(video_group.title).to be_a String
+      expect(video_group.item_count).to be_an Integer
+      expect(video_group.published_at).to be_a Time
+    end
+
+    specify 'allows to run reports against each video-group' do
+      expect(video_group.views).to be
     end
   end
 

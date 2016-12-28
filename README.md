@@ -23,11 +23,14 @@ channel.videos.count #=> 12
 ```
 
 ```ruby
-video = Yt::Video.new id: 'MESycYJytkU'
+video = Yt::Video.new id: 'jNQXAC9IVRw'
 video.title #=> "Fullscreen Creator Platform"
 video.comment_count #=> 308
 video.hd? #=> true
 video.annotations.count #=> 1
+video.comment_threads #=> #<Yt::Collections::CommentThreads ...>
+# Use #take to limit the number of pages need to fetch from server
+video.comment_threads.take(99).map(&:author_display_name) #=> ["Paul", "Tommy", ...]
 ```
 
 The **full documentation** is available at [rubydoc.info](http://www.rubydoc.info/gems/yt/frames).
@@ -41,7 +44,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.25.4'
+    gem 'yt', '~> 0.28.0'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -68,6 +71,7 @@ Use [Yt::ContentOwner](http://www.rubydoc.info/gems/yt/Yt/Models/ContentOwner) t
 * list and delete the references administered by the content owner
 * list the policies and policy rules administered by the content owner
 * create assets
+* list assets
 
 ```ruby
 # Content owners can be initialized with access token, refresh token or an authorization code
@@ -79,7 +83,7 @@ content_owner.partnered_channels.where(part: 'statistics').map &:subscriber_coun
 
 content_owner.claims.where(q: 'Fullscreen').count #=> 24
 content_owner.claims.first #=> #<Yt::Models::Claim @id=...>
-content_owner.claims.first.video_id #=> 'MESycYJytkU'
+content_owner.claims.first.video_id #=> 'jNQXAC9IVRw'
 content_owner.claims.first.status #=> "active"
 
 reference = content_owner.references.where(asset_id: "ABCDEFG").first #=> #<Yt::Models::Reference @id=...>
@@ -92,6 +96,13 @@ content_owner.policies.first.rules.first.action #=> "monetize"
 content_owner.policies.first.rules.first.included_territories #=> ["US", "CA"]
 
 content_owner.create_asset type: 'web' #=> #<Yt::Models::Asset @id=...>
+
+content_owner.assets.first #=> #<Yt::Models::AssetSnippet:0x007ff2bc543b00 @id=...>
+content_owner.assets.first.id #=> "A4532885163805730"
+content_owner.assets.first.title #=> "Money Train"
+content_owner.assets.first.type #=> "web"
+content_owner.assets.first.custom_id #=> "MoKNJFOIRroc"
+
 ```
 
 *All the above methods require authentication (see below).*
@@ -116,6 +127,45 @@ Yt::PlaylistItem
 
 Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/playlist_items.html) for the list of methods available for `Yt::PlaylistItem`.
 
+Yt::CommentThread
+----------------
+
+Use [Yt::CommentThread](http://www.rubydoc.info/gems/yt/Yt/Models/CommentThread) to:
+
+* Show details of a comment_thread.
+
+```ruby
+Yt::CommentThread.new id: 'z13vsnnbwtv4sbnug232erczcmi3wzaug'
+
+comment_thread.video_id #=> "1234"
+comment_thread.total_reply_count #=> 1
+comment_thread.can_reply? #=> true
+comment_thread.public? #=> true
+
+comment_thread.top_level_comment #=> #<Yt::Models::Comment ...>
+comment_thread.text_display #=> "funny video!"
+comment_thread.like_count #=> 9
+comment_thread.updated_at #=> 2016-03-22 12:56:56 UTC
+comment_thread.author_display_name #=> "Joe"
+```
+
+Yt::Comment
+----------------
+
+Use [Yt::Comment](http://www.rubydoc.info/gems/yt/Yt/Models/Comment) to:
+
+* Get details of a comment.
+
+```ruby
+Yt::Comment.new id: 'z13vsnnbwtv4sbnug232erczcmi3wzaug'
+
+comment.text_display #=> "awesome"
+comment.author_display_name #=> "Jack"
+comment.like_count #=> 1
+comment.updated_at #=> 2016-03-22 12:56:56 UTC
+comment.parent_id #=> "abc1234" (return nil if the comment is not a reply)
+```
+
 Yt::Collections::Videos
 -----------------------
 
@@ -128,7 +178,7 @@ videos = Yt::Collections::Videos.new
 videos.where(order: 'viewCount').first.title #=>  "PSY - GANGNAM STYLE"
 videos.where(q: 'Fullscreen CreatorPlatform', safe_search: 'none').size #=> 324
 videos.where(chart: 'mostPopular', video_category_id: 44).first.title #=> "SINISTER - Trailer"
-videos.where(id: 'MESycYJytkU,invalid').map(&:title) #=> ["Fullscreen Creator Platform"]
+videos.where(id: 'jNQXAC9IVRw,invalid').map(&:title) #=> ["Fullscreen Creator Platform"]
 ```
 
 *The methods above do not require authentication.*
@@ -243,7 +293,7 @@ Use [Yt::AdvertisingOptionsSet](http://www.rubydoc.info/gems/yt/Yt/Models/Advert
 
 ```ruby
 content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
-ad_options = Yt::AdvertisingOptionsSet.new video_id: 'MESycYJytkU', auth: $content_owner
+ad_options = Yt::AdvertisingOptionsSet.new video_id: 'jNQXAC9IVRw', auth: $content_owner
 ad_options.update ad_formats: %w(standard_instream long) #=> true
 ```
 

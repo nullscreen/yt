@@ -19,9 +19,9 @@ module Yt
         true
       end
 
-      def ad_formats
-        @data['adFormats']
-      end
+      has_attribute :ad_formats
+      has_attribute :ad_breaks
+      has_attribute :tp_ad_server_video_id
 
     private
 

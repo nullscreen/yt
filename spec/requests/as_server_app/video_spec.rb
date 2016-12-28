@@ -1,11 +1,12 @@
 require 'spec_helper'
 require 'yt/models/video'
+require 'yt/collections/comment_threads'
 
 describe Yt::Video, :server_app do
   subject(:video) { Yt::Video.new attrs }
 
   context 'given an existing video ID' do
-    let(:attrs) { {id: 'MESycYJytkU'} }
+    let(:attrs) { {id: '9bZkp7q19f0'} }
 
     it { expect(video.content_detail).to be_a Yt::ContentDetail }
 
@@ -27,11 +28,11 @@ describe Yt::Video, :server_app do
   end
 
   context 'given an existing video URL' do
-    let(:attrs) { {url: 'https://www.youtube.com/watch?v=MESycYJytkU&list=LLxO1tY8h1AhOz0T4ENwmpow'} }
+    let(:attrs) { {url: 'https://www.youtube.com/watch?v=9bZkp7q19f0'} }
 
     specify 'provides access to its data' do
-      expect(video.id).to eq 'MESycYJytkU'
-      expect(video.title).to eq 'Fullscreen Creator Platform'
+      expect(video.id).to eq '9bZkp7q19f0'
+      expect(video.title).to eq "PSY - GANGNAM STYLE(강남스타일) M/V"
       expect(video.privacy_status).to eq 'public'
     end
   end
@@ -55,4 +56,24 @@ describe Yt::Video, :server_app do
     end
   end
 
+  describe 'associations' do
+    let(:attrs) { {id: 'MsplPPW7tFo'} }
+
+    describe '#comment_threads' do
+      it { expect(video.comment_threads).to be_a Yt::Collections::CommentThreads }
+      it { expect(video.comment_threads.first.top_level_comment).to be_a Yt::Models::Comment }
+    end
+
+    describe '#comment_threads.each_cons' do
+      it {
+        comment_threads = []
+        video.comment_threads.each_cons(2).take_while do |items|
+          comment_threads += items
+          comment_threads.size < 6
+        end
+        expect(comment_threads.size).to be 6
+      }
+    end
+  end
 end
+
