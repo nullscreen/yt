@@ -37,6 +37,11 @@ module Yt
       #   @return [String] the title of the channel that the video belongs to.
       delegate :channel_title, to: :snippet
 
+      # @return [<String>] the URL of the channel that the video belongs to.
+      def channel_url
+        "https://www.youtube.com/channel/#{channel_id}"
+      end
+
       # @!attribute [r] live_broadcast_content
       #   @return [String] the type of live broadcast that the video contains.
       #     Possible values are: +'live'+, +'none'+, +'upcoming'+.

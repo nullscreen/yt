@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.28.2 - 2017-01-09
+
+* [FEATURE] Add `channel_url` to video.
+
 ## 0.28.1 - 2016-10-24
 
 * [FEATURE] New `card impressions` report for video groups.
