@@ -160,6 +160,22 @@ module Yt
           Collections::Videos.new(auth: @auth).where(conditions).map(&:itself)
         end
       end
+
+      def channels
+        all_channel_ids.each_slice(50).flat_map do |channel_ids|
+          conditions = {id: channel_ids.join(',')}
+          conditions[:part] = 'snippet'
+          Collections::Channels.new(auth: @auth).where(conditions).map(&:itself)
+        end
+      end
+
+      def all_channel_ids
+        case group_info.data['itemType']
+        when "youtube#channel"
+          group_items.map {|item| item.data['resource']['id']}.uniq
+        when "youtube#video"
+        end
+      end
     end
   end
 end
