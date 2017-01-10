@@ -15,6 +15,11 @@ describe Yt::VideoGroup, :partner do
         expect(video.instance_variable_defined? :@status).to be true
         expect(video.instance_variable_defined? :@statistics_set).to be true
       end
+
+      specify '.channels loads each channel' do
+        channel = video_group.channels.first
+        expect(channel.instance_variable_defined? :@snippet).to be true
+      end
     end
   end
 
@@ -49,6 +54,11 @@ describe Yt::VideoGroup, :partner do
         expect(video.instance_variable_defined? :@snippet).to be true
         expect(video.instance_variable_defined? :@status).to be true
         expect(video.instance_variable_defined? :@statistics_set).to be true
+      end
+
+      specify '.channels loads each channel' do
+        channel = video_group.channels.first
+        expect(channel.instance_variable_defined? :@snippet).to be true
       end
 
       describe 'multiple reports can be retrieved at once' do
