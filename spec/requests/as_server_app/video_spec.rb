@@ -19,6 +19,7 @@ describe Yt::Video, :server_app do
       expect(video.tags).to be_an Array
       expect(video.channel_id).to be_a String
       expect(video.channel_title).to be_a String
+      expect(video.channel_url).to be_a String
       expect(video.category_id).to be_a String
       expect(video.live_broadcast_content).to be_a String
     end
