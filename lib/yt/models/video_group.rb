@@ -150,6 +150,8 @@ module Yt
           resource_ids.flat_map do |channel_id|
             Yt::Channel.new(id: channel_id, auth: @auth).videos.map(&:id)
           end
+        else
+          []
         end
       end
 
