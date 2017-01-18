@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.28.5 - 2017-01-18
+
+* [BUGFIX] Don't crash when Yt::VideoGroup is initialized with a group of playlists.
+
 ## 0.28.4 - 2017-01-18
 
 * [BUGFIX] Don't crash when Yt::VideoGroup is initialized with a group of playlists.

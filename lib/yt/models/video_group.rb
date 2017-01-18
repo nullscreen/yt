@@ -172,6 +172,8 @@ module Yt
           end.uniq
         when "youtube#channel"
           resource_ids
+        else
+          []
         end
       end
 
