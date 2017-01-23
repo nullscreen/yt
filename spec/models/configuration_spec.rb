@@ -41,4 +41,33 @@ describe Yt::Configuration do
       it {expect(config.api_key).to eq api_key }
     end
   end
+
+  describe '#authentication_handlers' do
+    subject { described_class.new }
+
+    context 'by default' do
+      it 'returns an empty array' do
+        expect(subject.authentication_handlers).to eq []
+      end
+    end
+  end
+
+  describe '#authentication_handlers<<' do
+    subject { described_class.new }
+
+    let(:handlers) {[
+      'auth-handler-1',
+      'auth-handler-2',
+    ]}
+
+    before do
+      handlers.each do |handler|
+        subject.authentication_handlers << handler
+      end
+    end
+
+    it 'returns the assigned values' do
+      expect(subject.authentication_handlers).to match_array handlers
+    end
+  end
 end
