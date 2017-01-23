@@ -96,7 +96,7 @@ module Yt
       def next_page
         super.tap do |items|
           halt_list if use_list_endpoint? && items.empty? && @page_token.nil?
-          add_offset_to(items) if !use_list_endpoint? && videos_params[:order] == 'date' && !(videos_params[:for_mine] || videos_params[:for_content_owner])
+          add_offset_to(items) if !use_list_endpoint? && !(videos_params[:for_mine] || videos_params[:for_content_owner])
         end
       end
 
