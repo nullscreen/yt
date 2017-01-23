@@ -1,8 +1,8 @@
 require 'net/http' # for Net::HTTP.start
 require 'uri' # for URI.json
 require 'json' # for JSON.parse
-require 'active_support' # does not load anything by default  but is required
-require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
+require 'active_support/core_ext/hash' # for Hash.from_xml, Hash.to_param
+require 'active_support/notifications'
 
 require 'yt/errors/forbidden'
 require 'yt/errors/missing_auth'

@@ -57,13 +57,13 @@ module Yt
       # @return [Boolean] whether the logging output is extra-verbose.
       #   Useful when developing (e.g., to print the curl of every request).
       def developing?
-        log_level.to_s.in? %w(devel)
+        %w(devel).include? log_level.to_s
       end
 
       # @return [Boolean] whether the logging output is verbose.
       #   Useful when debugging (e.g., to print the curl of failing requests).
       def debugging?
-        log_level.to_s.in? %w(devel debug)
+        %w(devel debug).include? log_level.to_s
       end
     end
   end
