@@ -4,21 +4,6 @@ require 'yt/models/resource'
 describe Yt::Resource do
   subject(:resource) { Yt::Resource.new attrs }
 
-  context 'given a resource initialized with a URL (containing an ID)' do
-    let(:attrs) { {url: 'youtu.be/9bZkp7q19f0'} }
-
-    it { expect(resource.id).to eq '9bZkp7q19f0' }
-    it { expect(resource.kind).to eq 'video' }
-    it { expect(resource.username).to be_nil }
-  end
-
-  context 'given a resource initialized with a URL (containing a username)' do
-    let(:attrs) { {url: 'youtube.com/fullscreen'} }
-
-    it { expect(resource.kind).to eq 'channel' }
-    it { expect(resource.username).to eq 'fullscreen' }
-  end
-
   describe '#public?' do
     context 'given fetching a status returns privacyStatus "public"' do
       let(:attrs) { {status: {"privacyStatus"=>"public"}} }

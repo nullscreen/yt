@@ -10,7 +10,7 @@ describe Yt::PlaylistItem, :server_app do
     it 'returns valid snippet data' do
       expect(item.snippet).to be_a Yt::Snippet
       expect(item.title).to be_a String
-      expect(item.description).to be_a Yt::Description
+      expect(item.description).to be_a String
       expect(item.thumbnail_url).to be_a String
       expect(item.published_at).to be_a Time
       expect(item.channel_id).to be_a String

@@ -10,7 +10,7 @@ describe Yt::Channel, :server_app do
     it 'returns valid snippet data' do
       expect(channel.snippet).to be_a Yt::Snippet
       expect(channel.title).to be_a String
-      expect(channel.description).to be_a Yt::Description
+      expect(channel.description).to be_a String
       expect(channel.thumbnail_url).to be_a String
       expect(channel.published_at).to be_a Time
     end
@@ -34,16 +34,6 @@ describe Yt::Channel, :server_app do
     end
   end
 
-  context 'given an existing channel URL' do
-    let(:attrs) { {url: 'youtube.com/fullscreen'} }
-
-    specify 'provides access to its data' do
-      expect(channel.id).to eq 'UCxO1tY8h1AhOz0T4ENwmpow'
-      expect(channel.title).to eq 'Fullscreen'
-      expect(channel.privacy_status).to eq 'public'
-    end
-  end
-
   context 'given an unknown channel ID' do
     let(:attrs) { {id: 'not-a-channel-id'} }
 
@@ -59,16 +49,6 @@ describe Yt::Channel, :server_app do
       # returning 100,000 results otherwise (ignoring the channel filter).
       it { expect(channel.videos.count).to be_zero }
       it { expect(channel.videos.size).to be_zero }
-    end
-  end
-
-  context 'given an unknown channel URL' do
-    let(:attrs) { {url: 'youtube.com/--not-a-valid-url--'} }
-
-    specify 'accessing its data raises an error' do
-      expect{channel.id}.to raise_error Yt::Errors::NoItems
-      expect{channel.title}.to raise_error Yt::Errors::NoItems
-      expect{channel.status}.to raise_error Yt::Errors::NoItems
     end
   end
 end

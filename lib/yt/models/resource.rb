@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 require 'yt/models/base'
-require 'yt/models/url'
 
 module Yt
   module Models
@@ -13,7 +12,7 @@ module Yt
 
       # @!attribute [r] id
       #   @return [String] the ID that YouTube uses to identify each resource.
-      has_one :id
+      attr_reader :id
 
     ### STATUS ###
 
@@ -43,8 +42,7 @@ module Yt
 
       # @private
       def initialize(options = {})
-        @url = URL.new(options[:url]) if options[:url]
-        @id = options[:id] || (@url.id if @url)
+        @id = options[:id]
         @auth = options[:auth]
         @snippet = Snippet.new(data: options[:snippet]) if options[:snippet]
         @status = Status.new(data: options[:status]) if options[:status]
@@ -52,12 +50,7 @@ module Yt
 
       # @private
       def kind
-        @url ? @url.kind.to_s : self.class.to_s.demodulize.underscore
-      end
-
-      # @private
-      def username
-        @url.username if @url
+        self.class.to_s.demodulize.underscore
       end
 
       # @private

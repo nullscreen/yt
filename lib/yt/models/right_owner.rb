@@ -1,5 +1,3 @@
-require 'yt/models/description'
-
 module Yt
   module Models
     # Encapsulates information about the various types of owners of an asset.
