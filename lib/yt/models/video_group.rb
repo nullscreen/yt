@@ -150,6 +150,8 @@ module Yt
           resource_ids.flat_map do |channel_id|
             Yt::Channel.new(id: channel_id, auth: @auth).videos.map(&:id)
           end
+        else
+          []
         end
       end
 
@@ -158,6 +160,28 @@ module Yt
           conditions = {id: video_ids.join(',')}
           conditions[:part] = 'snippet,status,statistics,contentDetails'
           Collections::Videos.new(auth: @auth).where(conditions).map(&:itself)
+        end
+      end
+
+      def all_channel_ids
+        resource_ids = group_items.map {|item| item.data['resource']['id']}.uniq
+        case group_info.data['itemType']
+        when "youtube#video"
+          resource_ids.flat_map do |video_id|
+            Yt::Video.new(id: video_id, auth: @auth).channel_id
+          end.uniq
+        when "youtube#channel"
+          resource_ids
+        else
+          []
+        end
+      end
+
+      def channels
+        all_channel_ids.each_slice(50).flat_map do |channel_ids|
+          conditions = {id: channel_ids.join(',')}
+          conditions[:part] = 'snippet'
+          Collections::Channels.new(auth: @auth).where(conditions).map(&:itself)
         end
       end
     end

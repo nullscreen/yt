@@ -6,6 +6,22 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.28.5 - 2017-01-18
+
+* [BUGFIX] Don't crash when Yt::VideoGroup is initialized with a group of playlists.
+
+## 0.28.4 - 2017-01-18
+
+* [BUGFIX] Don't crash when Yt::VideoGroup is initialized with a group of playlists.
+
+## 0.28.3 - 2017-01-09
+
+* [FEATURE] Add `VideoGroup#channels` method to load all channels under a group.
+
+## 0.28.2 - 2017-01-09
+
+* [FEATURE] Add `channel_url` to video.
+
 ## 0.28.1 - 2016-10-24
 
 * [FEATURE] New `card impressions` report for video groups.
