@@ -125,17 +125,18 @@ module Yt
             result.deep_merge hash
           end
           if dimension == :month
-            hash = hash.inject({}){|h,(k,v)| v.sort_by{|range, v| range.first}.to_h; h}
+            hash = hash.inject({}){|h,(k,v)| h[k] = v.sort_by{|range, v| range.first}.to_h; h}
           elsif dimension == :week
             hash = hash.inject({}) do |h,(k,v)|
+              h[k] =
               v.select{|range, v| range.last.wday == days_range.last.wday}.
               sort_by{|range, v| range.first }.to_h
               h
             end
           elsif dimension == :day
-            hash = hash.inject({}){|h,(k,v)| v.sort_by{|day, v| day}.to_h; h}
+            hash = hash.inject({}){|h,(k,v)| h[k] = v.sort_by{|day, v| day}.to_h; h}
           elsif [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :subscribed_status].include?(dimension)
-            hash = hash.inject({}){|h,(k,v)| v.sort_by{|range, v| -v}.to_h; h}
+            hash = hash.inject({}){|h,(k,v)| h[k] = v.sort_by{|range, v| -v}.to_h; h}
           end
           (@metrics.one? || @metrics.keys == [:estimated_revenue, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
         end
