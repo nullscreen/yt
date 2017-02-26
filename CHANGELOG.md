@@ -6,6 +6,28 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.29.0 - 2017-02-17
+
+**How to upgrade**
+
+If your code uses `Yt::URL` then you must include the `yt-url` gem, since
+`Yt::URL` has been extracted into a separate repository.
+Please read the documentation of `Yt::URL` and notice that the `subscription`
+pattern has been dropped, so URLs such as the following will not be recognized
+anymore: `subscription_center?add_user=...`, `subscribe_widget?p=...`.
+
+Note that this also removes the option of initializing a resource by URL.
+You can achieve the same result with the `yt-url` gem, as detailed in its
+documentation.
+
+Finally note that this also remove the class `Yt::Description`. This class
+was private API, so this change should not affect developers.
+
+* [REMOVAL] Remove the option to initialize resources by URL.
+* [REMOVAL] Remove 'Yt::Resource.username`
+* [REMOVAL] Remove `Yt::URL` (extracted into separate gem)
+* [REMOVAL] Remove `Yt::Description` (now simply a String).
+
 ## 0.28.5 - 2017-01-18
 
 * [BUGFIX] Don't crash when Yt::VideoGroup is initialized with a group of playlists.

@@ -1,4 +1,3 @@
-require 'yt/models/description'
 require 'yt/models/comment'
 
 module Yt
@@ -20,7 +19,7 @@ module Yt
       end
 
       has_attribute :title, default: ''
-      has_attribute(:description, default: '') {|text| Description.new text}
+      has_attribute :description, default: ''
       has_attribute :published_at, type: Time
       has_attribute :channel_id
       has_attribute :channel_title

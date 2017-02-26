@@ -141,7 +141,7 @@ client = YouTubeIt::Client.new
 client.videos_by(:query => "penguin",  :author => "liz")
 # with yt: the 'author' filter was removed from YouTube API V3, so the
 # request must be done using the channel of the requested author
-channel = Yt::Channel.new url: 'youtube.com/liz'
+channel = Yt::Channel.new id: 'UCxxxxxxxxx'
 channel.videos.where(q: 'penguin')
 ```
 
@@ -176,7 +176,7 @@ client = YouTubeIt::Client.new
 client.videos_by(:user => 'liz')
 # with yt: the 'author' filter was removed from YouTube API V3, so the
 # request must be done using the channel of the requested author
-channel = Yt::Channel.new url: 'youtube.com/liz'
+channel = Yt::Channel.new id: 'UCxxxxxxxxx'
 channel.videos.where(q: 'penguin')
 ```
 
@@ -188,7 +188,7 @@ client = YouTubeIt::Client.new
 client.videos_by(:favorites, :user => 'liz')
 # with yt: note that only *old* channels have a "Favorites" playlist, since
 # "Favorites" has been deprecated by YouTube in favor of "Liked Videos".
-channel = Yt::Channel.new url: 'youtube.com/liz'
+channel = Yt::Channel.new id: 'UCxxxxxxxxx'
 channel.related_playlists.find{|p| p.title == 'Favorites'}
 ```
 
