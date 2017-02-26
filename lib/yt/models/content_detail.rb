@@ -29,6 +29,12 @@ module Yt
         content_rating['ytRating']
       end
 
+      # @return [<String>] the length of the video as an ISO 8601 time, HH:MM:SS.
+      def length
+        hh, mm, ss = duration / 3600, duration / 60 % 60, duration % 60
+        [hh, mm, ss].map{|t| t.to_s.rjust(2,'0')}.join(':')
+      end
+
     private
 
       # @return [Integer] the duration of the resource as reported by YouTube.

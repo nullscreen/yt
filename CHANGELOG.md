@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.29.1 - 2017-02-26
+
+* [FEATURE] Add `Video#length` to show the duration as an ISO 8601 time.
+
 ## 0.29.0 - 2017-02-17
 
 **How to upgrade**
