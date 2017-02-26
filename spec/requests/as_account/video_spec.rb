@@ -29,6 +29,7 @@ describe Yt::Video, :device_app do
       expect(video.favorite_count).to be_an Integer
       expect(video.comment_count).to be_an Integer
       expect(video.duration).to be_an Integer
+      expect(video.length).to be_a String
       expect(video.hd?).to be_in [true, false]
       expect(video.stereoscopic?).to be_in [true, false]
       expect(video.captioned?).to be_in [true, false]

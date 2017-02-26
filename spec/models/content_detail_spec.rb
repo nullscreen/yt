@@ -42,4 +42,11 @@ describe Yt::ContentDetail do
       it { expect(content_detail.duration).to eq 51 }
     end
   end
+
+  describe '#length' do
+    context 'returns the duration in HH:MM:SS' do
+      let(:data) { {"duration"=>"PT1H18M52S"} }
+      it { expect(content_detail.length).to eq '01:18:52' }
+    end
+  end
 end
