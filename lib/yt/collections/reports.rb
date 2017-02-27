@@ -118,23 +118,25 @@ module Yt
         else
           hash = flat_map do |hashes|
             hashes.map do |metric, values|
-              [metric, values.transform_values{|v| type_cast(v, @metrics[metric])}]
+              [metric, values.inject({}){|h,(k,v)| h[k] = type_cast(v, @metrics[metric]); h}]
             end.to_h
           end
-          hash = hash.inject(@metrics.transform_values{|v| {}}) do |result, hash|
+          hash = hash.inject(@metrics.inject({}){|h,(k,v)| h[k] = {}; h}) do |result, hash|
             result.deep_merge hash
           end
           if dimension == :month
-            hash = hash.transform_values{|h| h.sort_by{|range, v| range.first}.to_h}
+            hash = hash.inject({}){|h,(k,v)| h[k] = v.sort_by{|range, v| range.first}.to_h; h}
           elsif dimension == :week
-            hash = hash.transform_values do |h|
-              h.select{|range, v| range.last.wday == days_range.last.wday}.
-              sort_by{|range, v| range.first}.to_h
+            hash = hash.inject({}) do |h,(k,v)|
+              h[k] =
+              v.select{|range, v| range.last.wday == days_range.last.wday}.
+              sort_by{|range, v| range.first }.to_h
+              h
             end
           elsif dimension == :day
-            hash = hash.transform_values{|h| h.sort_by{|day, v| day}.to_h}
-          elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :subscribed_status]
-            hash = hash.transform_values{|h| h.sort_by{|range, v| -v}.to_h}
+            hash = hash.inject({}){|h,(k,v)| h[k] = v.sort_by{|day, v| day}.to_h; h}
+          elsif [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :subscribed_status].include?(dimension)
+            hash = hash.inject({}){|h,(k,v)| h[k] = v.sort_by{|range, v| -v}.to_h; h}
           end
           (@metrics.one? || @metrics.keys == [:estimated_revenue, :estimated_minutes_watched]) ? hash[@metrics.keys.first] : hash
         end
@@ -176,9 +178,9 @@ module Yt
           params['end-date'] = @days_range.end
           params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
-          params['max-results'] = 50 if @dimension.in? [:playlist, :video]
-          params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
-          if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
+          params['max-results'] = 50 if [:playlist, :video].include?(@dimension)
+          params['max-results'] = 25 if [:embedded_player_location, :related_video, :search_term, :referrer].include?(@dimension)
+          if [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer].include?(@dimension)
             if @metrics.keys == [:estimated_revenue, :estimated_minutes_watched]
               params['sort'] = '-estimatedRevenue'
             else
@@ -202,7 +204,7 @@ module Yt
       end
 
       def rescue?(error)
-        'badRequest'.in?(error.reasons) && error.to_s =~ /did not conform/
+        error.reasons.include?('badRequest') && error.to_s =~ /did not conform/
       end
     end
   end

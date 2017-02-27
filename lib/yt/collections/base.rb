@@ -9,6 +9,7 @@ module Yt
       include Actions::DeleteAll
       include Actions::Insert
       include Actions::List
+      include Enumerable
 
       def initialize(options = {})
         @parent = options[:parent]
