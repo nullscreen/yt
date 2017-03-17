@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'activesupport' # '3 (Ruby 1.9) or 4 (Ruby 2)'
+  spec.add_dependency 'yt-support', '>= 0.1'
 
   # For development / Code coverage / Documentation
   spec.add_development_dependency 'bundler' #, '~> 1.0'
