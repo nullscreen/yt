@@ -6,6 +6,18 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.30.0 - 2017-03-17
+
+**How to upgrade**
+
+If your code uses `Yt::Models::Configuration` then you must use
+`Yt::Configuration` instead.
+
+Both `Yt::Configuration` and `Yt::Config` have been moved in a separate
+gem called `yt-support` that is required by default by the `yt` gem.
+
+* [REMOVAL] Remove `Yt::Models::Configuration` (renamed as `Yt::Configuration`)
+
 ## 0.29.1 - 2017-02-26
 
 * [FEATURE] Add `Video#length` to show the duration as an ISO 8601 time.
