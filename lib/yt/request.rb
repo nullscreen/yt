@@ -65,6 +65,7 @@ module Yt
       @body = options[:body]
       @headers = options.fetch :headers, {}
       @auth = options[:auth]
+      @unauthorized_api_method = options[:unauthorized_api_method]
     end
 
     # Sends the request and returns the response.
@@ -256,7 +257,7 @@ module Yt
     def response_error
       case response
         when *server_errors then Errors::ServerError
-        when Net::HTTPUnauthorized then Errors::Unauthorized
+        when Net::HTTPUnauthorized then @unauthorized_api_method.nil? || !(@error=@unauthorized_api_method.call) ? Errors::Unauthorized : Errors::RequestError
         when Net::HTTPForbidden then Errors::Forbidden
         else Errors::RequestError
       end
@@ -282,7 +283,7 @@ module Yt
     # If the response format is JSON, showing the parsed body is sufficient,
     # otherwise the whole (inspected) response is worth looking at.
     def error_message
-      response_body = JSON(response.body) rescue response.inspect
+      response_body = @error ? {error: @error} : JSON(response.body) rescue response.inspect
       {request_curl: as_curl, response_body: response_body}
     end
   end

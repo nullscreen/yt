@@ -60,6 +60,7 @@ module Yt
     ### ACTIONS ###
 
       # Uploads a video to the account’s channel.
+      # If the account has no linked channel, a RequestError with reasons=['channelNotFound'] is raised.
       # @param [String] path_or_url the video to upload. Can either be the
       #   path of a local file or the URL of a remote file.
       # @param [Hash] params the metadata to add to the uploaded video.
@@ -70,7 +71,7 @@ module Yt
       # @return [Yt::Models::Video] the newly uploaded video.
       def upload_video(path_or_url, params = {})
         file = open path_or_url, 'rb'
-        session = resumable_sessions.insert file.size, upload_body(params)
+        session = resumable_sessions.insert file.size, upload_body(params), required_channel: channel
 
         session.update(body: file) do |data|
           Yt::Video.new id: data['id'], snippet: data['snippet'], status: data['privacyStatus'], auth: self
@@ -78,6 +79,7 @@ module Yt
       end
 
       # Creates a playlist in the account’s channel.
+      # If the account has no linked channel, a RequestError with reasons=['channelNotFound'] is raised.
       # @return [Yt::Models::Playlist] the newly created playlist.
       # @param [Hash] params the attributes of the playlist.
       # @option params [String] :title The new playlist’s title.

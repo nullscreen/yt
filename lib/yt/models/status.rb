@@ -27,6 +27,7 @@ module Yt
       has_attribute :embeddable
       has_attribute :public_stats_viewable
       has_attribute :publish_at, type: Time
+      has_attribute :is_linked?, from: :is_linked
     end
   end
 end

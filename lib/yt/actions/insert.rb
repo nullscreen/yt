@@ -9,7 +9,17 @@ module Yt
 
     private
 
-      def do_insert(extra_insert_params = {})
+      def do_insert(extra_insert_params = {}, options = {})
+        if options[:required_channel]
+          check_channel_presence = proc do
+            begin
+              {errors:[{reason: 'channelNotFound', message: 'Channel not found.'}], message: 'Channel not found.'} unless options[:required_channel].status.is_linked?
+            rescue Errors::Unauthorized
+              nil
+            end
+          end
+          extra_insert_params = extra_insert_params.merge(unauthorized_api_method: check_channel_presence)
+        end
         response = insert_request(extra_insert_params).run
         @items = []
         new_item extract_data_from(response)

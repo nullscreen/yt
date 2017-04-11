@@ -9,11 +9,11 @@ module Yt
         do_delete_all params
       end
 
-      def insert(attributes = {}, options = {}) #
+      def insert(attributes = {}, options = {})
         underscore_keys! attributes
         body = build_insert_body attributes
         params = {part: body.keys.join(',')}
-        do_insert(params: params, body: body)
+        do_insert({params: params, body: body}, options)
       end
 
     private

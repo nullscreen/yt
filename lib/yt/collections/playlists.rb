@@ -4,6 +4,10 @@ module Yt
   module Collections
     class Playlists < Resources
 
+      def insert(attributes = {}, options = {})
+        super(attributes, options.merge(required_channel: @parent))
+      end
+
     private
 
       # @return [Hash] the parameters to submit to YouTube to list channels.

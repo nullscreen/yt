@@ -29,6 +29,16 @@ module Yt
       #   @return [Time] the date and time that the channel was created.
       delegate :published_at, to: :snippet
 
+    ### STATUS ###
+
+      # @!attribute [r] is_linked?
+      #   @return [Boolean] whether the channel is associated with a Google user
+      #   that is already linked to either a YouTube username or a Google+ account.
+      #   A user that has one of these links has a public YouTube identity,
+      #   which is a prerequisite for uploading videos and creating and deleting
+      #   playlists and playlist_items.
+      delegate :is_linked?, to: :status
+
     ### SUBSCRIPTION ###
 
       has_one :subscription
