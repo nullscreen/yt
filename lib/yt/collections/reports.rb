@@ -105,7 +105,7 @@ module Yt
 
       attr_writer :metrics
 
-      def within(days_range, country, state, dimension, videos, try_again = true)
+      def within(days_range, country, state, dimension, videos, max_retries = 3)
         @days_range = days_range
         @dimension = dimension
         @country = country
@@ -145,7 +145,7 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        try_again && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, videos, false) : raise
+        (max_retries > 0) && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, videos, max_retries - 1) : raise
       end
 
     private

@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.30.1 - 2017-04-14
+
+* [IMPROVEMENT] Retry 3 times if YouTube responds with 503 Backend Error
+
 ## 0.30.0 - 2017-03-17
 
 **How to upgrade**
