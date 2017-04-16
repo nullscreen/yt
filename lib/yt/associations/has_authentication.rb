@@ -27,6 +27,8 @@ module Yt
         @refresh_token = options[:refresh_token]
         @device_code = options[:device_code]
         @expires_at = options[:expires_at]
+        @approval_prompt = options[:approval_prompt]
+        @prompt = options[:prompt]
         @authorization_code = options[:authorization_code]
         @redirect_uri = options[:redirect_uri]
         @force = options[:force]
@@ -185,6 +187,8 @@ module Yt
         {}.tap do |params|
           params[:client_id] = client_id
           params[:scope] = authentication_scope
+          params[:approval_prompt] = @approval_prompt if @approval_prompt
+          params[:prompt] = @prompt if @prompt
           params[:redirect_uri] = @redirect_uri
           params[:response_type] = :code
           params[:access_type] = :offline
