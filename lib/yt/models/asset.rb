@@ -6,12 +6,13 @@ module Yt
     # Provides methods to interact with YouTube ContentID assets.
     # @see https://developers.google.com/youtube/partner/docs/v1/assets
     class Asset < Base
-      attr_reader :auth
+      attr_reader :auth, :data, :params
 
       def initialize(options = {})
         @data = options.fetch(:data, {})
         @id = options[:id]
         @auth = options[:auth]
+        @params = options[:params]
       end
 
       def update(attributes = {})
@@ -68,7 +69,7 @@ module Yt
       #   with the asset. You can apply a label to multiple assets to group
       #   them. You can use the labels as search filters to perform bulk updates,
       #   to download reports, or to filter YouTube Analytics.
-      has_attribute :label
+      has_attribute :label, default: []
 
 # Status
 
@@ -104,6 +105,13 @@ module Yt
           params[:expected_response] = Net::HTTPOK
           params[:path] = "/youtube/partner/v1/assets/#{@id}"
           params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
+        end
+      end
+
+      def get_params
+        super.tap do |params|
+          params[:path] = "/youtube/partner/v1/assets/#{@id}"
+          params[:params] = {on_behalf_of_content_owner: @auth.owner_name}.merge! @params
         end
       end
     end
