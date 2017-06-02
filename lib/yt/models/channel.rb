@@ -114,9 +114,6 @@ module Yt
       # @macro report_by_channel_dimensions
       has_report :views, Integer
 
-      # @macro report_by_day
-      has_report :uniques, Integer
-
       # @macro report_by_channel_dimensions
       has_report :estimated_minutes_watched, Integer
 
