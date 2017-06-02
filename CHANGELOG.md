@@ -6,6 +6,15 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.31.0 - 2017-06-02
+
+**How to upgrade**
+
+If your code calls `.uniques` it should be removed because this metric has been
+no longer supported by YouTube API as of [October 31, 2016](https://developers.google.com/youtube/analytics/revision_history#september-27-2016).
+
+* [REMOVAL] Remove `#uniques` method for channels, videos and video groups.
+
 ## 0.30.1 - 2017-04-14
 
 * [IMPROVEMENT] Retry 3 times if YouTube responds with 503 Backend Error
@@ -44,7 +53,7 @@ Finally note that this also remove the class `Yt::Description`. This class
 was private API, so this change should not affect developers.
 
 * [REMOVAL] Remove the option to initialize resources by URL.
-* [REMOVAL] Remove 'Yt::Resource.username`
+* [REMOVAL] Remove `Yt::Resource.username`
 * [REMOVAL] Remove `Yt::URL` (extracted into separate gem)
 * [REMOVAL] Remove `Yt::Description` (now simply a String).
 
