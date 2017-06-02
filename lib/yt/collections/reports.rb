@@ -19,6 +19,7 @@ module Yt
         hash[:playlist] = {name: 'playlist', parse: ->(playlist_id, *values) { @metrics.keys.zip(values.map{|v| {playlist_id => v}}).to_h} }
         hash[:device_type] = {name: 'deviceType', parse: ->(type, *values) {@metrics.keys.zip(values.map{|v| {DEVICE_TYPES.key(type) => v}}).to_h} }
         hash[:operating_system] = {name: 'operatingSystem', parse: ->(os, *values) {@metrics.keys.zip(values.map{|v| {OPERATING_SYSTEMS.key(os) => v}}).to_h} }
+        hash[:youtube_product] = {name: 'youtubeProduct', parse: ->(product, *values) {@metrics.keys.zip(values.map{|v| {YOUTUBE_PRODUCTS.key(product) => v}}).to_h} }
         hash[:country] = {name: 'country', parse: ->(country_code, *values) { @metrics.keys.zip(values.map{|v| {country_code => v}}).to_h} }
         hash[:state] = {name: 'province', parse: ->(country_and_state_code, *values) { @metrics.keys.zip(values.map{|v| {country_and_state_code[3..-1] => v}}).to_h} }
         hash[:gender_age_group] = {name: 'gender,ageGroup', parse: ->(gender, *values) { [gender.downcase.to_sym, *values] }}
@@ -68,6 +69,14 @@ module Yt
         unsubscribed: 'UNSUBSCRIBED'
       }
 
+      # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#youtubeProduct
+      YOUTUBE_PRODUCTS = {
+        core: 'CORE',
+        gaming: 'GAMING',
+        kids: 'KIDS',
+        unknown: 'UNKNOWN'
+      }
+
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Device_Dimensions
       DEVICE_TYPES = {
         desktop: 'DESKTOP',
@@ -110,9 +119,9 @@ module Yt
 
       def within(days_range, country, state, dimension, videos, max_retries = 3)
         @days_range = days_range
-        @dimension = dimension
         @country = country
         @state = state
+        @dimension = dimension
         @videos = videos
         if dimension == :gender_age_group # array of array
           Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
