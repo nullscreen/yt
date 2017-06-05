@@ -145,7 +145,6 @@ channel.views # => {total: 949}
 range = {since: 2.months.ago, until: 1.month.ago} # use a Date or String
 channel.views range # => {total: 219}
 channel.views range.merge(by: :day) # => {Wed, 8 May 2014 => 12, Thu, 9 May 2014 => …}
-# NOTE: 'channel.uniques' only works with {by: :day} – check its docs for details.
 
 channel.views in: 'FR' # => {total: 45}
 channel.views in: {country: 'US'} # => {total: 113}
@@ -161,7 +160,6 @@ channel.views in: {state: 'TX'} # => {total: 11}
   <dd>
 <div class="highlight"><pre>
 {% include doc.html link="Models/Channel#views" %}{% include example.html object='channel' method='views' result='{total: 345}' %}
-{% include doc.html link="Models/Channel#uniques" %}{% include example.html object='channel' method='uniques' result='{total: 115}' %}
 {% include doc.html link="Models/Channel#comments" %}{% include example.html object='channel' method='comments' result='{total: 900}' %}
 {% include doc.html link="Models/Channel#likes" %}{% include example.html object='channel' method='likes' result='{total: 934}' %}
 {% include doc.html link="Models/Channel#dislikes" %}{% include example.html object='channel' method='dislikes' result='{total: 445}' %}

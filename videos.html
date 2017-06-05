@@ -233,7 +233,6 @@ video.views since: '2014-03-31', until: 1.month.ago # => {total: 429}
 {% endhighlight %}
 <p>
   To obtain one value per each day, week or month of the range you specify (rather than the total), use the <code>:by</code> option.<br />
-  Note that <code>video.uniques</code> is the only method that <em>requires</em> the <code>:by</code> option to be set.
 </p>
 {% highlight ruby %}
 video.views by: :day # => {Wed, 8 May 2014 => 6, Thu, 9 May 2014 => 7, …}
@@ -258,7 +257,6 @@ video.views in: {state: 'TX'} # => {total: 11}
   <dd>
 <div class="highlight"><pre>
 {% include doc.html link="Models/Video#views" %}{% include example.html object='video' method='views' result='{total: 3453}' %}
-{% include doc.html link="Models/Video#uniques" %}{% include example.html object='video' method='uniques' result='{total: 395}' %}
 {% include doc.html link="Models/Video#comments" %}{% include example.html object='video' method='comments' result='{total: 304}' %}
 {% include doc.html link="Models/Video#likes" %}{% include example.html object='video' method='likes' result='{total: 459}' %}
 {% include doc.html link="Models/Video#dislikes" %}{% include example.html object='video' method='dislikes' result='{total: 923}' %}
