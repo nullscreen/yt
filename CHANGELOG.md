@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.31.1 - 2017-06-03
+
+* [FEATURE] Add `by: :youtube_product` option for reports.
+* [FEATURE] Add `Yt::Collections::Reports::YOUTUBE_PRODUCTS` to list all YouTube products (KIDS, GAMING, etc) supported by YouTube Analytics API.
+* [FEATURE] Add more operating system dimensions to `Yt::Collections::Reports::OPERATING_SYSTEMS`.
+
 ## 0.31.0 - 2017-06-02
 
 **How to upgrade**
