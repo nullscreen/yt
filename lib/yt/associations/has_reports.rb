@@ -243,7 +243,7 @@ module Yt
 
           only = options.fetch :only, []
           reports = Collections::Reports.of(self).tap do |reports|
-            reports.metrics =  self.class.instance_variable_get(:@metrics).select{|k, v| k.in? only}
+            reports.metrics = self.class.instance_variable_get(:@metrics).select{|k, v| k.in? only}
           end
           reports.within date_range, country, state, dimension, videos
         end unless defined?(reports)

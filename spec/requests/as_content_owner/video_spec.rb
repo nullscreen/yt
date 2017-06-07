@@ -369,6 +369,16 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by YouTube product' do
+        let(:keys) { Yt::Collections::Reports::YOUTUBE_PRODUCTS.keys }
+
+        specify 'with the :by option set to :youtube_product' do
+          views = video.views by: :youtube_product
+          expect(views.keys - keys).to be_empty
+          expect(views.values).to all(be_an Integer)
+        end
+      end
+
       describe 'views can be grouped by country' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
