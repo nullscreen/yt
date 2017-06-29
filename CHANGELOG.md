@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.31.2 - 2017-06-29
+
+* [BUGFIX] Return lifetime data correctly even when the channel joined content owner after a while since it's created.
+
 ## 0.31.1 - 2017-06-03
 
 * [FEATURE] Add `by: :youtube_product` option for reports.
