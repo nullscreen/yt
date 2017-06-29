@@ -188,6 +188,7 @@ module Yt
           params['end-date'] = @days_range.end
           params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
+          params['include-historical-channel-data'] = 'true'
           params['max-results'] = 50 if @dimension.in? [:playlist, :video]
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
           if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
