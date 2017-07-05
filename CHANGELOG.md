@@ -6,6 +6,14 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.32.0 - 2017-07-05
+
+**How to upgrade**
+
+If your code is expecting data from `reports` methods to always include historical data (the data from the period before joining), now you have to set `historical: true` specifically. It will not include historical data by default.
+
+* [IMPROVEMENT] Include historical data with `historical: true` option.
+
 ## 0.31.2 - 2017-06-29
 
 * [BUGFIX] Return lifetime data correctly even when the channel joined content owner after a while since it's created.
