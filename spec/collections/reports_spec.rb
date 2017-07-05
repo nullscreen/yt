@@ -9,7 +9,7 @@ describe Yt::Collections::Reports do
   let(:msg) { {response_body: {error: {errors: [error]}}}.to_json }
 
   describe '#within' do
-    let(:result) { reports.within Range.new(5.days.ago, 4.days.ago), nil, nil, :day, nil }
+    let(:result) { reports.within Range.new(5.days.ago, 4.days.ago), nil, nil, :day, nil, nil }
     context 'given the request raises error 400 with "Invalid Query" message' do
       let(:reason) { 'badRequest' }
       let(:message) { 'Invalid query. Query did not conform to the expectations' }

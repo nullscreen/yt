@@ -117,12 +117,13 @@ module Yt
 
       attr_writer :metrics
 
-      def within(days_range, country, state, dimension, videos, max_retries = 3)
+      def within(days_range, country, state, dimension, videos, historical, max_retries = 3)
         @days_range = days_range
         @country = country
         @state = state
         @dimension = dimension
         @videos = videos
+        @historical = historical
         if dimension == :gender_age_group # array of array
           Hash.new{|h,k| h[k] = Hash.new 0.0}.tap do |hash|
             each{|gender, age_group, value| hash[gender][age_group[3..-1]] = value}
@@ -157,7 +158,7 @@ module Yt
       # same query is a workaround that works and can hardly cause any damage.
       # Similarly, once in while YouTube responds with a random 503 error.
       rescue Yt::Error => e
-        (max_retries > 0) && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, videos, max_retries - 1) : raise
+        (max_retries > 0) && rescue?(e) ? sleep(3) && within(days_range, country, state, dimension, videos, historical, max_retries - 1) : raise
       end
 
     private
@@ -188,7 +189,7 @@ module Yt
           params['end-date'] = @days_range.end
           params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
-          params['include-historical-channel-data'] = 'true'
+          params['include-historical-channel-data'] = @historical if @historical
           params['max-results'] = 50 if @dimension.in? [:playlist, :video]
           params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
           if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
