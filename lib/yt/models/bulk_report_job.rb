@@ -15,6 +15,9 @@ module Yt
         @report_type_id = options[:report_type_id]
       end
 
+      # @!attribute [r] bulk_reports
+      #   @return [Yt::Collections::BulkReports] the bulk reports of this job.
+      has_many :bulk_reports
     end
   end
 end
