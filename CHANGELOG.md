@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.32.1 - unreleased
+
+* [FEATURE] Add `Yt::ContentOwner#bulk_report_jobs`
+
 ## 0.32.0 - 2017-07-05
 
 **How to upgrade**

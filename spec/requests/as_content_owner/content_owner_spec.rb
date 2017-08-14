@@ -305,6 +305,16 @@ describe Yt::ContentOwner, :partner do
     end
   end
 
+  describe '.bulk_report_jobs' do
+    describe 'given the content owner has bulk report jobs' do
+      let(:job) { $content_owner.bulk_report_jobs.first }
+
+      it 'returns valid job' do
+        expect(job.id).to be_a String
+        expect(job.report_type_id).to be_a String
+      end
+    end
+  end
   # @note: The following test works, but YouTube API endpoint to mark
   #   an asset as 'invalid' (soft-delete) does not work, and apparently
   #   there is no way to update the status of a asset.
