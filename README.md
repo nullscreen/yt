@@ -166,6 +166,37 @@ comment.updated_at #=> 2016-03-22 12:56:56 UTC
 comment.parent_id #=> "abc1234" (return nil if the comment is not a reply)
 ```
 
+Yt::BulkReportJob
+----------------
+
+Use [Yt::BulkReportJob](http://www.rubydoc.info/gems/yt/Yt/Models/BulkReportJob) to:
+
+* Get details of a bulk report job.
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+bulk_report_job = content_owner.bulk_report_jobs.first
+
+bulk_report_job.report_type_id #=> "content_owner_demographics_a1"
+```
+
+Yt::BulkReport
+----------------
+
+Use [Yt::BulkReport](http://www.rubydoc.info/gems/yt/Yt/Models/BulkReport) to:
+
+* Get details of a bulk report.
+
+```ruby
+content_owner = Yt::ContentOwner.new owner_name: 'CMSname', access_token: 'ya29.1.ABCDEFGHIJ'
+bulk_report_job = content_owner.bulk_report_jobs.first
+bulk_report = bulk_report_job.bulk_reports.first
+
+bulk_report.start_time #=> 2017-08-11 07:00:00 UTC
+bulk_report.end_time #=> 2017-08-12 07:00:00 UTC
+bulk_report.download_url #=> "https://youtubereporting.googleapis.com/v1/..."
+```
+
 Yt::Collections::Videos
 -----------------------
 
