@@ -31,15 +31,26 @@ module Yt
         end
       end
 
+      # These associations are separate resources, rather than Video resource parts
+      RESOURCE_ASSOCIATIONS = [:claim, :category]
       def eager_load_items_from(items)
-        if included_relationships.any?
-          associations = [:claim, :category]
-          if (included_relationships & associations).any?
-            included_relationships.append(:snippet).uniq!
-          end
+        requested_relationships = included_relationships.map(&:to_sym).uniq
+        if (requested_relationships & RESOURCE_ASSOCIATIONS).any?
+          requested_relationships.append(:snippet).uniq!
+        end
 
+        loaded_relationships = []
+        # Get relationships already loaded, but ignore for incomplete snippet Videos#search
+        loaded_relationships = videos_params[:part].split(',').map do |p|
+          p.underscore.to_sym
+        end if use_list_endpoint? && videos_params[:part]
+
+        needed_relationships = requested_relationships - loaded_relationships
+
+        # Request Video#list endpoint for more resource parts
+        if (needed_relationships - RESOURCE_ASSOCIATIONS).any?
           ids = items.map{|item| item['id']['videoId']}
-          parts = (included_relationships - associations).map do |r|
+          parts = (needed_relationships - RESOURCE_ASSOCIATIONS).map do |r|
             r.to_s.camelize(:lower)
           end
           conditions = { id: ids.join(','), part: parts.join(',') }
@@ -56,29 +67,30 @@ module Yt
               end
             end if video
           end
+        end
 
-          if included_relationships.include? :claim
-            video_ids = items.map{|item| item['id']['videoId']}.uniq
-            conditions = {
-              video_id: video_ids.join(','),
-              include_third_party_claims: false
-            }
-            claims = @parent.claims.includes(:asset).where conditions
-            items.each do |item|
-              claim = claims.find { |c| c.video_id == item['id']['videoId']}
-              item['claim'] = claim
-            end
+        # Eager load other resources
+        if included_relationships.include? :claim
+          video_ids = items.map{|item| item['id']['videoId']}.uniq
+          conditions = {
+            video_id: video_ids.join(','),
+            include_third_party_claims: false
+          }
+          claims = @parent.claims.includes(:asset).where conditions
+          items.each do |item|
+            claim = claims.find { |c| c.video_id == item['id']['videoId']}
+            item['claim'] = claim
           end
+        end
 
-          if included_relationships.include? :category
-            category_ids = items.map{|item| item['snippet']['categoryId']}.uniq
-            conditions = {id: category_ids.join(',')}
-            video_categories = Collections::VideoCategories.new(auth: @auth).where conditions
+        if included_relationships.include? :category
+          category_ids = items.map{|item| item['snippet']['categoryId']}.uniq
+          conditions = {id: category_ids.join(',')}
+          video_categories = Collections::VideoCategories.new(auth: @auth).where conditions
 
-            items.each do |item|
-              video_category = video_categories.find{|v| v.id == item['snippet']['categoryId']}
-              item['videoCategory'] = video_category.data
-            end
+          items.each do |item|
+            video_category = video_categories.find{|v| v.id == item['snippet']['categoryId']}
+            item['videoCategory'] = video_category.data
           end
         end
         super
@@ -133,7 +145,18 @@ module Yt
         {}.tap do |params|
           params[:type] = :video
           params[:max_results] = 50
-          params[:part] = 'snippet'
+
+          params[:part] = if use_list_endpoint? && included_relationships.any?
+            relationships = included_relationships.map(&:to_sym).uniq
+            if (included_relationships & RESOURCE_ASSOCIATIONS).any?
+              relationships << :snippet unless relationships.include?(:snippet)
+            end
+            relationships -= RESOURCE_ASSOCIATIONS
+            relationships.map {|r| r.to_s.camelize(:lower)}.join(',')
+          else
+            'snippet'
+          end
+
           params[:order] = 'date'
           params.merge! @parent.videos_params if @parent
           apply_where_params! params
