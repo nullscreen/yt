@@ -78,6 +78,7 @@ module Yt
 
         session = resumable_sessions.insert file.size, upload_body(params)
         session.update(body: file) do |data|
+          file.delete if file.is_a? Tempfile
           Yt::Video.new id: data['id'], snippet: data['snippet'], status: data['privacyStatus'], auth: self
         end
       end
