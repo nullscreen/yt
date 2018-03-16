@@ -69,12 +69,24 @@ module Yt
       # @option params [String] :privacy_status The video’s privacy status.
       # @return [Yt::Models::Video] the newly uploaded video.
       def upload_video(path_or_url, params = {})
-        file = open path_or_url, 'rb'
-        session = resumable_sessions.insert file.size, upload_body(params)
+        file =
+          if is_url(path_or_url)
+            fetch_remote_file(path_or_url)
+          else
+            open path_or_url, 'rb'
+          end
 
+        session = resumable_sessions.insert file.size, upload_body(params)
         session.update(body: file) do |data|
+          file.delete if file.is_a? Tempfile
           Yt::Video.new id: data['id'], snippet: data['snippet'], status: data['privacyStatus'], auth: self
         end
+      end
+
+      def is_url(path_or_url)
+        return false
+        pattern = /^(https?|ftp)/i
+        pattern.match(path_or_url)
       end
 
       # Creates a playlist in the account’s channel.
