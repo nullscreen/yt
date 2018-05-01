@@ -549,7 +549,7 @@ If you are a manager of this project, remember to upgrade the [Yt gem](http://ru
 whenever a new feature is added or a bug gets fixed.
 
 Make sure all the tests are passing on [Travis CI](https://travis-ci.org/Fullscreen/yt),
-document the changes in HISTORY.md and README.md, bump the version, then run
+document the changes in CHANGELOG.md and README.md, bump the version, then run
 
     rake release
 

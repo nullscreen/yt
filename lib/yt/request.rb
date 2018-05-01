@@ -1,7 +1,7 @@
 require 'net/http' # for Net::HTTP.start
 require 'uri' # for URI.json
 require 'json' # for JSON.parse
-require 'active_support' # does not load anything by default  but is required
+require 'active_support' # does not load anything by default, but is required
 require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
 
 require 'yt/errors/forbidden'
@@ -16,7 +16,7 @@ module Yt
   # return their result or raise an error if the result is unexpected.
   # The basic way to use Request is by calling +run+ on an instance.
   # @example List the most popular videos on YouTube.
-  #   host = ''www.googleapis.com'
+  #   host = 'www.googleapis.com'
   #   path = '/youtube/v3/videos'
   #   params = {chart: 'mostPopular', key: ENV['API_KEY'], part: 'snippet'}
   #   response = Yt::Request.new(path: path, params: params).run
@@ -39,7 +39,7 @@ module Yt
     # @option options [Hash] :camelize_params (true) whether to transform
     #   each key of params into a camel-case symbol before sending the request.
     # @option options [Hash] :request_format (:json) The format of the
-    #   requesty body. If a request body is passed, it will be parsed
+    #   request body. If a request body is passed, it will be parsed
     #   according to this format before sending it in the request.
     # @option options [#size] :body The body component of the request.
     # @option options [Hash] :headers ({}) The headers component of the
@@ -89,7 +89,7 @@ module Yt
     # @return [String] the +cURL+ version of the request.
     def as_curl
       'curl'.tap do |curl|
-        curl <<  " -X #{http_request.method}"
+        curl << " -X #{http_request.method}"
         http_request.each_header{|k, v| curl << %Q{ -H "#{k}: #{v}"}}
         curl << %Q{ -d '#{http_request.body}'} if http_request.body
         curl << %Q{ "#{uri.to_s}"}
