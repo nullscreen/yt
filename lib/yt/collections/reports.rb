@@ -177,7 +177,8 @@ module Yt
       # @see https://developers.google.com/youtube/analytics/v1/content_owner_reports
       def list_params
         super.tap do |params|
-          params[:path] = '/youtube/analytics/v1/reports'
+          params[:host] = 'youtubeanalytics.googleapis.com'
+          params[:path] = '/v2/reports'
           params[:params] = reports_params
           params[:camelize_params] = false
         end
@@ -185,13 +186,13 @@ module Yt
 
       def reports_params
         @parent.reports_params.tap do |params|
-          params['start-date'] = @days_range.begin
-          params['end-date'] = @days_range.end
+          params['startDate'] = @days_range.begin
+          params['endDate'] = @days_range.end
           params['metrics'] = @metrics.keys.join(',').to_s.camelize(:lower)
           params['dimensions'] = DIMENSIONS[@dimension][:name] unless @dimension == :range
-          params['include-historical-channel-data'] = @historical if @historical
-          params['max-results'] = 50 if @dimension.in? [:playlist, :video]
-          params['max-results'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
+          params['includeHistoricalChannelData'] = @historical if @historical
+          params['maxResults'] = 50 if @dimension.in? [:playlist, :video]
+          params['maxResults'] = 25 if @dimension.in? [:embedded_player_location, :related_video, :search_term, :referrer]
           if @dimension.in? [:video, :playlist, :embedded_player_location, :related_video, :search_term, :referrer]
             if @metrics.keys == [:estimated_revenue, :estimated_minutes_watched]
               params['sort'] = '-estimatedRevenue'

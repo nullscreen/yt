@@ -19,7 +19,8 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:path] = "/youtube/analytics/v1/groups"
+          params[:host] = 'youtubeanalytics.googleapis.com'
+          params[:path] = "/v2/groups"
           params[:params] = @parent.video_groups_params
         end
       end

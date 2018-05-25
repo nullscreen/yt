@@ -14,7 +14,8 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:path] = "/youtube/analytics/v1/groups"
+          params[:host] = 'youtubeanalytics.googleapis.com'
+          params[:path] = "/v2/groups"
           params[:params] = {id: @parent.id}
           if @auth.owner_name
             params[:params][:on_behalf_of_content_owner] = @auth.owner_name
