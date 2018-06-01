@@ -7,7 +7,7 @@ describe Yt::Playlist, :device_app do
   subject(:playlist) { Yt::Playlist.new id: id, auth: $account }
 
   context 'given an existing playlist' do
-    let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
+    let(:id) { 'PLbsGxdAPhjv_bsJtQzUgD0SA-AReDCynL' } # from YouTube Creators
 
     it 'returns valid metadata' do
       expect(playlist.title).to be_a String
@@ -56,7 +56,7 @@ describe Yt::Playlist, :device_app do
   end
 
   context 'given someone else’s playlist' do
-    let(:id) { 'PLSWYkYzOrPMT9pJG5St5G0WDalhRzGkU4' }
+    let(:id) { 'PLbsGxdAPhjv_bsJtQzUgD0SA-AReDCynL' } # from YouTube Creators
     let(:video_id) { '9bZkp7q19f0' }
 
     it { expect{playlist.delete}.to fail.with 'playlistForbidden' }
@@ -152,7 +152,7 @@ describe Yt::Playlist, :device_app do
     end
 
     context 'given an existing video' do
-      let(:video_id) { '9bZkp7q19f0' }
+      let(:video_id) { '9bZkp7q19f0' } # Gangnam Style
 
       describe 'can be added' do
         it { expect(playlist.add_video video_id).to be_a Yt::PlaylistItem }
