@@ -42,7 +42,7 @@ module Yt
       def insert_params
         super.tap do |params|
           params[:params] = {part: 'snippet'}
-          params[:body] = {snippet: {resourceId: {channelId: @parent.id}}}
+          params[:body] = {snippet: {resourceId: {channelId: @parent.id, kind: 'youtube#channel'}}}
         end
       end
     end
