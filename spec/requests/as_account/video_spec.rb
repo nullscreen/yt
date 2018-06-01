@@ -358,6 +358,7 @@ describe Yt::Video, :device_app do
 
       specify 'only updates the timestamp to publish the video' do
         expect(video.update attrs).to be true
+        video = Yt::Video.new id: id, auth: $account
         expect(video.scheduled_at).to eq new_scheduled_at
         expect(video.privacy_status).to eq old_privacy_status
         expect(video.title).to eq old_title
