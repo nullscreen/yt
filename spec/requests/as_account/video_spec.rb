@@ -176,7 +176,7 @@ describe Yt::Video, :device_app do
 
     context 'given I update the category ID' do
       let!(:old_category_id) { video.category_id }
-      let!(:new_category_id) { old_category_id == '22' ? '21' : '22' }
+      let!(:new_category_id) { old_category_id == '22' ? '23' : '22' }
 
       context 'passing the parameter in underscore syntax' do
         let(:attrs) { {category_id: new_category_id} }
