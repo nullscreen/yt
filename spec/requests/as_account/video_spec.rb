@@ -391,18 +391,18 @@ describe Yt::Video, :device_app do
   # @note: This test is separated from the block above because YouTube only
   #   returns file details for *some videos*: "The fileDetails object will
   #   only be returned if the processingDetails.fileAvailability property
-  #   has a value of available.". Therefore, just to test fileDetails, we use a
-  #   different video that (for some unknown reason) is marked as 'available'.
-  #   Also note that I was not able to find a single video returning fileName,
-  #   therefore video.file_name is not returned by Yt, until it can be tested.
+  #   has a value of 'available'." Therefore, just to test fileDetails, we use a
+  #   different video (I couldn't find any video marked as 'available').
+  # @see https://developers.google.com/youtube/v3/docs/videos#fileDetails
   # @see https://developers.google.com/youtube/v3/docs/videos#processingDetails.fileDetailsAvailability
-  context 'given one of my own *available* videos' do
-    let(:id) { 'yCmaOvUFhlI' }
+  context 'given one of my own videos' do
+    let(:id) { 'nHz3FnAMH3U' }
 
     it 'returns valid file details' do
-      expect(video.file_size).to be_an Integer
-      expect(video.file_type).to be_a String
-      expect(video.container).to be_a String
+      expect(video.file_name).to be_a String
+      expect(video.file_size).to be_nil
+      expect(video.file_type).to be_nil
+      expect(video.container).to be_nil
     end
   end
 end

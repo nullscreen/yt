@@ -13,6 +13,7 @@ module Yt
         @data = options[:data] || {}
       end
 
+      has_attribute :file_name
       has_attribute :file_size, type: Integer
       has_attribute :file_type
       has_attribute :container
