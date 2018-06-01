@@ -242,16 +242,10 @@ describe Yt::Video, :device_app do
 
       let(:attrs) { {embeddable: new_embeddable} }
 
-      # @note: This test is a reflection of another irrational behavior of
-      #   YouTube API. Although 'embeddable' can be passed as an 'update'
-      #   attribute according to the documentation, it simply does not work.
-      #   The day YouTube fixes it, then this test will finally fail and will
-      #   be removed, documenting how to update 'embeddable' too.
       # @see https://developers.google.com/youtube/v3/docs/videos/update
-      # @see https://code.google.com/p/gdata-issues/issues/detail?id=4861
-      specify 'does not update the embeddable status' do
+      specify 'does update the embeddable status' do
         expect(update).to be true
-        expect(video.embeddable?).to eq old_embeddable
+        expect(video.embeddable?).to eq new_embeddable
       end
     end
 
