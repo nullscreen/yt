@@ -22,7 +22,9 @@ module Yt
       #   @return [String] if +size+ is +default+, the URL of a 120x90px image.
       #   @return [String] if +size+ is +medium+, the URL of a 320x180px image.
       #   @return [String] if +size+ is +high+, the URL of a 480x360px image.
-      #   @return [nil] if the +size+ is not +default+, +medium+ or +high+.
+      #   @return [String] if +size+ is +standard+, the URL of a 640x480px image.
+      #   @return [String] if +size+ is +maxres+, the URL of a 1920x720px image.
+      #   @return [nil] if the +size+ is not +default+, +medium+, +high+, +standard+, or +maxres+ .
       delegate :thumbnail_url, to: :snippet
 
       # @!attribute [r] published_at
