@@ -112,7 +112,8 @@ module Yt
         wii: 'WII',
         windows: 'WINDOWS',
         windows_mobile: 'WINDOWS_MOBILE',
-        xbox: 'XBOX'
+        xbox: 'XBOX',
+        kaios: 'KAIOS'
       }
 
       attr_writer :metrics
