@@ -5,7 +5,7 @@ describe Yt::PlaylistItem, :device_app do
   subject(:item) { Yt::PlaylistItem.new id: id, auth: $account }
 
   context 'given an existing playlist item' do
-    let(:id) { 'UExTV1lrWXpPclBNVDlwSkc1U3Q1RzBXRGFsaFJ6R2tVNC4yQUE2Q0JEMTk4NTM3RTZC' }
+    let(:id) { 'UExJQk5UR3NjRS1jalEwSllxWmoweElIX0RjaGRUT0tRSS41NkI0NEY2RDEwNTU3Q0M2' } # from my channel
 
     it 'returns valid metadata' do
       expect(item.title).to be_a String
@@ -27,7 +27,6 @@ describe Yt::PlaylistItem, :device_app do
 
     it { expect{item.snippet}.to raise_error Yt::Errors::RequestError }
   end
-
 
   context 'given one of my own playlist items that I want to update' do
     before(:all) do

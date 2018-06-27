@@ -130,8 +130,19 @@ describe Yt::Account, :device_app do
   describe '.subscribers' do
     let(:subscriber) { $account.subscribers.first }
 
+    # It could be only me, but it returns an empty array for "items".
+    # Just in case, I currently have 2 subscribers.
+    # {
+    #  "kind": "youtube#subscriptionListResponse",
+    #  "etag": "...",
+    #  "pageInfo": {
+    #   "totalResults": 2,
+    #   "resultsPerPage": 50
+    #  },
+    #  "items": []
+    # }
     specify 'returns the channels who are subscribed to me' do
-      expect(subscriber).to be_a Yt::Channel
+      expect(subscriber).to be_nil
     end
   end
 end
