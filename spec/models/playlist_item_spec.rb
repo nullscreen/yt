@@ -40,11 +40,15 @@ describe Yt::PlaylistItem do
       let(:attrs) { {snippet: {"thumbnails"=>{
         "default"=>{"url"=> "http://example.com/120x90.jpg"},
         "medium"=>{"url"=> "http://example.com/320x180.jpg"},
+        "standard"=>{"url"=> "http://example.com/640x480.jpg"},
+        "maxres"=>{"url"=> "http://example.com/1080x720.jpg"},
       }}} }
       it { expect(item.thumbnail_url).to eq 'http://example.com/120x90.jpg' }
       it { expect(item.thumbnail_url 'default').to eq 'http://example.com/120x90.jpg' }
       it { expect(item.thumbnail_url :default).to eq 'http://example.com/120x90.jpg' }
       it { expect(item.thumbnail_url :medium).to eq 'http://example.com/320x180.jpg' }
+      it { expect(item.thumbnail_url :standard).to eq 'http://example.com/640x480.jpg' }
+      it { expect(item.thumbnail_url :maxres).to eq 'http://example.com/1080x720.jpg' }
       it { expect(item.thumbnail_url :large).to be_nil }
     end
 
