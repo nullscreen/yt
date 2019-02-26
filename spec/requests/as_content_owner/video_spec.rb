@@ -13,7 +13,7 @@ describe Yt::Video, :partner do
         it { expect{video.advertising_options_set}.not_to raise_error }
       end
 
-      [:views, :uniques, :comments, :likes, :dislikes, :shares,
+      [:views, :comments, :likes, :dislikes, :shares,
        :subscribers_gained, :subscribers_lost,
        :videos_added_to_playlists, :videos_removed_from_playlists,
        :estimated_minutes_watched, :average_view_duration,
@@ -174,7 +174,7 @@ describe Yt::Video, :partner do
       end
 
       describe 'multiple reports can be retrieved at once' do
-        metrics = {views: Integer, uniques: Integer,
+        metrics = {views: Integer,
           estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
           dislikes: Integer, shares: Integer, subscribers_gained: Integer,
           subscribers_lost: Integer,
@@ -369,6 +369,16 @@ describe Yt::Video, :partner do
         end
       end
 
+      describe 'views can be grouped by YouTube product' do
+        let(:keys) { Yt::Collections::Reports::YOUTUBE_PRODUCTS.keys }
+
+        specify 'with the :by option set to :youtube_product' do
+          views = video.views by: :youtube_product
+          expect(views.keys - keys).to be_empty
+          expect(views.values).to all(be_an Integer)
+        end
+      end
+
       describe 'views can be grouped by country' do
         let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE']} }
 
@@ -409,36 +419,6 @@ describe Yt::Video, :partner do
           views = video.views range.merge by: :subscribed_status
           expect(views.keys - keys).to be_empty
           expect(views.values).to all(be_an Integer)
-        end
-      end
-
-      describe 'uniques can be retrieved for a single US state' do
-        let(:state_code) { 'NY' }
-        let(:result) { video.uniques since: date, by: by, in: location }
-        let(:date) { 4.days.ago }
-
-        context 'and grouped by day' do
-          let(:by) { :day }
-
-          context 'with the :in option set to {state: state code}' do
-            let(:location) { {state: state_code} }
-            it { expect(result.keys.min).to eq date.to_date }
-          end
-
-          context 'with the :in option set to {country: "US", state: state code}' do
-            let(:location) { {country: 'US', state: state_code} }
-            it { expect(result.keys.min).to eq date.to_date }
-          end
-        end
-      end
-
-      describe 'uniques can be grouped by day' do
-        let(:range) { {since: 4.days.ago.to_date, until: 3.days.ago.to_date} }
-        let(:keys) { range.values }
-
-        specify 'with the :by option set to :day' do
-          uniques = video.uniques range.merge by: :day
-          expect(uniques.keys).to eq range.values
         end
       end
 

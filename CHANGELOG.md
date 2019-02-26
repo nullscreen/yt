@@ -6,6 +6,48 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## unreleased
+
+* [BUGFIX] Fix `subscription.insert` by adding a parameter
+* [FEATURE] Add `file_name` attribute to `Yt::FileDetail` model
+
+## 0.32.2 - 2018-05-25
+
+* Use YouTube Analytics API v2 instead of v1. See announcement of v1 deprecation
+https://developers.google.com/youtube/analytics/revision_history#april-26-2018
+
+## 0.32.1 - 2017-08-14
+
+* [FEATURE] Add `Yt::ContentOwner#bulk_report_jobs`
+* [FEATURE] Add `Yt::BulkReportJob#bulk_reports`
+
+## 0.32.0 - 2017-07-05
+
+**How to upgrade**
+
+If your code is expecting data from `reports` methods to always include historical data (the data from the period before joining), now you have to set `historical: true` specifically. It will not include historical data by default.
+
+* [IMPROVEMENT] Include historical data with `historical: true` option.
+
+## 0.31.2 - 2017-06-29
+
+* [BUGFIX] Return lifetime data correctly even when the channel joined content owner after a while since it's created.
+
+## 0.31.1 - 2017-06-03
+
+* [FEATURE] Add `by: :youtube_product` option for reports.
+* [FEATURE] Add `Yt::Collections::Reports::YOUTUBE_PRODUCTS` to list all YouTube products (KIDS, GAMING, etc) supported by YouTube Analytics API.
+* [FEATURE] Add more operating system dimensions to `Yt::Collections::Reports::OPERATING_SYSTEMS`.
+
+## 0.31.0 - 2017-06-02
+
+**How to upgrade**
+
+If your code calls `.uniques` it should be removed because this metric has been
+no longer supported by YouTube API as of [October 31, 2016](https://developers.google.com/youtube/analytics/revision_history#september-27-2016).
+
+* [REMOVAL] Remove `#uniques` method for channels, videos and video groups.
+
 ## 0.30.1 - 2017-04-14
 
 * [IMPROVEMENT] Retry 3 times if YouTube responds with 503 Backend Error
@@ -44,7 +86,7 @@ Finally note that this also remove the class `Yt::Description`. This class
 was private API, so this change should not affect developers.
 
 * [REMOVAL] Remove the option to initialize resources by URL.
-* [REMOVAL] Remove 'Yt::Resource.username`
+* [REMOVAL] Remove `Yt::Resource.username`
 * [REMOVAL] Remove `Yt::URL` (extracted into separate gem)
 * [REMOVAL] Remove `Yt::Description` (now simply a String).
 

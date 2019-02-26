@@ -35,6 +35,11 @@ module Yt
       #     content owner.
       has_many :video_groups
 
+      # @!attribute [r] bulk_report_jobs
+      #   @return [Yt::Collections::BulkReportJobs] the bulk reporting jobs managed by the
+      #     content owner.
+      has_many :bulk_report_jobs
+
       def initialize(options = {})
         super options
         @owner_name = options[:owner_name]

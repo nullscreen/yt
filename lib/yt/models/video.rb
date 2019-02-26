@@ -266,6 +266,10 @@ module Yt
 
       has_one :file_detail
 
+      # @!attribute [r] file_name
+      #   @return [String] the name of the uploaded file.
+      delegate :file_name, to: :file_detail
+
       # @!attribute [r] file_size
       #   @return [Integer] the size of the uploaded file (in bytes).
       delegate :file_size, to: :file_detail
@@ -401,9 +405,6 @@ module Yt
 
       # @macro report_by_video_dimensions
       has_report :views, Integer
-
-      # @macro report_by_day
-      has_report :uniques, Integer
 
       # @macro report_by_video_dimensions
       has_report :estimated_minutes_watched, Integer

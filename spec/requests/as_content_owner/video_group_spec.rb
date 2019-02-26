@@ -62,7 +62,7 @@ describe Yt::VideoGroup, :partner do
       end
 
       describe 'multiple reports can be retrieved at once' do
-        metrics = {views: Integer, uniques: Integer,
+        metrics = {views: Integer,
           estimated_minutes_watched: Integer, comments: Integer, likes: Integer,
           dislikes: Integer, shares: Integer, subscribers_gained: Integer,
           subscribers_lost: Integer,
