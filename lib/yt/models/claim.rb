@@ -14,6 +14,12 @@ module Yt
         @asset = options[:asset] if options[:asset]
       end
 
+      def update(attributes = {})
+        underscore_keys! attributes
+        do_patch body: attributes
+        true
+      end
+
       # @!attribute [r] claim_history
       #   @return [Yt::Collections::ClaimHistories] the claim's history.
       has_one :claim_history
