@@ -6,8 +6,9 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## unreleased
+## 0.32.3 - 2019-03-15
 
+* [ENHANCEMENT] Add `Yt::URL` to get id, kind, and its resource (channel, video, playlist)
 * [BUGFIX] Fix `subscription.insert` by adding a parameter
 * [FEATURE] Add `file_name` attribute to `Yt::FileDetail` model
 
