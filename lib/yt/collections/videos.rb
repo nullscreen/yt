@@ -8,11 +8,6 @@ module Yt
     # Resources with videos are: {Yt::Models::Channel channels} and
     # {Yt::Models::Account accounts}.
     class Videos < Base
-      def where(requirements = {})
-        @published_before = nil
-        @halt_list = false
-        super
-      end
 
     private
 
@@ -93,42 +88,6 @@ module Yt
         end
       end
 
-      def next_page
-        super.tap do |items|
-          halt_list if use_list_endpoint? && items.empty? && @page_token.nil?
-          add_offset_to(items) if !use_list_endpoint? && videos_params[:order] == 'date' && !(videos_params[:for_mine] || videos_params[:for_content_owner])
-        end
-      end
-
-      # According to http://stackoverflow.com/a/23256768 YouTube does not
-      # provide more than 500 results for any query. In order to overcome
-      # that limit, the query is restarted with a publishedBefore filter in
-      # case there are more videos to be listed for a channel
-      def add_offset_to(items)
-        @fetched_items ||= 0
-        if (@fetched_items += items.count) >= 500
-          last_published = items.last['snippet']['publishedAt']
-          last_published = DateTime.rfc3339(last_published) - 1.second
-          last_published = last_published.strftime '%FT%T.999Z'
-          @page_token, @published_before, @fetched_items = '', last_published, 0
-        elsif (1...50) === @last_index % 50
-          @halt_list, @page_token = true, nil
-          @last_index += items.size
-        end
-      end
-
-      # If we ask for a list of videos matching specific IDs and no video is
-      # returned (e.g. they are all private/deleted), then we don’t want to
-      # switch from /videos to /search and keep on looking for videos, but
-      # simply return an empty array of items
-      def halt_list
-        @halt_list = true
-      end
-
-      def more_pages?
-        (@last_index.zero? && !@halt_list) || !@page_token.nil?
-      end
-
       def videos_params
         {}.tap do |params|
           params[:type] = :video
@@ -137,7 +96,6 @@ module Yt
           params[:order] = 'date'
           params.merge! @parent.videos_params if @parent
           apply_where_params! params
-          params[:published_before] = @published_before if @published_before
           params
         end
       end
