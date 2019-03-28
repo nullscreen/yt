@@ -19,7 +19,6 @@ module Yt
         @last_index, @page_token = 0, nil
         Yt::Iterator.new(-> {total_results}) do |items|
           while next_item = find_next
-            break if self.is_a?(Yt::Collections::Videos) && @last_index > 500
             items << next_item
           end
           @where_params = {}
