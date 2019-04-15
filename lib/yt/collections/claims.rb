@@ -11,6 +11,7 @@ module Yt
         underscore_keys! attributes
         body = attributes.slice :asset_id, :video_id, :content_type, :policy
         body[:policy] = {id: attributes[:policy_id]} if attributes[:policy_id]
+        body[:match_info] = match_attributes(attributes[:match_info]) if attributes[:match_info]
         params = attributes.slice(:is_manual_claim).merge({on_behalf_of_content_owner: @auth.owner_name})
         do_insert(params: params, body: body)
       end
@@ -36,6 +37,14 @@ module Yt
           end
         end
         super
+      end
+
+      def match_attributes(attributes = {})
+        attributes.tap do |match_data|
+          match_data[:match_segments] = match_data[:match_segments].map do |segment|
+            { manual_segment: (segment[:manual_segment] || segment).slice(:start, :finish) }
+          end
+        end
       end
 
       # @return [Hash] the parameters to submit to YouTube to list claims

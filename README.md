@@ -300,6 +300,32 @@ claim.claim_history #=> #<Yt::Models::ClaimHistory ...>
 claim.claim_history.events[0].type #=> "claim_create"
 
 claim.delete #=> true
+
+data = {
+  is_manual_claim: true,
+  content_type: 'audiovisual',
+  asset_id: 'A123123123123123',
+  policy: { id: 'S123123123123123' },
+  video_id: 'myvIdeoIdYT',
+  match_info: {
+    match_segments: [
+      {
+        manual_segment: {
+          start: '00:00:20.000',
+          finish: '00:01:20.000'
+        }
+      },
+      {
+        manual_segment: {
+          start: '00:02:30.000',
+          finish: '00:03:50.000'
+        }
+      }
+    ]
+  }
+}
+
+content_owner.claims.insert(data)
 ```
 
 *The methods above require to be authenticated as the video’s content owner (see below).*
