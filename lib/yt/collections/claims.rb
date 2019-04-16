@@ -58,7 +58,8 @@ module Yt
       end
 
       def claims_params
-        apply_where_params! on_behalf_of_content_owner: @parent.owner_name
+        owner_name = @parent ? @parent.owner_name : @auth.owner_name
+        apply_where_params! on_behalf_of_content_owner: owner_name
       end
 
       # @private

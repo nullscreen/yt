@@ -6,6 +6,15 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+
+## Unreleased
+
+* [ENHANCEMENT] Add Claim search without a parent content owner
+
+    content_owner = Yt::ContentOwner.new owner_name: "2SA...", access_token: 'ya29...'
+    Yt::Collections::Claims.new(auth: content_owner).where(video_id: video_ids.join(","))
+    # => #<Yt::Collections::Claims...
+
 ## 0.32.3 - 2019-03-15
 
 * [ENHANCEMENT] Add `Yt::URL` to get id, kind, and its resource (channel, video, playlist)
