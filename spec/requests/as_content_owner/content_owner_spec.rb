@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'yt/models/content_owner'
+require 'yt/models/match_policy'
 
 describe Yt::ContentOwner, :partner do
   describe '.partnered_channels' do
@@ -262,6 +263,32 @@ describe Yt::ContentOwner, :partner do
       context 'given an unknown reference ID' do
         let(:reference_id) { '--not-a-matching-reference-id--' }
         it { expect(reference).not_to be }
+      end
+    end
+
+    describe '.upload_reference_file' do
+      let(:asset) { Yt::Asset.new id: ENV['YT_TEST_PARTNER_ASSET_ID'], auth: $content_owner }
+      let(:match_policy) { Yt::MatchPolicy.new asset_id: ENV['YT_TEST_PARTNER_ASSET_ID'], auth: $content_owner }
+
+      let(:upload_params) { {asset_id: asset.id, content_type: 'video'} }
+      let(:reference) { $content_owner.upload_reference_file path_or_url, upload_params }
+      after { reference.delete }
+
+      before do
+        asset.ownership.update(assetId: asset.id) && asset.ownership.obtain!
+        match_policy.update policy_id: ENV['YT_TEST_PARTNER_POLICY_ID']
+      end
+
+      context 'given the path to a local video file' do
+        let(:path_or_url) { File.expand_path '../reference_video.mp4', __FILE__ }
+
+        it { expect(reference).to be_a Yt::Reference }
+      end
+
+      context 'given the URL of a remote video file' do
+        let(:path_or_url) { ENV['YT_REMOTE_VIDEO_URL'] }
+
+        it { expect(reference).to be_a Yt::Reference }
       end
     end
   end
