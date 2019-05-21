@@ -627,7 +627,7 @@ module Yt
           if auth.owner_name
             params[:ids] = "contentOwner==#{auth.owner_name}"
           else
-            params[:ids] = "channel==#{channel_id}"
+            params[:ids] = "channel==#{auth.channel.id}"
           end
           params[:filters] = "video==#{id}"
         end
