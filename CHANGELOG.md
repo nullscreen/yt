@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## Unreleased
+
+* [FEATURE] Add `ownership_effective` method to access asset ownership ("effective") via the asset object.
+* [FEATURE] List content owners of others with `content_owner.content_owners`
+
 ## 0.32.3 - 2019-03-15
 
 * [ENHANCEMENT] Add `Yt::URL` to get id, kind, and its resource (channel, video, playlist)

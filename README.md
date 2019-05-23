@@ -266,6 +266,11 @@ asset = content_owner.assets.where(id: 'A969176766549462', fetch_metadata: 'effe
 asset.metadata_effective.title #=> "Neu la anh" (different due to ownership conflicts)
 ```
 
+```ruby
+asset = content_owner.assets.where(id: 'A125058570526569', fetch_ownership: 'effective').first
+asset.ownership_effective.general_owners.first.owner # => "XOuN81q-MeEUVrsiZeK1lQ"
+```
+
 * to search for an asset
 
 ```ruby
