@@ -7,7 +7,7 @@ describe Yt::Playlist, :device_app do
   subject(:playlist) { Yt::Playlist.new id: id, auth: $account }
 
   context 'given an existing playlist' do
-    let(:id) { 'PLbsGxdAPhjv_bsJtQzUgD0SA-AReDCynL' } # from YouTube Creators
+    let(:id) { 'PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro' } # from YouTube Creators
 
     it 'returns valid metadata' do
       expect(playlist.title).to be_a String
@@ -56,7 +56,7 @@ describe Yt::Playlist, :device_app do
   end
 
   context 'given someone else’s playlist' do
-    let(:id) { 'PLbsGxdAPhjv_bsJtQzUgD0SA-AReDCynL' } # from YouTube Creators
+    let(:id) { 'PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro' } # from YouTube Creators
     let(:video_id) { '9bZkp7q19f0' }
 
     it { expect{playlist.delete}.to fail.with 'playlistForbidden' }
@@ -65,14 +65,14 @@ describe Yt::Playlist, :device_app do
     it { expect{playlist.delete_playlist_items}.to raise_error Yt::Errors::RequestError }
   end
 
-  context 'given one of my own playlists that I want to delete' do
+  context 'given one of my own playlists that I want to delete', rate_limited: true do
     before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Delete Playlist #{rand}" }
     let(:id) { @my_playlist.id }
 
     it { expect(playlist.delete).to be true }
   end
 
-  context 'given one of my own playlists that I want to update' do
+  context 'given one of my own playlists that I want to update', rate_limited: true do
     before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Update Playlist #{rand}" }
     after(:all) { @my_playlist.delete }
     let(:id) { @my_playlist.id }

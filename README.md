@@ -497,23 +497,6 @@ end
 so use the approach that you prefer.
 If a variable is set in both places, then `Yt.configure` takes precedence.
 
-Why you should use Yt…
-======================
-
-… and not [youtube_it](https://github.com/kylejginavan/youtube_it)?
-Because youtube_it does not support YouTube API V3, and the YouTube API V2 has
-been [officially deprecated as of March 4, 2014](https://developers.google.com/youtube/2.0/developers_guide_protocol_audience).
-If you need help upgrading your code, check [YOUTUBE_IT.md](https://github.com/Fullscreen/yt/blob/master/YOUTUBE_IT.md),
-a step-by-step comparison between youtube_it and Yt to make upgrade easier.
-
-… and not [Google Api Client](https://github.com/google/google-api-ruby-client)?
-Because Google Api Client is poorly coded, poorly documented and adds many
-dependencies, bloating the size of your project.
-
-… and not your own code? Because Yt is fully tested, well documented,
-has few dependencies and helps you forget about the burden of dealing with
-Google API!
-
 How to test
 ===========
 
@@ -521,15 +504,6 @@ Yt comes with two different sets of tests:
 
 1. tests in `spec/models`, `spec/collections` and `spec/errors` **do not hit** the YouTube API
 1. tests in `spec/requests` **hit** the YouTube API and require authentication
-
-The reason why some tests actually hit the YouTube API is because they are
-meant to really integrate Yt with YouTube. YouTube API is not exactly
-*the most reliable* API out there, so we need to make sure that the responses
-match the documentation.
-
-You don’t have to run all the tests every time you change code.
-Travis CI is already set up to do this for when whenever you push a branch
-or create a pull request for this project.
 
 To only run tests against models, collections and errors (which do not hit the API), type:
 
@@ -544,8 +518,26 @@ rspec
 ```
 
 This will fail unless you have set up a test YouTube application and some
-tests YouTube accounts to hit the API. Once again, you probably don’t need
-this, since Travis CI already takes care of running this kind of tests.
+tests YouTube accounts (with appropriate fixture data) to hit the API.
+Furthermore, tests that require authentication are divided into three
+roles, which correspond to each directory in `spec/requests`:
+
+* Account-based tests, which require a valid refresh token along with
+  the application-level credentials the refresh token was created with
+  (`YT_TEST_DEVICE_REFRESH_TOKEN`, `YT_TEST_DEVICE_CLIENT_ID`, and
+  `YT_TEST_DEVICE_CLIENT_SECRET` respectively).
+* Server application tests, which use a server API key
+  (`YT_TEST_SERVER_API_KEY).
+* Tests that excercise YouTube's partner functionality. This requires an
+  a partner channel id (`YT_TEST_CONTENT_OWNER_NAME`), a refresh token
+  that's authenticated with that channel
+  (`YT_TEST_CONTENT_OWNER_REFRESH_TOKEN`), and the corresponding
+  application (`YT_TEST_PARTNER_CLIENT_ID` and
+  (`YT_TEST_PARTNER_CLIENT_SECRET`).
+
+The refresh tokens need to be generated with the `youtube`,
+`yt-analytics` and `userinfo.profile` permissions in order for tests to
+pass.
 
 How to release new versions
 ===========================
@@ -573,3 +565,4 @@ the [YouTube Analytics API](https://developers.google.com/youtube/analytics).
 If you find that a method is missing, fork the project, add the missing code,
 write the appropriate tests, then submit a pull request, and it will gladly
 be merged!
+
