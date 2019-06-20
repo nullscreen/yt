@@ -14,6 +14,11 @@ module Yt
         @asset = options[:asset] if options[:asset]
       end
 
+      # Updates the attributes of a claim.
+      # @note If you are submitting an update request, and your request does
+      #   not specify a value for a property that already has a value, the
+      #   property's existing value will be deleted.
+      # @return [Boolean] whether the claim was successfully updated.
       def update(attributes = {})
         underscore_keys! attributes
         do_patch body: attributes

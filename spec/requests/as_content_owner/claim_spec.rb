@@ -9,7 +9,7 @@ describe Yt::Claim, :partner do
       let(:claim_id) { ENV['YT_TEST_PARTNER_CLAIM_ID'] }
 
       describe 'the claim can be updated' do
-        let(:attrs) { {status: 'inactive'} }
+        let(:attrs) { {block_outside_ownership: true} }
         it { expect(claim.update attrs).to be true }
       end
     end
