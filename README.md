@@ -8,7 +8,7 @@ The **source code** is available on [GitHub](https://github.com/Fullscreen/yt) a
 [![Build Status](http://img.shields.io/travis/Fullscreen/yt/master.svg)](https://travis-ci.org/Fullscreen/yt)
 [![Coverage Status](http://img.shields.io/coveralls/Fullscreen/yt/master.svg)](https://coveralls.io/r/Fullscreen/yt)
 [![Dependency Status](http://img.shields.io/gemnasium/Fullscreen/yt.svg)](https://gemnasium.com/Fullscreen/yt)
-[![Code Climate](http://img.shields.io/codeclimate/github/Fullscreen/yt.svg)](https://codeclimate.com/github/Fullscreen/yt)
+[![Code Climate](https://codeclimate.com/github/Fullscreen/yt.png)](https://codeclimate.com/github/Fullscreen/yt)
 [![Online docs](http://img.shields.io/badge/docs-✓-green.svg)](http://www.rubydoc.info/gems/yt/frames)
 [![Gem Version](http://img.shields.io/gem/v/yt.svg)](http://rubygems.org/gems/yt)
 
@@ -44,7 +44,7 @@ To install on your system, run
 
 To use inside a bundled Ruby project, add this line to the Gemfile:
 
-    gem 'yt', '~> 0.28.0'
+    gem 'yt', '~> 0.32.0'
 
 Since the gem follows [Semantic Versioning](http://semver.org),
 indicating the full version in your Gemfile (~> *major*.*minor*.*patch*)
@@ -527,7 +527,7 @@ roles, which correspond to each directory in `spec/requests`:
   (`YT_TEST_DEVICE_REFRESH_TOKEN`, `YT_TEST_DEVICE_CLIENT_ID`, and
   `YT_TEST_DEVICE_CLIENT_SECRET` respectively).
 * Server application tests, which use a server API key
-  (`YT_TEST_SERVER_API_KEY).
+  (`YT_TEST_SERVER_API_KEY`).
 * Tests that excercise YouTube's partner functionality. This requires an
   a partner channel id (`YT_TEST_CONTENT_OWNER_NAME`), a refresh token
   that's authenticated with that channel
