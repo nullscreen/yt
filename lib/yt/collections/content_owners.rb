@@ -25,7 +25,11 @@ module Yt
       end
 
       def content_owners_params
-        {fetch_mine: true}
+        if @where_params.blank?
+          {fetch_mine: true}
+        else
+          apply_where_params! on_behalf_of_content_owner: @parent.owner_name
+        end
       end
     end
   end

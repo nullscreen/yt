@@ -276,7 +276,7 @@ describe Yt::Video, :device_app do
       end
     end
 
-    it 'returns valid reports for video-related metrics' do
+    it 'returns valid reports for video-related metrics', extended_permissions: true do
       # Some reports are only available to Content Owners.
       # See content owner test for more details about what the methods return.
       expect{video.views}.not_to raise_error
@@ -327,7 +327,7 @@ describe Yt::Video, :device_app do
     context 'passing the parameter in underscore syntax' do
       let(:attrs) { {publish_at: new_scheduled_at} }
 
-      specify 'only updates the timestamp to publish the video' do
+      specify 'only updates the timestamp to publish the video', flaky: true do
         expect(video.update attrs).to be true
         expect(video.privacy_status).to eq old_privacy_status
         expect(video.title).to eq old_title
@@ -369,13 +369,13 @@ describe Yt::Video, :device_app do
     let(:id) { $account.videos.where(order: 'viewCount').first.id }
     let(:update) { video.upload_thumbnail path_or_url }
 
-    context 'given the path to a local JPG image file' do
+    context 'given the path to a local JPG image file', extended_permissions: true do
       let(:path_or_url) { File.expand_path '../thumbnail.jpg', __FILE__ }
 
       it { expect{update}.not_to raise_error }
     end
 
-    context 'given the path to a remote PNG image file' do
+    context 'given the path to a remote PNG image file', extended_permissions: true do
       let(:path_or_url) { 'https://bit.ly/yt_thumbnail' }
 
       it { expect{update}.not_to raise_error }
@@ -396,7 +396,7 @@ describe Yt::Video, :device_app do
   # @see https://developers.google.com/youtube/v3/docs/videos#fileDetails
   # @see https://developers.google.com/youtube/v3/docs/videos#processingDetails.fileDetailsAvailability
   context 'given one of my own videos' do
-    let(:id) { 'nHz3FnAMH3U' }
+    let(:id) { $account.videos.first.id }
 
     it 'returns valid file details' do
       expect(video.file_name).to be_a String

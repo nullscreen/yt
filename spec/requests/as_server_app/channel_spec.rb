@@ -5,7 +5,7 @@ describe Yt::Channel, :server_app do
   subject(:channel) { Yt::Channel.new attrs }
 
   context 'given an existing channel ID' do
-    let(:attrs) { {id: 'UCxO1tY8h1AhOz0T4ENwmpow'} }
+    let(:attrs) { {id: 'UCAmh1DexLGcMtDlzMCIxo4w'} }
 
     it 'returns valid snippet data' do
       expect(channel.snippet).to be_a Yt::Snippet
@@ -29,7 +29,7 @@ describe Yt::Channel, :server_app do
     end
 
     context 'with a hidden list of subscriptions' do
-      let(:attrs) { {id: 'UCG0hw7n_v0sr8MXgb6oel6w'} }
+      let(:attrs) { {id: 'UCZDZGN_73I019o6UYD2-4bg'} }
       it { expect{channel.subscribed_channels.size}.to raise_error Yt::Errors::Forbidden }
     end
   end

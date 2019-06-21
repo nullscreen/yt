@@ -180,7 +180,7 @@ describe Yt::Channel, :device_app do
       expect(channel.subscriptions.size).to be
     end
 
-    describe 'playlists can be deleted' do
+    describe 'playlists can be deleted', rate_limited: true do
       let(:title) { "Yt Test Delete All Playlists #{rand}" }
       before { $account.create_playlist params }
 

@@ -5,7 +5,7 @@ describe Yt::PlaylistItem, :device_app do
   subject(:item) { Yt::PlaylistItem.new id: id, auth: $account }
 
   context 'given an existing playlist item' do
-    let(:id) { 'UExJQk5UR3NjRS1jalEwSllxWmoweElIX0RjaGRUT0tRSS41NkI0NEY2RDEwNTU3Q0M2' } # from my channel
+    let(:id) { 'UExiai1JRGU2Zzh2c0FQT0RFci1xRUZjRERvWHhqRzhEVC41MjE1MkI0OTQ2QzJGNzNG' }
 
     it 'returns valid metadata' do
       expect(item.title).to be_a String
@@ -28,7 +28,7 @@ describe Yt::PlaylistItem, :device_app do
     it { expect{item.snippet}.to raise_error Yt::Errors::RequestError }
   end
 
-  context 'given one of my own playlist items that I want to update' do
+  context 'given one of my own playlist items that I want to update', rate_limited: true do
     before(:all) do
       @my_playlist = $account.create_playlist title: "Yt Test Update Playlist Item #{rand}"
       @my_playlist.add_video '9bZkp7q19f0'
