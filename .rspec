@@ -1,3 +1,6 @@
 --format documentation
 --color
---fail-fast
+--tag ~rate_limited
+--tag ~flaky
+--tag ~extended_permissions
+--exclude_pattern spec/requests/as_content_owner/*_spec.rb

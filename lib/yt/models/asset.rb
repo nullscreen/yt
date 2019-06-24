@@ -35,6 +35,10 @@ module Yt
         @metadata_effective ||= Yt::Models::AssetMetadata.new data: @data.fetch('metadataEffective', {})
       end
 
+      def ownership_effective
+        @ownership_effective ||= Yt::Models::Ownership.new data: @data.fetch('ownershipEffective', {})
+      end
+
       # Soft-deletes the asset.
       # @note YouTube API does not provide a +delete+ method for the Asset
       #   resource, but only an +update+ method. Updating the +status+ of a
