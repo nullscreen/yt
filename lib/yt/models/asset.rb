@@ -69,7 +69,7 @@ module Yt
       #   with the asset. You can apply a label to multiple assets to group
       #   them. You can use the labels as search filters to perform bulk updates,
       #   to download reports, or to filter YouTube Analytics.
-      has_attribute :label
+      has_attribute :label, default: []
 
 # Status
 
