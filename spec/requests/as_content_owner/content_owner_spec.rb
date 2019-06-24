@@ -279,12 +279,6 @@ describe Yt::ContentOwner, :partner do
         match_policy.update policy_id: ENV['YT_TEST_PARTNER_POLICY_ID']
       end
 
-      context 'given the path to a local video file' do
-        let(:path_or_url) { File.expand_path '../reference_video.mp4', __FILE__ }
-
-        it { expect(reference).to be_a Yt::Reference }
-      end
-
       context 'given the URL of a remote video file' do
         let(:path_or_url) { ENV['YT_REMOTE_VIDEO_URL'] }
 
