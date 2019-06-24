@@ -43,6 +43,10 @@ the gem upgrade, like any other random input).
 * [FEATURE] Get one asset [by request](https://developers.google.com/youtube/partner/docs/v1/assets/get) (thank you @jcohenho)
 * [FEATURE] Add `update` method to Yt::Claim (thank you @jcohenho)
 
+**Breaking change**
+
+If your code is using constant `Yt::URL::CHANNEL_PATTERNS` etc then it's moved to `Yt::Resource::CHANNEL_PATTERNS` etc.
+
 ## 0.32.3 - 2019-03-15
 
 * [ENHANCEMENT] Add `Yt::URL` to get id, kind, and its resource (channel, video, playlist)
