@@ -40,11 +40,10 @@ module Yt
       end
 
       def match_attributes(attributes = {})
-        attributes.tap do |match_data|
-          match_data[:match_segments] = match_data[:match_segments].map do |segment|
-            { manual_segment: (segment[:manual_segment] || segment).slice(:start, :finish) }
-          end
+        segments = attributes[:match_segments].map do |segment|
+          { manual_segment: (segment[:manual_segment] || segment).slice(:start, :finish) }
         end
+        { matchSegments: segments }
       end
 
       # @return [Hash] the parameters to submit to YouTube to list claims
