@@ -26,9 +26,16 @@ describe Yt::Collections::Claims do
     end
 
     it 'calls do_insert with appropriate body' do
+      body = {
+        asset_id: 'some_asset_id',
+        video_id: 'some_video_id',
+        content_type: 'audiovisual',
+        policy: { id: 'some_policy_id' },
+        match_info: { matchSegments: [ { manual_segment: { start: "00:01:00.000", finish: "00:02:00.000" } } ] }
+      }
       expect(collection).to have_received(:do_insert).with(
         params: { is_manual_claim: true, on_behalf_of_content_owner: content_owner.owner_name },
-        body: attributes.except(:is_manual_claim)
+        body: body
       )
     end
   end
