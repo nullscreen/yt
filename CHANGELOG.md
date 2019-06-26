@@ -10,6 +10,7 @@ For more information about changelogs, check
 
 * [FEATURE] Add `ownership_effective` method to access asset ownership ("effective") via the asset object.
 * [FEATURE] List content owners of others with `content_owner.content_owners`
+* [FEATURE] Add `match_info` to insert claim request.
 
 ## 0.32.3 - 2019-03-15
 
