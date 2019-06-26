@@ -11,6 +11,9 @@ For more information about changelogs, check
 * [FEATURE] Add `ownership_effective` method to access asset ownership ("effective") via the asset object.
 * [FEATURE] List content owners of others with `content_owner.content_owners`
 * [FEATURE] Add `match_info` to insert claim request.
+* [FEATURE] Add `upload_reference_file` method for Reference file upload (thank you @jcohenho)
+* [FEATURE] Get one asset [by request](https://developers.google.com/youtube/partner/docs/v1/assets/get) (thank you @jcohenho)
+* [FEATURE] Add `update` method to Yt::Claim (thank you @jcohenho)
 
 ## 0.32.3 - 2019-03-15
 
