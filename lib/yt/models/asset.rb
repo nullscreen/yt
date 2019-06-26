@@ -12,6 +12,7 @@ module Yt
         @data = options.fetch(:data, {})
         @id = options[:id]
         @auth = options[:auth]
+        @params = options[:params]
       end
 
       def update(attributes = {})
@@ -68,11 +69,11 @@ module Yt
       #   +'show'+, +'sound_recording'+, +'video_game'+, +'web'+.
       has_attribute :type
 
-      # @return [Array<Yt::Models::Tag>] the list of asset labels associated
+      # @return [Array<String>] the list of asset labels associated
       #   with the asset. You can apply a label to multiple assets to group
       #   them. You can use the labels as search filters to perform bulk updates,
       #   to download reports, or to filter YouTube Analytics.
-      has_attribute :label
+      has_attribute :label, default: []
 
 # Status
 
@@ -108,6 +109,15 @@ module Yt
           params[:expected_response] = Net::HTTPOK
           params[:path] = "/youtube/partner/v1/assets/#{@id}"
           params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
+        end
+      end
+
+      # @return [Hash] the parameters to submit to YouTube to get an asset.
+      # @see https://developers.google.com/youtube/partner/docs/v1/assets/get
+      def get_params
+        super.tap do |params|
+          params[:path] = "/youtube/partner/v1/assets/#{@id}"
+          params[:params] = {on_behalf_of_content_owner: @auth.owner_name}.merge! @params
         end
       end
     end

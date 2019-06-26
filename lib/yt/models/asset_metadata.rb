@@ -23,7 +23,7 @@ module Yt
       end
 
       # @return [String] A description of the asset. The description may be
-      #   displayed on YouTube or in CMS. 
+      #   displayed on YouTube or in CMS.
       def notes
         @data['notes']
       end
