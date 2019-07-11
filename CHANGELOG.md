@@ -6,8 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-
-## Unreleased
+## 0.33.0 - Unreleased
 
 If your code calls reports methods such as `views`, `likes`, or `reports`,
 do not include `by: :week` option since `7DayTotals` dimension will no longer be
@@ -20,6 +19,11 @@ If you keep using `by: :week` option after this change it will raise an error
 the gem upgrade, like any other random input).
 
 * [REMOVAL] Remove `by: :week` option for reports.
+* [FEATURE] Add back the option of initializing a resource by its URL.
+
+**Breaking change**
+
+If your code is using constant `Yt::URL::CHANNEL_PATTERNS` etc then it's moved to `Yt::Resource::CHANNEL_PATTERNS`, `Yt::Resource::VIDEO_PATTERNS`, and `Yt::Resource::PLAYLIST_PATTERNS`.
 
 ## 0.32.6 - 2020-02-07
 
@@ -42,10 +46,6 @@ the gem upgrade, like any other random input).
 * [FEATURE] Add `upload_reference_file` method for Reference file upload (thank you @jcohenho)
 * [FEATURE] Get one asset [by request](https://developers.google.com/youtube/partner/docs/v1/assets/get) (thank you @jcohenho)
 * [FEATURE] Add `update` method to Yt::Claim (thank you @jcohenho)
-
-**Breaking change**
-
-If your code is using constant `Yt::URL::CHANNEL_PATTERNS` etc then it's moved to `Yt::Resource::CHANNEL_PATTERNS` etc.
 
 ## 0.32.3 - 2019-03-15
 
