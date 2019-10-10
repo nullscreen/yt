@@ -8,20 +8,13 @@ rescue LoadError
 end
 
 Yt.configuration.log_level = :debug
-id = ARGV[1] || 'BPNYv0vd78A'
+id = ARGV[1] || 'rdwz7QiG0lk'
 
 case ARGV[0]
 when 'info'
   puts "Yt version #{Yt::VERSION}"
   video = Yt::Video.new id: id
-  puts video.annotations.first.text
-when 'annotations'
-  video = Yt::Video.new id: id
-  count = video.annotations.size
-  puts "Video #{id} has #{count} #{'annotation'.pluralize count}"
-  video.annotations.each.with_index do |annotation, i|
-    puts "#{i+1}) #{annotation.text}"
-  end
+  puts video.title
 when 'video'
   video = Yt::Video.new id: id
   views = "#{video.view_count} #{'view'.pluralize video.view_count}"
