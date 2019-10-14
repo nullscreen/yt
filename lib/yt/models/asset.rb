@@ -17,7 +17,7 @@ module Yt
 
       def update(attributes = {})
         underscore_keys! attributes
-        do_patch body: attributes
+        do_update body: attributes
         true
       end
 
@@ -105,6 +105,15 @@ module Yt
 
       # @see https://developers.google.com/youtube/partner/docs/v1/assets/patch
       def patch_params
+        super.tap do |params|
+          params[:expected_response] = Net::HTTPOK
+          params[:path] = "/youtube/partner/v1/assets/#{@id}"
+          params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
+        end
+      end
+
+      # @see https://developers.google.com/youtube/partner/docs/v1/assets/update
+      def update_params
         super.tap do |params|
           params[:expected_response] = Net::HTTPOK
           params[:path] = "/youtube/partner/v1/assets/#{@id}"

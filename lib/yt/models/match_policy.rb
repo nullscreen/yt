@@ -13,16 +13,14 @@ module Yt
 
       def update(attributes = {})
         underscore_keys! attributes
-        do_patch body: attributes.slice(:policy_id)
+        do_update body: attributes.slice(:policy_id)
         true
       end
 
     private
 
-      # @return [Hash] the parameters to submit to YouTube to patch an asset
-      #   match policy.
-      # @see https://developers.google.com/youtube/partner/docs/v1/assetMatchPolicy/patch
-      def patch_params
+      # @see https://developers.google.com/youtube/partner/docs/v1/assetMatchPolicy/update
+      def update_params
         super.tap do |params|
           params[:path] = "/youtube/partner/v1/assets/#{@asset_id}/matchPolicy"
           params[:params] = {on_behalf_of_content_owner: @auth.owner_name}
