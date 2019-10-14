@@ -65,7 +65,7 @@ module Yt
       # @param [Hash] params the metadata to add to the uploaded video.
       # @option params [String] :title The video’s title.
       # @option params [String] :description The video’s description.
-      # @option params [Array<String>] :title The video’s tags.
+      # @option params [Array<String>] :tags The video’s tags.
       # @option params [String] :privacy_status The video’s privacy status.
       # @return [Yt::Models::Video] the newly uploaded video.
       def upload_video(path_or_url, params = {})
