@@ -457,11 +457,11 @@ If your code expects reports to return results **by day** then you **must** add
 the `by: :day` option to your report method. The new default is `by: :range`.
 For instance `channel.views` would return
 
-  {Wed, 8 May 2014 => 12.4, Thu, 9 May 2014 => 3.2, Fri, 10 May 2014 => …}
+    {Wed, 8 May 2014 => 12.4, Thu, 9 May 2014 => 3.2, Fri, 10 May 2014 => …}
 
 and now returns the same as calling `channel.views by: :range`:
 
-  {total: 3450}
+    {total: 3450}
 
 Additionally, if you expect reports **by day** then you **must** specify the
 `:since` option to your report method. Previously, this value was set to

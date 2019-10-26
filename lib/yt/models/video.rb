@@ -392,7 +392,7 @@ module Yt
 
       has_many :resumable_sessions
 
-      # @!attribute [r] channel
+      # @!attribute [r] claim
       #   @return [Yt::Models::Claim, nil] the first claim on the video by
       #     the content owner of the video, if eagerly loaded.
       def claim
