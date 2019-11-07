@@ -6,6 +6,12 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+
+## 0.32.5 - 2019-11-06
+
+* [BUGFIX] Fix `MatchPolicy#update` and `Asset#update` by using `PUT` instead of `PATCH`
+* Update `bin/yt` file to keep `yt info` command work
+
 ## 0.32.4 - 2019-06-26
 
 * [FEATURE] Add `ownership_effective` method to access asset ownership ("effective") via the asset object.
