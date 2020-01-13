@@ -6,6 +6,7 @@ module Yt
     # Encapsulates statistics about the resource, such as the number of times
     # the resource has been viewed or liked.
     # @see https://developers.google.com/youtube/v3/docs/videos#resource
+    # @see https://developers.google.com/youtube/v3/docs/channels#resource-representation
     class StatisticsSet < Base
       attr_reader :data
 
