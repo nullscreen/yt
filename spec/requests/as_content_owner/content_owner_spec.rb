@@ -24,6 +24,17 @@ describe Yt::ContentOwner, :partner do
       expect(video.category_id).not_to be_nil
     end
 
+    context 'with a channel not under the content owner' do
+      let(:videos) { $content_owner.videos.where(channel_id: 'UCBR8-60-B28hp2BmDPdntcQ').includes(:snippet) }
+
+      specify 'returns empty array ' do
+        items = []
+        videos.each {|video| items << video}
+        videos.each {|video| items << video}
+        expect(items).to be_empty
+      end
+    end
+
     describe '.includes(:snippet)' do
       let(:video) { $content_owner.videos.includes(:snippet).first }
 

@@ -32,6 +32,10 @@ module Yt
       end
 
       def eager_load_items_from(items)
+        if items.empty?
+          halt_list
+          return []
+        end
         if included_relationships.any?
           associations = [:claim, :category]
           if (included_relationships & associations).any?
