@@ -38,7 +38,6 @@ module Yt
         self.tap do
           @items = []
           @where_params = requirements
-          @channel_id = requirements[:channel_id] if !@parent.nil? && @parent.is_a?(Models::ContentOwner)
         end
       end
 

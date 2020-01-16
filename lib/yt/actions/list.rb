@@ -81,7 +81,6 @@ module Yt
       def next_page
         params = list_params.dup
         params[:params][:page_token] = @page_token if @page_token
-        params[:params][:channel_id] = @channel_id if !@parent.nil? && @parent.is_a?(Models::ContentOwner) && !@channel_id.nil?
         next_page = fetch_page params
         @page_token = next_page[:token]
         eager_load_items_from next_page[:items]

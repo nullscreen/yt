@@ -11,6 +11,7 @@ module Yt
       def where(requirements = {})
         @published_before = nil
         @halt_list = false
+        @channel_id = requirements[:channel_id] if !@parent.nil? && @parent.is_a?(Models::ContentOwner)
         super
       end
 
@@ -135,6 +136,7 @@ module Yt
           params[:max_results] = 50
           params[:part] = 'snippet'
           params[:order] = 'date'
+          params[:channel_id] = @channel_id if @channel_id
           params.merge! @parent.videos_params if @parent
           apply_where_params! params
           params[:published_before] = @published_before if @published_before
