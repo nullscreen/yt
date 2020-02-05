@@ -192,6 +192,10 @@ module Yt
         {mine: true}
       end
 
+      def playlist_items_params
+        {}
+      end
+
       # @private
       # Tells `has_many :resumable_sessions` what path to hit to upload a file.
       def upload_path

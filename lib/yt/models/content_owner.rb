@@ -102,6 +102,10 @@ module Yt
       def video_groups_params
         {on_behalf_of_content_owner: @owner_name}
       end
+
+      def playlist_items_params
+        {on_behalf_of_content_owner: @owner_name}
+      end
     end
   end
 end
