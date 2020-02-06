@@ -667,6 +667,14 @@ module Yt
         {snippet: snippet, status: {keys: status_keys}}
       end
 
+      # For updating video with content owner auth.
+      # @see https://developers.google.com/youtube/v3/docs/videos/update
+      def update_params
+        super.tap do |params|
+          params[:params] = {on_behalf_of_content_owner: auth.owner_name} if auth.owner_name
+        end
+      end
+
       # NOTE: Another irrational behavior of YouTube API. If you are setting a
       # video to public/unlisted then you should *not* pass publishAt at any
       # cost, otherwise the API will fail (since setting publishAt means you
