@@ -197,7 +197,8 @@ module Yt
       # @private
       # Tells `has_reports` to retrieve the reports from YouTube Analytics API
       # either as a Channel or as a Content Owner.
-      # @see https://developers.google.com/youtube/analytics/v1/reports
+      # @see https://developers.google.com/youtube/analytics/channel_reports
+      # @see https://developers.google.com/youtube/analytics/content_owner_reports
       def reports_params
         {}.tap do |params|
           if auth.owner_name
