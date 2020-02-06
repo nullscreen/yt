@@ -3,8 +3,8 @@
 require 'spec_helper'
 require 'yt/models/playlist'
 
-describe Yt::Playlist, :device_app do
-  subject(:playlist) { Yt::Playlist.new id: id, auth: $account }
+describe Yt::Playlist, :device_app, :vcr do
+  subject(:playlist) { Yt::Playlist.new id: id, auth: test_account }
 
   context 'given an existing playlist' do
     let(:id) { 'PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro' } # from YouTube Creators
@@ -48,7 +48,7 @@ describe Yt::Playlist, :device_app do
     end
   end
 
-  context 'given an unknown playlist' do
+  context 'given an unknown playlist', :skip do
     let(:id) { 'not-a-playlist-id' }
 
     it { expect{playlist.snippet}.to raise_error Yt::Errors::NoItems }
@@ -65,14 +65,14 @@ describe Yt::Playlist, :device_app do
     it { expect{playlist.delete_playlist_items}.to raise_error Yt::Errors::RequestError }
   end
 
-  context 'given one of my own playlists that I want to delete', rate_limited: true do
+  context 'given one of my own playlists that I want to delete', :skip do
     before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Delete Playlist #{rand}" }
     let(:id) { @my_playlist.id }
 
     it { expect(playlist.delete).to be true }
   end
 
-  context 'given one of my own playlists that I want to update', rate_limited: true do
+  context 'given one of my own playlists that I want to update', :skip do
     before(:all) { @my_playlist = $account.create_playlist title: "Yt Test Update Playlist #{rand}" }
     after(:all) { @my_playlist.delete }
     let(:id) { @my_playlist.id }
@@ -206,7 +206,11 @@ describe Yt::Playlist, :device_app do
   end
 
   context 'given one of my own playlists that I want to get reports for' do
-    let(:id) { $account.channel.playlists.first.id }
+    let(:id) { test_account.channel.playlists.first.id }
+
+    before do
+      allow(Date).to receive(:today).and_return(Date.new(2020, 2, 5))
+    end
 
     it 'returns valid reports for playlist-related metrics' do
       expect{playlist.views}.not_to raise_error

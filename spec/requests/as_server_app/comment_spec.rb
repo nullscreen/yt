@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/models/comment'
 
-describe Yt::Comment, :server_app do
+describe Yt::Comment, :server_app, :vcr do
   subject(:comment) { Yt::Comment.new attrs }
 
   context 'given an existing comment (non-reply) ID' do

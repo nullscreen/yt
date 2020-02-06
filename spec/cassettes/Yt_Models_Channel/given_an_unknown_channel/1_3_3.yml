@@ -1,0 +1,119 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://accounts.google.com/o/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - Yt::Request (gzip)
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:04:32 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "access_token": "<YT_TEST_ACCESS_TOKEN>",
+          "expires_in": 3599,
+          "scope": "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/yt-analytics.readonly openid https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/youtubepartner",
+          "token_type": "Bearer",
+          "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ4ZWZlYTFmNjZlODdiYjM2YzJlYTA5ZDgzNzMzOGJkZDgxMDM1M2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAzMDc3NzAwNDU1OTkyNzEzMjQzIiwiaGQiOiJmdWxsc2NyZWVuLmNvbSIsImVtYWlsIjoiZGVyZWsuYmFybmVzQGZ1bGxzY3JlZW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJHTzdtal90QU11Ym5CckN6Y2swYkhnIiwiaWF0IjoxNTgwOTcyNjcyLCJleHAiOjE1ODA5NzYyNzJ9.MuW6gHIhfZKUIctjrmgj6rCZbCoegmTq4U_V6UrY10G888S4G24GbFxwU2zk0Bf0HWRND_UDPrpk26dsOIEEa-ZWBGesYFYCHtLvltMQNfl4oC32Ems6eb1OU57ijLHcgs2TcgUVCnPKphfYwfqs6k3Lwt_HVne-IBS56F2Hqzjr1X6ruTfCWfFbQQpyhPhb36j4AunIBnH9Yr6B3LLHxFADaQL8fQ9Gor7-i3JmhJ_vCQQ3IbdGlGNqh40KjXjEey5WJ9nuDSYVJ6jaspTqXz2DEiX5Qt2_I6VxDPRnPzCDPpvz3UmuFWyFBga5ckhG0c3oHNsXqi8YWiCEkt9UMg"
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:04:32 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/channels?id=not-a-channel-id&maxResults=50&part=statistics
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:04:32 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:04:32 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/64gpz2PU8LwOqXE4UUXST4I-1Mo"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '191'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#channelListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/64gpz2PU8LwOqXE4UUXST4I-1Mo\"",
+         "pageInfo": {
+          "totalResults": 0,
+          "resultsPerPage": 0
+         },
+         "items": []
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:04:32 GMT
+recorded_with: VCR 5.1.0

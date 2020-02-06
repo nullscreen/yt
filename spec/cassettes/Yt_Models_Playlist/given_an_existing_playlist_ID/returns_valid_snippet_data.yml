@@ -1,0 +1,170 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4&key=<YT_TEST_API_KEY>&part=snippet
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:11:06 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:11:06 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/mBiXA0zDMfIyoCMkuHJB_pi2Z2I"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1340'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/mBiXA0zDMfIyoCMkuHJB_pi2Z2I\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 5
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/p77QfrqqhI8vsEhFIjQGWJyNxy8\"",
+           "id": "PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4",
+           "snippet": {
+            "publishedAt": "2018-11-02T12:56:37.000Z",
+            "channelId": "UCkRfArvrzheW2E7b6SVT7vQ",
+            "title": "YouTube Studio Tutorials",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube Creators",
+            "localized": {
+             "title": "YouTube Studio Tutorials",
+             "description": ""
+            }
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:11:06 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4&key=<YT_TEST_API_KEY>&maxResults=50&part=contentDetails
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:11:06 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:11:06 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/ZYUB9GCLSZNh2M1NREyBMAFEbgE"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '402'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/ZYUB9GCLSZNh2M1NREyBMAFEbgE\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/mEx_1t5JTic5YHnIOqHq7C-M2_g\"",
+           "id": "PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4",
+           "contentDetails": {
+            "itemCount": 4
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:11:06 GMT
+recorded_with: VCR 5.1.0

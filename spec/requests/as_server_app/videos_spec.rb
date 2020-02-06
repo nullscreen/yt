@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'yt/collections/videos'
 
-describe Yt::Collections::Videos, :server_app do
+describe Yt::Collections::Videos, :server_app, :vcr do
   subject(:videos) { Yt::Collections::Videos.new }
 
   specify 'without :where conditions, returns all YouTube videos', :ruby2 do

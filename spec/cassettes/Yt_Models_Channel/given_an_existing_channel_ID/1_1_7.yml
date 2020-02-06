@@ -1,0 +1,133 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?channelId=UCAmh1DexLGcMtDlzMCIxo4w&key=<YT_TEST_API_KEY>&maxResults=50&part=snippet,status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:07:53 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:07:53 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/HbVIGlbby_HvbOSg0YVOghMdbC0"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '2015'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/HbVIGlbby_HvbOSg0YVOghMdbC0\"",
+         "pageInfo": {
+          "totalResults": 2,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/gPZ4S1gVyWQBXrsQufJ1HypBWnA\"",
+           "id": "PLbj-IDe6g8vt9owrsm46cEtkRnn-PzV4F",
+           "snippet": {
+            "publishedAt": "2019-06-07T21:42:53.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "hi ‹there",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "localized": {
+             "title": "hi ‹there",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/YSmNRdLhdxpZUWkUrYxpKFHkL4U\"",
+           "id": "PLbj-IDe6g8vsAPODEr-qEFcDDoXxjG8DT",
+           "snippet": {
+            "publishedAt": "2018-10-25T00:54:47.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "Mustard Talk",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/mio1RltQdw4/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/mio1RltQdw4/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/mio1RltQdw4/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "localized": {
+             "title": "Mustard Talk",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:07:53 GMT
+recorded_with: VCR 5.1.0

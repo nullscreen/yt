@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'yt/models/video'
 require 'yt/collections/comment_threads'
 
-describe Yt::Video, :server_app do
+describe Yt::Video, :server_app, :vcr do
   subject(:video) { Yt::Video.new attrs }
 
   context 'given an existing video ID' do

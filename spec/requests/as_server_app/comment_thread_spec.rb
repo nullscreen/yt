@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'yt/models/comment_thread'
 require 'yt/models/comment'
 
-describe Yt::CommentThread, :server_app do
+describe Yt::CommentThread, :server_app, :vcr do
   subject(:comment_thread) { Yt::CommentThread.new attrs }
 
   context 'given an existing comment thread ID about a channel' do

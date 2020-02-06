@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/models/channel'
 
-describe Yt::Channel, :server_app do
+describe Yt::Channel, :server_app, :vcr do
   subject(:channel) { Yt::Channel.new attrs }
 
   context 'given an existing channel ID' do

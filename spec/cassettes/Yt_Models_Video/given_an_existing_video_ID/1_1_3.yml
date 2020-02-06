@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/videos?id=9bZkp7q19f0&key=<YT_TEST_API_KEY>&part=status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:11:12 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:11:12 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/QokYhW3l8CacX_u0bl6fJcDT_a4"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '517'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#videoListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/QokYhW3l8CacX_u0bl6fJcDT_a4\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 1
+         },
+         "items": [
+          {
+           "kind": "youtube#video",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/efqboWs9guTQJOcy_xMkW5e4IsA\"",
+           "id": "9bZkp7q19f0",
+           "status": {
+            "uploadStatus": "processed",
+            "privacyStatus": "public",
+            "license": "youtube",
+            "embeddable": true,
+            "publicStatsViewable": true,
+            "madeForKids": false
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:11:12 GMT
+recorded_with: VCR 5.1.0

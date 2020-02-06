@@ -3,8 +3,8 @@
 require 'spec_helper'
 require 'yt/models/video'
 
-describe Yt::Video, :device_app do
-  subject(:video) { Yt::Video.new id: id, auth: $account }
+describe Yt::Video, :device_app, :vcr do
+  subject(:video) { Yt::Video.new id: id, auth: test_account }
 
   context 'given someone else’s video' do
     let(:id) { '9bZkp7q19f0' }
@@ -125,14 +125,14 @@ describe Yt::Video, :device_app do
     it { expect{video.file_detail}.to raise_error Yt::Errors::NoItems }
   end
 
-  context 'given one of my own videos that I want to delete' do
+  context 'given one of my own videos that I want to delete', :skip do
     before(:all) { @tmp_video = $account.upload_video 'https://bit.ly/yt_test', title: "Yt Test Delete Video #{rand}" }
     let(:id) { @tmp_video.id }
 
     it { expect(video.delete).to be true }
   end
 
-  context 'given one of my own videos that I want to update' do
+  context 'given one of my own videos that I want to update', :skip do
     let(:id) { $account.videos.where(order: 'viewCount').first.id }
     let!(:old_title) { video.title }
     let!(:old_privacy_status) { video.privacy_status }
@@ -315,7 +315,7 @@ describe Yt::Video, :device_app do
   #   400 Error when trying to set the publishAt timestamp.
   #   Therefore, just to test the updating of publishAt, we use a brand new
   #   video (set to private), rather than reusing an existing one as above.
-  context 'given one of my own *private* videos that I want to update' do
+  context 'given one of my own *private* videos that I want to update', :skip do
     before { @tmp_video = $account.upload_video 'https://bit.ly/yt_test', title: old_title, privacy_status: old_privacy_status }
     let(:id) { @tmp_video.id }
     let!(:old_title) { "Yt Test Update publishAt Video #{rand}" }
@@ -365,7 +365,7 @@ describe Yt::Video, :device_app do
   #   changes. A full test would have to *download* the thumbnails before and
   #   after, and compare the files. For now, not raising error is enough.
   #   Eventually, change to `expect{update}.to change{video.thumbnail_url}`
-  context 'given one of my own videos for which I want to upload a thumbnail' do
+  context 'given one of my own videos for which I want to upload a thumbnail', :skip do
     let(:id) { $account.videos.where(order: 'viewCount').first.id }
     let(:update) { video.upload_thumbnail path_or_url }
 
@@ -396,7 +396,7 @@ describe Yt::Video, :device_app do
   # @see https://developers.google.com/youtube/v3/docs/videos#fileDetails
   # @see https://developers.google.com/youtube/v3/docs/videos#processingDetails.fileDetailsAvailability
   context 'given one of my own videos' do
-    let(:id) { $account.videos.first.id }
+    let(:id) { test_account.videos.first.id }
 
     it 'returns valid file details' do
       expect(video.file_name).to be_a String

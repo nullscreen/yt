@@ -2,8 +2,8 @@
 require 'spec_helper'
 require 'yt/models/channel'
 
-describe Yt::Channel, :device_app do
-  subject(:channel) { Yt::Channel.new id: id, auth: $account }
+describe Yt::Channel, :device_app, :vcr do
+  subject(:channel) { Yt::Channel.new id: id, auth: test_account }
 
   context 'given someone else’s channel' do
     let(:id) { 'UCBR8-60-B28hp2BmDPdntcQ' } # YouTube Spotlight
@@ -169,7 +169,7 @@ describe Yt::Channel, :device_app do
   end
 
   context 'given my own channel' do
-    let(:id) { $account.channel.id }
+    let(:id) { test_account.channel.id }
     let(:title) { 'Yt Test <title>' }
     let(:description) { 'Yt Test <description>' }
     let(:tags) { ['Yt Test Tag 1', 'Yt Test <Tag> 2'] }
@@ -180,7 +180,7 @@ describe Yt::Channel, :device_app do
       expect(channel.subscriptions.size).to be
     end
 
-    describe 'playlists can be deleted', rate_limited: true do
+    describe 'playlists can be deleted', :skip do
       let(:title) { "Yt Test Delete All Playlists #{rand}" }
       before { $account.create_playlist params }
 
@@ -193,7 +193,7 @@ describe Yt::Channel, :device_app do
     it { expect{channel.subscribe!}.to raise_error Yt::Errors::RequestError }
     it { expect(channel.subscribe).to be_falsey }
 
-    it 'returns valid reports for channel-related metrics' do
+    it 'returns valid reports for channel-related metrics', :skip do
       # Some reports are only available to Content Owners.
       # See content owner test for more details about what the methods return.
       expect{channel.views}.not_to raise_error

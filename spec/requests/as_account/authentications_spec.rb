@@ -1,12 +1,13 @@
 require 'spec_helper'
 require 'yt/models/account'
 
-describe Yt::Account, :device_app do
+describe Yt::Account, :device_app, :vcr do
   subject(:account) { Yt::Account.new attrs }
+  let(:refresh_token) { ENV['YT_TEST_REFRESH_TOKEN'] }
 
   describe '#refresh' do
     context 'given a valid refresh token' do
-      let(:attrs) { {refresh_token: ENV['YT_TEST_DEVICE_REFRESH_TOKEN']} }
+      let(:attrs) { {refresh_token: refresh_token} }
 
       # NOTE: When the token is refreshed, YouTube *might* actually return
       # the *same* access token if it is still valid. Typically, within the
@@ -22,7 +23,6 @@ describe Yt::Account, :device_app do
       let(:attrs) { {refresh_token: refresh_token} }
 
       context 'that is valid' do
-        let(:refresh_token) { ENV['YT_TEST_DEVICE_REFRESH_TOKEN'] }
         it { expect(account.authentication).to be_a Yt::Authentication }
         it { expect(account.refresh_token).to eq refresh_token }
       end
@@ -50,7 +50,7 @@ describe Yt::Account, :device_app do
       let(:attrs) { {access_token: access_token, expires_at: expires_at} }
 
       context 'that is valid' do
-        let(:access_token) { $account.access_token }
+        let(:access_token) { test_account.access_token }
 
         context 'that does not have an expiration date' do
           let(:expires_at) { nil }
@@ -75,7 +75,7 @@ describe Yt::Account, :device_app do
           end
 
           context 'and a valid refresh token' do
-            before { attrs[:refresh_token] = ENV['YT_TEST_DEVICE_REFRESH_TOKEN'] }
+            before { attrs[:refresh_token] = refresh_token }
             it { expect(account.authentication).to be_a Yt::Authentication }
           end
         end
@@ -90,7 +90,7 @@ describe Yt::Account, :device_app do
         end
 
         context 'and a valid refresh token' do
-          before { attrs[:refresh_token] = ENV['YT_TEST_DEVICE_REFRESH_TOKEN'] }
+          before { attrs[:refresh_token] = refresh_token }
           it { expect{account.channel}.not_to raise_error }
         end
       end

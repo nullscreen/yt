@@ -526,44 +526,31 @@ If a variable is set in both places, then `Yt.configure` takes precedence.
 How to test
 ===========
 
-Yt comes with two different sets of tests:
-
-1. tests in `spec/models`, `spec/collections` and `spec/errors` **do not hit** the YouTube API
-1. tests in `spec/requests` **hit** the YouTube API and require authentication
-
-To only run tests against models, collections and errors (which do not hit the API), type:
-
-```bash
-rspec spec/models spec/collections spec/errors
-```
-
-To also run live-tests against the YouTube API, type:
-
+To run tests:
 ```bash
 rspec
 ```
 
-This will fail unless you have set up a test YouTube application and some
-tests YouTube accounts (with appropriate fixture data) to hit the API.
-Furthermore, tests that require authentication are divided into three
-roles, which correspond to each directory in `spec/requests`:
+Yt comes with two different sets of tests:
 
-* Account-based tests, which require a valid refresh token along with
-  the application-level credentials the refresh token was created with
-  (`YT_TEST_DEVICE_REFRESH_TOKEN`, `YT_TEST_DEVICE_CLIENT_ID`, and
-  `YT_TEST_DEVICE_CLIENT_SECRET` respectively).
-* Server application tests, which use a server API key
-  (`YT_TEST_SERVER_API_KEY`).
-* Tests that excercise YouTube's partner functionality. This requires an
-  a partner channel id (`YT_TEST_CONTENT_OWNER_NAME`), a refresh token
-  that's authenticated with that channel
-  (`YT_TEST_CONTENT_OWNER_REFRESH_TOKEN`), and the corresponding
-  application (`YT_TEST_PARTNER_CLIENT_ID` and
-  (`YT_TEST_PARTNER_CLIENT_SECRET`).
+1. Unit tests in `spec/models`, `spec/collections` and `spec/errors`
+2. Legacy integration tests in `spec/requests`
 
-The refresh tokens need to be generated with the `youtube`,
-`yt-analytics` and `userinfo.profile` permissions in order for tests to
-pass.
+Coming soon will be a new set of high-level integration tests.
+
+Integration tests are recorded with VCR. Some of the tests refer to
+fixture data that an arbitrary account may not have access to. If you
+need to modify one of these tests or re-record the cassette, we'd
+suggest working against your own version of the testing setup. Then in
+your pull request, we can help canonize your test/fixtures.
+
+Some of the integration tests require authentication. These can be set
+with the following environment variables:
+
+* `YT_TEST_CLIENT_ID`
+* `YT_TEST_CLIENT_SECRET`
+* `YT_TEST_API_KEY`
+* `YT_TEST_REFRESH_TOKEN`
 
 How to release new versions
 ===========================

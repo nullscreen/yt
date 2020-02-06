@@ -1,0 +1,167 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/channels?id=UCAmh1DexLGcMtDlzMCIxo4w&key=<YT_TEST_API_KEY>&part=contentDetails
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:07:52 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:07:52 GMT
+      Cache-Control:
+      - private, max-age=300, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/1iF9wcOQO1Jxq1OTf1-JGsU13vw"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '497'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#channelListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/1iF9wcOQO1Jxq1OTf1-JGsU13vw\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 1
+         },
+         "items": [
+          {
+           "kind": "youtube#channel",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/7NpV-5UY3k8QJnj9z83G47zvrjA\"",
+           "id": "UCAmh1DexLGcMtDlzMCIxo4w",
+           "contentDetails": {
+            "relatedPlaylists": {
+             "uploads": "UUAmh1DexLGcMtDlzMCIxo4w",
+             "watchHistory": "HL",
+             "watchLater": "WL"
+            }
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:07:52 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=UUAmh1DexLGcMtDlzMCIxo4w,HL,WL&key=<YT_TEST_API_KEY>&maxResults=50&part=snippet,status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:07:52 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:07:52 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/u5x0ZQjKoRGo47I3gIq7jIpV924"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1113'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/u5x0ZQjKoRGo47I3gIq7jIpV924\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/wmR_3sDFUjf6qIWAW_9wF4dByWw\"",
+           "id": "UUAmh1DexLGcMtDlzMCIxo4w",
+           "snippet": {
+            "publishedAt": "1970-01-01T00:00:00.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "Uploads from Derek Barnes",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/mio1RltQdw4/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/mio1RltQdw4/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/mio1RltQdw4/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "localized": {
+             "title": "Uploads from Derek Barnes",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:07:52 GMT
+recorded_with: VCR 5.1.0

@@ -7,6 +7,10 @@ describe Yt::Request do
   let(:response) { response_class.new nil, nil, nil }
   let(:response_body) { }
 
+  before do
+    allow(request).to receive(:retry_time).and_return(0)
+  end
+
   describe '#run' do
     context 'given a request that returns' do
       before { allow(response).to receive(:body).and_return response_body }

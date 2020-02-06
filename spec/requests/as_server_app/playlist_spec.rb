@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/models/playlist'
 
-describe Yt::Playlist, :server_app do
+describe Yt::Playlist, :server_app, :vcr do
   subject(:playlist) { Yt::Playlist.new attrs }
 
   context 'given an existing playlist ID' do
@@ -24,7 +24,7 @@ describe Yt::Playlist, :server_app do
     it { expect(playlist.playlist_items.first).to be_a Yt::PlaylistItem }
   end
 
-  context 'given an unknown playlist' do
+  context 'given an unknown playlist', :skip do
     let(:attrs) { {id: 'not-a-playlist-id'} }
 
     it { expect{playlist.snippet}.to raise_error Yt::Errors::NoItems }

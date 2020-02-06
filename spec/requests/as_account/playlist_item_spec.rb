@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/models/playlist_item'
 
-describe Yt::PlaylistItem, :device_app do
+describe Yt::PlaylistItem, :device_app, :skip do
   subject(:item) { Yt::PlaylistItem.new id: id, auth: $account }
 
   context 'given an existing playlist item' do
