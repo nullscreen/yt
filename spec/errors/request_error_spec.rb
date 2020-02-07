@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'yt'
+require 'yt/errors/request_error'
 
 describe Yt::Errors::RequestError do
   subject(:error) { raise Yt::Errors::RequestError, params }
