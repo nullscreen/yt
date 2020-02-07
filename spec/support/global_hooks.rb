@@ -10,6 +10,10 @@ end
 RSpec.configure do |config|
   config.include Helpers
 
+  config.before :each do
+    allow(Yt).to receive(:configuration).and_return(Yt::Configuration.new)
+  end
+
   config.before :each, device_app: true do
     allow(Yt.configuration).to receive(:client_id).and_return(ENV['YT_TEST_CLIENT_ID'])
     allow(Yt.configuration).to receive(:client_secret).and_return(ENV['YT_TEST_CLIENT_SECRET'])
