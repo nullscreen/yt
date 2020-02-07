@@ -239,6 +239,10 @@ module Yt
       def upload_thumbnail_params
         {}
       end
+
+      def insert_playlist_item_params
+        {}
+      end
     end
   end
 end
