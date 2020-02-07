@@ -12,6 +12,7 @@ RSpec.configure do |config|
 
   config.before :each do
     allow(Yt).to receive(:configuration).and_return(Yt::Configuration.new)
+    allow(Yt.configuration).to receive(:api_key).and_return(nil)
   end
 
   config.before :each, device_app: true do
