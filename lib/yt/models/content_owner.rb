@@ -110,6 +110,18 @@ module Yt
       def update_video_params
         {on_behalf_of_content_owner: @owner_name}
       end
+
+      def update_playlist_params
+        {on_behalf_of_content_owner: @owner_name}
+      end
+
+      def upload_thumbnail_params
+        {on_behalf_of_content_owner: @owner_name}
+      end
+
+      def insert_playlist_item_params
+        {on_behalf_of_content_owner: @owner_name}
+      end
     end
   end
 end

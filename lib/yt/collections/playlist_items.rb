@@ -48,6 +48,15 @@ module Yt
       def insert_parts
         {snippet: {keys: [:playlist_id, :resource_id, :position]}}
       end
+
+      # For inserting a playlist item with content owner auth.
+      # @see https://developers.google.com/youtube/v3/docs/playlistItems/insert
+      def insert_params
+        params = super
+        params[:params] ||= {}
+        params[:params].merge! auth.insert_playlist_item_params
+        params
+      end
     end
   end
 end

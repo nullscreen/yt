@@ -643,8 +643,11 @@ module Yt
       # @private
       # Tells `has_many :resumable_sessions` what params are set for the object
       # associated to the uploaded file.
+      # https://developers.google.com/youtube/v3/docs/thumbnails/set
       def upload_params
-        {video_id: id}
+        params = {video_id: id}
+        params.merge! auth.upload_thumbnail_params
+        params
       end
 
       # @private
