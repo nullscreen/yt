@@ -7,6 +7,14 @@ For more information about changelogs, check
 [Vandamme](http://tech-angels.github.io/vandamme).
 
 
+## 0.32.6 - 2020-02-07
+
+* [FEATURE] Allow partnered channels to delete playlist item.
+* [FEATURE] Allow partnered channels to update video.
+* [FEATURE] Allow partnered channels to update playlist.
+* [FEATURE] Allow partnered channels to upload thumbnail.
+* [FEATURE] Allow partnered channels to create playlist item.
+
 ## 0.32.5 - 2019-11-06
 
 * [BUGFIX] Fix `MatchPolicy#update` and `Asset#update` by using `PUT` instead of `PATCH`
