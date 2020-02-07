@@ -103,6 +103,7 @@ module Yt
 
       def delete_params
         super.tap do |params|
+          params[:params] ||= {}
           params[:params].merge! @auth.playlist_items_params
         end
       end
