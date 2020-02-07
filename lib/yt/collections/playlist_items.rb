@@ -54,7 +54,7 @@ module Yt
       def insert_params
         params = super
         params[:params] ||= {}
-        params[:params].merge! auth.insert_playlist_item_params
+        params[:params].merge! @auth.insert_playlist_item_params
         params
       end
     end
