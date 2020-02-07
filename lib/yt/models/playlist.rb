@@ -232,6 +232,15 @@ module Yt
           params[:resource_id] ||= {kind: 'youtube#video', videoId: video_id}
         end
       end
+
+      # For updating playlist with content owner auth.
+      # @see https://developers.google.com/youtube/v3/docs/playlists/update
+      def update_params
+        params = super
+        params[:params] ||= {}
+        params[:params].merge! auth.update_playlist_params
+        params
+      end
     end
   end
 end

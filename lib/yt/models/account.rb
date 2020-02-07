@@ -231,6 +231,10 @@ module Yt
       def update_video_params
         {}
       end
+
+      def update_playlist_params
+        {}
+      end
     end
   end
 end
