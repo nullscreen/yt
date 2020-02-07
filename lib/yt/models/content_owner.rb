@@ -106,6 +106,10 @@ module Yt
       def playlist_items_params
         {on_behalf_of_content_owner: @owner_name}
       end
+
+      def update_video_params
+        {on_behalf_of_content_owner: @owner_name}
+      end
     end
   end
 end

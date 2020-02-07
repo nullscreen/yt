@@ -1208,4 +1208,16 @@ describe Yt::Video, :partner do
       end
     end
   end
+
+  context 'given a video of a partnered channel' do
+    let(:id) { 'kocTIjlZwGo' }
+
+    describe 'title can be updated' do
+      let!(:old_title) { video.title }
+      let!(:new_title) { old_title.reverse }
+      before { video.update title: new_title }
+      it { expect(video.title).to eq(new_title) }
+      after { video.update title: old_title }
+    end
+  end
 end

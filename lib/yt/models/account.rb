@@ -227,6 +227,10 @@ module Yt
       def upload_content_type
         'video/*'
       end
+
+      def update_video_params
+        {}
+      end
     end
   end
 end
