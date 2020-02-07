@@ -235,6 +235,10 @@ module Yt
       def update_playlist_params
         {}
       end
+
+      def upload_thumbnail_params
+        {}
+      end
     end
   end
 end
