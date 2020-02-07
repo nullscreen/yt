@@ -671,9 +671,10 @@ module Yt
       # For updating video with content owner auth.
       # @see https://developers.google.com/youtube/v3/docs/videos/update
       def update_params
-        super.tap do |params|
-          params[:params] = {on_behalf_of_content_owner: auth.owner_name} if auth.owner_name
-        end
+        params = super
+        params[:params] ||= {}
+        params[:params].merge! auth.update_video_params
+        params
       end
 
       # NOTE: Another irrational behavior of YouTube API. If you are setting a
