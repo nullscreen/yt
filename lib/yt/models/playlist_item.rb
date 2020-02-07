@@ -101,6 +101,13 @@ module Yt
         {kind: 'youtube#video', videoId: video_id}
       end
 
+      def delete_params
+        super.tap do |params|
+          params[:params] ||= {}
+          params[:params].merge! @auth.playlist_items_params
+        end
+      end
+
       # @see https://developers.google.com/youtube/v3/docs/playlistItems/update
       def update_parts
         keys = [:position, :playlist_id, :resource_id]
