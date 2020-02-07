@@ -527,9 +527,12 @@ How to test
 ===========
 
 To run tests:
+
 ```bash
 rspec
 ```
+
+We recommend RSpec >= 3.8.
 
 Yt comes with two different sets of tests:
 
