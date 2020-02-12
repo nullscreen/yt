@@ -89,7 +89,7 @@ describe Yt::Account, :device_app, :vcr do
     end
   end
 
-  describe '.video_groups', :skip do
+  describe '.video_groups' do
     let(:video_group) { test_account.video_groups.first }
 
     specify 'returns the first video-group created by the account' do
@@ -104,9 +104,9 @@ describe Yt::Account, :device_app, :vcr do
     end
   end
 
-  describe '.upload_video', :skip do
+  describe '.upload_video' do
     let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private', category_id: 17} }
-    let(:video) { $account.upload_video path_or_url, video_params }
+    let(:video) { test_account.upload_video path_or_url, video_params }
     after { video.delete }
 
     context 'given the path to a local video file' do
@@ -115,7 +115,7 @@ describe Yt::Account, :device_app, :vcr do
       it { expect(video).to be_a Yt::Video }
     end
 
-    context 'given the URL of a remote video file' do
+    context 'given the URL of a remote video file', vcr: {preserve_exact_body_bytes: true} do
       let(:path_or_url) { 'https://bit.ly/yt_test' }
 
       it { expect(video).to be_a Yt::Video }
