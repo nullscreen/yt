@@ -22,12 +22,6 @@ describe Yt::PlaylistItem, :device_app, :vcr do
     end
   end
 
-  context 'given an unknown playlist item', :skip do
-    let(:id) { 'not-a-playlist-item-id' }
-
-    it { expect{item.snippet}.to raise_error Yt::Errors::RequestError }
-  end
-
   context 'given one of my own playlist items that I want to update' do
     let(:id) { 'UExiai1JRGU2Zzh2dGF4MVNha0xFd09kT0V2LW52aml5MC41NkI0NEY2RDEwNTU3Q0M2' }
     let!(:old_title) { item.title }
