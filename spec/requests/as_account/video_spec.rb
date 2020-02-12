@@ -125,15 +125,14 @@ describe Yt::Video, :device_app, :vcr do
     it { expect{video.file_detail}.to raise_error Yt::Errors::NoItems }
   end
 
-  context 'given one of my own videos that I want to delete', :skip do
-    before(:all) { @tmp_video = $account.upload_video 'https://bit.ly/yt_test', title: "Yt Test Delete Video #{rand}" }
-    let(:id) { @tmp_video.id }
+  context 'given one of my own videos that I want to delete' do
+    let(:id) { 'eVyohfo-I2Q' }
 
     it { expect(video.delete).to be true }
   end
 
-  context 'given one of my own videos that I want to update', :skip do
-    let(:id) { $account.videos.where(order: 'viewCount').first.id }
+  context 'given one of my own videos that I want to update' do
+    let(:id) { 'eVyohfo-I2Q' }
     let!(:old_title) { video.title }
     let!(:old_privacy_status) { video.privacy_status }
     let(:update) { video.update attrs }
@@ -141,7 +140,7 @@ describe Yt::Video, :device_app, :vcr do
     context 'given I update the title' do
       # NOTE: The use of UTF-8 characters is to test that we can pass up to
       # 50 characters, independently of their representation
-      let(:attrs) { {title: "Yt Example Update Video #{rand} - ®•♡❥❦❧☙"} }
+      let(:attrs) { {title: "Yt Example Update Video - ®•♡❥❦❧☙"} }
 
       specify 'only updates the title' do
         expect(update).to be true
@@ -152,7 +151,7 @@ describe Yt::Video, :device_app, :vcr do
 
     context 'given I update the description' do
       let!(:old_description) { video.description }
-      let(:attrs) { {description: "Yt Example Description  #{rand} - ®•♡❥❦❧☙"} }
+      let(:attrs) { {description: "Yt Example Description - ®•♡❥❦❧☙"} }
 
       specify 'only updates the description' do
         expect(update).to be true
@@ -164,7 +163,7 @@ describe Yt::Video, :device_app, :vcr do
 
     context 'given I update the tags' do
       let!(:old_tags) { video.tags }
-      let(:attrs) { {tags: ["Yt Test Tag #{rand}"]} }
+      let(:attrs) { {tags: ["Yt Test Tag"]} }
 
       specify 'only updates the tag' do
         expect(update).to be true
@@ -276,7 +275,7 @@ describe Yt::Video, :device_app, :vcr do
       end
     end
 
-    it 'returns valid reports for video-related metrics', extended_permissions: true do
+    it 'returns valid reports for video-related metrics', skip: true, extended_permissions: true do
       # Some reports are only available to Content Owners.
       # See content owner test for more details about what the methods return.
       expect{video.views}.not_to raise_error
