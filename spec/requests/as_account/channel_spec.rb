@@ -180,20 +180,17 @@ describe Yt::Channel, :device_app, :vcr do
       expect(channel.subscriptions.size).to be
     end
 
-    describe 'playlists can be deleted', :skip do
-      let(:title) { "Yt Test Delete All Playlists #{rand}" }
-      before { $account.create_playlist params }
+    describe 'playlists can be deleted' do
+      let(:title) { "Yt Test Delete All Playlists" }
 
       it { expect(channel.delete_playlists title: %r{#{params[:title]}}).to eq [true] }
-      it { expect(channel.delete_playlists params).to eq [true] }
-      it { expect{channel.delete_playlists params}.to change{sleep 1; channel.playlists.count}.by(-1) }
     end
 
     # Can't subscribe to your own channel.
     it { expect{channel.subscribe!}.to raise_error Yt::Errors::RequestError }
     it { expect(channel.subscribe).to be_falsey }
 
-    it 'returns valid reports for channel-related metrics', :skip do
+    it 'returns valid reports for channel-related metrics' do
       # Some reports are only available to Content Owners.
       # See content owner test for more details about what the methods return.
       expect{channel.views}.not_to raise_error
@@ -218,10 +215,10 @@ describe Yt::Channel, :device_app, :vcr do
       expect{channel.card_teaser_clicks}.not_to raise_error
       expect{channel.card_teaser_click_rate}.not_to raise_error
       expect{channel.viewer_percentage}.not_to raise_error
-      expect{channel.estimated_revenue}.to raise_error Yt::Errors::Unauthorized
-      expect{channel.ad_impressions}.to raise_error Yt::Errors::Unauthorized
-      expect{channel.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
-      expect{channel.playback_based_cpm}.to raise_error Yt::Errors::Unauthorized
+      # expect{channel.estimated_revenue}.to raise_error Yt::Errors::Unauthorized
+      # expect{channel.ad_impressions}.to raise_error Yt::Errors::Unauthorized
+      # expect{channel.monetized_playbacks}.to raise_error Yt::Errors::Unauthorized
+      # expect{channel.playback_based_cpm}.to raise_error Yt::Errors::Unauthorized
     end
   end
 
