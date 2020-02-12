@@ -23,11 +23,4 @@ describe Yt::Playlist, :server_app, :vcr do
     it { expect(playlist.playlist_items).to be_a Yt::Collections::PlaylistItems }
     it { expect(playlist.playlist_items.first).to be_a Yt::PlaylistItem }
   end
-
-  context 'given an unknown playlist', :skip do
-    let(:attrs) { {id: 'not-a-playlist-id'} }
-
-    it { expect{playlist.snippet}.to raise_error Yt::Errors::NoItems }
-    it { expect{playlist.status}.to raise_error Yt::Errors::NoItems }
-  end
 end
