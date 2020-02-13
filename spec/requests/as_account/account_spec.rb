@@ -3,9 +3,9 @@ require 'spec_helper'
 require 'yt/models/account'
 
 describe Yt::Account, :device_app, :vcr do
-  describe 'can create playlists', :skip do
+  describe 'can create playlists' do
     let(:params) { {title: 'Test Yt playlist', privacy_status: 'unlisted'} }
-    before { @playlist = $account.create_playlist params }
+    before { @playlist = test_account.create_playlist params }
     it { expect(@playlist).to be_a Yt::Playlist }
     after { @playlist.delete }
   end
