@@ -191,6 +191,7 @@ describe Yt::Channel, :device_app, :vcr do
     it { expect(channel.subscribe).to be_falsey }
 
     it 'returns valid reports for channel-related metrics' do
+      allow(Date).to receive(:today).and_return(Date.new(2020, 2, 12))
       # Some reports are only available to Content Owners.
       # See content owner test for more details about what the methods return.
       expect{channel.views}.not_to raise_error

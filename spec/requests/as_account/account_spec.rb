@@ -91,6 +91,9 @@ describe Yt::Account, :device_app, :vcr do
 
   describe '.video_groups' do
     let(:video_group) { test_account.video_groups.first }
+    before do
+      allow(Date).to receive(:today).and_return(Date.new(2020, 2, 12))
+    end
 
     specify 'returns the first video-group created by the account' do
       expect(video_group).to be_a Yt::VideoGroup
