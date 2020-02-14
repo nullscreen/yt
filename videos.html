@@ -232,11 +232,10 @@ video.views # => {total: 949}
 video.views since: '2014-03-31', until: 1.month.ago # => {total: 429}
 {% endhighlight %}
 <p>
-  To obtain one value per each day, week or month of the range you specify (rather than the total), use the <code>:by</code> option.<br />
+  To obtain one value per each day or month of the range you specify (rather than the total), use the <code>:by</code> option.<br />
 </p>
 {% highlight ruby %}
 video.views by: :day # => {Wed, 8 May 2014 => 6, Thu, 9 May 2014 => 7, …}
-video.views by: :week # => Fri, 01 May 2015..Thu, 7 May 2015=>7456, …}
 video.views by: :month # => {Fri, 01 May 2015..Sun, 31 May 2015=>130192, …}
 {% endhighlight %}
 <p>
