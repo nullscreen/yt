@@ -15,7 +15,10 @@ describe Yt::Errors::RequestError do
       let(:params) { {response_body: body, request_curl: curl}.to_json }
 
       describe 'given a log level of :debug or :devel' do
-        before(:all) { Yt.configuration.log_level = :debug }
+        before do
+          config = Yt.configuration
+          allow(config).to receive(:log_level).and_return(:debug)
+        end
         specify 'exposes sensitive data' do
           expect{error}.to raise_error do |error|
             expect(error.message).to include 'secret'
@@ -24,7 +27,10 @@ describe Yt::Errors::RequestError do
       end
 
       describe 'given a different log level' do
-        before(:all) { Yt.configuration.log_level = :info }
+        before do
+          config = Yt.configuration
+          allow(config).to receive(:log_level).and_return(:info)
+        end
         specify 'hides sensitive data' do
           expect{error}.to raise_error do |error|
             expect(error.message).not_to include 'secret'

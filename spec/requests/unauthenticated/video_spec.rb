@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/models/video'
 
-describe Yt::Video do
+describe Yt::Video, :vcr do
   subject(:video) { Yt::Video.new id: id }
 
   context 'given a public video with annotations' do

@@ -1,0 +1,253 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlistItems?key=<YT_TEST_API_KEY>&maxResults=50&part=snippet,status&playlistId=PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:11:05 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:11:05 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/mLPC5_dA_AVGwLehtraJvikmQOw"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '8178'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistItemListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/mLPC5_dA_AVGwLehtraJvikmQOw\"",
+         "pageInfo": {
+          "totalResults": 4,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlistItem",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zfb1zHbzMQBEjXoNeNtoUYJS9vI\"",
+           "id": "UExwaks0MTZmbUt3UTZFbmU0R0tSTElDem5vRTFRRnl0NC4wOTA3OTZBNzVEMTUzOTMy",
+           "snippet": {
+            "publishedAt": "2019-11-21T16:04:51.000Z",
+            "channelId": "UCkRfArvrzheW2E7b6SVT7vQ",
+            "title": "YouTube Studio is now out of beta",
+            "description": "Introducing the new YouTube Studio, your go-to spot for all things YouTube. As a creator, YouTube Studio allows you to access a new dashboard for important news, more powerful analytics with real-time metrics, comment filters, and a guided upload experience all in one place. Visit https://studio.youtube.com to check it out.\n\n► Stay up-to-date on new, exclusive features on YouTube Studio: https://support.google.com/youtube/answer/9072033\n\nSubscribe and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/VKf6NF0OD5A/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/VKf6NF0OD5A/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/VKf6NF0OD5A/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/VKf6NF0OD5A/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/VKf6NF0OD5A/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube Creators",
+            "playlistId": "PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4",
+            "position": 0,
+            "resourceId": {
+             "kind": "youtube#video",
+             "videoId": "VKf6NF0OD5A"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlistItem",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/giXmfWrywDq6XRaKYcto2JqSgk4\"",
+           "id": "UExwaks0MTZmbUt3UTZFbmU0R0tSTElDem5vRTFRRnl0NC41NkI0NEY2RDEwNTU3Q0M2",
+           "snippet": {
+            "publishedAt": "2018-11-02T12:56:37.000Z",
+            "channelId": "UCkRfArvrzheW2E7b6SVT7vQ",
+            "title": "How to Use the New YouTube Studio",
+            "description": "Get a tour of the new YouTube Studio! In this video, Tom from the YouTube Product team and Creator Insider channel shows you how to navigate the new YouTube Studio and some of the improvements we've made from Creator Studio Classic.\n\nWe encourage you to learn the new YouTube Studio as it will eventually become your primary place to monitor your videos' and channel's performance. We hope you enjoy it and as always, share your feedback in the comments below!\n\nSubscribe and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\n\n► Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\n► See index of all lessons: https://goo.gl/x2h1NG\n► Get step-by-step instructions: https://goo.gl/fBzr7",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/JuOd3xJpd0Q/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube Creators",
+            "playlistId": "PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4",
+            "position": 1,
+            "resourceId": {
+             "kind": "youtube#video",
+             "videoId": "JuOd3xJpd0Q"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlistItem",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/pAcexrrhnHKQEhmmetZdZ5Ry-VQ\"",
+           "id": "UExwaks0MTZmbUt3UTZFbmU0R0tSTElDem5vRTFRRnl0NC4yODlGNEE0NkRGMEEzMEQy",
+           "snippet": {
+            "publishedAt": "2018-11-02T12:57:28.000Z",
+            "channelId": "UCkRfArvrzheW2E7b6SVT7vQ",
+            "title": "Analytics in the NEW YouTube Studio",
+            "description": "Get a quick tour of the new analytics inside the new YouTube Studio! This tutorial includes how to navigate between channel and video analytics, and an overview of some of the key metrics. Learn about real time views, how to sort data tables, create groups and export data in a CSV format.\n\nWe encourage you to learn the new YouTube Studio as it will eventually become your primary place to monitor your videos' and channel's performance. We hope you enjoy it and as always, feedback is welcome.\n\nSubscribe and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\n\n► Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\n► See index of all lessons: https://goo.gl/x2h1NG\n► Get step-by-step instructions: https://goo.gl/fBzr7",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/gSwyOqTRxPg/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/gSwyOqTRxPg/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/gSwyOqTRxPg/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/gSwyOqTRxPg/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/gSwyOqTRxPg/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube Creators",
+            "playlistId": "PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4",
+            "position": 2,
+            "resourceId": {
+             "kind": "youtube#video",
+             "videoId": "gSwyOqTRxPg"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlistItem",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zxSwI77_KiLW07opR8nCmAyCcyA\"",
+           "id": "UExwaks0MTZmbUt3UTZFbmU0R0tSTElDem5vRTFRRnl0NC41MjE1MkI0OTQ2QzJGNzNG",
+           "snippet": {
+            "publishedAt": "2019-05-28T22:43:44.000Z",
+            "channelId": "UCkRfArvrzheW2E7b6SVT7vQ",
+            "title": "Advanced New Features in YouTube Studio Analytics",
+            "description": "Dig deep into the helpful new features of YouTube Analytics, including realtime reports, custom groups, and automatically generated insights. You can now see how your latest video is performing compared to your other, recent uploads -- and even compare the performance of groups of videos with one another. Try it and let us know what you think in the comments!\n\nSubscribe and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\n\n► Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\n► See index of all lessons: https://goo.gl/x2h1NG\n► Get step-by-step instructions: https://goo.gl/fBzr7",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/NzpqNR2xMHU/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/NzpqNR2xMHU/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/NzpqNR2xMHU/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/NzpqNR2xMHU/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/NzpqNR2xMHU/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube Creators",
+            "playlistId": "PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4",
+            "position": 3,
+            "resourceId": {
+             "kind": "youtube#video",
+             "videoId": "NzpqNR2xMHU"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:11:05 GMT
+recorded_with: VCR 5.1.0

@@ -2,21 +2,21 @@
 require 'spec_helper'
 require 'yt/models/account'
 
-describe Yt::Account, :device_app do
-  describe 'can create playlists', rate_limited: true do
+describe Yt::Account, :device_app, :vcr do
+  describe 'can create playlists' do
     let(:params) { {title: 'Test Yt playlist', privacy_status: 'unlisted'} }
-    before { @playlist = $account.create_playlist params }
+    before { @playlist = test_account.create_playlist params }
     it { expect(@playlist).to be_a Yt::Playlist }
     after { @playlist.delete }
   end
 
-  it { expect($account.channel).to be_a Yt::Channel }
-  it { expect($account.playlists.first).to be_a Yt::Playlist }
-  it { expect($account.subscribed_channels.first).to be_a Yt::Channel }
-  it { expect($account.user_info).to be_a Yt::UserInfo }
+  it { expect(test_account.channel).to be_a Yt::Channel }
+  it { expect(test_account.playlists.first).to be_a Yt::Playlist }
+  it { expect(test_account.subscribed_channels.first).to be_a Yt::Channel }
+  it { expect(test_account.user_info).to be_a Yt::UserInfo }
 
   describe '.related_playlists' do
-    let(:related_playlists) { $account.related_playlists }
+    let(:related_playlists) { test_account.related_playlists }
 
     specify 'returns the list of associated playlist (Liked Videos, Uploads, ...)' do
       expect(related_playlists.first).to be_a Yt::Playlist
@@ -29,7 +29,7 @@ describe Yt::Account, :device_app do
   end
 
   describe '.videos' do
-    let(:video) { $account.videos.where(order: 'viewCount').first }
+    let(:video) { test_account.videos.where(order: 'viewCount').first }
 
     specify 'returns the videos uploaded by the account with their tags and category ID' do
       expect(video).to be_a Yt::Video
@@ -38,10 +38,10 @@ describe Yt::Account, :device_app do
     end
 
     describe '.where(q: query_string)' do
-      let(:count) { $account.videos.where(q: query).count }
+      let(:count) { test_account.videos.where(q: query).count }
 
       context 'given a query string that matches any video owned by the account' do
-        let(:query) { ENV['YT_TEST_MATCHING_QUERY_STRING'] }
+        let(:query) { 'coffee' }
         it { expect(count).to be > 0 }
       end
 
@@ -52,17 +52,17 @@ describe Yt::Account, :device_app do
     end
 
     describe 'ignores filters by ID (all the videos uploaded by the account are returned)' do
-      let(:other_video) { $account.videos.where(order: 'viewCount', id: 'invalid').first }
+      let(:other_video) { test_account.videos.where(order: 'viewCount', id: 'invalid').first }
       it { expect(other_video.id).to eq video.id }
     end
 
     describe 'ignores filters by chart (all the videos uploaded by the account are returned)' do
-      let(:other_video) { $account.videos.where(order: 'viewCount', chart: 'invalid').first }
+      let(:other_video) { test_account.videos.where(order: 'viewCount', chart: 'invalid').first }
       it { expect(other_video.id).to eq video.id }
     end
 
     describe '.includes(:snippet)' do
-      let(:video) { $account.videos.includes(:snippet).first }
+      let(:video) { test_account.videos.includes(:snippet).first }
 
       specify 'eager-loads the *full* snippet of each video' do
         expect(video.instance_variable_defined? :@snippet).to be true
@@ -72,7 +72,7 @@ describe Yt::Account, :device_app do
     end
 
     describe '.includes(:statistics, :status)' do
-      let(:video) { $account.videos.includes(:statistics, :status).first }
+      let(:video) { test_account.videos.includes(:statistics, :status).first }
 
       specify 'eager-loads the statistics and status of each video' do
         expect(video.instance_variable_defined? :@statistics_set).to be true
@@ -81,7 +81,7 @@ describe Yt::Account, :device_app do
     end
 
     describe '.includes(:content_details)' do
-      let(:video) { $account.videos.includes(:content_details).first }
+      let(:video) { test_account.videos.includes(:content_details).first }
 
       specify 'eager-loads the statistics of each video' do
         expect(video.instance_variable_defined? :@content_detail).to be true
@@ -90,7 +90,10 @@ describe Yt::Account, :device_app do
   end
 
   describe '.video_groups' do
-    let(:video_group) { $account.video_groups.first }
+    let(:video_group) { test_account.video_groups.first }
+    before do
+      allow(Date).to receive(:today).and_return(Date.new(2020, 2, 12))
+    end
 
     specify 'returns the first video-group created by the account' do
       expect(video_group).to be_a Yt::VideoGroup
@@ -106,7 +109,7 @@ describe Yt::Account, :device_app do
 
   describe '.upload_video' do
     let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private', category_id: 17} }
-    let(:video) { $account.upload_video path_or_url, video_params }
+    let(:video) { test_account.upload_video path_or_url, video_params }
     after { video.delete }
 
     context 'given the path to a local video file' do
@@ -115,7 +118,7 @@ describe Yt::Account, :device_app do
       it { expect(video).to be_a Yt::Video }
     end
 
-    context 'given the URL of a remote video file' do
+    context 'given the URL of a remote video file', vcr: {preserve_exact_body_bytes: true} do
       let(:path_or_url) { 'https://bit.ly/yt_test' }
 
       it { expect(video).to be_a Yt::Video }
@@ -123,7 +126,7 @@ describe Yt::Account, :device_app do
   end
 
   describe '.subscribers' do
-    let(:subscriber) { $account.subscribers.first }
+    let(:subscriber) { test_account.subscribers.first }
 
     # It could be only me, but it returns an empty array for "items".
     # Just in case, I currently have 2 subscribers.

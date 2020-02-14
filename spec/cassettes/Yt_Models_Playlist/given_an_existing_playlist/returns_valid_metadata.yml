@@ -1,0 +1,289 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://accounts.google.com/o/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - Yt::Request (gzip)
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:18:21 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "access_token": "<YT_TEST_ACCESS_TOKEN>",
+          "expires_in": 3599,
+          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly openid https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtubepartner",
+          "token_type": "Bearer",
+          "id_token": "<YT_TEST_ID_TOKEN>"
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:21 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro&part=snippet
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:18:21 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:18:21 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/ej-8Q8_Z98_D-EF3jXfLAlLLvvQ"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1249'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/ej-8Q8_Z98_D-EF3jXfLAlLLvvQ\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 5
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Av2u3xzCXb0SdLy8YufczTUktvc\"",
+           "id": "PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro",
+           "snippet": {
+            "publishedAt": "2017-07-14T02:16:18.000Z",
+            "channelId": "UCkRfArvrzheW2E7b6SVT7vQ",
+            "title": "What's new & trending",
+            "description": "The latest educational and inspirational videos from the official YouTube Creators channel.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/3KCr7MCnJlw/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/3KCr7MCnJlw/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/3KCr7MCnJlw/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "YouTube Creators",
+            "localized": {
+             "title": "What's new & trending",
+             "description": "The latest educational and inspirational videos from the official YouTube Creators channel."
+            }
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:21 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro&part=status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:18:22 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:18:22 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/qZsCrk9xyyWtW-eQ1G3JPzKySpQ"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '404'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/qZsCrk9xyyWtW-eQ1G3JPzKySpQ\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 5
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/jadTu9d2TfKB65Z5SntQ8M88QjQ\"",
+           "id": "PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro",
+           "status": {
+            "privacyStatus": "public"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:22 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro&maxResults=50&part=contentDetails
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:18:22 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:18:22 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/Nc4Eg2z5xe7JXa1oiP3tutz7n3s"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '403'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Nc4Eg2z5xe7JXa1oiP3tutz7n3s\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/y_Ika4kCkodWvjv035_cClGt3A0\"",
+           "id": "PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro",
+           "contentDetails": {
+            "itemCount": 67
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:22 GMT
+recorded_with: VCR 5.1.0

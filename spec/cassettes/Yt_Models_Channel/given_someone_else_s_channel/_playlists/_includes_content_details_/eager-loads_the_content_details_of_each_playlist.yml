@@ -1,0 +1,2841 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://accounts.google.com/o/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - Yt::Request (gzip)
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:05:22 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "access_token": "<YT_TEST_ACCESS_TOKEN>",
+          "expires_in": 3599,
+          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly openid https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/yt-analytics.readonly",
+          "token_type": "Bearer",
+          "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ4ZWZlYTFmNjZlODdiYjM2YzJlYTA5ZDgzNzMzOGJkZDgxMDM1M2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAzMDc3NzAwNDU1OTkyNzEzMjQzIiwiaGQiOiJmdWxsc2NyZWVuLmNvbSIsImVtYWlsIjoiZGVyZWsuYmFybmVzQGZ1bGxzY3JlZW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJfSk05U2xPLWNXTVFFaENiQ29tRHhRIiwiaWF0IjoxNTgwOTcyNzIyLCJleHAiOjE1ODA5NzYzMjJ9.iTG0RiPx4l5KRgQ2FbRZ6aJxh5kUOREBpQ71-lKSv78QlKqlpPqP1-bXgXNp-yD85fPPVHEpIedgPhKR7qePaqGSrr35qMZdu5WJLVjiFeYw2Vihfm2_qronxupdyJUNhnShfr6YDtfvApbJ1QRZzdesjgdPNCgJ8eQFAtbP2vE3qarFVLsTk315M-InuA23FOkOHO6G9Db2Q48z6Sgbg4h7y9Ue2Rbm6ZvPQPj3pi9k9tuoT-DaaqkNc6C3XYC_ICoM-Hl4mCjqU8KAgjs2V7nBPAcjlpA7kjlVaVk0qdEYHT-7g_tQvc5GBvU-0gGgrDsIycJRh7nXAYNw9miy0w"
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:05:22 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?channelId=UCBR8-60-B28hp2BmDPdntcQ&maxResults=50&part=snippet,status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:05:23 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:05:23 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/baKjH7B9VicF2OSWw1EAc302S8A"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '71099'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/baKjH7B9VicF2OSWw1EAc302S8A\"",
+         "nextPageToken": "CDIQAA",
+         "pageInfo": {
+          "totalResults": 2358,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/17fK6ogZfZWCVjoJGlEIh_4lu7g\"",
+           "id": "PLbpi6ZahtOH6u8l5Hj3myCkytI-vctt9s",
+           "snippet": {
+            "publishedAt": "2020-01-27T16:48:00.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Remembering Kobe Bryant",
+            "description": "Look back at Kobe's legacy on the court.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/FeXZY4eVLlo/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/FeXZY4eVLlo/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/FeXZY4eVLlo/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/FeXZY4eVLlo/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/FeXZY4eVLlo/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Remembering Kobe Bryant",
+             "description": "Look back at Kobe's legacy on the court."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/eHXH0L7vRvNdqwXGyziD5uPrsNc\"",
+           "id": "PLbpi6ZahtOH609MP4wfEjsSE9SeBEmSKe",
+           "snippet": {
+            "publishedAt": "2020-01-24T06:54:25.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Lunar New Year Treats!",
+            "description": "Whats a celebration without a feast! Celebrate Lunar New Year with recipes for these mouth-watering treats.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/oF1Ir_WXV-o/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/oF1Ir_WXV-o/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/oF1Ir_WXV-o/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/oF1Ir_WXV-o/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/oF1Ir_WXV-o/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Lunar New Year Treats!",
+             "description": "Whats a celebration without a feast! Celebrate Lunar New Year with recipes for these mouth-watering treats."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/trkx-GrXo4GdRS8V6UqbUlAYXno\"",
+           "id": "PLbpi6ZahtOH4gKQpM2_9q4vp_yT0CcYQi",
+           "snippet": {
+            "publishedAt": "2020-01-23T07:49:56.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Lunar New Year",
+            "description": "Lunar New Year is one of the most significant holidays in Asia. Learn more about the food, customs and decorations that make this festival so special!",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/1RShqSbLtDE/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/1RShqSbLtDE/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/1RShqSbLtDE/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/1RShqSbLtDE/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/1RShqSbLtDE/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Lunar New Year",
+             "description": "Lunar New Year is one of the most significant holidays in Asia. Learn more about the food, customs and decorations that make this festival so special!"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/THr8-gusIRcjMH-vphR-SGZ2goU\"",
+           "id": "PLbpi6ZahtOH6cDdGN0yG88Ucyw7q9htLa",
+           "snippet": {
+            "publishedAt": "2020-01-22T22:11:00.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Never Forget: International Holocaust Remembrance Day",
+            "description": "January 27 is International Holocaust Remembrance Day. Here are stories from survivors and videos that show the gravity of the event. #WeRemember",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/g6apP8GP934/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/g6apP8GP934/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/g6apP8GP934/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/g6apP8GP934/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/g6apP8GP934/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Never Forget: International Holocaust Remembrance Day",
+             "description": "January 27 is International Holocaust Remembrance Day. Here are stories from survivors and videos that show the gravity of the event. #WeRemember"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/rGzj2q2XrFU2-vsLlDP_voeF4_c\"",
+           "id": "PLbpi6ZahtOH4iOdBSB7PLd079Nw9-2ep4",
+           "snippet": {
+            "publishedAt": "2019-12-13T00:37:52.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Welcome To FarmTube",
+            "description": "Meet the farming creators around the US who are sharing their experiences working with the land, from rescuing a stuck-in-the-mud tractor to feeding hundreds of animals.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/BKo3SBfjiX4/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/BKo3SBfjiX4/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/BKo3SBfjiX4/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/BKo3SBfjiX4/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/BKo3SBfjiX4/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Welcome To FarmTube",
+             "description": "Meet the farming creators around the US who are sharing their experiences working with the land, from rescuing a stuck-in-the-mud tractor to feeding hundreds of animals."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zCPgtXgnTeRCv4dUKUnFkEbDxG0\"",
+           "id": "PLbpi6ZahtOH5Vh6VMF4MRPVgtqsMMBhG0",
+           "snippet": {
+            "publishedAt": "2019-12-02T01:17:39.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "'Tis The Season of Giving",
+            "description": "Learn more about the causes some of YouTube's biggest creators are rallying around and see how you can take part.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/DwN9Tow6z0Q/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/DwN9Tow6z0Q/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/DwN9Tow6z0Q/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/DwN9Tow6z0Q/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/DwN9Tow6z0Q/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "'Tis The Season of Giving",
+             "description": "Learn more about the causes some of YouTube's biggest creators are rallying around and see how you can take part."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/TlmzedEgIdjivkRyeYXh-xAtUWQ\"",
+           "id": "PLbpi6ZahtOH7DbN9uCeGuV9EqoMNM-SbZ",
+           "snippet": {
+            "publishedAt": "2019-11-27T00:52:09.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Top Global Creators | REWIND 2019",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/DYlesHOaPkY/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/DYlesHOaPkY/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/DYlesHOaPkY/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/DYlesHOaPkY/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/DYlesHOaPkY/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Top Global Creators | REWIND 2019",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/PGYO8wos6WmjNr1DUFhVtVQSWFo\"",
+           "id": "PLbpi6ZahtOH4KL2rAzGz_i5lRl87QI58G",
+           "snippet": {
+            "publishedAt": "2019-11-27T00:51:52.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Top New Creators | REWIND 2019",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/NdNAcveAayA/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/NdNAcveAayA/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/NdNAcveAayA/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/NdNAcveAayA/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/NdNAcveAayA/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Top New Creators | REWIND 2019",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/4rmWYATHZfAaCgiOBOWmH0RNdxk\"",
+           "id": "PLbpi6ZahtOH4WnjayzM5SDiZ2q6ojhJqC",
+           "snippet": {
+            "publishedAt": "2019-11-27T00:51:38.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Most Liked Beauty Videos | REWIND 2019",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/bgvxSwYEGcU/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/bgvxSwYEGcU/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/bgvxSwYEGcU/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/bgvxSwYEGcU/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/bgvxSwYEGcU/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Most Liked Beauty Videos | REWIND 2019",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/oS8d_hiISFg05gNTEFXfEDENcM4\"",
+           "id": "PLbpi6ZahtOH63qnPMZCXVxffGCCU7qz1a",
+           "snippet": {
+            "publishedAt": "2019-11-27T00:51:13.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Most Liked Dance Videos | REWIND 2019",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/Wb2boZxfnrs/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/Wb2boZxfnrs/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/Wb2boZxfnrs/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/Wb2boZxfnrs/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Most Liked Dance Videos | REWIND 2019",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/cS5OGExF1BUTiqzy-CZ4aUW6fkM\"",
+           "id": "PLbpi6ZahtOH7RD6SYJgOhykD3TmTDntgx",
+           "snippet": {
+            "publishedAt": "2019-11-27T00:50:53.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Most Liked Music Videos | REWIND 2019",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/Pkh8UtuejGw/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/Pkh8UtuejGw/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/Pkh8UtuejGw/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/Pkh8UtuejGw/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/Pkh8UtuejGw/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Most Liked Music Videos | REWIND 2019",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/2MeaZ_sQjqLHGQFttD92rs0Jl-0\"",
+           "id": "PLbpi6ZahtOH4nwf2gcSVCojzVoKVeGudF",
+           "snippet": {
+            "publishedAt": "2019-11-27T00:50:29.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Most Liked Creator Videos | REWIND 2019",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/dBxOYE2j55U/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/dBxOYE2j55U/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/dBxOYE2j55U/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/dBxOYE2j55U/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/dBxOYE2j55U/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Most Liked Creator Videos | REWIND 2019",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/ETgvu-mQRAgz99T07YDB11feLXU\"",
+           "id": "PLbpi6ZahtOH6r1_HyStgogXfl_A75AT0A",
+           "snippet": {
+            "publishedAt": "2019-11-27T00:50:06.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "The creators, music and moments as featured in REWIND 2019",
+            "description": "Celebrating the videos, creators, music, games, trends, and moments that mattered the most to you in  2019. Explore more: https://rewind.youtube. #YouTubeRewind\n\nTo learn how the top lists in Rewind were generated, visit: https://rewind.youtube/about",
+            "thumbnails": {
+             "medium": {
+              "url": "https://i9.ytimg.com/s_p/PLbpi6ZahtOH6r1_HyStgogXfl_A75AT0A/landscape_mqdefault.jpg?sqp=CJz17vEFir7X7AMGCKuWlu8F&rs=AOn4CLCYkpXW4Bly6y9mmWT9rNFBVU51vg&v=5de58b2b",
+              "width": 320,
+              "height": 180
+             },
+             "standard": {
+              "url": "https://i9.ytimg.com/s_p/PLbpi6ZahtOH6r1_HyStgogXfl_A75AT0A/landscape_sddefault.jpg?sqp=CJz17vEFir7X7AMGCKuWlu8F&rs=AOn4CLCtCEW_fG_kg1uMscmd0C9yGEqv3A&v=5de58b2b",
+              "width": 800,
+              "height": 450
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "The creators, music and moments as featured in REWIND 2019",
+             "description": "Celebrating the videos, creators, music, games, trends, and moments that mattered the most to you in  2019. Explore more: https://rewind.youtube. #YouTubeRewind\n\nTo learn how the top lists in Rewind were generated, visit: https://rewind.youtube/about"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/5InD4UL52ZC_OrnyDjYeoPTt7_8\"",
+           "id": "PLbpi6ZahtOH4LG7cPWNYjaF9SLIAHom_6",
+           "snippet": {
+            "publishedAt": "2019-11-20T16:55:50.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Thanksgiving Prep 101",
+            "description": "Whether you're looking to up your sides game, need some vegan recipes, or want festive decorating tips, these creators have you covered.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/8hpD5strtzM/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/8hpD5strtzM/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/8hpD5strtzM/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/8hpD5strtzM/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/8hpD5strtzM/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Thanksgiving Prep 101",
+             "description": "Whether you're looking to up your sides game, need some vegan recipes, or want festive decorating tips, these creators have you covered."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zB2FZlxw2_mT3fHWCzbVIl5c1c0\"",
+           "id": "PLbpi6ZahtOH7EUqtnmgJ3RFsej5UeFgxU",
+           "snippet": {
+            "publishedAt": "2019-10-25T19:51:11.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "#TeamTrees",
+            "description": "Watch MrBeast and Mark Rober team up with creators across YouTube to achieve their goal of raising $20 million to plant 20 million trees by 2020.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/HPJKxAhLw5I/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/HPJKxAhLw5I/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/HPJKxAhLw5I/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/HPJKxAhLw5I/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/HPJKxAhLw5I/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "#TeamTrees",
+             "description": "Watch MrBeast and Mark Rober team up with creators across YouTube to achieve their goal of raising $20 million to plant 20 million trees by 2020."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/_wtaCkNdKeTjFkWwjFMfWmxuPyM\"",
+           "id": "PLbpi6ZahtOH598j4VTKaFOpnRGLLUTPlk",
+           "snippet": {
+            "publishedAt": "2019-10-09T15:06:04.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Recognizing World Mental Health Day",
+            "description": "This World Mental Health Day, watch creators share their stories and insights.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Recognizing World Mental Health Day",
+             "description": "This World Mental Health Day, watch creators share their stories and insights."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/n-5CZPFt1Nr8e4FRmTZ1eSOj3nQ\"",
+           "id": "PLbpi6ZahtOH7K_NzU4pOB2bevNMIeIcKD",
+           "snippet": {
+            "publishedAt": "2019-09-13T14:35:05.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Trending TV Shows | Full Episodes",
+            "description": "Watch full episodes of new & returning TV shows and discover the series you want to binge next",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/GBro7NJuM34/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/GBro7NJuM34/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/GBro7NJuM34/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/GBro7NJuM34/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/GBro7NJuM34/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Trending TV Shows | Full Episodes",
+             "description": "Watch full episodes of new & returning TV shows and discover the series you want to binge next"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/ThvOnf4lOFD0ZE71u7MrtfepOCs\"",
+           "id": "PLbpi6ZahtOH6bEPFHvzxV2GxOnaIjT1FL",
+           "snippet": {
+            "publishedAt": "2019-06-29T14:56:41.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Pride 2019: Creators for a Cause",
+            "description": "Watch videos from creators who are using their voices to support a cause this June.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/1EzutFFk4oI/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/1EzutFFk4oI/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/1EzutFFk4oI/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/1EzutFFk4oI/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/1EzutFFk4oI/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Pride 2019: Creators for a Cause",
+             "description": "Watch videos from creators who are using their voices to support a cause this June."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zhmIBgdlpV9ZYGG1GVvibuXLmZw\"",
+           "id": "PLbpi6ZahtOH5-tIcrq-tw8f972V94NNR1",
+           "snippet": {
+            "publishedAt": "2019-06-20T19:36:07.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "GRWM: WorldPride Edition",
+            "description": "Watch along as creators get ready to celebrate WorldPride.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/CMYM0Yc07WE/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/CMYM0Yc07WE/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/CMYM0Yc07WE/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/CMYM0Yc07WE/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/CMYM0Yc07WE/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "GRWM: WorldPride Edition",
+             "description": "Watch along as creators get ready to celebrate WorldPride."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/RLOLzW4GqKP5y-giHilfk3w7_ys\"",
+           "id": "PLbpi6ZahtOH5RWIQQLPYqmpYiZjO7SEkw",
+           "snippet": {
+            "publishedAt": "2019-06-11T21:34:46.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Pride 2019: Guest Curator - Ari Fitz",
+            "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/M-flhZL7qRA/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/M-flhZL7qRA/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/M-flhZL7qRA/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/M-flhZL7qRA/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/M-flhZL7qRA/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Pride 2019: Guest Curator - Ari Fitz",
+             "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Mdj-jNvoBfAxMBo3ZZSPF-r9D-k\"",
+           "id": "PLbpi6ZahtOH7RfBfEw4jRbv5ikE9UcOMf",
+           "snippet": {
+            "publishedAt": "2019-06-11T17:25:43.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating: Father's Day",
+            "description": "No fatherhood experience is the same. This Father's Day, watch inspiring parents across YouTube share their stories.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/BLc2hdgXkEs/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/BLc2hdgXkEs/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/BLc2hdgXkEs/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/BLc2hdgXkEs/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/BLc2hdgXkEs/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating: Father's Day",
+             "description": "No fatherhood experience is the same. This Father's Day, watch inspiring parents across YouTube share their stories."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/OO6uph9NHm10_iEsB_LGhZs5Rwk\"",
+           "id": "PLbpi6ZahtOH5nRjll5X5ueXUKNOzgV2vY",
+           "snippet": {
+            "publishedAt": "2019-06-05T15:35:37.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Pride 2019: Guest Curator - Aydian Dowling",
+            "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/42U0ejRfm9U/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/42U0ejRfm9U/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/42U0ejRfm9U/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/42U0ejRfm9U/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/42U0ejRfm9U/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Pride 2019: Guest Curator - Aydian Dowling",
+             "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/7XTOGMg9w052-v-sfm5MImo_Mqk\"",
+           "id": "PLbpi6ZahtOH7TzPtCM400IFzhZfXOf5St",
+           "snippet": {
+            "publishedAt": "2019-05-23T16:19:15.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Pride 2019: Guest Curator - Ingrid Nilsen",
+            "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/RM3W27kHZlA/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/RM3W27kHZlA/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/RM3W27kHZlA/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/RM3W27kHZlA/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/RM3W27kHZlA/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Pride 2019: Guest Curator - Ingrid Nilsen",
+             "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/4uxnJHqkLNoCU-sqNncebVR6j6M\"",
+           "id": "PLbpi6ZahtOH6Gm7jqHYPzWWFWJzm-Ko9y",
+           "snippet": {
+            "publishedAt": "2019-05-23T16:15:50.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Pride 2019: Guest Curator - Team2Moms",
+            "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/5A_UlNR9hUE/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/5A_UlNR9hUE/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/5A_UlNR9hUE/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/5A_UlNR9hUE/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/5A_UlNR9hUE/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Pride 2019: Guest Curator - Team2Moms",
+             "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/8y5kBeMTd_9UbdSwMco-LORMddo\"",
+           "id": "PLbpi6ZahtOH5jUhltsCv4_tXE15lhR8IJ",
+           "snippet": {
+            "publishedAt": "2019-05-23T16:11:21.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Pride 2019: Guest Curator - Jessie Paege",
+            "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/KkQ2kTa4Rgk/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/KkQ2kTa4Rgk/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/KkQ2kTa4Rgk/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/KkQ2kTa4Rgk/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/KkQ2kTa4Rgk/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Pride 2019: Guest Curator - Jessie Paege",
+             "description": "Throughout the month of June, head to the YouTube channel to watch playlists created by members of the LGBTQ+ community."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/gJzfGQzIZ0GpcADU9bjFL8P_ztU\"",
+           "id": "PLbpi6ZahtOH5qz6IGpY5jw6TpA5TdVAI9",
+           "snippet": {
+            "publishedAt": "2019-05-23T13:47:39.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Travel Around The World In 4K",
+            "description": "From the top of Mount Kilimanjaro to the streets of Hong Kong, explore the world and start planning your next trip with the help of these videos.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/DGbA_HRtcu0/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/DGbA_HRtcu0/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/DGbA_HRtcu0/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/DGbA_HRtcu0/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/DGbA_HRtcu0/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Travel Around The World In 4K",
+             "description": "From the top of Mount Kilimanjaro to the streets of Hong Kong, explore the world and start planning your next trip with the help of these videos."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/aKoc25fZ2JBkUno-REcS_MHa9jQ\"",
+           "id": "PLbpi6ZahtOH7VDJoEKzRAwHKKn0cM1jaA",
+           "snippet": {
+            "publishedAt": "2019-05-20T19:29:29.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating: Asian American & Pacific Islander Heritage Month",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/nbhsXa7FzUM/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/nbhsXa7FzUM/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/nbhsXa7FzUM/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/nbhsXa7FzUM/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/nbhsXa7FzUM/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating: Asian American & Pacific Islander Heritage Month",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/3481JHW6VVIDIw-Kd0nYaJ3eGXU\"",
+           "id": "PLbpi6ZahtOH7c9s-SXfZzmhqFs4t5yhBp",
+           "snippet": {
+            "publishedAt": "2019-05-09T23:42:08.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "First Monday of May",
+            "description": "Get an inside look at the biggest fashion event of the year to see how stars prepared for the first Monday of May.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/Bk0G1f4DpCM/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/Bk0G1f4DpCM/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/Bk0G1f4DpCM/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/Bk0G1f4DpCM/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/Bk0G1f4DpCM/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "First Monday of May",
+             "description": "Get an inside look at the biggest fashion event of the year to see how stars prepared for the first Monday of May."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/wyGIeK74r1GoprQL_DSWLoc4Oe0\"",
+           "id": "PLbpi6ZahtOH5UtPC_ONLa5_hpUI4j2sR1",
+           "snippet": {
+            "publishedAt": "2019-05-08T21:28:25.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating: Mother's Day",
+            "description": "No journey to becoming a mom is the same. This Mother's Day, watch inspiring women across YouTube share their stories.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/oto2uxeLOrw/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/oto2uxeLOrw/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/oto2uxeLOrw/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/oto2uxeLOrw/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/oto2uxeLOrw/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating: Mother's Day",
+             "description": "No journey to becoming a mom is the same. This Mother's Day, watch inspiring women across YouTube share their stories."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/V2cBV7sF-M6PcjngUJI72pTo5Go\"",
+           "id": "PLbpi6ZahtOH4sHPDiR_QvGKnNPMVrafau",
+           "snippet": {
+            "publishedAt": "2019-05-08T15:45:56.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "What Will You Learn?",
+            "description": "Stories of people from all walks of life using YouTube to learn new things, grow their skills and enrich their lives and communities.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/B3MDJsggfDg/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/B3MDJsggfDg/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/B3MDJsggfDg/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/B3MDJsggfDg/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/B3MDJsggfDg/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "What Will You Learn?",
+             "description": "Stories of people from all walks of life using YouTube to learn new things, grow their skills and enrich their lives and communities."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/BkqgO1k9Xp193Gv7qFf5jFUbIVo\"",
+           "id": "PLbpi6ZahtOH7vV1fIoqm6AAzVBts388NK",
+           "snippet": {
+            "publishedAt": "2019-04-30T23:10:43.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Guest Curator: Kati Morton",
+            "description": "In recognition of Mental Health Awareness Month, licensed therapist Kati Morton shares videos addressing mental health and self-care.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/nCrjevx3-Js/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/nCrjevx3-Js/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/nCrjevx3-Js/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/nCrjevx3-Js/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/nCrjevx3-Js/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Guest Curator: Kati Morton",
+             "description": "In recognition of Mental Health Awareness Month, licensed therapist Kati Morton shares videos addressing mental health and self-care."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/HbYLiRsP80KFL-w0tW9AdojFtdU\"",
+           "id": "PLbpi6ZahtOH7rpRkmawsCT54xWARz8GkW",
+           "snippet": {
+            "publishedAt": "2019-04-30T22:38:22.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "YouTube Stories | Australia",
+            "description": "From life-saving inventions to new ways of teaching, meet three Aussies who are using what they've learned on YouTube to create lasting change.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/0T51c1kprZg/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/0T51c1kprZg/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/0T51c1kprZg/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/0T51c1kprZg/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/0T51c1kprZg/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "YouTube Stories | Australia",
+             "description": "From life-saving inventions to new ways of teaching, meet three Aussies who are using what they've learned on YouTube to create lasting change."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/tZVoXTYc-8147QKD0lHTOya4TDU\"",
+           "id": "PLbpi6ZahtOH5C0DsUcaQNvxMg9tdEMpiD",
+           "snippet": {
+            "publishedAt": "2019-04-30T02:05:47.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Guest Curator: Dr. Ali Mattu/The Psych Show",
+            "description": "In recognition of Mental Health Awareness Month, Dr. Ali Mattu, a psychologist and host of The Psych Show, shares videos addressing mental health and self-care.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/XoE8YNPwYPg/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/XoE8YNPwYPg/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/XoE8YNPwYPg/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/XoE8YNPwYPg/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/XoE8YNPwYPg/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Guest Curator: Dr. Ali Mattu/The Psych Show",
+             "description": "In recognition of Mental Health Awareness Month, Dr. Ali Mattu, a psychologist and host of The Psych Show, shares videos addressing mental health and self-care."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/vKUTMjO-ojoDYGXgVvTluR1Uvbg\"",
+           "id": "PLbpi6ZahtOH6bljmu-_jyG-Th3NH-vqcB",
+           "snippet": {
+            "publishedAt": "2019-04-30T02:03:28.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "They Show Me: Ways To Cope With Stress & Anxiety",
+            "description": "This Mental Health Awareness Month, discover new coping techniques from creators.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/4pLUleLdwY4/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/4pLUleLdwY4/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/4pLUleLdwY4/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/4pLUleLdwY4/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/4pLUleLdwY4/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "They Show Me: Ways To Cope With Stress & Anxiety",
+             "description": "This Mental Health Awareness Month, discover new coping techniques from creators."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/ieRGLFinMWYfLGL481xmvbOD2CM\"",
+           "id": "PLbpi6ZahtOH5cQjdz-U_SK1KKCv9iKbYZ",
+           "snippet": {
+            "publishedAt": "2019-04-30T01:56:38.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "They Show Me: How To Speak Openly About Mental Health",
+            "description": "This Mental Health Awareness Month, watch others share their mental health journeys.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/9Pp-GhbpGcg/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "They Show Me: How To Speak Openly About Mental Health",
+             "description": "This Mental Health Awareness Month, watch others share their mental health journeys."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/FXMqMnTZcs9JmcvjaxxmpucEAKw\"",
+           "id": "PLbpi6ZahtOH5bIp2zJYjm-2qVKwXH9GN2",
+           "snippet": {
+            "publishedAt": "2019-04-30T01:50:55.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Guest Curator: Dr. Tracey Marks",
+            "description": "In recognition of Mental Health Awareness Month, Dr. Tracey Marks, a psychiatrist, shares videos addressing self-care and mental health.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/Vz5u547Kpi4/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/Vz5u547Kpi4/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/Vz5u547Kpi4/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/Vz5u547Kpi4/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/Vz5u547Kpi4/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Guest Curator: Dr. Tracey Marks",
+             "description": "In recognition of Mental Health Awareness Month, Dr. Tracey Marks, a psychiatrist, shares videos addressing self-care and mental health."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/YyJyWyeb1dUaUcjzlIqqRUQRIh8\"",
+           "id": "PLbpi6ZahtOH6MMokjliHpliDhj1QaSDEj",
+           "snippet": {
+            "publishedAt": "2019-04-25T21:02:32.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating: National Hairstylist Appreciation Day",
+            "description": "Whether your hair is long or short, curly or straight, hot pink or ash gray, stylists are the ones who turn your dream 'do into a reality. Watch creators share their styles and stories from behind the chair.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/9uzsjihG0D0/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/9uzsjihG0D0/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/9uzsjihG0D0/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/9uzsjihG0D0/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/9uzsjihG0D0/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating: National Hairstylist Appreciation Day",
+             "description": "Whether your hair is long or short, curly or straight, hot pink or ash gray, stylists are the ones who turn your dream 'do into a reality. Watch creators share their styles and stories from behind the chair."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/bJ_D6HQj5ZrVmUOGqhWyumn10WY\"",
+           "id": "PLbpi6ZahtOH7zHNzkX-5I2tegoMBEsr9v",
+           "snippet": {
+            "publishedAt": "2019-04-17T20:44:00.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating: Earth Day",
+            "description": "From eco-friendly fashion hauls to clean beauty and zero waste living, sustainable culture is taking root on YouTube. This Earth Day, meet some of the creators behind the trend.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/EkPCzwZ_x58/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/EkPCzwZ_x58/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/EkPCzwZ_x58/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/EkPCzwZ_x58/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/EkPCzwZ_x58/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating: Earth Day",
+             "description": "From eco-friendly fashion hauls to clean beauty and zero waste living, sustainable culture is taking root on YouTube. This Earth Day, meet some of the creators behind the trend."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/byuZG9YqqlYq6vmcK7SIgymAaHk\"",
+           "id": "PLbpi6ZahtOH5tLcuQeW0K5hR0x7uUifEJ",
+           "snippet": {
+            "publishedAt": "2019-04-15T14:00:19.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Meet the NextUp #YouTubeBlack Class of 2019",
+            "description": "Twelve up-and-coming creators joined us at YouTube Space London for a week-long Creator Camp where they learned how to take their channels to the next level. #YTNextUp #YouTubeBlack",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/NRg6CsYPyjk/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/NRg6CsYPyjk/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/NRg6CsYPyjk/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/NRg6CsYPyjk/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/NRg6CsYPyjk/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Meet the NextUp #YouTubeBlack Class of 2019",
+             "description": "Twelve up-and-coming creators joined us at YouTube Space London for a week-long Creator Camp where they learned how to take their channels to the next level. #YTNextUp #YouTubeBlack"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/xMunlIg-Ght5jYtIPj4oX9KZUzM\"",
+           "id": "PLbpi6ZahtOH7WCtueFwk5BBVNouYibYMI",
+           "snippet": {
+            "publishedAt": "2019-03-28T15:23:02.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating: International Transgender Day of Visibility",
+            "description": "Meet creators from across YouTube and around the world who are sharing their experiences transitioning, coming out to family and friends, and living as public figures.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/IXiN7jez4Bs/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/IXiN7jez4Bs/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/IXiN7jez4Bs/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/IXiN7jez4Bs/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating: International Transgender Day of Visibility",
+             "description": "Meet creators from across YouTube and around the world who are sharing their experiences transitioning, coming out to family and friends, and living as public figures."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/n1UAGSBcDnIcYkqUQv9-s_gWSAU\"",
+           "id": "PLbpi6ZahtOH4e88g4MKqFVN6QivrjvK2F",
+           "snippet": {
+            "publishedAt": "2019-03-22T17:30:43.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Waffle It For Waffle Day",
+            "description": "Q: Is there anything a waffle iron can't make better?\nA: No.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/KFOl4V9opus/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/KFOl4V9opus/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/KFOl4V9opus/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/KFOl4V9opus/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/KFOl4V9opus/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Waffle It For Waffle Day",
+             "description": "Q: Is there anything a waffle iron can't make better?\nA: No."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/EbmcnEpV293RyIsFIC6syjCxNe4\"",
+           "id": "PLbpi6ZahtOH6Kn52M7TFjQVYcsZ75LZAR",
+           "snippet": {
+            "publishedAt": "2019-03-22T17:04:36.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating...National Puppy Day!",
+            "description": "PUPPIES. Need we say more?",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/gOS0aLuKgZk/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/gOS0aLuKgZk/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/gOS0aLuKgZk/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/gOS0aLuKgZk/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/gOS0aLuKgZk/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating...National Puppy Day!",
+             "description": "PUPPIES. Need we say more?"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/9LeuZvx_1ytk913Fvg8B3zTHEBc\"",
+           "id": "PLbpi6ZahtOH46Z7r83lo87aMWNlk04xnM",
+           "snippet": {
+            "publishedAt": "2019-03-11T18:39:01.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Pie, Pie, & More Pie — For Pi Day (& Every Day)",
+            "description": "Sweet versus savory; fruit versus chocolate; affordable versus pricey; deep-fried versus baked. However you like your slice, there's a pie video for you.",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/NgloGi5xEa8/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/NgloGi5xEa8/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/NgloGi5xEa8/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/NgloGi5xEa8/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/NgloGi5xEa8/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Pie, Pie, & More Pie — For Pi Day (& Every Day)",
+             "description": "Sweet versus savory; fruit versus chocolate; affordable versus pricey; deep-fried versus baked. However you like your slice, there's a pie video for you."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Fsu41T0jCGL68JjfMZ6UVo_BYGg\"",
+           "id": "PLbpi6ZahtOH6MxyY342F9yknJ1956qb8Q",
+           "snippet": {
+            "publishedAt": "2019-03-07T14:10:21.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "She Shows Me: Self-Confidence",
+            "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/TpQYtuwgNJE/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/TpQYtuwgNJE/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/TpQYtuwgNJE/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/TpQYtuwgNJE/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/TpQYtuwgNJE/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "She Shows Me: Self-Confidence",
+             "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/4OXPy5qUgHBGG9gKjTj1szLcnwY\"",
+           "id": "PLbpi6ZahtOH4NyrRlEpLejSgyuL20Df7-",
+           "snippet": {
+            "publishedAt": "2019-03-06T19:29:24.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "She Shows Me: New Skills",
+            "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/NZjprHDIYLg/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/NZjprHDIYLg/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/NZjprHDIYLg/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/NZjprHDIYLg/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/NZjprHDIYLg/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "She Shows Me: New Skills",
+             "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/WLEXt8jXFsOBH51tMVm27d0EUlQ\"",
+           "id": "PLbpi6ZahtOH7ijRhU5GquNdC4wcwsHhsN",
+           "snippet": {
+            "publishedAt": "2019-03-06T16:39:37.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "She Shows Me: How To Be My Own Boss",
+            "description": "This International Women's Day, we're celebrating the multifaceted ways female creators inspire us each and every day. #SheShowsMe",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/dibOrLBsMNQ/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/dibOrLBsMNQ/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/dibOrLBsMNQ/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/dibOrLBsMNQ/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/dibOrLBsMNQ/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "She Shows Me: How To Be My Own Boss",
+             "description": "This International Women's Day, we're celebrating the multifaceted ways female creators inspire us each and every day. #SheShowsMe"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/-W2rwm3oaiGaxsGih9r56kxLuoM\"",
+           "id": "PLbpi6ZahtOH4C_aT-OB3iFT1Byes0ADh1",
+           "snippet": {
+            "publishedAt": "2019-03-06T16:29:52.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "She Shows Me: Creativity",
+            "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/GiwBcmoQMTY/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/GiwBcmoQMTY/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/GiwBcmoQMTY/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/GiwBcmoQMTY/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/GiwBcmoQMTY/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "She Shows Me: Creativity",
+             "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/0JMrou8GkVgiehANXlcdfLvseZ0\"",
+           "id": "PLbpi6ZahtOH6Sch_8CJKJQ1tUFFGXWK2w",
+           "snippet": {
+            "publishedAt": "2019-03-06T16:21:24.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "She Shows Me: Strength & Resilience",
+            "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/7x5XRQ07sjU/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/7x5XRQ07sjU/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/7x5XRQ07sjU/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/7x5XRQ07sjU/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "She Shows Me: Strength & Resilience",
+             "description": "This International Women's Day, we're celebrating the multifaceted ways women on YouTube inspire us each and every day. #SheShowsMe"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Cu96psbIFcA1UXCrfCNi0T0iv_M\"",
+           "id": "PLbpi6ZahtOH4HWw75c9E7vwv57M85h3fd",
+           "snippet": {
+            "publishedAt": "2019-02-25T20:04:34.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Official 2019 Oscars Highlights",
+            "description": "Description: Relive the biggest moments from the 2019 Oscars: from red carpet moments and musical performances to acceptance speeches and opening monologues! Want more highlights? Visit the www.youtube.com/abcnetwork for all of the Oscars highlights in one place.",
+            "thumbnails": {
+             "default": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Official 2019 Oscars Highlights",
+             "description": "Description: Relive the biggest moments from the 2019 Oscars: from red carpet moments and musical performances to acceptance speeches and opening monologues! Want more highlights? Visit the www.youtube.com/abcnetwork for all of the Oscars highlights in one place."
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/h91GVNtWlvZKyaF4PkvIUQuKNjI\"",
+           "id": "PLbpi6ZahtOH4GLnxyEjbjWg8gAs9GqXeR",
+           "snippet": {
+            "publishedAt": "2019-02-11T23:11:36.000Z",
+            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+            "title": "Celebrating Black History Month: Creator & Community Picks",
+            "description": "This February, we're asking top creators and the community to call out the #YouTubeBlack creators they want to spotlight. Check back throughout the month to see more of their picks. #CreateBlackHistory",
+            "thumbnails": {
+             "default": {
+              "url": "https://i.ytimg.com/vi/SsdLnLVFdZA/default.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i.ytimg.com/vi/SsdLnLVFdZA/mqdefault.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i.ytimg.com/vi/SsdLnLVFdZA/hqdefault.jpg",
+              "width": 480,
+              "height": 360
+             },
+             "standard": {
+              "url": "https://i.ytimg.com/vi/SsdLnLVFdZA/sddefault.jpg",
+              "width": 640,
+              "height": 480
+             },
+             "maxres": {
+              "url": "https://i.ytimg.com/vi/SsdLnLVFdZA/maxresdefault.jpg",
+              "width": 1280,
+              "height": 720
+             }
+            },
+            "channelTitle": "YouTube",
+            "localized": {
+             "title": "Celebrating Black History Month: Creator & Community Picks",
+             "description": "This February, we're asking top creators and the community to call out the #YouTubeBlack creators they want to spotlight. Check back throughout the month to see more of their picks. #CreateBlackHistory"
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:05:23 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=PLbpi6ZahtOH6u8l5Hj3myCkytI-vctt9s,PLbpi6ZahtOH609MP4wfEjsSE9SeBEmSKe,PLbpi6ZahtOH4gKQpM2_9q4vp_yT0CcYQi,PLbpi6ZahtOH6cDdGN0yG88Ucyw7q9htLa,PLbpi6ZahtOH4iOdBSB7PLd079Nw9-2ep4,PLbpi6ZahtOH5Vh6VMF4MRPVgtqsMMBhG0,PLbpi6ZahtOH7DbN9uCeGuV9EqoMNM-SbZ,PLbpi6ZahtOH4KL2rAzGz_i5lRl87QI58G,PLbpi6ZahtOH4WnjayzM5SDiZ2q6ojhJqC,PLbpi6ZahtOH63qnPMZCXVxffGCCU7qz1a,PLbpi6ZahtOH7RD6SYJgOhykD3TmTDntgx,PLbpi6ZahtOH4nwf2gcSVCojzVoKVeGudF,PLbpi6ZahtOH6r1_HyStgogXfl_A75AT0A,PLbpi6ZahtOH4LG7cPWNYjaF9SLIAHom_6,PLbpi6ZahtOH7EUqtnmgJ3RFsej5UeFgxU,PLbpi6ZahtOH598j4VTKaFOpnRGLLUTPlk,PLbpi6ZahtOH7K_NzU4pOB2bevNMIeIcKD,PLbpi6ZahtOH6bEPFHvzxV2GxOnaIjT1FL,PLbpi6ZahtOH5-tIcrq-tw8f972V94NNR1,PLbpi6ZahtOH5RWIQQLPYqmpYiZjO7SEkw,PLbpi6ZahtOH7RfBfEw4jRbv5ikE9UcOMf,PLbpi6ZahtOH5nRjll5X5ueXUKNOzgV2vY,PLbpi6ZahtOH7TzPtCM400IFzhZfXOf5St,PLbpi6ZahtOH6Gm7jqHYPzWWFWJzm-Ko9y,PLbpi6ZahtOH5jUhltsCv4_tXE15lhR8IJ,PLbpi6ZahtOH5qz6IGpY5jw6TpA5TdVAI9,PLbpi6ZahtOH7VDJoEKzRAwHKKn0cM1jaA,PLbpi6ZahtOH7c9s-SXfZzmhqFs4t5yhBp,PLbpi6ZahtOH5UtPC_ONLa5_hpUI4j2sR1,PLbpi6ZahtOH4sHPDiR_QvGKnNPMVrafau,PLbpi6ZahtOH7vV1fIoqm6AAzVBts388NK,PLbpi6ZahtOH7rpRkmawsCT54xWARz8GkW,PLbpi6ZahtOH5C0DsUcaQNvxMg9tdEMpiD,PLbpi6ZahtOH6bljmu-_jyG-Th3NH-vqcB,PLbpi6ZahtOH5cQjdz-U_SK1KKCv9iKbYZ,PLbpi6ZahtOH5bIp2zJYjm-2qVKwXH9GN2,PLbpi6ZahtOH6MMokjliHpliDhj1QaSDEj,PLbpi6ZahtOH7zHNzkX-5I2tegoMBEsr9v,PLbpi6ZahtOH5tLcuQeW0K5hR0x7uUifEJ,PLbpi6ZahtOH7WCtueFwk5BBVNouYibYMI,PLbpi6ZahtOH4e88g4MKqFVN6QivrjvK2F,PLbpi6ZahtOH6Kn52M7TFjQVYcsZ75LZAR,PLbpi6ZahtOH46Z7r83lo87aMWNlk04xnM,PLbpi6ZahtOH6MxyY342F9yknJ1956qb8Q,PLbpi6ZahtOH4NyrRlEpLejSgyuL20Df7-,PLbpi6ZahtOH7ijRhU5GquNdC4wcwsHhsN,PLbpi6ZahtOH4C_aT-OB3iFT1Byes0ADh1,PLbpi6ZahtOH6Sch_8CJKJQ1tUFFGXWK2w,PLbpi6ZahtOH4HWw75c9E7vwv57M85h3fd,PLbpi6ZahtOH4GLnxyEjbjWg8gAs9GqXeR&maxResults=50&part=contentDetails
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:05:24 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:05:24 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/8V5eRbyxMw0rylkKXrcOpd_XLPc"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '10632'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/8V5eRbyxMw0rylkKXrcOpd_XLPc\"",
+         "pageInfo": {
+          "totalResults": 50,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/BJSCRULdrWmewMr2y7SKkNlvFBI\"",
+           "id": "PLbpi6ZahtOH6u8l5Hj3myCkytI-vctt9s",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/re5XIIrW_H_BpHcTuYHtbmkIEd0\"",
+           "id": "PLbpi6ZahtOH609MP4wfEjsSE9SeBEmSKe",
+           "contentDetails": {
+            "itemCount": 17
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/tGQ6ZIF_MGGFifMY0kYJdzpMZyA\"",
+           "id": "PLbpi6ZahtOH4gKQpM2_9q4vp_yT0CcYQi",
+           "contentDetails": {
+            "itemCount": 21
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/N5AGPfbaus9hQCSaLNbpRYJ8nyk\"",
+           "id": "PLbpi6ZahtOH6cDdGN0yG88Ucyw7q9htLa",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/HoJ5tPtNEsWealMptaOroXyX8gc\"",
+           "id": "PLbpi6ZahtOH4iOdBSB7PLd079Nw9-2ep4",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/tu-GIE7un6OCVnTZTNvc8gDU-Ts\"",
+           "id": "PLbpi6ZahtOH5Vh6VMF4MRPVgtqsMMBhG0",
+           "contentDetails": {
+            "itemCount": 12
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/YH59mQIX0AsuUym7DvOxQpOmSoo\"",
+           "id": "PLbpi6ZahtOH7DbN9uCeGuV9EqoMNM-SbZ",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/QfqCxlfdjiDpXqfixkL8ATIDM3g\"",
+           "id": "PLbpi6ZahtOH4KL2rAzGz_i5lRl87QI58G",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/l2Oobz5OEsZIfYgP5yEpGjD2pds\"",
+           "id": "PLbpi6ZahtOH4WnjayzM5SDiZ2q6ojhJqC",
+           "contentDetails": {
+            "itemCount": 5
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/NHxZEkkGzo94VzsgEeICYjQTT3s\"",
+           "id": "PLbpi6ZahtOH63qnPMZCXVxffGCCU7qz1a",
+           "contentDetails": {
+            "itemCount": 5
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/W7uGfX4fL9ej348uKf8NlaKRROc\"",
+           "id": "PLbpi6ZahtOH7RD6SYJgOhykD3TmTDntgx",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/6sfBJTkaM-nNdgIKFHhz_WSrE-Y\"",
+           "id": "PLbpi6ZahtOH4nwf2gcSVCojzVoKVeGudF",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/5uF9WNEJSCndWZ9badHHZiEoxcg\"",
+           "id": "PLbpi6ZahtOH6r1_HyStgogXfl_A75AT0A",
+           "contentDetails": {
+            "itemCount": 60
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/e8AJNX3XWNUuum5-jFUNHzGM5Yc\"",
+           "id": "PLbpi6ZahtOH4LG7cPWNYjaF9SLIAHom_6",
+           "contentDetails": {
+            "itemCount": 12
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Crfz0jfQnM_yH5T1bL0ZcntyqKc\"",
+           "id": "PLbpi6ZahtOH7EUqtnmgJ3RFsej5UeFgxU",
+           "contentDetails": {
+            "itemCount": 15
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/OCiYo8N-u9ot203fKRZismxUkpI\"",
+           "id": "PLbpi6ZahtOH598j4VTKaFOpnRGLLUTPlk",
+           "contentDetails": {
+            "itemCount": 15
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Vqggaz0JBeQ5XbWvEsfmIutyFbs\"",
+           "id": "PLbpi6ZahtOH7K_NzU4pOB2bevNMIeIcKD",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/1FjIKZtXSvtC_6xE557CwIEVX3E\"",
+           "id": "PLbpi6ZahtOH6bEPFHvzxV2GxOnaIjT1FL",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/KWvxGt8mxwPPzz1PjM1_heYZBFg\"",
+           "id": "PLbpi6ZahtOH5-tIcrq-tw8f972V94NNR1",
+           "contentDetails": {
+            "itemCount": 13
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/76J2YBIJPngnfRJFv_rrIVNTBrY\"",
+           "id": "PLbpi6ZahtOH5RWIQQLPYqmpYiZjO7SEkw",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/1OX08AeTwoDpfMok-U6CJrey7w0\"",
+           "id": "PLbpi6ZahtOH7RfBfEw4jRbv5ikE9UcOMf",
+           "contentDetails": {
+            "itemCount": 13
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Ie8c7zhqqL3SVTseI7C10K8l_6w\"",
+           "id": "PLbpi6ZahtOH5nRjll5X5ueXUKNOzgV2vY",
+           "contentDetails": {
+            "itemCount": 7
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Kpp3Oq455K3SEobWdS8ZFVWTRh8\"",
+           "id": "PLbpi6ZahtOH7TzPtCM400IFzhZfXOf5St",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/_XxG-nlo6w-AXoZCQsgR_dwzuro\"",
+           "id": "PLbpi6ZahtOH6Gm7jqHYPzWWFWJzm-Ko9y",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/drWaAR9P6VbaVSfj0Zmno_id3Qk\"",
+           "id": "PLbpi6ZahtOH5jUhltsCv4_tXE15lhR8IJ",
+           "contentDetails": {
+            "itemCount": 12
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/os5Qd0_j0dEdNO024HA18_nW3mI\"",
+           "id": "PLbpi6ZahtOH5qz6IGpY5jw6TpA5TdVAI9",
+           "contentDetails": {
+            "itemCount": 8
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/PrOWpGje4ifSaKlvKZsvbEJdob4\"",
+           "id": "PLbpi6ZahtOH7VDJoEKzRAwHKKn0cM1jaA",
+           "contentDetails": {
+            "itemCount": 8
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/XLyMbSM8foZ_XzgthEboj4c72Ss\"",
+           "id": "PLbpi6ZahtOH7c9s-SXfZzmhqFs4t5yhBp",
+           "contentDetails": {
+            "itemCount": 15
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/4Z6pe1SctbJVSeZG7iug4VIgi94\"",
+           "id": "PLbpi6ZahtOH5UtPC_ONLa5_hpUI4j2sR1",
+           "contentDetails": {
+            "itemCount": 16
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/OXRF2lI0CBMArf5L-aLlXf7uqfE\"",
+           "id": "PLbpi6ZahtOH4sHPDiR_QvGKnNPMVrafau",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/1KCKyni98qHAHQJAW_qGzUeYU5w\"",
+           "id": "PLbpi6ZahtOH7vV1fIoqm6AAzVBts388NK",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/E9ViejcxWacmnCDequerOMvo2Rw\"",
+           "id": "PLbpi6ZahtOH7rpRkmawsCT54xWARz8GkW",
+           "contentDetails": {
+            "itemCount": 3
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/8r0mFY_l9-UQhoZB8ZGgT6dw5cw\"",
+           "id": "PLbpi6ZahtOH5C0DsUcaQNvxMg9tdEMpiD",
+           "contentDetails": {
+            "itemCount": 13
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/8RKJLP16oiEL_N6iRhVIGiG8m9E\"",
+           "id": "PLbpi6ZahtOH6bljmu-_jyG-Th3NH-vqcB",
+           "contentDetails": {
+            "itemCount": 7
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/-VLVEjX0VXV0X1IOrfsxEJJr13I\"",
+           "id": "PLbpi6ZahtOH5cQjdz-U_SK1KKCv9iKbYZ",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/vHtVHa7urPdReacPsNG0Xct80Ck\"",
+           "id": "PLbpi6ZahtOH5bIp2zJYjm-2qVKwXH9GN2",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/lKndnvFgi7W41zJUGVpaz5qakgo\"",
+           "id": "PLbpi6ZahtOH6MMokjliHpliDhj1QaSDEj",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/qUfPqurX2F7fPaL6M8Dcu6fjuZE\"",
+           "id": "PLbpi6ZahtOH7zHNzkX-5I2tegoMBEsr9v",
+           "contentDetails": {
+            "itemCount": 16
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/AP61kbRXmhtx7L3Lx4fShdYOjns\"",
+           "id": "PLbpi6ZahtOH5tLcuQeW0K5hR0x7uUifEJ",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/XFlLFB77Gf5Wf-QnY10n--LOZ-M\"",
+           "id": "PLbpi6ZahtOH7WCtueFwk5BBVNouYibYMI",
+           "contentDetails": {
+            "itemCount": 7
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/1BV2fzZTPq9T9We7TsHfGIdKUw8\"",
+           "id": "PLbpi6ZahtOH4e88g4MKqFVN6QivrjvK2F",
+           "contentDetails": {
+            "itemCount": 8
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/gWxk3TM0Of-2-ilMiO0YAxU-K6w\"",
+           "id": "PLbpi6ZahtOH6Kn52M7TFjQVYcsZ75LZAR",
+           "contentDetails": {
+            "itemCount": 8
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/mk_S03chW-XgMYLvEHKpAiza8QQ\"",
+           "id": "PLbpi6ZahtOH46Z7r83lo87aMWNlk04xnM",
+           "contentDetails": {
+            "itemCount": 12
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/9ZEfLAU54m9baKb_g9PZfvm6Q_E\"",
+           "id": "PLbpi6ZahtOH6MxyY342F9yknJ1956qb8Q",
+           "contentDetails": {
+            "itemCount": 8
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/U6iVuu0Sk6TidWtUozlqquwBImg\"",
+           "id": "PLbpi6ZahtOH4NyrRlEpLejSgyuL20Df7-",
+           "contentDetails": {
+            "itemCount": 7
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/IMnxzwfeqjQBumMqvLSIuZyanzI\"",
+           "id": "PLbpi6ZahtOH7ijRhU5GquNdC4wcwsHhsN",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/lEgcGW98vih52PcHk8rQxsmqvSI\"",
+           "id": "PLbpi6ZahtOH4C_aT-OB3iFT1Byes0ADh1",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/XoJ_aiiggt5GMwlqJgAuD9i6CPw\"",
+           "id": "PLbpi6ZahtOH6Sch_8CJKJQ1tUFFGXWK2w",
+           "contentDetails": {
+            "itemCount": 10
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/6cvCZopdaMx055M7VSP84hf3mlQ\"",
+           "id": "PLbpi6ZahtOH4HWw75c9E7vwv57M85h3fd",
+           "contentDetails": {
+            "itemCount": 11
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/CqWGKxgK9Kdf2eVXRqNhvOjifS8\"",
+           "id": "PLbpi6ZahtOH4GLnxyEjbjWg8gAs9GqXeR",
+           "contentDetails": {
+            "itemCount": 7
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:05:24 GMT
+recorded_with: VCR 5.1.0

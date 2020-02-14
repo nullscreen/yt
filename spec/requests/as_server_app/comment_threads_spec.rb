@@ -4,7 +4,7 @@ require 'yt/collections/comment_threads'
 require 'yt/models/video'
 require 'yt/models/channel'
 
-describe Yt::Collections::CommentThreads, :server_app do
+describe Yt::Collections::CommentThreads, :server_app, :vcr do
   context "without parent association", :ruby2 do
     subject(:comment_threads) { Yt::Collections::CommentThreads.new }
 

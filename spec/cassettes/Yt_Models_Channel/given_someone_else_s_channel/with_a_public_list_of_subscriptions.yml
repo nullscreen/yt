@@ -1,0 +1,530 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://accounts.google.com/o/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - Yt::Request (gzip)
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:05:22 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "access_token": "<YT_TEST_ACCESS_TOKEN>",
+          "expires_in": 3599,
+          "scope": "openid https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/yt-analytics.readonly",
+          "token_type": "Bearer",
+          "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ4ZWZlYTFmNjZlODdiYjM2YzJlYTA5ZDgzNzMzOGJkZDgxMDM1M2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAzMDc3NzAwNDU1OTkyNzEzMjQzIiwiaGQiOiJmdWxsc2NyZWVuLmNvbSIsImVtYWlsIjoiZGVyZWsuYmFybmVzQGZ1bGxzY3JlZW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJfSk05U2xPLWNXTVFFaENiQ29tRHhRIiwiaWF0IjoxNTgwOTcyNzIyLCJleHAiOjE1ODA5NzYzMjJ9.iTG0RiPx4l5KRgQ2FbRZ6aJxh5kUOREBpQ71-lKSv78QlKqlpPqP1-bXgXNp-yD85fPPVHEpIedgPhKR7qePaqGSrr35qMZdu5WJLVjiFeYw2Vihfm2_qronxupdyJUNhnShfr6YDtfvApbJ1QRZzdesjgdPNCgJ8eQFAtbP2vE3qarFVLsTk315M-InuA23FOkOHO6G9Db2Q48z6Sgbg4h7y9Ue2Rbm6ZvPQPj3pi9k9tuoT-DaaqkNc6C3XYC_ICoM-Hl4mCjqU8KAgjs2V7nBPAcjlpA7kjlVaVk0qdEYHT-7g_tQvc5GBvU-0gGgrDsIycJRh7nXAYNw9miy0w"
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:05:22 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/subscriptions?channelId=UCBR8-60-B28hp2BmDPdntcQ&maxResults=50&part=snippet
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:05:22 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:05:22 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/LSqQOx5GarvRdkO83aVwAtsKZg0"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '39018'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: "{\n \"kind\": \"youtube#subscriptionListResponse\",\n \"etag\": \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/LSqQOx5GarvRdkO83aVwAtsKZg0\\\"\",\n
+        \"pageInfo\": {\n  \"totalResults\": 33,\n  \"resultsPerPage\": 50\n },\n
+        \"items\": [\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\": \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/aWcQPcSoVqEHLS5L0hQ37ecHj0o\\\"\",\n
+        \  \"id\": \"bjf2xQvIxvbotExSpFhtUQOjAVPMby1-20J4zqEE1-8\",\n   \"snippet\":
+        {\n    \"publishedAt\": \"1970-01-01T00:00:00.000Z\",\n    \"title\": \"Sports\",\n
+        \   \"description\": \"Sport includes all forms of competitive physical activity
+        or games which, through casual or organised participation, at least in part
+        aim to use, maintain or improve physical ability and skills while providing
+        enjoyment to participants, and in some cases, entertainment for spectators.
+        Hundreds of sports exist, from those between single contestants, through to
+        those with hundreds of simultaneous participants, either in teams or competing
+        as individuals. In certain sports such as racing, many contestants may compete,
+        simultaneously or consecutively, with one winner; in others, the contest is
+        between two sides, each attempting to exceed the other. Some sports allow
+        a \\\"tie\\\" or \\\"draw\\\", in which there is no single winner; others
+        provide tie-breaking methods to ensure one winner and one loser. A number
+        of contests may be arranged in a tournament producing a champion. Many sports
+        leagues make an annual champion by...\\nThis channel was generated automatically
+        by YouTube's video discovery system.\",\n    \"resourceId\": {\n     \"kind\":
+        \"youtube#channel\",\n     \"channelId\": \"UCEgdi0XIXXZ-qJOFPf4JSKw\"\n    },\n
+        \   \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n
+        \    \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-hdAXUbm-7rc/AAAAAAAAAAI/AAAAAAAAAAA/7VKn3I_QT8k/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-hdAXUbm-7rc/AAAAAAAAAAI/AAAAAAAAAAA/7VKn3I_QT8k/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-hdAXUbm-7rc/AAAAAAAAAAI/AAAAAAAAAAA/7VKn3I_QT8k/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/oZA0tjGsvPXaQ9fqVZawYWJz4A8\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUeFoaVWKEqeCiRHNUBU4aWQ\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2013-12-13T13:59:28.000Z\",\n    \"title\": \"YouTube Rewind\",\n    \"description\":
+        \"It's time to pause, rewind and remember the videos, people and events that
+        defined YouTube in 2019.\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n
+        \    \"channelId\": \"UCnHXLLNHjNAnDQ50JANLG1g\"\n    },\n    \"channelId\":
+        \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n     \"default\": {\n
+        \     \"url\": \"https://yt3.ggpht.com/-TDWilsSbWxg/AAAAAAAAAAI/AAAAAAAAAAA/G9o1m-F52aE/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-TDWilsSbWxg/AAAAAAAAAAI/AAAAAAAAAAA/G9o1m-F52aE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-TDWilsSbWxg/AAAAAAAAAAI/AAAAAAAAAAA/G9o1m-F52aE/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/I_LZXPb2MfLFBMyEDIJurSNoAtY\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUdcHL0ELO5s0UJlxx4WONuU\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2014-03-25T14:44:48.000Z\",\n    \"title\": \"YouTube Nation\",\n    \"description\":
+        \"Every day YouTube Nation brought you the best stuff to watch, from the most
+        viral videos to the amazing moments you wouldn't find anywhere else.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCUD4yDVyM54QpfqGJX4S7ng\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-EfyIhWjZ5UA/AAAAAAAAAAI/AAAAAAAAAAA/dVpux-V52kU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-EfyIhWjZ5UA/AAAAAAAAAAI/AAAAAAAAAAA/dVpux-V52kU/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-EfyIhWjZ5UA/AAAAAAAAAAI/AAAAAAAAAAA/dVpux-V52kU/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/fOevmObRQNMrtOqtUFk4aQbkG9w\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUQZ4HbzYOJ0oyGNzIO8oerI\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2013-09-18T13:43:16.000Z\",\n    \"title\": \"TV Shows\",\n    \"description\":
+        \"YouTube TV Shows (United States).\",\n    \"resourceId\": {\n     \"kind\":
+        \"youtube#channel\",\n     \"channelId\": \"UCl8dMTqDrJQ0c8y23UBu4kQ\"\n    },\n
+        \   \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n
+        \    \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-hFxEr8QHrvM/AAAAAAAAAAI/AAAAAAAAAAA/REjjL0X3gIs/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-hFxEr8QHrvM/AAAAAAAAAAI/AAAAAAAAAAA/REjjL0X3gIs/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-hFxEr8QHrvM/AAAAAAAAAAI/AAAAAAAAAAA/REjjL0X3gIs/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/aQVL_OO55h9h4lS7QW72bIVhiHw\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUWS-4QQZcjVbz92GwglAYoE\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2019-11-06T22:25:10.600Z\",\n    \"title\": \"Abbie Emmons\",\n    \"description\":
+        \"I teach writers how to make their stories matter by harnessing the power
+        and psychology of storytelling, transforming their ideas into a masterpiece,
+        and creating a lifestyle that makes their author dreams come true.\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UC20oEMuKgfaNBfpV7JlFRQQ\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-8qm_GXqWaaA/AAAAAAAAAAI/AAAAAAAAAAA/NELMe2N7zIY/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-8qm_GXqWaaA/AAAAAAAAAAI/AAAAAAAAAAA/NELMe2N7zIY/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-8qm_GXqWaaA/AAAAAAAAAAI/AAAAAAAAAAA/NELMe2N7zIY/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/jYZ9BKaX4kdjxLrry9UaDcbrIBY\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUWqAONBMqGOm1mbuaVA6nzc\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2018-01-29T19:39:56.923Z\",\n    \"title\": \"PBS Digital Studios\",\n    \"description\":
+        \"We are a network of 20+ original shows connecting, educating and inspiring
+        online audiences. Since 2012, PBS Digital Studios’ thought-provoking digital
+        series have amassed more than 2 billion views and 20 million subscribers.
+        We are constantly exploring new directions to educate our audiences about
+        history, science, culture, and the world around them.\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UCq6OAftTQOuUBRdtUDq5SUA\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-Bx4K14Q_gYQ/AAAAAAAAAAI/AAAAAAAAAAA/HsavVgPnFD4/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-Bx4K14Q_gYQ/AAAAAAAAAAI/AAAAAAAAAAA/HsavVgPnFD4/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-Bx4K14Q_gYQ/AAAAAAAAAAI/AAAAAAAAAAA/HsavVgPnFD4/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zG5WftRx5BFaEcKCZOrlQKjVHc0\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUSw1ZfpQIzE1A9KH1eg6leo\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2009-06-10T17:36:06.000Z\",\n    \"title\": \"citizentube\",\n    \"description\":
+        \"See what's happening in YouTube News and Politics on Citizentube\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UCmhkGPxXQwZlvvwhvN9Dl5g\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/--kpQq_THQjA/AAAAAAAAAAI/AAAAAAAAAAA/L_uIfIJMs5Q/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/--kpQq_THQjA/AAAAAAAAAAI/AAAAAAAAAAA/L_uIfIJMs5Q/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/--kpQq_THQjA/AAAAAAAAAAI/AAAAAAAAAAA/L_uIfIJMs5Q/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/06rY_TqiO7XCQ4IS69lUf-LwNVs\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUQTg3kN6TxXsWMWMZUM7394\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2020-01-13T23:53:43.940Z\",\n    \"title\": \"TED\",\n    \"description\":
+        \"The TED Talks channel features the best talks and performances from the
+        TED Conference, where the world's leading thinkers and doers give the talk
+        of their lives in 18 minutes (or less). Look for talks on Technology, Entertainment
+        and Design -- plus science, business, global issues, the arts and more. You're
+        welcome to link to or embed these videos, forward them to others and share
+        these ideas with people you know. For more information on using TED for commercial
+        purposes (e.g. employee learning, in a film or online course), please submit
+        a Media Request here: https://media-requests.ted.com. We also encourage you
+        to join our online community at TED.com. Any other questions? Email contact@ted.com.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCAuUUnT6oDeKwE6v1NGQxug\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-bonZt347bMc/AAAAAAAAAAI/AAAAAAAAAAA/lR8QEKnqqHk/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-bonZt347bMc/AAAAAAAAAAI/AAAAAAAAAAA/lR8QEKnqqHk/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-bonZt347bMc/AAAAAAAAAAI/AAAAAAAAAAA/lR8QEKnqqHk/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Ypk9kkeZQjSvnT2x0m6ISf7dDJI\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUf00_TASlO6f41y-QfDhMmA\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2012-01-24T00:45:54.000Z\",\n    \"title\": \"YouTube World View\",\n    \"description\":
+        \"\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UC2TSNbY3z9KYbMwKpZV2gIA\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-Yg-kj6CpvJc/AAAAAAAAAAI/AAAAAAAAAAA/xtEadBhuEBg/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-Yg-kj6CpvJc/AAAAAAAAAAI/AAAAAAAAAAA/xtEadBhuEBg/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-Yg-kj6CpvJc/AAAAAAAAAAI/AAAAAAAAAAA/xtEadBhuEBg/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/qhbaqwjfX7ymSdEqj6BKBce1Km8\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUX1U24D5hRPMlrUMl3-Zujc\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2009-06-10T17:36:14.000Z\",\n    \"title\": \"MusicTuesday\",\n    \"description\":
+        \"Check out this weekly batch of assorted new music videos, premieres, exclusives
+        and engaging sounds that demand your attention.\",\n    \"resourceId\": {\n
+        \    \"kind\": \"youtube#channel\",\n     \"channelId\": \"UC_5yaaRQYV8EPFq6graLj3g\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-iGnwJFtsvK0/AAAAAAAAAAI/AAAAAAAAAAA/0f4fFFR358A/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-iGnwJFtsvK0/AAAAAAAAAAI/AAAAAAAAAAA/0f4fFFR358A/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-iGnwJFtsvK0/AAAAAAAAAAI/AAAAAAAAAAA/0f4fFFR358A/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Ql3TRLqr8F3wVfiAstFxJRaei2I\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUV3z_osGIFkEAG_UIesY6-4\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2015-03-12T22:04:14.000Z\",\n    \"title\": \"[Inactive Creators Channel]\",\n
+        \   \"description\": \"This channel is moving! Be sure to subscribe to the
+        new YouTube Creators channel here: https://goo.gl/So4XIG, before this channel
+        disappears. \\n\\nThe new channel will be your go-to destination for all things
+        “Creator”, with new content each week including education and inspiration
+        from YouTube experts, and fellow creators.\",\n    \"resourceId\": {\n     \"kind\":
+        \"youtube#channel\",\n     \"channelId\": \"UCUZHFZ9jIKrLroW8LcyJEQQ\"\n    },\n
+        \   \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n
+        \    \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-VLC01D7kCsU/AAAAAAAAAAI/AAAAAAAAAAA/LDvORHOAzWE/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-VLC01D7kCsU/AAAAAAAAAAI/AAAAAAAAAAA/LDvORHOAzWE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-VLC01D7kCsU/AAAAAAAAAAI/AAAAAAAAAAA/LDvORHOAzWE/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/A-xVC8N2AslK4efL-M-s5jvksLE\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUYUqN6Y1AfwyT0o2vc2fQbc\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2019-05-04T19:55:49.271Z\",\n    \"title\": \"YouTube Creators\",\n    \"description\":
+        \"Welcome to the YouTube Creators Channel - formerly known as The Creator
+        Academy. This new channel will be your go-to destination for all things “Creator”,
+        with new content each week including education and inspiration from YouTube
+        experts, and fellow creators. Subscribe and hit the bell to see a new video
+        each week!\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n
+        \    \"channelId\": \"UCkRfArvrzheW2E7b6SVT7vQ\"\n    },\n    \"channelId\":
+        \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n     \"default\": {\n
+        \     \"url\": \"https://yt3.ggpht.com/-PrHG5RaYEcc/AAAAAAAAAAI/AAAAAAAAAAA/E_60esQAOTI/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-PrHG5RaYEcc/AAAAAAAAAAI/AAAAAAAAAAA/E_60esQAOTI/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-PrHG5RaYEcc/AAAAAAAAAAI/AAAAAAAAAAA/E_60esQAOTI/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/uezt9VdiwYCjC5_76zm4msv5uKM\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUVQb4JeFIO6BWN7nNK8UaK8\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2019-12-02T23:58:32.314Z\",\n    \"title\": \"Netflix\",\n    \"description\":
+        \"Netflix is the world's leading internet entertainment service with 158 million
+        paid memberships in over 190 countries enjoying TV series, documentaries and
+        feature films across a wide variety of genres and languages. Members can watch
+        as much as they want, anytime, anywhere, on any internet-connected screen.
+        Members can play, pause and resume watching, all without commercials or commitments.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCWOA1ZGywLbqmigxE4Qlvuw\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-9El0rLwfX5E/AAAAAAAAAAI/AAAAAAAAAAA/iVYt84ud62o/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-9El0rLwfX5E/AAAAAAAAAAI/AAAAAAAAAAA/iVYt84ud62o/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-9El0rLwfX5E/AAAAAAAAAAI/AAAAAAAAAAA/iVYt84ud62o/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/-a_pxpkmOGHjikPwEiBc9xK4dcI\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUVusiBoWDFwxiWgjir9K1SQ\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2010-01-08T00:09:49.000Z\",\n    \"title\": \"celebrityplaylists\",\n    \"description\":
+        \"\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UC1aCAwybBnp3ezS8BOr_nVg\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-JbB51jeJm-4/AAAAAAAAAAI/AAAAAAAAAAA/deA8_blU-HE/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-JbB51jeJm-4/AAAAAAAAAAI/AAAAAAAAAAA/deA8_blU-HE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-JbB51jeJm-4/AAAAAAAAAAI/AAAAAAAAAAA/deA8_blU-HE/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/XBtjdcurxB6zPuZkyGqpWhFL2IY\\\"\",\n   \"id\":
+        \"bjf2xQvIxvZ7YrdEsf9yFj4LvRkvEELvjKkWR28xSkk\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2019-11-13T17:58:39.755Z\",\n    \"title\": \"Mihlali N\",\n    \"description\":
+        \"ALL THINGS BEAUTY \\n\\nBusiness Enquiries:\\ninfo@mihlalindamase.com\\n\\nConnect
+        with me on: \\nInstagram: https://www.instagram.com/mihlalii_n/\\nTwitter:
+        https://twitter.com/mihlalii_n\\nFacebook: https://www.facebook.com/MihlaliiN\\n\\nSouth
+        African Beauty Blogger\\n\U0001F495\",\n    \"resourceId\": {\n     \"kind\":
+        \"youtube#channel\",\n     \"channelId\": \"UCWhkEFN9UXdV2zFFZvP7O0A\"\n    },\n
+        \   \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n
+        \    \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-kOVnkclDhwA/AAAAAAAAAAI/AAAAAAAAAAA/w0ooVtdQoAs/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-kOVnkclDhwA/AAAAAAAAAAI/AAAAAAAAAAA/w0ooVtdQoAs/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-kOVnkclDhwA/AAAAAAAAAAI/AAAAAAAAAAA/w0ooVtdQoAs/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/vEt2aSMMGnbK7AJ6nu1PdIjkJ5U\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUeQpezbFBKT9lYW0dAGLwcA\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2019-12-21T14:22:35.396Z\",\n    \"title\": \"Linn Ahlborg\",\n    \"description\":
+        \"\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCz-Bb2212-Zy65Z4HCKzYWQ\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-ok0VqegXoNY/AAAAAAAAAAI/AAAAAAAAAAA/LDiANQRdhkQ/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-ok0VqegXoNY/AAAAAAAAAAI/AAAAAAAAAAA/LDiANQRdhkQ/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-ok0VqegXoNY/AAAAAAAAAAI/AAAAAAAAAAA/LDiANQRdhkQ/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/bPfiyETy_dDHOoCUwIdBxGqsx5U\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUeo0tNRVD-6rGDFOYGUEIkY\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2015-08-31T15:43:45.000Z\",\n    \"title\": \"YouTube Trends\",\n    \"description\":
+        \"Using viewership data and top web curators, YouTube Trends surfaces popular
+        videos in real time, and analyzes phenomena within the YouTube community.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCeNZlh03MyUkjRlLFpVQxsg\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-I3BlbcHhNqM/AAAAAAAAAAI/AAAAAAAAAAA/xb_eceZnhEc/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-I3BlbcHhNqM/AAAAAAAAAAI/AAAAAAAAAAA/xb_eceZnhEc/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-I3BlbcHhNqM/AAAAAAAAAAI/AAAAAAAAAAA/xb_eceZnhEc/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/9k4jQzVc5GO_qtjNog9WBMNqGWU\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUbQkVjhogpN9Z3u63myje7U\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2018-11-27T20:32:55.048Z\",\n    \"title\": \"Talks at Google\",\n    \"description\":
+        \"The Talks at Google program brings authors, musicians, innovators, and speakers
+        of all stripes to Google for talks centering on their recently published books
+        and capturing the popular and intellectual zeitgeist of the day.\\n\\nSubscribe
+        to our audio-only \\\"Talks at Google\\\" podcast everywhere podcasts are
+        found, listen on the web via talksatgoogle.libsyn.com, or add the rss feed
+        directly to your player via talksatgoogle.libsyn.com/rss. \\n\\nDISCLAIMER:
+        The views or opinions expressed by the guest speakers are solely their own
+        and do not necessarily represent the views or opinions of Google, Inc. The
+        comments on this channel belong only to the person who posted them. We do,
+        however, reserve the right to remove off-topic or inappropriate comments.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCbmNph6atAoGfqLoCL_duAg\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-ozFJ7rgchzE/AAAAAAAAAAI/AAAAAAAAAAA/enZ21DQkAok/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-ozFJ7rgchzE/AAAAAAAAAAI/AAAAAAAAAAA/enZ21DQkAok/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-ozFJ7rgchzE/AAAAAAAAAAI/AAAAAAAAAAA/enZ21DQkAok/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/-0wlt2vjepB2NioT4H7aA45x9LM\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUWBTsTOCukX9nFuQ6nANrN0\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2016-03-10T21:53:48.000Z\",\n    \"title\": \"Gaming\",\n    \"description\":
+        \"YouTube's gaming channel, featuring news, reviews, playthroughs, and more.\\nThis
+        channel was generated automatically by YouTube's video discovery system.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCOpNcN46UbXVtpKMrmU4Abg\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-25x-4qGxQj4/AAAAAAAAAAI/AAAAAAAAAAA/bb1bo69ipjE/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-25x-4qGxQj4/AAAAAAAAAAI/AAAAAAAAAAA/bb1bo69ipjE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-25x-4qGxQj4/AAAAAAAAAAI/AAAAAAAAAAA/bb1bo69ipjE/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/izCK-ANkls-rShlPLeLnJnEEM_k\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUY1Iqbge11x0S3_crXFCrh8\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2019-04-03T18:34:07.472Z\",\n    \"title\": \"YouTube Social Impact\",\n
+        \   \"description\": \"YouTube Social Impact engages changemakers, global
+        leaders, and cultural influencers to make YouTube the place for social engagement
+        and impact.  \\n\\nWe can’t wait for you to explore,  get inspired by all
+        the great content and share with your friends. Be sure to come back often,
+        as we have a lot more to come!\\n\\nSubscribe and click the notification bell.\\n\\n
+        To learn more, visit https://socialimpact.youtube.com.\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UCfFyYRYslvuhwMDnx6KjUvw\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-T_UxiRsuDQs/AAAAAAAAAAI/AAAAAAAAAAA/vo7Yf5NEPCI/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-T_UxiRsuDQs/AAAAAAAAAAI/AAAAAAAAAAA/vo7Yf5NEPCI/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-T_UxiRsuDQs/AAAAAAAAAAI/AAAAAAAAAAA/vo7Yf5NEPCI/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/6s-AMUQYPhn7_TWYtIFJWhMIFmE\\\"\",\n   \"id\":
+        \"bjf2xQvIxvZ7YrdEsf9yFs28aXB0_3pVmxkqqGlfUAY\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2018-11-13T18:49:15.332Z\",\n    \"title\": \"YouTube Learning\",\n    \"description\":
+        \"Welcome to YouTube Learning, a new channel featuring some of the best how
+        to, DIY, tutorial, and educational videos on YouTube. Whether you’re looking
+        for help with a hobby, want to learn new job skills, or you're just curious
+        about the world around you, we hope this channel can help you achieve it.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCdxpofrI-dO6oYfsqHDHphw\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-qYGX1lwt9dI/AAAAAAAAAAI/AAAAAAAAAAA/9hVfNG_q7Rk/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-qYGX1lwt9dI/AAAAAAAAAAI/AAAAAAAAAAA/9hVfNG_q7Rk/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-qYGX1lwt9dI/AAAAAAAAAAI/AAAAAAAAAAA/9hVfNG_q7Rk/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/jpfKgrPMwvhRV1mCRYfupsWMtuI\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUSNhn8C2fYOT_10Dsb0N1lk\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2008-11-02T01:49:14.000Z\",\n    \"title\": \"Live\",\n    \"description\":
+        \"YouTube's first ever LIVE STREAM took place on November 22nd, 2008, streamed
+        live from San Francisco.\\r\\n\\r\\nPart concert, part variety show and part
+        party, the event brought to life many of the amazing videos and talent that
+        YouTube viewers have already made popular.\",\n    \"resourceId\": {\n     \"kind\":
+        \"youtube#channel\",\n     \"channelId\": \"UCkausPRJ2Jzd59_yVzJKRsA\"\n    },\n
+        \   \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n
+        \    \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-oh_XSMFLL9Q/AAAAAAAAAAI/AAAAAAAAAAA/Oqotd2NB6JE/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-oh_XSMFLL9Q/AAAAAAAAAAI/AAAAAAAAAAA/Oqotd2NB6JE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-oh_XSMFLL9Q/AAAAAAAAAAI/AAAAAAAAAAA/Oqotd2NB6JE/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/vnJDgoCz4vVXWRWesi3JXWpuvuw\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUTRHNWyrkGDNYJP7ik5B120\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2015-03-13T14:04:17.000Z\",\n    \"title\": \"Music\",\n    \"description\":
+        \"Visit the YouTube Music Channel to find today’s top talent, featured artists,
+        and playlists. Subscribe to see the latest in the music world.\\nThis channel
+        was generated automatically by YouTube's video discovery system.\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UC-9-kyTW8ZkZNDHQJ6FgpwQ\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-YxMG_OBxoIM/AAAAAAAAAAI/AAAAAAAAAAA/p5Z_4Wofbmk/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-YxMG_OBxoIM/AAAAAAAAAAI/AAAAAAAAAAA/p5Z_4Wofbmk/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-YxMG_OBxoIM/AAAAAAAAAAI/AAAAAAAAAAA/p5Z_4Wofbmk/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/kH9nUHjtSuozT3RbvkdJnDsSW7Y\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUcqrP6kuUbW_rQScGLDvWsQ\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2013-09-18T14:19:33.000Z\",\n    \"title\": \"News\",\n    \"description\":
+        \"YouTube's news destination featuring comprehensive up-to-date coverage on
+        the latest top stories, sports, business, entertainment, politics, and more.\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCYfdidRxbB8Qhf0Nx7ioOYw\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-77ke3Ug-lVg/AAAAAAAAAAI/AAAAAAAAAAA/zepY14k5Hkg/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-77ke3Ug-lVg/AAAAAAAAAAI/AAAAAAAAAAA/zepY14k5Hkg/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-77ke3Ug-lVg/AAAAAAAAAAI/AAAAAAAAAAA/zepY14k5Hkg/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/axjBLBNib-_fibYXd1E3gmbNFoA\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtURdd3IrvFpR1Y-h1Fp6bjP4\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2019-12-17T08:07:51.289Z\",\n    \"title\": \"Lavendaire\",\n    \"description\":
+        \"Hi, I'm Aileen! Lavendaire is a channel about personal growth + lifestyle
+        design, where I share knowledge and inspiration about creating your dream
+        life. ✨\\n\\nLavendaire is for the passionate, the fearless, and the dreamers
+        who believe. For those who are smart, curious, and conscious, with an open
+        mind, a love for learning, and a deep desire to live a brilliant and vibrant
+        life. \\n\\nIn short, Lavendaire is for the artist of life.\\n\\n//  Life
+        is an art. Make it your masterpiece.  // \\n\\n\\n\U0001F49D Get the Artist
+        of Life Workbook | http://lavendaire.com/shop\\n\U0001F338 Listen to my podcast:
+        http://lavendaire.com/llpodcast\\n\U0001F48C Join my email list: http://lavendaire.com/mail\\n\\n\\nConnect:\\n▸
+        blog | http://lavendaire.com\\n▸ instagram | http://instagram.com/lavendaire\\n▸
+        facebook | http://facebook.com/lavendaire\\n▸ facebook group | http://facebook.com/groups/lavendaire\\n\\n\\nBusiness
+        inquiries ONLY: mgmt@lavendaire.com\\n\\n\\nMailbox: \\n\\nAileen Xu\\nPO
+        Box 296\\nBrea, CA 92822\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n
+        \    \"channelId\": \"UC-ga3onzHSJFAGsIebtVeBg\"\n    },\n    \"channelId\":
+        \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n     \"default\": {\n
+        \     \"url\": \"https://yt3.ggpht.com/-8E1AXLJoxbw/AAAAAAAAAAI/AAAAAAAAAAA/mjO-c1Jt8ug/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-8E1AXLJoxbw/AAAAAAAAAAI/AAAAAAAAAAA/mjO-c1Jt8ug/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-8E1AXLJoxbw/AAAAAAAAAAI/AAAAAAAAAAA/mjO-c1Jt8ug/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/fdo3-EnTBEcPBz9uoFcBv9yIUMA\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUU6fqy0FbbGhhCEZzFIiNZc\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2017-06-29T21:04:42.000Z\",\n    \"title\": \"YouTube Music\",\n    \"description\":
+        \"Subscribe to the YouTube Music channel to stay up on the latest news and
+        updates from YouTube Music.\\n\\nDownload the YouTube Music app free for Android
+        or iOS.\\nGoogle Play: https://goo.gl/beJSq3 \\niTunes: https://goo.gl/yUNKCY\",\n
+        \   \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCStaiwu-FAgp_RC_tBiLh9A\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-zK8v1xKkZtY/AAAAAAAAAAI/AAAAAAAAAAA/SmyGR2XCwXw/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-zK8v1xKkZtY/AAAAAAAAAAI/AAAAAAAAAAA/SmyGR2XCwXw/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-zK8v1xKkZtY/AAAAAAAAAAI/AAAAAAAAAAA/SmyGR2XCwXw/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/sFThQo_hrUVCNpYLHxQpak8pm3E\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUSfOMIlVDWth9Lgcuy1OtC4\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2010-01-08T00:10:01.000Z\",\n    \"title\": \"guesteditor\",\n    \"description\":
+        \"\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCNOJph3rW7fMuYybrDZJ8sg\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-avBxdAqK2Oo/AAAAAAAAAAI/AAAAAAAAAAA/hvTLEmrN198/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-avBxdAqK2Oo/AAAAAAAAAAI/AAAAAAAAAAA/hvTLEmrN198/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-avBxdAqK2Oo/AAAAAAAAAAI/AAAAAAAAAAA/hvTLEmrN198/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Sah5sHgx6NB4DqXThLtEp5HIRAw\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUUjJ_iOhK_uO2wFzCCBenyI\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2009-06-10T17:37:30.000Z\",\n    \"title\": \"YouTube Advertisers\",\n    \"description\":
+        \"Subscribe to the official YouTube Advertisers channel, your go-to destination
+        for industry trends, YouTube advertising launches, creative inspiration and
+        best practices to build your online video strategy.\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UCEN58iXQg82TXgsDCjWqIkg\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-rcNZyxbDbHg/AAAAAAAAAAI/AAAAAAAAAAA/FQWw2besfoo/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-rcNZyxbDbHg/AAAAAAAAAAI/AAAAAAAAAAA/FQWw2besfoo/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-rcNZyxbDbHg/AAAAAAAAAAI/AAAAAAAAAAA/FQWw2besfoo/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/B4-bRz2v4IJCUYFhK9g3K64JIKM\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUYjJ1rv-eld_rppqdUhvxFw\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2017-08-24T09:27:43.000Z\",\n    \"title\": \"Google\",\n    \"description\":
+        \"Experience the world of Google on our official YouTube channel. Watch videos
+        about our products,  technology, company happenings and more. Subscribe to
+        get updates from all your favorite Google products and teams.\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UCK8sQmJBp8GCxrOtXWBpyEA\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAAAAAA/OixOH_h84Po/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAAAAAA/OixOH_h84Po/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-v0soe-ievYE/AAAAAAAAAAI/AAAAAAAAAAA/OixOH_h84Po/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/siPyP46AK6Xa8C05SfWKFgHkdr8\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUQSLqeWZFLGgO6kJSEtU-J4\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2013-09-18T13:42:46.000Z\",\n    \"title\": \"YouTube Movies\",\n    \"description\":
+        \"YouTube's movies destination featuring the latest new releases, blockbusters
+        and more.\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n
+        \    \"channelId\": \"UClgRkhTL3_hImCAmdLfDE4g\"\n    },\n    \"channelId\":
+        \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n     \"default\": {\n
+        \     \"url\": \"https://yt3.ggpht.com/-PdD4N0Pon5I/AAAAAAAAAAI/AAAAAAAAAAA/ZsJww_L5puE/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-PdD4N0Pon5I/AAAAAAAAAAI/AAAAAAAAAAA/ZsJww_L5puE/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-PdD4N0Pon5I/AAAAAAAAAAI/AAAAAAAAAAA/ZsJww_L5puE/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/7Upl-XCuuGN2hiITxMWIRhJHzxg\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtURdVoT5jNGGNgrK34D9k-r0\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2013-12-18T19:40:16.000Z\",\n    \"title\": \"TeamYouTube [Help]\",\n    \"description\":
+        \"We're here to help. If you're looking for product updates, answers, or how-to’s,
+        you've come to the right place! Have questions? Leave them in our video comments
+        and we’ll get to as many as we can!\\n\\nIf you're looking to grow your channel
+        as a YouTuber, check out youtube.com/youtubecreators.\",\n    \"resourceId\":
+        {\n     \"kind\": \"youtube#channel\",\n     \"channelId\": \"UCMDQxm7cUx3yXkfeHa5zJIQ\"\n
+        \   },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-ni_VaN38-AE/AAAAAAAAAAI/AAAAAAAAAAA/bJCTTfihBl0/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-ni_VaN38-AE/AAAAAAAAAAI/AAAAAAAAAAA/bJCTTfihBl0/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-ni_VaN38-AE/AAAAAAAAAAI/AAAAAAAAAAA/bJCTTfihBl0/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/BzLgOj9C7O5eKFkw7MLC9U8NXrk\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUZ7ayZb-ZzmsTcDOm-XRDwo\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2015-11-06T18:34:44.000Z\",\n    \"title\": \"Virtual Reality\",\n    \"description\":
+        \"Learn more at https://vr.youtube.com\",\n    \"resourceId\": {\n     \"kind\":
+        \"youtube#channel\",\n     \"channelId\": \"UCzuqhhs6NWbgTzMuM09WKDQ\"\n    },\n
+        \   \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n    \"thumbnails\": {\n
+        \    \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-p0epiEDJmuo/AAAAAAAAAAI/AAAAAAAAAAA/Ki9T-hvC9hU/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-p0epiEDJmuo/AAAAAAAAAAI/AAAAAAAAAAA/Ki9T-hvC9hU/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-p0epiEDJmuo/AAAAAAAAAAI/AAAAAAAAAAA/Ki9T-hvC9hU/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  },\n  {\n   \"kind\": \"youtube#subscription\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/TbAwomM0JvIEkpqRM2Nv6f7ueuk\\\"\",\n   \"id\":
+        \"bjf2xQvIxvbotExSpFhtUd6qGqfytmOBAQtMUZiYeT8\",\n   \"snippet\": {\n    \"publishedAt\":
+        \"2013-09-18T13:39:55.000Z\",\n    \"title\": \"Popular on YouTube\",\n    \"description\":
+        \"The pulse of what's popular on YouTube. Check out the latest music videos,
+        trailers, comedy clips, and everything else that people are watching right
+        now.\",\n    \"resourceId\": {\n     \"kind\": \"youtube#channel\",\n     \"channelId\":
+        \"UCF0pVplsI8R5kcAqgtoRqoA\"\n    },\n    \"channelId\": \"UCBR8-60-B28hp2BmDPdntcQ\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://yt3.ggpht.com/-V0hHJs9xr1c/AAAAAAAAAAI/AAAAAAAAAAA/dy1hDy4k7_g/s88-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"medium\": {\n      \"url\": \"https://yt3.ggpht.com/-V0hHJs9xr1c/AAAAAAAAAAI/AAAAAAAAAAA/dy1hDy4k7_g/s240-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    },\n     \"high\": {\n      \"url\": \"https://yt3.ggpht.com/-V0hHJs9xr1c/AAAAAAAAAAI/AAAAAAAAAAA/dy1hDy4k7_g/s800-c-k-no-mo-rj-c0xffffff/photo.jpg\"\n
+        \    }\n    }\n   }\n  }\n ]\n}\n"
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:05:22 GMT
+recorded_with: VCR 5.1.0

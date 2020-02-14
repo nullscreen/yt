@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/channels?id=UCAmh1DexLGcMtDlzMCIxo4w&key=<YT_TEST_API_KEY>&maxResults=50&part=statistics
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:07:52 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:07:52 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/jLIHyFhBtuHNKsyg1gUhQK3-ILo"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '500'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#channelListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/jLIHyFhBtuHNKsyg1gUhQK3-ILo\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 1
+         },
+         "items": [
+          {
+           "kind": "youtube#channel",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/nIOTY6zwuRzX2J-GrwsNv3ZBgAM\"",
+           "id": "UCAmh1DexLGcMtDlzMCIxo4w",
+           "statistics": {
+            "viewCount": "16",
+            "commentCount": "0",
+            "subscriberCount": "2",
+            "hiddenSubscriberCount": false,
+            "videoCount": "3"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:07:52 GMT
+recorded_with: VCR 5.1.0

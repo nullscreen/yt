@@ -2,12 +2,12 @@
 require 'spec_helper'
 require 'yt/collections/channels'
 
-describe Yt::Collections::Channels, :device_app do
-  subject(:channels) { Yt::Collections::Channels.new auth: $account }
+describe Yt::Collections::Channels, :device_app, :vcr do
+  subject(:channels) { Yt::Collections::Channels.new auth: test_account }
 
   context 'with a list of parts' do
     let(:part) { 'statistics' }
-    let(:channel) { channels.where(part: part, id: 'UCxO1tY8h1AhOz0T4ENwmpow').first }
+    let(:channel) { channels.where(part: part, id: 'UCZDZGN_73I019o6UYD2-4bg').first }
 
     specify 'load ONLY the specified parts of the channels' do
       expect(channel.instance_variable_defined? :@snippet).to be false

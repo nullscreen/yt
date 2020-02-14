@@ -1,0 +1,754 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://accounts.google.com/o/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - Yt::Request (gzip)
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:18:25 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "access_token": "<YT_TEST_ACCESS_TOKEN>",
+          "expires_in": 3599,
+          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/yt-analytics.readonly openid",
+          "token_type": "Bearer",
+          "id_token": "<YT_TEST_ID_TOKEN>"
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:25 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/channels?maxResults=50&mine=true&part=snippet,status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:18:25 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:18:25 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/mrg060B-bk7cbX6J0Wn8FHEd6pc"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1227'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#channelListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/mrg060B-bk7cbX6J0Wn8FHEd6pc\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 1
+         },
+         "items": [
+          {
+           "kind": "youtube#channel",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/oIGb4qnyz6TSfmKE9O9vxBawm9M\"",
+           "id": "UCAmh1DexLGcMtDlzMCIxo4w",
+           "snippet": {
+            "title": "Derek Barnes",
+            "description": "",
+            "publishedAt": "2018-08-28T00:13:02.000Z",
+            "thumbnails": {
+             "default": {
+              "url": "https://yt3.ggpht.com/a/AGF-l7_4Is2lyk1T7gOOszzreBuXkgAe50jM9SauZw=s88-c-k-c0xffffffff-no-rj-mo",
+              "width": 88,
+              "height": 88
+             },
+             "medium": {
+              "url": "https://yt3.ggpht.com/a/AGF-l7_4Is2lyk1T7gOOszzreBuXkgAe50jM9SauZw=s240-c-k-c0xffffffff-no-rj-mo",
+              "width": 240,
+              "height": 240
+             },
+             "high": {
+              "url": "https://yt3.ggpht.com/a/AGF-l7_4Is2lyk1T7gOOszzreBuXkgAe50jM9SauZw=s800-c-k-c0xffffffff-no-rj-mo",
+              "width": 800,
+              "height": 800
+             }
+            },
+            "localized": {
+             "title": "Derek Barnes",
+             "description": ""
+            },
+            "country": "US"
+           },
+           "status": {
+            "privacyStatus": "public",
+            "isLinked": true,
+            "longUploadsStatus": "eligible"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:25 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?channelId=UCAmh1DexLGcMtDlzMCIxo4w&maxResults=50&part=snippet,status
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:18:26 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:18:26 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/bphOmp1Zh0NVVbfmAEu3maqS7sQ"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '5137'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/bphOmp1Zh0NVVbfmAEu3maqS7sQ\"",
+         "pageInfo": {
+          "totalResults": 5,
+          "resultsPerPage": 50
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Swvejs7lieMdFa7jr99jrMH5oq0\"",
+           "id": "PLbj-IDe6g8vs0F8wnAZnQyIP9PRgmT7BF",
+           "snippet": {
+            "publishedAt": "2020-02-06T06:28:51.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "Yt Test Delete All Playlists 0.10854806237172787",
+            "description": "Yt Test ‹description›",
+            "thumbnails": {
+             "default": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "tags": [
+             "Yt Test Tag 1",
+             "Yt Test ‹Tag› 2"
+            ],
+            "localized": {
+             "title": "Yt Test Delete All Playlists 0.10854806237172787",
+             "description": "Yt Test ‹description›"
+            }
+           },
+           "status": {
+            "privacyStatus": "unlisted"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/VXhJjcJcWTFYsQXCOy9veWBewpg\"",
+           "id": "PLbj-IDe6g8vvm5d1dyVDYMKDLW7OwBb1t",
+           "snippet": {
+            "publishedAt": "2019-06-10T19:27:34.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "Yt Test Public",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "localized": {
+             "title": "Yt Test Public",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "private"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/GDQ6eCAS332yG7gSgQwgtIZyi7I\"",
+           "id": "PLbj-IDe6g8vvojFSiw0cKTDTOzZ8uyEzb",
+           "snippet": {
+            "publishedAt": "2019-06-10T19:15:42.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "Yt Test Private",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "localized": {
+             "title": "Yt Test Private",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "private"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/gPZ4S1gVyWQBXrsQufJ1HypBWnA\"",
+           "id": "PLbj-IDe6g8vt9owrsm46cEtkRnn-PzV4F",
+           "snippet": {
+            "publishedAt": "2019-06-07T21:42:53.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "hi ‹there",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "localized": {
+             "title": "hi ‹there",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          },
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/dPF6TGiW0GfEaBd8Y1mALorbcpU\"",
+           "id": "PLbj-IDe6g8vsAPODEr-qEFcDDoXxjG8DT",
+           "snippet": {
+            "publishedAt": "2018-10-25T00:54:47.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "Mustard Talk",
+            "description": "",
+            "thumbnails": {
+             "default": {
+              "url": "https://i9.ytimg.com/vi/Ed4jZpmKLFs/default.jpg?sqp=CPT57vEF&rs=AOn4CLDx0Sdl-FaAUZSZ9zYA6ZZxtL-8Zw",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "https://i9.ytimg.com/vi/Ed4jZpmKLFs/mqdefault.jpg?sqp=CPT57vEF&rs=AOn4CLCQygIrYX955WWrd540P4a0TsjioQ",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "https://i9.ytimg.com/vi/Ed4jZpmKLFs/hqdefault.jpg?sqp=CPT57vEF&rs=AOn4CLClhoQkzRbPbnclXbZHIHR922iRSQ",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "localized": {
+             "title": "Mustard Talk",
+             "description": ""
+            }
+           },
+           "status": {
+            "privacyStatus": "public"
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:26 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=PLbj-IDe6g8vs0F8wnAZnQyIP9PRgmT7BF&part=snippet
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:18:26 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:18:26 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/l04cNptwgQplGHiYghOoleLvQRg"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1254'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#playlistListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/l04cNptwgQplGHiYghOoleLvQRg\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 5
+         },
+         "items": [
+          {
+           "kind": "youtube#playlist",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/gLq7pRPNzXbw-mtX0igphKFHnOw\"",
+           "id": "PLbj-IDe6g8vs0F8wnAZnQyIP9PRgmT7BF",
+           "snippet": {
+            "publishedAt": "2020-02-06T06:28:51.000Z",
+            "channelId": "UCAmh1DexLGcMtDlzMCIxo4w",
+            "title": "Yt Test Delete All Playlists 0.10854806237172787",
+            "description": "Yt Test ‹description›",
+            "thumbnails": {
+             "default": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 120,
+              "height": 90
+             },
+             "medium": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 320,
+              "height": 180
+             },
+             "high": {
+              "url": "http://s.ytimg.com/yts/img/no_thumbnail-vfl4t3-4R.jpg",
+              "width": 480,
+              "height": 360
+             }
+            },
+            "channelTitle": "Derek Barnes",
+            "tags": [
+             "Yt Test Tag 1",
+             "Yt Test ‹Tag› 2"
+            ],
+            "localized": {
+             "title": "Yt Test Delete All Playlists 0.10854806237172787",
+             "description": "Yt Test ‹description›"
+            }
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:26 GMT
+- request:
+    method: get
+    uri: https://youtubeanalytics.googleapis.com/v2/reports?endDate=2020-02-05&filters=playlist==PLbj-IDe6g8vs0F8wnAZnQyIP9PRgmT7BF%3BisCurated==1&ids=channel==UCAmh1DexLGcMtDlzMCIxo4w&metrics=views&startDate=2005-02-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:18:26 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "kind": "youtubeAnalytics#resultTable",
+          "columnHeaders": [
+            {
+              "name": "views",
+              "columnType": "METRIC",
+              "dataType": "INTEGER"
+            }
+          ],
+          "rows": [
+            [
+              0
+            ]
+          ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:26 GMT
+- request:
+    method: get
+    uri: https://youtubeanalytics.googleapis.com/v2/reports?endDate=2020-02-05&filters=playlist==PLbj-IDe6g8vs0F8wnAZnQyIP9PRgmT7BF%3BisCurated==1&ids=channel==UCAmh1DexLGcMtDlzMCIxo4w&metrics=playlistStarts&startDate=2005-02-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:18:27 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "kind": "youtubeAnalytics#resultTable",
+          "columnHeaders": [
+            {
+              "name": "playlistStarts",
+              "columnType": "METRIC",
+              "dataType": "INTEGER"
+            }
+          ],
+          "rows": [
+            [
+              0
+            ]
+          ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:27 GMT
+- request:
+    method: get
+    uri: https://youtubeanalytics.googleapis.com/v2/reports?endDate=2020-02-05&filters=playlist==PLbj-IDe6g8vs0F8wnAZnQyIP9PRgmT7BF%3BisCurated==1&ids=channel==UCAmh1DexLGcMtDlzMCIxo4w&metrics=averageTimeInPlaylist&startDate=2005-02-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:18:28 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "kind": "youtubeAnalytics#resultTable",
+          "columnHeaders": [
+            {
+              "name": "averageTimeInPlaylist",
+              "columnType": "METRIC",
+              "dataType": "INTEGER"
+            }
+          ],
+          "rows": [
+            [
+              0
+            ]
+          ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:28 GMT
+- request:
+    method: get
+    uri: https://youtubeanalytics.googleapis.com/v2/reports?endDate=2020-02-05&filters=playlist==PLbj-IDe6g8vs0F8wnAZnQyIP9PRgmT7BF%3BisCurated==1&ids=channel==UCAmh1DexLGcMtDlzMCIxo4w&metrics=viewsPerPlaylistStart&startDate=2005-02-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:18:28 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "kind": "youtubeAnalytics#resultTable",
+          "columnHeaders": [
+            {
+              "name": "viewsPerPlaylistStart",
+              "columnType": "METRIC",
+              "dataType": "FLOAT"
+            }
+          ],
+          "rows": [
+            [
+              0
+            ]
+          ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:28 GMT
+recorded_with: VCR 5.1.0

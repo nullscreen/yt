@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/models/playlist_item'
 
-describe Yt::PlaylistItem, :server_app do
+describe Yt::PlaylistItem, :server_app, :vcr do
   subject(:item) { Yt::PlaylistItem.new id: id }
 
   context 'given an existing playlist item' do

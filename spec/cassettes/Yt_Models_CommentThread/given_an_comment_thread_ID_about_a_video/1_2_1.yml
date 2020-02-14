@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/commentThreads?id=z134e1gyav3qt3nnr22phjeavv2zdfef0&key=<YT_TEST_API_KEY>&part=snippet
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 02:08:42 GMT
+      Date:
+      - Thu, 06 Feb 2020 02:08:42 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/L3ELexf21a6gtUJE_4Gl4hjktrg"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1343'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: |
+        {
+         "kind": "youtube#commentThreadListResponse",
+         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/L3ELexf21a6gtUJE_4Gl4hjktrg\"",
+         "pageInfo": {
+          "totalResults": 1,
+          "resultsPerPage": 20
+         },
+         "items": [
+          {
+           "kind": "youtube#commentThread",
+           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/6UrGyKH5Gpeuf1hJTV_-0UnzvXc\"",
+           "id": "Ugh3nEdtiMzQSHgCoAEC",
+           "snippet": {
+            "videoId": "MsplPPW7tFo",
+            "topLevelComment": {
+             "kind": "youtube#comment",
+             "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/6Vax-VcNoTjVogHMHfLAeZ_T8BE\"",
+             "id": "Ugh3nEdtiMzQSHgCoAEC",
+             "snippet": {
+              "authorDisplayName": "send noods yah",
+              "authorProfileImageUrl": "https://yt3.ggpht.com/a/AGF-l7-77wXTcYR-o0PJxH26by3FvALhcR4JFcf35w=s48-c-k-c0xffffffff-no-rj-mo",
+              "authorChannelUrl": "http://www.youtube.com/channel/UC7QZ9deX9gxvLgAMoBdTwLw",
+              "authorChannelId": {
+               "value": "UC7QZ9deX9gxvLgAMoBdTwLw"
+              },
+              "videoId": "MsplPPW7tFo",
+              "textDisplay": "gj$)&amp;:$8!)@&lt;hsjajshso)@$;:jajsjJsj",
+              "textOriginal": "gj$)&:$8!)@\u003chsjajshso)@$;:jajsjJsj",
+              "canRate": true,
+              "viewerRating": "none",
+              "likeCount": 0,
+              "publishedAt": "2016-10-01T03:30:09.000Z",
+              "updatedAt": "2016-10-01T03:30:09.000Z"
+             }
+            },
+            "canReply": true,
+            "totalReplyCount": 0,
+            "isPublic": true
+           }
+          }
+         ]
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 02:08:42 GMT
+recorded_with: VCR 5.1.0

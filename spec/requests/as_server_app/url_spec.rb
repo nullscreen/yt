@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'yt/models/url'
 
-describe Yt::URL, :server_app do
+describe Yt::URL, :server_app, :vcr do
   subject(:url) { Yt::URL.new text }
 
   context 'given an existing YouTube channel URL' do

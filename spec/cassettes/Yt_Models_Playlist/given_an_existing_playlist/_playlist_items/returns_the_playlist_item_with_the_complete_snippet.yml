@@ -1,0 +1,1536 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://accounts.google.com/o/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      - Yt::Request (gzip)
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Date:
+      - Thu, 06 Feb 2020 07:18:24 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "access_token": "<YT_TEST_ACCESS_TOKEN>",
+          "expires_in": 3599,
+          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtubepartner openid",
+          "token_type": "Bearer",
+          "id_token": "<YT_TEST_ID_TOKEN>"
+        }
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:24 GMT
+- request:
+    method: get
+    uri: https://www.googleapis.com/youtube/v3/playlistItems?maxResults=50&part=snippet,status&playlistId=PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Length:
+      - '0'
+      User-Agent:
+      - Yt::Request (gzip)
+      Authorization:
+      - "<YT_AUTH_HEADER>"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Expires:
+      - Thu, 06 Feb 2020 07:18:24 GMT
+      Date:
+      - Thu, 06 Feb 2020 07:18:24 GMT
+      Cache-Control:
+      - private, max-age=0, must-revalidate, no-transform
+      Etag:
+      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/lyBlW2TyyKg2B8eGUzPL5L5Kw5I"'
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '112473'
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
+        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
+        ma=2592000
+    body:
+      encoding: UTF-8
+      string: "{\n \"kind\": \"youtube#playlistItemListResponse\",\n \"etag\": \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/lyBlW2TyyKg2B8eGUzPL5L5Kw5I\\\"\",\n
+        \"nextPageToken\": \"CDIQAA\",\n \"pageInfo\": {\n  \"totalResults\": 67,\n
+        \ \"resultsPerPage\": 50\n },\n \"items\": [\n  {\n   \"kind\": \"youtube#playlistItem\",\n
+        \  \"etag\": \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/XVWdtUHFbvlIc_DPaKZRK7zObow\\\"\",\n
+        \  \"id\": \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby40NTBGRDE5MDg2Q0NEODI4\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2020-01-30T18:20:58.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Gaming Channel Must Knows
+        | Channel Checkup ft. Alyska\",\n    \"description\": \"Want to know what
+        a typical meeting with a Partner Manager is like? The goal of Channel Checkup
+        is to show you how you can analyze your own channel by taking you through
+        a typical meeting with a Partner Manager. In this video, YouTube Strategist
+        Sarah sits down with YouTube Creator Alyska to discuss gaming best practices,
+        and to answer some of Alyce's questions. Hear Sarah's advice around gaming
+        channel names, titles and thumbnails, and more! Consider how you can take
+        some of these insights and apply them back to your own channel!\\n\\nCheck
+        out Alyska's channel: https://www.youtube.com/alyska\\n\\nSubscribe and hit
+        the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level
+        up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/QVVk3tnrVmQ/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/QVVk3tnrVmQ/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/QVVk3tnrVmQ/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/QVVk3tnrVmQ/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/QVVk3tnrVmQ/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 0,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"QVVk3tnrVmQ\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/8pyrJyhwHVjdBTq1DbiJ6InbwYo\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby42NjBGMkRFNDcwMjM2NzYx\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2020-01-27T18:05:03.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"YouTube Gaming: The Year Ahead\",\n
+        \   \"description\": \"We’ve been working hard to make gaming on YouTube really
+        awesome. Hear directly from Ryan Wyatt, Head of Gaming at YouTube, and catch
+        up on all the top YouTube Gaming news, including trending topics, product
+        updates, and what’s ahead in 2020.\\n\\nSubscribe and hit the bell to see
+        new videos: https://goo.gl/So4XIG\\n\\n► Check out our Help Center: https://goo.gl/fBzr7\\n►
+        Learn best practices with the Creator Academy: https://goo.gl/1P8bT4\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/3KCr7MCnJlw/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/3KCr7MCnJlw/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/3KCr7MCnJlw/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 1,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"3KCr7MCnJlw\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/5QvPzCKozjms5-slDjb4cWjQJAo\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5BNTRGQTE1QjY2NUE5NTAz\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2020-01-16T23:19:28.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"How Long Should Your Videos
+        Be?\",\n    \"description\": \"Do longer videos get more love from the YouTube
+        algorithm? Are hour-long podcasts getting more exposure than your 2-minute
+        short film? This video covers video length as it pertains to YouTube’s search
+        & discovery systems. \\n\\nSubscribe and hit the bell to see new videos: https://goo.gl/So4XIG\\n\\n►
+        Check out our Help Center: https://goo.gl/fBzr7\\n► Learn best practices with
+        the Creator Academy: https://goo.gl/1P8bT4\",\n    \"thumbnails\": {\n     \"default\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/G1tHzUGdMwY/default.jpg\",\n      \"width\":
+        120,\n      \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/G1tHzUGdMwY/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/G1tHzUGdMwY/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/G1tHzUGdMwY/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/G1tHzUGdMwY/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 2,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"G1tHzUGdMwY\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/618ioaHPH4DvAFiZhwZlRsFXi70\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5FOTE3RTBFMjNFMDNEM0Yz\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-12-17T22:05:45.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"COPPA and YouTube: Answering
+        Your Top Questions\",\n    \"description\": \"In this video, we'll answer
+        some of your top questions about COPPA, made for kids content, and the new
+        audience setting in YouTube Studio. See below for timestamps of each question
+        we'll answer.\\n\\nIf you haven't already be sure to watch the first video
+        on this topic: https://www.youtube.com/watch?v=-JzXiSkoFKw\\nCheck out the
+        FTC's recent blog post: https://www.ftc.gov/news-events/blogs/business-blog/2019/11/youtube-channel-owners-your-content-directed-children\\nAnd
+        our Help Center articles:\\nSet your channel or video's audience: https://yt.be/help/9Sgi\\nDetermining
+        if your content is made for kids: https://support.google.com/youtube/answer/9528076\\nFrequently
+        asked questions about \\\"made for kids\\\": https://support.google.com/youtube/answer/9684541\\nAge-restricted
+        content: https://support.google.com/youtube/answer/2802167\\n\\nQuestions
+        answered:\\n1:17 Why is YouTube doing this?\\n2:03 I make videos that are
+        safe for everyone to watch. I even call them family friendly. Does that mean
+        my videos are made for kids? \\n2:44 What if children watch my video, but
+        it’s not meant to target kids?\\n3:03 Is animated content considered made
+        for kids?\\n3:27 Does this impact Minecraft or gaming videos? What about family
+        vloggers?\\n3:55 I understand why you wouldn’t want kids to have personalized
+        ads -- but why do you have to get rid of other features like comments, end
+        screens and notifications?\\n4:23 Isn’t this what YouTube Kids is for?\\n4:49
+        Is “general audience” content the same as “mixed audience” content?\\n5:25
+        Why didn’t YouTube add a “mixed audience” setting option?\\n6:19 How does
+        your system define content as “Made for Kids”?\\n6:58 Does marking my video
+        as “Not Made for Kids” mean it’s only suitable for adults? \\n7:18 My content
+        is Made for Kids -- does this mean I won’t earn any revenue anymore?\\n7:40
+        Do I have to mark my old videos as “Made for Kids”?\\n8:11 How do I get into
+        the YouTube Kids app?\\n\\nCreating for YouTube Kids guide: https://yt.be/help/miTP
+        \\n\\nSubscribe and hit the bell to see new videos: https://goo.gl/So4XIG\\n\\n►
+        Check out our Help Center: https://goo.gl/fBzr7\\n► Learn best practices with
+        the Creator Academy: https://goo.gl/1P8bT4\",\n    \"thumbnails\": {\n     \"default\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/KdIlQ9kq4F4/default.jpg\",\n      \"width\":
+        120,\n      \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/KdIlQ9kq4F4/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/KdIlQ9kq4F4/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/KdIlQ9kq4F4/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/KdIlQ9kq4F4/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 3,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"KdIlQ9kq4F4\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/30b8wP3A9mJVxmjg5EnOOEYmZXs\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5DNUEzOUFFNkIyOUUzOTRC\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-12-05T22:56:14.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"YouTube Partner Program Sign-up,
+        Gaming Policy Updates, and More! | November 2019 Creator Roundup\",\n    \"description\":
+        \"Catch up on all the top YouTube news from the past month, including trending
+        topics and product updates. Tune in for new episodes the first week of every
+        month and use the timestamps below to skip to news most important to you!\\n\\n0:14
+        | YouTube Partner Program Sign-up Redesign: https://support.google.com/youtube/thread/18760299\\n0:58
+        | Made for Kids Audience Setting: https://www.youtube.com/watch?v=-JzXiSkoFKw\\n1:51|
+        Creator Studio Classic Makes Way for YouTube Studio: https://support.google.com/youtube/thread/18548671\\n2:28
+        | New YouTube Homepage: https://support.google.com/youtube/thread/18132714\\n3:05
+        | Gaming Content & Graphic Violence Policy Update: https://support.google.com/youtube/thread/21744943\\n3:42
+        | Super Stickers Update: https://youtube-creators.googleblog.com/2019/11/introducing-super-stickers.html\\n4:04
+        | Terms of Service Clarification: https://twitter.com/TeamYouTube/status/1193974435587317760\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\r\\n\\r\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\r\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\r\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/XV1Iy7Xch0o/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/XV1Iy7Xch0o/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/XV1Iy7Xch0o/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/XV1Iy7Xch0o/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/XV1Iy7Xch0o/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 4,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"XV1Iy7Xch0o\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/AqRGMX60fjjpTLV_xd2NO2jwzRc\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4wNjIzRDA1OTQ2M0UyODEw\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-11-12T18:07:48.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Important Update for All Creators:
+        Complying with COPPA\",\n    \"description\": \"If you create content for
+        YouTube, this video is very important to watch as it describes changes to
+        the upload process, all of your existing videos and potentially your monetization.
+        We'll go through important new requirements for all videos that you should
+        take action on as soon as possible. We'll provide some background on what’s
+        happening, walk you through a new audience setting in YouTube Studio and how
+        to use it, and then answer some questions you might have about this update.
+        Here's what we'll cover:\\n\\n0:37 Background on what's happening:\\n0:57
+        What's launching\\n1:30 How to set your audience\\n2:44 Answering questions
+        about this update\\n2:49 What is considered \\\"Made for Kids\\\" content?\\n3:57
+        How old is a \\\"kid\\\"?\\n4:22 If you set your content as \\\"Made for Kids\\\",
+        what does this mean for your channel?\\n4:48 What other features will no longer
+        be available if I set my content as \\\"Made for Kids\\\"?\\n5:26 What happens
+        if YouTube's systems say my video is \\\"Made for Kids\\\", but I disagree?\\n5:56
+        What happens if I mark my video's audience incorrectly? \\n\\nCheck out these
+        Help articles for more information:\\nSet your audience: https://support.google.com/youtube/answer/9527654\\nDetermining
+        if your content is \\\"Made for Kids\\\": https://support.google.com/youtube/answer/9528076\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/-JzXiSkoFKw/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/-JzXiSkoFKw/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/-JzXiSkoFKw/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/-JzXiSkoFKw/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/-JzXiSkoFKw/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 5,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"-JzXiSkoFKw\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/SJQw8z5EuVzW8qp5TpINFo8ANWI\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5EQTdFNDU3M0Y3MTM1QjlG\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-11-21T16:04:08.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"YouTube Studio is now out
+        of beta\",\n    \"description\": \"Introducing the new YouTube Studio, your
+        go-to spot for all things YouTube. As a creator, YouTube Studio allows you
+        to access a new dashboard for important news, more powerful analytics with
+        real-time metrics, comment filters, and a guided upload experience all in
+        one place. Visit https://studio.youtube.com to check it out.\\n\\n► Stay up-to-date
+        on new, exclusive features on YouTube Studio: https://support.google.com/youtube/answer/9072033\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/VKf6NF0OD5A/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/VKf6NF0OD5A/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/VKf6NF0OD5A/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/VKf6NF0OD5A/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/VKf6NF0OD5A/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 6,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"VKf6NF0OD5A\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zqagVXCyLt4-jz_JJMMyUQz1xYc\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5FMjFERkYxMjI2NjkyMjg5\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-12-12T18:30:34.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"YouTube Stories\",\n    \"description\":
+        \"Looking for a fun, easier way to reach your audience in between uploads?
+        In this video, we’ll give you an overview of YouTube Stories -- short, mobile-only
+        videos that allow eligible creators with 10,000 subscribers or more to connect
+        with their community more casually, in the moment and on the go. First, we’ll
+        show you how to make a Story. Then, we’ll give you some things to keep in
+        mind about Stories, and finally we’ll give you some strategies for using them.\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/H3sIHuMMZec/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/H3sIHuMMZec/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/H3sIHuMMZec/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/H3sIHuMMZec/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/H3sIHuMMZec/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 7,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"H3sIHuMMZec\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/yTtC3hhFB029jW8FTm9Cm3oINWM\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4zMkY2MjA3RDJERTkxNjkz\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-12-10T18:59:42.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"YouTube Community Tab\",\n
+        \   \"description\": \"Ever wish you could reach your viewers without having
+        to make a whole video? In this video, we’ll give you an overview of the Community
+        Tab -- a feature that lets you interact with your viewers beyond video. Creators
+        with 1,000 subscribers or more can use the Community tab to post polls, images,
+        animated GIFs and more. This gives you an easier, lightweight way to engage
+        with your audience more often and in between uploads -- right here on YouTube.
+        \\n\\nSubscribe and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/nnNDr14CF1c/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/nnNDr14CF1c/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/nnNDr14CF1c/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/nnNDr14CF1c/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/nnNDr14CF1c/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 8,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"nnNDr14CF1c\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/V7-uL3Er7BA5cuQDAvECI-cX_X0\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4xRjE1NzQ4MjRCMUNFRDdB\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-11-26T21:35:48.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"YouTube Comments: Replying,
+        Filtering and Moderating\",\n    \"description\": \"In this video, we'll show
+        you everything you can do with comments. First, we'll walk you through what
+        features you can use to help you encourage more of the conversation you want
+        to see in your comments. Then we'll show you what features you can use to
+        address hurtful or inappropriate interactions in your comments section. Here's
+        what we cover:\\n\\nEncouraging positive comments:\\n0:36 Use the heart icon
+        \\n1:02 Pin comments\\n1:39 Respond to comments \\n2:10 Use comment filters\\n\\nVideo-level
+        comment moderation features:\\n3:26 Remove comments\\n3:41 Hide users from
+        your channel\\n4:03 Flag comments\\n\\nChannel-level comment moderation features:\\n4:19
+        Set upload defaults\\n5:14 Hold potentially inappropriate comments for review\\n5:36
+        Create a blocked words list\\n5:59 Add comment moderators\\n6:29 Hold all
+        comments for review or disable comments\\n\\nSubscribe and hit the bell to
+        see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level up your YouTube
+        skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n► See index of
+        all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions: https://goo.gl/fBzr7\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/T8iFv4oo8Vw/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/T8iFv4oo8Vw/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/T8iFv4oo8Vw/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/T8iFv4oo8Vw/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/T8iFv4oo8Vw/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 9,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"T8iFv4oo8Vw\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/4V2WpouO81Q49xE8-NjZC-APnN0\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4wQjA4QkVEQ0RFREIzMjFC\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-11-06T18:00:06.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Create Inclusive Videos to
+        Reach More Viewers\",\n    \"description\": \"Representation in media matters--in
+        front of and behind the camera. It’s important to remember we all have unconscious
+        bias, which can influence the people we choose to work with, the topics we
+        cover and which perspectives we include. This video covers tips on how your
+        YouTube channel can help foster diversity, equity, and inclusion. Learn more:
+        https://creatoracademy.youtube.com/page/course/creating-inclusive-content-on-youtube\\n\\nWorks
+        Cited\\n- U.S. Census Bureau: https://www.census.gov/quickfacts/fact/table/US/PST045218\\n-
+        Hollywood Diversity Report, UCLA: https://socialsciences.ucla.edu/wp-content/uploads/2019/02/UCLA-Hollywood-Diversity-Report-2019-2-21-2019.pdf\\n-
+        “Where We Are on TV,” GLAAD: https://glaad.org/files/WWAT/WWAT_GLAAD_2018-2019.pdf\\n-
+        Pew Research Center: https://www.pcmag.com/news/368525/facebook-youtube-the-most-widely-used-platforms-for-us-adul\\n-
+        Nielsen/YouTube: https://www.thinkwithgoogle.com/data-collections/future-youtube-marketing-multicultural-heres-how-brands-should-adapt/\\n-
+        Creative Artists Agency: https://www.latimes.com/entertainment/movies/la-et-mn-caa-diversity-study-exclusive-20170622-story.html\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/cvTJGqnhmxc/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/cvTJGqnhmxc/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/cvTJGqnhmxc/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/cvTJGqnhmxc/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/cvTJGqnhmxc/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 10,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"cvTJGqnhmxc\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/n1mXTAqqrNbnr6RnBnOUVWID8TE\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5CRjBFOTUzQTE4Mjg3RUJF\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-10-24T18:03:38.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Copyright Permissions - Copyright
+        on YouTube\",\n    \"description\": \"We're here to answer your Copyright
+        questions. In this video, we dive into frequently asked questions about Copyright
+        permissions. We go over what you need to keep in mind when trying to acquire
+        permission to use someone else's content in your videos, and some common misconceptions
+        about Copyright on YouTube.\\n\\nFor more answers to your Copyright questions,
+        check out the whole series here: https://bit.ly/31U1AHU\\nAnd check out our
+        Help Center articles on Copyright: https://support.google.com/youtube/answer/2797449\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/6pgMtJHg9gg/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/6pgMtJHg9gg/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/6pgMtJHg9gg/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/6pgMtJHg9gg/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/6pgMtJHg9gg/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 11,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"6pgMtJHg9gg\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/UfVcs3bzIYisPsQYONMkd7I41HY\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5ENUI5OTFCQkYxNDUxQjQ3\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-10-15T18:49:43.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Music and Copyright - Copyright
+        on YouTube\",\n    \"description\": \"We're here to answer your Copyright
+        questions. In this video, we dive into frequently asked questions about music
+        and Copyright on YouTube. We talk about receiving copyright strikes for cover
+        songs, what rights you need to use a song in a video, and other options for
+        using music in your videos.\\n\\nFor more answers to your Copyright questions,
+        check out the whole series here: https://bit.ly/31U1AHU\\nAnd check out our
+        Help Center articles on Copyright: https://support.google.com/youtube/answer/2797449\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/qe17meaudTI/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/qe17meaudTI/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/qe17meaudTI/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/qe17meaudTI/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/qe17meaudTI/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 12,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"qe17meaudTI\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/iOSN8QtOGNOedZMj1tnogEsozYU\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5GN0EwRkMxQTJGMTFCNDc1\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-10-08T18:28:07.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Fair Use - Copyright on YouTube\",\n
+        \   \"description\": \"We're here to answer your Copyright questions. In this
+        video, we dive into frequently asked questions about Fair Use. We answer what
+        Fair Use is, how it's determined by law, and things to keep in mind for Fair
+        Use relating to YouTube.\\n\\nFor more answers to your Copyright questions,
+        check out the whole series here: https://bit.ly/31U1AHU\\nAnd check out our
+        Help Center articles on Fair Use: https://support.google.com/youtube/answer/6396261\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/1PvjRIkwIl8/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/1PvjRIkwIl8/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/1PvjRIkwIl8/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/1PvjRIkwIl8/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/1PvjRIkwIl8/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 13,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"1PvjRIkwIl8\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/2SXf9bdP9Zvu0jTMu3gAW4qpL9U\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby43RjdBQTMwNUUwRTA1QkE3\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-10-01T17:46:14.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"What can you do about Content
+        ID claims? - Copyright on YouTube\",\n    \"description\": \"We're here to
+        answer your Copyright questions. In this video, we dive into options for resolving
+        Content ID claims. We cover the different steps you can take to resolve a
+        Content ID claim, including some of our tools for removing claimed audio from
+        your video. \\n\\nFor more answers to your Copyright questions, check out
+        the whole series here: https://bit.ly/31U1AHU\\nAnd check out our Help Center
+        articles on Copyright: https://support.google.com/youtube/answer/2797466\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\nAnd
+        check out our Help Center: https://support.google.com/youtube/answer/2797466\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/bBXFiaGJlZg/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/bBXFiaGJlZg/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/bBXFiaGJlZg/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/bBXFiaGJlZg/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/bBXFiaGJlZg/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 14,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"bBXFiaGJlZg\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/EVKy__-d75Kq3VHWQCQ_lJvF_Go\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5CMDk1Q0MxREYyOTVEOTZF\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-09-26T17:05:41.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Get More Views with Cards
+        & End Screens ft. Logical Baniya\",\n    \"description\": \"Did you know that
+        using Cards and End Screens can help boost your overall views? In this Master
+        Class, YouTube Creator Anshul from Logical Baniya talks about the benefits
+        of using Cards and End Screens -- especially for videos that are part of a
+        series. Hear his advice on how to improve your channel performance with these
+        features, and which types of Cards and End Screens he thinks you should use.\\n\\nCheck
+        out Anshul's channel Logical Baniya: https://www.youtube.com/logicalbaniya\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/qRYjO6Ta9PM/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/qRYjO6Ta9PM/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/qRYjO6Ta9PM/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/qRYjO6Ta9PM/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/qRYjO6Ta9PM/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 15,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"qRYjO6Ta9PM\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/FFgHs4nuD0tji4mTPb-eSP762BU\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby44NzQ1OTI1OUFFM0NFRTc5\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-09-24T17:41:54.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Boost Channel Performance
+        with Playlists ft. Logical Baniya\",\n    \"description\": \"Did you know
+        that using Playlists, Cards and End Screens can help boost your overall views?
+        In this Master Class, YouTube Creator Anshul from Logical Baniya talks about
+        the benefits of using Playlists -- especially for videos that are part of
+        a series. Hear his advice on how to boost your channel performance by encouraging
+        more watch time from both old and new viewers.\\n\\nCheck out Anshul's channel
+        Logical Baniya: https://www.youtube.com/logicalbaniya\\n\\nSubscribe and hit
+        the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level
+        up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/TlmY_odU4MQ/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/TlmY_odU4MQ/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/TlmY_odU4MQ/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/TlmY_odU4MQ/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/TlmY_odU4MQ/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 16,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"TlmY_odU4MQ\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/imiq_Rud6nLIAxpOEfK-KXEiiqo\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5DODY2Qzc5Mzc1QkZEQ0NF\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-09-23T17:53:11.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"YouTube Partner Program and
+        Advertiser-Friendly Guidelines: YouTube’s Rules of the Road (Part 3)\",\n
+        \   \"description\": \"Ever wonder what's the difference between YouTube's
+        Community Guidelines, Copyright, the YouTube Partner Program and Advertiser-friendly
+        Guidelines? Have you ever had a video removed by YouTube or demonetized, and
+        you weren’t sure why? In this series of three short videos, we'll sort it
+        all out for you! In Part 3, Mahlet gives an overview of YouTube Partner Program
+        policies and Advertiser-friendly Guidelines -- important things for you to
+        know if you want to make money with your channel.\\n\\nDid you miss the other
+        parts to this series? Go back here: https://www.youtube.com/watch?v=gw-uctVZT00&list=PLpjK416fmKwRIUjKK1sw8NV-ShTc9yb0F&index=2&t=0s\\n\\nFor
+        more information about the YouTube Partner Program, check out this Help Center
+        article: https://support.google.com/youtube/answer/72851\\nFor more information
+        about Advertiser-friendly Guidelines, check out this Help Center article:
+        https://support.google.com/youtube/answer/6162278\\n\\nSubscribe and hit the
+        bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level up
+        your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/pkvuf0Ko008/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/pkvuf0Ko008/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/pkvuf0Ko008/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/pkvuf0Ko008/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/pkvuf0Ko008/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 17,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"pkvuf0Ko008\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/SLnXaJ_xxhro5zNQAUvnWfwrYpQ\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby42RDgxQ0M2OUIwREZCNjZF\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-09-12T16:57:01.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Copyright and Content ID:
+        YouTube’s Rules of the Road (Part 2)\",\n    \"description\": \"Ever wonder
+        what's the difference between YouTube's Community Guidelines, Copyright, the
+        YouTube Partner Program and Advertiser-friendly Guidelines? Have you ever
+        had a video removed by YouTube or demonetized, and you weren’t sure why? In
+        this series of three short videos, we'll sort it all out for you! In Part
+        2, Matt gives an overview of Copyright -- an important legal right you need
+        to know about to post videos on YouTube. He also dives into Content ID, our
+        automated system that helps enforce Copyright on YouTube.\\n\\nWATCH PART
+        3: https://www.youtube.com/watch?v=pkvuf0Ko008&list=PLpjK416fmKwRIUjKK1sw8NV-ShTc9yb0F&index=3\\n\\nFor
+        more information about Copyright and Content ID, check out our Help Center:
+        https://support.google.com/youtube/answer/2797449\\n\\nSubscribe and hit the
+        bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level up
+        your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/hJUf3-VGDBo/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/hJUf3-VGDBo/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/hJUf3-VGDBo/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/hJUf3-VGDBo/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/hJUf3-VGDBo/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 18,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"hJUf3-VGDBo\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/67H48vV_BG_i5hPAi73txWsuaPM\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby40ODU2MTBGM0M5MkIwQzU0\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-09-10T17:44:45.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Community Guidelines: YouTube’s
+        Rules of the Road (Part 1)\",\n    \"description\": \"Ever wonder what's the
+        difference between YouTube's Community Guidelines, Copyright, the YouTube
+        Partner Program and Advertiser-friendly Guidelines? Have you ever had a video
+        removed by YouTube or demonetized, and you weren’t sure why? In this series
+        of three short videos, we'll sort it all out for you! In Part 1, Kelly gives
+        an overview of YouTube's Community Guidelines -- an important set of policies
+        you need to know to post videos on YouTube.\\n\\nWATCH PART 2: https://www.youtube.com/watch?v=hJUf3-VGDBo&list=PLpjK416fmKwRIUjKK1sw8NV-ShTc9yb0F&index=3&t=0s\\n\\nFor
+        more information about our Community Guidelines, check out our Help Center:
+        https://support.google.com/youtube/answer/9288567\\nAnd our Creator Academy:
+        https://creatoracademy.youtube.com/page/course/community-guidelines\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/gw-uctVZT00/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/gw-uctVZT00/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/gw-uctVZT00/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/gw-uctVZT00/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/gw-uctVZT00/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 19,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"gw-uctVZT00\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/fbRfwSfgTRuqygfoabQIsW6Fi8E\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby44REI4QUZDRDI5MDc4Q0NF\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-08-28T17:57:06.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Set Up Your Branding Watermark\",\n
+        \   \"description\": \"You can encourage viewers to subscribe to your channel
+        by adding a branding watermark to your videos. This is often called a custom
+        subscribe button. When you add a watermark, viewers can directly subscribe
+        to your channel if they hover over the watermark when using YouTube on a computer.\\n\\nLearn
+        more in the YouTube Help Center: https://support.google.com/youtube/answer/6147757\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/XY9z1xWws1M/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/XY9z1xWws1M/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/XY9z1xWws1M/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/XY9z1xWws1M/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/XY9z1xWws1M/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 20,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"XY9z1xWws1M\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/lALapaz_ol05WR-pLeRvc_El4w8\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5FQjcyRDZBMEMyNTY3OTdE\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-08-13T17:44:59.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Tim Schmoyer - Quick Tips
+        from VidCon\",\n    \"description\": \"Tim Schmoyer joined us at VidCon to
+        give his 3 Quick Tips for being a successful YouTube Creator. Check out his
+        advice on studying your traffic sources, using Real Time Analytics, and analyzing
+        the viewership funnel in YouTube Analytics. And be sure to subscribe for more
+        creator best practices!\\n\\nCheck out Tim's channel: https://www.youtube.com/videocreators\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/XCbcDBm2lqo/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/XCbcDBm2lqo/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/XCbcDBm2lqo/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/XCbcDBm2lqo/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/XCbcDBm2lqo/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 21,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"XCbcDBm2lqo\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/pXwBARInnmjy2zIbtqrrn2mR110\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4wMEMyQTBBOTUwNTM0OUFG\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-08-01T18:39:44.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Quick Tips from YouTube HQ:
+        Alyska\",\n    \"description\": \"Gaming creator Alyska stopped by YouTube
+        Headquarters to give her 3 Quick Tips for being a successful YouTube Creator.
+        Check out her advice on interacting in comments, standing out amongst other
+        creators and connecting with other YouTubers. And be sure to subscribe for
+        more creator best practices!\\n\\nCheck out Alyska's channel: https://www.youtube.com/channel/UCYHh9SvqmbNuIRIJM2_bJyQ\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/cR4NnLXFONY/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/cR4NnLXFONY/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/cR4NnLXFONY/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/cR4NnLXFONY/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/cR4NnLXFONY/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 22,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"cR4NnLXFONY\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/9rn8JGlde3-oVvCuhK6ZTpfLQaU\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby44M0Q5MzQ0QTcwQzFDMjc5\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-07-18T17:54:07.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"MrBeast - Quick Tips from
+        YouTube HQ\",\n    \"description\": \"MrBeast stopped by YouTube Headquarters
+        to give his 3 Quick Tips for being a successful YouTube Creator. Check out
+        his advice on going above and beyond for your audience, getting help with
+        your channel, and not being afraid of YouTube Analytics. And be sure to subscribe
+        for more creator best practices!\\n\\nCheck out MrBeast's channel: https://www.youtube.com/MrBeast6000\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/qYlEXvtbho0/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/qYlEXvtbho0/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/qYlEXvtbho0/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/qYlEXvtbho0/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/qYlEXvtbho0/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 23,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"qYlEXvtbho0\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/1s-0fx3BEXGzAYHUHyn0gWMVvVg\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5EN0U0NTk3NzIwMjUxN0M3\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-06-27T18:13:40.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Understanding Your Video Performance
+        with THE FUNNEL [YouTube Analytics]\",\n    \"description\": \"Ever wonder
+        why some of your YouTube videos seem to take off while others don't? In this
+        video, Matt shows you how to better understand performance from video to video,
+        and get some insight on how our search and discovery system decides what to
+        recommend.\\n\\nYou'll see how the progression of audience is funneled from
+        impressions down to views, and ultimately, watch time. \\n\\nSo, grab a beverage,
+        pull up a video of your own in the new YouTube Studio Analytics, and follow
+        along!\\n\\nSubscribe and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/E4fBIywWvDA/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/E4fBIywWvDA/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/E4fBIywWvDA/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/E4fBIywWvDA/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/E4fBIywWvDA/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 24,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"E4fBIywWvDA\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/5KOUUySzlRrL39O1bIieXmKqK5g\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5BQzRBQzNEOTgzNTU2QkZB\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-06-18T18:13:30.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Quick Tips from YouTube HQ:
+        Jenny Lorenzo\",\n    \"description\": \"Jenny Lorenzo stopped by YouTube
+        Headquarters to give her 3 Quick Tips for being a successful YouTube Creator.
+        Check out her advice on creating a visual look, planning ahead and getting
+        help with your channel. And be sure to subscribe for more creator best practices!\\n\\nCheck
+        out Jenny's channel: https://www.youtube.com/channel/UCUglPO1el4LvRS2wAKKMgYg\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/t9iLgZkwULo/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/t9iLgZkwULo/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/t9iLgZkwULo/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/t9iLgZkwULo/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/t9iLgZkwULo/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 25,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"t9iLgZkwULo\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/pOxBDRuiAuRQSkYdQhWh-kTLS7g\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4zNEMzQ0FDREY1MkE1RkQ1\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-06-11T17:43:42.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Thrive as a Woman on YouTube
+        - Tips & Advice #SeeHer\",\n    \"description\": \"How can you thrive as a
+        woman on YouTube? In partnership with #SeeHer, Molly Burke, Shalom Blac, Physics
+        Girl, and Joanna Hausmann share their experience and advice as YouTube creators.
+        Hear their tips on ways they've overcome obstacles to express themselves authentically
+        on camera. Tell us how you're embracing what makes you unique and tag #SeeHer.
+        \\nBe sure to check out https://www.seeher.com \\nFollow on Instagram: https://www.instagram.com/seeher2020/\\nFollow
+        on Twitter: https://twitter.com/seeher2020\\n\\nCheck out Joanna's channel:
+        https://www.youtube.com/joannahausmann\\nCheck out Shalom's channel: https://www.youtube.com/shalomblac\\nCheck
+        out Dianna's channel: https://www.youtube.com/physicsgirl\\nCheck out Molly's
+        channel: https://www.youtube.com/MollyBurkeOfficial\\n\\nSubscribe and hit
+        the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level
+        up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/DuH1ZjUMbEU/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/DuH1ZjUMbEU/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/DuH1ZjUMbEU/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/DuH1ZjUMbEU/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/DuH1ZjUMbEU/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 26,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"DuH1ZjUMbEU\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/o8UKN2SEDpCxDrFLPcqORjhE9SQ\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby45MEI3NjgzMTVFQkZGODYx\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-06-07T17:19:34.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Groups & Comparisons in YouTube
+        Analytics\",\n    \"description\": \"Wanna know what formats perform the best
+        on your channel? Or which types of videos you should make more of? Groups
+        and Comparisons in Analytics are incredibly helpful tools for answering these
+        questions and analyzing your videos. Learn more on why you should use Groups,
+        what types of Groups you should create, and how to compare them in YouTube
+        Analytics!\\n\\nSubscribe and hit the bell to see a new video each Tuesday:
+        https://goo.gl/So4XIG\\n\\n► Level up your YouTube skills with Creator Academy
+        lessons: https://goo.gl/1P8bT4\\n► See index of all lessons: https://goo.gl/x2h1NG\\n►
+        Get step-by-step instructions: https://goo.gl/fBzr7\",\n    \"thumbnails\":
+        {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/5Kd0T8Va7Y0/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/5Kd0T8Va7Y0/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/5Kd0T8Va7Y0/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/5Kd0T8Va7Y0/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/5Kd0T8Va7Y0/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 27,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"5Kd0T8Va7Y0\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/k0EJJIc44yk46f1e1CObzTyIh7o\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5ENjg3MEUyQ0IzODMzQThB\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-05-28T22:43:44.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Advanced New Features in YouTube
+        Studio Analytics\",\n    \"description\": \"Dig deep into the helpful new
+        features of YouTube Analytics, including realtime reports, custom groups,
+        and automatically generated insights. You can now see how your latest video
+        is performing compared to your other, recent uploads -- and even compare the
+        performance of groups of videos with one another. Try it and let us know what
+        you think in the comments!\\n\\nSubscribe and hit the bell to see a new video
+        each Tuesday: https://goo.gl/So4XIG\\n\\n► Level up your YouTube skills with
+        Creator Academy lessons: https://goo.gl/1P8bT4\\n► See index of all lessons:
+        https://goo.gl/x2h1NG\\n► Get step-by-step instructions: https://goo.gl/fBzr7\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/NzpqNR2xMHU/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/NzpqNR2xMHU/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/NzpqNR2xMHU/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/NzpqNR2xMHU/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/NzpqNR2xMHU/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 28,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"NzpqNR2xMHU\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/9QKQsCh_y0V46JeGPb421Jkpbcs\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby41MzJFNEYxODEyNzA0QUUx\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-05-21T18:14:37.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"How to Tag Your Location on
+        Videos & Live Streams\U0001F4CD\",\n    \"description\": \"Tagging your location
+        on your videos and live streams lets users find your videos by that location
+        and see other videos that were tagged in the same location.\\n\\nYou can see
+        tagged locations on the watch page on any of your videos. Viewers will see
+        the tag on any of your public videos as well as unlisted or private videos
+        you share with them. \\n\\nFor more info, visit this Help Center article:
+        https://support.google.com/youtube/answer/7638112\\n\\nSubscribe and hit the
+        bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level up
+        your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/7wB5z8dLtNo/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/7wB5z8dLtNo/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/7wB5z8dLtNo/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/7wB5z8dLtNo/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/7wB5z8dLtNo/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 29,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"7wB5z8dLtNo\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/UGXMYwDHRJBlqgPg_EiAG6vCuqI\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5EODkyNDMzRkJBNkQ2NkMz\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-05-16T18:01:19.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"VR Creator Lab | YouTube’s
+        Immersive Program for Creators\",\n    \"description\": \"▶Learn more about
+        VR Creator Lab and apply to the next boot camp at: https://vr.youtube.com/community/vr-creator-lab/\\nVR
+        Creator Lab is YouTube’s very own immersive learning and production intensive
+        to help creators embrace YouTube’s VR180 format. Selected participants get
+        to attend a three-day boot camp at a YouTube Space and receive the following:\\n\\n--
+        Advanced education from leading VR instructors and filmmakers\\n-- Ongoing
+        mentoring\\n-- A shiny VR180 camera to keep\\n-- $20,000 USD in funding toward
+        the production of their dream projects\\n\\nNo prior experience is required,
+        as long as you are curious about the potential of VR and willing to try something
+        new and exciting. If you are ready to take your video production to the next
+        level and get your viewers (literally) immersed into your world, this program
+        is for you!\\n\\n▶Learn more about VR Creator Lab and apply to the next boot
+        camp at https://vr.youtube.com/community/vr-creator-lab/\\n\\n#VRCreatorLab\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/x8_j-SQ7JEI/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/x8_j-SQ7JEI/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/x8_j-SQ7JEI/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/x8_j-SQ7JEI/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/x8_j-SQ7JEI/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 30,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"x8_j-SQ7JEI\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/7KpKOdqvI2Oq6jPoogMLxjzeeR0\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5BRUVCN0E0MzEwQzAwNjMy\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-05-07T18:18:21.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"How B-roll Can Spice Up Your
+        Videos \U0001F336\U0001F3AC ft. WheezyWaiter\",\n    \"description\": \"Have
+        you heard of b-roll, but not sure what it is? Want to know how it can help
+        your videos? Or, maybe you're just curious where you can find b-roll to use?
+        In this video, Craig from WheezyWaiter gives all the tips and tricks you need
+        to know about using b-roll in your videos!\\n\\nCheck out Craig's channel:
+        https://www.youtube.com/wheezywaiter\\n\\nHere are some of the b-roll website
+        options Craig mentioned:\\nhttps://archive.org\\nhttps://www.shutterstock.com\\nhttps://stock.adobe.com\\nhttps://www.pond5.com\\nhttps://www.videoblocks.com\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/gZ1xkOMzn3E/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/gZ1xkOMzn3E/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/gZ1xkOMzn3E/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/gZ1xkOMzn3E/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/gZ1xkOMzn3E/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 31,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"gZ1xkOMzn3E\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/vhCdzThWr73Yb0aw9FpCzE7GTDw\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby41NUMwNTVERDNBRDc4REM0\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-04-30T17:34:06.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Quick Tips from YouTube HQ:
+        The Fitness Marshall\",\n    \"description\": \"Caleb Marshall from The Fitness
+        Marshall stopped by YouTube Headquarters to give his 3 Quick Tips for being
+        a successful YouTube Creator. Check out his advice and be sure to subscribe
+        for more creator best practices!\\n\\nCheck out Caleb's channel The Fitness
+        Marshall: https://www.youtube.com/TheFitnessMarshall\\n\\nSubscribe and hit
+        the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level
+        up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/T64B0wnqez8/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/T64B0wnqez8/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/T64B0wnqez8/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/T64B0wnqez8/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/T64B0wnqez8/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 32,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"T64B0wnqez8\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/1WIwDoDrbrJFuJuvFHG4tgSg0d8\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4wQTI4OEZFRUE0Q0Q3ODQw\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-04-23T17:31:22.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Ideas to Celebrate Your Channel
+        Milestones!\",\n    \"description\": \"Thank you for helping us reach 1 million
+        subscribers! And a huge thanks to all the awesome creators who got us here!
+        To celebrate, we put together our favorite tips for sharing your own milestone
+        moments. Whether it's your first 1,000 subs or 1 million views, be sure to
+        take the time to celebrate your channel milestone and thank your fans!\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/7yIn-tnN_OM/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/7yIn-tnN_OM/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/7yIn-tnN_OM/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/7yIn-tnN_OM/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/7yIn-tnN_OM/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 33,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"7yIn-tnN_OM\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/4QJFYXn-O3GCjJ42G3jLWRoCpeU\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4xRDJGOTc4RkUxMzUwMUFG\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-04-16T18:05:39.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"How Can You Refresh and Revive
+        Your Channel? | Channel Checkup ft. Riyadh K\",\n    \"description\": \"Want
+        to know what a typical meeting with a Partner Manager is like? The goal of
+        Channel Checkup is to show you how you can analyze your own channel by taking
+        you through a typical meeting with a Partner Manager. In this video, YouTube
+        Partner Manager Meg sits down with YouTube Creator Riyadh K to go discuss
+        ways to pivot and revive a YouTube channel, and to answer some of Riyadh's
+        questions. Hear Meg's advice around being consistent, engaging with your audience,
+        deep diving into Analytics and more! Consider how you can take some of these
+        insights and apply them back to your own channel!\\n\\nCheck out Riyadh's
+        channel: https://www.youtube.com/riyadhk\\n\\nSubscribe and hit the bell to
+        see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level up your YouTube
+        skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n► See index of
+        all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions: https://goo.gl/fBzr7\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/RoNnKA5kkbM/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/RoNnKA5kkbM/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/RoNnKA5kkbM/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/RoNnKA5kkbM/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/RoNnKA5kkbM/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 34,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"RoNnKA5kkbM\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/5KjKofzZe9j8raFu2l0JhmoBNB0\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4wMDkwRkI3NzExODA2MTFG\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-04-09T17:47:04.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Marques Brownlee on Collaborating
+        to Reach More Fans\",\n    \"description\": \"Collaborations can be a powerful
+        way to extend the reach of your channel. A good collab can bring you new viewers—and
+        potentially turn them into subscribers. In this video, YouTube creator Marques
+        Brownlee (MKBHD) discusses why he believes collaborations are a great way
+        to reach new audiences, exercise your creative muscle, and help sustain your
+        channel over the long term. Hear his advice on how collaborating can help
+        make your content better, what to look for when deciding who to collaborate
+        with, and some tips on how to reach out to others about a collaboration.\\n\\nCheck
+        out Marques' channel: https://www.youtube.com/mkbhd\\n\\nSubscribe and hit
+        the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level
+        up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/dAtGDfq2xjE/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/dAtGDfq2xjE/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/dAtGDfq2xjE/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/dAtGDfq2xjE/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/dAtGDfq2xjE/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 35,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"dAtGDfq2xjE\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/l15aPtfyVql3UxHs46XjiP7X5VA\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5ERkRDQjY0N0Y0Q0VFOTdC\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-04-02T17:10:53.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Should You Start a Second
+        Channel? | Channel Checkup ft. Ari Fitz\",\n    \"description\": \"Want to
+        know what a typical meeting with a Partner Manager is like? The goal of Channel
+        Checkup is to show you how you can analyze your own channel by taking you
+        through a typical meeting with a Partner Manager. In this video, YouTube Partner
+        Manager Meg sits down with YouTube Creator Ari Fitz to go discuss the pros
+        and cons of starting a second YouTube channel, and to answer some of Ari's
+        questions. Hear Meg's advice around what questions to ask before starting
+        another channel, how to promote a second channel, and more! Consider how you
+        can take some of these insights and apply them back to your own channel!\\n\\nCheck
+        out Ari's channel: https://www.youtube.com/itsarifitz\\n\\nSubscribe and hit
+        the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level
+        up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/Up8jSMBvdGg/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/Up8jSMBvdGg/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/Up8jSMBvdGg/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/Up8jSMBvdGg/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/Up8jSMBvdGg/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 36,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"Up8jSMBvdGg\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/SlBYF0HlsJ17TcIKjv3oskutb_4\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5BRDg1NUY1OTY2QzgzOEM0\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-03-26T17:26:29.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"How YouTube Fights Fraudulent
+        Copyright Claims and Takedowns\",\n    \"description\": \"Behind the scenes,
+        YouTube fights to protect you from fraudulent copyright claims and takedowns.
+        Learn what your rights are when your video receives a copyright strike or
+        a Content ID claim, and find out what to do if you think it’s a mistake.\\n\\nLearn
+        more with our YouTube Help Center: \\nhttps://support.google.com/youtube/answer/2797466\\nhttps://support.google.com/youtube/answer/7002106\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/ddS_vmEbUwY/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/ddS_vmEbUwY/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/ddS_vmEbUwY/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/ddS_vmEbUwY/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/ddS_vmEbUwY/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 37,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"ddS_vmEbUwY\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/ehH9pAFVKN0K-hAjIKWXuvnTnEM\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby42NEZDNTU0RTRENDUzRjMz\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-03-19T21:03:20.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Show Off Your Merch with the
+        YouTube Merchandise Shelf\",\n    \"description\": \"The merchandise shelf
+        allows eligible creators to showcase their official branded merchandise on
+        YouTube, which appears on the video page of eligible channels. You can now
+        pick up to 12 specific items on your Merchandise shelf and order them yourself.
+        For more info on the Merchandise shelf and eligibility requirements, check
+        out this Help Center article: https://support.google.com/youtube/answer/9158148?hl=en&ref_topic=9153997\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/BAwDBN4Ldz0/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/BAwDBN4Ldz0/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/BAwDBN4Ldz0/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/BAwDBN4Ldz0/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/BAwDBN4Ldz0/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 38,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"BAwDBN4Ldz0\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/35X01ibjiFp48IENaHDc9rrdXCE\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5ENEEyOTIwNkY4NzFGMkQ2\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-03-12T18:10:03.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Wengie's Advice for Making
+        Creative Changes on YouTube\",\n    \"description\": \"Ever considered changing
+        what content you make on YouTube? In this video, YouTube creator Wengie shares
+        her experience and advice around doing a creative pivot on YouTube. Check
+        out Wengie's tips around how to know when to pivot, what questions you should
+        ask yourself before pivoting, and the potential growing pains and benefits
+        of changing your creative direction on YouTube.\\n\\nCheck out Wengie's channel:
+        https://www.youtube.com/Wengie\\n\\nLearn more about going after long-term
+        success on YouTube with our Creator Academy: https://creatoracademy.youtube.com/page/course/longevity\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/CnGQnzWSZNA/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/CnGQnzWSZNA/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/CnGQnzWSZNA/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/CnGQnzWSZNA/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/CnGQnzWSZNA/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 39,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"CnGQnzWSZNA\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/RP6agNhjVlV1m-jsMYuY-sh6v9o\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby43NjE5NDdDRTdENjQ3RTkw\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-03-04T17:00:55.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"What happened with Article
+        13? - Burning Questions\",\n    \"description\": \"The latest on Article 13,
+        and your top questions answered. \\n\\nThe text will go back to the European
+        Parliament for a final vote as early as the 12th of March. Reach out to Members
+        of Parliament to express your concerns: http://www.europarl.europa.eu/meps/en/home\\n\\nOur
+        original Article 13 video: https://www.youtube.com/watch?v=TRYSxIYHS0w\\n\\nOn
+        February 13th European lawmakers agreed on the final text of the EU Copyright
+        Directive, which includes Article 13. The text will go back to the European
+        Parliament for a final vote as early as the 12th of March.\\n\\nWe’ve had
+        several  lawyers and policy experts examine the text.\\nThe good news is that
+        the latest text has improved over the version written by the European Parliament
+        last September. This is also thanks to all the YouTube creators who spoke
+        up and made a big difference in having the creator point of view heard. \\n\\nAt
+        the same time, while there have been improvements, we believe the final Article
+        13 will still hurt, not help European creators.\\n\\nWhat’s the issue?\\nThe
+        final text leaves a lot of ambiguity on what happens to content before YouTube
+        receives notice from rightsholders. This will result in online platforms like
+        YouTube blocking content because they need to remain on the side of caution
+        and reduce their legal risks. \\n\\nSpecifically, the text is unclear on three
+        things:\\n1) The role of rights holders in providing the necessary level of
+        detail to identify their content.\\n2) It's unclear what kind of content platforms
+        like YouTube need to have licenses for. Images? Paintings? Photos? What else?
+        Given that is unclear, there's no way of being a hundred percent sure of whether
+        all the rights are covered at the moment of upload.\\n3) If there are new
+        legal responsibilities for creators.\\n\\nWhat can you do next? \\nReach out
+        to Members of Parliament to express your concerns. http://www.europarl.europa.eu/meps/en/home\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/kIwp25OGFHQ/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/kIwp25OGFHQ/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/kIwp25OGFHQ/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/kIwp25OGFHQ/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/kIwp25OGFHQ/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 40,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"kIwp25OGFHQ\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/IXKKro_cShuzwfdXvjImKXXy398\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4wRkVBNUY4OTkzN0JCNTA2\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-02-26T18:53:24.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Sustaining a YouTube Channel
+        ft. schmoyoho\",\n    \"description\": \"For long-term success on YouTube,
+        you need to evolve your channel over time. In this video, The Gregory Brothers
+        (the creators behind the channel schmoyoho) share their experience and tips
+        around sustaining a YouTube channel. Before you start making big changes,
+        it can be helpful to understand where you are and where you want to be on
+        YouTube. Check out their advice around what to consider before evolving your
+        content, what metrics and factors to research, and staying true to yourself
+        so you can be more successful long-term.\\n\\nCheck out schmoyoho's channel:
+        https://www.youtube.com/user/schmoyoho\\n\\nLearn more about going after long-term
+        success on YouTube with our Creator Academy: https://creatoracademy.youtube.com/page/course/longevity\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/xxhZEvQzCnY/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/xxhZEvQzCnY/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/xxhZEvQzCnY/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/xxhZEvQzCnY/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/xxhZEvQzCnY/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 41,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"xxhZEvQzCnY\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/bXt1b27zxLJlBzbB1BWwLyhm3A4\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby44NjIxNjc5OUQwQkJBODQ5\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-02-19T16:51:09.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"New YouTube Community Guidelines
+        Strikes System\",\n    \"description\": \"We’re updating the way we give Community
+        Guidelines strikes to a new, simpler system. We’ve worked with creators to
+        understand what’s working and what’s not and you told us that consistent enforcement,
+        clear policies, and transparency about the impact of a Community Guidelines
+        strike are most important. So we’re introducing more opportunities for everyone
+        to understand our policies, a consistent penalty for each strike, and better
+        notifications. Please note this is separate from our copyright strikes system.\\n\\nBlog
+        post on the new system:\\nhttps://youtube-creators.googleblog.com/2019/02/making-our-strikes-system-clear-and.html\\n\\nYouTube
+        Help Center article: https://support.google.com/youtube/answer/2802032\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/zgoF7HpB55g/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/zgoF7HpB55g/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/zgoF7HpB55g/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/zgoF7HpB55g/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/zgoF7HpB55g/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 42,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"zgoF7HpB55g\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/J2Hb6WMYbQqff9yFp-00WccR1dc\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby43RDg3MzJDMTRFMTZFOTAw\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-02-19T16:48:21.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Changes to Community Guidelines
+        Strikes - Burning Questions\",\n    \"description\": \"Do you understand the
+        new changes to our Community Guidelines strike system? Matt from YouTube answers
+        your top questions around the new, simpler system. \\n\\nWe’ve worked with
+        creators to understand what’s working and what’s not and you told us that
+        consistent enforcement, clear policies, and transparency about the impact
+        of a strike are most important. So we’re introducing more opportunities for
+        everyone to understand our policies, a consistent penalty for each strike,
+        and better notifications. \\n\\nBlog post on the new system:\\nhttps://youtube-creators.googleblog.com/2019/02/making-our-strikes-system-clear-and.html\\n\\nYouTube
+        Help center article: \\nhttps://support.google.com/youtube/answer/2802032\\n\\nAppeal
+        your strike if you feel it is incorrect: https://support.google.com/youtube/answer/185111
+        \\n\\nQuestions answered in this video:\\n\\n- What’s changing with Community
+        Guidelines Strikes on YouTube? 0:22\\n- Why did YouTube make changes to the
+        Community Guidelines strike system? 1:03\\n- What happens when I get a Community
+        Guidelines strike? 1:23\\n- If I have an existing strike on my channel, will
+        I still get a one-time warning? 1:46\\n- What exactly does it mean to “not
+        be able to post anything” when I get a strike? 1:55\\n- When do these changes
+        go into effect? 2:08\\n- Do I get warnings for copyright strikes too? Or is
+        this only for Community Guidelines? 2:23\\n- I’m a live streamer. Does the
+        90-day freeze on live streaming still exist? 2:51\\n- My warning or strike
+        was incorrect. What can I do? 3:10\\n- What if I appeal and it turns out I’m
+        right? Do you erase my strike? 3:20\\n\\nSubscribe and hit the bell to see
+        a new video each Tuesday: https://goo.gl/So4XIG\\n\\n► Level up your YouTube
+        skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n► See index of
+        all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions: https://goo.gl/fBzr7\",\n
+        \   \"thumbnails\": {\n     \"default\": {\n      \"url\": \"https://i.ytimg.com/vi/ZTRwOQFfaNo/default.jpg\",\n
+        \     \"width\": 120,\n      \"height\": 90\n     },\n     \"medium\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/ZTRwOQFfaNo/mqdefault.jpg\",\n      \"width\":
+        320,\n      \"height\": 180\n     },\n     \"high\": {\n      \"url\": \"https://i.ytimg.com/vi/ZTRwOQFfaNo/hqdefault.jpg\",\n
+        \     \"width\": 480,\n      \"height\": 360\n     },\n     \"standard\":
+        {\n      \"url\": \"https://i.ytimg.com/vi/ZTRwOQFfaNo/sddefault.jpg\",\n
+        \     \"width\": 640,\n      \"height\": 480\n     },\n     \"maxres\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/ZTRwOQFfaNo/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 43,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"ZTRwOQFfaNo\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/_VITBCk3ElolKnLVadVxhM1uquc\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5BNzdEQzY0REQzQTEyN0U3\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-02-12T18:13:18.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Video Performance Anxiety
+        with Elle Mills | Creator Coffees\",\n    \"description\": \"Do you ever feel
+        anxiety around video performance on your YouTube channel? In this episode
+        of Creator Coffees, YouTube creator Elle Mills sits down with YouTube employees
+        Matt and Todd to discuss ways to think about fluctuations in video performance.
+        If you’re a YouTube creator struggling with burnout, be sure to check out
+        the following resources:\\n\\nCreator Academy course on staying well and avoiding
+        burnout: https://creatoracademy.youtube.com/page/course/well-being\\n\\nManaging
+        Creator Burnout Master Class with Kati Morton:\\nhttps://www.youtube.com/watch?v=qu8tgCb5jYM&list=PLpjK416fmKwQ_BhjfzuCdas9R_VcDA2JQ\\n\\nUnderstanding
+        your video reach on YouTube:\\nhttps://creatoracademy.youtube.com/page/lesson/analytics-impressions?cid=analytics-series\\n\\nYouTube
+        Studio beta analytics basics:\\nhttps://support.google.com/youtube/answer/9002587
+        \\n\\nSubscribe and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/YfSmdG_Nb98/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/YfSmdG_Nb98/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/YfSmdG_Nb98/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/YfSmdG_Nb98/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/YfSmdG_Nb98/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 44,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"YfSmdG_Nb98\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/lMd-OUl_PcSYseUKipTHbod9I2k\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5EODgyNjY4MzA3QzY5RTkx\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-02-09T17:31:58.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Creators Taking Vacations
+        - Elle Mills | Creator Coffees\",\n    \"description\": \"Do you ever feel
+        guilty about taking vacations as a YouTube Creator? In this episode of Creator
+        Coffees, YouTube creator Elle Mills sits down with YouTube employees Matt
+        and Todd to discuss creator vacations - does affects channel performance?
+        How will viewers react? What are the pros and cons? If you’re a YouTube creator
+        struggling with burnout, be sure to check out the following resources:\\n\\nCreator
+        Academy course on staying well and avoiding burnout: https://creatoracademy.youtube.com/page/course/well-being\\n\\nManaging
+        Creator Burnout Master Class with Kati Morton:\\nhttps://www.youtube.com/watch?v=qu8tgCb5jYM&list=PLpjK416fmKwQ_BhjfzuCdas9R_VcDA2JQ\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/SINjqNsWMlU/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/SINjqNsWMlU/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/SINjqNsWMlU/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/SINjqNsWMlU/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/SINjqNsWMlU/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 45,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"SINjqNsWMlU\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/8WYr3U7nbqx9Q1wteWYHfwdKPMs\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4zNDIxRUJGQThFRTg1QzAy\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-02-05T18:37:36.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Elle Mills on Creator Burnout
+        | Creator Coffees\",\n    \"description\": \"Do you ever feel burnt out as
+        a YouTube creator? In this episode of Creator Coffees, YouTube creator Elle
+        Mills sits down with YouTube employee Matt to discuss creator burnout - her
+        struggle with it, what she’s done to combat it, and advice for other creators.
+        If you’re a YouTube creator struggling with burnout, be sure to check out
+        the following resources:\\n\\nCreator Academy course on staying well and avoiding
+        burnout: https://creatoracademy.youtube.com/page/course/well-being\\n\\nManaging
+        Creator Burnout Master Class with Kati Morton:\\nhttps://www.youtube.com/watch?v=qu8tgCb5jYM&list=PLpjK416fmKwQ_BhjfzuCdas9R_VcDA2JQ\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/seCudUlxehs/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/seCudUlxehs/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/seCudUlxehs/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/seCudUlxehs/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/seCudUlxehs/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 46,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"seCudUlxehs\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/sLKxlWUQsFpkn9XHFbHvdFVXtRQ\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby4yOTZGRTNEQ0ZGNUM5RDgw\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-01-29T19:19:48.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"How Ads Work on YouTube\",\n
+        \   \"description\": \"When you’re ready to turn ads on, it is useful to understand
+        how viewers, creators, and advertisers work together so everyone benefits.\\nIn
+        this video, we'll teach you how ads work -- who the three key players are
+        in running ads, how to turn ads on, and what ad types are available -- and
+        debunk some myths. Note: Monetization is only available in certain countries,
+        and copyright or community guidelines violations can affect your eligibility
+        to earn money.\\n\\nLearn more with our Creator Academy course: https://goo.gl/cqGgXN\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\nHaving
+        issues? Try our monetization troubleshooter: https://support.google.com/youtube/troubleshooter/2990415\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/WPR9PCoeqog/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/WPR9PCoeqog/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/WPR9PCoeqog/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/WPR9PCoeqog/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/WPR9PCoeqog/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 47,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"WPR9PCoeqog\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/4o_y_Xo8B-7eEJpiii30smOAcoY\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby5CQzUwREI3MzkxQjdBM0E0\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-01-22T18:36:37.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"Intro to Making Money on YouTube\",\n
+        \   \"description\": \"Interested in making money on YouTube? All YouTube
+        creators can apply to join the YouTube Partner Program as long as it is available
+        in your country. After you hit 4,000 watch hours in the previous 12 months
+        and 1,000 subscribers, your activity will be reviewed against our policies.
+        If everything looks good, you’ll be able to join the YouTube Partner Program
+        and begin serving ads on your content. This threshold helps ensure revenue
+        only flows to creators who are playing by the rules.\\n\\nLearn more about
+        our YouTube Partner Program and application requirements: https://support.google.com/youtube/answer/72851\\nLearn
+        more about our YouTube Partner Program Policies: https://support.google.com/youtube/answer/1311392\\n\\nLearn
+        more with our Creator Academy course: https://goo.gl/cqGgXN\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/bIngfKyJyUw/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/bIngfKyJyUw/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/bIngfKyJyUw/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/bIngfKyJyUw/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/bIngfKyJyUw/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 48,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"bIngfKyJyUw\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  },\n  {\n   \"kind\": \"youtube#playlistItem\",\n   \"etag\":
+        \"\\\"Fznwjl6JEQdo1MGvHOGaz_YanRU/5KMeIbpkjVoqElwwWxSYfJ3gjSg\\\"\",\n   \"id\":
+        \"UExwaks0MTZmbUt3UWxRMEt2VFdGbVhaWmEzZDRJTzJyby40OTQ5QjlEMDgzN0FBNUIw\",\n
+        \  \"snippet\": {\n    \"publishedAt\": \"2019-01-15T19:05:38.000Z\",\n    \"channelId\":
+        \"UCkRfArvrzheW2E7b6SVT7vQ\",\n    \"title\": \"How to Use Captions on YouTube
+        ft. Jessica Kellgren-Fozard\",\n    \"description\": \"Captioning or subtitling
+        your videos opens them up to a larger audience, potentially increasing both
+        your reach and engagement. In this video, YouTube Creator Jessica Kellgren-Fozard
+        talks about how to use captions on YouTube.\\n\\nCheck out Jessica's channel:
+        https://www.youtube.com/MissJessicaKH\\n\\nLearn more with our Creator Academy
+        lesson:\\nhttps://creatoracademy.youtube.com/page/lesson/captions\\n\\nAnd
+        our Help Center article:\\nhttps://support.google.com/youtube/answer/2734796\\n\\nSubscribe
+        and hit the bell to see a new video each Tuesday: https://goo.gl/So4XIG\\n\\n►
+        Level up your YouTube skills with Creator Academy lessons: https://goo.gl/1P8bT4\\n►
+        See index of all lessons: https://goo.gl/x2h1NG\\n► Get step-by-step instructions:
+        https://goo.gl/fBzr7\",\n    \"thumbnails\": {\n     \"default\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/u4TvcOWEWbQ/default.jpg\",\n      \"width\": 120,\n
+        \     \"height\": 90\n     },\n     \"medium\": {\n      \"url\": \"https://i.ytimg.com/vi/u4TvcOWEWbQ/mqdefault.jpg\",\n
+        \     \"width\": 320,\n      \"height\": 180\n     },\n     \"high\": {\n
+        \     \"url\": \"https://i.ytimg.com/vi/u4TvcOWEWbQ/hqdefault.jpg\",\n      \"width\":
+        480,\n      \"height\": 360\n     },\n     \"standard\": {\n      \"url\":
+        \"https://i.ytimg.com/vi/u4TvcOWEWbQ/sddefault.jpg\",\n      \"width\": 640,\n
+        \     \"height\": 480\n     },\n     \"maxres\": {\n      \"url\": \"https://i.ytimg.com/vi/u4TvcOWEWbQ/maxresdefault.jpg\",\n
+        \     \"width\": 1280,\n      \"height\": 720\n     }\n    },\n    \"channelTitle\":
+        \"YouTube Creators\",\n    \"playlistId\": \"PLpjK416fmKwQlQ0KvTWFmXZZa3d4IO2ro\",\n
+        \   \"position\": 49,\n    \"resourceId\": {\n     \"kind\": \"youtube#video\",\n
+        \    \"videoId\": \"u4TvcOWEWbQ\"\n    }\n   },\n   \"status\": {\n    \"privacyStatus\":
+        \"public\"\n   }\n  }\n ]\n}\n"
+    http_version: null
+  recorded_at: Thu, 06 Feb 2020 07:18:24 GMT
+recorded_with: VCR 5.1.0
