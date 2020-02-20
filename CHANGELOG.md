@@ -7,6 +7,20 @@ For more information about changelogs, check
 [Vandamme](http://tech-angels.github.io/vandamme).
 
 
+## Unreleased
+
+If your code calls reports methods such as `views`, `likes`, or `reports`,
+do not include `by: :week` option since `7DayTotals` dimension will no longer be
+supported by YouTube API as of [April 15, 2020](https://developers.google.com/youtube/analytics/revision_history#october-15,-2019).
+
+Use `by: :day` option instead and add up the numbers from each day.
+
+If you keep using `by: :week` option after this change it will raise an error
+(before the gem upgrade) or it will run with `day` dimension instead (after
+the gem upgrade, like any other random input).
+
+* [REMOVAL] Remove `by: :week` option for reports.
+
 ## 0.32.6 - 2020-02-07
 
 * [FEATURE] Allow partnered channels to delete playlist item.

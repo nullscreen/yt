@@ -35,18 +35,6 @@ describe Yt::Playlist, :partner do
             expect(result[metric].values).to all(be_a type)
           end
         end
-
-        specify 'by week' do
-          range = {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 9}
-          result = playlist.reports range.merge(only: metrics, by: :week)
-          metrics.each do |metric, type|
-            expect(result[metric].size).to be <= 2
-            expect(result[metric].keys).to all(be_a Range)
-            expect(result[metric].keys.map{|range| range.first.wday}.uniq).to be_one
-            expect(result[metric].keys.map{|range| range.last.wday}.uniq).to be_one
-            expect(result[metric].values).to all(be_a type)
-          end
-        end
       end
 
       {views: Integer, estimated_minutes_watched: Integer,
@@ -85,18 +73,6 @@ describe Yt::Playlist, :partner do
             expect(result.keys.map &:first).to eq result.keys.map(&:first).map(&:beginning_of_month)
             expect(result.keys.map &:last).to all(be_a Date)
             expect(result.keys.map &:last).to eq result.keys.map(&:last).map(&:end_of_month)
-          end
-        end
-
-        describe "#{metric} can be grouped by week and returns non-overlapping periods" do
-          let(:metric) { metric }
-          let(:range) { {since: ENV['YT_TEST_PARTNER_VIDEO_DATE'], until: Date.parse(ENV['YT_TEST_PARTNER_VIDEO_DATE']) + 9} }
-          let(:result) { playlist.public_send metric, range.merge(by: :week)}
-          specify do
-            expect(result.size).to be <= 2
-            expect(result.keys).to all(be_a Range)
-            expect(result.keys.map{|range| range.first.wday}.uniq).to be_one
-            expect(result.keys.map{|range| range.last.wday}.uniq).to be_one
           end
         end
 

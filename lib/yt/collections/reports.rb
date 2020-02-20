@@ -6,7 +6,6 @@ module Yt
     class Reports < Base
       DIMENSIONS = Hash.new({name: 'day', parse: ->(day, *values) { @metrics.keys.zip(values.map{|v| {Date.iso8601(day) => v}}).to_h} }).tap do |hash|
         hash[:month] = {name: 'month', parse: ->(month, *values) { @metrics.keys.zip(values.map{|v| {Range.new(Date.strptime(month, '%Y-%m').beginning_of_month, Date.strptime(month, '%Y-%m').end_of_month) => v} }).to_h} }
-        hash[:week] = {name: '7DayTotals', parse: ->(last_day_of_week, *values) { @metrics.keys.zip(values.map{|v| {Range.new(Date.strptime(last_day_of_week) - 6, Date.strptime(last_day_of_week)) => v} }).to_h} }
         hash[:range] = {parse: ->(*values) { @metrics.keys.zip(values.map{|v| {total: v}}).to_h } }
         hash[:traffic_source] = {name: 'insightTrafficSourceType', parse: ->(source, *values) { @metrics.keys.zip(values.map{|v| {TRAFFIC_SOURCES.key(source) => v}}).to_h} }
         hash[:playback_location] = {name: 'insightPlaybackLocationType', parse: ->(location, *values) { @metrics.keys.zip(values.map{|v| {PLAYBACK_LOCATIONS.key(location) => v}}).to_h} }
@@ -140,11 +139,6 @@ module Yt
           end
           if dimension == :month
             hash = hash.transform_values{|h| h.sort_by{|range, v| range.first}.to_h}
-          elsif dimension == :week
-            hash = hash.transform_values do |h|
-              h.select{|range, v| range.last.wday == days_range.last.wday}.
-              sort_by{|range, v| range.first}.to_h
-            end
           elsif dimension == :day
             hash = hash.transform_values{|h| h.sort_by{|day, v| day}.to_h}
           elsif dimension.in? [:traffic_source, :country, :state, :playback_location, :device_type, :operating_system, :subscribed_status]
