@@ -15,6 +15,7 @@ module Yt
         super.tap do |params|
           params[:path] = '/oauth2/v2/userinfo'
           params[:expected_response] = Net::HTTPOK
+          params[:api_key] = nil
         end
       end
 

@@ -119,7 +119,7 @@ module Yt
           params[:auth] = @auth
           params[:path] = path
           params[:exptected_response] = Net::HTTPOK
-          params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key
+          params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key && !@auth
         end
       end
 

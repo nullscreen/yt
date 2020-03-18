@@ -23,6 +23,7 @@ module Yt
           params[:auth] = nil
           params[:body] = auth_params
           params[:camelize_body] = false
+          params[:api_key] = nil
         end
       end
 
