@@ -6,7 +6,7 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.33.0 - Unreleased
+## 0.33.0 - 2020-04-10
 
 If your code calls reports methods such as `views`, `likes`, or `reports`,
 do not include `by: :week` option since `7DayTotals` dimension will no longer be
@@ -20,6 +20,7 @@ the gem upgrade, like any other random input).
 
 * [REMOVAL] Remove `by: :week` option for reports.
 * [FEATURE] Add back the option of initializing a resource by its URL.
+* [BUGFIX] Limit retries on refreshing tokens
 
 **Breaking change**
 
