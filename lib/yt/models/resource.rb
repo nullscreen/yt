@@ -12,7 +12,9 @@ module Yt
 
       # @!attribute [r] id
       #   @return [String] the ID that YouTube uses to identify each resource.
-      attr_reader :id
+      def id
+        @id ||= @match['id'] || fetch_channel_id
+      end
 
     ### STATUS ###
 
@@ -42,7 +44,12 @@ module Yt
 
       # @private
       def initialize(options = {})
-        @id = options[:id]
+        if options[:url]
+          @url = options[:url]
+          @match = find_pattern_match
+        else
+          @id = options[:id]
+        end
         @auth = options[:auth]
         @snippet = Snippet.new(data: options[:snippet]) if options[:snippet]
         @status = Status.new(data: options[:status]) if options[:status]
@@ -50,7 +57,11 @@ module Yt
 
       # @private
       def kind
-        self.class.to_s.demodulize.underscore
+        if @url
+          @match[:kind].to_s
+        else
+          self.class.to_s.demodulize.underscore
+        end
       end
 
       # @private
@@ -66,7 +77,62 @@ module Yt
         end
       end
 
+      # @return [Array<Regexp>] patterns matching URLs of YouTube playlists.
+      PLAYLIST_PATTERNS = [
+         %r{^(?:https?://)?(?:www\.)?youtube\.com/playlist/?\?list=(?<id>[a-zA-Z0-9_-]+)},
+      ]
+
+      # @return [Array<Regexp>] patterns matching URLs of YouTube videos.
+      VIDEO_PATTERNS = [
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/watch\?v=(?<id>[a-zA-Z0-9_-]{11})},
+        %r{^(?:https?://)?(?:www\.)?youtu\.be/(?<id>[a-zA-Z0-9_-]{11})},
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/embed/(?<id>[a-zA-Z0-9_-]{11})},
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/v/(?<id>[a-zA-Z0-9_-]{11})},
+      ]
+
+      # @return [Array<Regexp>] patterns matching URLs of YouTube channels.
+      CHANNEL_PATTERNS = [
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/channel/(?<id>UC[a-zA-Z0-9_-]{22})},
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/(?<format>c/|user/)?(?<name>[a-zA-Z0-9_-]+)}
+      ]
+
     private
+
+      def find_pattern_match
+        patterns.find do |kind, regex|
+          if data = @url.match(regex)
+            # Note: With Ruby 2.4, the following is data.named_captures
+            break data.names.zip(data.captures).to_h.merge kind: kind
+          end
+        end || {kind: :unknown}
+      end
+
+      def patterns
+        # @note: :channel *must* be the last since one of its regex eats the
+        # remaining patterns. In short, don't change the following order.
+        Enumerator.new do |patterns|
+          VIDEO_PATTERNS.each {|regex| patterns << [:video, regex]}
+          PLAYLIST_PATTERNS.each {|regex| patterns << [:playlist, regex]}
+          CHANNEL_PATTERNS.each {|regex| patterns << [:channel, regex]}
+        end
+      end
+
+      def fetch_channel_id
+        response = Net::HTTP.start 'www.youtube.com', 443, use_ssl: true do |http|
+          http.request Net::HTTP::Get.new("/#{@match['format']}#{@match['name']}")
+        end
+        if response.is_a?(Net::HTTPRedirection)
+          response = Net::HTTP.start 'www.youtube.com', 443, use_ssl: true do |http|
+            http.request Net::HTTP::Get.new(response['location'])
+          end
+        end
+        regex = %r{<meta itemprop="channelId" content="(?<id>UC[a-zA-Z0-9_-]{22})">}
+        if data = response.body.match(regex)
+          data[:id]
+        else
+          raise Yt::Errors::NoItems
+        end
+      end
 
       # Since YouTube API only returns tags on Videos#list, the memoized
       # `@snippet` is erased if the video was instantiated through Video#search
