@@ -20,6 +20,7 @@ the gem upgrade, like any other random input).
 
 * [REMOVAL] Remove `by: :week` option for reports.
 * [FEATURE] Add back the option of initializing a resource by its URL.
+* [BUGFIX] Limit retries on refreshing tokens
 
 **Breaking change**
 
