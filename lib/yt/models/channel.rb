@@ -197,10 +197,6 @@ module Yt
       #   @return [Integer] the number of times the channel has been viewed.
       delegate :view_count, to: :statistics_set
 
-      # @!attribute [r] comment_count
-      #   @return [Integer] the number of comments for the channel.
-      delegate :comment_count, to: :statistics_set
-
       # @!attribute [r] video_count
       #   @return [Integer] the number of videos uploaded to the channel.
       delegate :video_count, to: :statistics_set
