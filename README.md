@@ -18,7 +18,6 @@ After [registering your app](#configuring-your-app), you can run commands like:
 channel = Yt::Channel.new id: 'UCxO1tY8h1AhOz0T4ENwmpow'
 channel.title #=> "Fullscreen"
 channel.public? #=> true
-channel.comment_count #=> 773
 channel.videos.count #=> 12
 ```
 

@@ -54,13 +54,6 @@ describe Yt::Channel do
     end
   end
 
-  describe '#comment_count' do
-    context 'given a video with comments' do
-      let(:attrs) { {statistics: {"commentCount"=>"33"}} }
-      it { expect(channel.comment_count).to be 33 }
-    end
-  end
-
   describe '#video_count' do
     context 'given a video with videos' do
       let(:attrs) { {statistics: {"videoCount"=>"42"}} }
