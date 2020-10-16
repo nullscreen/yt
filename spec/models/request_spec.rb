@@ -68,14 +68,13 @@ describe Yt::Request do
       end
 
       context 'an error code 401 with a refresh token' do
-        before { expect(Net::HTTP).to receive(:start).at_least(:once).and_return response }
+        before { expect(Net::HTTP).to receive(:start).twice.and_return response }
         let(:auth) { double(refreshed_access_token?: true, access_token: 'whatever') }
         let(:request) { Yt::Request.new host: 'example.com', auth: auth }
         let(:response_class) { Net::HTTPUnauthorized }
 
         it { expect{request.run}.to fail }
       end
-
 
       context 'any other non-2XX error code' do
         let(:response_class) { Net::HTTPNotFound }

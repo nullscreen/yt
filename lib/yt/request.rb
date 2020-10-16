@@ -196,7 +196,7 @@ module Yt
     # - when the user has reached the quota for requests/second, and waiting
     #   for a couple of seconds might solve the connection issues.
     def run_again?
-      refresh_token_and_retry? && sleep_and_retry?(3) ||
+      refresh_token_and_retry? && sleep_and_retry?(1) ||
       server_error? && sleep_and_retry?(3) ||
       exceeded_quota? && sleep_and_retry?(3)
     end
