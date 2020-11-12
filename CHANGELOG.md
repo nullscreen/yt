@@ -6,7 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
-## 0.33.0 - 2020-10-19
+## 0.33.2 - 2020-11-11
+
+* [BUGFIX] No more pages when page token is an empty string, per YouTube change.
+
+## 0.33.1 - 2020-10-19
 
 * [BUGFIX] Only retry once when exchanging a refresh token
 

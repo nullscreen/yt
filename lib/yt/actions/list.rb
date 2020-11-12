@@ -75,7 +75,7 @@ module Yt
       end
 
       def more_pages?
-        @last_index.zero? || !@page_token.nil?
+        @last_index.zero? || @page_token.present?
       end
 
       def next_page
