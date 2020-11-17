@@ -11,6 +11,12 @@ describe Yt::Resource do
     it { expect(resource.kind).to eq 'video' }
   end
 
+  context 'given a resource initialized with a nil ID' do
+    let(:attrs) { {id: nil} }
+
+    it { expect(resource.id).to eq nil }
+  end
+
   describe '#public?' do
     context 'given fetching a status returns privacyStatus "public"' do
       let(:attrs) { {status: {"privacyStatus"=>"public"}} }
