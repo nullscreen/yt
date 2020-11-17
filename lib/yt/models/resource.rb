@@ -13,7 +13,6 @@ module Yt
       # @!attribute [r] id
       #   @return [String] the ID that YouTube uses to identify each resource.
       def id
-        @id
         if @id.nil? && @match && @match[:kind] == :channel
           @id ||= fetch_channel_id
         else
