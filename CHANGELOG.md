@@ -6,6 +6,11 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.33.3 - 2020-11-17
+
+* [BUGFIX] require the `URL` model when requiring `yt`
+* [BUGFIX] handle passing in a `nil` id
+
 ## 0.33.2 - 2020-11-11
 
 * [BUGFIX] No more pages when page token is an empty string, per YouTube change.
