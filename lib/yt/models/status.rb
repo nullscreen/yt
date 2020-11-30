@@ -27,6 +27,8 @@ module Yt
       has_attribute :embeddable
       has_attribute :public_stats_viewable
       has_attribute :publish_at, type: Time
+      has_attribute :made_for_kids
+      has_attribute :self_declared_made_for_kids
     end
   end
 end

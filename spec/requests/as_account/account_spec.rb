@@ -108,7 +108,9 @@ describe Yt::Account, :device_app, :vcr do
   end
 
   describe '.upload_video' do
-    let(:video_params) { {title: 'Test Yt upload', privacy_status: 'private', category_id: 17} }
+    let(:video_params) do
+      {title: 'Test Yt upload', privacy_status: 'private', category_id: 17, self_declared_made_for_kids: true}
+    end
     let(:video) { test_account.upload_video path_or_url, video_params }
     after { video.delete }
 
