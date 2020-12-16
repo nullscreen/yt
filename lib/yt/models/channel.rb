@@ -29,6 +29,25 @@ module Yt
       #   @return [Time] the date and time that the channel was created.
       delegate :published_at, to: :snippet
 
+    ### STATUS ###
+
+      # @!attribute [r] made_for_kids?
+      #   @return [Boolean, nil] This value indicates whether the channel is
+      #     designated as child-directed, and it contains the current "made for
+      #     kids" status of the channel.
+      def made_for_kids?
+        status.made_for_kids
+      end
+
+      # @!attribute [r] self_declared_made_for_kids?
+      #   @return [Boolean, nil] In a channels.update request, this property
+      #     allows the channel owner to designate the channel as
+      #     child-directed. The property value is only returned if the channel
+      #     owner authorized the API request.
+      def self_declared_made_for_kids?
+        status.self_declared_made_for_kids
+      end
+
     ### SUBSCRIPTION ###
 
       has_one :subscription

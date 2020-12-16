@@ -67,13 +67,19 @@ module Yt
       # @option params [String] :description The video’s description.
       # @option params [Array<String>] :tags The video’s tags.
       # @option params [String] :privacy_status The video’s privacy status.
+      # @option params [Boolean] :self_declared_made_for_kids The video’s made for kids self-declaration.
       # @return [Yt::Models::Video] the newly uploaded video.
       def upload_video(path_or_url, params = {})
         file = open path_or_url, 'rb'
         session = resumable_sessions.insert file.size, upload_body(params)
 
         session.update(body: file) do |data|
-          Yt::Video.new id: data['id'], snippet: data['snippet'], status: data['privacyStatus'], auth: self
+          Yt::Video.new(
+            id: data['id'],
+            snippet: data['snippet'],
+            status: data['status'],
+            auth: self
+          )
         end
       end
 
@@ -217,8 +223,12 @@ module Yt
           snippet[:categoryId] = snippet.delete(:category_id) if snippet[:category_id]
           body[:snippet] = snippet if snippet.any?
 
-          status = params[:privacy_status]
-          body[:status] = {privacyStatus: status} if status
+          privacy_status = params[:privacy_status]
+          self_declared_made_for_kids = params[:self_declared_made_for_kids]
+
+          body[:status] = {}
+          body[:status][:privacyStatus] = privacy_status if privacy_status
+          body[:status][:selfDeclaredMadeForKids] = self_declared_made_for_kids unless self_declared_made_for_kids.nil?
         end
       end
 

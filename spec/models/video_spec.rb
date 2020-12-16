@@ -122,7 +122,6 @@ describe Yt::Video do
     end
   end
 
-
   describe '#deleted?' do
     context 'given fetching a status returns uploadStatus "deleted"' do
       let(:attrs) { {status: {"uploadStatus"=>"deleted"}} }
@@ -487,6 +486,30 @@ describe Yt::Video do
     context 'given a video with a content rating but not ytRating' do
       let(:attrs) { {content_details: {"contentRating"=>{"acbRating": "PG"}}} }
       it { expect(video).not_to be_age_restricted }
+    end
+  end
+
+  describe '#made_for_kids?' do
+    context 'given fetching a status returns madeForKids true' do
+      let(:attrs) { {status: {"madeForKids"=>true}} }
+      it { expect(video).to be_made_for_kids }
+    end
+
+    context 'given fetching a status returns madeForKids false' do
+      let(:attrs) { {status: {"madeForKids"=>false}} }
+      it { expect(video).not_to be_made_for_kids }
+    end
+  end
+
+  describe '#self_declared_made_for_kids?' do
+    context 'given fetching a status returns selfDeclaredMadeForKids true' do
+      let(:attrs) { {status: {"selfDeclaredMadeForKids"=>true}} }
+      it { expect(video).to be_self_declared_made_for_kids }
+    end
+
+    context 'given fetching a status returns selfDeclaredMadeForKids false' do
+      let(:attrs) { {status: {"selfDeclaredMadeForKids"=>false}} }
+      it { expect(video).not_to be_self_declared_made_for_kids }
     end
   end
 
