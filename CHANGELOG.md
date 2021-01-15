@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.33.4 - 2021-01-15
+
+* [REMOVAL] remove retry for quota errors
+
 ## 0.33.3 - 2020-11-17
 
 * [BUGFIX] require the `URL` model when requiring `yt`
