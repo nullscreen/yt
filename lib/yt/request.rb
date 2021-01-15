@@ -197,8 +197,7 @@ module Yt
     #   for a couple of seconds might solve the connection issues.
     def run_again?
       refresh_token_and_retry? && sleep_and_retry?(1) ||
-      server_error? && sleep_and_retry?(3) ||
-      exceeded_quota? && sleep_and_retry?(3)
+      server_error? && sleep_and_retry?(3)
     end
 
     # Returns the list of server errors worth retrying the request once.
