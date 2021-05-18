@@ -299,6 +299,16 @@ module Yt
       delegate :container, to: :file_detail
 
 
+    ### PROCESSING DETAILS ###
+
+      has_one :processing_detail
+
+      # @!attribute [r] container
+      #   @return [String] The video's processing status. This value indicates whether
+      #     YouTube was able to process the video or if the video is still being processed
+      delegate :processing_status, to: :processing_detail
+
+
     ### RATING ###
 
       has_one :rating
@@ -613,6 +623,9 @@ module Yt
         end
         if options[:file_details]
           @file_detail = FileDetail.new data: options[:file_details]
+        end
+        if options[:processing_details]
+          @processing_detail = ProcessingDetail.new data: options[:processing_details]
         end
         if options[:live_streaming_details]
           @live_streaming_detail = LiveStreamingDetail.new data: options[:live_streaming_details]
