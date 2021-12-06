@@ -271,6 +271,11 @@ module Yt
         content_detail.licensed_content || false
       end
 
+      # @return [Boolean] whether the video is only viewable in limited countries.
+      def region_restricted?
+        content_detail.region_restriction
+      end
+
       # @return [Boolean] whether the video is identified by YouTube as
       #   age-restricted content.
       def age_restricted?

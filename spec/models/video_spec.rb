@@ -472,6 +472,18 @@ describe Yt::Video do
     end
   end
 
+  describe '#region_restricted?' do
+    context 'given a video with region restricted content' do
+      let(:attrs) { {content_details: {"regionRestriction"=>{"allowed"=>["TW"]}}} }
+      it { expect(video).to be_region_restricted }
+    end
+
+    context 'given a video without region restricted content' do
+      let(:attrs) { {content_details: {}} }
+      it { expect(video).not_to be_region_restricted }
+    end
+  end
+
   describe '#age_restricted?' do
     context 'given a video with age restricted content' do
       let(:attrs) { {content_details: {"contentRating"=>{"ytRating"=>"ytAgeRestricted"}}} }
