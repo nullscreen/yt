@@ -542,7 +542,7 @@ module Yt
       # @raise [Yt::Errors::RequestError] if path_or_url is not a valid path
       #   or URL.
       def upload_thumbnail(path_or_url)
-        file = open(path_or_url, 'rb') rescue StringIO.new
+        file = URI.open(path_or_url) rescue StringIO.new
         session = resumable_sessions.insert file.size
 
         session.update(body: file) do |data|
