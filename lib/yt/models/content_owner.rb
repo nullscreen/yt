@@ -54,7 +54,7 @@ module Yt
       # @option params [String] :content_type The type of content being uploaded.
       # @return [Yt::Models::Reference] the newly uploaded reference.
       def upload_reference_file(path_or_url, params = {})
-        file = open path_or_url, 'rb'
+        file = URI.open(path_or_url)
         session = resumable_sessions.insert file.size, params
 
         session.update(body: file) do |data|
