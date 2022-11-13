@@ -21,14 +21,14 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Pragma:
-      - no-cache
       Expires:
       - Mon, 01 Jan 1990 00:00:00 GMT
       Date:
-      - Sun, 13 Nov 2022 04:56:17 GMT
+      - Sun, 13 Nov 2022 04:59:39 GMT
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json; charset=utf-8
       Vary:
@@ -57,10 +57,10 @@ http_interactions:
           "scope": "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube",
           "token_type": "Bearer"
         }
-  recorded_at: Sun, 13 Nov 2022 04:56:17 GMT
+  recorded_at: Sun, 13 Nov 2022 04:59:39 GMT
 - request:
     method: get
-    uri: https://www.googleapis.com/youtube/v3/videos/getRating?id=not-a-video-id
+    uri: https://www.googleapis.com/youtube/v3/subscriptions?forChannelId=UCCj956IF62FbT7Gouszaj9w&maxResults=50&mine=true&part=snippet
     body:
       encoding: US-ASCII
       string: ''
@@ -83,7 +83,7 @@ http_interactions:
       - Referer
       - X-Origin
       Date:
-      - Sun, 13 Nov 2022 04:56:17 GMT
+      - Sun, 13 Nov 2022 04:59:39 GMT
       Server:
       - scaffolding on HTTPServer2
       Cache-Control:
@@ -105,9 +105,13 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "kind": "youtube#videoGetRatingResponse",
-          "etag": "2jmj7l5rSw0yVb_vlWAYkK_YBwk",
+          "kind": "youtube#SubscriptionListResponse",
+          "etag": "iqKWGaHd2JmVhu1p3_46l5OLoAM",
+          "pageInfo": {
+            "totalResults": 0,
+            "resultsPerPage": 50
+          },
           "items": []
         }
-  recorded_at: Sun, 13 Nov 2022 04:56:17 GMT
+  recorded_at: Sun, 13 Nov 2022 04:59:39 GMT
 recorded_with: VCR 6.1.0

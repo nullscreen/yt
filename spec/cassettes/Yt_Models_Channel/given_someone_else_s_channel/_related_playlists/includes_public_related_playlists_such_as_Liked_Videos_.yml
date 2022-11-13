@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
@@ -21,18 +21,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Date:
+      - Sun, 13 Nov 2022 04:59:17 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Thu, 06 Feb 2020 07:05:31 GMT
       Server:
       - scaffolding on HTTPServer2
-      Cache-Control:
-      - private
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -40,9 +44,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -51,12 +54,10 @@ http_interactions:
         {
           "access_token": "<YT_TEST_ACCESS_TOKEN>",
           "expires_in": 3599,
-          "scope": "https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/userinfo.email openid",
-          "token_type": "Bearer",
-          "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ4ZWZlYTFmNjZlODdiYjM2YzJlYTA5ZDgzNzMzOGJkZDgxMDM1M2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTkxMjM2NTA0ODQ2LTlsbGZjajJwNDcwZGlmcW5kaHNxZzJ1MWZ0ajRqNzM2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAzMDc3NzAwNDU1OTkyNzEzMjQzIiwiaGQiOiJmdWxsc2NyZWVuLmNvbSIsImVtYWlsIjoiZGVyZWsuYmFybmVzQGZ1bGxzY3JlZW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiI0eDI3NkpoMXF1SE5ubWdLdy1XeWdRIiwiaWF0IjoxNTgwOTcyNzMxLCJleHAiOjE1ODA5NzYzMzF9.h5nQhV-scv4IOpF2b88-rELWRM4NwripQJNkJlYhci__x9o9xVI1POCDv1WAf_0AqmPW8r85WH-fAvXc2MHuwGmf8HUjF2xWg9spWH99VJIBhDG1bIliD2ak5WzZJbYK2fErOBjoUcLKmBFc4n7ejJzoyGQz_6eor6-xPATP7AIK39fFivrkmfb-VzCpOZsyTGYex6Msejip7yUP6srXTgoM2ZXjW1oyEq_mI2Rm0WgIeRh923RMhMSp1jBdR_GXTaEHZ3CN9B0GVvP_Pas_DNRVXB56BjBt0t2qOcELRnnrE344Zir4qYhsAWb7-SyatxWLj8gW6AkI7Uls7DDSWA"
+          "scope": "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly",
+          "token_type": "Bearer"
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:05:31 GMT
+  recorded_at: Sun, 13 Nov 2022 04:59:17 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/channels?id=UCBR8-60-B28hp2BmDPdntcQ&part=contentDetails
@@ -75,63 +76,59 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:05:31 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:05:31 GMT
-      Cache-Control:
-      - private, max-age=300, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/o7Ih7_Hfi8u6zOVZpotdU8r6zA4"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:59:17 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '497'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#channelListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/o7Ih7_Hfi8u6zOVZpotdU8r6zA4\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#channel",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/KY2NwPRG-j2mKXfLsusPhEb_NUk\"",
-           "id": "UCBR8-60-B28hp2BmDPdntcQ",
-           "contentDetails": {
-            "relatedPlaylists": {
-             "uploads": "UUBR8-60-B28hp2BmDPdntcQ",
-             "watchHistory": "HL",
-             "watchLater": "WL"
+          "kind": "youtube#channelListResponse",
+          "etag": "FkVc2964Bz2gz698JINc2iLU5SU",
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 5
+          },
+          "items": [
+            {
+              "kind": "youtube#channel",
+              "etag": "KtwKqtpT7ADmb2Z7f6Q67dPrVSU",
+              "id": "UCBR8-60-B28hp2BmDPdntcQ",
+              "contentDetails": {
+                "relatedPlaylists": {
+                  "likes": "",
+                  "uploads": "UUBR8-60-B28hp2BmDPdntcQ"
+                }
+              }
             }
-           }
-          }
-         ]
+          ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:05:31 GMT
+  recorded_at: Sun, 13 Nov 2022 04:59:17 GMT
 - request:
     method: get
-    uri: https://www.googleapis.com/youtube/v3/playlists?id=UUBR8-60-B28hp2BmDPdntcQ,HL,WL&maxResults=50&part=snippet,status
+    uri: https://www.googleapis.com/youtube/v3/playlists?id=,UUBR8-60-B28hp2BmDPdntcQ&maxResults=50&part=snippet,status
     body:
       encoding: US-ASCII
       string: ''
@@ -147,92 +144,90 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:05:31 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:05:31 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/hXh9lEr_Kvcm44J1Uaz6eBFPd6c"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:59:18 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '1365'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#playlistListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/hXh9lEr_Kvcm44J1Uaz6eBFPd6c\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 50
-         },
-         "items": [
-          {
-           "kind": "youtube#playlist",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/2QdGr0inadMfD9RQ6bSg0vl3vyE\"",
-           "id": "UUBR8-60-B28hp2BmDPdntcQ",
-           "snippet": {
-            "publishedAt": "1970-01-01T00:00:00.000Z",
-            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
-            "title": "Uploads from YouTube",
-            "description": "",
-            "thumbnails": {
-             "default": {
-              "url": "https://i.ytimg.com/vi/2lAe1cqCOXo/default.jpg",
-              "width": 120,
-              "height": 90
-             },
-             "medium": {
-              "url": "https://i.ytimg.com/vi/2lAe1cqCOXo/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-             },
-             "high": {
-              "url": "https://i.ytimg.com/vi/2lAe1cqCOXo/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-             },
-             "standard": {
-              "url": "https://i.ytimg.com/vi/2lAe1cqCOXo/sddefault.jpg",
-              "width": 640,
-              "height": 480
-             },
-             "maxres": {
-              "url": "https://i.ytimg.com/vi/2lAe1cqCOXo/maxresdefault.jpg",
-              "width": 1280,
-              "height": 720
-             }
-            },
-            "channelTitle": "YouTube",
-            "localized": {
-             "title": "Uploads from YouTube",
-             "description": ""
+          "kind": "youtube#playlistListResponse",
+          "etag": "1TkNS4c_vqmljlTdTFtPO3peuN8",
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 50
+          },
+          "items": [
+            {
+              "kind": "youtube#playlist",
+              "etag": "CqnLuNI_HphZyMOh_m4cSLTziKs",
+              "id": "UUBR8-60-B28hp2BmDPdntcQ",
+              "snippet": {
+                "publishedAt": "2020-02-23T08:00:00Z",
+                "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
+                "title": "Uploads from YouTube",
+                "description": "",
+                "thumbnails": {
+                  "default": {
+                    "url": "https://i.ytimg.com/vi/Kuhe3koSvr8/default.jpg",
+                    "width": 120,
+                    "height": 90
+                  },
+                  "medium": {
+                    "url": "https://i.ytimg.com/vi/Kuhe3koSvr8/mqdefault.jpg",
+                    "width": 320,
+                    "height": 180
+                  },
+                  "high": {
+                    "url": "https://i.ytimg.com/vi/Kuhe3koSvr8/hqdefault.jpg",
+                    "width": 480,
+                    "height": 360
+                  },
+                  "standard": {
+                    "url": "https://i.ytimg.com/vi/Kuhe3koSvr8/sddefault.jpg",
+                    "width": 640,
+                    "height": 480
+                  },
+                  "maxres": {
+                    "url": "https://i.ytimg.com/vi/Kuhe3koSvr8/maxresdefault.jpg",
+                    "width": 1280,
+                    "height": 720
+                  }
+                },
+                "channelTitle": "YouTube",
+                "defaultLanguage": "en",
+                "localized": {
+                  "title": "Uploads from YouTube",
+                  "description": ""
+                }
+              },
+              "status": {
+                "privacyStatus": "public"
+              }
             }
-           },
-           "status": {
-            "privacyStatus": "public"
-           }
-          }
-         ]
+          ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:05:31 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 04:59:18 GMT
+recorded_with: VCR 6.1.0

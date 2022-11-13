@@ -32,6 +32,7 @@ module Yt
         @force = options[:force]
         @scopes = options[:scopes]
         @authentication = options[:authentication]
+        @state = options[:state]
       end
 
       def auth
@@ -48,7 +49,7 @@ module Yt
 
       def authentication_url
         host = 'accounts.google.com'
-        path = '/o/oauth2/auth'
+        path = '/o/oauth2/v2/auth'
         query = authentication_url_params.to_param
         URI::HTTPS.build(host: host, path: path, query: query).to_s
       end
@@ -190,6 +191,7 @@ module Yt
           params[:access_type] = :offline
           params[:approval_prompt] = @force ? :force : :auto
           # params[:include_granted_scopes] = true
+          params[:state] = @state if @state
         end
       end
 

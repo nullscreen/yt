@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=--not-a-valid-refresh-token--&grant_type=refresh_token
@@ -21,18 +21,22 @@ http_interactions:
       code: 400
       message: Bad Request
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Date:
+      - Sun, 13 Nov 2022 00:40:13 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Thu, 06 Feb 2020 07:01:26 GMT
       Server:
       - scaffolding on HTTPServer2
-      Cache-Control:
-      - private
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -40,9 +44,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -52,6 +55,5 @@ http_interactions:
           "error": "invalid_grant",
           "error_description": "Bad Request"
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:01:26 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 00:40:13 GMT
+recorded_with: VCR 6.1.0

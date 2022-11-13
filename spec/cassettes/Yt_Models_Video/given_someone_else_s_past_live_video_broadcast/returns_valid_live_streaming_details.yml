@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
@@ -21,18 +21,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Date:
+      - Sun, 13 Nov 2022 04:32:19 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Thu, 06 Feb 2020 07:13:52 GMT
       Server:
-      - ESF
-      Cache-Control:
-      - private
+      - scaffolding on HTTPServer2
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -40,9 +44,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -51,12 +54,10 @@ http_interactions:
         {
           "access_token": "<YT_TEST_ACCESS_TOKEN>",
           "expires_in": 3599,
-          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtubepartner openid",
-          "token_type": "Bearer",
-          "id_token": "<YT_TEST_ID_TOKEN>"
+          "scope": "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly",
+          "token_type": "Bearer"
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:52 GMT
+  recorded_at: Sun, 13 Nov 2022 04:32:19 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos?id=COOM8_tOy6U&maxResults=50&part=liveStreamingDetails
@@ -75,57 +76,54 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:53 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:53 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/Aq1N6yt3o_gxqOIt7FO2Uhbzbe4"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:32:19 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '564'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/Aq1N6yt3o_gxqOIt7FO2Uhbzbe4\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#video",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/QxFpmHeQfUmquWirPvH6NH27cSA\"",
-           "id": "COOM8_tOy6U",
-           "liveStreamingDetails": {
-            "actualStartTime": "2014-08-01T17:51:50.212Z",
-            "actualEndTime": "2014-08-01T17:51:57.000Z",
-            "scheduledStartTime": "2014-08-01T17:51:00.000Z",
-            "scheduledEndTime": "2014-08-01T17:52:00.000Z"
-           }
+          "kind": "youtube#videoListResponse",
+          "etag": "9Dg4j80SHk_fayRToI2kUytUazw",
+          "items": [
+            {
+              "kind": "youtube#video",
+              "etag": "1qCy8nWBA9yynmqgW37zfB3HGm8",
+              "id": "COOM8_tOy6U",
+              "liveStreamingDetails": {
+                "actualStartTime": "2014-08-01T17:51:47Z",
+                "actualEndTime": "2014-08-01T17:51:57Z",
+                "scheduledStartTime": "2014-08-01T17:51:00Z",
+                "scheduledEndTime": "2014-08-01T17:52:00Z"
+              }
+            }
+          ],
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 1
           }
-         ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:53 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 04:32:19 GMT
+recorded_with: VCR 6.1.0

@@ -15,10 +15,10 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:host] = 'accounts.google.com'
-          params[:path] = '/o/oauth2/revoke'
-          params[:request_format] = nil
-          params[:method] = :get
+          params[:host] = 'oauth2.googleapis.com'
+          params[:path] = '/revoke'
+          params[:request_format] = :form
+          params[:method] = :post
           params[:auth] = nil
           params[:body] = nil
           params[:camelize_body] = false

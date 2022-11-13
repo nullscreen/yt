@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
@@ -21,18 +21,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Pragma:
+      - no-cache
+      Date:
+      - Sun, 13 Nov 2022 04:50:29 GMT
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Thu, 06 Feb 2020 07:13:56 GMT
       Server:
-      - ESF
-      Cache-Control:
-      - private
+      - scaffolding on HTTPServer2
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -40,9 +44,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -51,12 +54,10 @@ http_interactions:
         {
           "access_token": "<YT_TEST_ACCESS_TOKEN>",
           "expires_in": 3599,
-          "scope": "https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/userinfo.email openid",
-          "token_type": "Bearer",
-          "id_token": "<YT_TEST_ID_TOKEN>"
+          "scope": "https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload",
+          "token_type": "Bearer"
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:56 GMT
+  recorded_at: Sun, 13 Nov 2022 04:50:29 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos/getRating?id=9bZkp7q19f0
@@ -75,48 +76,45 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:56 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:56 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/N9yVPvs_cF1TcwKc6amCEAMF_gQ"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:50:29 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '191'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoGetRatingResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/N9yVPvs_cF1TcwKc6amCEAMF_gQ\"",
-         "items": [
-          {
-           "videoId": "9bZkp7q19f0",
-           "rating": "none"
-          }
-         ]
+          "kind": "youtube#videoGetRatingResponse",
+          "etag": "enMPtFSD8q0boA39d3vzbqh6xAM",
+          "items": [
+            {
+              "videoId": "9bZkp7q19f0",
+              "rating": "dislike"
+            }
+          ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:56 GMT
+  recorded_at: Sun, 13 Nov 2022 04:50:29 GMT
 - request:
     method: post
     uri: https://www.googleapis.com/youtube/v3/videos/rate?id=9bZkp7q19f0&rating=none
@@ -135,30 +133,31 @@ http_interactions:
       code: 204
       message: No Content
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:56 GMT
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/CataIi45CPlm8VOHHIt2M8vnqmo"'
+      Content-Type:
+      - application/json; charset=UTF-8
       Vary:
       - Origin
+      - Referer
       - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:50:30 GMT
       Server:
-      - GSE
+      - scaffolding on HTTPServer2
+      Content-Length:
+      - '0'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: ''
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:56 GMT
+  recorded_at: Sun, 13 Nov 2022 04:50:30 GMT
 - request:
     method: post
     uri: https://www.googleapis.com/youtube/v3/videos/rate?id=9bZkp7q19f0&rating=like
@@ -177,28 +176,29 @@ http_interactions:
       code: 204
       message: No Content
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:56 GMT
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/CataIi45CPlm8VOHHIt2M8vnqmo"'
+      Content-Type:
+      - application/json; charset=UTF-8
       Vary:
       - Origin
+      - Referer
       - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:50:30 GMT
       Server:
-      - GSE
+      - scaffolding on HTTPServer2
+      Content-Length:
+      - '0'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: ''
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:56 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 04:50:30 GMT
+recorded_with: VCR 6.1.0

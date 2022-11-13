@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
@@ -21,18 +21,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Date:
+      - Sun, 13 Nov 2022 00:39:54 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Thu, 06 Feb 2020 07:13:24 GMT
       Server:
-      - ESF
-      Cache-Control:
-      - private
+      - scaffolding on HTTPServer2
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -40,9 +44,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -51,15 +54,13 @@ http_interactions:
         {
           "access_token": "<YT_TEST_ACCESS_TOKEN>",
           "expires_in": 3599,
-          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/yt-analytics.readonly openid",
-          "token_type": "Bearer",
-          "id_token": "<YT_TEST_ID_TOKEN>"
+          "scope": "https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube",
+          "token_type": "Bearer"
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:24 GMT
+  recorded_at: Sun, 13 Nov 2022 00:39:54 GMT
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
@@ -78,18 +79,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Date:
+      - Sun, 13 Nov 2022 00:39:55 GMT
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Thu, 06 Feb 2020 07:13:24 GMT
       Server:
-      - ESF
-      Cache-Control:
-      - private
+      - scaffolding on HTTPServer2
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -97,9 +102,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -108,10 +112,8 @@ http_interactions:
         {
           "access_token": "<YT_TEST_ACCESS_TOKEN>",
           "expires_in": 3599,
-          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtubepartner https://www.googleapis.com/auth/yt-analytics.readonly openid",
-          "token_type": "Bearer",
-          "id_token": "<YT_TEST_ID_TOKEN>"
+          "scope": "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.readonly",
+          "token_type": "Bearer"
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:24 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 00:39:55 GMT
+recorded_with: VCR 6.1.0

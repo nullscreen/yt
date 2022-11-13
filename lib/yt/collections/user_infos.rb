@@ -13,7 +13,7 @@ module Yt
       # @see https://developers.google.com/+/api/latest/people/getOpenIdConnect
       def list_params
         super.tap do |params|
-          params[:path] = '/oauth2/v2/userinfo'
+          params[:path] = '/oauth2/v3/userinfo'
           params[:expected_response] = Net::HTTPOK
         end
       end

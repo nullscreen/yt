@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       string: client_id=<YT_TEST_CLIENT_ID>&client_secret=<YT_TEST_CLIENT_SECRET>&refresh_token=<YT_TEST_REFRESH_TOKEN>&grant_type=refresh_token
@@ -21,18 +21,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Date:
+      - Sun, 13 Nov 2022 04:37:53 GMT
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Thu, 06 Feb 2020 07:13:53 GMT
       Server:
       - scaffolding on HTTPServer2
-      Cache-Control:
-      - private
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -40,9 +44,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -51,12 +54,10 @@ http_interactions:
         {
           "access_token": "<YT_TEST_ACCESS_TOKEN>",
           "expires_in": 3599,
-          "scope": "https://www.googleapis.com/auth/yt-analytics-monetary.readonly openid https://www.googleapis.com/auth/yt-analytics.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtubepartner",
-          "token_type": "Bearer",
-          "id_token": "<YT_TEST_ID_TOKEN>"
+          "scope": "https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly",
+          "token_type": "Bearer"
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:53 GMT
+  recorded_at: Sun, 13 Nov 2022 04:37:53 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos?id=9bZkp7q19f0&part=snippet
@@ -75,108 +76,105 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Cache-Control:
-      - private, max-age=300, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/SAmfq9NOgMl7zxJAmNkcclHt_B0"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:37:53 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '2746'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/SAmfq9NOgMl7zxJAmNkcclHt_B0\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#video",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/-IuTyy08Sv4vz9ogomNHNHJ8ddg\"",
-           "id": "9bZkp7q19f0",
-           "snippet": {
-            "publishedAt": "2012-07-15T07:46:32.000Z",
-            "channelId": "UCrDkAvwZum-UTjHmzDI2iIw",
-            "title": "PSY - GANGNAM STYLE(강남스타일) M/V",
-            "description": "PSY - ‘I LUV IT’ M/V @ https://youtu.be/Xvjnoagk6GU\nPSY - ‘New Face’ M/V @https://youtu.be/OwJPPaEyqhI\n\nPSY - 8TH ALBUM '4X2=8' on iTunes @\nhttps://smarturl.it/PSY_8thAlbum\n\nPSY - GANGNAM STYLE(강남스타일) on iTunes @ http://smarturl.it/PsyGangnam\n\n#PSY #싸이 #GANGNAMSTYLE #강남스타일\n\nMore about PSY@\nhttp://www.youtube.com/officialpsy\nhttp://www.facebook.com/officialpsy\nhttp://twitter.com/psy_oppa\nhttps://www.instagram.com/42psy42\nhttp://iTunes.com/PSY\nhttp://sptfy.com/PSY\nhttp://weibo.com/psyoppa",
-            "thumbnails": {
-             "default": {
-              "url": "https://i.ytimg.com/vi/9bZkp7q19f0/default.jpg",
-              "width": 120,
-              "height": 90
-             },
-             "medium": {
-              "url": "https://i.ytimg.com/vi/9bZkp7q19f0/mqdefault.jpg",
-              "width": 320,
-              "height": 180
-             },
-             "high": {
-              "url": "https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg",
-              "width": 480,
-              "height": 360
-             },
-             "standard": {
-              "url": "https://i.ytimg.com/vi/9bZkp7q19f0/sddefault.jpg",
-              "width": 640,
-              "height": 480
-             },
-             "maxres": {
-              "url": "https://i.ytimg.com/vi/9bZkp7q19f0/maxresdefault.jpg",
-              "width": 1280,
-              "height": 720
-             }
-            },
-            "channelTitle": "officialpsy",
-            "tags": [
-             "PSY",
-             "싸이",
-             "강남스타일",
-             "뮤직비디오",
-             "Music Video",
-             "Gangnam Style",
-             "KOREAN SINGER",
-             "KPOP",
-             "KOERAN WAVE",
-             "PSY 6甲",
-             "6th Studio Album",
-             "싸이6집",
-             "육갑"
-            ],
-            "categoryId": "10",
-            "liveBroadcastContent": "none",
-            "localized": {
-             "title": "PSY - GANGNAM STYLE(강남스타일) M/V",
-             "description": "PSY - ‘I LUV IT’ M/V @ https://youtu.be/Xvjnoagk6GU\nPSY - ‘New Face’ M/V @https://youtu.be/OwJPPaEyqhI\n\nPSY - 8TH ALBUM '4X2=8' on iTunes @\nhttps://smarturl.it/PSY_8thAlbum\n\nPSY - GANGNAM STYLE(강남스타일) on iTunes @ http://smarturl.it/PsyGangnam\n\n#PSY #싸이 #GANGNAMSTYLE #강남스타일\n\nMore about PSY@\nhttp://www.youtube.com/officialpsy\nhttp://www.facebook.com/officialpsy\nhttp://twitter.com/psy_oppa\nhttps://www.instagram.com/42psy42\nhttp://iTunes.com/PSY\nhttp://sptfy.com/PSY\nhttp://weibo.com/psyoppa"
+          "kind": "youtube#videoListResponse",
+          "etag": "4mJqrCoc5N7djZTw6DGGZ9kIpEQ",
+          "items": [
+            {
+              "kind": "youtube#video",
+              "etag": "bZIKv_Qghlv-QNl7mgKsFfEdqXM",
+              "id": "9bZkp7q19f0",
+              "snippet": {
+                "publishedAt": "2012-07-15T07:46:32Z",
+                "channelId": "UCrDkAvwZum-UTjHmzDI2iIw",
+                "title": "PSY - GANGNAM STYLE(강남스타일) M/V",
+                "description": "PSY - ‘I LUV IT’ M/V @ https://youtu.be/Xvjnoagk6GU\nPSY - ‘New Face’ M/V @https://youtu.be/OwJPPaEyqhI\n\nPSY - 8TH ALBUM '4X2=8' on iTunes @\nhttps://smarturl.it/PSY_8thAlbum\n\nPSY - GANGNAM STYLE(강남스타일) on iTunes @ http://smarturl.it/PsyGangnam\n\n#PSY #싸이 #GANGNAMSTYLE #강남스타일\n\nMore about PSY@\nhttp://www.youtube.com/officialpsy\nhttp://www.facebook.com/officialpsy\nhttp://twitter.com/psy_oppa\nhttps://www.instagram.com/42psy42\nhttp://iTunes.com/PSY\nhttp://sptfy.com/PSY\nhttp://weibo.com/psyoppa",
+                "thumbnails": {
+                  "default": {
+                    "url": "https://i.ytimg.com/vi/9bZkp7q19f0/default.jpg",
+                    "width": 120,
+                    "height": 90
+                  },
+                  "medium": {
+                    "url": "https://i.ytimg.com/vi/9bZkp7q19f0/mqdefault.jpg",
+                    "width": 320,
+                    "height": 180
+                  },
+                  "high": {
+                    "url": "https://i.ytimg.com/vi/9bZkp7q19f0/hqdefault.jpg",
+                    "width": 480,
+                    "height": 360
+                  },
+                  "standard": {
+                    "url": "https://i.ytimg.com/vi/9bZkp7q19f0/sddefault.jpg",
+                    "width": 640,
+                    "height": 480
+                  },
+                  "maxres": {
+                    "url": "https://i.ytimg.com/vi/9bZkp7q19f0/maxresdefault.jpg",
+                    "width": 1280,
+                    "height": 720
+                  }
+                },
+                "channelTitle": "officialpsy",
+                "tags": [
+                  "PSY",
+                  "싸이",
+                  "강남스타일",
+                  "뮤직비디오",
+                  "Music Video",
+                  "Gangnam Style",
+                  "KOREAN SINGER",
+                  "KPOP",
+                  "KOERAN WAVE",
+                  "PSY 6甲",
+                  "6th Studio Album",
+                  "싸이6집",
+                  "육갑"
+                ],
+                "categoryId": "10",
+                "liveBroadcastContent": "none",
+                "localized": {
+                  "title": "PSY - GANGNAM STYLE(강남스타일) M/V",
+                  "description": "PSY - ‘I LUV IT’ M/V @ https://youtu.be/Xvjnoagk6GU\nPSY - ‘New Face’ M/V @https://youtu.be/OwJPPaEyqhI\n\nPSY - 8TH ALBUM '4X2=8' on iTunes @\nhttps://smarturl.it/PSY_8thAlbum\n\nPSY - GANGNAM STYLE(강남스타일) on iTunes @ http://smarturl.it/PsyGangnam\n\n#PSY #싸이 #GANGNAMSTYLE #강남스타일\n\nMore about PSY@\nhttp://www.youtube.com/officialpsy\nhttp://www.facebook.com/officialpsy\nhttp://twitter.com/psy_oppa\nhttps://www.instagram.com/42psy42\nhttp://iTunes.com/PSY\nhttp://sptfy.com/PSY\nhttp://weibo.com/psyoppa"
+                }
+              }
             }
-           }
+          ],
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 1
           }
-         ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:54 GMT
+  recorded_at: Sun, 13 Nov 2022 04:37:53 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos?id=9bZkp7q19f0&part=status
@@ -195,61 +193,58 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/RsmBO1zXemPxuc2Qo23353kRTp4"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:37:53 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '517'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/RsmBO1zXemPxuc2Qo23353kRTp4\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#video",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/efqboWs9guTQJOcy_xMkW5e4IsA\"",
-           "id": "9bZkp7q19f0",
-           "status": {
-            "uploadStatus": "processed",
-            "privacyStatus": "public",
-            "license": "youtube",
-            "embeddable": true,
-            "publicStatsViewable": true,
-            "madeForKids": false
-           }
+          "kind": "youtube#videoListResponse",
+          "etag": "9P8ReszrYea14UfoZo5R1VPbt0M",
+          "items": [
+            {
+              "kind": "youtube#video",
+              "etag": "7XLCncO6DICVbr7L1-T_TDYSJ-8",
+              "id": "9bZkp7q19f0",
+              "status": {
+                "uploadStatus": "processed",
+                "privacyStatus": "public",
+                "license": "youtube",
+                "embeddable": true,
+                "publicStatsViewable": true,
+                "madeForKids": false
+              }
+            }
+          ],
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 1
           }
-         ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:54 GMT
+  recorded_at: Sun, 13 Nov 2022 04:37:53 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos?id=9bZkp7q19f0&maxResults=50&part=statistics
@@ -268,60 +263,56 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/SbDAm5DZmZP2JIdVcfCFg2CaQ4s"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:37:53 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '496'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/SbDAm5DZmZP2JIdVcfCFg2CaQ4s\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#video",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/hASuuHgwlVnzPEKUIOb1CsajYtw\"",
-           "id": "9bZkp7q19f0",
-           "statistics": {
-            "viewCount": "3507700238",
-            "likeCount": "17079399",
-            "dislikeCount": "2311109",
-            "favoriteCount": "0",
-            "commentCount": "4998288"
-           }
+          "kind": "youtube#videoListResponse",
+          "etag": "AKh9pO1qZrWM7CwUd5sx__oAre4",
+          "items": [
+            {
+              "kind": "youtube#video",
+              "etag": "JzKwxG-f_uRL1B_35jUUjOLfHrs",
+              "id": "9bZkp7q19f0",
+              "statistics": {
+                "viewCount": "4593205811",
+                "likeCount": "25918022",
+                "favoriteCount": "0",
+                "commentCount": "5331502"
+              }
+            }
+          ],
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 1
           }
-         ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:54 GMT
+  recorded_at: Sun, 13 Nov 2022 04:37:53 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos?id=9bZkp7q19f0&maxResults=50&part=contentDetails
@@ -340,61 +331,59 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Cache-Control:
-      - private, max-age=300, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/zS7vLp9lDZemUmit6WIu4F2Tl7M"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:37:53 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '512'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/zS7vLp9lDZemUmit6WIu4F2Tl7M\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#video",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/qVTM1qHHSIbzfR5nMOwI3j5BNxs\"",
-           "id": "9bZkp7q19f0",
-           "contentDetails": {
-            "duration": "PT4M13S",
-            "dimension": "2d",
-            "definition": "hd",
-            "caption": "true",
-            "licensedContent": false,
-            "projection": "rectangular"
-           }
+          "kind": "youtube#videoListResponse",
+          "etag": "3Ct25x_mhiHSItMMe9hfwUM-wCc",
+          "items": [
+            {
+              "kind": "youtube#video",
+              "etag": "7x2X6TjFpAo3JKSu4eMxDHshkX0",
+              "id": "9bZkp7q19f0",
+              "contentDetails": {
+                "duration": "PT4M13S",
+                "dimension": "2d",
+                "definition": "hd",
+                "caption": "false",
+                "licensedContent": false,
+                "contentRating": {},
+                "projection": "rectangular"
+              }
+            }
+          ],
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 1
           }
-         ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:54 GMT
+  recorded_at: Sun, 13 Nov 2022 04:37:53 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos?id=9bZkp7q19f0&maxResults=50&part=liveStreamingDetails
@@ -413,53 +402,50 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:54 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/kQa2wTrx3S-5Err3wOCdBaBX82c"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:37:53 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '324'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/kQa2wTrx3S-5Err3wOCdBaBX82c\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#video",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/OLkyQ_gP22mTC2IHzCAzu_UwcLY\"",
-           "id": "9bZkp7q19f0"
+          "kind": "youtube#videoListResponse",
+          "etag": "k6v9I1hiZyMyeRaaUneqAnQPPRA",
+          "items": [
+            {
+              "kind": "youtube#video",
+              "etag": "Fz6_JU_cmbddxhN5VrDZ9KAWY4o",
+              "id": "9bZkp7q19f0"
+            }
+          ],
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 1
           }
-         ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:54 GMT
+  recorded_at: Sun, 13 Nov 2022 04:37:53 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videos?id=9bZkp7q19f0&maxResults=50&part=player
@@ -478,56 +464,53 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:55 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:55 GMT
-      Cache-Control:
-      - private, max-age=0, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/EzxHS8NVqbj55FJHbprV_ozjvDs"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:37:54 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '591'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/EzxHS8NVqbj55FJHbprV_ozjvDs\"",
-         "pageInfo": {
-          "totalResults": 1,
-          "resultsPerPage": 1
-         },
-         "items": [
-          {
-           "kind": "youtube#video",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/rd1N_c95Igcf-EgTt4g04J_nUbw\"",
-           "id": "9bZkp7q19f0",
-           "player": {
-            "embedHtml": "\u003ciframe width=\"480\" height=\"270\" src=\"//www.youtube.com/embed/9bZkp7q19f0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen\u003e\u003c/iframe\u003e"
-           }
+          "kind": "youtube#videoListResponse",
+          "etag": "dq8iSiHADmUmlaGvyQ4peQHY2xE",
+          "items": [
+            {
+              "kind": "youtube#video",
+              "etag": "oEIKfYC6WHCquHudSmZIJG1bE2g",
+              "id": "9bZkp7q19f0",
+              "player": {
+                "embedHtml": "\u003ciframe width=\"480\" height=\"270\" src=\"//www.youtube.com/embed/9bZkp7q19f0\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen\u003e\u003c/iframe\u003e"
+              }
+            }
+          ],
+          "pageInfo": {
+            "totalResults": 1,
+            "resultsPerPage": 1
           }
-         ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:55 GMT
+  recorded_at: Sun, 13 Nov 2022 04:37:54 GMT
 - request:
     method: get
     uri: https://www.googleapis.com/youtube/v3/videoCategories?id=10&part=snippet
@@ -546,52 +529,49 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Expires:
-      - Thu, 06 Feb 2020 07:13:55 GMT
-      Date:
-      - Thu, 06 Feb 2020 07:13:55 GMT
-      Cache-Control:
-      - private, max-age=86400, must-revalidate, no-transform
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/u76cF9NebMnyucDhBOv-V8CaZl4"'
-      Vary:
-      - Origin
-      - X-Origin
       Content-Type:
       - application/json; charset=UTF-8
-      X-Content-Type-Options:
-      - nosniff
+      Vary:
+      - Origin,Accept-Encoding
+      - Referer
+      - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 04:37:54 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Length:
-      - '381'
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
+      Accept-Ranges:
+      - none
+      Transfer-Encoding:
+      - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "kind": "youtube#videoCategoryListResponse",
-         "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/u76cF9NebMnyucDhBOv-V8CaZl4\"",
-         "items": [
-          {
-           "kind": "youtube#videoCategory",
-           "etag": "\"Fznwjl6JEQdo1MGvHOGaz_YanRU/nqRIq97-xe5XRZTxbknKFVe5Lmg\"",
-           "id": "10",
-           "snippet": {
-            "channelId": "UCBR8-60-B28hp2BmDPdntcQ",
-            "title": "Music",
-            "assignable": true
-           }
-          }
-         ]
+          "kind": "youtube#videoCategoryListResponse",
+          "etag": "O-drzhFRYmr-3IcAVQibxHww5k8",
+          "items": [
+            {
+              "kind": "youtube#videoCategory",
+              "etag": "qnpwjh5QlWM5hrnZCvHisquztC4",
+              "id": "10",
+              "snippet": {
+                "title": "Music",
+                "assignable": true,
+                "channelId": "UCBR8-60-B28hp2BmDPdntcQ"
+              }
+            }
+          ]
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:55 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 04:37:54 GMT
+recorded_with: VCR 6.1.0

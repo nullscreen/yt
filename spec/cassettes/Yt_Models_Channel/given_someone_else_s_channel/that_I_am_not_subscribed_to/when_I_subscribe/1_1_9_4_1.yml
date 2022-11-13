@@ -21,14 +21,14 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
       Pragma:
       - no-cache
       Date:
-      - Sun, 13 Nov 2022 04:50:26 GMT
+      - Sun, 13 Nov 2022 04:59:51 GMT
       Cache-Control:
       - no-cache, no-store, max-age=0, must-revalidate
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
       Content-Type:
       - application/json; charset=utf-8
       Vary:
@@ -57,16 +57,16 @@ http_interactions:
           "scope": "https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly https://www.googleapis.com/auth/youtube",
           "token_type": "Bearer"
         }
-  recorded_at: Sun, 13 Nov 2022 04:50:26 GMT
+  recorded_at: Sun, 13 Nov 2022 04:59:51 GMT
 - request:
-    method: get
-    uri: https://www.googleapis.com/youtube/v3/videos/getRating?id=9bZkp7q19f0
+    method: post
+    uri: https://www.googleapis.com/youtube/v3/subscriptions?part=snippet
     body:
-      encoding: US-ASCII
-      string: ''
+      encoding: UTF-8
+      string: '{"snippet":{"resourceId":{"channelId":"UCCj956IF62FbT7Gouszaj9w","kind":"youtube#channel"}}}'
     headers:
-      Content-Length:
-      - '0'
+      Content-Type:
+      - application/json
       User-Agent:
       - Yt::Request (gzip)
       Authorization:
@@ -83,7 +83,7 @@ http_interactions:
       - Referer
       - X-Origin
       Date:
-      - Sun, 13 Nov 2022 04:50:27 GMT
+      - Sun, 13 Nov 2022 04:59:51 GMT
       Server:
       - scaffolding on HTTPServer2
       Cache-Control:
@@ -103,23 +103,28 @@ http_interactions:
         ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
-      string: |
-        {
-          "kind": "youtube#videoGetRatingResponse",
-          "etag": "WXBhjyiPn5gxbrvCYzZuqKdfv64",
-          "items": [
-            {
-              "videoId": "9bZkp7q19f0",
-              "rating": "none"
-            }
-          ]
-        }
-  recorded_at: Sun, 13 Nov 2022 04:50:27 GMT
+      string: "{\n  \"kind\": \"youtube#subscription\",\n  \"etag\": \"wKd5j9LonG0AYCllumEGqeCj53c\",\n
+        \ \"id\": \"Kpk8O-k2WN4rOlyMbntWXReqWaUkCeaZRVlXMiG4QvI\",\n  \"snippet\":
+        {\n    \"publishedAt\": \"2022-11-13T04:59:51.372521Z\",\n    \"title\": \"BBC\",\n
+        \   \"description\": \"The BBC is the world’s leading public service broadcaster.\\n\\nWe’re
+        impartial and independent, and every day we create distinctive, world-class
+        programmes and content which inform, educate and entertain millions of people
+        in the UK and around the world.\\n\\nSUBSCRIBE to our YouTube channel to get
+        the best of BBC entertainment and comedy programmes, stories from science
+        and nature documentaries, and much more! \U0001F449 https://bit.ly/2IXqEIn\\n\\nGet
+        ALL your fresh TV, and sofa-hugging box sets on iPlayer \U0001F449 https://bbc.in/2J18jYJ\",\n
+        \   \"resourceId\": {\n      \"kind\": \"youtube#channel\",\n      \"channelId\":
+        \"UCCj956IF62FbT7Gouszaj9w\"\n    },\n    \"channelId\": \"UCw8YVwTcsfscB9Rek5M1bvA\",\n
+        \   \"thumbnails\": {\n      \"default\": {\n        \"url\": \"https://yt3.ggpht.com/Y_iNjNBFP6bpHwT2hAHaLj7J3po22sGjwlR6mn26PWRp2IFesRAeNQEpSuh9xFiG8R57OOE83DE=s88-c-k-c0x00ffffff-no-rj\"\n
+        \     },\n      \"medium\": {\n        \"url\": \"https://yt3.ggpht.com/Y_iNjNBFP6bpHwT2hAHaLj7J3po22sGjwlR6mn26PWRp2IFesRAeNQEpSuh9xFiG8R57OOE83DE=s240-c-k-c0x00ffffff-no-rj\"\n
+        \     },\n      \"high\": {\n        \"url\": \"https://yt3.ggpht.com/Y_iNjNBFP6bpHwT2hAHaLj7J3po22sGjwlR6mn26PWRp2IFesRAeNQEpSuh9xFiG8R57OOE83DE=s800-c-k-c0x00ffffff-no-rj\"\n
+        \     }\n    }\n  }\n}\n"
+  recorded_at: Sun, 13 Nov 2022 04:59:51 GMT
 - request:
-    method: post
-    uri: https://www.googleapis.com/youtube/v3/videos/rate?id=9bZkp7q19f0&rating=dislike
+    method: delete
+    uri: https://www.googleapis.com/youtube/v3/subscriptions?id=Kpk8O-k2WN4rOlyMbntWXReqWaUkCeaZRVlXMiG4QvI
     body:
-      encoding: UTF-8
+      encoding: US-ASCII
       string: ''
     headers:
       Content-Length:
@@ -140,7 +145,7 @@ http_interactions:
       - Referer
       - X-Origin
       Date:
-      - Sun, 13 Nov 2022 04:50:27 GMT
+      - Sun, 13 Nov 2022 05:00:02 GMT
       Server:
       - scaffolding on HTTPServer2
       Content-Length:
@@ -157,48 +162,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: ''
-  recorded_at: Sun, 13 Nov 2022 04:50:27 GMT
-- request:
-    method: post
-    uri: https://www.googleapis.com/youtube/v3/videos/rate?id=9bZkp7q19f0&rating=like
-    body:
-      encoding: UTF-8
-      string: ''
-    headers:
-      Content-Length:
-      - '0'
-      User-Agent:
-      - Yt::Request (gzip)
-      Authorization:
-      - "<YT_AUTH_HEADER>"
-  response:
-    status:
-      code: 204
-      message: No Content
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Vary:
-      - Origin
-      - Referer
-      - X-Origin
-      Date:
-      - Sun, 13 Nov 2022 04:50:28 GMT
-      Server:
-      - scaffolding on HTTPServer2
-      Content-Length:
-      - '0'
-      X-Xss-Protection:
-      - '0'
-      X-Frame-Options:
-      - SAMEORIGIN
-      X-Content-Type-Options:
-      - nosniff
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
-        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
-    body:
-      encoding: UTF-8
-      string: ''
-  recorded_at: Sun, 13 Nov 2022 04:50:28 GMT
+  recorded_at: Sun, 13 Nov 2022 05:00:02 GMT
 recorded_with: VCR 6.1.0

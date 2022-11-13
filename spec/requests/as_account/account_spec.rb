@@ -41,7 +41,7 @@ describe Yt::Account, :device_app, :vcr do
       let(:count) { test_account.videos.where(q: query).count }
 
       context 'given a query string that matches any video owned by the account' do
-        let(:query) { 'coffee' }
+        let(:query) { 'test' }
         it { expect(count).to be > 0 }
       end
 

@@ -21,26 +21,22 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 12 Feb 2020 20:47:33 GMT
+      - Sun, 13 Nov 2022 01:01:41 GMT
       Content-Type:
       - text/html; charset=utf-8
       Content-Length:
       - '217'
       Cache-Control:
       - private, max-age=90
-      Content-Security-Policy:
-      - referrer always;
       Location:
       - https://archive.org/download/TimeLapse-4seconds-traffic-partial_cloverleaf/TimeLapse-4seconds-traffic-partial_cloverleaf_512kb.mp4
-      Referrer-Policy:
-      - unsafe-url
       Set-Cookie:
-      - _bit=k1ckLx-f8715fd95b07f12095-00l; Domain=bit.ly; Expires=Mon, 10 Aug 2020
-        20:47:33 GMT
+      - _bit=mad11F-10ac5622414a3e8ad7-00p; Domain=bit.ly; Expires=Fri, 12 May 2023
+        01:01:41 GMT
       Via:
       - 1.1 google
       Alt-Svc:
-      - clear
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
     body:
       encoding: UTF-8
       base64_string: |
@@ -49,8 +45,7 @@ http_interactions:
         YXBzZS00c2Vjb25kcy10cmFmZmljLXBhcnRpYWxfY2xvdmVybGVhZi9UaW1l
         TGFwc2UtNHNlY29uZHMtdHJhZmZpYy1wYXJ0aWFsX2Nsb3ZlcmxlYWZfNTEy
         a2IubXA0Ij5tb3ZlZCBoZXJlPC9hPjwvYm9keT4KPC9odG1sPg==
-    http_version: null
-  recorded_at: Wed, 12 Feb 2020 20:47:33 GMT
+  recorded_at: Sun, 13 Nov 2022 01:01:41 GMT
 - request:
     method: get
     uri: https://archive.org/download/TimeLapse-4seconds-traffic-partial_cloverleaf/TimeLapse-4seconds-traffic-partial_cloverleaf_512kb.mp4
@@ -70,9 +65,9 @@ http_interactions:
       message: Found
     headers:
       Server:
-      - nginx/1.16.1 (Ubuntu)
+      - nginx/1.18.0 (Ubuntu)
       Date:
-      - Wed, 12 Feb 2020 20:47:33 GMT
+      - Sun, 13 Nov 2022 01:01:41 GMT
       Content-Type:
       - video/mp4
       Transfer-Encoding:
@@ -82,17 +77,18 @@ http_interactions:
       Accept-Ranges:
       - bytes
       Location:
-      - https://ia802303.us.archive.org/1/items/TimeLapse-4seconds-traffic-partial_cloverleaf/TimeLapse-4seconds-traffic-partial_cloverleaf_512kb.mp4
+      - https://ia903403.us.archive.org/19/items/TimeLapse-4seconds-traffic-partial_cloverleaf/TimeLapse-4seconds-traffic-partial_cloverleaf_512kb.mp4
       Strict-Transport-Security:
       - max-age=15724800
+      Referrer-Policy:
+      - no-referrer-when-downgrade
     body:
       encoding: UTF-8
       base64_string: ''
-    http_version: null
-  recorded_at: Wed, 12 Feb 2020 20:47:33 GMT
+  recorded_at: Sun, 13 Nov 2022 01:01:41 GMT
 - request:
     method: get
-    uri: https://ia802303.us.archive.org/1/items/TimeLapse-4seconds-traffic-partial_cloverleaf/TimeLapse-4seconds-traffic-partial_cloverleaf_512kb.mp4
+    uri: https://ia903403.us.archive.org/19/items/TimeLapse-4seconds-traffic-partial_cloverleaf/TimeLapse-4seconds-traffic-partial_cloverleaf_512kb.mp4
     body:
       encoding: US-ASCII
       base64_string: ''
@@ -109,9 +105,9 @@ http_interactions:
       message: OK
     headers:
       Server:
-      - nginx/1.16.1 (Ubuntu)
+      - nginx/1.18.0 (Ubuntu)
       Date:
-      - Wed, 12 Feb 2020 20:47:33 GMT
+      - Sun, 13 Nov 2022 01:01:41 GMT
       Content-Type:
       - video/mp4
       Content-Length:
@@ -125,9 +121,11 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=15724800
       Expires:
-      - Thu, 13 Feb 2020 02:47:33 GMT
+      - Sun, 13 Nov 2022 07:01:41 GMT
       Cache-Control:
       - max-age=21600
+      Referrer-Policy:
+      - no-referrer-when-downgrade
       Accept-Ranges:
       - bytes
     body:
@@ -6761,11 +6759,10 @@ http_interactions:
         WPZrW3dTOnkYd1COzDkjeA6R+hyRfcSXJcW/+9bEXsK74kTGOfnS63/7BL2p
         tZq2BZddfydf8pArL+Ft+Px4aEo+4kR15dr+WCG5fFvnfuveoRk3Ll69F9Yq
         qr8mM5e7rl7uFIU0JJFbELCJ+oA=
-    http_version: null
-  recorded_at: Wed, 12 Feb 2020 20:47:33 GMT
+  recorded_at: Sun, 13 Nov 2022 01:01:41 GMT
 - request:
     method: post
-    uri: https://accounts.google.com/o/oauth2/token
+    uri: https://oauth2.googleapis.com/token
     body:
       encoding: US-ASCII
       base64_string: |
@@ -6787,18 +6784,22 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      Date:
+      - Sun, 13 Nov 2022 01:01:42 GMT
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Pragma:
+      - no-cache
       Content-Type:
       - application/json; charset=utf-8
       Vary:
       - Origin
       - Referer
       - X-Origin
-      Date:
-      - Wed, 12 Feb 2020 20:47:33 GMT
       Server:
       - scaffolding on HTTPServer2
-      Cache-Control:
-      - private
       X-Xss-Protection:
       - '0'
       X-Frame-Options:
@@ -6806,9 +6807,8 @@ http_interactions:
       X-Content-Type-Options:
       - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
       Transfer-Encoding:
       - chunked
     body:
@@ -6816,15 +6816,11 @@ http_interactions:
       base64_string: |
         ewogICJhY2Nlc3NfdG9rZW4iOiAiPFlUX1RFU1RfQUNDRVNTX1RPS0VOPiIs
         CiAgImV4cGlyZXNfaW4iOiAzNTk5LAogICJzY29wZSI6ICJodHRwczovL3d3
-        dy5nb29nbGVhcGlzLmNvbS9hdXRoL3l0LWFuYWx5dGljcy5yZWFkb25seSBo
-        dHRwczovL3d3dy5nb29nbGVhcGlzLmNvbS9hdXRoL3l0LWFuYWx5dGljcy1t
-        b25ldGFyeS5yZWFkb25seSBvcGVuaWQgaHR0cHM6Ly93d3cuZ29vZ2xlYXBp
-        cy5jb20vYXV0aC95b3V0dWJlcGFydG5lciBodHRwczovL3d3dy5nb29nbGVh
-        cGlzLmNvbS9hdXRoL3VzZXJpbmZvLmVtYWlsIiwKICAidG9rZW5fdHlwZSI6
-        ICJCZWFyZXIiLAogICJpZF90b2tlbiI6ICI8WVRfVEVTVF9JRF9UT0tFTj4i
-        Cn0=
-    http_version: null
-  recorded_at: Wed, 12 Feb 2020 20:47:33 GMT
+        dy5nb29nbGVhcGlzLmNvbS9hdXRoL3lvdXR1YmUudXBsb2FkIGh0dHBzOi8v
+        d3d3Lmdvb2dsZWFwaXMuY29tL2F1dGgveW91dHViZS5yZWFkb25seSBodHRw
+        czovL3d3dy5nb29nbGVhcGlzLmNvbS9hdXRoL3lvdXR1YmUiLAogICJ0b2tl
+        bl90eXBlIjogIkJlYXJlciIKfQ==
+  recorded_at: Sun, 13 Nov 2022 01:01:42 GMT
 - request:
     method: post
     uri: https://www.googleapis.com/upload/youtube/v3/videos?part=snippet,status&uploadType=resumable
@@ -6832,8 +6828,8 @@ http_interactions:
       encoding: UTF-8
       base64_string: |
         eyJzbmlwcGV0Ijp7InRpdGxlIjoiVGVzdCBZdCB1cGxvYWQiLCJjYXRlZ29y
-        eUlkIjoxN30sInN0YXR1cyI6eyJwcml2YWN5U3RhdHVzIjoicHJpdmF0ZSJ9
-        fQ==
+        eUlkIjoxN30sInN0YXR1cyI6eyJwcml2YWN5U3RhdHVzIjoicHJpdmF0ZSIs
+        InNlbGZEZWNsYXJlZE1hZGVGb3JLaWRzIjp0cnVlfX0=
     headers:
       Content-Type:
       - application/json
@@ -6851,42 +6847,32 @@ http_interactions:
       message: OK
     headers:
       Content-Type:
+      - application/json; charset=UTF-8
       - text/plain; charset=utf-8
       X-Guploader-Uploadid:
-      - AEnB2UpMQlzRNIcK4QVpXeqXKGBbD8QmS2zVHgFX8a2T91X-VG9zRZJKdMFQjJd-3h6RaXxiSJP-Y8DwQy40jrNQhDNDT4v3gA
+      - ADPycdt4kV_hQVgz6dSglwBSUKtfr78YYptcwnab6IOIu6w2i82UR6nPnb68f0mWtgP0ThcKxNaLIe8-eRmIhzn0375r8A
       Location:
-      - https://www.googleapis.com/upload/youtube/v3/videos?part=snippet%2Cstatus&uploadType=resumable&upload_id=AEnB2UpMQlzRNIcK4QVpXeqXKGBbD8QmS2zVHgFX8a2T91X-VG9zRZJKdMFQjJd-3h6RaXxiSJP-Y8DwQy40jrNQhDNDT4v3gA
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/Unb6jriNFpk5KefRJbbcQNO7HsU"'
+      - https://www.googleapis.com/upload/youtube/v3/videos?part=snippet%2Cstatus&uploadType=resumable&upload_id=ADPycdt4kV_hQVgz6dSglwBSUKtfr78YYptcwnab6IOIu6w2i82UR6nPnb68f0mWtgP0ThcKxNaLIe8-eRmIhzn0375r8A
       Vary:
       - Origin
+      - Referer
       - X-Origin
-      X-Goog-Correlation-Id:
-      - n458ISYGmF0
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
-      Date:
-      - Wed, 12 Feb 2020 20:47:34 GMT
       Content-Length:
       - '0'
+      Date:
+      - Sun, 13 Nov 2022 01:01:43 GMT
       Server:
       - UploadServer
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       base64_string: ''
-    http_version: null
-  recorded_at: Wed, 12 Feb 2020 20:47:34 GMT
+  recorded_at: Sun, 13 Nov 2022 01:01:43 GMT
 - request:
     method: put
-    uri: https://www.googleapis.com/upload/youtube/v3/videos?part=snippet,status&uploadType=resumable&upload_id=AEnB2UpMQlzRNIcK4QVpXeqXKGBbD8QmS2zVHgFX8a2T91X-VG9zRZJKdMFQjJd-3h6RaXxiSJP-Y8DwQy40jrNQhDNDT4v3gA
+    uri: https://www.googleapis.com/upload/youtube/v3/videos?part=snippet,status&uploadType=resumable&upload_id=ADPycdt4kV_hQVgz6dSglwBSUKtfr78YYptcwnab6IOIu6w2i82UR6nPnb68f0mWtgP0ThcKxNaLIe8-eRmIhzn0375r8A
     body:
       encoding: ASCII-8BIT
       base64_string: |
@@ -13535,66 +13521,57 @@ http_interactions:
       message: OK
     headers:
       X-Guploader-Uploadid:
-      - AEnB2UpMQlzRNIcK4QVpXeqXKGBbD8QmS2zVHgFX8a2T91X-VG9zRZJKdMFQjJd-3h6RaXxiSJP-Y8DwQy40jrNQhDNDT4v3gA
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/Unb6jriNFpk5KefRJbbcQNO7HsU"'
-      Vary:
-      - Origin
-      - X-Origin
-      X-Goog-Correlation-Id:
-      - n458ISYGmF0
+      - ADPycdt4kV_hQVgz6dSglwBSUKtfr78YYptcwnab6IOIu6w2i82UR6nPnb68f0mWtgP0ThcKxNaLIe8-eRmIhzn0375r8A
       Content-Type:
       - application/json; charset=UTF-8
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
-      Date:
-      - Wed, 12 Feb 2020 20:47:36 GMT
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
       Content-Length:
-      - '1128'
+      - '1228'
+      Date:
+      - Sun, 13 Nov 2022 01:01:44 GMT
       Server:
       - UploadServer
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       base64_string: |
-        ewogImtpbmQiOiAieW91dHViZSN2aWRlbyIsCiAiZXRhZyI6ICJcIkZ6bndq
-        bDZKRVFkbzFNR3ZIT0dhel9ZYW5SVS9VbmI2anJpTkZwazVLZWZSSmJiY1FO
-        TzdIc1VcIiIsCiAiaWQiOiAibjQ1OElTWUdtRjAiLAogInNuaXBwZXQiOiB7
-        CiAgInB1Ymxpc2hlZEF0IjogIjIwMjAtMDItMTJUMjA6NDc6MzQuMDAwWiIs
-        CiAgImNoYW5uZWxJZCI6ICJVQ0FtaDFEZXhMR2NNdERsek1DSXhvNHciLAog
-        ICJ0aXRsZSI6ICJUZXN0IFl0IHVwbG9hZCIsCiAgImRlc2NyaXB0aW9uIjog
-        IiIsCiAgInRodW1ibmFpbHMiOiB7CiAgICJkZWZhdWx0IjogewogICAgInVy
-        bCI6ICJodHRwczovL2k5Lnl0aW1nLmNvbS92aS9uNDU4SVNZR21GMC9kZWZh
-        dWx0LmpwZz9zcXA9Q016SGtmSUYmcnM9QU9uNENMQ1Noc3M0NzBDRUhnUWxL
-        YlZJZ1JheTg4bnpVdyIsCiAgICAid2lkdGgiOiAxMjAsCiAgICAiaGVpZ2h0
-        IjogOTAKICAgfSwKICAgIm1lZGl1bSI6IHsKICAgICJ1cmwiOiAiaHR0cHM6
-        Ly9pOS55dGltZy5jb20vdmkvbjQ1OElTWUdtRjAvbXFkZWZhdWx0LmpwZz9z
-        cXA9Q016SGtmSUYmcnM9QU9uNENMQXpLYWlyc3REOWx6ZkVhbTYwamZmLWFr
-        MV9DZyIsCiAgICAid2lkdGgiOiAzMjAsCiAgICAiaGVpZ2h0IjogMTgwCiAg
-        IH0sCiAgICJoaWdoIjogewogICAgInVybCI6ICJodHRwczovL2k5Lnl0aW1n
-        LmNvbS92aS9uNDU4SVNZR21GMC9ocWRlZmF1bHQuanBnP3NxcD1DTXpIa2ZJ
-        RiZycz1BT240Q0xCNWw5enNfMW0yakpSdDlheFoyal9ISHZWY2JRIiwKICAg
-        ICJ3aWR0aCI6IDQ4MCwKICAgICJoZWlnaHQiOiAzNjAKICAgfQogIH0sCiAg
-        ImNoYW5uZWxUaXRsZSI6ICJEZXJlayBCYXJuZXMiLAogICJjYXRlZ29yeUlk
-        IjogIjE3IiwKICAibGl2ZUJyb2FkY2FzdENvbnRlbnQiOiAibm9uZSIsCiAg
-        ImxvY2FsaXplZCI6IHsKICAgInRpdGxlIjogIlRlc3QgWXQgdXBsb2FkIiwK
-        ICAgImRlc2NyaXB0aW9uIjogIiIKICB9CiB9LAogInN0YXR1cyI6IHsKICAi
-        dXBsb2FkU3RhdHVzIjogInVwbG9hZGVkIiwKICAicHJpdmFjeVN0YXR1cyI6
-        ICJwcml2YXRlIiwKICAibGljZW5zZSI6ICJ5b3V0dWJlIiwKICAiZW1iZWRk
-        YWJsZSI6IHRydWUsCiAgInB1YmxpY1N0YXRzVmlld2FibGUiOiB0cnVlCiB9
-        Cn0K
-    http_version: null
-  recorded_at: Wed, 12 Feb 2020 20:47:36 GMT
+        ewogICJraW5kIjogInlvdXR1YmUjdmlkZW8iLAogICJldGFnIjogIklSb3lw
+        YXdORG82dG52aHFNRFFqTnp4d0hucyIsCiAgImlkIjogIjVOMEVrMXRubFRZ
+        IiwKICAic25pcHBldCI6IHsKICAgICJwdWJsaXNoZWRBdCI6ICIyMDIyLTEx
+        LTEzVDAxOjAxOjQyWiIsCiAgICAiY2hhbm5lbElkIjogIlVDdzhZVndUY3Nm
+        c2NCOVJlazVNMWJ2QSIsCiAgICAidGl0bGUiOiAiVGVzdCBZdCB1cGxvYWQi
+        LAogICAgImRlc2NyaXB0aW9uIjogIiIsCiAgICAidGh1bWJuYWlscyI6IHsK
+        ICAgICAgImRlZmF1bHQiOiB7CiAgICAgICAgInVybCI6ICJodHRwczovL2k5
+        Lnl0aW1nLmNvbS92aS81TjBFazF0bmxUWS9kZWZhdWx0LmpwZz9zcXA9Q0pD
+        RHdac0cmcnM9QU9uNENMQzRVbThLVm4xcFdPdlE0NDk4dUd0MllSbHcxZyIs
+        CiAgICAgICAgIndpZHRoIjogMTIwLAogICAgICAgICJoZWlnaHQiOiA5MAog
+        ICAgICB9LAogICAgICAibWVkaXVtIjogewogICAgICAgICJ1cmwiOiAiaHR0
+        cHM6Ly9pOS55dGltZy5jb20vdmkvNU4wRWsxdG5sVFkvbXFkZWZhdWx0Lmpw
+        Zz9zcXA9Q0pDRHdac0cmcnM9QU9uNENMQWVJQzFBOFZSYmFzNTE4dUlEZkdx
+        RThjVVotQSIsCiAgICAgICAgIndpZHRoIjogMzIwLAogICAgICAgICJoZWln
+        aHQiOiAxODAKICAgICAgfSwKICAgICAgImhpZ2giOiB7CiAgICAgICAgInVy
+        bCI6ICJodHRwczovL2k5Lnl0aW1nLmNvbS92aS81TjBFazF0bmxUWS9ocWRl
+        ZmF1bHQuanBnP3NxcD1DSkNEd1pzRyZycz1BT240Q0xENS1qWFpTZ3QtVVZl
+        ZElQUDR6YjJ5S09LSW5nIiwKICAgICAgICAid2lkdGgiOiA0ODAsCiAgICAg
+        ICAgImhlaWdodCI6IDM2MAogICAgICB9CiAgICB9LAogICAgImNoYW5uZWxU
+        aXRsZSI6ICJLYW5nLUt5dSBMZWUiLAogICAgImNhdGVnb3J5SWQiOiAiMTci
+        LAogICAgImxpdmVCcm9hZGNhc3RDb250ZW50IjogIm5vbmUiLAogICAgImxv
+        Y2FsaXplZCI6IHsKICAgICAgInRpdGxlIjogIlRlc3QgWXQgdXBsb2FkIiwK
+        ICAgICAgImRlc2NyaXB0aW9uIjogIiIKICAgIH0KICB9LAogICJzdGF0dXMi
+        OiB7CiAgICAidXBsb2FkU3RhdHVzIjogInVwbG9hZGVkIiwKICAgICJwcml2
+        YWN5U3RhdHVzIjogInByaXZhdGUiLAogICAgImxpY2Vuc2UiOiAieW91dHVi
+        ZSIsCiAgICAiZW1iZWRkYWJsZSI6IHRydWUsCiAgICAicHVibGljU3RhdHNW
+        aWV3YWJsZSI6IHRydWUsCiAgICAic2VsZkRlY2xhcmVkTWFkZUZvcktpZHMi
+        OiB0cnVlCiAgfQp9Cg==
+  recorded_at: Sun, 13 Nov 2022 01:01:44 GMT
 - request:
     method: delete
-    uri: https://www.googleapis.com/youtube/v3/videos?id=n458ISYGmF0
+    uri: https://www.googleapis.com/youtube/v3/videos?id=5N0Ek1tnlTY
     body:
       encoding: US-ASCII
       base64_string: ''
@@ -13610,28 +13587,29 @@ http_interactions:
       code: 204
       message: No Content
     headers:
-      Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
-      Pragma:
-      - no-cache
-      Expires:
-      - Mon, 01 Jan 1990 00:00:00 GMT
-      Date:
-      - Wed, 12 Feb 2020 20:47:37 GMT
-      Etag:
-      - '"Fznwjl6JEQdo1MGvHOGaz_YanRU/CataIi45CPlm8VOHHIt2M8vnqmo"'
+      Content-Type:
+      - application/json; charset=UTF-8
       Vary:
       - Origin
+      - Referer
       - X-Origin
+      Date:
+      - Sun, 13 Nov 2022 01:01:44 GMT
       Server:
-      - GSE
+      - scaffolding on HTTPServer2
+      Content-Length:
+      - '0'
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       base64_string: ''
-    http_version: null
-  recorded_at: Wed, 12 Feb 2020 20:47:37 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 01:01:45 GMT
+recorded_with: VCR 6.1.0

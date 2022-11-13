@@ -18,53 +18,51 @@ http_interactions:
       code: 401
       message: Unauthorized
     headers:
+      Www-Authenticate:
+      - Bearer realm="https://accounts.google.com/", error="invalid_token"
       Vary:
       - Origin,Accept-Encoding
+      - Referer
       - X-Origin
-      Www-Authenticate:
-      - Bearer realm="https://accounts.google.com/", error=invalid_token
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Thu, 06 Feb 2020 07:13:22 GMT
-      Expires:
-      - Thu, 06 Feb 2020 07:13:22 GMT
+      - Sun, 13 Nov 2022 00:40:17 GMT
+      Server:
+      - scaffolding on HTTPServer2
       Cache-Control:
-      - private, max-age=0
-      X-Content-Type-Options:
-      - nosniff
+      - private
+      X-Xss-Protection:
+      - '0'
       X-Frame-Options:
       - SAMEORIGIN
-      X-Xss-Protection:
-      - 1; mode=block
-      Server:
-      - GSE
+      X-Content-Type-Options:
+      - nosniff
       Accept-Ranges:
       - none
       Transfer-Encoding:
       - chunked
       Alt-Svc:
-      - quic=":443"; ma=2592000; v="46,43",h3-Q050=":443"; ma=2592000,h3-Q049=":443";
-        ma=2592000,h3-Q048=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443";
-        ma=2592000
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
     body:
       encoding: UTF-8
       string: |
         {
-         "error": {
-          "errors": [
-           {
-            "domain": "global",
-            "reason": "authError",
-            "message": "Invalid Credentials",
-            "locationType": "header",
-            "location": "Authorization"
-           }
-          ],
-          "code": 401,
-          "message": "Invalid Credentials"
-         }
+          "error": {
+            "code": 401,
+            "message": "Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.",
+            "errors": [
+              {
+                "message": "Invalid Credentials",
+                "domain": "global",
+                "reason": "authError",
+                "location": "Authorization",
+                "locationType": "header"
+              }
+            ],
+            "status": "UNAUTHENTICATED"
+          }
         }
-    http_version: null
-  recorded_at: Thu, 06 Feb 2020 07:13:22 GMT
-recorded_with: VCR 5.1.0
+  recorded_at: Sun, 13 Nov 2022 00:40:17 GMT
+recorded_with: VCR 6.1.0
