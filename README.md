@@ -109,22 +109,22 @@ content_owner.assets.first.custom_id #=> "MoKNJFOIRroc"
 Yt::Channel
 -----------
 
-Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/channels.html) for the list of methods available for `Yt::Channel`.
+Check [nullscreen.github.io/yt](http://nullscreen.github.io/yt/channels.html) for the list of methods available for `Yt::Channel`.
 
 Yt::Video
 ---------
 
-Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/videos.html) for the list of methods available for `Yt::Video`.
+Check [nullscreen.github.io/yt](http://nullscreen.github.io/yt/videos.html) for the list of methods available for `Yt::Video`.
 
 Yt::Playlist
 ------------
 
-Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/playlists.html) for the list of methods available for `Yt::Playlist`.
+Check [nullscreen.github.io/yt](http://nullscreen.github.io/yt/playlists.html) for the list of methods available for `Yt::Playlist`.
 
 Yt::PlaylistItem
 ----------------
 
-Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/playlist_items.html) for the list of methods available for `Yt::PlaylistItem`.
+Check [nullscreen.github.io/yt](http://nullscreen.github.io/yt/playlist_items.html) for the list of methods available for `Yt::PlaylistItem`.
 
 Yt::CommentThread
 ----------------
@@ -217,7 +217,7 @@ videos.where(id: 'jNQXAC9IVRw,invalid').map(&:title) #=> ["Fullscreen Creator Pl
 Yt::Annotation
 --------------
 
-Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/annotations.html) for the list of methods available for `Yt::Annotation`.
+Check [nullscreen.github.io/yt](http://nullscreen.github.io/yt/annotations.html) for the list of methods available for `Yt::Annotation`.
 
 
 Yt::MatchPolicy
