@@ -1,5 +1,6 @@
 # encoding: UTF-8
 require 'spec_helper'
+require 'open-uri'
 require 'yt/models/account'
 
 describe Yt::Account, :device_app, :vcr do
