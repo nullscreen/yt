@@ -25,11 +25,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activesupport' # '3 (Ruby 1.9) or 4 (Ruby 2)'
 
   # For development / Code coverage / Documentation
-  spec.add_development_dependency 'bundler' #, '~> 1.0'
-  spec.add_development_dependency 'rspec' #, '~> 2.0'
-  spec.add_development_dependency 'rake' #, '~> 10.0'
-  spec.add_development_dependency 'yard' #, '~> 0.8.0'
-  spec.add_development_dependency 'coveralls' #, '~> 0.7.0'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rake'
+  # spec.add_development_dependency 'yard'
+  # spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'vcr'
   spec.add_development_dependency 'webmock'
