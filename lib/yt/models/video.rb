@@ -533,6 +533,10 @@ module Yt
       #     player that will play the video.
       delegate :embed_html, to: :player
 
+    ### CAPTION ###
+
+      has_many :captions
+
     ### ACTIONS (UPLOAD, UPDATE, DELETE) ###
 
       # Uploads a thumbnail

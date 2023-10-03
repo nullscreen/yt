@@ -38,6 +38,11 @@ module Yt
       has_attribute :like_count, type: Integer
       has_attribute :updated_at, type: Time
 
+      has_attribute :last_updated, type: Time
+      has_attribute :language
+      has_attribute :name
+      has_attribute :status
+
       def thumbnail_url(size = :default)
         thumbnails.fetch(size.to_s, {})['url']
       end

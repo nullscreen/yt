@@ -56,7 +56,7 @@ Available resources
 Yt::Account
 -----------
 
-Check [fullscreen.github.io/yt](http://fullscreen.github.io/yt/accounts.html) for the list of methods available for `Yt::Account`.
+Check [nullscreen.github.io/yt](http://nullscreen.github.io/yt/accounts.html) for the list of methods available for `Yt::Account`.
 
 
 Yt::ContentOwner
