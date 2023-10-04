@@ -15,7 +15,8 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:path] = '/o/oauth2/device/code'
+          params[:host] = 'oauth2.googleapis.com'
+          params[:path] = '/device/code'
         end
       end
     end
