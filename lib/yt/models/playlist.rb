@@ -37,10 +37,6 @@ module Yt
       #   @return [String] the title of the channel that the playlist belongs to.
       delegate :channel_title, to: :snippet
 
-      # @!attribute [r] tags
-      #   @return [Array<String>] the list of tags attached to the playlist.
-      delegate :tags, to: :snippet
-
     ### STATISTICS ###
 
       has_one :content_detail

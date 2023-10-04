@@ -36,18 +36,6 @@ describe Yt::Playlist do
     end
   end
 
-  describe '#tags' do
-    context 'given a snippet with tags' do
-      let(:attrs) { {snippet: {"tags"=>["promotion", "new media"]}} }
-      it { expect(playlist.tags).to eq ["promotion", "new media"] }
-    end
-
-    context 'given a snippet without tags' do
-      let(:attrs) { {snippet: {}} }
-      it { expect(playlist.tags).to eq [] }
-    end
-  end
-
   describe '#thumbnail_url' do
     context 'given a snippet with thumbnails' do
       let(:attrs) { {snippet: {"thumbnails"=>{

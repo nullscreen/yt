@@ -13,7 +13,6 @@ describe Yt::Playlist, :server_app, :vcr do
       expect(playlist.description).to be_a String
       expect(playlist.thumbnail_url).to be_a String
       expect(playlist.published_at).to be_a Time
-      expect(playlist.tags).to be_an Array
       expect(playlist.channel_id).to be_a String
       expect(playlist.channel_title).to be_a String
       expect(playlist.item_count).to be_an Integer
