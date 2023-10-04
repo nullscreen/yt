@@ -14,7 +14,6 @@ describe Yt::Playlist, :device_app, :vcr do
       expect(playlist.description).to be_a String
       expect(playlist.thumbnail_url).to be_a String
       expect(playlist.published_at).to be_a Time
-      expect(playlist.tags).to be_an Array
       expect(playlist.channel_id).to be_a String
       expect(playlist.channel_title).to be_a String
       expect(playlist.privacy_status).to be_a String
@@ -101,26 +100,13 @@ describe Yt::Playlist, :device_app, :vcr do
       end
     end
 
-    context 'given I update the tags' do
-      let!(:old_tags) { playlist.tags }
-      let(:attrs) { {tags: ["Yt Test Tag"]} }
-
-      specify 'only updates the tag' do
-        expect(update).to be true
-        expect(playlist.tags).not_to eq old_tags
-        expect(playlist.title).to eq old_title
-        expect(playlist.privacy_status).to eq old_privacy_status
-      end
-    end
-
-    context 'given I update title, description and/or tags using angle brackets' do
-      let(:attrs) { {title: "Yt Test < >", description: '< >', tags: ['<tag>']} }
+    context 'given I update title or description using angle brackets' do
+      let(:attrs) { {title: "Yt Test < >", description: '< >'} }
 
       specify 'updates them replacing angle brackets with similar unicode characters accepted by YouTube' do
         expect(update).to be true
         expect(playlist.title).to eq 'Yt Test ‹ ›'
         expect(playlist.description).to eq '‹ ›'
-        expect(playlist.tags).to eq ['‹tag›']
       end
     end
 
