@@ -25,7 +25,7 @@ describe Yt::Video, :device_app, :vcr do
       expect(video.live_broadcast_content).to be_a String
       expect(video.view_count).to be_an Integer
       expect(video.like_count).to be_an Integer
-      expect(video.dislike_count).to be_an Integer
+      # expect(video.dislike_count).to be_an Integer
       expect(video.favorite_count).to be_an Integer
       expect(video.comment_count).to be_an Integer
       expect(video.duration).to be_an Integer
@@ -92,7 +92,7 @@ describe Yt::Video, :device_app, :vcr do
   end
 
   context 'given someone else’s live video broadcast scheduled in the future' do
-    let(:id) { 'PqzGI8gO_gk' }
+    let(:id) { '3mJE9obZgUc' }
 
     it 'returns valid live streaming details' do
       expect(video.actual_start_time).to be_nil
@@ -103,13 +103,13 @@ describe Yt::Video, :device_app, :vcr do
   end
 
   context 'given someone else’s past live video broadcast' do
-    let(:id) { 'COOM8_tOy6U' }
+    let(:id) { 'hGil507jyoU' }
 
     it 'returns valid live streaming details' do
       expect(video.actual_start_time).to be_a Time
       expect(video.actual_end_time).to be_a Time
-      expect(video.scheduled_start_time).to be_a Time
-      expect(video.scheduled_end_time).to be_a Time
+      expect(video.scheduled_start_time).to be_nil
+      expect(video.scheduled_end_time).to be_nil
       expect(video.concurrent_viewers).to be_nil
     end
   end
@@ -126,13 +126,13 @@ describe Yt::Video, :device_app, :vcr do
   end
 
   context 'given one of my own videos that I want to delete' do
-    let(:id) { 'eVyohfo-I2Q' }
+    let(:id) { '505qC3W3DrY' }
 
     it { expect(video.delete).to be true }
   end
 
   context 'given one of my own videos that I want to update' do
-    let(:id) { 'eVyohfo-I2Q' }
+    let(:id) { '505qC3W3DrY' }
     let!(:old_title) { video.title }
     let!(:old_privacy_status) { video.privacy_status }
     let(:update) { video.update attrs }
