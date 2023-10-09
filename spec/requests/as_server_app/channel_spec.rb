@@ -5,7 +5,7 @@ describe Yt::Channel, :server_app, :vcr do
   subject(:channel) { Yt::Channel.new attrs }
 
   context 'given an existing channel ID' do
-    let(:attrs) { {id: 'UCAmh1DexLGcMtDlzMCIxo4w'} }
+    let(:attrs) { {id: 'UCJkWoS4RsldA1coEIot5yDA'} } # MotherGooseClub
 
     it 'returns valid snippet data' do
       expect(channel.snippet).to be_a Yt::Snippet
@@ -24,12 +24,14 @@ describe Yt::Channel, :server_app, :vcr do
     it { expect(channel.related_playlists).to be_a Yt::Collections::Playlists }
     it { expect(channel.related_playlists.first).to be_a Yt::Playlist }
 
-    specify 'with a public list of subscriptions' do
-      expect(channel.subscribed_channels.first).to be_a Yt::Channel
-    end
+    # NOTE: API doesn't grant access to the subscriptions of other users
+    # any more.
+    # specify 'with a public list of subscriptions' do
+    #   expect(channel.subscribed_channels.first).to be_a Yt::Channel
+    # end
 
     context 'with a hidden list of subscriptions' do
-      let(:attrs) { {id: 'UCZDZGN_73I019o6UYD2-4bg'} }
+      let(:attrs) { {id: 'UCBR8-60-B28hp2BmDPdntcQ'} } # YouTube
       it { expect{channel.subscribed_channels.size}.to raise_error Yt::Errors::Forbidden }
     end
   end

@@ -5,7 +5,7 @@ describe Yt::PlaylistItem, :device_app, :vcr do
   subject(:item) { Yt::PlaylistItem.new id: id, auth: test_account }
 
   context 'given an existing playlist item' do
-    let(:id) { 'UExiai1JRGU2Zzh2dGF4MVNha0xFd09kT0V2LW52aml5MC41NkI0NEY2RDEwNTU3Q0M2' }
+    let(:id) { 'UEx3akRSUDVaWF9NRnNldlI4ZGlRMmx2M0hiTW81eGJLYy41NkI0NEY2RDEwNTU3Q0M2' }
 
     it 'returns valid metadata' do
       expect(item.title).to be_a String
@@ -23,7 +23,7 @@ describe Yt::PlaylistItem, :device_app, :vcr do
   end
 
   context 'given one of my own playlist items that I want to update' do
-    let(:id) { 'UExiai1JRGU2Zzh2dGF4MVNha0xFd09kT0V2LW52aml5MC41NkI0NEY2RDEwNTU3Q0M2' }
+    let(:id) { 'UEx3akRSUDVaWF9NRnNldlI4ZGlRMmx2M0hiTW81eGJLYy41MjE1MkI0OTQ2QzJGNzNG' }
     let!(:old_title) { item.title }
     let!(:old_privacy_status) { item.privacy_status }
     let(:update) { item.update attrs }

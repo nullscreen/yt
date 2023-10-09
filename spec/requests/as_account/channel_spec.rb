@@ -116,12 +116,14 @@ describe Yt::Channel, :device_app, :vcr do
       # end
     end
 
-    specify 'with a public list of subscriptions' do
-      expect(channel.subscribed_channels.first).to be_a Yt::Channel
-    end
+    # NOTE: API doesn't grant access to the subscriptions of other users
+    # any more.
+    # specify 'with a public list of subscriptions' do
+    #   expect(channel.subscribed_channels.first).to be_a Yt::Channel
+    # end
 
     context 'with a hidden list of subscriptions' do
-      let(:id) { 'UCUZHFZ9jIKrLroW8LcyJEQQ' } # YouTube Creators - better make our own one
+      # let(:id) { 'UCUZHFZ9jIKrLroW8LcyJEQQ' } # YouTube Creators
       it { expect{channel.subscribed_channels.size}.to raise_error Yt::Errors::Forbidden }
     end
 

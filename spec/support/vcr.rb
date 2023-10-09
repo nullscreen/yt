@@ -3,6 +3,10 @@ require 'vcr'
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'
   c.hook_into :webmock
+  # c.preserve_exact_body_bytes do |http_message, cassette|
+  #   http_message.body.encoding.name == 'UTF-8' ||
+  #   !http_message.body.valid_encoding?
+  # end
   c.configure_rspec_metadata!
   c.filter_sensitive_data("<YT_TEST_API_KEY>") { ENV['YT_TEST_API_KEY'] }
   c.filter_sensitive_data("<YT_TEST_CLIENT_ID>") { ENV['YT_TEST_CLIENT_ID'] }
