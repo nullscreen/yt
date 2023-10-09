@@ -65,13 +65,13 @@ describe Yt::Playlist, :device_app, :vcr do
   end
 
   context 'given one of my own playlists that I want to delete' do
-    let(:id) { 'PLbj-IDe6g8vuN_pRohu-634bvJKZzxWht' }
+    let(:id) { 'PLwjDRP5ZX_MFsevR8diQ2lv3HbMo5xbKc' }
 
     it { expect(playlist.delete).to be true }
   end
 
   context 'given one of my own playlists that I want to update' do
-    let(:id) { 'PLbj-IDe6g8vtax1SakLEwOdOEv-nvjiy0' }
+    let(:id) { 'PLwjDRP5ZX_MFsevR8diQ2lv3HbMo5xbKc' }
     let!(:old_title) { playlist.title }
     let!(:old_privacy_status) { playlist.privacy_status }
     let(:update) { playlist.update attrs }

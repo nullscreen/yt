@@ -16,8 +16,8 @@ module Yt
 
       def list_params
         super.tap do |params|
-          params[:host] = 'accounts.google.com'
-          params[:path] = '/o/oauth2/token'
+          params[:host] = 'oauth2.googleapis.com'
+          params[:path] = '/token'
           params[:request_format] = :form
           params[:method] = :post
           params[:auth] = nil

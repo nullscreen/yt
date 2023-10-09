@@ -5,7 +5,7 @@ describe Yt::Playlist, :server_app, :vcr do
   subject(:playlist) { Yt::Playlist.new attrs }
 
   context 'given an existing playlist ID' do
-    let(:attrs) { {id: 'PLpjK416fmKwQ6Ene4GKRLICznoE1QFyt4'} }
+    let(:attrs) { {id: 'PLgnDMw6xI5plOXaKs5zNDB3zRWYEa8Zi-'} }
 
     it 'returns valid snippet data' do
       expect(playlist.snippet).to be_a Yt::Snippet
