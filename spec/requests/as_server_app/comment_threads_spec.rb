@@ -5,10 +5,10 @@ require 'yt/models/video'
 require 'yt/models/channel'
 
 describe Yt::Collections::CommentThreads, :server_app, :vcr do
-  context "without parent association", :ruby2 do
+  context "without parent association" do
     subject(:comment_threads) { Yt::Collections::CommentThreads.new }
 
-    specify 'without given any of id, videoId, channelId or allThreadsRelatedToChannelId param, raise request error', :ruby2 do
+    specify 'without given any of id, videoId, channelId or allThreadsRelatedToChannelId param, raise request error' do
       expect{ comment_threads.size }.to raise_error(Yt::Errors::RequestError)
     end
 
@@ -26,7 +26,7 @@ describe Yt::Collections::CommentThreads, :server_app, :vcr do
     # end
   end
 
-  context "with parent association", :ruby2 do
+  context "with parent association" do
     subject(:comment_threads) { Yt::Collections::CommentThreads.new parent: parent}
 
     context "parent as video" do

@@ -6,7 +6,7 @@ require 'yt/models/channel'
 describe Yt::Collections::CommentThreads do
   subject(:collection) { Yt::Collections::CommentThreads.new parent: parent}
 
-  describe '#size', :ruby2 do
+  describe '#size' do
     describe 'sends only one request and return the total results' do
       let(:total_results) { 1234 }
       let(:parent) { Yt::Video.new id: 'any-id' }
