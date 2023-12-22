@@ -10,7 +10,7 @@ describe Yt::ContentOwner, :partner do
       expect(partnered_channels.first).to be_a Yt::Channel
     end
 
-    specify '.size', :ruby2 do
+    specify '.size' do
       expect(partnered_channels.size).to be > 0
     end
   end

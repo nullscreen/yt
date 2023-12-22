@@ -7,7 +7,7 @@ describe Yt::Collections::Videos do
   let(:channel) { Yt::Channel.new id: 'any-id' }
   let(:page) { {items: [], token: 'any-token'} }
 
-  describe '#size', :ruby2 do
+  describe '#size' do
     describe 'sends only one request and return the total results' do
       let(:total_results) { 123456 }
       before do

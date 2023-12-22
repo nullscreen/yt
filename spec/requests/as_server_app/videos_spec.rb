@@ -5,7 +5,7 @@ require 'yt/collections/videos'
 describe Yt::Collections::Videos, :server_app, :vcr do
   subject(:videos) { Yt::Collections::Videos.new }
 
-  specify 'without :where conditions, returns all YouTube videos', :ruby2 do
+  specify 'without :where conditions, returns all YouTube videos' do
     expect(videos.size).to be > 100_000
   end
 
@@ -21,7 +21,7 @@ describe Yt::Collections::Videos, :server_app, :vcr do
     it { expect(videos_by_id.first.id).to eq video_id }
   end
 
-  specify 'with a chart parameter, only returns videos of that chart', :ruby2 do
+  specify 'with a chart parameter, only returns videos of that chart' do
     expect(videos.where(chart: 'mostPopular').size).to be 200
   end
 
