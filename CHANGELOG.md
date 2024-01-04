@@ -6,6 +6,14 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.34.0 - 2023-12-22
+
+* Ruby 2.1 required
+* [IMPROVEMENT] Use new oauth2 endpoints to be secure
+* [REMOVAL] Remove `Playlist#tags` as 'snippet.tags[]' deprecated
+* [FEATURE] Add captions associated with a video
+* [BUGFIX] Remove dependency on the deprecated open-uri in Ruby 3 (thank you @kalemi19)
+
 ## 0.33.4 - 2021-01-15
 
 * [REMOVAL] remove retry for quota errors
