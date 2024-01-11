@@ -6,6 +6,10 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## Unreleased
+
+* [FEATURE] New Video#region_restricted? method
+
 ## 0.33.4 - 2021-01-15
 
 * [REMOVAL] remove retry for quota errors

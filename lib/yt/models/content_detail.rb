@@ -24,6 +24,7 @@ module Yt
       has_attribute :licensed_content
       has_attribute :content_rating, default: {}
       has_attribute :item_count
+      has_attribute :region_restriction
 
       def youtube_rating
         content_rating['ytRating']
