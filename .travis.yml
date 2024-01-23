@@ -1,7 +1,0 @@
-language: ruby
-notifications:
-  email: true
-matrix:
-  include:
-  - rvm: 2.6.3
-    gemfile: gemfiles/Gemfile.activesupport-4.x
