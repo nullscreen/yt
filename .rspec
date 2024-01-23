@@ -1,3 +1,2 @@
 --color
---exclude_pattern spec/requests/as_content_owner/*_spec.rb
---tag=~slow
+--exclude-pattern spec/requests/as_content_owner/*_spec.rb
