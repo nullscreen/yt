@@ -6,6 +6,19 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.34.0 - 2024-08-25
+
+* Ruby 2.1+ required https://github.com/nullscreen/yt/pull/425
+* [IMPROVEMENT] Use new oauth2 endpoints https://github.com/nullscreen/yt/pull/422
+* [REMOVAL] Remove `Playlist#tags` as 'snippet.tags[]' deprecated https://github.com/nullscreen/yt/pull/421
+* [FEATURE] Add captions associated with a video https://github.com/nullscreen/yt/pull/419
+* [BUGFIX] Remove dependency on the deprecated open-uri in Ruby 3 https://github.com/nullscreen/yt/pull/412 (thank you @kalemi19)
+
+**Breaking change**
+
+If your code runs on version of Ruby 2.1 or earlier, it will not be supported.
+Please make sure to upgrade Ruby version to later than 2.1 before upgrade Yt.
+
 ## 0.33.4 - 2021-01-15
 
 * [REMOVAL] remove retry for quota errors
