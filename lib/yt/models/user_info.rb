@@ -11,6 +11,7 @@ module Yt
       end
 
       has_attribute :id, default: ''
+      has_attribute :sub, default: ''
       has_attribute :email, default: ''
       has_attribute :verified_email, default: false, camelize: false
       has_attribute :name, default: ''
