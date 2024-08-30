@@ -14,6 +14,10 @@ module Yt
       #   @return [String] the (Google+) account’s ID.
       delegate :id, to: :user_info
 
+      # @!attribute [r] sub
+      #   @return [String] the (Google) account’s unique ID.
+      delegate :sub, to: :user_info
+
       # @!attribute [r] email
       #   @return [String] the account’s email address.
       delegate :email, to: :user_info

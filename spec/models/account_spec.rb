@@ -16,6 +16,18 @@ describe Yt::Video do
     end
   end
 
+  describe '#sub' do
+    context 'given a user info with an ID' do
+      let(:attrs) { {user_info: {"sub"=>"103024385"}} }
+      it { expect(account.sub).to eq '103024385' }
+    end
+
+    context 'given a user info without an ID' do
+      let(:attrs) { {user_info: {}} }
+      it { expect(account.sub).to eq '' }
+    end
+  end
+
   describe '#email' do
     context 'given a user info with an email' do
       let(:attrs) { {user_info: {"email"=>"user@example.com"}} }
