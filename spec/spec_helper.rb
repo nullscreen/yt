@@ -1,7 +1,17 @@
 require 'simplecov'
 
-SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
-SimpleCov.start
+if ENV['CI']
+  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
+else
+  require 'simplecov-cobertura'
+  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+end
+
+SimpleCov.start do
+  enable_coverage :branch
+  add_filter '/spec/'
+  add_filter '/vendor/'
+end
 
 ENV['YT_TEST_CLIENT_ID'] ||= 'XXX'
 ENV['YT_TEST_CLIENT_SECRET'] ||= 'YYY'
