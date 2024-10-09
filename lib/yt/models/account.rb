@@ -1,4 +1,5 @@
 require 'yt/models/base'
+require 'open-uri'
 
 module Yt
   module Models
