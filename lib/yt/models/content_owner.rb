@@ -11,6 +11,10 @@ module Yt
       #   @return [Yt::Collections::PartneredChannels] the channels managed by the CMS account.
       has_many :partnered_channels
 
+      # @!attribute [r] live_cuepoints
+      #   @return [Yt::Collections::LiveCuepoints] the live_cuepoints inserted by the content owner.
+      has_many :live_cuepoints
+
       # @!attribute [r] claims
       #   @return [Yt::Collections::Claims] the claims administered by the content owner.
       has_many :claims
