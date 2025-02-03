@@ -50,16 +50,17 @@ module Yt
         info_card: 'INFO_CARD'
       }
 
-      # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Playback_Location_Dimensions
+      # @see https://developers.google.com/youtube/analytics/dimensions#Playback_Location_Dimensions
       PLAYBACK_LOCATIONS = {
         channel: 'CHANNEL',
         watch: 'WATCH',
         embedded: 'EMBEDDED',
         other: 'YT_OTHER',
         external_app: 'EXTERNAL_APP',
-        search: 'SEARCH', # undocumented but returned by the API
-        browse: 'BROWSE', # undocumented but returned by the API
-        mobile: 'MOBILE' # only present for data < September 10, 2013
+        search: 'SEARCH',
+        browse: 'BROWSE',
+        mobile: 'MOBILE', # only present for data < September 10, 2013
+        shorts_feed: 'SHORTS_FEED' # undocumented but returned by the API
       }
 
       # @see https://developers.google.com/youtube/analytics/v1/dimsmets/dims#Playback_Detail_Dimensions

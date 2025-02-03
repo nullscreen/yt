@@ -25,7 +25,7 @@ describe Yt::Video, :device_app, :vcr do
       expect(video.live_broadcast_content).to be_a String
       expect(video.view_count).to be_an Integer
       expect(video.like_count).to be_an Integer
-      # expect(video.dislike_count).to be_an Integer
+      # expect(video.dislike_count).to be_an Integer # 2021-12-13 change
       expect(video.favorite_count).to be_an Integer
       expect(video.comment_count).to be_an Integer
       expect(video.duration).to be_an Integer

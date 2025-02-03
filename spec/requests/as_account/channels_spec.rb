@@ -7,7 +7,7 @@ describe Yt::Collections::Channels, :device_app, :vcr do
 
   context 'with a list of parts' do
     let(:part) { 'statistics' }
-    let(:channel) { channels.where(part: part, id: 'UCBR8-60-B28hp2BmDPdntcQ').first } # YouTube
+    let(:channel) { channels.where(part: part, id: 'UCrDkAvwZum-UTjHmzDI2iIw').first } # officalpsy
 
     specify 'load ONLY the specified parts of the channels' do
       expect(channel.instance_variable_defined? :@snippet).to be false
