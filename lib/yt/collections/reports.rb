@@ -47,7 +47,13 @@ module Yt
         playlist_page: 'YT_PLAYLIST_PAGE',
         campaign_card: 'CAMPAIGN_CARD',
         end_screen: 'END_SCREEN',
-        info_card: 'INFO_CARD'
+        info_card: 'INFO_CARD',
+        hashtags: 'HASHTAGS',
+        live_redirect: 'LIVE_REDIRECT',
+        product_page: 'PRODUCT_PAGE',
+        shorts: 'SHORTS',
+        sound_page: 'SOUND_PAGE',
+        video_remixes: 'VIDEO_REMIXES'
       }
 
       # @see https://developers.google.com/youtube/analytics/dimensions#Playback_Location_Dimensions
