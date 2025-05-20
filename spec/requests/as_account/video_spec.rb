@@ -292,5 +292,10 @@ describe Yt::Video, :device_app, :vcr do
       expect(video.file_type).to be_nil
       expect(video.container).to be_nil
     end
+
+    it 'returns valid reports for video-related metrics' do
+      expect{video.views}.not_to raise_error
+      expect{video.engaged_views}.not_to raise_error
+    end
   end
 end
