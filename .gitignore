@@ -25,3 +25,5 @@ doc/
 .yardoc/
 _site/
 TODO.md
+
+spec/cassettes/

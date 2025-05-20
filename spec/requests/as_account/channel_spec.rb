@@ -196,6 +196,7 @@ describe Yt::Channel, :device_app, :vcr do
       # Some reports are only available to Content Owners.
       # See content owner test for more details about what the methods return.
       expect{channel.views}.not_to raise_error
+      expect{channel.engaged_views}.not_to raise_error
       expect{channel.comments}.not_to raise_error
       expect{channel.likes}.not_to raise_error
       expect{channel.dislikes}.not_to raise_error
