@@ -161,6 +161,9 @@ module Yt
       has_report :views, Integer
 
       # @macro report_by_playlist_dimensions
+      has_report :engaged_views, Integer
+
+      # @macro report_by_playlist_dimensions
       has_report :estimated_minutes_watched, Integer
 
       # @macro report_by_gender_and_age_group
@@ -202,7 +205,7 @@ module Yt
           else
             params[:ids] = "channel==#{channel_id}"
           end
-          params[:filters] = "playlist==#{id};isCurated==1"
+          params[:filters] = "playlist==#{id}"
         end
       end
 

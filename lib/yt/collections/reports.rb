@@ -210,7 +210,6 @@ module Yt
           params[:filters] = ((params[:filters] || '').split(';') + ["country==US"]).compact.uniq.join(';') if @dimension == :state && !@state
           params[:filters] = ((params[:filters] || '').split(';') + ["country==#{@country}"]).compact.uniq.join(';') if @country && !@state
           params[:filters] = ((params[:filters] || '').split(';') + ["province==US-#{@state}"]).compact.uniq.join(';') if @state
-          params[:filters] = ((params[:filters] || '').split(';') + ['isCurated==1']).compact.uniq.join(';') if @dimension == :playlist
           params[:filters] = ((params[:filters] || '').split(';') + ['insightPlaybackLocationType==EMBEDDED']).compact.uniq.join(';') if @dimension == :embedded_player_location
           params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==RELATED_VIDEO']).compact.uniq.join(';') if @dimension == :related_video
           params[:filters] = ((params[:filters] || '').split(';') + ['insightTrafficSourceType==YT_SEARCH']).compact.uniq.join(';') if @dimension == :search_term
