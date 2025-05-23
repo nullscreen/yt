@@ -178,11 +178,12 @@ describe Yt::Playlist, :device_app, :vcr do
     let(:id) { test_account.channel.playlists.first.id }
 
     before do
-      allow(Date).to receive(:today).and_return(Date.new(2020, 2, 5))
+      allow(Date).to receive(:today).and_return(Date.new(2025, 5, 20))
     end
 
     it 'returns valid reports for playlist-related metrics' do
       expect{playlist.views}.not_to raise_error
+      expect{playlist.engaged_views}.not_to raise_error
       expect{playlist.playlist_starts}.not_to raise_error
       expect{playlist.average_time_in_playlist}.not_to raise_error
       expect{playlist.views_per_playlist_start}.not_to raise_error

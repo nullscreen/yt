@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'yt/models/content_owner'
 require 'yt/models/match_policy'
 
-describe Yt::ContentOwner, :partner do
+describe Yt::ContentOwner, :partner, :vcr do
   describe '.partnered_channels' do
     let(:partnered_channels) { $content_owner.partnered_channels }
 
@@ -66,7 +66,7 @@ describe Yt::ContentOwner, :partner do
   end
 
   describe '.video_groups' do
-    let(:video_group) { $content_owner.video_groups.first }
+    let(:video_group) { test_content_owner.video_groups.first }
 
     specify 'returns the first video-group created by the account' do
       expect(video_group).to be_a Yt::VideoGroup
@@ -77,6 +77,7 @@ describe Yt::ContentOwner, :partner do
 
     specify 'allows to run reports against each video-group' do
       expect(video_group.views).to be
+      expect(video_group.engaged_views).to be
     end
   end
 
