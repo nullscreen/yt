@@ -12,3 +12,4 @@ gem 'pry', platforms: not_jruby
 gem 'simplecov'
 gem 'simplecov-cobertura'
 gem 'yard'
+gem 'irb'
