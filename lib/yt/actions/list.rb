@@ -12,15 +12,22 @@ module Yt
         first.tap{|item| raise Errors::NoItems, error_message unless item}
       end
 
+      def etag
+        @etag ||= fetch_etag
+      end
+
     private
 
       def list
+        owner = self
         @last_index, @page_token = 0, nil
         Enumerator.new(-> {total_results}) do |items|
           while next_item = find_next
             items << next_item
           end
           @where_params = {}
+        end.tap do |enum|
+          enum.define_singleton_method(:etag) { owner.instance_variable_get(:@etag) }
         end
       end
 
@@ -63,7 +70,7 @@ module Yt
       #   Can be overwritten by subclasses that initialize instance with
       #   a different set of parameters.
       def new_item(data)
-        resource_class.new attributes_for_new_item(data)
+        resource_class.new attributes_for_new_item(data).merge(etag: data['etag'])
       end
 
       # @private
@@ -91,9 +98,15 @@ module Yt
 
       def fetch_page(params = {})
         @last_response = list_request(params).run
+        @etag = @last_response.body['etag']
         token = @last_response.body['nextPageToken']
         items = extract_items @last_response.body
         {items: items, token: token}
+      end
+
+      def fetch_etag
+        response = list_request(list_params).run
+        response.body['etag']
       end
 
       def list_request(params = {})

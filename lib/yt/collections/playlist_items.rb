@@ -42,7 +42,9 @@ module Yt
       end
 
       def playlist_items_params
-        resources_params.merge playlist_id: @parent.id
+        params = resources_params
+        params.merge!(playlist_id: @parent.id) if @parent
+        apply_where_params! params
       end
 
       def insert_parts
