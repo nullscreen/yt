@@ -14,7 +14,7 @@ module Yt
     private
 
       def get_request(params = {})
-        @list_request = Yt::Request.new(params).tap do |request|
+        @get_request = Yt::Request.new(params).tap do |request|
           print "#{request.as_curl}\n" if Yt.configuration.developing?
         end
       end

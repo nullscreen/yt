@@ -1,6 +1,7 @@
 require 'net/http' # for Net::HTTP.start
 require 'uri' # for URI.json
 require 'json' # for JSON.parse
+require "open-uri" # for URI.open
 require 'active_support' # does not load anything by default, but is required
 require 'active_support/core_ext' # for Hash.from_xml, Hash.to_param
 
@@ -81,6 +82,14 @@ module Yt
         run
       else
         raise response_error, error_message.to_json
+      end
+    end
+
+    def open_uri
+      if @headers.key?('Authorization')
+        URI.open(uri.to_s, 'Authorization' => @headers['Authorization'])
+      else
+        URI.open(uri.to_s)
       end
     end
 
