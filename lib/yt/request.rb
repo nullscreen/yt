@@ -86,11 +86,7 @@ module Yt
     end
 
     def open_uri
-      if @headers.key?('Authorization')
-        URI.open(uri.to_s, 'Authorization' => @headers['Authorization'])
-      else
-        URI.open(uri.to_s)
-      end
+      URI.open(uri.to_s, 'Authorization' => "Bearer #{@auth.access_token}")
     end
 
     # Returns the +cURL+ version of the request, useful to re-run the request
