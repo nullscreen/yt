@@ -16,11 +16,18 @@ module Yt
       delegate :name, to: :snippet
       delegate :status, to: :snippet
 
+      # Downloads a caption file.
+      # @param [String] path A name for the downloaded file with caption content.
+      # @see https://developers.google.com/youtube/v3/docs/captions#resource
       def download(path)
-        case io = get_request(download_params).open_uri
+        case io
         when StringIO then File.open(path, 'w') { |f| f.write(io.read) }
         when Tempfile then io.close; FileUtils.mv(io.path, path)
         end
+      end
+
+      def io
+        @io ||= get_request(download_params).open_uri
       end
 
     private
