@@ -189,7 +189,6 @@ module Yt
           params[:redirect_uri] = @redirect_uri
           params[:response_type] = :code
           params[:access_type] = :offline
-          # params[:approval_prompt] = @force ? :force : :auto
           params[:prompt] = :consent if @force
           # params[:include_granted_scopes] = true
           params[:state] = @state if @state
