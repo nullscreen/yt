@@ -9,7 +9,6 @@ module Yt
     private
 
       def attributes_for_new_item(data)
-        puts data
         { data: data['brandingSettings'] }
       end
 

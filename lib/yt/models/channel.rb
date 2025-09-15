@@ -126,6 +126,10 @@ module Yt
       #     explicitly select the option to keep all subscriptions private.
       has_many :subscribed_channels
 
+      # @!attribute [r] channel_sections
+      #   @return [Yt::Collections::ChannelSections] the channel’s channel sections.
+      has_many :channel_sections
+
     ### ANALYTICS ###
 
       # @macro reports
@@ -304,6 +308,13 @@ module Yt
         if options[:branding_settings]
           @branding_setting = BrandingSetting.new data: options[:branding_settings]
         end
+      end
+
+      # @private
+      # Used for `has_many :channel_sections` to return all youtube#channelSection items
+      # of the channel.
+      def channel_sections_params
+        {channel_id: id}
       end
 
       # @private
