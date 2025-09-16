@@ -12,13 +12,7 @@ module Yt
 
       # @!attribute [r] id
       #   @return [String] the ID that YouTube uses to identify each resource.
-      def id
-        if @id.nil? && @match && @match[:kind] == :channel
-          @id ||= fetch_channel_id
-        else
-          @id
-        end
-      end
+      attr_reader :id
 
     ### STATUS ###
 
@@ -51,7 +45,11 @@ module Yt
         if options[:url]
           @url = options[:url]
           @match = find_pattern_match
-          @id = @match['id']
+          if kind == "channel" && @match.key?('format')
+            @id ||= fetch_channel_id
+          else
+            @id = @match['id']
+          end
         else
           @id = options[:id]
         end
@@ -98,7 +96,8 @@ module Yt
       # @return [Array<Regexp>] patterns matching URLs of YouTube channels.
       CHANNEL_PATTERNS = [
         %r{^(?:https?://)?(?:www\.)?youtube\.com/channel/(?<id>UC[a-zA-Z0-9_-]{22})},
-        %r{^(?:https?://)?(?:www\.)?youtube\.com/(?<format>c/|user/)?(?<name>[a-zA-Z0-9_-]+)}
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/(?<format>c/|user/)?(?<name>[a-zA-Z0-9_-]+)},
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/(?<format>@)(?<name>[a-zA-Z0-9_-]+)}
       ]
 
     private
@@ -106,8 +105,7 @@ module Yt
       def find_pattern_match
         patterns.find do |kind, regex|
           if data = @url.match(regex)
-            # Note: With Ruby 2.4, the following is data.named_captures
-            break data.names.zip(data.captures).to_h.merge kind: kind
+            break data.named_captures.merge kind: kind
           end
         end || {kind: :unknown}
       end
@@ -123,19 +121,44 @@ module Yt
       end
 
       def fetch_channel_id
-        response = Net::HTTP.start 'www.youtube.com', 443, use_ssl: true do |http|
-          http.request Net::HTTP::Get.new("/#{@match['format']}#{@match['name']}")
-        end
-        if response.is_a?(Net::HTTPRedirection)
-          response = Net::HTTP.start 'www.youtube.com', 443, use_ssl: true do |http|
-            http.request Net::HTTP::Get.new(response['location'])
+        api_key = Yt.configuration.api_key if Yt.configuration.api_key
+        case @match['format']
+        when "@"
+          handle = "@#{@match['name']}"
+          response = Net::HTTP.start 'youtube.googleapis.com', 443, use_ssl: true do |http|
+            http.request Net::HTTP::Get.new("/youtube/v3/channels?part=snippet&forHandle=#{handle}&key=#{api_key}")
           end
-        end
-        regex = %r{<meta itemprop="channelId" content="(?<id>UC[a-zA-Z0-9_-]{22})">}
-        if data = response.body.match(regex)
-          data[:id]
-        else
-          raise Yt::Errors::NoItems
+          if response.is_a?(Net::HTTPOK) && item = JSON(response.body)['items']&.first
+            item['id']
+          else
+            raise Yt::Errors::NoItems
+          end
+        when "user/"
+          username = @match['name']
+          response = Net::HTTP.start 'youtube.googleapis.com', 443, use_ssl: true do |http|
+            http.request Net::HTTP::Get.new("/youtube/v3/channels?part=snippet&forUsername=#{username}&key=#{api_key}")
+          end
+          if response.is_a?(Net::HTTPOK) && item = JSON(response.body)['items']&.first
+            item['id']
+          else
+            raise Yt::Errors::NoItems
+          end
+        else # "c/", nil
+          response = Net::HTTP.start 'www.youtube.com', 443, use_ssl: true do |http|
+            http.request Net::HTTP::Get.new("/#{@match['format']}#{@match['name']}")
+          end
+          if response.is_a?(Net::HTTPRedirection)
+            response = Net::HTTP.start 'www.youtube.com', 443, use_ssl: true do |http|
+              http.request Net::HTTP::Get.new(response['location'])
+            end
+          end
+          # puts response.body
+          regex = %r{(?<id>UC[a-zA-Z0-9_-]{22})}
+          if data = response.body.match(regex)
+            data[:id]
+          else
+            raise Yt::Errors::NoItems
+          end
         end
       end
 

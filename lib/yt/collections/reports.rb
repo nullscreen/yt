@@ -53,7 +53,9 @@ module Yt
         product_page: 'PRODUCT_PAGE',
         shorts: 'SHORTS',
         sound_page: 'SOUND_PAGE',
-        video_remixes: 'VIDEO_REMIXES'
+        video_remixes: 'VIDEO_REMIXES',
+        immersive_live: 'IMMERSIVE_LIVE',
+        shorts_content_links: 'SHORTS_CONTENT_LINKS'
       }
 
       # @see https://developers.google.com/youtube/analytics/dimensions#Playback_Location_Dimensions

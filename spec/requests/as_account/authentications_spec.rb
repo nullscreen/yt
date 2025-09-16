@@ -120,7 +120,7 @@ describe Yt::Account, :device_app, :vcr do
 
       context 'given a forced approval prompt' do
         let(:attrs) { auth_attrs.merge force: true }
-        it { expect(account.authentication_url).to match 'approval_prompt=force' }
+        it { expect(account.authentication_url).to match 'prompt=consent' }
       end
     end
   end
