@@ -19,7 +19,7 @@ module Yt
     private
 
       def attributes_for_new_item(data)
-        {id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth}
+        {id: data['id'], snippet: data['snippet'], status: data['status'], auth: @auth, etag: data['etag']}
       end
 
       def resources_params

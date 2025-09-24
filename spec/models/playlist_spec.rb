@@ -4,6 +4,47 @@ require 'yt/models/playlist'
 describe Yt::Playlist do
   subject(:playlist) { Yt::Playlist.new attrs }
 
+  describe '#etag' do
+    context 'given the API response includes an etag' do
+      let(:attrs) { {id: 'any-id', etag: 'etag123'} }
+      it { expect(playlist.etag).to eq 'etag123' }
+    end
+
+    context 'given only an ID is provided' do
+      let(:attrs) { {id: 'any-id', auth: double('auth')} }
+      let(:etag) { 'etag123' }
+
+      before do
+        expect_any_instance_of(Yt::Request).to receive(:run).once do
+          double(body: {'etag' => etag, 'items'=> [{'id'=> 'any-id', 'etag'=> etag}], 'pageInfo'=> {'totalResults'=> 1}})
+        end
+      end
+
+      it 'fetches the etag from YouTube' do
+        expect(playlist.etag).to eq etag
+      end
+    end
+
+    context 'given an ID is provided but no auth' do
+      let(:attrs) { {id: 'any-id'} }
+
+      it 'returns the etag from the API response even if no items are found' do
+        expect_any_instance_of(Yt::Request).to receive(:run).once do
+          double(body: {'etag' => 'mockedEtag', 'items'=> [], 'pageInfo'=> {'totalResults'=> 0}})
+        end
+        expect(playlist.etag).to eq 'mockedEtag'
+      end
+    end
+
+    context 'given no ID is provided' do
+      let(:attrs) { {} }
+
+      it 'returns nil' do
+        expect_any_instance_of(Yt::Request).not_to receive(:run)
+        expect(playlist.etag).to be_nil
+      end
+    end
+  end
 
   describe '#title' do
     context 'given a snippet with a title' do
