@@ -141,4 +141,23 @@ describe Yt::Channel do
       it { expect(channel.status).to be_a Yt::Status }
     end
   end
+
+  describe '#branding_setting' do
+    context 'given fetching a channel returns a branding_setting' do
+      let(:attrs) { {branding_settings: {"channel"=>{"unsubscribedTrailer"=>"abcdefghijk"}}} }
+      it { expect(channel.branding_setting).to be_a Yt::BrandingSetting }
+    end
+  end
+
+  describe '#unsubscribed_trailer' do
+    context 'given a branding_settings with a unsubscribed trailer' do
+      let(:attrs) { {branding_settings: {"channel"=>{"unsubscribedTrailer"=>"abcdefghijk"}}} }
+      it { expect(channel.unsubscribed_trailer).to eq 'abcdefghijk' }
+    end
+
+    context 'given a branding_settings without a unsubscribed trailer' do
+      let(:attrs) { {branding_settings: {"channel"=>{}}} }
+      it { expect(channel.unsubscribed_trailer).to be_nil }
+    end
+  end
 end
