@@ -117,7 +117,7 @@ module Yt
           params[:host] = 'www.googleapis.com'
           params[:auth] = @auth
           params[:path] = path
-          params[:exptected_response] = Net::HTTPOK
+          params[:expected_response] = Net::HTTPOK
           params[:api_key] = Yt.configuration.api_key if Yt.configuration.api_key
         end
       end
