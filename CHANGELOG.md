@@ -8,7 +8,7 @@ For more information about changelogs, check
 
 ## 0.34.1 - 2026-01-08
 
-* [FEATURE] Add channel.channel_section
+* [FEATURE] Add channel.channel_sections
 * [FEATURE] Add branding_setting.unsubscribed_trailer
 * [FEATURE] Add engaged_views
 * [FEATURE] Add account.sub (thank you @jkowens)
