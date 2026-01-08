@@ -1,4 +1,3 @@
-require 'cgi'
 require 'yt/models/base'
 
 module Yt
@@ -30,7 +29,7 @@ module Yt
     private
 
       def session_params
-        CGI::parse(@uri.query).tap{|hash| hash.each{|k,v| hash[k] = v.first}}
+        URI.decode_www_form(@uri.query || "").to_h
       end
 
       # @note: YouTube documentation states that a valid upload returns an HTTP
