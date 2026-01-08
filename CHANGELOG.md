@@ -6,6 +6,17 @@ For more information about changelogs, check
 [Keep a Changelog](http://keepachangelog.com) and
 [Vandamme](http://tech-angels.github.io/vandamme).
 
+## 0.34.1 - 2026-01-08
+
+* [FEATURE] Add channel.channel_sections
+* [FEATURE] Add branding_setting.unsubscribed_trailer
+* [FEATURE] Add engaged_views
+* [FEATURE] Add account.sub (thank you @jkowens)
+* [FEATURE] Add content_owner.live_cuepoints
+* [FIX] Fetch channel_id from channel handle url
+* [BUGFIX] upload_thumbnail and upload_video with path url (thank you @mrj)
+* [IMPROVEMENT] Use `URI.decode_www_form` for Ruby 4.0 (thank you @jules-w2)
+
 ## 0.34.0 - 2024-08-25
 
 * Ruby 2.1+ required https://github.com/nullscreen/yt/pull/425
