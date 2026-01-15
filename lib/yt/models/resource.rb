@@ -91,6 +91,7 @@ module Yt
         %r{^(?:https?://)?(?:www\.)?youtu\.be/(?<id>[a-zA-Z0-9_-]{11})},
         %r{^(?:https?://)?(?:www\.)?youtube\.com/embed/(?<id>[a-zA-Z0-9_-]{11})},
         %r{^(?:https?://)?(?:www\.)?youtube\.com/v/(?<id>[a-zA-Z0-9_-]{11})},
+        %r{^(?:https?://)?(?:www\.)?youtube\.com/shorts/(?<id>[a-zA-Z0-9_-]{11})},
       ]
 
       # @return [Array<Regexp>] patterns matching URLs of YouTube channels.
