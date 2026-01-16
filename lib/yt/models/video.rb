@@ -637,11 +637,6 @@ module Yt
       end
 
       # @private
-      def exists?
-        !@id.nil?
-      end
-
-      # @private
       # Tells `has_reports` to retrieve the reports from YouTube Analytics API
       # either as a Channel or as a Content Owner.
       # @see https://developers.google.com/youtube/analytics/channel_reports

@@ -17,7 +17,7 @@ module Yt
 
       def new_item(data)
         klass = (data["kind"] == "youtubePartner#assetSnippet") ? Yt::AssetSnippet : Yt::Asset
-        klass.new attributes_for_new_item(data)
+        klass.new attributes_for_new_item(data).merge(etag: data['etag'])
       end
 
       # @return [Hash] the parameters to submit to YouTube to list assets

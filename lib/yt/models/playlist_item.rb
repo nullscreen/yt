@@ -84,11 +84,6 @@ module Yt
     ### PRIVATE API ###
 
       # @private
-      def exists?
-        !@id.nil?
-      end
-
-      # @private
       # Override Resource's new to set video if the response includes it
       def initialize(options = {})
         super options

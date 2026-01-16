@@ -209,11 +209,6 @@ module Yt
         end
       end
 
-      # @private
-      def exists?
-        !@id.nil?
-      end
-
     private
 
       # @see https://developers.google.com/youtube/v3/docs/playlists/update
