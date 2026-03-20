@@ -12,6 +12,10 @@ module Yt
       #   @return [String] the channel’s title.
       delegate :title, to: :snippet
 
+      # @!attribute [r] custom_url
+      #   @return [String] the channel’s handle or custom identifier.
+      delegate :custom_url, to: :snippet
+
       # @!attribute [r] description
       #   @return [String] the channel’s description.
       delegate :description, to: :snippet
