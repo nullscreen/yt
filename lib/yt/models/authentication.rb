@@ -1,7 +1,7 @@
 module Yt
   module Models
     # Provides methods to authenticate with YouTube (and Google) API.
-    # @see https://developers.google.com/accounts/docs/OAuth2
+    # @see https://developers.google.com/identity/protocols/oauth2
     class Authentication
 
       # Before your application can access private data using a Google API,
@@ -52,11 +52,15 @@ module Yt
       # @return [Time] the time when access token no longer works.
       attr_reader :expires_at
 
+      # @return [String] the OAuth2 Google id_token.
+      attr_reader :id_token
+
       def initialize(data = {})
         @access_token = data['access_token']
         @refresh_token = data['refresh_token']
         @error = data['error']
         @expires_at = expiration_date data.slice('expires_at', 'expires_in')
+        @id_token = data['id_token']
       end
 
       # @return [Boolean] whether the access token has expired.
