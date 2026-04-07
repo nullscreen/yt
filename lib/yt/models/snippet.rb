@@ -19,6 +19,7 @@ module Yt
       end
 
       has_attribute :title, default: ''
+      has_attribute :custom_url, default: ''
       has_attribute :description, default: ''
       has_attribute :published_at, type: Time
       has_attribute :channel_id

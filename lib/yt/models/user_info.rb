@@ -22,6 +22,7 @@ module Yt
       has_attribute :gender, default: ''
       has_attribute :locale, default: ''
       has_attribute :hd, default: ''
+      has_attribute :email_verified, default: false, camelize: false
     end
   end
 end
