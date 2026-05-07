@@ -1,4 +1,6 @@
+require 'json'
 require 'yt/models/base'
+require 'yt/actions/upload'
 
 module Yt
   module Models
@@ -6,6 +8,8 @@ module Yt
     # Provides methods to upload videos with the resumable upload protocol.
     # @see https://developers.google.com/youtube/v3/guides/using_resumable_upload_protocol
     class ResumableSession < Base
+      include Actions::Upload
+
       # Sets up a resumable session using the URI returned by YouTube
       def initialize(options = {})
         @uri = URI.parse options[:url]
@@ -13,8 +17,11 @@ module Yt
         @headers = options[:headers]
       end
 
-      def update(params = {})
-        do_update(params) {|data| yield data}
+      def upload(params = {})
+        body = params[:body]
+        do_upload headers: upload_headers(body), body: body do |response|
+          yield JSON.parse(response.body)
+        end
       end
 
       # Uploads a thumbnail using the current resumable session
@@ -23,28 +30,20 @@ module Yt
       # @return the new thumbnail resource for the given image.
       # @see https://developers.google.com/youtube/v3/docs/thumbnails#resource
       def upload_thumbnail(file)
-        do_update(body: file) {|data| data['items'].first}
-      end
-
-    private
-
-      def session_params
-        URI.decode_www_form(@uri.query || "").to_h
-      end
-
-      # @note: YouTube documentation states that a valid upload returns an HTTP
-      #   code of 201 Created -- however it looks like the actual code is 200.
-      #   To be sure to include both cases, HTTPSuccess is used
-      def update_params
-        super.tap do |params|
-          params[:request_format] = :file
-          params[:host] = @uri.host
-          params[:path] = @uri.path
-          params[:expected_response] = Net::HTTPSuccess
-          params[:headers] = @headers
-          params[:camelize_params] = false
-          params[:params] = session_params
+        do_upload headers: upload_headers(file), body: file do |response|
+          data = JSON.parse(response.body)
+          data['items'].first
         end
+      end
+
+      private
+
+      def upload_params
+        { uri: @uri, token: @auth.access_token }
+      end
+
+      def upload_headers(body)
+        @headers.merge('Content-Length' => body.size.to_s)
       end
     end
   end
