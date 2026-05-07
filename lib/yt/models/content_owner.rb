@@ -61,7 +61,7 @@ module Yt
         file = URI.open(path_or_url)
         session = resumable_sessions.insert file.size, params
 
-        session.update(body: file) do |data|
+        session.upload(body: file) do |data|
           Yt::Reference.new id: data['id'], data: data, auth: self
         end
       end
@@ -98,6 +98,18 @@ module Yt
       # associated to the uploaded file.
       def upload_params
         {part: 'snippet,status', on_behalf_of_content_owner: self.owner_name}
+      end
+
+      # @private
+      # YouTube requires `onBehalfOfContentOwnerChannel` alongside
+      # `onBehalfOfContentOwner` on `videos.insert`; the caller passes it
+      # through `:on_behalf_of_content_owner_channel`.
+      def resumable_upload_params(options = {})
+        params = {part: 'snippet,status', on_behalf_of_content_owner: owner_name}
+        if (channel = options[:on_behalf_of_content_owner_channel])
+          params[:on_behalf_of_content_owner_channel] = channel
+        end
+        params
       end
 
       # @private

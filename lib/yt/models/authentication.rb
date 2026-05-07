@@ -79,7 +79,7 @@ module Yt
         if options['expires_in']
           Time.now + options['expires_in'].seconds
         else
-          Time.parse options['expires_at'] rescue nil
+          Time.parse options['expires_at'].to_s rescue nil
         end
       end
     end

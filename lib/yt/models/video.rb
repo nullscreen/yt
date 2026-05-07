@@ -553,7 +553,7 @@ module Yt
         file = URI.open(path_or_url)
         session = resumable_sessions.insert file.size
 
-        session.update(body: file) do |data|
+        session.upload(body: file) do |data|
           snippet.instance_variable_set :@thumbnails, data['items'].first
         end
       end
