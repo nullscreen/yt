@@ -245,10 +245,14 @@ module Yt
 
       # @!attribute [r] duration
       #   @return [Integer] the duration of the video (in seconds).
+      #     Returns 0 for ongoing live broadcasts and premieres, since the
+      #     YouTube API does not report a duration until they have ended.
       delegate :duration, to: :content_detail
 
       # @!attribute [r] duration
       #   @return [String] the length of the video as an ISO 8601 time, HH:MM:SS.
+      #     Returns "00:00:00" for ongoing live broadcasts and premieres, since
+      #     the YouTube API does not report a duration until they have ended.
       delegate :length, to: :content_detail
 
       # @return [Boolean] whether the video is available in 3D.

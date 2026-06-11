@@ -41,12 +41,22 @@ describe Yt::ContentDetail do
       let(:data) { {"duration"=>"PT51S"} }
       it { expect(content_detail.duration).to eq 51 }
     end
+
+    context 'given a content_detail without a duration (e.g. an upcoming premiere)' do
+      let(:data) { {} }
+      it { expect(content_detail.duration).to eq 0 }
+    end
   end
 
   describe '#length' do
     context 'returns the duration in HH:MM:SS' do
       let(:data) { {"duration"=>"PT1H18M52S"} }
       it { expect(content_detail.length).to eq '01:18:52' }
+    end
+
+    context 'given a content_detail without a duration (e.g. an upcoming premiere)' do
+      let(:data) { {} }
+      it { expect(content_detail.length).to eq '00:00:00' }
     end
   end
 end

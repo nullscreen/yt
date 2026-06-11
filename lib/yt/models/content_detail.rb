@@ -14,6 +14,8 @@ module Yt
       end
 
       # @return [Integer] the duration of the video (in seconds).
+      #   Returns 0 for ongoing live broadcasts and premieres, since the
+      #   YouTube API does not report a duration until they have ended.
       has_attribute :duration, default: 0 do |value|
         to_seconds value
       end
@@ -59,6 +61,8 @@ module Yt
       # such as minutes is not part of the standard either; in this context,
       # it will be interpreted as "0 minutes and 2 seconds".
       def to_seconds(iso8601_duration)
+        return iso8601_duration.to_i unless iso8601_duration.is_a? String
+
         match = iso8601_duration.match %r{^P(?:|(?<weeks>\d*?)W)(?:|(?<days>\d*?)D)(?:|T(?:|(?<hours>\d*?)H)(?:|(?<min>\d*?)M)(?:|(?<sec>\d*?)S))$}
         weeks = (match[:weeks] || '0').to_i
         days = (match[:days] || '0').to_i
