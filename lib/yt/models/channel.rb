@@ -134,6 +134,10 @@ module Yt
       #   @return [Yt::Collections::ChannelSections] the channel’s channel sections.
       has_many :channel_sections
 
+      # @!attribute [r] live_broadcasts
+      #   @return [Yt::Collections::LiveBroadcasts] the channel’s live broadcasts.
+      has_many :live_broadcasts
+
     ### ANALYTICS ###
 
       # @macro reports

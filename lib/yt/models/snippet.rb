@@ -10,6 +10,7 @@ module Yt
     # @see https://developers.google.com/youtube/v3/docs/playlistItems#resource
     # @see https://developers.google.com/youtube/v3/docs/commentThreads#resource
     # @see https://developers.google.com/youtube/v3/docs/comments#resource
+    # @see https://developers.google.com/youtube/v3/live/docs/liveBroadcasts#resource
     class Snippet < Base
       attr_reader :data
 
@@ -38,6 +39,8 @@ module Yt
       has_attribute :parent_id
       has_attribute :like_count, type: Integer
       has_attribute :updated_at, type: Time
+      has_attribute :scheduled_start_time, type: Time
+      has_attribute :scheduled_end_time, type: Time
 
       has_attribute :last_updated, type: Time
       has_attribute :language
