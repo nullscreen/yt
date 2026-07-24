@@ -14,7 +14,7 @@ module Yt
       end
 
       # @return [Integer] the duration of the video (in seconds).
-      has_attribute :duration, default: 0 do |value|
+      has_attribute :duration, default: "PT0H0M0S" do |value|
         to_seconds value
       end
 
