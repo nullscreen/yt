@@ -126,6 +126,27 @@ module Yt
         playlists.insert params
       end
 
+      # Creates a live broadcast in the account’s channel.
+      # @return [Yt::Models::LiveBroadcast] the newly created broadcast.
+      # @param [Hash] params the attributes of the broadcast.
+      # @option params [String] :title The new broadcast’s title.
+      #   Cannot have more than 100 characters. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option params [String] :description The new broadcast’s description.
+      #   Cannot have more than 5000 bytes. Can include the characters
+      #   < and >, which are replaced to ‹ › in order to be accepted by YouTube.
+      # @option params [Time] :scheduledStartTime The broadcast’s scheduled start time.
+      #   Must be in the future and is mandatory.
+      # @option params [Time] :scheduledEndTime The broadcast’s scheduled end time.
+      #   Must be in the future.
+      # @option params [String] :privacy_status The new broadcast’s privacy
+      #   status. Must be one of: private, unlisted, public.
+      # @example Create a broadcast titled "My favorites".
+      #   account.create_live_broadcast title: 'My favorites'
+      def create_live_broadcast(params = {})
+        live_broadcasts.insert params
+      end
+
       # @!method delete_playlists(attributes = {})
       #   Deletes the account’s playlists matching all the given attributes.
       #   @return [Array<Boolean>] whether each playlist matching the given
@@ -173,6 +194,10 @@ module Yt
       #   @return [Yt::Collections::SubscribedChannels] the channels that the
       #     account is subscribed to.
       delegate :subscribed_channels, to: :channel
+
+      # @!attribute [r] live_broadcasts
+      #   @return [Yt::Collections::LiveBroadcasts] the live broadcasts owned by the account.
+      delegate :live_broadcasts, to: :channel
 
       # @!attribute [r] videos
       #   @return [Yt::Collections::Videos] the videos owned by the account.
