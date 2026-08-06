@@ -40,4 +40,19 @@ describe Yt::Collections::Videos do
       end
     end
   end
+
+  describe '#etag' do
+    let(:etag) { 'etag123' }
+
+    before do
+      expect_any_instance_of(Yt::Request).to receive(:run).once do
+        double(body: {'etag'=> etag, 'items'=> [], 'pageInfo'=> {'totalResults'=>0}})
+      end
+    end
+
+    it 'returns the etag from the list response' do
+      collection.count
+      expect(collection.etag).to eq etag
+    end
+  end
 end

@@ -4,6 +4,13 @@ require 'yt/models/channel'
 describe Yt::Channel do
   subject(:channel) { Yt::Channel.new attrs }
 
+  describe '#etag' do
+    context 'given the API response includes an etag' do
+      let(:attrs) { {id: 'any-id', etag: '12345'} }
+      it { expect(channel.etag).to eq '12345' }
+    end
+  end
+
   describe '#title' do
     context 'given a snippet with a title' do
       let(:attrs) { {snippet: {"title"=>"Fullscreen"}} }

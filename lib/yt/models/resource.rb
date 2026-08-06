@@ -14,6 +14,19 @@ module Yt
       #   @return [String] the ID that YouTube uses to identify each resource.
       attr_reader :id
 
+    ### ETAG ###
+      def etag
+        return nil unless exists?
+
+        @etag ||= fetch_etag
+      end
+
+    ### EXISTS? ###
+
+      def exists?
+        !@id.nil?
+      end
+
     ### STATUS ###
 
       has_one :status
@@ -54,6 +67,7 @@ module Yt
           @id = options[:id]
         end
         @auth = options[:auth]
+        @etag = options[:etag]
         @snippet = Snippet.new(data: options[:snippet]) if options[:snippet]
         @status = Status.new(data: options[:status]) if options[:status]
       end
@@ -161,6 +175,19 @@ module Yt
             raise Yt::Errors::NoItems
           end
         end
+      end
+
+      def fetch_etag
+        return nil if @id.nil?
+
+        collection = resource_collection.new(auth: @auth).where(id: @id)&.first
+        collection&.etag
+      end
+
+      def resource_collection
+        name = self.class.to_s.demodulize.pluralize
+        require "yt/collections/#{name.underscore}"
+        "Yt::Collections::#{name}".constantize
       end
 
       # Since YouTube API only returns tags on Videos#list, the memoized
